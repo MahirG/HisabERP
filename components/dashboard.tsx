@@ -1,6 +1,16 @@
+import Link from "next/link";
 import { metrics, monthlyPerformance, transactions, type Metric } from "../lib/dashboard-data";
+import { mustHaveModules } from "../lib/erp-modules";
 
-const navItems = ["Overview", "Sales", "Expenses", "Customers", "Inventory", "Reports"];
+const navItems = [
+  { label: "Overview", href: "/" },
+  { label: "ERP modules", href: "/modules" },
+  { label: "Finance", href: "/modules/finance-accounting" },
+  { label: "Sales", href: "/modules/sales-invoicing" },
+  { label: "Purchasing", href: "/modules/purchasing-expenses" },
+  { label: "Inventory", href: "/modules/inventory-warehouse" },
+  { label: "Reports", href: "/modules/reports-analytics" },
+];
 
 function Icon({ name }: { name: Metric["icon"] }) {
   const paths = {
@@ -18,10 +28,16 @@ function MetricCard({ metric }: { metric: Metric }) {
 
 export function Dashboard() {
   return <div className="erp-shell">
-    <aside className="sidebar"><div className="brand"><span>H</span><div><strong>Hisab</strong><small>ERP Enterprise</small></div></div><nav>{navItems.map((item, index) => <a className={index === 0 ? "active" : ""} href="#" key={item}>{item}</a>)}</nav><div className="sidebar-footer"><a href="/legacy">Open legacy app</a><p>Hisab Technologies<br/>Addis Ababa, Ethiopia</p></div></aside>
+    <aside className="sidebar"><div className="brand"><span>H</span><div><strong>Hisab</strong><small>ERP Enterprise</small></div></div><nav>{navItems.map((item, index) => <Link className={index === 0 ? "active" : ""} href={item.href} key={item.label}>{item.label}</Link>)}</nav><div className="sidebar-footer"><a href="/legacy">Open legacy app</a><p>Hisab Technologies<br/>Addis Ababa, Ethiopia</p></div></aside>
     <main className="workspace">
       <header className="topbar"><div><p className="eyebrow">Thursday, 16 July</p><h1>Good evening, Mahir</h1><p>Here is how your business is performing today.</p></div><div className="top-actions"><button className="ghost">Export report</button><button className="primary">+ New transaction</button><div className="avatar">MA</div></div></header>
       <section className="metrics-grid">{metrics.map(metric => <MetricCard metric={metric} key={metric.label}/>)}</section>
+
+      <section className="panel module-preview">
+        <div className="panel-head"><div><p className="eyebrow">ERP foundation</p><h2>Core modules every company needs</h2></div><Link className="text-button" href="/modules">View all modules →</Link></div>
+        <div className="module-preview-grid">{mustHaveModules.slice(0, 4).map(module => <Link href={`/modules/${module.slug}`} key={module.slug}><span>Phase {module.phase}</span><strong>{module.shortTitle}</strong><p>{module.description}</p></Link>)}</div>
+      </section>
+
       <section className="content-grid">
         <article className="panel performance-panel"><div className="panel-head"><div><p className="eyebrow">Financial performance</p><h2>Revenue overview</h2></div><select aria-label="Period"><option>Last 12 months</option></select></div><div className="revenue-summary"><strong>ETB 1,284,500</strong><span>+18.2% from last year</span></div><div className="chart" aria-label="Monthly revenue chart">{monthlyPerformance.map((height, i) => <div className="bar-wrap" key={i}><div className="bar" style={{height: `${Math.min(height, 100)}%`}}/><small>{["Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul"][i]}</small></div>)}</div></article>
         <article className="panel health-panel"><div className="panel-head"><div><p className="eyebrow">Business health</p><h2>Excellent condition</h2></div><span className="score">86</span></div><div className="health-ring"><div><strong>86</strong><span>/100</span></div></div><ul><li><span>Cash flow</span><strong>Strong</strong></li><li><span>Expense control</span><strong>Good</strong></li><li><span>Debt collection</span><strong>Needs attention</strong></li></ul></article>
