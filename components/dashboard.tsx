@@ -1,4 +1,4 @@
-import { metrics, monthlyPerformance, transactions, type Metric } from "@/lib/dashboard-data";
+import { metrics, monthlyPerformance, transactions, type Metric } from "../lib/dashboard-data";
 
 const navItems = ["Overview", "Sales", "Expenses", "Customers", "Inventory", "Reports"];
 
@@ -13,46 +13,20 @@ function Icon({ name }: { name: Metric["icon"] }) {
 }
 
 function MetricCard({ metric }: { metric: Metric }) {
-  return <article className="metric-card">
-    <div className={`metric-icon ${metric.tone}`}><Icon name={metric.icon}/></div>
-    <div><p>{metric.label}</p><strong>{metric.value}</strong><span className={metric.tone}>{metric.change}</span></div>
-  </article>;
+  return <article className="metric-card"><div className={`metric-icon ${metric.tone}`}><Icon name={metric.icon}/></div><div><p>{metric.label}</p><strong>{metric.value}</strong><span className={metric.tone}>{metric.change}</span></div></article>;
 }
 
 export function Dashboard() {
   return <div className="erp-shell">
-    <aside className="sidebar">
-      <div className="brand"><span>H</span><div><strong>Hisab</strong><small>ERP Enterprise</small></div></div>
-      <nav>{navItems.map((item, index) => <a className={index === 0 ? "active" : ""} href="#" key={item}>{item}</a>)}</nav>
-      <div className="sidebar-footer"><a href="/legacy">Open legacy app</a><p>Hisab Technologies<br/>Addis Ababa, Ethiopia</p></div>
-    </aside>
-
+    <aside className="sidebar"><div className="brand"><span>H</span><div><strong>Hisab</strong><small>ERP Enterprise</small></div></div><nav>{navItems.map((item, index) => <a className={index === 0 ? "active" : ""} href="#" key={item}>{item}</a>)}</nav><div className="sidebar-footer"><a href="/legacy">Open legacy app</a><p>Hisab Technologies<br/>Addis Ababa, Ethiopia</p></div></aside>
     <main className="workspace">
-      <header className="topbar">
-        <div><p className="eyebrow">Thursday, 16 July</p><h1>Good evening, Mahir</h1><p>Here is how your business is performing today.</p></div>
-        <div className="top-actions"><button className="ghost">Export report</button><button className="primary">+ New transaction</button><div className="avatar">MA</div></div>
-      </header>
-
+      <header className="topbar"><div><p className="eyebrow">Thursday, 16 July</p><h1>Good evening, Mahir</h1><p>Here is how your business is performing today.</p></div><div className="top-actions"><button className="ghost">Export report</button><button className="primary">+ New transaction</button><div className="avatar">MA</div></div></header>
       <section className="metrics-grid">{metrics.map(metric => <MetricCard metric={metric} key={metric.label}/>)}</section>
-
       <section className="content-grid">
-        <article className="panel performance-panel">
-          <div className="panel-head"><div><p className="eyebrow">Financial performance</p><h2>Revenue overview</h2></div><select aria-label="Period"><option>Last 12 months</option></select></div>
-          <div className="revenue-summary"><strong>ETB 1,284,500</strong><span>+18.2% from last year</span></div>
-          <div className="chart" aria-label="Monthly revenue chart">{monthlyPerformance.map((height, i) => <div className="bar-wrap" key={i}><div className="bar" style={{height: `${Math.min(height, 100)}%`}}/><small>{["Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul"][i]}</small></div>)}</div>
-        </article>
-
-        <article className="panel health-panel">
-          <div className="panel-head"><div><p className="eyebrow">Business health</p><h2>Excellent condition</h2></div><span className="score">86</span></div>
-          <div className="health-ring"><div><strong>86</strong><span>/100</span></div></div>
-          <ul><li><span>Cash flow</span><strong>Strong</strong></li><li><span>Expense control</span><strong>Good</strong></li><li><span>Debt collection</span><strong>Needs attention</strong></li></ul>
-        </article>
+        <article className="panel performance-panel"><div className="panel-head"><div><p className="eyebrow">Financial performance</p><h2>Revenue overview</h2></div><select aria-label="Period"><option>Last 12 months</option></select></div><div className="revenue-summary"><strong>ETB 1,284,500</strong><span>+18.2% from last year</span></div><div className="chart" aria-label="Monthly revenue chart">{monthlyPerformance.map((height, i) => <div className="bar-wrap" key={i}><div className="bar" style={{height: `${Math.min(height, 100)}%`}}/><small>{["Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul"][i]}</small></div>)}</div></article>
+        <article className="panel health-panel"><div className="panel-head"><div><p className="eyebrow">Business health</p><h2>Excellent condition</h2></div><span className="score">86</span></div><div className="health-ring"><div><strong>86</strong><span>/100</span></div></div><ul><li><span>Cash flow</span><strong>Strong</strong></li><li><span>Expense control</span><strong>Good</strong></li><li><span>Debt collection</span><strong>Needs attention</strong></li></ul></article>
       </section>
-
-      <section className="panel transactions-panel">
-        <div className="panel-head"><div><p className="eyebrow">Latest activity</p><h2>Recent transactions</h2></div><button className="text-button">View all →</button></div>
-        <div className="transaction-list">{transactions.map(tx => <div className="transaction" key={tx.id}><div className={`transaction-mark ${tx.type}`}>{tx.type === "income" ? "↗" : "↙"}</div><div className="transaction-main"><strong>{tx.description}</strong><span>{tx.id} · {tx.category}</span></div><time>{tx.date}</time><strong className={tx.type}>{tx.amount}</strong></div>)}</div>
-      </section>
+      <section className="panel transactions-panel"><div className="panel-head"><div><p className="eyebrow">Latest activity</p><h2>Recent transactions</h2></div><button className="text-button">View all →</button></div><div className="transaction-list">{transactions.map(tx => <div className="transaction" key={tx.id}><div className={`transaction-mark ${tx.type}`}>{tx.type === "income" ? "↗" : "↙"}</div><div className="transaction-main"><strong>{tx.description}</strong><span>{tx.id} · {tx.category}</span></div><time>{tx.date}</time><strong className={tx.type}>{tx.amount}</strong></div>)}</div></section>
     </main>
   </div>;
 }
