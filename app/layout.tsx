@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { LanguageProvider } from "../components/language-provider";
+import "./font-benaiah-1.css";
+import "./font-benaiah-2.css";
+import "./font-benaiah-3.css";
 import "./fonts.css";
 import "./globals.css";
 import "./erp-modules.css";
