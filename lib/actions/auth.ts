@@ -10,6 +10,30 @@ function errorMessage(error: unknown) {
   return error instanceof Error ? error.message : "We could not complete that request.";
 }
 
+function phoneAuthErrorMessage(error: { message?: string } | null) {
+  const message = error?.message?.trim() || "SMS verification could not be completed.";
+  const normalized = message.toLowerCase();
+
+  if (normalized.includes("rate limit") || normalized.includes("too many request")) {
+    return "Too many verification attempts. Wait a few minutes before requesting another code.";
+  }
+
+  if (
+    normalized.includes("messagebird") ||
+    normalized.includes("sms provider") ||
+    normalized.includes("phone provider") ||
+    normalized.includes("provider is not enabled") ||
+    normalized.includes("provider not enabled") ||
+    normalized.includes("sms sending") ||
+    normalized.includes("sending sms") ||
+    normalized.includes("invalid credentials")
+  ) {
+    return "SMS delivery is not ready. Confirm Phone Auth and the MessageBird access key and originator in Supabase Authentication settings.";
+  }
+
+  return message;
+}
+
 function normalizePhone(countryCodeValue: FormDataEntryValue | null, phoneValue: FormDataEntryValue | null) {
   const countryCode = requiredText(countryCodeValue, "country code", 6).replace(/[^+\d]/g, "");
   let nationalNumber = requiredText(phoneValue, "phone number", 20).replace(/\D/g, "");
@@ -116,7 +140,7 @@ export async function signUp(formData: FormData) {
     },
   });
 
-  if (error) redirect(`/auth/sign-up?error=${encodeURIComponent(error.message)}`);
+  if (error) redirect(`/auth/sign-up?error=${encodeURIComponent(phoneAuthErrorMessage(error))}`);
   if (data.session) redirect("/onboarding");
   redirect(`/auth/verify-phone?phone=${encodeURIComponent(credentials.phone)}&message=${encodeURIComponent("Enter the 6-digit code sent to your phone.")}`);
 }
@@ -137,7 +161,7 @@ export async function verifyPhoneOtp(formData: FormData) {
 
   const supabase = await createClient();
   const { error } = await supabase.auth.verifyOtp({ phone, token, type: "sms" });
-  if (error) redirect(`/auth/verify-phone?phone=${encodeURIComponent(phone)}&error=${encodeURIComponent(error.message)}`);
+  if (error) redirect(`/auth/verify-phone?phone=${encodeURIComponent(phone)}&error=${encodeURIComponent(phoneAuthErrorMessage(error))}`);
   redirect("/onboarding");
 }
 
