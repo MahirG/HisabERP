@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AuthCredentialsFields } from "../../../components/auth-credentials-fields";
 import { LanguageSelector } from "../../../components/language-provider";
+import { SocialAuthButtons } from "../../../components/social-auth-buttons";
 import { signUp } from "../../../lib/actions/auth";
 import { isSupabaseConfigured } from "../../../lib/config";
 import { getServerFoundationCopy } from "../../../lib/server-locale";
@@ -17,7 +18,7 @@ const premiumCopy = {
     protected: "Built-in protection",
     protectedText: "Organization-level data isolation",
     heading: "Create your workspace",
-    helper: "Tell us about your company and secure it with your mobile number.",
+    helper: "Start with Google, Apple or verify your company account using a mobile number.",
     sms: "Phone verification requires an enabled SMS provider in Supabase.",
     trust: "Designed in Ethiopia · Ready for serious business",
   },
@@ -30,7 +31,7 @@ const premiumCopy = {
     protected: "አብሮ የተሰራ ጥበቃ",
     protectedText: "በድርጅት ደረጃ የውሂብ መለያየት",
     heading: "የሥራ ቦታዎን ይፍጠሩ",
-    helper: "ስለ ድርጅትዎ ይንገሩንና በሞባይል ቁጥርዎ ይጠብቁት።",
+    helper: "በGoogle፣ Apple ይጀምሩ ወይም የድርጅት መለያዎን በሞባይል ቁጥር ያረጋግጡ።",
     sms: "የስልክ ማረጋገጫ በSupabase ውስጥ የSMS አቅራቢ እንዲነቃ ይፈልጋል።",
     trust: "በኢትዮጵያ የተነደፈ · ለከባድ ንግድ ዝግጁ",
   },
@@ -43,7 +44,7 @@ const premiumCopy = {
     protected: "ውሽጣዊ ምክልኻል",
     protectedText: "ብደረጃ ውድብ ዝተፈልየ ዳታ",
     heading: "መስርሒ ቦታኹም ፍጠሩ",
-    helper: "ብዛዕባ ውድብኩም ንገሩናን ብቁጽሪ ሞባይልኩም ውሑስ ግበርዎን።",
+    helper: "ብGoogle፣ Apple ጀምሩ ወይ ኣካውንት ውድብኩም ብቁጽሪ ሞባይል ኣረጋግጹ።",
     sms: "ምርግጋጽ ተሌፎን ኣብ Supabase ዝተነቕሐ SMS provider ይደሊ።",
     trust: "ኣብ ኢትዮጵያ ዝተነድፈ · ንዓቢ ንግዲ ድሉው",
   },
@@ -53,6 +54,7 @@ export default async function SignUpPage({ searchParams }: { searchParams: Promi
   const [params, localized] = await Promise.all([searchParams, getServerFoundationCopy()]);
   const c = localized.copy.auth;
   const p = premiumCopy[localized.language];
+  const configured = isSupabaseConfigured();
 
   return (
     <main className="auth-page auth-premium-page auth-signup-page">
@@ -82,8 +84,9 @@ export default async function SignUpPage({ searchParams }: { searchParams: Promi
             <h1>{p.heading}</h1>
             <p>{p.helper}</p>
           </div>
-          {!isSupabaseConfigured() && <div className="form-alert warning">{c.supabaseMissing}</div>}
+          {!configured && <div className="form-alert warning">{c.supabaseMissing}</div>}
           {params.error && <div className="form-alert error">{params.error}</div>}
+          <SocialAuthButtons language={localized.language} next="/onboarding" disabled={!configured}/>
           <form action={signUp} className="erp-form premium-auth-form premium-signup-form">
             <div className="identity-grid">
               <label className="premium-field"><span className="field-label">{c.fullName}</span><span className="field-control"><input name="fullName" autoComplete="name" required maxLength={120}/></span></label>
@@ -91,7 +94,7 @@ export default async function SignUpPage({ searchParams }: { searchParams: Promi
             </div>
             <AuthCredentialsFields mode="sign-up" language={localized.language} passwordHelp={c.passwordHelp}/>
             <div className="sms-note"><span>✦</span><p>{p.sms}</p></div>
-            <button className="primary auth-submit" type="submit" disabled={!isSupabaseConfigured()}><span>{c.create}</span><b aria-hidden="true">→</b></button>
+            <button className="primary auth-submit" type="submit" disabled={!configured}><span>{c.create}</span><b aria-hidden="true">→</b></button>
           </form>
           <p className="auth-switch">{c.existing} <Link href="/auth/login">{c.signIn}</Link></p>
         </section>
