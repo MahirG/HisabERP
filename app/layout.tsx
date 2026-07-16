@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
+import { LanguageProvider } from "../components/language-provider";
+import "./fonts.css";
 import "./globals.css";
 import "./erp-modules.css";
+import "./i18n.css";
 
 export const metadata: Metadata = {
   title: "Hisab ERP — Enterprise",
@@ -15,12 +18,10 @@ export const viewport: Viewport = {
   themeColor: "#0F172A",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: import("react").ReactNode }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body><LanguageProvider>{children}</LanguageProvider></body>
     </html>
   );
 }
