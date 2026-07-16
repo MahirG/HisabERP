@@ -1,33 +1,30 @@
+"use client";
+
 import Link from "next/link";
 import { erpModules, type ModulePriority } from "../lib/erp-modules";
-
-const priorityCopy: Record<ModulePriority, string> = {
-  "Must have": "Required for a dependable ERP foundation",
-  "Should have": "Important as the company and team grow",
-  Growth: "Add after core operations are stable",
-};
+import { LanguageSelector, useLanguage } from "./language-provider";
 
 export function ModuleCatalog() {
+  const { dictionary } = useLanguage();
+  const copy = dictionary.modulesPage;
   const priorities: ModulePriority[] = ["Must have", "Should have", "Growth"];
 
   return (
     <main className="module-page">
       <div className="module-page-inner">
+        <div className="module-toolbar"><Link className="back-link" href="/">← {copy.backDashboard}</Link><LanguageSelector/></div>
         <header className="module-hero">
           <div>
-            <Link className="back-link" href="/">← Back to dashboard</Link>
-            <p className="eyebrow">Hisab ERP architecture</p>
-            <h1>Modules companies need to operate with control</h1>
-            <p className="module-intro">
-              Hisab ERP is organized around complete business workflows, not isolated screens. The first phase prioritizes finance, sales, purchasing, inventory, business contacts, reporting, security and local compliance.
-            </p>
+            <p className="eyebrow">{copy.architecture}</p>
+            <h1>{copy.title}</h1>
+            <p className="module-intro">{copy.intro}</p>
           </div>
           <div className="roadmap-summary">
             <strong>{erpModules.length}</strong>
-            <span>planned ERP modules</span>
-            <div><b>8</b> required in Phase 1</div>
-            <div><b>3</b> operational modules in Phase 2</div>
-            <div><b>1</b> growth platform in Phase 3</div>
+            <span>{copy.plannedModules}</span>
+            <div><b>8</b> {copy.requiredPhase1}</div>
+            <div><b>3</b> {copy.operationalPhase2}</div>
+            <div><b>1</b> {copy.growthPhase3}</div>
           </div>
         </header>
 
@@ -36,26 +33,21 @@ export function ModuleCatalog() {
           return (
             <section className="module-group" key={priority}>
               <div className="module-group-head">
-                <div>
-                  <p className="eyebrow">{priority}</p>
-                  <h2>{priorityCopy[priority]}</h2>
-                </div>
-                <span>{modules.length} modules</span>
+                <div><p className="eyebrow">{dictionary.priorityLabels[priority]}</p><h2>{copy.priorityCopy[priority]}</h2></div>
+                <span>{modules.length} {modules.length === 1 ? copy.moduleSingular : copy.modulePlural}</span>
               </div>
               <div className="module-grid">
-                {modules.map((module) => (
-                  <Link className="module-card" href={`/modules/${module.slug}`} key={module.slug}>
-                    <div className="module-card-top">
-                      <span className={`priority-badge phase-${module.phase}`}>Phase {module.phase}</span>
-                      <span className="module-arrow">↗</span>
-                    </div>
-                    <h3>{module.title}</h3>
-                    <p>{module.description}</p>
-                    <ul>
-                      {module.features.slice(0, 3).map((feature) => <li key={feature}>{feature}</li>)}
-                    </ul>
-                  </Link>
-                ))}
+                {modules.map((module) => {
+                  const localized = dictionary.moduleItems[module.slug];
+                  return (
+                    <Link className="module-card" href={`/modules/${module.slug}`} key={module.slug}>
+                      <div className="module-card-top"><span className={`priority-badge phase-${module.phase}`}>{copy.phase} {module.phase}</span><span className="module-arrow">↗</span></div>
+                      <h3>{localized.title}</h3>
+                      <p>{localized.description}</p>
+                      <ul>{localized.features.slice(0, 3).map((feature) => <li key={feature}>{feature}</li>)}</ul>
+                    </Link>
+                  );
+                })}
               </div>
             </section>
           );
