@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { signOut } from "../lib/actions/auth";
 import { mustHaveModules } from "../lib/erp-modules";
 import type { DashboardSnapshot } from "../lib/data/types";
 import { LanguageSelector, useLanguage } from "./language-provider";
@@ -38,6 +39,12 @@ function greeting(language: string, firstName: string) {
   return `${hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening"}, ${firstName}`;
 }
 
+function signOutLabel(language: string) {
+  if (language === "am") return "ውጣ";
+  if (language === "ti") return "ውጻእ";
+  return "Sign out";
+}
+
 export function Dashboard({ snapshot }: { snapshot: DashboardSnapshot }) {
   const { dictionary, language } = useLanguage();
   const d = dictionary.dashboard;
@@ -56,21 +63,41 @@ export function Dashboard({ snapshot }: { snapshot: DashboardSnapshot }) {
     <aside className="sidebar">
       <div className="brand"><span>H</span><div><strong>Hisab</strong><small>{d.brandSubtitle}</small></div></div>
       <LanguageSelector compact />
-      <nav>{navItems.map((item, index) => <Link className={index === 0 ? "active" : ""} href={item.href} key={item.href}>{item.label}</Link>)}</nav>
-      <div className="sidebar-footer"><a href="/legacy">{d.openLegacy}</a><p>{snapshot.organizationName}<br/>Addis Ababa, Ethiopia</p></div>
+      <nav aria-label="Primary workspace navigation">{navItems.map((item, index) => <Link className={index === 0 ? "active" : ""} href={item.href} key={item.href}>{item.label}</Link>)}</nav>
+      <div className="sidebar-footer"><a href="/docs/setup">Production controls</a><p>{snapshot.organizationName}<br/>Addis Ababa, Ethiopia</p></div>
     </aside>
+
     <main className="workspace">
-      <DemoNotice mode={snapshot.mode} />
       <header className="topbar">
-        <div><p className="eyebrow">{dynamicDate(language)}</p><h1>{greeting(language, snapshot.userName)}</h1><p>{d.summary}</p></div>
-        <div className="top-actions"><LanguageSelector/><Link className="ghost action-link" href="/api/reports/dashboard">{d.exportReport}</Link><Link className="primary action-link" href="/sales/invoices/new">+ {d.newTransaction}</Link><div className="avatar">{snapshot.userName.slice(0, 2).toUpperCase()}</div></div>
+        <div className="topbar-copy"><p className="eyebrow">{dynamicDate(language)}</p><h1>{greeting(language, snapshot.userName)}</h1><p>{d.summary}</p></div>
+        <div className="top-actions">
+          <span className="workspace-status"><i/> Live workspace</span>
+          <LanguageSelector/>
+          <Link className="ghost action-link" href="/api/reports/dashboard">{d.exportReport}</Link>
+          <Link className="primary action-link" href="/sales/invoices/new">+ {d.newTransaction}</Link>
+          <div className="avatar" title={snapshot.userName}>{snapshot.userName.slice(0, 2).toUpperCase()}</div>
+          <form action={signOut}><button className="signout-button" type="submit" title={signOutLabel(language)} aria-label={signOutLabel(language)}>↪</button></form>
+        </div>
       </header>
+
+      <DemoNotice mode={snapshot.mode} />
+
+      <section className="command-strip" aria-label="Business command center">
+        <div><span>01</span><p>Cash visibility</p><strong>{money(metricValues.cash, language)}</strong></div>
+        <div><span>02</span><p>Revenue pulse</p><strong>{money(metricValues.sales, language)}</strong></div>
+        <div><span>03</span><p>Collection focus</p><strong>{money(metricValues.debt, language)}</strong></div>
+        <Link href="/sales/invoices/new"><small>Quick action</small><strong>Create invoice</strong><b>→</b></Link>
+      </section>
+
       <section className="metrics-grid">{(["sales", "expenses", "cash", "debt"] as const).map((key) => { const meta = metricMeta[key]; const copy = d.metricItems[key]; return <article className="metric-card" key={key}><div className={`metric-icon ${meta.tone}`}><Icon name={meta.icon}/></div><div><p>{copy.label}</p><strong>{money(metricValues[key], language)}</strong><span className={meta.tone}>{copy.change}</span></div></article>; })}</section>
-      <section className="panel module-preview"><div className="panel-head"><div><p className="eyebrow">{d.erpFoundation}</p><h2>{d.coreModules}</h2></div><Link className="text-button" href="/modules">{d.viewAllModules} →</Link></div><div className="module-preview-grid">{mustHaveModules.slice(0, 4).map((module) => { const copy = dictionary.moduleItems[module.slug]; return <Link href={`/modules/${module.slug}`} key={module.slug}><span>{d.phase} {module.phase}</span><strong>{copy.shortTitle}</strong><p>{copy.description}</p></Link>; })}</div></section>
+
+      <section className="panel module-preview"><div className="panel-head"><div><p className="eyebrow">{d.erpFoundation}</p><h2>{d.coreModules}</h2></div><Link className="text-button" href="/modules">{d.viewAllModules} →</Link></div><div className="module-preview-grid">{mustHaveModules.slice(0, 4).map((module) => { const copy = dictionary.moduleItems[module.slug]; return <Link href={`/modules/${module.slug}`} key={module.slug}><span>{d.phase} {module.phase}</span><strong>{copy.shortTitle}</strong><p>{copy.description}</p><b>Explore module →</b></Link>; })}</div></section>
+
       <section className="content-grid">
         <article className="panel performance-panel"><div className="panel-head"><div><p className="eyebrow">{d.financialPerformance}</p><h2>{d.revenueOverview}</h2></div><span className="period-pill">{d.last12Months}</span></div><div className="revenue-summary"><strong>{money(snapshot.monthlyRevenue.reduce((sum, value) => sum + value, 0), language)}</strong><span>+18.2% {d.fromLastYear}</span></div><div className="chart" aria-label={d.revenueChart}>{snapshot.monthlyRevenue.map((value, index) => { const max = Math.max(...snapshot.monthlyRevenue, 1); return <div className="bar-wrap" key={`${index}-${value}`}><div className="bar" style={{height: `${Math.max(8, (value / max) * 100)}%`}}/><small>{d.months[index] ?? index + 1}</small></div>; })}</div></article>
         <article className="panel health-panel"><div className="panel-head"><div><p className="eyebrow">{d.businessHealth}</p><h2>{d.excellentCondition}</h2></div><span className="score">{snapshot.health.score}</span></div><div className="health-ring" style={{ background: `conic-gradient(var(--green) 0 ${snapshot.health.score}%,#e5e7eb ${snapshot.health.score}%)` }}><div><strong>{snapshot.health.score}</strong><span>/100</span></div></div><ul><li><span>{d.cashFlow}</span><strong>{d.strong}</strong></li><li><span>{d.expenseControl}</span><strong>{d.good}</strong></li><li><span>{d.debtCollection}</span><strong>{d.needsAttention}</strong></li></ul></article>
       </section>
+
       <section className="panel transactions-panel"><div className="panel-head"><div><p className="eyebrow">{d.latestActivity}</p><h2>{d.recentTransactions}</h2></div><Link className="text-button" href="/finance/journals">{d.viewAll} →</Link></div><div className="transaction-list">{snapshot.recentTransactions.map((transaction) => <div className="transaction" key={transaction.id}><div className={`transaction-mark ${transaction.type}`}>{transaction.type === "income" ? "↗" : "↙"}</div><div className="transaction-main"><strong>{transaction.description}</strong><span>{transaction.id} · {transaction.category}</span></div><time>{new Intl.DateTimeFormat(language === "am" ? "am-ET" : language === "ti" ? "ti-ET" : "en-ET", { dateStyle: "medium" }).format(new Date(transaction.date))}</time><strong className={transaction.type}>{transaction.type === "income" ? "+" : "−"} {money(transaction.amount, language)}</strong></div>)}</div></section>
     </main>
   </div>;
