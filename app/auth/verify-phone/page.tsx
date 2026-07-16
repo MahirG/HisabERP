@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { LanguageSelector } from "../../../../components/language-provider";
-import { verifyPhoneOtp } from "../../../../lib/actions/auth";
-import { getServerFoundationCopy } from "../../../../lib/server-locale";
+import { LanguageSelector } from "../../../components/language-provider";
+import { verifyPhoneOtp } from "../../../lib/actions/auth";
+import { getServerFoundationCopy } from "../../../lib/server-locale";
 
 export const metadata = { title: "Verify phone" };
 
@@ -19,7 +19,7 @@ const copy = {
   },
   am: {
     label: "የስልክ ማረጋገጫ",
-    title: "የደህንነት ኮዱን ያስገቡ",
+    title: "የደህነት ኮዱን ያስገቡ",
     text: "6 አሃዝ የማረጋገጫ ኮድ ልከናል፦",
     code: "የማረጋገጫ ኮድ",
     help: "ኮዱ በቅርቡ ጊዜው ያልፋል። ለማንም አያጋሩት።",
