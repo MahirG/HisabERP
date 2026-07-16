@@ -137,22 +137,22 @@ export function AuthCredentialsFields({ mode, language, passwordHelp }: { mode: 
 
   return (
     <div className="auth-credentials">
+      <input type="hidden" name="countryCode" value={country.dial}/>
       <div className="phone-field-group">
         <label className="premium-field country-field">
           <span className="field-label">{c.country}</span>
           <span className="field-control country-control">
             <span className="country-flag" aria-hidden="true">{country.flag}</span>
             <select
-              name="countryCode"
-              value={country.dial}
+              name="country"
+              value={country.iso}
               aria-label={c.country}
               onChange={(event) => {
-                const nextCountry = countries.find((item) => item.dial === event.target.value && item.iso === event.target.selectedOptions[0]?.dataset.iso) || countries.find((item) => item.dial === event.target.value) || countries[0];
-                setCountryIso(nextCountry.iso);
+                setCountryIso(event.target.value);
                 setPhone("");
               }}
             >
-              {countries.map((item) => <option key={item.iso} value={item.dial} data-iso={item.iso}>{item.flag} {item.name} ({item.dial})</option>)}
+              {countries.map((item) => <option key={item.iso} value={item.iso}>{item.flag} {item.name} ({item.dial})</option>)}
             </select>
           </span>
         </label>
