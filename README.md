@@ -1,35 +1,52 @@
-# Hisab ERP — Next.js
+# Hisab ERP — production foundation
 
-Hisab ERP is being migrated from a standalone HTML application into a modular Next.js App Router product with TypeScript.
+Hisab ERP is a multilingual Next.js application for Ethiopian businesses. The native application now includes a production-oriented Supabase/PostgreSQL foundation while retaining the original HTML prototype at `/legacy` as a clearly marked demonstration.
 
 ## Run locally
 
 ```bash
+cp .env.example .env.local
 npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+Without Supabase variables the application runs in **safe demo mode** using sample data. Live write actions are disabled.
 
-## Current architecture
+## Enable live mode
 
-- `/` — native responsive ERP dashboard
-- `/modules` — phased ERP module catalogue
-- `/modules/[slug]` — module capability and control definitions
-- `/legacy` — compatibility route for the original standalone application
+1. Create a Supabase project.
+2. Run `supabase/migrations/202607160001_foundation.sql`.
+3. Add the public Supabase URL and publishable key to `.env.local` and Vercel.
+4. Add the production `/auth/callback` URL to Supabase Auth redirects.
+5. Create an account and finish organization onboarding.
 
-## ERP implementation phases
+## Production architecture
 
-### Phase 1 — required foundation
+- Next.js App Router and React Server Components
+- Supabase Auth using cookie-based SSR clients
+- PostgreSQL with organization-level Row Level Security
+- Double-entry journals and atomic invoice posting
+- Append-only audit events
+- English, Amharic and Tigrinya with server-resolved language cookies
+- CSP/security headers, route protection, health checks and CI
 
-Finance and accounting, sales and invoicing, purchasing and expenses, inventory and warehouse, customers and suppliers, reporting and analytics, security and approvals, and localization and compliance.
+## Main routes
 
-### Phase 2 — operational expansion
+- `/` dashboard using live data when authenticated
+- `/customers` customer directory and creation
+- `/inventory` stock and product creation
+- `/sales/invoices/new` atomic sales invoice posting
+- `/finance/journals` accounting journal review
+- `/modules` ERP roadmap
+- `/docs/setup` deployment checklist
+- `/legacy` browser-only demonstration; never use for real data
 
-Human resources and payroll, fixed assets, and budgeting and projects.
+## Validation
 
-### Phase 3 — growth platform
+```bash
+npm run typecheck
+npm test
+npm run build
+```
 
-Secure integrations, APIs, webhooks and workflow automation.
-
-The current module pages define capabilities and governance requirements. Persistent database models, authentication, permissions, transaction posting, forms and approvals will be implemented incrementally.
+Read `SECURITY.md`, `docs/IMPLEMENTATION_STATUS.md` and `docs/BACKUP_AND_RECOVERY.md` before production use.
