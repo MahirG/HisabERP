@@ -23,13 +23,21 @@ export async function signUp(formData: FormData) {
   const fullName = requiredText(formData.get("fullName"), "fullName", 120);
   const organizationName = requiredText(formData.get("organizationName"), "organizationName", 160);
   const supabase = await createClient();
+  const emailRedirectTo = `${appConfig.appUrl}/auth/callback?next=${encodeURIComponent("/onboarding")}`;
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: `${appConfig.appUrl}/auth/callback`, data: { full_name: fullName, organization_name: organizationName, phone: optionalText(formData.get("phone"), 40) } },
+    options: {
+      emailRedirectTo,
+      data: {
+        full_name: fullName,
+        organization_name: organizationName,
+        phone: optionalText(formData.get("phone"), 40),
+      },
+    },
   });
   if (error) redirect(`/auth/sign-up?error=${encodeURIComponent(error.message)}`);
-  if (data.session) redirect("/");
+  if (data.session) redirect("/onboarding");
   redirect("/auth/login?message=Check+your+email+to+confirm+your+account");
 }
 
