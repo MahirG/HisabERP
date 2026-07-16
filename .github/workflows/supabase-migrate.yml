@@ -18,7 +18,6 @@ concurrency:
 jobs:
   migrate:
     runs-on: ubuntu-latest
-    environment: production
     env:
       SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
       SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
@@ -43,7 +42,11 @@ jobs:
               missing=1
             fi
           done
-          exit "$missing"
+          if [ "$missing" -ne 0 ]; then
+            exit 1
+          fi
+          echo "Project reference length: ${#SUPABASE_PROJECT_REF}"
+          echo "Database password is configured (${#SUPABASE_DB_PASSWORD} characters)."
 
       - name: Check out repository
         uses: actions/checkout@v4
@@ -59,12 +62,25 @@ jobs:
 
       - name: Preview pending migrations
         shell: bash
-        run: supabase db push --linked --dry-run
+        run: |
+          for attempt in 1 2 3; do
+            echo "Migration preview attempt $attempt of 3"
+            if supabase db push --linked --password "$SUPABASE_DB_PASSWORD" --dry-run; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              wait_seconds=$((attempt * 30))
+              echo "Supabase pooler authentication was not ready. Waiting ${wait_seconds}s before retrying..."
+              sleep "$wait_seconds"
+            fi
+          done
+          echo "::error::Could not authenticate to the Supabase database after 3 attempts. Reset the database password for the exact project, update the repository secret, and review Database Settings for network bans."
+          exit 1
 
       - name: Apply pending migrations in filename order
         shell: bash
-        run: supabase db push --linked
+        run: supabase db push --linked --password "$SUPABASE_DB_PASSWORD"
 
       - name: Verify migration history
         shell: bash
-        run: supabase migration list --linked
+        run: supabase migration list --linked --password "$SUPABASE_DB_PASSWORD"
