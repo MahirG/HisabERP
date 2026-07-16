@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { isSupabaseConfigured } from "../config";
+import { appConfig, isSupabaseConfigured } from "../config";
 import { createClient } from "../supabase/server";
 import { requiredText, safeNextPath, ValidationError } from "../validation";
 
@@ -44,6 +44,30 @@ function readCredentials(formData: FormData, mode: "sign-in" | "sign-up") {
   }
 
   return { phone, password };
+}
+
+export async function signInWithOAuthProvider(formData: FormData) {
+  if (!isSupabaseConfigured()) redirect("/auth/login?error=Supabase+is+not+configured");
+
+  const providerValue = typeof formData.get("provider") === "string" ? String(formData.get("provider")) : "";
+  const provider = providerValue === "google" || providerValue === "apple" ? providerValue : null;
+  const next = safeNextPath(formData.get("next"));
+
+  if (!provider) redirect("/auth/login?error=Unsupported+sign-in+provider");
+
+  const supabase = await createClient();
+  const redirectTo = `${appConfig.appUrl}/auth/callback?next=${encodeURIComponent(next)}`;
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider,
+    options: { redirectTo },
+  });
+
+  if (error || !data.url) {
+    const message = error?.message || "The selected sign-in provider is not available.";
+    redirect(`/auth/login?error=${encodeURIComponent(message)}&next=${encodeURIComponent(next)}`);
+  }
+
+  redirect(data.url);
 }
 
 export async function signIn(formData: FormData) {
