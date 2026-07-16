@@ -15,7 +15,7 @@ Without Supabase variables the application runs in **safe demo mode** using samp
 ## Enable live mode
 
 1. Create a Supabase project.
-2. Run `supabase/migrations/202607160001_foundation.sql`.
+2. Run the three ordered SQL files in `supabase/migrations/` (`001_schema`, `002_workflows`, then `003_policies`).
 3. Add the public Supabase URL and publishable key to `.env.local` and Vercel.
 4. Add the production `/auth/callback` URL to Supabase Auth redirects.
 5. Create an account and finish organization onboarding.
