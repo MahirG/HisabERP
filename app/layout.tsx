@@ -13,6 +13,7 @@ import "./i18n.css";
 import "./production.css";
 import "./auth-i18n.css";
 import "./auth-premium.css";
+import "./auth-social.css";
 
 export const metadata: Metadata = {
   title: { default: "Hisab ERP", template: "%s | Hisab ERP" },
