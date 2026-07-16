@@ -2,8 +2,42 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { appConfig, isSupabaseConfigured } from "../config";
 
+const publicPageRoutes = new Set([
+  "/auth/login",
+  "/auth/sign-up",
+  "/auth/verify-phone",
+  "/auth/callback",
+]);
+
+function isPublicPath(path: string) {
+  return publicPageRoutes.has(path) || path === "/api/health";
+}
+
+function loginRedirect(request: NextRequest) {
+  const url = request.nextUrl.clone();
+  const destination = `${request.nextUrl.pathname}${request.nextUrl.search}`;
+  url.pathname = "/auth/login";
+  url.search = "";
+  url.searchParams.set("next", destination);
+  return NextResponse.redirect(url);
+}
+
 export async function updateSession(request: NextRequest, requestHeaders: Headers) {
-  if (!isSupabaseConfigured()) return NextResponse.next({ request: { headers: requestHeaders } });
+  const path = request.nextUrl.pathname;
+  const publicPath = isPublicPath(path);
+
+  if (!isSupabaseConfigured()) {
+    if (publicPath) return NextResponse.next({ request: { headers: requestHeaders } });
+
+    if (path.startsWith("/api/")) {
+      return NextResponse.json(
+        { error: "Authentication is not configured." },
+        { status: 503 },
+      );
+    }
+
+    return loginRedirect(request);
+  }
 
   let response = NextResponse.next({ request: { headers: requestHeaders } });
   const supabase = createServerClient(appConfig.supabaseUrl, appConfig.supabaseKey, {
@@ -19,18 +53,19 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
 
   const { data } = await supabase.auth.getClaims();
   const isAuthenticated = Boolean(data?.claims?.sub);
-  const path = request.nextUrl.pathname;
-  const isAuthPath = path.startsWith("/auth/");
-  const protectedPath = ["/customers", "/inventory", "/sales", "/finance"].some((prefix) => path.startsWith(prefix));
 
-  if (protectedPath && !isAuthenticated) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/auth/login";
-    url.searchParams.set("next", path);
-    return NextResponse.redirect(url);
+  if (!isAuthenticated && !publicPath) {
+    if (path.startsWith("/api/")) {
+      return NextResponse.json(
+        { error: "Authentication required." },
+        { status: 401 },
+      );
+    }
+
+    return loginRedirect(request);
   }
 
-  if (isAuthenticated && isAuthPath && !path.startsWith("/auth/callback")) {
+  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/auth/callback") {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     url.search = "";
