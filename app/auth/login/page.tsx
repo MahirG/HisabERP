@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AuthCredentialsFields } from "../../../components/auth-credentials-fields";
 import { LanguageSelector } from "../../../components/language-provider";
+import { SocialAuthButtons } from "../../../components/social-auth-buttons";
 import { signIn } from "../../../lib/actions/auth";
 import { isSupabaseConfigured } from "../../../lib/config";
 import { getServerFoundationCopy } from "../../../lib/server-locale";
@@ -17,7 +18,7 @@ const premiumCopy = {
     fast: "Fast decisions",
     fastText: "Live business visibility",
     greeting: "Welcome back",
-    helper: "Use your registered mobile number to continue.",
+    helper: "Sign in securely with Google, Apple or your registered mobile number.",
     trust: "Encrypted sessions · Organization-isolated data",
   },
   am: {
@@ -29,7 +30,7 @@ const premiumCopy = {
     fast: "ፈጣን ውሳኔ",
     fastText: "የቀጥታ የንግድ እይታ",
     greeting: "እንኳን ደህና መጡ",
-    helper: "በተመዘገበው የሞባይል ቁጥርዎ ይግቡ።",
+    helper: "በGoogle፣ Apple ወይም በተመዘገበው የሞባይል ቁጥርዎ በደህና ይግቡ።",
     trust: "የተመሰጠረ ክፍለ ጊዜ · የተለየ የድርጅት ውሂብ",
   },
   ti: {
@@ -41,7 +42,7 @@ const premiumCopy = {
     fast: "ቅልጡፍ ውሳነ",
     fastText: "ቀጥታዊ እይታ ንግዲ",
     greeting: "እንቋዕ ብደሓን መጻእኩም",
-    helper: "ብዝተመዝገበ ቁጽሪ ሞባይልኩም እተዉ።",
+    helper: "ብGoogle፣ Apple ወይ ብዝተመዝገበ ቁጽሪ ሞባይልኩም ብውሕስነት እተዉ።",
     trust: "ዝተመስጠረ ክፍለ ግዜ · ዝተፈልየ ዳታ ውድብ",
   },
 } as const;
@@ -50,6 +51,8 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   const [params, localized] = await Promise.all([searchParams, getServerFoundationCopy()]);
   const c = localized.copy.auth;
   const p = premiumCopy[localized.language];
+  const configured = isSupabaseConfigured();
+  const next = params.next || "/";
 
   return (
     <main className="auth-page auth-premium-page">
@@ -79,13 +82,14 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
             <h1>{p.greeting}</h1>
             <p>{p.helper}</p>
           </div>
-          {!isSupabaseConfigured() && <div className="form-alert warning">{c.supabaseMissing}</div>}
+          {!configured && <div className="form-alert warning">{c.supabaseMissing}</div>}
           {params.error && <div className="form-alert error">{params.error}</div>}
           {params.message && <div className="form-alert success">{params.message}</div>}
+          <SocialAuthButtons language={localized.language} next={next} disabled={!configured}/>
           <form action={signIn} className="erp-form premium-auth-form">
-            <input type="hidden" name="next" value={params.next || "/"}/>
+            <input type="hidden" name="next" value={next}/>
             <AuthCredentialsFields mode="sign-in" language={localized.language}/>
-            <button className="primary auth-submit" type="submit" disabled={!isSupabaseConfigured()}><span>{c.signIn}</span><b aria-hidden="true">→</b></button>
+            <button className="primary auth-submit" type="submit" disabled={!configured}><span>{c.signIn}</span><b aria-hidden="true">→</b></button>
           </form>
           <p className="auth-switch">{c.newUser} <Link href="/auth/sign-up">{c.createAccount}</Link></p>
         </section>
