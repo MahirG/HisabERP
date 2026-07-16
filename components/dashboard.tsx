@@ -1,16 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { metrics, monthlyPerformance, transactions, type Metric } from "../lib/dashboard-data";
 import { mustHaveModules } from "../lib/erp-modules";
-
-const navItems = [
-  { label: "Overview", href: "/" },
-  { label: "ERP modules", href: "/modules" },
-  { label: "Finance", href: "/modules/finance-accounting" },
-  { label: "Sales", href: "/modules/sales-invoicing" },
-  { label: "Purchasing", href: "/modules/purchasing-expenses" },
-  { label: "Inventory", href: "/modules/inventory-warehouse" },
-  { label: "Reports", href: "/modules/reports-analytics" },
-];
+import { LanguageSelector, useLanguage } from "./language-provider";
 
 function Icon({ name }: { name: Metric["icon"] }) {
   const paths = {
@@ -22,27 +15,88 @@ function Icon({ name }: { name: Metric["icon"] }) {
   return <svg viewBox="0 0 24 24" aria-hidden="true">{paths[name]}</svg>;
 }
 
-function MetricCard({ metric }: { metric: Metric }) {
-  return <article className="metric-card"><div className={`metric-icon ${metric.tone}`}><Icon name={metric.icon}/></div><div><p>{metric.label}</p><strong>{metric.value}</strong><span className={metric.tone}>{metric.change}</span></div></article>;
+function MetricCard({ metric, label, change }: { metric: Metric; label: string; change: string }) {
+  return (
+    <article className="metric-card">
+      <div className={`metric-icon ${metric.tone}`}><Icon name={metric.icon}/></div>
+      <div><p>{label}</p><strong>{metric.value}</strong><span className={metric.tone}>{change}</span></div>
+    </article>
+  );
 }
 
 export function Dashboard() {
-  return <div className="erp-shell">
-    <aside className="sidebar"><div className="brand"><span>H</span><div><strong>Hisab</strong><small>ERP Enterprise</small></div></div><nav>{navItems.map((item, index) => <Link className={index === 0 ? "active" : ""} href={item.href} key={item.label}>{item.label}</Link>)}</nav><div className="sidebar-footer"><a href="/legacy">Open legacy app</a><p>Hisab Technologies<br/>Addis Ababa, Ethiopia</p></div></aside>
-    <main className="workspace">
-      <header className="topbar"><div><p className="eyebrow">Thursday, 16 July</p><h1>Good evening, Mahir</h1><p>Here is how your business is performing today.</p></div><div className="top-actions"><button className="ghost">Export report</button><button className="primary">+ New transaction</button><div className="avatar">MA</div></div></header>
-      <section className="metrics-grid">{metrics.map(metric => <MetricCard metric={metric} key={metric.label}/>)}</section>
+  const { dictionary } = useLanguage();
+  const d = dictionary.dashboard;
+  const navItems = [
+    { label: d.nav.overview, href: "/" },
+    { label: d.nav.modules, href: "/modules" },
+    { label: d.nav.finance, href: "/modules/finance-accounting" },
+    { label: d.nav.sales, href: "/modules/sales-invoicing" },
+    { label: d.nav.purchasing, href: "/modules/purchasing-expenses" },
+    { label: d.nav.inventory, href: "/modules/inventory-warehouse" },
+    { label: d.nav.reports, href: "/modules/reports-analytics" },
+  ];
+  const locationLines = d.companyLocation.split("\n");
 
-      <section className="panel module-preview">
-        <div className="panel-head"><div><p className="eyebrow">ERP foundation</p><h2>Core modules every company needs</h2></div><Link className="text-button" href="/modules">View all modules →</Link></div>
-        <div className="module-preview-grid">{mustHaveModules.slice(0, 4).map(module => <Link href={`/modules/${module.slug}`} key={module.slug}><span>Phase {module.phase}</span><strong>{module.shortTitle}</strong><p>{module.description}</p></Link>)}</div>
-      </section>
+  return (
+    <div className="erp-shell">
+      <aside className="sidebar">
+        <div className="brand"><span>H</span><div><strong>Hisab</strong><small>{d.brandSubtitle}</small></div></div>
+        <LanguageSelector compact />
+        <nav>{navItems.map((item, index) => <Link className={index === 0 ? "active" : ""} href={item.href} key={item.href}>{item.label}</Link>)}</nav>
+        <div className="sidebar-footer">
+          <a href="/legacy">{d.openLegacy}</a>
+          <p>{locationLines[0]}<br/>{locationLines[1]}</p>
+        </div>
+      </aside>
 
-      <section className="content-grid">
-        <article className="panel performance-panel"><div className="panel-head"><div><p className="eyebrow">Financial performance</p><h2>Revenue overview</h2></div><select aria-label="Period"><option>Last 12 months</option></select></div><div className="revenue-summary"><strong>ETB 1,284,500</strong><span>+18.2% from last year</span></div><div className="chart" aria-label="Monthly revenue chart">{monthlyPerformance.map((height, i) => <div className="bar-wrap" key={i}><div className="bar" style={{height: `${Math.min(height, 100)}%`}}/><small>{["Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul"][i]}</small></div>)}</div></article>
-        <article className="panel health-panel"><div className="panel-head"><div><p className="eyebrow">Business health</p><h2>Excellent condition</h2></div><span className="score">86</span></div><div className="health-ring"><div><strong>86</strong><span>/100</span></div></div><ul><li><span>Cash flow</span><strong>Strong</strong></li><li><span>Expense control</span><strong>Good</strong></li><li><span>Debt collection</span><strong>Needs attention</strong></li></ul></article>
-      </section>
-      <section className="panel transactions-panel"><div className="panel-head"><div><p className="eyebrow">Latest activity</p><h2>Recent transactions</h2></div><button className="text-button">View all →</button></div><div className="transaction-list">{transactions.map(tx => <div className="transaction" key={tx.id}><div className={`transaction-mark ${tx.type}`}>{tx.type === "income" ? "↗" : "↙"}</div><div className="transaction-main"><strong>{tx.description}</strong><span>{tx.id} · {tx.category}</span></div><time>{tx.date}</time><strong className={tx.type}>{tx.amount}</strong></div>)}</div></section>
-    </main>
-  </div>;
+      <main className="workspace">
+        <header className="topbar">
+          <div><p className="eyebrow">{d.date}</p><h1>{d.greeting}</h1><p>{d.summary}</p></div>
+          <div className="top-actions"><LanguageSelector/><button className="ghost">{d.exportReport}</button><button className="primary">+ {d.newTransaction}</button><div className="avatar">MA</div></div>
+        </header>
+
+        <section className="metrics-grid">
+          {metrics.map((metric) => {
+            const copy = d.metricItems[metric.key];
+            return <MetricCard metric={metric} label={copy.label} change={copy.change} key={metric.key}/>;
+          })}
+        </section>
+
+        <section className="panel module-preview">
+          <div className="panel-head"><div><p className="eyebrow">{d.erpFoundation}</p><h2>{d.coreModules}</h2></div><Link className="text-button" href="/modules">{d.viewAllModules} →</Link></div>
+          <div className="module-preview-grid">
+            {mustHaveModules.slice(0, 4).map((module) => {
+              const copy = dictionary.moduleItems[module.slug];
+              return <Link href={`/modules/${module.slug}`} key={module.slug}><span>{d.phase} {module.phase}</span><strong>{copy.shortTitle}</strong><p>{copy.description}</p></Link>;
+            })}
+          </div>
+        </section>
+
+        <section className="content-grid">
+          <article className="panel performance-panel">
+            <div className="panel-head"><div><p className="eyebrow">{d.financialPerformance}</p><h2>{d.revenueOverview}</h2></div><select aria-label={d.period}><option>{d.last12Months}</option></select></div>
+            <div className="revenue-summary"><strong>ETB 1,284,500</strong><span>+18.2% {d.fromLastYear}</span></div>
+            <div className="chart" aria-label={d.revenueChart}>{monthlyPerformance.map((height, index) => <div className="bar-wrap" key={d.months[index]}><div className="bar" style={{height: `${Math.min(height, 100)}%`}}/><small>{d.months[index]}</small></div>)}</div>
+          </article>
+
+          <article className="panel health-panel">
+            <div className="panel-head"><div><p className="eyebrow">{d.businessHealth}</p><h2>{d.excellentCondition}</h2></div><span className="score">86</span></div>
+            <div className="health-ring"><div><strong>86</strong><span>/100</span></div></div>
+            <ul><li><span>{d.cashFlow}</span><strong>{d.strong}</strong></li><li><span>{d.expenseControl}</span><strong>{d.good}</strong></li><li><span>{d.debtCollection}</span><strong>{d.needsAttention}</strong></li></ul>
+          </article>
+        </section>
+
+        <section className="panel transactions-panel">
+          <div className="panel-head"><div><p className="eyebrow">{d.latestActivity}</p><h2>{d.recentTransactions}</h2></div><button className="text-button">{d.viewAll} →</button></div>
+          <div className="transaction-list">
+            {transactions.map((transaction) => {
+              const copy = d.transactionItems[transaction.key];
+              return <div className="transaction" key={transaction.id}><div className={`transaction-mark ${transaction.type}`}>{transaction.type === "income" ? "↗" : "↙"}</div><div className="transaction-main"><strong>{copy.description}</strong><span>{transaction.id} · {copy.category}</span></div><time>{copy.date}</time><strong className={transaction.type}>{transaction.amount}</strong></div>;
+            })}
+          </div>
+        </section>
+      </main>
+    </div>
+  );
 }
