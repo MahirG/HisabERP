@@ -1,119 +1,185 @@
-/* Keep the ERP navigation rail docked while the workspace scrolls. */
+/*
+ * Docked ERP navigation v2.
+ *
+ * The shell is locked to the viewport. The left rail never participates in
+ * document scrolling; only the right workspace scrolls. High-specificity
+ * selectors intentionally override the legacy mobile rules in globals.css
+ * and internal-premium.css.
+ */
 .erp-shell {
   --docked-sidebar-width: 248px;
-  display: block;
-  min-height: 100dvh;
+  display: block !important;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0 !important;
+  overflow: hidden;
+  position: relative;
 }
 
-.sidebar {
-  position: fixed;
-  inset: 0 auto 0 0;
-  z-index: 50;
-  width: var(--docked-sidebar-width);
-  height: 100dvh;
-  min-height: 100dvh;
+.erp-shell > .sidebar {
+  position: fixed !important;
+  inset: 0 auto 0 0 !important;
+  z-index: 80;
+  width: var(--docked-sidebar-width) !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
   scrollbar-color: #334155 transparent;
+  border-right: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 18px 0 48px rgba(2, 8, 23, 0.2);
 }
 
-.workspace {
-  min-height: 100dvh;
-  margin-left: var(--docked-sidebar-width);
+.erp-shell > .workspace {
+  width: calc(100% - var(--docked-sidebar-width));
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0 !important;
+  margin-left: var(--docked-sidebar-width) !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
+}
+
+.sidebar-dock-status {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding: 11px 12px;
+  color: #cbd5e1;
+  background: rgba(15, 35, 58, 0.96);
+  border: 1px solid rgba(94, 234, 212, 0.2);
+  border-radius: 12px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(14px);
+}
+
+.sidebar-dock-status span {
+  color: #45dfc2;
+  font-size: 8px;
+  filter: drop-shadow(0 0 5px rgba(69, 223, 194, 0.7));
+}
+
+.sidebar-dock-status strong {
+  font-weight: 850;
 }
 
 @media (max-width: 760px) {
   .erp-shell {
-    --docked-sidebar-width: 168px;
+    --docked-sidebar-width: 164px;
   }
 
-  .sidebar {
-    position: fixed;
-    inset: 0 auto 0 0;
-    width: var(--docked-sidebar-width);
-    height: 100dvh;
-    padding: max(16px, env(safe-area-inset-top)) 12px 16px;
+  .erp-shell > .sidebar {
+    position: fixed !important;
+    inset: 0 auto 0 0 !important;
+    width: var(--docked-sidebar-width) !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    padding: max(16px, env(safe-area-inset-top)) 12px max(14px, env(safe-area-inset-bottom));
   }
 
-  .sidebar .brand {
+  .erp-shell > .sidebar .brand {
     gap: 9px;
     padding: 0 0 18px;
   }
 
-  .sidebar .brand > span {
+  .erp-shell > .sidebar .brand > span {
     width: 36px;
     height: 36px;
     border-radius: 11px;
     flex: 0 0 36px;
   }
 
-  .sidebar .brand strong {
+  .erp-shell > .sidebar .brand strong {
     font-size: 15px;
   }
 
-  .sidebar .brand small {
+  .erp-shell > .sidebar .brand small {
     font-size: 9px;
   }
 
-  .sidebar nav {
-    display: grid;
+  .erp-shell > .sidebar nav {
+    display: grid !important;
     gap: 7px;
     margin-top: 14px;
     overflow: visible;
   }
 
-  .sidebar nav a {
+  .erp-shell > .sidebar nav a {
     padding: 10px 11px;
     font-size: 12px;
     white-space: normal;
   }
 
-  .sidebar-footer {
+  .erp-shell > .sidebar .sidebar-footer {
     display: none;
   }
 
-  .workspace {
-    margin-left: var(--docked-sidebar-width);
+  .erp-shell > .workspace {
+    width: calc(100% - var(--docked-sidebar-width));
+    margin-left: var(--docked-sidebar-width) !important;
     padding: 20px 14px;
+  }
+
+  .sidebar-dock-status {
+    margin-top: 18px;
+    padding: 9px 10px;
+    font-size: 9px;
   }
 }
 
 @media (max-width: 460px) {
   .erp-shell {
-    --docked-sidebar-width: 132px;
+    --docked-sidebar-width: 144px;
   }
 
-  .sidebar {
-    padding-right: 8px;
-    padding-left: 8px;
+  .erp-shell > .sidebar {
+    padding-right: 9px;
+    padding-left: 9px;
   }
 
-  .sidebar .brand {
+  .erp-shell > .sidebar .brand {
     gap: 7px;
   }
 
-  .sidebar .brand > span {
+  .erp-shell > .sidebar .brand > span {
     width: 32px;
     height: 32px;
     flex-basis: 32px;
   }
 
-  .sidebar .brand strong {
+  .erp-shell > .sidebar .brand strong {
     font-size: 13px;
   }
 
-  .sidebar .brand small {
+  .erp-shell > .sidebar .brand small {
     display: none;
   }
 
-  .sidebar nav a {
+  .erp-shell > .sidebar nav a {
     padding: 9px 8px;
     font-size: 11px;
   }
 
-  .workspace {
+  .erp-shell > .workspace {
     padding: 14px 10px;
+  }
+
+  .sidebar-dock-status {
+    gap: 6px;
+    padding: 8px;
+    letter-spacing: 0.05em;
   }
 }
