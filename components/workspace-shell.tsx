@@ -17,9 +17,13 @@ const shellExcludedRoutes = ["/auth", "/onboarding"];
 
 function isActiveRoute(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
+  if (href === "/modules") {
+    return pathname === "/modules" || (pathname.startsWith("/modules/") && !pathname.startsWith("/modules/purchasing-expenses"));
+  }
+  if (href === "/modules/purchasing-expenses") return pathname.startsWith(href);
 
-  const section = href.split("/")[1];
-  return pathname === href || pathname.startsWith(`${href}/`) || pathname.startsWith(`/${section}/`);
+  const section = `/${href.split("/")[1]}`;
+  return pathname === href || pathname.startsWith(`${section}/`);
 }
 
 export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
@@ -44,7 +48,7 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
     { label: d.nav.sales, href: "/sales/invoices/new" },
     { label: d.nav.purchasing, href: "/modules/purchasing-expenses" },
     { label: d.nav.inventory, href: "/inventory" },
-    { label: d.nav.reports, href: "/api/reports/dashboard" },
+    { label: d.nav.reports, href: "/reports" },
   ];
 
   return (
@@ -71,7 +75,6 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
                 className={active ? "active" : undefined}
                 href={item.href}
                 key={item.href}
-                prefetch={!item.href.startsWith("/api/")}
               >
                 {item.label}
               </Link>
