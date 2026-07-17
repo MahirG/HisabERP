@@ -53,12 +53,13 @@ export function Dashboard({ snapshot, user }: { snapshot: DashboardSnapshot; use
     { label: d.nav.reports, href: "/api/reports/dashboard" },
   ];
 
-  return <div className="erp-shell">
+  return <div className="erp-shell" data-layout-version="docked-v2">
     <UserMenu user={user} />
-    <aside className="sidebar">
+    <aside className="sidebar" data-docked="true">
       <div className="brand"><span>H</span><div><strong>Hisab</strong><small>{d.brandSubtitle}</small></div></div>
       <LanguageSelector compact />
       <nav aria-label="Primary workspace navigation">{navItems.map((item, index) => <Link className={index === 0 ? "active" : ""} href={item.href} key={item.href}>{item.label}</Link>)}</nav>
+      <div className="sidebar-dock-status" aria-label="Navigation is docked"><span aria-hidden="true">●</span><strong>Navigation docked</strong></div>
       <div className="sidebar-footer"><a href="/docs/setup">Production controls</a><p>{snapshot.organizationName}<br/>Addis Ababa, Ethiopia</p></div>
     </aside>
 
