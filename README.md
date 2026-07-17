@@ -20,7 +20,7 @@ Without Supabase variables the application runs in **safe demo mode** using samp
 4. Add the production `/auth/callback` URL to Supabase Auth redirects.
 5. Create an account and finish organization onboarding.
 
-The connected Hisab Technologies Supabase project already has the Finance & Accounting and Sales & Invoicing Phase 1 migrations applied. The committed migration files keep new environments and disaster-recovery restores reproducible.
+The connected Hisab Technologies Supabase project already has the Finance, Sales and shared operational-module migrations applied. The committed migration files keep new environments and disaster-recovery restores reproducible.
 
 ## Google OAuth configuration
 
@@ -62,9 +62,11 @@ After changing Google OAuth settings, start a completely new sign-in attempt fro
 - Fiscal periods with soft-close and hard-lock controls
 - VAT configuration, cash/bank records, receipts and payment allocation
 - Quote-to-cash workflow with multi-line commercial documents
-- Fixed-asset capitalization and straight-line depreciation
-- Append-only audit events
-- English, Amharic and Tigrinya with server-resolved language cookies
+- Shared operational record and event-history foundation for every remaining ERP module
+- Role-aware creation and status workflows with unique document numbers and audit events
+- English, Amharic and Tigrinya labels with server-resolved language cookies
+- Persistent light and dark appearance modes
+- Global branded loading transitions and translated completion confirmations
 - CSP/security headers, route protection, health checks and CI
 
 ## Finance & Accounting — Phase 1
@@ -93,15 +95,42 @@ The `/sales` workspace manages the complete customer workflow:
 - customer statements with invoiced, received, returned, outstanding and available-credit balances
 - role, tenant, credit-limit, inventory and accounting-period validation
 
+## Remaining operational modules
+
+Every remaining roadmap module now opens an operational workspace with live organization-scoped records, owners, counterparties, amounts, priorities, due dates, status history, activity, translated labels and governance controls:
+
+- Purchasing & Expenses
+- Inventory & Warehouse
+- Customers & Suppliers
+- Security, Approvals & Audit
+- Reports & Analytics
+- Localization & Compliance
+- Human Resources & Payroll
+- Fixed Assets operations
+- Budgeting & Projects
+- Integrations & Automation
+
+The shared operational foundation is an extensible workflow layer. Domain-specific statutory calculations, payroll tax engines, banking connectors and third-party integrations still require their respective production configuration and professional review.
+
+## Product experience
+
+- all internal navigation and form submissions use the branded Hisab orbit loader
+- successful create, update and monetary actions show translated completion messages with document numbers and ETB amounts
+- the appearance toggle persists light or dark mode locally
+- the language toggle refreshes English, Amharic and Tigrinya server and client content
+- responsive cards, tables, forms, focus states and reduced-motion support are included
+- the docked footer identifies HisabTech.com and links to hisabtechnologies.com
+
 ## Main routes
 
 - `/` dashboard using live data when authenticated
-- `/finance` Finance & Accounting Phase 1 workspace
-- `/sales` Sales & Invoicing Phase 1 workspace
+- `/finance` Finance & Accounting workspace
+- `/sales` Sales & Invoicing workspace
+- `/modules/[slug]` operational workspaces for all remaining modules
 - `/customers` customer directory and creation
 - `/inventory` stock and product creation
-- `/modules` ERP roadmap
-- `/reports` internal dashboard reporting and CSV export
+- `/modules` ERP architecture and module directory
+- `/reports` financial dashboard reporting and CSV export
 - `/docs/setup` deployment checklist
 - `/legacy` browser-only demonstration; never use for real data
 
