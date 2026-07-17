@@ -32,6 +32,7 @@
 - Period-lock enforcement on all journal-based operational posting
 - Audit events for account, journal, payment, asset, depreciation and closing actions
 - Finance RPCs restricted to authenticated users with explicit actor, tenant and role validation
+- Covering indexes for new finance foreign keys and operational lookup paths
 
 ## Requires project-owner configuration
 
