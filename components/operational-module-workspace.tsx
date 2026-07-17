@@ -104,7 +104,7 @@ export function OperationalModuleWorkspace({
             </article>
 
             <article className="ops-panel ops-activity-panel">
-              <div className="ops-panel-head"><div><p className="eyebrow">{copy.recentActivity}</p><h2>{copy.latestRecords}</h2></div><button type="button" onClick={() => setActiveTab("records")}>{copy.viewAll ?? copy.records} →</button></div>
+              <div className="ops-panel-head"><div><p className="eyebrow">{copy.recentActivity}</p><h2>{copy.latestRecords}</h2></div><button type="button" onClick={() => setActiveTab("records")}>{copy.records} →</button></div>
               {snapshot.activity.length ? <div className="ops-activity-list">{snapshot.activity.slice(0, 6).map((item) => (
                 <div key={item.id} className="ops-activity-item"><span className="ops-activity-mark">✓</span><div><strong>{item.recordNumber}</strong><p>{item.message || humanizeOperationalValue(item.eventType, language)}</p><time>{shortDate(item.createdAt, language)}</time></div></div>
               ))}</div> : <EmptyState>{copy.noActivity}</EmptyState>}
@@ -148,7 +148,7 @@ export function OperationalModuleWorkspace({
           </section>
 
           <section className="ops-panel ops-guidance-panel">
-            <div className="ops-panel-head"><div><p className="eyebrow">{copy.features}</p><h2>{moduleCopy.manageTitle || moduleCopy.title}</h2></div><span>{copy.phase} {definition.phase}</span></div>
+            <div className="ops-panel-head"><div><p className="eyebrow">{copy.features}</p><h2>{moduleCopy.title}</h2></div><span>{copy.phase} {definition.phase}</span></div>
             <ul>{moduleCopy.features.map((feature) => <li key={feature}><span>✓</span><div><strong>{feature}</strong><p>{moduleCopy.description}</p></div></li>)}</ul>
           </section>
         </div>
