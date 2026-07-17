@@ -18,6 +18,7 @@ import "./internal-premium.css";
 import "./internal-modules-premium.css";
 import "./user-menu.css";
 import "./user-menu-layout.css";
+import "./docked-sidebar.css";
 
 export const metadata: Metadata = {
   title: { default: "Hisab ERP", template: "%s | Hisab ERP" },
