@@ -114,6 +114,27 @@ revoke insert, update, delete on public.auth_audit_events from anon, authenticat
 revoke insert, update, delete on public.user_security_profiles from anon, authenticated;
 revoke insert, update, delete on public.recovery_codes from anon, authenticated;
 
+create or replace function public.record_auth_audit(
+  p_event_type text,
+  p_organization_id uuid default null,
+  p_severity text default 'info',
+  p_ip_address inet default null,
+  p_user_agent text default null,
+  p_metadata jsonb default '{}'::jsonb
+) returns bigint language plpgsql security definer set search_path=public as $$
+declare event_id bigint; current_user_id uuid := (select auth.uid());
+begin
+  if current_user_id is null then raise exception 'Authentication required'; end if;
+  if p_organization_id is not null and not public.is_org_member(p_organization_id) then raise exception 'Access denied'; end if;
+  if p_event_type !~ '^auth\.[a-z0-9_.-]{1,96}$' then raise exception 'Invalid event type'; end if;
+  if p_severity not in ('info','warning','critical') then raise exception 'Invalid severity'; end if;
+  insert into public.auth_audit_events(user_id,organization_id,event_type,severity,ip_address,user_agent,metadata)
+  values(current_user_id,p_organization_id,p_event_type,p_severity,p_ip_address,left(p_user_agent,500),coalesce(p_metadata,'{}'::jsonb)) returning id into event_id;
+  return event_id;
+end $$;
+revoke all on function public.record_auth_audit(text,uuid,text,inet,text,jsonb) from public;
+grant execute on function public.record_auth_audit(text,uuid,text,inet,text,jsonb) to authenticated;
+
 create or replace function public.set_active_organization(target_organization_id uuid)
 returns void language plpgsql security definer set search_path=public as $$
 begin
