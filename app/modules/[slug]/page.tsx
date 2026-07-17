@@ -9,6 +9,7 @@ export function generateStaticParams() {
 export default async function ModuleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   if (slug === "finance-accounting") redirect("/finance");
+  if (slug === "sales-invoicing") redirect("/sales");
   if (!getErpModule(slug)) notFound();
   return <ModuleDetail slug={slug}/>;
 }
