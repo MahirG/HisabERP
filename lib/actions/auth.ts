@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { appConfig, isSupabaseConfigured } from "../config";
 import { createClient } from "../supabase/server";
@@ -168,7 +169,8 @@ export async function verifyPhoneOtp(formData: FormData) {
 export async function signOut() {
   if (isSupabaseConfigured()) {
     const supabase = await createClient();
-    await supabase.auth.signOut();
+    await supabase.auth.signOut({ scope: "local" });
   }
-  redirect("/auth/login");
+  revalidatePath("/", "layout");
+  redirect("/auth/login?message=Signed+out+successfully");
 }
