@@ -5,7 +5,6 @@ import { mustHaveModules } from "../lib/erp-modules";
 import type { DashboardSnapshot, UserContext } from "../lib/data/types";
 import { LanguageSelector, useLanguage } from "./language-provider";
 import { DemoNotice } from "./demo-notice";
-import { UserMenu } from "./user-menu";
 
 const metricMeta = {
   sales: { tone: "positive", icon: "sales" },
@@ -39,60 +38,40 @@ function greeting(language: string, firstName: string) {
   return `${hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening"}, ${firstName}`;
 }
 
-export function Dashboard({ snapshot, user }: { snapshot: DashboardSnapshot; user: UserContext }) {
+export function Dashboard({ snapshot, user: _user }: { snapshot: DashboardSnapshot; user: UserContext }) {
   const { dictionary, language } = useLanguage();
   const d = dictionary.dashboard;
   const metricValues = snapshot.metrics;
-  const navItems = [
-    { label: d.nav.overview, href: "/" },
-    { label: d.nav.modules, href: "/modules" },
-    { label: d.nav.finance, href: "/finance/journals" },
-    { label: d.nav.sales, href: "/sales/invoices/new" },
-    { label: d.nav.purchasing, href: "/modules/purchasing-expenses" },
-    { label: d.nav.inventory, href: "/inventory" },
-    { label: d.nav.reports, href: "/api/reports/dashboard" },
-  ];
 
-  return <div className="erp-shell" data-layout-version="docked-v2">
-    <UserMenu user={user} />
-    <aside className="sidebar" data-docked="true">
-      <div className="brand"><span>H</span><div><strong>Hisab</strong><small>{d.brandSubtitle}</small></div></div>
-      <LanguageSelector compact />
-      <nav aria-label="Primary workspace navigation">{navItems.map((item, index) => <Link className={index === 0 ? "active" : ""} href={item.href} key={item.href}>{item.label}</Link>)}</nav>
-      <div className="sidebar-dock-status" aria-label="Navigation is docked"><span aria-hidden="true">●</span><strong>Navigation docked</strong></div>
-      <div className="sidebar-footer"><a href="/docs/setup">Production controls</a><p>{snapshot.organizationName}<br/>Addis Ababa, Ethiopia</p></div>
-    </aside>
+  return <div className="dashboard-content">
+    <header className="topbar">
+      <div className="topbar-copy"><p className="eyebrow">{dynamicDate(language)}</p><h1>{greeting(language, snapshot.userName)}</h1><p>{d.summary}</p></div>
+      <div className="top-actions">
+        <span className="workspace-status"><i/> Live workspace</span>
+        <LanguageSelector/>
+        <Link className="ghost action-link" href="/api/reports/dashboard">{d.exportReport}</Link>
+        <Link className="primary action-link" href="/sales/invoices/new">+ {d.newTransaction}</Link>
+      </div>
+    </header>
 
-    <main className="workspace">
-      <header className="topbar">
-        <div className="topbar-copy"><p className="eyebrow">{dynamicDate(language)}</p><h1>{greeting(language, snapshot.userName)}</h1><p>{d.summary}</p></div>
-        <div className="top-actions">
-          <span className="workspace-status"><i/> Live workspace</span>
-          <LanguageSelector/>
-          <Link className="ghost action-link" href="/api/reports/dashboard">{d.exportReport}</Link>
-          <Link className="primary action-link" href="/sales/invoices/new">+ {d.newTransaction}</Link>
-        </div>
-      </header>
+    <DemoNotice mode={snapshot.mode} />
 
-      <DemoNotice mode={snapshot.mode} />
+    <section className="command-strip" aria-label="Business command center">
+      <div><span>01</span><p>Cash visibility</p><strong>{money(metricValues.cash, language)}</strong></div>
+      <div><span>02</span><p>Revenue pulse</p><strong>{money(metricValues.sales, language)}</strong></div>
+      <div><span>03</span><p>Collection focus</p><strong>{money(metricValues.debt, language)}</strong></div>
+      <Link href="/sales/invoices/new"><small>Quick action</small><strong>Create invoice</strong><b>→</b></Link>
+    </section>
 
-      <section className="command-strip" aria-label="Business command center">
-        <div><span>01</span><p>Cash visibility</p><strong>{money(metricValues.cash, language)}</strong></div>
-        <div><span>02</span><p>Revenue pulse</p><strong>{money(metricValues.sales, language)}</strong></div>
-        <div><span>03</span><p>Collection focus</p><strong>{money(metricValues.debt, language)}</strong></div>
-        <Link href="/sales/invoices/new"><small>Quick action</small><strong>Create invoice</strong><b>→</b></Link>
-      </section>
+    <section className="metrics-grid">{(["sales", "expenses", "cash", "debt"] as const).map((key) => { const meta = metricMeta[key]; const copy = d.metricItems[key]; return <article className="metric-card" key={key}><div className={`metric-icon ${meta.tone}`}><Icon name={meta.icon}/></div><div><p>{copy.label}</p><strong>{money(metricValues[key], language)}</strong><span className={meta.tone}>{copy.change}</span></div></article>; })}</section>
 
-      <section className="metrics-grid">{(["sales", "expenses", "cash", "debt"] as const).map((key) => { const meta = metricMeta[key]; const copy = d.metricItems[key]; return <article className="metric-card" key={key}><div className={`metric-icon ${meta.tone}`}><Icon name={meta.icon}/></div><div><p>{copy.label}</p><strong>{money(metricValues[key], language)}</strong><span className={meta.tone}>{copy.change}</span></div></article>; })}</section>
+    <section className="panel module-preview"><div className="panel-head"><div><p className="eyebrow">{d.erpFoundation}</p><h2>{d.coreModules}</h2></div><Link className="text-button" href="/modules">{d.viewAllModules} →</Link></div><div className="module-preview-grid">{mustHaveModules.slice(0, 4).map((module) => { const copy = dictionary.moduleItems[module.slug]; return <Link href={`/modules/${module.slug}`} key={module.slug}><span>{d.phase} {module.phase}</span><strong>{copy.shortTitle}</strong><p>{copy.description}</p><b>Explore module →</b></Link>; })}</div></section>
 
-      <section className="panel module-preview"><div className="panel-head"><div><p className="eyebrow">{d.erpFoundation}</p><h2>{d.coreModules}</h2></div><Link className="text-button" href="/modules">{d.viewAllModules} →</Link></div><div className="module-preview-grid">{mustHaveModules.slice(0, 4).map((module) => { const copy = dictionary.moduleItems[module.slug]; return <Link href={`/modules/${module.slug}`} key={module.slug}><span>{d.phase} {module.phase}</span><strong>{copy.shortTitle}</strong><p>{copy.description}</p><b>Explore module →</b></Link>; })}</div></section>
+    <section className="content-grid">
+      <article className="panel performance-panel"><div className="panel-head"><div><p className="eyebrow">{d.financialPerformance}</p><h2>{d.revenueOverview}</h2></div><span className="period-pill">{d.last12Months}</span></div><div className="revenue-summary"><strong>{money(snapshot.monthlyRevenue.reduce((sum, value) => sum + value, 0), language)}</strong><span>+18.2% {d.fromLastYear}</span></div><div className="chart" aria-label={d.revenueChart}>{snapshot.monthlyRevenue.map((value, index) => { const max = Math.max(...snapshot.monthlyRevenue, 1); return <div className="bar-wrap" key={`${index}-${value}`}><div className="bar" style={{height: `${Math.max(8, (value / max) * 100)}%`}}/><small>{d.months[index] ?? index + 1}</small></div>; })}</div></article>
+      <article className="panel health-panel"><div className="panel-head"><div><p className="eyebrow">{d.businessHealth}</p><h2>{d.excellentCondition}</h2></div><span className="score">{snapshot.health.score}</span></div><div className="health-ring" style={{ background: `conic-gradient(var(--green) 0 ${snapshot.health.score}%,#e5e7eb ${snapshot.health.score}%)` }}><div><strong>{snapshot.health.score}</strong><span>/100</span></div></div><ul><li><span>{d.cashFlow}</span><strong>{d.strong}</strong></li><li><span>{d.expenseControl}</span><strong>{d.good}</strong></li><li><span>{d.debtCollection}</span><strong>{d.needsAttention}</strong></li></ul></article>
+    </section>
 
-      <section className="content-grid">
-        <article className="panel performance-panel"><div className="panel-head"><div><p className="eyebrow">{d.financialPerformance}</p><h2>{d.revenueOverview}</h2></div><span className="period-pill">{d.last12Months}</span></div><div className="revenue-summary"><strong>{money(snapshot.monthlyRevenue.reduce((sum, value) => sum + value, 0), language)}</strong><span>+18.2% {d.fromLastYear}</span></div><div className="chart" aria-label={d.revenueChart}>{snapshot.monthlyRevenue.map((value, index) => { const max = Math.max(...snapshot.monthlyRevenue, 1); return <div className="bar-wrap" key={`${index}-${value}`}><div className="bar" style={{height: `${Math.max(8, (value / max) * 100)}%`}}/><small>{d.months[index] ?? index + 1}</small></div>; })}</div></article>
-        <article className="panel health-panel"><div className="panel-head"><div><p className="eyebrow">{d.businessHealth}</p><h2>{d.excellentCondition}</h2></div><span className="score">{snapshot.health.score}</span></div><div className="health-ring" style={{ background: `conic-gradient(var(--green) 0 ${snapshot.health.score}%,#e5e7eb ${snapshot.health.score}%)` }}><div><strong>{snapshot.health.score}</strong><span>/100</span></div></div><ul><li><span>{d.cashFlow}</span><strong>{d.strong}</strong></li><li><span>{d.expenseControl}</span><strong>{d.good}</strong></li><li><span>{d.debtCollection}</span><strong>{d.needsAttention}</strong></li></ul></article>
-      </section>
-
-      <section className="panel transactions-panel"><div className="panel-head"><div><p className="eyebrow">{d.latestActivity}</p><h2>{d.recentTransactions}</h2></div><Link className="text-button" href="/finance/journals">{d.viewAll} →</Link></div><div className="transaction-list">{snapshot.recentTransactions.map((transaction) => <div className="transaction" key={transaction.id}><div className={`transaction-mark ${transaction.type}`}>{transaction.type === "income" ? "↗" : "↙"}</div><div className="transaction-main"><strong>{transaction.description}</strong><span>{transaction.id} · {transaction.category}</span></div><time>{new Intl.DateTimeFormat(language === "am" ? "am-ET" : language === "ti" ? "ti-ET" : "en-ET", { dateStyle: "medium" }).format(new Date(transaction.date))}</time><strong className={transaction.type}>{transaction.type === "income" ? "+" : "−"} {money(transaction.amount, language)}</strong></div>)}</div></section>
-    </main>
+    <section className="panel transactions-panel"><div className="panel-head"><div><p className="eyebrow">{d.latestActivity}</p><h2>{d.recentTransactions}</h2></div><Link className="text-button" href="/finance/journals">{d.viewAll} →</Link></div><div className="transaction-list">{snapshot.recentTransactions.map((transaction) => <div className="transaction" key={transaction.id}><div className={`transaction-mark ${transaction.type}`}>{transaction.type === "income" ? "↗" : "↙"}</div><div className="transaction-main"><strong>{transaction.description}</strong><span>{transaction.id} · {transaction.category}</span></div><time>{new Intl.DateTimeFormat(language === "am" ? "am-ET" : language === "ti" ? "ti-ET" : "en-ET", { dateStyle: "medium" }).format(new Date(transaction.date))}</time><strong className={transaction.type}>{transaction.type === "income" ? "+" : "−"} {money(transaction.amount, language)}</strong></div>)}</div></section>
   </div>;
 }

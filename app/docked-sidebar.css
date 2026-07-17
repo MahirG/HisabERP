@@ -1,10 +1,9 @@
 /*
- * Docked ERP navigation v2.
+ * Persistent docked ERP navigation v3.
  *
- * The shell is locked to the viewport. The left rail never participates in
- * document scrolling; only the right workspace scrolls. High-specificity
- * selectors intentionally override the legacy mobile rules in globals.css
- * and internal-premium.css.
+ * The shell lives in the shared Next.js layout, so client-side route changes
+ * replace only the workspace content. The left rail stays mounted and only the
+ * right workspace scrolls.
  */
 .erp-shell {
   --docked-sidebar-width: 248px;
@@ -35,16 +34,28 @@
 }
 
 .erp-shell > .workspace {
+  position: relative;
   width: calc(100% - var(--docked-sidebar-width));
   height: 100vh;
   height: 100dvh;
   min-height: 0 !important;
   margin-left: var(--docked-sidebar-width) !important;
+  padding: 0 !important;
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
   scrollbar-gutter: stable;
+}
+
+.dashboard-content {
+  min-height: 100%;
+  padding: 34px;
+}
+
+.erp-shell > .sidebar nav a[aria-current="page"] {
+  background: #1e293b;
+  color: #fff;
 }
 
 .sidebar-dock-status {
@@ -130,6 +141,10 @@
   .erp-shell > .workspace {
     width: calc(100% - var(--docked-sidebar-width));
     margin-left: var(--docked-sidebar-width) !important;
+    padding: 0 !important;
+  }
+
+  .dashboard-content {
     padding: 20px 14px;
   }
 
@@ -173,7 +188,7 @@
     font-size: 11px;
   }
 
-  .erp-shell > .workspace {
+  .dashboard-content {
     padding: 14px 10px;
   }
 

@@ -2,8 +2,8 @@ import { unstable_noStore as noStore } from "next/cache";
 import { isSupabaseConfigured } from "../config";
 import { createClient } from "../supabase/server";
 import { getCurrentUserContext } from "./context";
-import { demoCustomers, demoDashboard, demoJournals, demoProducts } from "./demo";
-import type { CustomerRecord, DashboardSnapshot, JournalRecord, ProductRecord } from "./types";
+import { demoCustomers, demoDashboard, demoFinance, demoJournals, demoProducts } from "./demo";
+import type { CustomerRecord, DashboardSnapshot, FinanceSnapshot, JournalRecord, ProductRecord } from "./types";
 
 export async function getDashboardSnapshot(): Promise<DashboardSnapshot> {
   noStore();
@@ -15,6 +15,17 @@ export async function getDashboardSnapshot(): Promise<DashboardSnapshot> {
   if (error || !data) throw new Error(`Unable to load dashboard: ${error?.message ?? "Unknown error"}`);
   const snapshot = data as Omit<DashboardSnapshot, "mode" | "userName" | "organizationName">;
   return { ...snapshot, mode: "live", userName: context.fullName.split(" ")[0], organizationName: context.organizationName };
+}
+
+export async function getFinanceSnapshot(): Promise<FinanceSnapshot> {
+  noStore();
+  if (!isSupabaseConfigured()) return demoFinance;
+  const context = await getCurrentUserContext({ required: true });
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("get_finance_snapshot", { target_organization_id: context!.organizationId });
+  if (error || !data) throw new Error(`Unable to load finance workspace: ${error?.message ?? "Unknown error"}`);
+  const snapshot = data as Omit<FinanceSnapshot, "mode" | "organizationName">;
+  return { ...snapshot, mode: "live", organizationName: context!.organizationName };
 }
 
 export async function listCustomers(): Promise<{ mode: "demo" | "live"; records: CustomerRecord[] }> {

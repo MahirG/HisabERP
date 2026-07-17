@@ -1,6 +1,6 @@
 # Hisab ERP — production foundation
 
-Hisab ERP is a multilingual Next.js application for Ethiopian businesses. The native application now includes a production-oriented Supabase/PostgreSQL foundation while retaining the original HTML prototype at `/legacy` as a clearly marked demonstration.
+Hisab ERP is a multilingual Next.js application for Ethiopian businesses. The native application includes a production-oriented Supabase/PostgreSQL foundation while retaining the original HTML prototype at `/legacy` as a clearly marked demonstration.
 
 ## Run locally
 
@@ -15,10 +15,12 @@ Without Supabase variables the application runs in **safe demo mode** using samp
 ## Enable live mode
 
 1. Create a Supabase project.
-2. Run the three ordered SQL files in `supabase/migrations/` (`001_schema`, `002_workflows`, then `003_policies`).
+2. Run every ordered SQL file in `supabase/migrations/` by migration timestamp.
 3. Add the public Supabase URL and publishable key to `.env.local` and Vercel.
 4. Add the production `/auth/callback` URL to Supabase Auth redirects.
 5. Create an account and finish organization onboarding.
+
+The connected Hisab Technologies Supabase project already has the Finance & Accounting Phase 1 migrations applied. The committed migration files keep new environments and disaster-recovery restores reproducible.
 
 ## Google OAuth configuration
 
@@ -53,21 +55,39 @@ After changing Google OAuth settings, start a completely new sign-in attempt fro
 ## Production architecture
 
 - Next.js App Router and React Server Components
+- Persistent authenticated workspace shell with docked navigation
 - Supabase Auth using cookie-based SSR clients
 - PostgreSQL with organization-level Row Level Security
-- Double-entry journals and atomic invoice posting
+- Double-entry general ledger and atomic operational posting
+- Fiscal periods with soft-close and hard-lock controls
+- VAT configuration, cash/bank records, receipts and payment allocation
+- Fixed-asset capitalization and straight-line depreciation
 - Append-only audit events
 - English, Amharic and Tigrinya with server-resolved language cookies
 - CSP/security headers, route protection, health checks and CI
 
+## Finance & Accounting — Phase 1
+
+The `/finance` workspace is the financial source of truth for sales, expenses, payments, taxes, assets and closing periods. It includes:
+
+- overview with current-month profit and loss, balance-sheet position and trial-balance integrity
+- chart of accounts and cash/bank account creation
+- balanced manual journal posting with immutable posted history
+- customer receipts, supplier payments, expenses and invoice allocation
+- input/output VAT position
+- asset registration, acquisition posting and monthly straight-line depreciation
+- accounting periods with open, soft-closed and locked states
+- organization, role and accounting-period validation on every posting RPC
+
 ## Main routes
 
 - `/` dashboard using live data when authenticated
+- `/finance` Finance & Accounting Phase 1 workspace
 - `/customers` customer directory and creation
 - `/inventory` stock and product creation
 - `/sales/invoices/new` atomic sales invoice posting
-- `/finance/journals` accounting journal review
 - `/modules` ERP roadmap
+- `/reports` internal dashboard reporting and CSV export
 - `/docs/setup` deployment checklist
 - `/legacy` browser-only demonstration; never use for real data
 
