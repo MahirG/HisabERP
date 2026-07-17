@@ -20,7 +20,7 @@ Without Supabase variables the application runs in **safe demo mode** using samp
 4. Add the production `/auth/callback` URL to Supabase Auth redirects.
 5. Create an account and finish organization onboarding.
 
-The connected Hisab Technologies Supabase project already has the Finance & Accounting Phase 1 migrations applied. The committed migration files keep new environments and disaster-recovery restores reproducible.
+The connected Hisab Technologies Supabase project already has the Finance & Accounting and Sales & Invoicing Phase 1 migrations applied. The committed migration files keep new environments and disaster-recovery restores reproducible.
 
 ## Google OAuth configuration
 
@@ -61,6 +61,7 @@ After changing Google OAuth settings, start a completely new sign-in attempt fro
 - Double-entry general ledger and atomic operational posting
 - Fiscal periods with soft-close and hard-lock controls
 - VAT configuration, cash/bank records, receipts and payment allocation
+- Quote-to-cash workflow with multi-line commercial documents
 - Fixed-asset capitalization and straight-line depreciation
 - Append-only audit events
 - English, Amharic and Tigrinya with server-resolved language cookies
@@ -79,13 +80,26 @@ The `/finance` workspace is the financial source of truth for sales, expenses, p
 - accounting periods with open, soft-closed and locked states
 - organization, role and accounting-period validation on every posting RPC
 
+## Sales & Invoicing — Phase 1
+
+The `/sales` workspace manages the complete customer workflow:
+
+- multi-line quotations with validity dates, discounts, VAT and status tracking
+- direct sales orders or conversion from quotations
+- direct invoices or atomic order-to-invoice conversion
+- stock issue, receivable, sales revenue, output VAT and COGS posting in one transaction
+- customer receipts with optional invoice allocation and automatic status updates
+- customer returns with inventory, COGS, VAT and receivable reversal
+- customer statements with invoiced, received, returned, outstanding and available-credit balances
+- role, tenant, credit-limit, inventory and accounting-period validation
+
 ## Main routes
 
 - `/` dashboard using live data when authenticated
 - `/finance` Finance & Accounting Phase 1 workspace
+- `/sales` Sales & Invoicing Phase 1 workspace
 - `/customers` customer directory and creation
 - `/inventory` stock and product creation
-- `/sales/invoices/new` atomic sales invoice posting
 - `/modules` ERP roadmap
 - `/reports` internal dashboard reporting and CSV export
 - `/docs/setup` deployment checklist
