@@ -3,11 +3,20 @@ import { isSupabaseConfigured } from "../config";
 import { createClient } from "../supabase/server";
 import type { UserContext } from "./types";
 
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" ? value as Record<string, unknown> : {};
+}
+
+function firstString(...values: unknown[]) {
+  return values.find((value): value is string => typeof value === "string" && value.trim().length > 0) ?? "";
+}
+
 export async function getCurrentUserContext(options: { required?: boolean } = {}): Promise<UserContext | null> {
   if (!isSupabaseConfigured()) return null;
   const supabase = await createClient();
   const { data: claimsData } = await supabase.auth.getClaims();
-  const userId = claimsData?.claims?.sub;
+  const claims = asRecord(claimsData?.claims);
+  const userId = firstString(claims.sub);
   if (!userId) {
     if (options.required) redirect("/auth/login");
     return null;
@@ -27,14 +36,20 @@ export async function getCurrentUserContext(options: { required?: boolean } = {}
   }
 
   const organization = Array.isArray(data.organizations) ? data.organizations[0] : data.organizations;
+  const userMetadata = asRecord(claims.user_metadata);
+  const appMetadata = asRecord(claims.app_metadata);
+  const email = firstString(claims.email);
+
   return {
     userId,
-    email: String(claimsData.claims.email ?? ""),
-    fullName: String(data.full_name || claimsData.claims.email || "User"),
+    email,
+    fullName: firstString(data.full_name, userMetadata.full_name, userMetadata.name, email, "User"),
     organizationId: String(data.organization_id),
     organizationName: String((organization as { name?: string } | null)?.name || "Organization"),
     branchId: data.branch_id ? String(data.branch_id) : null,
     role: data.role as UserContext["role"],
+    avatarUrl: firstString(userMetadata.avatar_url, userMetadata.picture) || null,
+    provider: firstString(appMetadata.provider) || null,
   };
 }
 
