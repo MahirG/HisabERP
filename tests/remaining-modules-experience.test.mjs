@@ -36,9 +36,10 @@ test("all remaining ERP modules use the operational workspace", async () => {
 });
 
 test("remaining modules database foundation is tenant isolated and audited", async () => {
-  const [schema, workflows] = await Promise.all([
+  const [schema, workflows, permissions] = await Promise.all([
     read("supabase/migrations/20260717221000_remaining_modules_operational_foundation.sql"),
     read("supabase/migrations/20260717221100_remaining_modules_operational_workflows.sql"),
+    read("supabase/migrations/20260717221200_remaining_modules_restrict_direct_writes.sql"),
   ]);
 
   assert.match(schema, /operational_records/);
@@ -50,6 +51,8 @@ test("remaining modules database foundation is tenant isolated and audited", asy
   assert.match(workflows, /get_operational_module_snapshot/);
   assert.match(workflows, /audit_events/);
   assert.match(workflows, /grant execute[\s\S]*authenticated/i);
+  assert.match(permissions, /revoke all[\s\S]*authenticated/i);
+  assert.match(permissions, /grant select[\s\S]*authenticated/i);
 });
 
 test("product experience includes transitions, confirmations, themes and branding", async () => {
