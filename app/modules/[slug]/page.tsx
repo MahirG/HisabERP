@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { ModuleDetail } from "../../../components/module-detail";
 import { erpModules, getErpModule } from "../../../lib/erp-modules";
 
@@ -8,6 +8,7 @@ export function generateStaticParams() {
 
 export default async function ModuleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  if (slug === "finance-accounting") redirect("/finance");
   if (!getErpModule(slug)) notFound();
   return <ModuleDetail slug={slug}/>;
 }
