@@ -4,6 +4,7 @@ import { appConfig, isSupabaseConfigured } from "../config";
 
 const publicPageRoutes = new Set([
   "/auth/login",
+  "/auth/phone-login",
   "/auth/sign-up",
   "/auth/verify-phone",
   "/auth/email-login",
@@ -60,7 +61,8 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
   }
 
   const authenticatedRecoveryPage = path === "/auth/reset-password";
-  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/auth/callback" && !authenticatedRecoveryPage) {
+  const authenticatedPreview = request.nextUrl.searchParams.get("preview") === "1";
+  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/auth/callback" && !authenticatedRecoveryPage && !authenticatedPreview) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     url.search = "";
