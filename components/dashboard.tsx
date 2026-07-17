@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { signOut } from "../lib/actions/auth";
 import { mustHaveModules } from "../lib/erp-modules";
-import type { DashboardSnapshot } from "../lib/data/types";
+import type { DashboardSnapshot, UserContext } from "../lib/data/types";
 import { LanguageSelector, useLanguage } from "./language-provider";
 import { DemoNotice } from "./demo-notice";
+import { UserMenu } from "./user-menu";
 
 const metricMeta = {
   sales: { tone: "positive", icon: "sales" },
@@ -39,13 +39,7 @@ function greeting(language: string, firstName: string) {
   return `${hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening"}, ${firstName}`;
 }
 
-function signOutLabel(language: string) {
-  if (language === "am") return "ውጣ";
-  if (language === "ti") return "ውጻእ";
-  return "Sign out";
-}
-
-export function Dashboard({ snapshot }: { snapshot: DashboardSnapshot }) {
+export function Dashboard({ snapshot, user }: { snapshot: DashboardSnapshot; user: UserContext }) {
   const { dictionary, language } = useLanguage();
   const d = dictionary.dashboard;
   const metricValues = snapshot.metrics;
@@ -60,6 +54,7 @@ export function Dashboard({ snapshot }: { snapshot: DashboardSnapshot }) {
   ];
 
   return <div className="erp-shell">
+    <UserMenu user={user} />
     <aside className="sidebar">
       <div className="brand"><span>H</span><div><strong>Hisab</strong><small>{d.brandSubtitle}</small></div></div>
       <LanguageSelector compact />
@@ -75,8 +70,6 @@ export function Dashboard({ snapshot }: { snapshot: DashboardSnapshot }) {
           <LanguageSelector/>
           <Link className="ghost action-link" href="/api/reports/dashboard">{d.exportReport}</Link>
           <Link className="primary action-link" href="/sales/invoices/new">+ {d.newTransaction}</Link>
-          <div className="avatar" title={snapshot.userName}>{snapshot.userName.slice(0, 2).toUpperCase()}</div>
-          <form action={signOut}><button className="signout-button" type="submit" title={signOutLabel(language)} aria-label={signOutLabel(language)}>↪</button></form>
         </div>
       </header>
 
