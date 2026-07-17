@@ -9,7 +9,7 @@ function securityHeaders(response: NextResponse, nonce: string, legacy: boolean)
     "default-src 'self'",
     `script-src ${scriptPolicy}`,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob:",
+    "img-src 'self' data: blob: https://*.googleusercontent.com",
     "font-src 'self' data:",
     `connect-src 'self' https://*.supabase.co wss://*.supabase.co ${extraConnect}`.trim(),
     "frame-ancestors 'none'",
