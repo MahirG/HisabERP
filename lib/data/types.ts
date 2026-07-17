@@ -6,6 +6,8 @@ export type UserContext = {
   organizationName: string;
   branchId: string | null;
   role: "owner" | "admin" | "accountant" | "sales" | "inventory" | "viewer";
+  avatarUrl: string | null;
+  provider: string | null;
 };
 
 export type DashboardSnapshot = {
