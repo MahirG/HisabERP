@@ -18,8 +18,9 @@ const premiumCopy = {
     protected: "Built-in protection",
     protectedText: "Organization-level data isolation",
     heading: "Create your workspace",
-    helper: "Start with Google, email, or verify your company account using a mobile number.",
-    email: "Create account with email",
+    helper: "Start with Google, secure email verification, or a verified mobile number.",
+    email: "Create a secure account with email",
+    emailHelp: "Recommended: verify your email before creating your business workspace.",
     sms: "Phone verification requires an enabled SMS provider in Supabase.",
     trust: "Designed in Ethiopia · Ready for serious business",
   },
@@ -32,8 +33,9 @@ const premiumCopy = {
     protected: "አብሮ የተሰራ ጥበቃ",
     protectedText: "በድርጅት ደረጃ የውሂብ መለያየት",
     heading: "የሥራ ቦታዎን ይፍጠሩ",
-    helper: "በGoogle፣ በኢሜይል ይጀምሩ ወይም የድርጅት መለያዎን በሞባይል ቁጥር ያረጋግጡ።",
-    email: "በኢሜይል መለያ ይፍጠሩ",
+    helper: "በGoogle፣ ደህንነቱ በተጠበቀ የኢሜይል ማረጋገጫ ወይም በተረጋገጠ ሞባይል ቁጥር ይጀምሩ።",
+    email: "በኢሜይል ደህንነቱ የተጠበቀ መለያ ይፍጠሩ",
+    emailHelp: "የንግድ ሥራ ቦታዎን ከመፍጠርዎ በፊት ኢሜይልዎን ማረጋገጥ ይመከራል።",
     sms: "የስልክ ማረጋገጫ በSupabase ውስጥ የSMS አቅራቢ እንዲነቃ ይፈልጋል።",
     trust: "በኢትዮጵያ የተነደፈ · ለከባድ ንግድ ዝግጁ",
   },
@@ -46,8 +48,9 @@ const premiumCopy = {
     protected: "ውሽጣዊ ምክልኻል",
     protectedText: "ብደረጃ ውድብ ዝተፈልየ ዳታ",
     heading: "መስርሒ ቦታኹም ፍጠሩ",
-    helper: "ብGoogle፣ ብኢሜይል ጀምሩ ወይ ኣካውንት ውድብኩም ብቁጽሪ ሞባይል ኣረጋግጹ።",
-    email: "ብኢሜይል ኣካውንት ፍጠሩ",
+    helper: "ብGoogle፣ ብውሑስ ምርግጋጽ ኢሜይል ወይ ብዝተረጋገጸ ቁጽሪ ሞባይል ጀምሩ።",
+    email: "ብኢሜይል ውሑስ ኣካውንት ፍጠሩ",
+    emailHelp: "ቅድሚ መስርሒ ቦታ ንግድኹም ምፍጣርኩም ኢሜይልኩም ከተረጋግጹ ይምከር።",
     sms: "ምርግጋጽ ተሌፎን ኣብ Supabase ዝተነቕሐ SMS provider ይደሊ።",
     trust: "ኣብ ኢትዮጵያ ዝተነድፈ · ንዓቢ ንግዲ ድሉው",
   },
@@ -90,7 +93,8 @@ export default async function SignUpPage({ searchParams }: { searchParams: Promi
           {!configured && <div className="form-alert warning">{c.supabaseMissing}</div>}
           {params.error && <div className="form-alert error">{params.error}</div>}
           <SocialAuthButtons language={localized.language} next="/onboarding" disabled={!configured}/>
-          <Link className="secondary auth-submit action-link" href="/auth/email-sign-up">{p.email}</Link>
+          <Link className="primary auth-submit action-link" href="/auth/email-sign-up">{p.email}</Link>
+          <p className="auth-switch">{p.emailHelp}</p>
           <form action={signUp} className="erp-form premium-auth-form premium-signup-form">
             <div className="identity-grid">
               <label className="premium-field"><span className="field-label">{c.fullName}</span><span className="field-control"><input name="fullName" autoComplete="name" required maxLength={120}/></span></label>
