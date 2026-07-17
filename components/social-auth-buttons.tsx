@@ -3,17 +3,17 @@ import { signInWithOAuthProvider } from "../lib/actions/auth";
 
 const socialCopy = {
   en: {
-    google: "Continue with Google",
+    google: "Continue to HisabTech with Google",
     apple: "Continue with Apple",
     divider: "or continue with phone",
   },
   am: {
-    google: "በGoogle ይቀጥሉ",
+    google: "በGoogle ወደ HisabTech ይቀጥሉ",
     apple: "በApple ይቀጥሉ",
     divider: "ወይም በስልክ ይቀጥሉ",
   },
   ti: {
-    google: "ብGoogle ቀጽሉ",
+    google: "ብGoogle ናብ HisabTech ቀጽሉ",
     apple: "ብApple ቀጽሉ",
     divider: "ወይ ብተሌፎን ቀጽሉ",
   },
