@@ -18,7 +18,8 @@ const premiumCopy = {
     fast: "Fast decisions",
     fastText: "Live business visibility",
     greeting: "Welcome back",
-    helper: "Sign in securely with Google, Apple or your registered mobile number.",
+    helper: "Sign in securely with Google, email, or your registered mobile number.",
+    email: "Continue with email and password",
     trust: "Encrypted sessions · Organization-isolated data",
   },
   am: {
@@ -30,7 +31,8 @@ const premiumCopy = {
     fast: "ፈጣን ውሳኔ",
     fastText: "የቀጥታ የንግድ እይታ",
     greeting: "እንኳን ደህና መጡ",
-    helper: "በGoogle፣ Apple ወይም በተመዘገበው የሞባይል ቁጥርዎ በደህና ይግቡ።",
+    helper: "በGoogle፣ በኢሜይል ወይም በተመዘገበው የሞባይል ቁጥርዎ በደህና ይግቡ።",
+    email: "በኢሜይልና የይለፍ ቃል ይቀጥሉ",
     trust: "የተመሰጠረ ክፍለ ጊዜ · የተለየ የድርጅት ውሂብ",
   },
   ti: {
@@ -42,7 +44,8 @@ const premiumCopy = {
     fast: "ቅልጡፍ ውሳነ",
     fastText: "ቀጥታዊ እይታ ንግዲ",
     greeting: "እንቋዕ ብደሓን መጻእኩም",
-    helper: "ብGoogle፣ Apple ወይ ብዝተመዝገበ ቁጽሪ ሞባይልኩም ብውሕስነት እተዉ።",
+    helper: "ብGoogle፣ ብኢሜይል ወይ ብዝተመዝገበ ቁጽሪ ሞባይልኩም ብውሕስነት እተዉ።",
+    email: "ብኢሜይልን መሕለፊ ቃልን ቀጽሉ",
     trust: "ዝተመስጠረ ክፍለ ግዜ · ዝተፈልየ ዳታ ውድብ",
   },
 } as const;
@@ -86,6 +89,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           {params.error && <div className="form-alert error">{params.error}</div>}
           {params.message && <div className="form-alert success">{params.message}</div>}
           <SocialAuthButtons language={localized.language} next={next} disabled={!configured}/>
+          <Link className="secondary auth-submit action-link" href={`/auth/email-login?next=${encodeURIComponent(next)}`}>{p.email}</Link>
           <form action={signIn} className="erp-form premium-auth-form">
             <input type="hidden" name="next" value={next}/>
             <AuthCredentialsFields mode="sign-in" language={localized.language}/>

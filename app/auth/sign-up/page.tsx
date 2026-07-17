@@ -18,7 +18,8 @@ const premiumCopy = {
     protected: "Built-in protection",
     protectedText: "Organization-level data isolation",
     heading: "Create your workspace",
-    helper: "Start with Google, Apple or verify your company account using a mobile number.",
+    helper: "Start with Google, email, or verify your company account using a mobile number.",
+    email: "Create account with email",
     sms: "Phone verification requires an enabled SMS provider in Supabase.",
     trust: "Designed in Ethiopia · Ready for serious business",
   },
@@ -31,7 +32,8 @@ const premiumCopy = {
     protected: "አብሮ የተሰራ ጥበቃ",
     protectedText: "በድርጅት ደረጃ የውሂብ መለያየት",
     heading: "የሥራ ቦታዎን ይፍጠሩ",
-    helper: "በGoogle፣ Apple ይጀምሩ ወይም የድርጅት መለያዎን በሞባይል ቁጥር ያረጋግጡ።",
+    helper: "በGoogle፣ በኢሜይል ይጀምሩ ወይም የድርጅት መለያዎን በሞባይል ቁጥር ያረጋግጡ።",
+    email: "በኢሜይል መለያ ይፍጠሩ",
     sms: "የስልክ ማረጋገጫ በSupabase ውስጥ የSMS አቅራቢ እንዲነቃ ይፈልጋል።",
     trust: "በኢትዮጵያ የተነደፈ · ለከባድ ንግድ ዝግጁ",
   },
@@ -44,7 +46,8 @@ const premiumCopy = {
     protected: "ውሽጣዊ ምክልኻል",
     protectedText: "ብደረጃ ውድብ ዝተፈልየ ዳታ",
     heading: "መስርሒ ቦታኹም ፍጠሩ",
-    helper: "ብGoogle፣ Apple ጀምሩ ወይ ኣካውንት ውድብኩም ብቁጽሪ ሞባይል ኣረጋግጹ።",
+    helper: "ብGoogle፣ ብኢሜይል ጀምሩ ወይ ኣካውንት ውድብኩም ብቁጽሪ ሞባይል ኣረጋግጹ።",
+    email: "ብኢሜይል ኣካውንት ፍጠሩ",
     sms: "ምርግጋጽ ተሌፎን ኣብ Supabase ዝተነቕሐ SMS provider ይደሊ።",
     trust: "ኣብ ኢትዮጵያ ዝተነድፈ · ንዓቢ ንግዲ ድሉው",
   },
@@ -87,6 +90,7 @@ export default async function SignUpPage({ searchParams }: { searchParams: Promi
           {!configured && <div className="form-alert warning">{c.supabaseMissing}</div>}
           {params.error && <div className="form-alert error">{params.error}</div>}
           <SocialAuthButtons language={localized.language} next="/onboarding" disabled={!configured}/>
+          <Link className="secondary auth-submit action-link" href="/auth/email-sign-up">{p.email}</Link>
           <form action={signUp} className="erp-form premium-auth-form premium-signup-form">
             <div className="identity-grid">
               <label className="premium-field"><span className="field-label">{c.fullName}</span><span className="field-control"><input name="fullName" autoComplete="name" required maxLength={120}/></span></label>
