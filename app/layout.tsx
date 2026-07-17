@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { cookies } from "next/headers";
 import { LanguageProvider } from "../components/language-provider";
+import { WorkspaceShell } from "../components/workspace-shell";
+import { getCurrentUserContext } from "../lib/data/context";
 import type { Language } from "../lib/translations";
 import "./font-benaiah-1.css";
 import "./font-benaiah-2.css";
@@ -29,8 +31,17 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 5, viewportFit: "cover", themeColor: "#0F172A" };
 
 export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  const cookieStore = await cookies();
+  const [cookieStore, user] = await Promise.all([cookies(), getCurrentUserContext()]);
   const saved = cookieStore.get("hisab_locale")?.value;
   const initialLanguage: Language = saved === "am" || saved === "ti" ? saved : "en";
-  return <html lang={initialLanguage} data-language={initialLanguage} suppressHydrationWarning><body><LanguageProvider initialLanguage={initialLanguage}>{children}</LanguageProvider></body></html>;
+
+  return (
+    <html lang={initialLanguage} data-language={initialLanguage} suppressHydrationWarning>
+      <body>
+        <LanguageProvider initialLanguage={initialLanguage}>
+          <WorkspaceShell user={user}>{children}</WorkspaceShell>
+        </LanguageProvider>
+      </body>
+    </html>
+  );
 }
