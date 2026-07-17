@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import type { ReactNode } from "react";
 import { cookies } from "next/headers";
+import type { ReactNode } from "react";
+import { AppExperienceProvider } from "../components/app-experience-provider";
 import { LanguageProvider } from "../components/language-provider";
 import { WorkspaceShell } from "../components/workspace-shell";
 import { getCurrentUserContext } from "../lib/data/context";
@@ -23,6 +24,7 @@ import "./sales.css";
 import "./user-menu.css";
 import "./user-menu-layout.css";
 import "./docked-sidebar.css";
+import "./product-experience.css";
 
 export const metadata: Metadata = {
   title: { default: "HisabTech", template: "%s | HisabTech" },
@@ -38,10 +40,12 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const initialLanguage: Language = saved === "am" || saved === "ti" ? saved : "en";
 
   return (
-    <html lang={initialLanguage} data-language={initialLanguage} suppressHydrationWarning>
+    <html lang={initialLanguage} data-language={initialLanguage} data-theme="light" suppressHydrationWarning>
       <body>
         <LanguageProvider initialLanguage={initialLanguage}>
-          <WorkspaceShell user={user}>{children}</WorkspaceShell>
+          <AppExperienceProvider>
+            <WorkspaceShell user={user}>{children}</WorkspaceShell>
+          </AppExperienceProvider>
         </LanguageProvider>
       </body>
     </html>

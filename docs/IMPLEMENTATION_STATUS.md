@@ -10,11 +10,12 @@
 - Double-entry accounts, journal entries and immutable posted journals and lines
 - Append-only audit events and approval-request foundation
 - Live/demo data access layer
-- Functional customer, inventory, finance, sales and report workspaces
+- Operational workspaces for every ERP roadmap module
 - Cookie-backed first-render language selection
-- Dynamic localized date and greeting
-- CSP, security headers, rate-limit fallback, error pages and health endpoint
-- CI checks, schema tests, backup instructions and legacy safety warning
+- English, Amharic and Tigrinya client/server refresh behavior
+- Persistent light and dark appearance modes
+- Global branded loading transitions and translated completion confirmations
+- CSP, security headers, error pages, health endpoint and CI
 
 ## Finance & Accounting — Phase 1 complete
 
@@ -29,35 +30,50 @@
 - Monthly straight-line depreciation with duplicate-period prevention
 - Open, soft-closed and locked accounting periods
 - Period-lock enforcement on all journal-based operational posting
-- Audit events for account, journal, payment, asset, depreciation and closing actions
-- Finance RPCs restricted to authenticated users with explicit actor, tenant and role validation
-- Covering indexes for new finance foreign keys and operational lookup paths
+- Audit events and covering indexes for finance workflows
 
 ## Sales & Invoicing — Phase 1 complete
 
 - Unified `/sales` quote-to-cash workspace
-- Multi-line quotations with validity dates, discounts, VAT and lifecycle statuses
-- Direct sales orders and quotation-to-order conversion
-- Direct multi-line invoices and sales-order-to-invoice conversion
-- Atomic invoice posting to receivables, revenue, output VAT, COGS, inventory and stock movement
-- Customer credit-limit and available-stock validation before posting
-- Customer receipts with on-account or invoice-specific allocation
-- Paid and partially-paid invoice status management
-- Customer returns with returnable-quantity controls
-- Automatic customer credit, VAT reversal, inventory receipt and COGS reversal
-- Customer statements with invoiced, received, returned, balance and available credit
-- Tenant RLS, explicit authenticated grants, actor checks, role checks and append-only audit events
-- Authenticated snapshot and rollback-only end-to-end database workflow verification
+- Multi-line quotations, sales orders and invoices
+- Atomic receivable, revenue, VAT, COGS, inventory and stock posting
+- Customer receipts, invoice allocation and payment statuses
+- Customer returns, credits and accounting reversals
+- Customer statements and available credit
+- Tenant RLS, role checks and rollback-only end-to-end verification
 
-## Requires project-owner configuration
+## Remaining roadmap modules — operational foundation complete
 
-- Add or verify Vercel environment variables for the Hisab Technologies Supabase project
-- Configure email confirmation and redirect URLs
-- Enable MFA and production backup/PITR policies
-- Enable leaked-password protection in Supabase Auth
-- Verify Benaiah font redistribution rights
-- Obtain professional Ethiopian accounting and tax review before statutory use
+The following modules now have working organization-scoped workspaces backed by the shared operational record, status-history and audit-event layer:
 
-## Next operational modules
+- Purchasing & Expenses
+- Inventory & Warehouse
+- Customers & Suppliers
+- Security, Approvals & Audit
+- Reports & Analytics
+- Localization & Compliance
+- Human Resources & Payroll
+- Fixed Assets operations
+- Budgeting & Projects
+- Integrations & Automation
 
-Purchasing/AP documents, supplier master records, bank statement import and reconciliation, multi-warehouse transfers, payroll, budget approvals and production integrations should build on this foundation in separate reviewed releases.
+Each workspace includes module-specific record types and statuses, create/update forms, counterparties, owners, amounts, due dates, priorities, recent activity, metrics, translated labels, role-aware write access and governance controls. The live database workflow passed rollback-only create, status-update and snapshot verification.
+
+## Product experience complete
+
+- branded Hisab orbit loader on internal navigation and form submission
+- route-level loading state
+- translated create, update and monetary confirmation toast
+- persistent light and dark toggle
+- upgraded English, Amharic and Tigrinya segmented language control
+- expanded docked navigation for all phases
+- responsive and reduced-motion styles
+- Powered by HisabTech.com and hisabtechnologies.com footer branding
+
+## Requires project-owner configuration and specialist review
+
+- Verify Vercel environment variables and production redirects
+- Enable stronger account security and production backup policies
+- Verify font redistribution rights
+- Obtain professional accounting, tax, payroll and compliance review before statutory use
+- Configure external banking, filing and third-party integration credentials before production use

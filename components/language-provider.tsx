@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState, type ChangeEvent, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
+import { createContext, startTransition, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { dictionaries, type Dictionary, type Language } from "../lib/translations";
 
 const STORAGE_KEY = "hisab-erp-language";
@@ -20,7 +21,7 @@ export function LanguageProvider({ children, initialLanguage = "en" }: { childre
   useEffect(() => {
     const saved = window.localStorage.getItem(STORAGE_KEY);
     if ((saved === "en" || saved === "am" || saved === "ti") && saved !== language) setLanguageState(saved);
-    // We intentionally run this once: the server cookie remains the first-render source of truth.
+    // The server cookie remains the first-render source of truth.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -42,7 +43,51 @@ export function useLanguage() {
   return context;
 }
 
+const languageCodes: Array<{ value: Language; short: string }> = [
+  { value: "en", short: "EN" },
+  { value: "am", short: "አማ" },
+  { value: "ti", short: "ትግ" },
+];
+
 export function LanguageSelector({ compact = false }: { compact?: boolean }) {
   const { language, dictionary, setLanguage } = useLanguage();
-  return <label className={`language-selector${compact ? " compact" : ""}`}><span>{dictionary.language.label}</span><select aria-label={dictionary.language.label} value={language} onChange={(event: ChangeEvent<HTMLSelectElement>) => setLanguage(event.target.value as Language)}><option value="en">{dictionary.language.english}</option><option value="am">{dictionary.language.amharic}</option><option value="ti">{dictionary.language.tigrinya}</option></select></label>;
+  const router = useRouter();
+
+  function chooseLanguage(next: Language) {
+    if (next === language) return;
+    window.dispatchEvent(new Event("hisab:busy"));
+    window.localStorage.setItem(STORAGE_KEY, next);
+    document.cookie = `${COOKIE_NAME}=${next}; Path=/; Max-Age=31536000; SameSite=Lax`;
+    startTransition(() => {
+      setLanguage(next);
+      router.refresh();
+    });
+    window.setTimeout(() => window.dispatchEvent(new Event("hisab:done")), 900);
+  }
+
+  const names: Record<Language, string> = {
+    en: dictionary.language.english,
+    am: dictionary.language.amharic,
+    ti: dictionary.language.tigrinya,
+  };
+
+  return (
+    <div className={`language-selector language-segmented${compact ? " compact" : ""}`} role="group" aria-label={dictionary.language.label}>
+      {!compact && <span>{dictionary.language.label}</span>}
+      <div>
+        {languageCodes.map((item) => (
+          <button
+            type="button"
+            key={item.value}
+            className={language === item.value ? "active" : ""}
+            aria-pressed={language === item.value}
+            title={names[item.value]}
+            onClick={() => chooseLanguage(item.value)}
+          >
+            {item.short}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 }
