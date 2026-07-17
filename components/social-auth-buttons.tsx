@@ -38,7 +38,17 @@ function AppleIcon() {
   );
 }
 
-export function SocialAuthButtons({ language, next = "/onboarding", disabled = false }: { language: Language; next?: string; disabled?: boolean }) {
+export function SocialAuthButtons({
+  language,
+  next = "/onboarding",
+  disabled = false,
+  dividerText,
+}: {
+  language: Language;
+  next?: string;
+  disabled?: boolean;
+  dividerText?: string;
+}) {
   const c = socialCopy[language];
 
   return (
@@ -61,7 +71,7 @@ export function SocialAuthButtons({ language, next = "/onboarding", disabled = f
           </button>
         </form>
       </div>
-      <div className="social-auth-divider"><span>{c.divider}</span></div>
+      <div className="social-auth-divider"><span>{dividerText || c.divider}</span></div>
     </section>
   );
 }
