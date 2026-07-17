@@ -8,10 +8,9 @@
 - Persistent docked ERP navigation with inside-workspace route changes
 - Customers, products, warehouses and stock balances
 - Double-entry accounts, journal entries and immutable posted journals and lines
-- Atomic sales invoice posting with VAT, receivable, revenue, COGS and inventory movement
 - Append-only audit events and approval-request foundation
 - Live/demo data access layer
-- Functional customer, inventory, invoice and report screens
+- Functional customer, inventory, finance, sales and report workspaces
 - Cookie-backed first-render language selection
 - Dynamic localized date and greeting
 - CSP, security headers, rate-limit fallback, error pages and health endpoint
@@ -34,6 +33,22 @@
 - Finance RPCs restricted to authenticated users with explicit actor, tenant and role validation
 - Covering indexes for new finance foreign keys and operational lookup paths
 
+## Sales & Invoicing — Phase 1 complete
+
+- Unified `/sales` quote-to-cash workspace
+- Multi-line quotations with validity dates, discounts, VAT and lifecycle statuses
+- Direct sales orders and quotation-to-order conversion
+- Direct multi-line invoices and sales-order-to-invoice conversion
+- Atomic invoice posting to receivables, revenue, output VAT, COGS, inventory and stock movement
+- Customer credit-limit and available-stock validation before posting
+- Customer receipts with on-account or invoice-specific allocation
+- Paid and partially-paid invoice status management
+- Customer returns with returnable-quantity controls
+- Automatic customer credit, VAT reversal, inventory receipt and COGS reversal
+- Customer statements with invoiced, received, returned, balance and available credit
+- Tenant RLS, explicit authenticated grants, actor checks, role checks and append-only audit events
+- Authenticated snapshot and rollback-only end-to-end database workflow verification
+
 ## Requires project-owner configuration
 
 - Add or verify Vercel environment variables for the Hisab Technologies Supabase project
@@ -45,4 +60,4 @@
 
 ## Next operational modules
 
-Purchasing/AP documents, supplier master records, bank statement import and reconciliation, credit notes/returns, multi-warehouse transfers, payroll, budget approvals and production integrations should build on this foundation in separate reviewed releases.
+Purchasing/AP documents, supplier master records, bank statement import and reconciliation, multi-warehouse transfers, payroll, budget approvals and production integrations should build on this foundation in separate reviewed releases.
