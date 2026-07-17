@@ -20,6 +20,36 @@ Without Supabase variables the application runs in **safe demo mode** using samp
 4. Add the production `/auth/callback` URL to Supabase Auth redirects.
 5. Create an account and finish organization onboarding.
 
+## Google OAuth configuration
+
+Google sign-in is handled by Supabase Auth. Keep the Google OAuth client secret only in the Supabase dashboard—never commit it to GitHub or expose it as a public environment variable.
+
+For the production Google **Web application** OAuth client, configure:
+
+**Authorized JavaScript origins**
+
+```text
+https://www.hisabtech.com
+https://hisabtech.com
+http://localhost:3000
+```
+
+**Authorized redirect URIs**
+
+```text
+https://amwpbnczylbarqqcprev.supabase.co/auth/v1/callback
+```
+
+In Supabase **Authentication → URL Configuration**, use `https://www.hisabtech.com` as the production Site URL and allow these application redirects:
+
+```text
+https://www.hisabtech.com/auth/callback
+https://hisabtech.com/auth/callback
+http://localhost:3000/auth/callback
+```
+
+After changing Google OAuth settings, start a completely new sign-in attempt from the HisabERP login page. Do not reuse an old Google error or callback tab because its OAuth state may have expired.
+
 ## Production architecture
 
 - Next.js App Router and React Server Components
