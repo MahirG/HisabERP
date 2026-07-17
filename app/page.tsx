@@ -8,7 +8,8 @@ export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   if (!isSupabaseConfigured()) redirect("/auth/login");
-  await getCurrentUserContext({ required: true });
+  const user = await getCurrentUserContext({ required: true });
+  if (!user) return null;
   const snapshot = await getDashboardSnapshot();
-  return <Dashboard snapshot={snapshot} />;
+  return <Dashboard snapshot={snapshot} user={user} />;
 }
