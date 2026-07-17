@@ -18,8 +18,10 @@ const premiumCopy = {
     fast: "Fast decisions",
     fastText: "Live business visibility",
     greeting: "Welcome back",
-    helper: "Sign in securely with Google, email, or your registered mobile number.",
-    email: "Continue with email and password",
+    helper: "Sign in securely with Google, email, magic link, or your registered mobile number.",
+    email: "Sign in with email and password",
+    magic: "Email me a magic sign-in link",
+    forgot: "Forgot your password?",
     trust: "Encrypted sessions · Organization-isolated data",
   },
   am: {
@@ -31,8 +33,10 @@ const premiumCopy = {
     fast: "ፈጣን ውሳኔ",
     fastText: "የቀጥታ የንግድ እይታ",
     greeting: "እንኳን ደህና መጡ",
-    helper: "በGoogle፣ በኢሜይል ወይም በተመዘገበው የሞባይል ቁጥርዎ በደህና ይግቡ።",
-    email: "በኢሜይልና የይለፍ ቃል ይቀጥሉ",
+    helper: "በGoogle፣ በኢሜይል፣ በማጂክ ሊንክ ወይም በተመዘገበው የሞባይል ቁጥርዎ በደህና ይግቡ።",
+    email: "በኢሜይልና የይለፍ ቃል ይግቡ",
+    magic: "የመግቢያ ሊንክ በኢሜይል ላክልኝ",
+    forgot: "የይለፍ ቃልዎን ረሱ?",
     trust: "የተመሰጠረ ክፍለ ጊዜ · የተለየ የድርጅት ውሂብ",
   },
   ti: {
@@ -44,8 +48,10 @@ const premiumCopy = {
     fast: "ቅልጡፍ ውሳነ",
     fastText: "ቀጥታዊ እይታ ንግዲ",
     greeting: "እንቋዕ ብደሓን መጻእኩም",
-    helper: "ብGoogle፣ ብኢሜይል ወይ ብዝተመዝገበ ቁጽሪ ሞባይልኩም ብውሕስነት እተዉ።",
-    email: "ብኢሜይልን መሕለፊ ቃልን ቀጽሉ",
+    helper: "ብGoogle፣ ብኢሜይል፣ ብማጂክ ሊንክ ወይ ብዝተመዝገበ ቁጽሪ ሞባይልኩም ብውሕስነት እተዉ።",
+    email: "ብኢሜይልን መሕለፊ ቃልን እተዉ",
+    magic: "ናይ መእተዊ ሊንክ ብኢሜይል ስደዱለይ",
+    forgot: "መሕለፊ ቃልኩም ረሲዕኩም?",
     trust: "ዝተመስጠረ ክፍለ ግዜ · ዝተፈልየ ዳታ ውድብ",
   },
 } as const;
@@ -89,7 +95,8 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           {params.error && <div className="form-alert error">{params.error}</div>}
           {params.message && <div className="form-alert success">{params.message}</div>}
           <SocialAuthButtons language={localized.language} next={next} disabled={!configured}/>
-          <Link className="secondary auth-submit action-link" href={`/auth/email-login?next=${encodeURIComponent(next)}`}>{p.email}</Link>
+          <Link className="primary auth-submit action-link" href={`/auth/email-login?next=${encodeURIComponent(next)}`}>{p.email}</Link>
+          <p className="auth-switch"><Link href={`/auth/magic-link?next=${encodeURIComponent(next)}`}>{p.magic}</Link> · <Link href="/auth/forgot-password">{p.forgot}</Link></p>
           <form action={signIn} className="erp-form premium-auth-form">
             <input type="hidden" name="next" value={next}/>
             <AuthCredentialsFields mode="sign-in" language={localized.language}/>
