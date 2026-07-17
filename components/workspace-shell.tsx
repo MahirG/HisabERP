@@ -45,7 +45,7 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
     { label: d.nav.overview, href: "/" },
     { label: d.nav.modules, href: "/modules" },
     { label: d.nav.finance, href: "/finance" },
-    { label: d.nav.sales, href: "/sales/invoices/new" },
+    { label: d.nav.sales, href: "/sales" },
     { label: d.nav.purchasing, href: "/modules/purchasing-expenses" },
     { label: d.nav.inventory, href: "/inventory" },
     { label: d.nav.reports, href: "/reports" },
