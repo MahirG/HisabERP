@@ -44,7 +44,7 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
   const navItems = [
     { label: d.nav.overview, href: "/" },
     { label: d.nav.modules, href: "/modules" },
-    { label: d.nav.finance, href: "/finance/journals" },
+    { label: d.nav.finance, href: "/finance" },
     { label: d.nav.sales, href: "/sales/invoices/new" },
     { label: d.nav.purchasing, href: "/modules/purchasing-expenses" },
     { label: d.nav.inventory, href: "/inventory" },
