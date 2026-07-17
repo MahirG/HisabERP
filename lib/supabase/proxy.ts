@@ -6,6 +6,13 @@ const publicPageRoutes = new Set([
   "/auth/login",
   "/auth/sign-up",
   "/auth/verify-phone",
+  "/auth/email-login",
+  "/auth/email-sign-up",
+  "/auth/verify-email",
+  "/auth/forgot-password",
+  "/auth/magic-link",
+  "/auth/reset-password",
+  "/auth/invalid-link",
   "/auth/callback",
 ]);
 
@@ -28,14 +35,7 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
 
   if (!isSupabaseConfigured()) {
     if (publicPath) return NextResponse.next({ request: { headers: requestHeaders } });
-
-    if (path.startsWith("/api/")) {
-      return NextResponse.json(
-        { error: "Authentication is not configured." },
-        { status: 503 },
-      );
-    }
-
+    if (path.startsWith("/api/")) return NextResponse.json({ error: "Authentication is not configured." }, { status: 503 });
     return loginRedirect(request);
   }
 
@@ -55,17 +55,12 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
   const isAuthenticated = Boolean(data?.claims?.sub);
 
   if (!isAuthenticated && !publicPath) {
-    if (path.startsWith("/api/")) {
-      return NextResponse.json(
-        { error: "Authentication required." },
-        { status: 401 },
-      );
-    }
-
+    if (path.startsWith("/api/")) return NextResponse.json({ error: "Authentication required." }, { status: 401 });
     return loginRedirect(request);
   }
 
-  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/auth/callback") {
+  const authenticatedRecoveryPage = path === "/auth/reset-password";
+  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/auth/callback" && !authenticatedRecoveryPage) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     url.search = "";
