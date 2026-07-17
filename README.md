@@ -20,6 +20,8 @@ Without Supabase variables the application runs in **safe demo mode** using samp
 4. Add the production `/auth/callback` URL to Supabase Auth redirects.
 5. Create an account and finish organization onboarding.
 
+The connected Hisab Technologies Supabase project already has the Finance & Accounting Phase 1 migrations applied. The committed migration files keep new environments and disaster-recovery restores reproducible.
+
 ## Google OAuth configuration
 
 Google sign-in is handled by Supabase Auth. Keep the Google OAuth client secret only in the Supabase dashboard—never commit it to GitHub or expose it as a public environment variable.
