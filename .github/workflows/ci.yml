@@ -24,6 +24,18 @@ jobs:
         run: npm ci --no-audit --no-fund
       - name: Production dependency audit
         run: npm run audit:production
+      - name: Localization coverage
+        id: localization
+        run: npm run i18n:check 2>&1 | tee localization.log
+      - name: Upload localization diagnostics
+        if: failure() && steps.localization.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: localization-diagnostics
+          path: |
+            localization.log
+            i18n-audit-report.json
+          retention-days: 3
       - name: TypeScript
         id: typecheck
         run: npm run typecheck 2>&1 | tee typecheck.log
