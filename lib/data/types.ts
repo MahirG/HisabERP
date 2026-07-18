@@ -8,6 +8,8 @@ export type UserContext = {
   role: "owner" | "admin" | "accountant" | "sales" | "inventory" | "manager" | "staff" | "viewer";
   avatarUrl: string | null;
   provider: string | null;
+  aal: "aal1" | "aal2";
+  mfaRequired: boolean;
 };
 
 export type DashboardSnapshot = {

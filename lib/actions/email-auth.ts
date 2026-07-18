@@ -1,8 +1,11 @@
 "use server";
 
+import { createHash } from "node:crypto";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { appConfig, isSupabaseConfigured } from "../config";
+import { assertPasswordIsSafe } from "../security/password-safety";
+import { createAdminClient } from "../supabase/admin";
 import { createClient } from "../supabase/server";
 import { requiredText, safeNextPath, ValidationError } from "../validation";
 
@@ -35,6 +38,22 @@ async function requestMetadata() {
   };
 }
 
+async function recordLoginAttempt(email: string, succeeded: boolean, userId: string | null, reason: string | null, metadata: Awaited<ReturnType<typeof requestMetadata>>) {
+  try {
+    const admin = createAdminClient();
+    await admin.from("login_attempts").insert({
+      user_id: userId,
+      identifier_hash: createHash("sha256").update(email).digest("hex"),
+      succeeded,
+      failure_reason: reason,
+      ip_address: metadata.ip,
+      user_agent: metadata.userAgent,
+    });
+  } catch {
+    // The optional service-role audit path must never disclose account state or block authentication.
+  }
+}
+
 export async function signUpWithEmail(formData: FormData) {
   if (!isSupabaseConfigured()) redirect("/auth/email-sign-up?error=Authentication+is+not+configured");
 
@@ -44,6 +63,7 @@ export async function signUpWithEmail(formData: FormData) {
   try {
     email = normalizeEmail(formData.get("email"));
     secret = readPassword(formData.get("password"));
+    await assertPasswordIsSafe(secret);
     const confirmation = requiredText(formData.get("confirmPassword"), "confirm password", 200);
     if (secret !== confirmation) throw new ValidationError({ confirmPassword: "Passwords must match." });
     fullName = requiredText(formData.get("fullName"), "full name", 120);
@@ -80,10 +100,16 @@ export async function signInWithEmail(formData: FormData) {
   const supabase = await createClient();
   const metadata = await requestMetadata();
   const { data, error } = await supabase.auth.signInWithPassword({ email, password: secret });
-  if (error || !data.user) redirect(`/auth/email-login?error=${encodeURIComponent(genericLoginError)}&next=${encodeURIComponent(next)}`);
+  if (error || !data.user) {
+    await recordLoginAttempt(email, false, null, "invalid_credentials", metadata);
+    redirect(`/auth/email-login?error=${encodeURIComponent(genericLoginError)}&next=${encodeURIComponent(next)}`);
+  }
 
+  await recordLoginAttempt(email, true, data.user.id, null, metadata);
+  const { data: membership } = await supabase.from("organization_members").select("organization_id").eq("user_id", data.user.id).eq("is_active", true).order("is_default", { ascending: false }).limit(1).maybeSingle();
   await supabase.rpc("record_auth_audit", {
     p_event_type: "auth.sign_in.succeeded",
+    p_organization_id: membership?.organization_id || null,
     p_ip_address: metadata.ip,
     p_user_agent: metadata.userAgent,
     p_metadata: { provider: "email" },
@@ -127,6 +153,7 @@ export async function updatePassword(formData: FormData) {
   let secret: string;
   try {
     secret = readPassword(formData.get("password"), 12);
+    await assertPasswordIsSafe(secret);
     const confirmation = requiredText(formData.get("confirmPassword"), "confirm password", 200);
     if (secret !== confirmation) throw new ValidationError({ confirmPassword: "Passwords must match." });
   } catch (error) {

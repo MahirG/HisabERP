@@ -27,6 +27,7 @@ export async function getCurrentUserContext(options: { required?: boolean } = {}
     .select("organization_id,branch_id,role,full_name,organizations(name)")
     .eq("user_id", userId)
     .eq("is_active", true)
+    .order("is_default", { ascending: false })
     .limit(1)
     .maybeSingle();
 
@@ -39,6 +40,8 @@ export async function getCurrentUserContext(options: { required?: boolean } = {}
   const userMetadata = asRecord(claims.user_metadata);
   const appMetadata = asRecord(claims.app_metadata);
   const email = firstString(claims.email);
+  const role = data.role as UserContext["role"];
+  const aal = claims.aal === "aal2" ? "aal2" : "aal1";
 
   return {
     userId,
@@ -47,15 +50,18 @@ export async function getCurrentUserContext(options: { required?: boolean } = {}
     organizationId: String(data.organization_id),
     organizationName: String((organization as { name?: string } | null)?.name || "Organization"),
     branchId: data.branch_id ? String(data.branch_id) : null,
-    role: data.role as UserContext["role"],
+    role,
     avatarUrl: firstString(userMetadata.avatar_url, userMetadata.picture) || null,
     provider: firstString(appMetadata.provider) || null,
+    aal,
+    mfaRequired: role === "owner" || role === "admin",
   };
 }
 
 export type Permission = "manage_finance" | "manage_sales" | "manage_inventory" | "manage_purchasing" | "manage_hr" | "manage_users";
 
 export function can(context: UserContext, permission: Permission) {
+  if (context.mfaRequired && context.aal !== "aal2") return false;
   const matrix: Record<UserContext["role"], Permission[]> = {
     owner: ["manage_finance", "manage_sales", "manage_inventory", "manage_purchasing", "manage_hr", "manage_users"],
     admin: ["manage_finance", "manage_sales", "manage_inventory", "manage_purchasing", "manage_hr", "manage_users"],
