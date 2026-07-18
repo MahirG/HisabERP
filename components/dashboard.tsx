@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { mustHaveModules } from "../lib/erp-modules";
+import { erpModules } from "../lib/erp-modules";
 import type { DashboardSnapshot, UserContext } from "../lib/data/types";
 import { LanguageSelector, useLanguage } from "./language-provider";
 import { DemoNotice } from "./demo-notice";
@@ -12,6 +12,158 @@ const metricMeta = {
   cash: { tone: "positive", icon: "cash" },
   debt: { tone: "neutral", icon: "debt" },
 } as const;
+
+type MetricKey = keyof DashboardSnapshot["metrics"];
+type Role = UserContext["role"];
+
+type RoleProfile = {
+  title: string;
+  heading: string;
+  summary: string;
+  quickAction: { label: string; href: string };
+  focus: Array<{ label: string; metric: MetricKey }>;
+  workspace: Array<{ label: string; description: string; href: string }>;
+  moduleSlugs: string[];
+};
+
+const roleProfiles: Record<Role, RoleProfile> = {
+  owner: {
+    title: "Owner",
+    heading: "Executive command center",
+    summary: "Monitor cash, revenue, collections, controls and launch readiness across the company.",
+    quickAction: { label: "Create invoice", href: "/sales/invoices/new" },
+    focus: [
+      { label: "Cash visibility", metric: "cash" },
+      { label: "Revenue pulse", metric: "sales" },
+      { label: "Collection focus", metric: "debt" },
+    ],
+    workspace: [
+      { label: "Company launch", description: "Complete setup and release-readiness controls.", href: "/onboarding" },
+      { label: "Production controls", description: "Review security, backups, alerts and database health.", href: "/security" },
+      { label: "Financial control", description: "Review accounts, journals, periods and tax configuration.", href: "/finance" },
+    ],
+    moduleSlugs: ["finance-accounting", "sales-invoicing", "inventory-warehouse", "reports-analytics"],
+  },
+  admin: {
+    title: "Administrator",
+    heading: "Administration control center",
+    summary: "Keep company setup, users, security and operating controls ready.",
+    quickAction: { label: "Review security", href: "/security" },
+    focus: [
+      { label: "Cash visibility", metric: "cash" },
+      { label: "Operating spend", metric: "expenses" },
+      { label: "Outstanding debt", metric: "debt" },
+    ],
+    workspace: [
+      { label: "Company setup", description: "Manage branches, opening data and launch readiness.", href: "/onboarding" },
+      { label: "Security controls", description: "Review MFA, alerts, backups and restore evidence.", href: "/security" },
+      { label: "Account settings", description: "Manage your profile and privileged session.", href: "/account" },
+    ],
+    moduleSlugs: ["security-approvals-audit", "finance-accounting", "localization-compliance", "reports-analytics"],
+  },
+  accountant: {
+    title: "Accountant",
+    heading: "Finance control desk",
+    summary: "Prioritize cash, journals, receivables, payables, tax and period close.",
+    quickAction: { label: "Post journal", href: "/finance/journals" },
+    focus: [
+      { label: "Cash position", metric: "cash" },
+      { label: "Operating expenses", metric: "expenses" },
+      { label: "Receivables exposure", metric: "debt" },
+    ],
+    workspace: [
+      { label: "Journal workspace", description: "Review and post balanced accounting entries.", href: "/finance/journals" },
+      { label: "Finance workspace", description: "Manage accounts, taxes, periods, payments and assets.", href: "/finance" },
+      { label: "Financial reports", description: "Review approved financial and operational reporting.", href: "/reports" },
+    ],
+    moduleSlugs: ["finance-accounting", "purchasing-expenses", "reports-analytics", "localization-compliance"],
+  },
+  sales: {
+    title: "Sales",
+    heading: "Sales command center",
+    summary: "Convert demand into invoices and keep customer collections moving.",
+    quickAction: { label: "Create invoice", href: "/sales/invoices/new" },
+    focus: [
+      { label: "Sales today", metric: "sales" },
+      { label: "Cash available", metric: "cash" },
+      { label: "Outstanding receivables", metric: "debt" },
+    ],
+    workspace: [
+      { label: "New invoice", description: "Create and post the next customer invoice.", href: "/sales/invoices/new" },
+      { label: "Customer workspace", description: "Review customer balances, terms and activity.", href: "/customers" },
+      { label: "Sales workspace", description: "Manage sales documents, receipts and returns.", href: "/sales" },
+    ],
+    moduleSlugs: ["sales-invoicing", "customers-suppliers", "reports-analytics", "inventory-warehouse"],
+  },
+  inventory: {
+    title: "Inventory",
+    heading: "Inventory operations desk",
+    summary: "Protect stock availability, purchasing flow, transfers and valuation controls.",
+    quickAction: { label: "Open inventory", href: "/inventory" },
+    focus: [
+      { label: "Sales demand", metric: "sales" },
+      { label: "Purchasing pressure", metric: "expenses" },
+      { label: "Cash available", metric: "cash" },
+    ],
+    workspace: [
+      { label: "Inventory workspace", description: "Review stock, transfers, counts and reorder signals.", href: "/inventory" },
+      { label: "Purchasing workspace", description: "Review requests, orders, supplier bills and spend.", href: "/purchasing" },
+      { label: "Inventory controls", description: "Review valuation, negative-stock and audit controls.", href: "/modules/inventory-warehouse" },
+    ],
+    moduleSlugs: ["inventory-warehouse", "purchasing-expenses", "reports-analytics", "finance-accounting"],
+  },
+  manager: {
+    title: "Manager",
+    heading: "Operations command center",
+    summary: "Coordinate sales, spending, stock and team execution from one view.",
+    quickAction: { label: "Open reports", href: "/reports" },
+    focus: [
+      { label: "Revenue pulse", metric: "sales" },
+      { label: "Expense control", metric: "expenses" },
+      { label: "Collection focus", metric: "debt" },
+    ],
+    workspace: [
+      { label: "Management reports", description: "Review performance, exceptions and operating trends.", href: "/reports" },
+      { label: "Sales operations", description: "Review invoices, collections and customer activity.", href: "/sales" },
+      { label: "Inventory operations", description: "Review availability, movement and purchasing pressure.", href: "/inventory" },
+    ],
+    moduleSlugs: ["reports-analytics", "sales-invoicing", "inventory-warehouse", "purchasing-expenses"],
+  },
+  staff: {
+    title: "Staff",
+    heading: "Daily work center",
+    summary: "Continue assigned operational work with clear shortcuts and shared business context.",
+    quickAction: { label: "Open modules", href: "/modules" },
+    focus: [
+      { label: "Revenue pulse", metric: "sales" },
+      { label: "Cash visibility", metric: "cash" },
+      { label: "Expense control", metric: "expenses" },
+    ],
+    workspace: [
+      { label: "Assigned modules", description: "Open the ERP modules available to your role.", href: "/modules" },
+      { label: "Customer workspace", description: "Review approved customer and supplier information.", href: "/customers" },
+      { label: "Shared reports", description: "Review reports available to your assigned permissions.", href: "/reports" },
+    ],
+    moduleSlugs: ["sales-invoicing", "inventory-warehouse", "customers-suppliers", "reports-analytics"],
+  },
+  viewer: {
+    title: "Viewer",
+    heading: "Reporting workspace",
+    summary: "Review approved business information without changing operational records.",
+    quickAction: { label: "Open reports", href: "/reports" },
+    focus: [
+      { label: "Revenue overview", metric: "sales" },
+      { label: "Expense overview", metric: "expenses" },
+      { label: "Outstanding debt", metric: "debt" },
+    ],
+    workspace: [
+      { label: "Reporting center", description: "Review approved financial and operating reports.", href: "/reports" },
+      { label: "Finance overview", description: "Review accounts, balances and posted journals.", href: "/finance" },
+      { label: "Audit and controls", description: "Review security, audit and production-control evidence.", href: "/security" },
+    ],
+    moduleSlugs: ["reports-analytics", "finance-accounting", "security-approvals-audit", "localization-compliance"],
+  },
+};
 
 function Icon({ name }: { name: "sales" | "expense" | "cash" | "debt" }) {
   const paths = {
@@ -38,34 +190,47 @@ function greeting(language: string, firstName: string) {
   return `${hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening"}, ${firstName}`;
 }
 
-export function Dashboard({ snapshot, user: _user }: { snapshot: DashboardSnapshot; user: UserContext }) {
+export function Dashboard({ snapshot, user }: { snapshot: DashboardSnapshot; user: UserContext }) {
   const { dictionary, language } = useLanguage();
   const d = dictionary.dashboard;
   const metricValues = snapshot.metrics;
+  const profile = roleProfiles[user.role];
+  const roleModules = profile.moduleSlugs
+    .map((slug) => erpModules.find((module) => module.slug === slug))
+    .filter((module): module is NonNullable<typeof module> => Boolean(module));
 
-  return <div className="dashboard-content">
+  return <div className="dashboard-content" data-dashboard-role={user.role}>
     <header className="topbar">
-      <div className="topbar-copy"><p className="eyebrow">{dynamicDate(language)}</p><h1>{greeting(language, snapshot.userName)}</h1><p>{d.summary}</p></div>
+      <div className="topbar-copy">
+        <p className="eyebrow">{profile.heading} · {dynamicDate(language)}</p>
+        <h1>{greeting(language, snapshot.userName)}</h1>
+        <p>{profile.summary}</p>
+        <div className="role-context"><span className="role-badge">{profile.title}</span><span>Dashboard priorities adapt to your assigned role.</span></div>
+      </div>
       <div className="top-actions">
         <span className="workspace-status"><i/> Live workspace</span>
         <LanguageSelector/>
         <Link className="ghost action-link" href="/api/reports/dashboard">{d.exportReport}</Link>
-        <Link className="primary action-link" href="/sales/invoices/new">+ {d.newTransaction}</Link>
+        <Link className="primary action-link" href={profile.quickAction.href}>+ {profile.quickAction.label}</Link>
       </div>
     </header>
 
     <DemoNotice mode={snapshot.mode} />
 
-    <section className="command-strip" aria-label="Business command center">
-      <div><span>01</span><p>Cash visibility</p><strong>{money(metricValues.cash, language)}</strong></div>
-      <div><span>02</span><p>Revenue pulse</p><strong>{money(metricValues.sales, language)}</strong></div>
-      <div><span>03</span><p>Collection focus</p><strong>{money(metricValues.debt, language)}</strong></div>
-      <Link href="/sales/invoices/new"><small>Quick action</small><strong>Create invoice</strong><b>→</b></Link>
+    <section className="command-strip" aria-label="Role command center">
+      {profile.focus.map((item, index) => (
+        <div key={item.label}><span>0{index + 1}</span><p>{item.label}</p><strong>{money(metricValues[item.metric], language)}</strong></div>
+      ))}
+      <Link href={profile.quickAction.href}><small>Role quick action</small><strong>{profile.quickAction.label}</strong><b>→</b></Link>
+    </section>
+
+    <section className="role-priority-grid" aria-label="Recommended role workspaces">
+      {profile.workspace.map((item) => <Link href={item.href} key={item.label}><small>Recommended workspace</small><strong>{item.label}</strong><span>{item.description}</span></Link>)}
     </section>
 
     <section className="metrics-grid">{(["sales", "expenses", "cash", "debt"] as const).map((key) => { const meta = metricMeta[key]; const copy = d.metricItems[key]; return <article className="metric-card" key={key}><div className={`metric-icon ${meta.tone}`}><Icon name={meta.icon}/></div><div><p>{copy.label}</p><strong>{money(metricValues[key], language)}</strong><span className={meta.tone}>{copy.change}</span></div></article>; })}</section>
 
-    <section className="panel module-preview"><div className="panel-head"><div><p className="eyebrow">{d.erpFoundation}</p><h2>{d.coreModules}</h2></div><Link className="text-button" href="/modules">{d.viewAllModules} →</Link></div><div className="module-preview-grid">{mustHaveModules.slice(0, 4).map((module) => { const copy = dictionary.moduleItems[module.slug]; return <Link href={`/modules/${module.slug}`} key={module.slug}><span>{d.phase} {module.phase}</span><strong>{copy.shortTitle}</strong><p>{copy.description}</p><b>Explore module →</b></Link>; })}</div></section>
+    <section className="panel module-preview"><div className="panel-head"><div><p className="eyebrow">Recommended for your role</p><h2>Priority ERP modules</h2></div><Link className="text-button" href="/modules">{d.viewAllModules} →</Link></div><div className="module-preview-grid">{roleModules.map((module) => { const copy = dictionary.moduleItems[module.slug]; return <Link href={`/modules/${module.slug}`} key={module.slug}><span>{d.phase} {module.phase}</span><strong>{copy.shortTitle}</strong><p>{copy.description}</p><b>Explore module →</b></Link>; })}</div></section>
 
     <section className="content-grid">
       <article className="panel performance-panel"><div className="panel-head"><div><p className="eyebrow">{d.financialPerformance}</p><h2>{d.revenueOverview}</h2></div><span className="period-pill">{d.last12Months}</span></div><div className="revenue-summary"><strong>{money(snapshot.monthlyRevenue.reduce((sum, value) => sum + value, 0), language)}</strong><span>+18.2% {d.fromLastYear}</span></div><div className="chart" aria-label={d.revenueChart}>{snapshot.monthlyRevenue.map((value, index) => { const max = Math.max(...snapshot.monthlyRevenue, 1); return <div className="bar-wrap" key={`${index}-${value}`}><div className="bar" style={{height: `${Math.max(8, (value / max) * 100)}%`}}/><small>{d.months[index] ?? index + 1}</small></div>; })}</div></article>
