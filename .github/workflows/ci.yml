@@ -19,7 +19,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install --no-audit --no-fund
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Production dependency audit
+        run: npm run audit:production
       - name: TypeScript
         id: typecheck
         run: npm run typecheck 2>&1 | tee typecheck.log
@@ -40,4 +44,5 @@ jobs:
           name: test-diagnostics
           path: test.log
           retention-days: 3
-      - run: npm run build
+      - name: Production build
+        run: npm run build
