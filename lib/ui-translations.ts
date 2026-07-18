@@ -2,6 +2,8 @@ import catalog01 from "./locales/ui-catalog-01.json";
 import catalog02 from "./locales/ui-catalog-02.json";
 import catalog03 from "./locales/ui-catalog-03.json";
 import catalog04 from "./locales/ui-catalog-04.json";
+import catalog05 from "./locales/ui-catalog-05.json";
+import catalog06 from "./locales/ui-catalog-06.json";
 import { dictionaries, type Language } from "./translations";
 
 export type TranslationValues = ReadonlyArray<string | number> | Record<string, string | number>;
@@ -10,7 +12,7 @@ type UiCatalogEntry = { source: string; am: string; ti: string };
 type TranslationEntry = Record<Language, string>;
 type CompiledPattern = { source: string; regex: RegExp; keys: string[]; entry: TranslationEntry };
 
-const catalogs = [catalog01, catalog02, catalog03, catalog04] as UiCatalogEntry[][];
+const catalogs = [catalog01, catalog02, catalog03, catalog04, catalog05, catalog06] as UiCatalogEntry[][];
 const exactTranslations = new Map<string, TranslationEntry>();
 const compiledPatterns: CompiledPattern[] = [];
 
