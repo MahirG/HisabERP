@@ -23,12 +23,12 @@ test("dedicated core operation routes replace generic workspaces", async () => {
   assert.match(shell, /href: "\/hr"/);
 });
 
-test("purchasing UI exposes complete procure-to-pay workflow", async () => {
+test("purchasing UI exposes complete translated procure-to-pay workflow", async () => {
   const [workspace, actions] = await Promise.all([
     read("components/purchasing-workspace.tsx"),
     read("lib/actions/purchasing.ts"),
   ]);
-  for (const term of ["Suppliers", "Requests", "Supplier quotes", "Purchase orders", "Goods receipts", "Supplier bills", "Purchase returns"]) assert.match(workspace, new RegExp(term, "i"));
+  for (const key of ["c.suppliers", "c.requests", "c.quotes", "c.orders", "c.receipts", "c.bills", "c.returns"]) assert.match(workspace, new RegExp(key.replace(".", "\\.")));
   for (const action of ["createSupplierAction", "createPurchaseRequestAction", "createSupplierQuoteAction", "recordGoodsReceiptAction", "postSupplierBillAction", "recordSupplierPaymentAction", "postPurchaseReturnAction"]) assert.match(actions, new RegExp(action));
 });
 
@@ -37,18 +37,19 @@ test("inventory UI exposes transfers counts adjustments and traceability", async
     read("components/inventory-operations-workspace.tsx"),
     read("lib/actions/inventory-operations.ts"),
   ]);
-  for (const term of ["Transfers", "Stock counts", "Adjustments", "Lots & serials"]) assert.match(workspace, new RegExp(term, "i"));
+  for (const key of ["c.products", "c.transfers", "c.counts", "c.adjustments", "c.tracking"]) assert.match(workspace, new RegExp(key.replace(".", "\\.")));
   for (const action of ["createStockTransferAction", "completeStockTransferAction", "createStockCountAction", "submitStockCountAction", "postStockCountAction", "postInventoryAdjustmentAction", "registerInventoryTrackingAction"]) assert.match(actions, new RegExp(action));
 });
 
 test("HR UI exposes employee attendance leave salary and payroll controls", async () => {
-  const [workspace, actions] = await Promise.all([
+  const [workspace, actions, copy] = await Promise.all([
     read("components/hr-payroll-workspace.tsx"),
     read("lib/actions/hr-payroll.ts"),
+    read("lib/core-operations-copy.ts"),
   ]);
-  for (const term of ["Employees", "Attendance", "Leave", "Payroll", "Set salary structure"]) assert.match(workspace, new RegExp(term, "i"));
+  for (const key of ["c.employees", "c.attendance", "c.leave", "c.payroll"]) assert.match(workspace, new RegExp(key.replace(".", "\\.")));
   for (const action of ["createEmployeeAction", "recordAttendanceAction", "createLeaveRequestAction", "setSalaryStructureAction", "createPayrollRunAction", "approvePayrollRunAction", "postPayrollRunAction", "markPayrollPaidAction"]) assert.match(actions, new RegExp(action));
-  assert.match(workspace, /professional review/i);
+  assert.match(copy, /professional review/i);
 });
 
 test("permissions include purchasing and HR without expanding staff writes", async () => {
@@ -104,6 +105,6 @@ test("payroll migrations keep rates configurable and journals balanced", async (
   assert.match(calculation, /income_tax_rate/);
   assert.match(posting, /Payroll Payable/);
   assert.match(posting, /Employer Pension Expense/);
-  assert.match(payment, /status,'draft'/);
+  assert.match(payment, /'draft','payroll_payment'/);
   assert.match(payment, /update public\.journal_entries set status='posted'/);
 });
