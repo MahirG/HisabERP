@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { LanguageSelector } from "../../components/language-provider";
 import { MfaSecurityPanel } from "../../components/mfa-security-panel";
+import { ReadinessRoadmap } from "../../components/readiness-roadmap";
 import { bootstrapGuidedOrganization, createOnboardingBranchAction, importCustomersAction, importProductsAction, importSuppliersAction, postOpeningBalanceAction, updateCompanyProfileAction } from "../../lib/actions/onboarding";
 import { getCurrentUserContext } from "../../lib/data/context";
 import { getOnboardingSnapshot } from "../../lib/data/setup";
@@ -216,6 +217,8 @@ export default async function OnboardingPage({ searchParams }: { searchParams: P
               <div className="launch-review-card"><div className="launch-review-icon security">◉</div><div><span>Privileged access</span><h3>{completeMap.get("security") ? "Administrator protection is active" : "Authenticator enrollment is required"}</h3><p>MFA-gated permissions protect finance, inventory, payroll, user management and production controls.</p></div><Link href="/account" className="launch-primary-action">Open account security</Link></div>
             </SetupTask>
           </div>
+
+          <ReadinessRoadmap role={context.role} />
 
           <footer className="launch-finish">
             <div><span>{snapshot.progress.completed === 8 ? "Launch complete" : `${remaining} task${remaining === 1 ? "" : "s"} remaining`}</span><strong>{snapshot.progress.completed === 8 ? "Your operating foundation is ready." : "Finish the critical controls, then move into daily operations."}</strong></div>
