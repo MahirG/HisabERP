@@ -134,7 +134,7 @@ Each workspace includes module-specific record types and statuses, create/update
 
 ## Production deployment trigger
 
-A fresh `main` deployment was requested on July 18, 2026 after merging production controls and guided onboarding. This marker triggers Vercel Git integration from the complete validated source tree.
+A fresh `main` deployment was requested on July 18, 2026 after merging production controls and guided onboarding. A second release trigger was committed after the Vercel Hobby build-rate cooldown to deploy the complete validated source tree.
 
 ## Requires project-owner configuration and specialist review
 
