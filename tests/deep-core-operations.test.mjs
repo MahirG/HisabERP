@@ -57,3 +57,53 @@ test("permissions include purchasing and HR without expanding staff writes", asy
   assert.match(context, /manage_hr/);
   assert.match(context, /staff: \[\]/);
 });
+
+test("purchasing migrations enforce RLS and atomic AP posting", async () => {
+  const [schema, receipt, bills] = await Promise.all([
+    read("supabase/migrations/20260718090000_purchasing_accounts_payable_schema.sql"),
+    read("supabase/migrations/20260718090300_purchasing_goods_receipt_workflow.sql"),
+    read("supabase/migrations/20260718090400_purchasing_bill_payment_return_workflows.sql"),
+  ]);
+  assert.match(schema, /enable row level security/i);
+  assert.match(schema, /security_invoker=true/i);
+  assert.match(schema, /revoke all[\s\S]*authenticated/i);
+  assert.match(receipt, /record_stock_movement/);
+  assert.match(bills, /Accounts payable/);
+  assert.match(bills, /Input VAT/);
+  assert.match(bills, /post_purchase_return/);
+  assert.match(bills, /grant execute[\s\S]*authenticated/i);
+});
+
+test("inventory migrations cover warehouse movement counts and traceability", async () => {
+  const [schema, movement, counts] = await Promise.all([
+    read("supabase/migrations/20260718091000_inventory_warehouse_operations_schema.sql"),
+    read("supabase/migrations/20260718091100_inventory_transfer_adjustment_workflows.sql"),
+    read("supabase/migrations/20260718091200_inventory_count_tracking_workflows.sql"),
+  ]);
+  assert.match(schema, /inventory_lots/);
+  assert.match(schema, /inventory_serials/);
+  assert.match(schema, /enable row level security/i);
+  assert.match(movement, /transfer_out/);
+  assert.match(movement, /transfer_in/);
+  assert.match(movement, /journal_lines/);
+  assert.match(counts, /post_stock_count/);
+  assert.match(counts, /register_inventory_tracking/);
+});
+
+test("payroll migrations keep rates configurable and journals balanced", async () => {
+  const [schema, calculation, posting, payment] = await Promise.all([
+    read("supabase/migrations/20260718092000_hr_payroll_schema.sql"),
+    read("supabase/migrations/20260718092200_hr_payroll_calculation_workflows.sql"),
+    read("supabase/migrations/20260718092300_hr_payroll_posting_workflow.sql"),
+    read("supabase/migrations/20260718092400_hr_payroll_payment_workflow.sql"),
+  ]);
+  assert.match(schema, /employee_pension_rate/);
+  assert.match(schema, /income_tax_rate/);
+  assert.match(calculation, /overtime_hourly_rate/);
+  assert.match(calculation, /employee_pension_rate/);
+  assert.match(calculation, /income_tax_rate/);
+  assert.match(posting, /Payroll Payable/);
+  assert.match(posting, /Employer Pension Expense/);
+  assert.match(payment, /status,'draft'/);
+  assert.match(payment, /update public\.journal_entries set status='posted'/);
+});
