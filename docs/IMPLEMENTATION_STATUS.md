@@ -42,22 +42,48 @@
 - Customer statements and available credit
 - Tenant RLS, role checks and rollback-only end-to-end verification
 
+## Dedicated core operations complete
+
+### Purchasing & Accounts Payable
+
+- Supplier master records and balances
+- Purchase requests with approval decisions
+- Supplier quotations and quote-to-purchase-order conversion
+- Purchase orders, goods receipts and three-way quantity matching
+- Supplier bills, input VAT, accounts-payable journals and payments
+- Purchase returns, supplier credits and stock/accounting reversals
+
+### Inventory & Warehouse
+
+- Stock position by product and warehouse
+- Reorder alerts and inventory valuation
+- Inter-warehouse transfers
+- Physical stock counts and variance posting
+- Manual inventory adjustments with balanced journals
+- Lot, expiry and serial-number tracking
+
+### Human Resources & Payroll
+
+- Employee records, departments and positions
+- Attendance, overtime and leave approvals
+- Effective-dated salary structures
+- Configurable allowances, deductions, pension and income-tax rates
+- Payroll calculation, approval, ledger posting and payment confirmation
+- Professional payroll and statutory review remains required before filing
+
 ## Remaining roadmap modules — operational foundation complete
 
-The following modules now have working organization-scoped workspaces backed by the shared operational record, status-history and audit-event layer:
+The following modules have working organization-scoped workspaces backed by the shared operational record, status-history and audit-event layer:
 
-- Purchasing & Expenses
-- Inventory & Warehouse
 - Customers & Suppliers
 - Security, Approvals & Audit
 - Reports & Analytics
 - Localization & Compliance
-- Human Resources & Payroll
 - Fixed Assets operations
 - Budgeting & Projects
 - Integrations & Automation
 
-Each workspace includes module-specific record types and statuses, create/update forms, counterparties, owners, amounts, due dates, priorities, recent activity, metrics, translated labels, role-aware write access and governance controls. The live database workflow passed rollback-only create, status-update and snapshot verification.
+Each workspace includes module-specific record types and statuses, create/update forms, counterparties, owners, amounts, due dates, priorities, recent activity, metrics, translated labels, role-aware write access and governance controls.
 
 ## Product experience complete
 
@@ -69,6 +95,18 @@ Each workspace includes module-specific record types and statuses, create/update
 - expanded docked navigation for all phases
 - responsive and reduced-motion styles
 - Powered by HisabTech.com and hisabtechnologies.com footer branding
+
+## Validation
+
+- TypeScript, automated tests and production Next.js build passed for PR #10
+- Purchasing, inventory and payroll rollback-only integration workflows passed
+- All new operational tables use organization-scoped RLS
+- Authenticated direct table privileges remain SELECT-only
+- All new foreign-key relationships have supporting leading-column indexes
+
+## Production deployment trigger
+
+A fresh `main` deployment was requested on July 18, 2026 after merging dedicated purchasing, inventory and payroll workflows. This marker intentionally triggers Vercel Git integration from the current validated source tree.
 
 ## Requires project-owner configuration and specialist review
 
