@@ -37,6 +37,8 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
     : language === "ti"
       ? { core: "ዋና መስርሕ", phase1: "ቀንዲ ስርሓት", phase2: "ምዕባለ ሞጁላት" }
       : { core: "Core workspace", phase1: "Core operations", phase2: "Growth modules" };
+  const setupLabel = language === "am" ? "የኩባንያ ማዋቀር" : language === "ti" ? "ምድላው ትካል" : "Company setup";
+  const controlsLabel = language === "am" ? "የምርት ደህንነት" : language === "ti" ? "ድሕነት ፕሮዳክሽን" : "Production controls";
 
   const navGroups = [
     {
@@ -46,6 +48,7 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
         { label: d.nav.modules, href: "/modules" },
         { label: d.nav.finance, href: "/finance" },
         { label: d.nav.sales, href: "/sales" },
+        { label: setupLabel, href: "/onboarding" },
       ],
     },
     {
@@ -55,7 +58,7 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
         { label: dictionary.moduleItems["inventory-warehouse"].shortTitle, href: "/inventory" },
         { label: dictionary.moduleItems["customers-suppliers"].shortTitle, href: "/modules/customers-suppliers" },
         { label: dictionary.moduleItems["human-resources-payroll"].shortTitle, href: "/hr" },
-        { label: dictionary.moduleItems["security-approvals-audit"].shortTitle, href: "/modules/security-approvals-audit" },
+        { label: controlsLabel, href: "/security" },
         { label: dictionary.moduleItems["reports-analytics"].shortTitle, href: "/modules/reports-analytics" },
       ],
     },
@@ -70,8 +73,22 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
     },
   ];
 
+  const requiresVerification = user.mfaRequired && user.aal !== "aal2" && pathname !== "/account";
+  const gatedContent = requiresVerification ? (
+    <main className="mfa-required-page">
+      <section className="mfa-required-card">
+        <span className="mfa-required-icon">◉</span>
+        <p className="eyebrow">PRIVILEGED SESSION REQUIRED</p>
+        <h1>Verify administrator access</h1>
+        <p>HisabTech now requires authenticator MFA before an owner or administrator can change financial, inventory, payroll, user or security data.</p>
+        <div className="mfa-required-actions"><Link className="primary action-link" href="/account">Set up or verify MFA</Link><Link className="secondary action-link" href="/onboarding">Review setup progress</Link></div>
+        <small>Your organization data remains readable. Write operations are blocked at both the application and database layers until the session reaches AAL2.</small>
+      </section>
+    </main>
+  ) : children;
+
   return (
-    <div className="erp-shell" data-layout-version="deep-core-operations-v1">
+    <div className="erp-shell" data-layout-version="production-controls-v1">
       <UserMenu user={user} />
       <aside className="sidebar" data-docked="true">
         <div className="brand"><span>H</span><div><strong>Hisab</strong><small>{d.brandSubtitle}</small></div></div>
@@ -94,7 +111,7 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
           <p>{user.organizationName}<br />Addis Ababa, Ethiopia</p>
         </footer>
       </aside>
-      <div className="workspace" id="workspace-content" ref={workspaceRef}>{children}</div>
+      <div className="workspace" id="workspace-content" ref={workspaceRef}>{gatedContent}</div>
     </div>
   );
 }
