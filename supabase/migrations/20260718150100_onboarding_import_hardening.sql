@@ -39,7 +39,7 @@ grant execute on function public.import_onboarding_products(uuid,jsonb) to authe
 
 create or replace function public.import_onboarding_opening_stock(p_organization_id uuid,p_warehouse_id uuid,p_rows jsonb)
 returns integer language plpgsql security definer set search_path='' as $$
-declare item jsonb; posted integer:=0; actor uuid:=(select auth.uid()); product_id uuid; quantity_value numeric; clean_sku text;
+declare item jsonb; posted integer:=0; actor uuid:=(select auth.uid()); v_product_id uuid; quantity_value numeric; clean_sku text;
 begin
   perform public.require_strong_admin(p_organization_id);
   perform 1 from public.warehouses where id=p_warehouse_id and organization_id=p_organization_id and is_active;
@@ -48,9 +48,12 @@ begin
   for item in select value from jsonb_array_elements(p_rows) loop
     clean_sku:=upper(trim(coalesce(item->>'sku','')));
     quantity_value:=greatest(coalesce(nullif(item->>'opening_quantity','')::numeric,0),0);
-    select id into product_id from public.products where organization_id=p_organization_id and sku=clean_sku and is_active;
-    if product_id is not null and quantity_value>0 and not exists(select 1 from public.stock_balances where organization_id=p_organization_id and product_id=product_id and warehouse_id=p_warehouse_id and quantity>0) then
-      perform public.record_stock_movement(p_organization_id,product_id,p_warehouse_id,'opening',quantity_value,'Onboarding opening stock',actor,'onboarding',null);
+    select p.id into v_product_id from public.products p where p.organization_id=p_organization_id and p.sku=clean_sku and p.is_active;
+    if v_product_id is not null and quantity_value>0 and not exists(
+      select 1 from public.stock_balances sb
+      where sb.organization_id=p_organization_id and sb.product_id=v_product_id and sb.warehouse_id=p_warehouse_id and sb.quantity>0
+    ) then
+      perform public.record_stock_movement(p_organization_id,v_product_id,p_warehouse_id,'opening',quantity_value,'Onboarding opening stock',actor,'onboarding',null);
       posted:=posted+1;
     end if;
   end loop;
