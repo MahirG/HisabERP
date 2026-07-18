@@ -53,13 +53,17 @@ export async function getCurrentUserContext(options: { required?: boolean } = {}
   };
 }
 
-export function can(context: UserContext, permission: "manage_finance" | "manage_sales" | "manage_inventory" | "manage_users") {
-  const matrix: Record<UserContext["role"], string[]> = {
-    owner: ["manage_finance", "manage_sales", "manage_inventory", "manage_users"],
-    admin: ["manage_finance", "manage_sales", "manage_inventory", "manage_users"],
-    accountant: ["manage_finance", "manage_sales"],
+export type Permission = "manage_finance" | "manage_sales" | "manage_inventory" | "manage_purchasing" | "manage_hr" | "manage_users";
+
+export function can(context: UserContext, permission: Permission) {
+  const matrix: Record<UserContext["role"], Permission[]> = {
+    owner: ["manage_finance", "manage_sales", "manage_inventory", "manage_purchasing", "manage_hr", "manage_users"],
+    admin: ["manage_finance", "manage_sales", "manage_inventory", "manage_purchasing", "manage_hr", "manage_users"],
+    accountant: ["manage_finance", "manage_sales", "manage_purchasing", "manage_hr"],
     sales: ["manage_sales"],
-    inventory: ["manage_inventory"],
+    inventory: ["manage_inventory", "manage_purchasing"],
+    manager: ["manage_sales", "manage_inventory", "manage_purchasing", "manage_hr"],
+    staff: [],
     viewer: [],
   };
   return matrix[context.role].includes(permission);
