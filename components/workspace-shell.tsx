@@ -106,8 +106,7 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
         </nav>
         <div className="sidebar-dock-status" aria-label="Navigation is docked"><span aria-hidden="true">●</span><strong>{language === "am" ? "ምናሌው ተቆልፏል" : language === "ti" ? "ምናሌ ተሰኪሉ" : "Navigation docked"}</strong></div>
         <footer className="sidebar-footer">
-          <p className="powered-by">Powered by <a href="https://hisabtech.com" target="_blank" rel="noreferrer">HisabTech.com</a></p>
-          <a className="technology-link" href="https://hisabtechnologies.com" target="_blank" rel="noreferrer">hisabtechnologies.com ↗</a>
+          <p className="powered-by">Powered by <a href="https://www.hisabtechnologies.com" target="_blank" rel="noopener noreferrer">HisabTech</a></p>
           <p>{user.organizationName}<br />Addis Ababa, Ethiopia</p>
         </footer>
       </aside>
