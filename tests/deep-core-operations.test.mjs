@@ -91,6 +91,13 @@ test("inventory migrations cover warehouse movement counts and traceability", as
   assert.match(counts, /register_inventory_tracking/);
 });
 
+test("stock balance reads remain exposed only to authenticated users", async () => {
+  const migration = await read("supabase/migrations/20260718133000_grant_stock_balances_authenticated_select.sql");
+  assert.match(migration, /grant\s+select\s+on\s+table\s+public\.stock_balances\s+to\s+authenticated/i);
+  assert.doesNotMatch(migration, /grant[\s\S]*(insert|update|delete)[\s\S]*stock_balances/i);
+  assert.doesNotMatch(migration, /\bto\s+anon\b/i);
+});
+
 test("payroll migrations keep rates configurable and journals balanced", async () => {
   const [schema, calculation, posting, payment] = await Promise.all([
     read("supabase/migrations/20260718092000_hr_payroll_schema.sql"),
