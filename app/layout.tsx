@@ -23,6 +23,7 @@ import "./finance.css";
 import "./sales.css";
 import "./core-operations.css";
 import "./setup-controls.css";
+import "./onboarding-launch.css";
 import "./user-menu.css";
 import "./user-menu-layout.css";
 import "./docked-sidebar.css";
