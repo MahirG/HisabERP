@@ -21,6 +21,9 @@ export default async function ModuleDetailPage({
   const [{ slug }, query] = await Promise.all([params, searchParams]);
   if (slug === "finance-accounting") redirect("/finance");
   if (slug === "sales-invoicing") redirect("/sales");
+  if (slug === "purchasing-expenses") redirect("/purchasing");
+  if (slug === "inventory-warehouse") redirect("/inventory");
+  if (slug === "human-resources-payroll") redirect("/hr");
   if (!getErpModule(slug) || !isOperationalModuleSlug(slug)) notFound();
 
   const [snapshot, user] = await Promise.all([
