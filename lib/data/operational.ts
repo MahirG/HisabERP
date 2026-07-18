@@ -4,6 +4,7 @@ import { isOperationalModuleSlug, operationalModuleDefinitions, type Operational
 import { createClient } from "../supabase/server";
 import { getCurrentUserContext } from "./context";
 import type { OperationalSnapshot } from "./operational-types";
+import type { UserContext } from "./types";
 
 function demoSnapshot(moduleSlug: OperationalModuleSlug): OperationalSnapshot {
   const definition = operationalModuleDefinitions[moduleSlug];
@@ -32,16 +33,7 @@ function demoSnapshot(moduleSlug: OperationalModuleSlug): OperationalSnapshot {
     organizationName: "Hisab Trading Enterprise",
     metrics: { total: 1, active: 1, completed: 0, atRisk: 0, value: record.amount },
     records: [record],
-    activity: [{
-      id: `activity-${moduleSlug}`,
-      recordId: record.id,
-      recordNumber: record.number,
-      eventType: "created",
-      previousStatus: null,
-      newStatus: record.status,
-      message: `Created ${record.number} · ${record.title}`,
-      createdAt: now.toISOString(),
-    }],
+    activity: [{ id: `activity-${moduleSlug}`, recordId: record.id, recordNumber: record.number, eventType: "created", previousStatus: null, newStatus: record.status, message: `Created ${record.number} · ${record.title}`, createdAt: now.toISOString() }],
   };
 }
 
@@ -52,28 +44,18 @@ export async function getOperationalModuleSnapshot(moduleSlug: string): Promise<
 
   const context = await getCurrentUserContext({ required: true });
   const supabase = await createClient();
-  const { data, error } = await supabase.rpc("get_operational_module_snapshot", {
-    target_organization_id: context!.organizationId,
-    target_module_slug: moduleSlug,
-  });
+  const { data, error } = await supabase.rpc("get_operational_module_snapshot", { target_organization_id: context!.organizationId, target_module_slug: moduleSlug });
   if (error || !data) throw new Error(`Unable to load ${moduleSlug}: ${error?.message ?? "Unknown error"}`);
 
   const snapshot = data as Omit<OperationalSnapshot, "mode" | "moduleSlug" | "organizationName">;
-  return {
-    ...snapshot,
-    mode: "live",
-    moduleSlug,
-    organizationName: context!.organizationName,
-  };
+  return { ...snapshot, mode: "live", moduleSlug, organizationName: context!.organizationName };
 }
 
-export function canManageOperationalModule(
-  role: "owner" | "admin" | "accountant" | "sales" | "inventory" | "viewer",
-  moduleSlug: OperationalModuleSlug,
-) {
+export function canManageOperationalModule(role: UserContext["role"], moduleSlug: OperationalModuleSlug) {
   if (role === "owner" || role === "admin") return true;
-  if (["purchasing-expenses", "reports-analytics", "localization-compliance", "fixed-assets", "budgeting-projects"].includes(moduleSlug)) return role === "accountant";
-  if (moduleSlug === "inventory-warehouse") return role === "inventory";
-  if (moduleSlug === "customers-suppliers") return role === "accountant" || role === "sales";
+  if (["purchasing-expenses", "reports-analytics", "localization-compliance", "fixed-assets", "budgeting-projects"].includes(moduleSlug)) return role === "accountant" || role === "manager";
+  if (moduleSlug === "inventory-warehouse") return role === "inventory" || role === "manager";
+  if (moduleSlug === "customers-suppliers") return role === "accountant" || role === "sales" || role === "manager";
+  if (moduleSlug === "human-resources-payroll") return role === "accountant" || role === "manager";
   return false;
 }
