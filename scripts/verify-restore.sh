@@ -10,7 +10,7 @@ if [[ "$ALLOW_RESTORE_TEST" != "ISOLATED_TEST_DATABASE" ]]; then
   echo "Refusing restore: ALLOW_RESTORE_TEST must equal ISOLATED_TEST_DATABASE" >&2
   exit 2
 fi
-if [[ "$RESTORE_DATABASE_URL" == "$DATABASE_URL" && -n "${DATABASE_URL:-}" ]]; then
+if [[ -n "${DATABASE_URL:-}" && "$RESTORE_DATABASE_URL" == "${DATABASE_URL:-}" ]]; then
   echo "Refusing restore: restore target matches the source database" >&2
   exit 2
 fi
