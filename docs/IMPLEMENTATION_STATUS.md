@@ -71,6 +71,31 @@
 - Payroll calculation, approval, ledger posting and payment confirmation
 - Professional payroll and statutory review remains required before filing
 
+## Serious production controls complete
+
+- Owner and administrator mutations require an AAL2 authenticator session in both Next.js and PostgreSQL
+- TOTP authenticator enrollment, challenge and verification from Account Security
+- New and reset passwords screened for predictable patterns and known breach exposure
+- Authentication and material financial-action alerts
+- MFA-protected, spreadsheet-safe audit export
+- Daily database health checks through PostgreSQL cron
+- Encrypted logical backup and guarded isolated restore-drill tooling
+- Backup and restore evidence tracking
+- Anonymous execution removed from public security-definer functions
+- Remaining uncovered foreign-key relationships indexed
+
+## Guided onboarding complete
+
+- Eight-step, data-backed company launch center
+- Company profile and business-model configuration
+- Branch and linked-warehouse creation
+- Customer and supplier CSV imports
+- Product catalog and opening-stock CSV imports
+- Chart-of-accounts and VAT-code review
+- Balanced opening-balance journal posting
+- First-invoice launch guidance
+- Administrator MFA readiness
+
 ## Remaining roadmap modules — operational foundation complete
 
 The following modules have working organization-scoped workspaces backed by the shared operational record, status-history and audit-event layer:
@@ -98,20 +123,26 @@ Each workspace includes module-specific record types and statuses, create/update
 
 ## Validation
 
-- TypeScript, automated tests and production Next.js build passed for PR #10
-- Purchasing, inventory and payroll rollback-only integration workflows passed
-- All new operational tables use organization-scoped RLS
-- Authenticated direct table privileges remain SELECT-only
-- All new foreign-key relationships have supporting leading-column indexes
+- TypeScript, automated tests and production Next.js build passed for PR #11
+- AAL1 owners retain tenant read membership but cannot perform privileged operations
+- AAL2 owners can access production-control and onboarding RPCs
+- Purchasing, inventory, payroll and onboarding rollback-only workflows passed
+- No rollback-test records remain in the production database
+- New control tables use organization-scoped RLS
+- Anonymous execution of public security-definer functions is zero
+- Foreign-key relationships have supporting leading-column indexes
 
 ## Production deployment trigger
 
-A fresh `main` deployment was requested on July 18, 2026 after merging dedicated purchasing, inventory and payroll workflows. This marker intentionally triggers Vercel Git integration from the current validated source tree.
+A fresh `main` deployment was requested on July 18, 2026 after merging production controls and guided onboarding. This marker triggers Vercel Git integration from the complete validated source tree.
 
 ## Requires project-owner configuration and specialist review
 
-- Verify Vercel environment variables and production redirects
-- Enable stronger account security and production backup policies
+- Add GitHub repository secrets `SUPABASE_DATABASE_URL` and `BACKUP_ENCRYPTION_PASSPHRASE` to activate scheduled encrypted backups
+- Upgrade the Supabase project and enable point-in-time recovery before marking PITR ready
+- Add `MONITORING_WEBHOOK_URL` in Vercel when an external incident platform is selected
+- Every owner and administrator must personally enroll an authenticator factor
+- Enable Supabase Auth native leaked-password protection as an additional platform-level control
 - Verify font redistribution rights
 - Obtain professional accounting, tax, payroll and compliance review before statutory use
 - Configure external banking, filing and third-party integration credentials before production use
