@@ -11,6 +11,7 @@ const VISIBLE_PROPERTY_NAMES = new Set([
   "buttonLabel", "actionLabel", "helperText", "caption", "copy"
 ]);
 const IGNORE_FILES = new Set(["components/language-provider.tsx"]);
+const IGNORED_ELEMENTS = new Set(["code", "pre", "script", "style"]);
 const CANONICAL_TEXT = [
   /^(?:https?:\/\/|\/|\.\/|\.\.\/)/,
   /^[A-Za-z]+\/[A-Za-z_]+$/,
@@ -72,7 +73,31 @@ function lineOf(sourceFile, node) {
   return sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile)).line + 1;
 }
 
+function elementName(node) {
+  if (ts.isJsxElement(node)) return node.openingElement.tagName.getText();
+  if (ts.isJsxSelfClosingElement(node)) return node.tagName.getText();
+  return "";
+}
+
+function isInsideIgnoredElement(node) {
+  let current = node.parent;
+  while (current) {
+    if (ts.isJsxElement(current) || ts.isJsxSelfClosingElement(current)) {
+      if (IGNORED_ELEMENTS.has(elementName(current).toLowerCase())) return true;
+    }
+    current = current.parent;
+  }
+  return false;
+}
+
+function isVisibleJsxExpression(node) {
+  if (!ts.isJsxExpression(node.parent)) return false;
+  const container = node.parent.parent;
+  return ts.isJsxElement(container) || ts.isJsxFragment(container);
+}
+
 function addFinding(findings, sourceFile, file, node, kind, raw) {
+  if (isInsideIgnoredElement(node)) return;
   const source = normalize(raw);
   if (!isHumanCopy(source)) return;
   findings.push({ source, file: file.split(path.sep).join("/"), line: lineOf(sourceFile, node), kind });
@@ -89,11 +114,11 @@ function scanFile(file, content) {
       if (VISIBLE_ATTRIBUTES.has(name)) addFinding(findings, sourceFile, file, node, `attribute:${name}`, node.initializer.text);
     }
 
-    if ((ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) && ts.isJsxExpression(node.parent)) {
+    if ((ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) && isVisibleJsxExpression(node)) {
       addFinding(findings, sourceFile, file, node, "jsx-expression", node.text);
     }
 
-    if (ts.isTemplateExpression(node) && ts.isJsxExpression(node.parent)) {
+    if (ts.isTemplateExpression(node) && isVisibleJsxExpression(node)) {
       addFinding(findings, sourceFile, file, node, "jsx-template", templateToSource(node));
     }
 
