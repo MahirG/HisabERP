@@ -1,19 +1,123 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { createContext, startTransition, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import {
+  createContext,
+  startTransition,
+  useCallback,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 import { dictionaries, type Dictionary, type Language } from "../lib/translations";
+import { translateUiText, type TranslationValues } from "../lib/ui-translations";
 
 const STORAGE_KEY = "hisab-erp-language";
 const COOKIE_NAME = "hisab_locale";
+const TRANSLATED_ATTRIBUTES = ["placeholder", "title", "aria-label", "alt"] as const;
+const SKIP_SELECTOR = "code,pre,script,style,textarea,[contenteditable='true'],[data-i18n-skip]";
+
+const originalText = new WeakMap<Text, string>();
+const appliedText = new WeakMap<Text, string>();
+const originalAttributes = new WeakMap<Element, Map<string, string>>();
+const appliedAttributes = new WeakMap<Element, Map<string, string>>();
 
 type LanguageContextValue = {
   language: Language;
   dictionary: Dictionary;
   setLanguage: (language: Language) => void;
+  t: (source: string, values?: TranslationValues) => string;
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
+
+function shouldSkip(node: Node) {
+  const element = node.nodeType === Node.ELEMENT_NODE
+    ? node as Element
+    : node.parentElement;
+  return Boolean(element?.closest(SKIP_SELECTOR));
+}
+
+function sourceAttributeMap(store: WeakMap<Element, Map<string, string>>, element: Element) {
+  let map = store.get(element);
+  if (!map) {
+    map = new Map<string, string>();
+    store.set(element, map);
+  }
+  return map;
+}
+
+function localizeTextNode(node: Text, language: Language) {
+  if (shouldSkip(node)) return;
+  const current = node.nodeValue ?? "";
+  const lastApplied = appliedText.get(node);
+  let source = originalText.get(node);
+
+  if (source === undefined || current !== lastApplied) {
+    source = current;
+    originalText.set(node, source);
+  }
+
+  const translated = language === "en" ? source : translateUiText(source, language);
+  if (current !== translated) node.nodeValue = translated;
+  appliedText.set(node, translated);
+}
+
+function localizeElementAttributes(element: Element, language: Language) {
+  if (shouldSkip(element)) return;
+  const sources = sourceAttributeMap(originalAttributes, element);
+  const applied = sourceAttributeMap(appliedAttributes, element);
+
+  for (const attribute of TRANSLATED_ATTRIBUTES) {
+    if (!element.hasAttribute(attribute)) continue;
+    const current = element.getAttribute(attribute) ?? "";
+    const lastApplied = applied.get(attribute);
+    let source = sources.get(attribute);
+
+    if (source === undefined || current !== lastApplied) {
+      source = current;
+      sources.set(attribute, source);
+    }
+
+    const translated = language === "en" ? source : translateUiText(source, language);
+    if (current !== translated) element.setAttribute(attribute, translated);
+    applied.set(attribute, translated);
+  }
+}
+
+function localizeSubtree(root: Node, language: Language) {
+  if (root.nodeType === Node.TEXT_NODE) {
+    localizeTextNode(root as Text, language);
+    return;
+  }
+
+  if (root.nodeType !== Node.ELEMENT_NODE && root.nodeType !== Node.DOCUMENT_NODE) return;
+  const element = root.nodeType === Node.ELEMENT_NODE ? root as Element : null;
+  if (element && shouldSkip(element)) return;
+  if (element) localizeElementAttributes(element, language);
+
+  const ownerDocument = root.ownerDocument ?? document;
+  const walker = ownerDocument.createTreeWalker(
+    root,
+    NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT,
+    {
+      acceptNode(node) {
+        if (node !== root && shouldSkip(node)) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      },
+    },
+  );
+
+  let node = walker.nextNode();
+  while (node) {
+    if (node.nodeType === Node.TEXT_NODE) localizeTextNode(node as Text, language);
+    else localizeElementAttributes(node as Element, language);
+    node = walker.nextNode();
+  }
+}
 
 export function LanguageProvider({ children, initialLanguage = "en" }: { children: ReactNode; initialLanguage?: Language }) {
   const [language, setLanguageState] = useState<Language>(initialLanguage);
@@ -25,15 +129,56 @@ export function LanguageProvider({ children, initialLanguage = "en" }: { childre
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    document.documentElement.lang = language === "am" ? "am" : language === "ti" ? "ti" : "en";
+  useLayoutEffect(() => {
+    document.documentElement.lang = language;
     document.documentElement.dataset.language = language;
     document.documentElement.dir = "ltr";
     window.localStorage.setItem(STORAGE_KEY, language);
     document.cookie = `${COOKIE_NAME}=${language}; Path=/; Max-Age=31536000; SameSite=Lax`;
+
+    localizeSubtree(document.documentElement, language);
+
+    const pending = new Set<Node>();
+    let scheduled = false;
+    const flush = () => {
+      scheduled = false;
+      for (const node of pending) localizeSubtree(node, language);
+      pending.clear();
+    };
+    const schedule = (node: Node) => {
+      pending.add(node);
+      if (scheduled) return;
+      scheduled = true;
+      queueMicrotask(flush);
+    };
+
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type === "characterData") schedule(mutation.target);
+        if (mutation.type === "attributes") schedule(mutation.target);
+        if (mutation.type === "childList") mutation.addedNodes.forEach(schedule);
+      }
+    });
+
+    observer.observe(document.documentElement, {
+      subtree: true,
+      childList: true,
+      characterData: true,
+      attributes: true,
+      attributeFilter: [...TRANSLATED_ATTRIBUTES],
+    });
+
+    return () => observer.disconnect();
   }, [language]);
 
-  const value = useMemo<LanguageContextValue>(() => ({ language, dictionary: dictionaries[language], setLanguage: setLanguageState }), [language]);
+  const t = useCallback(
+    (source: string, values?: TranslationValues) => translateUiText(source, language, values),
+    [language],
+  );
+  const value = useMemo<LanguageContextValue>(
+    () => ({ language, dictionary: dictionaries[language], setLanguage: setLanguageState, t }),
+    [language, t],
+  );
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
@@ -72,7 +217,12 @@ export function LanguageSelector({ compact = false }: { compact?: boolean }) {
   };
 
   return (
-    <div className={`language-selector language-segmented${compact ? " compact" : ""}`} role="group" aria-label={dictionary.language.label}>
+    <div
+      className={`language-selector language-segmented${compact ? " compact" : ""}`}
+      role="group"
+      aria-label={dictionary.language.label}
+      data-i18n-skip
+    >
       {!compact && <span>{dictionary.language.label}</span>}
       <div>
         {languageCodes.map((item) => (
