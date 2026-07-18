@@ -10,33 +10,45 @@ const VISIBLE_PROPERTY_NAMES = new Set([
   "subtitle", "intro", "message", "empty", "emptyState", "statusLabel", "tooltip",
   "buttonLabel", "actionLabel", "helperText", "caption", "copy"
 ]);
-const IGNORE_FILES = new Set([
-  "components/language-provider.tsx"
-]);
+const IGNORE_FILES = new Set(["components/language-provider.tsx"]);
+const CANONICAL_TEXT = [
+  /^(?:https?:\/\/|\/|\.\/|\.\.\/)/,
+  /^[A-Za-z]+\/[A-Za-z_]+$/,
+  /^(?:USD|ETB|EUR|AED|KES|aal1|aal2)$/i,
+  /^(?:GET|POST|PUT|PATCH|DELETE)$/,
+  /^[A-Z0-9_:-]+$/
+];
+
+function decodeEntities(value) {
+  return value
+    .replaceAll("&amp;", "&")
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&#39;", "'")
+    .replaceAll("&nbsp;", " ");
+}
 
 function normalize(value) {
-  return value.replace(/\s+/g, " ").trim();
+  return decodeEntities(String(value)).replace(/\s+/g, " ").trim();
 }
 
 function isHumanCopy(value) {
   const text = normalize(value);
   if (!text || text.length < 2 || !/[A-Za-z]/.test(text)) return false;
-  if (/^(?:https?:\/\/|\/|\.\/|\.\.\/|[A-Za-z0-9_-]+\.(?:tsx?|jsx?|css|json|svg|png|jpg|webp))/.test(text)) return false;
+  if (CANONICAL_TEXT.some((pattern) => pattern.test(text))) return false;
   if (/^[A-Za-z0-9_-]+(?:\s+[A-Za-z0-9_-]+)*$/.test(text) && !/[a-z]{3,}\s+[a-z]{3,}/i.test(text) && text.length < 18) return false;
-  if (/^[A-Z0-9_:-]+$/.test(text) && !text.includes(" ")) return false;
-  if (/^(?:GET|POST|PUT|PATCH|DELETE|USD|ETB|EUR|AED|KES|aal1|aal2|ready|warning|critical|success|error|pending|complete)$/i.test(text)) return false;
+  if (/^(?:ready|warning|critical|success|error|pending|complete)$/i.test(text)) return false;
   if (/^[.#][A-Za-z0-9_-]+/.test(text)) return false;
+  if (/^\{.+\}(?:\s+\{.+\})+$/.test(text)) return false;
   return true;
 }
 
-function templateToSource(node, sourceFile) {
+function templateToSource(node) {
   if (ts.isNoSubstitutionTemplateLiteral(node)) return normalize(node.text);
   if (!ts.isTemplateExpression(node)) return "";
   let result = node.head.text;
-  node.templateSpans.forEach((span, index) => {
-    const expression = span.expression.getText(sourceFile).replace(/\s+/g, " ");
-    result += `{${expression || index}}${span.literal.text}`;
-  });
+  node.templateSpans.forEach((span, index) => { result += `{${index}}${span.literal.text}`; });
   return normalize(result);
 }
 
@@ -69,11 +81,8 @@ function addFinding(findings, sourceFile, file, node, kind, raw) {
 function scanFile(file, content) {
   const sourceFile = ts.createSourceFile(file, content, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
   const findings = [];
-
   function visit(node) {
-    if (ts.isJsxText(node)) {
-      addFinding(findings, sourceFile, file, node, "jsx-text", node.getText(sourceFile));
-    }
+    if (ts.isJsxText(node)) addFinding(findings, sourceFile, file, node, "jsx-text", node.getText(sourceFile));
 
     if (ts.isJsxAttribute(node) && node.initializer && ts.isStringLiteral(node.initializer)) {
       const name = node.name.getText(sourceFile);
@@ -85,7 +94,7 @@ function scanFile(file, content) {
     }
 
     if (ts.isTemplateExpression(node) && ts.isJsxExpression(node.parent)) {
-      addFinding(findings, sourceFile, file, node, "jsx-template", templateToSource(node, sourceFile));
+      addFinding(findings, sourceFile, file, node, "jsx-template", templateToSource(node));
     }
 
     if (ts.isPropertyAssignment(node)) {
@@ -94,16 +103,45 @@ function scanFile(file, content) {
         if (ts.isStringLiteral(node.initializer) || ts.isNoSubstitutionTemplateLiteral(node.initializer)) {
           addFinding(findings, sourceFile, file, node.initializer, `copy-property:${propertyName}`, node.initializer.text);
         } else if (ts.isTemplateExpression(node.initializer)) {
-          addFinding(findings, sourceFile, file, node.initializer, `copy-template:${propertyName}`, templateToSource(node.initializer, sourceFile));
+          addFinding(findings, sourceFile, file, node.initializer, `copy-template:${propertyName}`, templateToSource(node.initializer));
         }
       }
     }
-
     ts.forEachChild(node, visit);
   }
-
   visit(sourceFile);
   return findings;
+}
+
+function flattenLegacy(en, am, ti, prefix = "", memory = new Map()) {
+  if (typeof en === "string") {
+    const source = normalize(en);
+    if (source) memory.set(source, { am: typeof am === "string" ? normalize(am) : "", ti: typeof ti === "string" ? normalize(ti) : "", path: prefix });
+    return memory;
+  }
+  if (Array.isArray(en)) {
+    en.forEach((value, index) => flattenLegacy(value, am?.[index], ti?.[index], `${prefix}[${index}]`, memory));
+    return memory;
+  }
+  if (en && typeof en === "object") {
+    Object.entries(en).forEach(([key, value]) => flattenLegacy(value, am?.[key], ti?.[key], prefix ? `${prefix}.${key}` : key, memory));
+  }
+  return memory;
+}
+
+async function readJson(file, fallback = {}) {
+  try { return JSON.parse(await fs.readFile(file, "utf8")); }
+  catch { return fallback; }
+}
+
+const [legacyEn, legacyAm, legacyTi, uiEn, uiAm, uiTi] = await Promise.all([
+  readJson("lib/locales/en.json"), readJson("lib/locales/am.json"), readJson("lib/locales/ti.json"),
+  readJson("lib/locales/ui.en.json"), readJson("lib/locales/ui.am.json"), readJson("lib/locales/ui.ti.json")
+]);
+const memory = flattenLegacy(legacyEn, legacyAm, legacyTi);
+for (const [source, english] of Object.entries(uiEn)) {
+  const normalizedSource = normalize(source || english);
+  memory.set(normalizedSource, { am: normalize(uiAm[source] || ""), ti: normalize(uiTi[source] || ""), path: `ui.${source}` });
 }
 
 const files = (await Promise.all(ROOTS.map(listFiles))).flat().filter((file) => !IGNORE_FILES.has(file.split(path.sep).join("/")));
@@ -117,12 +155,24 @@ for (const finding of findings) {
   else unique.set(finding.source, { source: finding.source, locations: [{ file: finding.file, line: finding.line, kind: finding.kind }] });
 }
 
+const strings = [...unique.values()].sort((a, b) => a.source.localeCompare(b.source));
+const covered = [];
+const missing = [];
+for (const item of strings) {
+  const translation = memory.get(item.source);
+  if (translation?.am && translation?.ti) covered.push({ ...item, translation });
+  else missing.push({ ...item, translation: translation || null });
+}
+
 const report = {
   generatedAt: new Date().toISOString(),
   scannedFiles: files.length,
-  uniqueStrings: unique.size,
-  strings: [...unique.values()].sort((a, b) => a.source.localeCompare(b.source))
+  uniqueStrings: strings.length,
+  coveredStrings: covered.length,
+  missingStrings: missing.length,
+  covered,
+  missing
 };
-
 await fs.writeFile("i18n-audit-report.json", `${JSON.stringify(report, null, 2)}\n`);
-console.log(`i18n audit extracted ${report.uniqueStrings} unique UI strings from ${report.scannedFiles} files.`);
+console.log(`i18n audit: ${covered.length}/${strings.length} strings covered; ${missing.length} missing.`);
+if (process.argv.includes("--check") && missing.length) process.exitCode = 1;
