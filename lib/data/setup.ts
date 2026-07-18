@@ -28,6 +28,6 @@ export async function getProductionControlSnapshot(): Promise<ProductionControlS
   return {
     ...asObject<Omit<ProductionControlSnapshot, "monitoringConfigured" | "projectPlan">>(data),
     monitoringConfigured: Boolean(process.env.MONITORING_WEBHOOK_URL),
-    projectPlan: (process.env.SUPABASE_PROJECT_PLAN === "pro" ? "free" : "free"),
+    projectPlan: "free",
   };
 }
