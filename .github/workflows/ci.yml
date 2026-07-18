@@ -22,12 +22,7 @@ jobs:
       - run: npm install --no-audit --no-fund
       - name: TypeScript
         id: typecheck
-        shell: bash
-        run: |
-          set +e
-          npm run typecheck 2>&1 | tee typecheck.log
-          status=${PIPESTATUS[0]}
-          exit $status
+        run: npm run typecheck 2>&1 | tee typecheck.log
       - name: Upload TypeScript diagnostics
         if: failure() && steps.typecheck.outcome == 'failure'
         uses: actions/upload-artifact@v4
@@ -35,5 +30,14 @@ jobs:
           name: typecheck-diagnostics
           path: typecheck.log
           retention-days: 3
-      - run: npm test
+      - name: Tests
+        id: tests
+        run: npm test 2>&1 | tee test.log
+      - name: Upload test diagnostics
+        if: failure() && steps.tests.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-diagnostics
+          path: test.log
+          retention-days: 3
       - run: npm run build
