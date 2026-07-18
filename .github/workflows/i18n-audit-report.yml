@@ -3,6 +3,8 @@ name: Global localization inventory
 on:
   push:
     branches: [agent/global-i18n-enforcement]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
