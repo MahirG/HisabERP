@@ -9,11 +9,7 @@ import { LanguageSelector, useLanguage } from "./language-provider";
 import { ThemeToggle } from "./theme-toggle";
 import { UserMenu } from "./user-menu";
 
-type WorkspaceShellProps = {
-  children: ReactNode;
-  user: UserContext | null;
-};
-
+type WorkspaceShellProps = { children: ReactNode; user: UserContext | null };
 const shellExcludedRoutes = ["/auth", "/onboarding"];
 
 function isActiveRoute(pathname: string, href: string) {
@@ -26,7 +22,6 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
   const pathname = usePathname();
   const workspaceRef = useRef<HTMLDivElement>(null);
   const { dictionary, language } = useLanguage();
-
   const isExcluded = shellExcludedRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
   const showWorkspaceShell = Boolean(user) && !isExcluded;
 
@@ -38,10 +33,10 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
 
   const d = dictionary.dashboard;
   const sections = language === "am"
-    ? { core: "ዋና የስራ ቦታ", phase1: "ደረጃ 1", phase2: "ደረጃ 2 እና 3" }
+    ? { core: "ዋና የስራ ቦታ", phase1: "ዋና ስራዎች", phase2: "ማስፋፊያ ሞጁሎች" }
     : language === "ti"
-      ? { core: "ዋና መስርሕ", phase1: "ደረጃ 1", phase2: "ደረጃ 2ን 3ን" }
-      : { core: "Core workspace", phase1: "Phase 1 operations", phase2: "Phase 2 & 3 growth" };
+      ? { core: "ዋና መስርሕ", phase1: "ቀንዲ ስርሓት", phase2: "ምዕባለ ሞጁላት" }
+      : { core: "Core workspace", phase1: "Core operations", phase2: "Growth modules" };
 
   const navGroups = [
     {
@@ -56,18 +51,18 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
     {
       label: sections.phase1,
       items: [
-        { label: dictionary.moduleItems["purchasing-expenses"].shortTitle, href: "/modules/purchasing-expenses" },
-        { label: dictionary.moduleItems["inventory-warehouse"].shortTitle, href: "/modules/inventory-warehouse" },
+        { label: dictionary.moduleItems["purchasing-expenses"].shortTitle, href: "/purchasing" },
+        { label: dictionary.moduleItems["inventory-warehouse"].shortTitle, href: "/inventory" },
         { label: dictionary.moduleItems["customers-suppliers"].shortTitle, href: "/modules/customers-suppliers" },
+        { label: dictionary.moduleItems["human-resources-payroll"].shortTitle, href: "/hr" },
         { label: dictionary.moduleItems["security-approvals-audit"].shortTitle, href: "/modules/security-approvals-audit" },
         { label: dictionary.moduleItems["reports-analytics"].shortTitle, href: "/modules/reports-analytics" },
-        { label: dictionary.moduleItems["localization-compliance"].shortTitle, href: "/modules/localization-compliance" },
       ],
     },
     {
       label: sections.phase2,
       items: [
-        { label: dictionary.moduleItems["human-resources-payroll"].shortTitle, href: "/modules/human-resources-payroll" },
+        { label: dictionary.moduleItems["localization-compliance"].shortTitle, href: "/modules/localization-compliance" },
         { label: dictionary.moduleItems["fixed-assets"].shortTitle, href: "/modules/fixed-assets" },
         { label: dictionary.moduleItems["budgeting-projects"].shortTitle, href: "/modules/budgeting-projects" },
         { label: dictionary.moduleItems["integrations-automation"].shortTitle, href: "/modules/integrations-automation" },
@@ -76,20 +71,11 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
   ];
 
   return (
-    <div className="erp-shell" data-layout-version="complete-modules-v1">
+    <div className="erp-shell" data-layout-version="deep-core-operations-v1">
       <UserMenu user={user} />
-
       <aside className="sidebar" data-docked="true">
-        <div className="brand">
-          <span>H</span>
-          <div><strong>Hisab</strong><small>{d.brandSubtitle}</small></div>
-        </div>
-
-        <div className="sidebar-preferences">
-          <LanguageSelector compact />
-          <ThemeToggle />
-        </div>
-
+        <div className="brand"><span>H</span><div><strong>Hisab</strong><small>{d.brandSubtitle}</small></div></div>
+        <div className="sidebar-preferences"><LanguageSelector compact /><ThemeToggle /></div>
         <nav aria-label="Primary workspace navigation">
           {navGroups.map((group) => (
             <div className="sidebar-nav-group" key={group.label}>
@@ -101,19 +87,13 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
             </div>
           ))}
         </nav>
-
-        <div className="sidebar-dock-status" aria-label="Navigation is docked">
-          <span aria-hidden="true">●</span>
-          <strong>{language === "am" ? "ምናሌው ተቆልፏል" : language === "ti" ? "ምናሌ ተሰኪሉ" : "Navigation docked"}</strong>
-        </div>
-
+        <div className="sidebar-dock-status" aria-label="Navigation is docked"><span aria-hidden="true">●</span><strong>{language === "am" ? "ምናሌው ተቆልፏል" : language === "ti" ? "ምናሌ ተሰኪሉ" : "Navigation docked"}</strong></div>
         <footer className="sidebar-footer">
           <p className="powered-by">Powered by <a href="https://hisabtech.com" target="_blank" rel="noreferrer">HisabTech.com</a></p>
           <a className="technology-link" href="https://hisabtechnologies.com" target="_blank" rel="noreferrer">hisabtechnologies.com ↗</a>
           <p>{user.organizationName}<br />Addis Ababa, Ethiopia</p>
         </footer>
       </aside>
-
       <div className="workspace" id="workspace-content" ref={workspaceRef}>{children}</div>
     </div>
   );
