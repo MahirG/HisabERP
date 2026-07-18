@@ -11,6 +11,7 @@ import "./font-benaiah-2.css";
 import "./font-benaiah-3.css";
 import "./fonts.css";
 import "./globals.css";
+import "./design-system.css";
 import "./erp-modules.css";
 import "./i18n.css";
 import "./production.css";
@@ -24,10 +25,12 @@ import "./sales.css";
 import "./core-operations.css";
 import "./setup-controls.css";
 import "./onboarding-launch.css";
+import "./readiness.css";
 import "./user-menu.css";
 import "./user-menu-layout.css";
 import "./docked-sidebar.css";
 import "./product-experience.css";
+import "./brand-refinements.css";
 
 export const metadata: Metadata = {
   title: { default: "HisabTech", template: "%s | HisabTech" },
@@ -44,7 +47,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   return (
     <html lang={initialLanguage} data-language={initialLanguage} data-theme="light" suppressHydrationWarning>
-      <body>
+      <body data-design-system="hisab-v1">
         <LanguageProvider initialLanguage={initialLanguage}>
           <AppExperienceProvider>
             <WorkspaceShell user={user}>{children}</WorkspaceShell>
