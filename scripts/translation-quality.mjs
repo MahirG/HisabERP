@@ -9,6 +9,7 @@ const files = (await fs.readdir(localeDirectory))
 const placeholderPattern = /\{[A-Za-z0-9_]+\}/g;
 const errors = [];
 const warnings = [];
+const overrides = [];
 const sources = new Map();
 let entries = 0;
 
@@ -46,8 +47,18 @@ for (const file of files) {
     }
 
     const previous = sources.get(source);
-    if (previous) warnings.push({ location, issue: `Duplicate English source also appears at ${previous}.` });
-    else if (source) sources.set(source, location);
+    if (previous && entry?.override === true) {
+      const reviewNote = String(entry?.reviewNote ?? "").trim();
+      if (!reviewNote) errors.push({ location, issue: "A translation override requires a reviewNote." });
+      overrides.push({ source, from: previous, to: location, reviewNote });
+      sources.set(source, location);
+    } else if (previous) {
+      errors.push({ location, issue: `Duplicate English source also appears at ${previous}; use a documented override only for a reviewed correction.` });
+    } else if (entry?.override === true) {
+      errors.push({ location, issue: "Override is true but no earlier source exists." });
+    } else if (source) {
+      sources.set(source, location);
+    }
   });
 }
 
@@ -56,6 +67,7 @@ const report = {
   catalogs: files.length,
   entries,
   uniqueSources: sources.size,
+  reviewedOverrides: overrides,
   errors,
   warnings,
   professionalReview: {
@@ -66,7 +78,7 @@ const report = {
 };
 
 await fs.writeFile("translation-quality-report.json", `${JSON.stringify(report, null, 2)}\n`);
-console.log(`translation quality: ${entries} entries, ${errors.length} errors, ${warnings.length} review warnings.`);
+console.log(`translation quality: ${entries} entries, ${errors.length} errors, ${warnings.length} review warnings, ${overrides.length} reviewed override(s).`);
 console.log("Automated checks do not replace approval by qualified native-language reviewers.");
 
 if (process.argv.includes("--check") && errors.length) process.exitCode = 1;
