@@ -1,5 +1,7 @@
 -- Keep product master import and opening-stock posting separately retryable.
 
+drop function if exists public.import_onboarding_products(uuid,uuid,jsonb);
+
 create or replace function public.sync_user_mfa_requirement()
 returns trigger language plpgsql security definer set search_path='' as $$
 declare target_user uuid; required_value boolean;
