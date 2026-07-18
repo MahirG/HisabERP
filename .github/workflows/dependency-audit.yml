@@ -3,6 +3,8 @@ name: Dependency security review
 on:
   push:
     branches: [agent/dependency-security-review]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
