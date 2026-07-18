@@ -41,7 +41,11 @@ export async function setSalaryStructureAction(formData: FormData) {
 }
 export async function createPayrollRunAction(formData: FormData) {
   const context = await requireHr();
-  const data = await rpc("create_payroll_run", { p_organization_id: context.organizationId, p_branch_id: context.branchId, p_period_start: requiredText(formData.get("periodStart"), "periodStart", 10), p_period_end: requiredText(formData.get("periodEnd"), "periodEnd", 10), p_pay_date: requiredText(formData.get("payDate"), "payDate", 10), p_notes: optionalText(formData.get("notes"), 1000), p_actor_id: context.userId });
+  const periodStart = requiredText(formData.get("periodStart"), "periodStart", 10);
+  const periodEnd = requiredText(formData.get("periodEnd"), "periodEnd", 10);
+  const requestedPayDate = requiredText(formData.get("payDate"), "payDate", 10);
+  const payDate = requestedPayDate < periodEnd ? periodEnd : requestedPayDate;
+  const data = await rpc("create_payroll_run", { p_organization_id: context.organizationId, p_branch_id: context.branchId, p_period_start: periodStart, p_period_end: periodEnd, p_pay_date: payDate, p_notes: optionalText(formData.get("notes"), 1000), p_actor_id: context.userId });
   revalidatePath("/hr"); done("payroll", "moneyRecorded", `${data.number || "Payroll"} · ${Number(data.employees || 0)} employees`, Number(data.amount || 0));
 }
 export async function approvePayrollRunAction(formData: FormData) {
