@@ -21,6 +21,7 @@ import "./internal-premium.css";
 import "./internal-modules-premium.css";
 import "./finance.css";
 import "./sales.css";
+import "./core-operations.css";
 import "./user-menu.css";
 import "./user-menu-layout.css";
 import "./docked-sidebar.css";
