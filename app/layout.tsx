@@ -22,6 +22,7 @@ import "./internal-premium.css";
 import "./internal-modules-premium.css";
 import "./finance.css";
 import "./sales.css";
+import "./e-invoicing.css";
 import "./core-operations.css";
 import "./setup-controls.css";
 import "./onboarding-launch.css";
