@@ -17,8 +17,14 @@ const publicPageRoutes = new Set([
   "/auth/callback",
 ]);
 
+const publicApiRoutes = new Set([
+  "/api/health",
+  "/api/reconciliation/telebirr/callback",
+  "/api/reconciliation/mpesa/callback",
+]);
+
 function isPublicPath(path: string) {
-  return publicPageRoutes.has(path) || path === "/api/health";
+  return publicPageRoutes.has(path) || publicApiRoutes.has(path);
 }
 
 function loginRedirect(request: NextRequest) {

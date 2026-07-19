@@ -32,6 +32,17 @@ test("provider callbacks are service-role only and cannot post journals", async 
   assert.match(mpesa, /handleProviderCallback\(request, "safaricom_daraja"\)/);
 });
 
+test("the auth proxy permits only the exact provider callback endpoints", async () => {
+  const proxy = await read("lib/supabase/proxy.ts");
+  assert.match(proxy, /const publicApiRoutes = new Set\(\[/);
+  assert.match(proxy, /"\/api\/health"/);
+  assert.match(proxy, /"\/api\/reconciliation\/telebirr\/callback"/);
+  assert.match(proxy, /"\/api\/reconciliation\/mpesa\/callback"/);
+  assert.doesNotMatch(proxy, /startsWith\("\/api\/reconciliation\/"\)/);
+  assert.match(proxy, /if \(!isAuthenticated && !publicPath\)/);
+  assert.match(proxy, /if \(path\.startsWith\("\/api\/"\)\) return NextResponse\.json\(\{ error: "Authentication required\." \}/);
+});
+
 test("statement ingestion limits, hashes and deduplicates input", async () => {
   const [parser, migration] = await Promise.all([
     read("lib/reconciliation/statement-parser.ts"),
