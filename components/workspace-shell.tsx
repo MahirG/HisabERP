@@ -39,6 +39,7 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
       : { core: "Core workspace", phase1: "Core operations", phase2: "Growth modules" };
   const setupLabel = language === "am" ? "የኩባንያ ማዋቀር" : language === "ti" ? "ምድላው ትካል" : "Company setup";
   const controlsLabel = language === "am" ? "የምርት ደህንነት" : language === "ti" ? "ድሕነት ፕሮዳክሽን" : "Production controls";
+  const eInvoiceLabel = language === "am" ? "ኤሌክትሮኒክ ደረሰኝ" : language === "ti" ? "ኤሌክትሮኒካዊ ፋክቱር" : "Electronic invoicing";
 
   const navGroups = [
     {
@@ -48,6 +49,7 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
         { label: d.nav.modules, href: "/modules" },
         { label: d.nav.finance, href: "/finance" },
         { label: d.nav.sales, href: "/sales" },
+        { label: eInvoiceLabel, href: "/e-invoicing" },
         { label: setupLabel, href: "/onboarding" },
       ],
     },
