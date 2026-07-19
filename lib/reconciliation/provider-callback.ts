@@ -1,6 +1,7 @@
 import "server-only";
 import { timingSafeEqual } from "node:crypto";
 import { createAdminClient } from "../supabase/admin";
+import { getMpesaCallbackCredential } from "./daraja";
 
 type Provider = "telebirr" | "safaricom_daraja";
 type NormalizedProviderEvent = {
@@ -101,12 +102,18 @@ export async function handleProviderCallback(request: Request, provider: Provide
   const url = new URL(request.url);
   const token = url.searchParams.get("token") || request.headers.get("x-hisab-callback-token");
   const sourceReference = url.searchParams.get("source")?.trim() || "";
-  const expectedToken = provider === "telebirr" ? process.env.TELEBIRR_CALLBACK_TOKEN : process.env.MPESA_CALLBACK_TOKEN;
-  if (!process.env.SUPABASE_SERVICE_ROLE_KEY || !expectedToken) {
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
     return Response.json({ error: "Provider callback processing is not configured." }, { status: 503 });
   }
-  if (!validToken(token, expectedToken)) return Response.json({ error: "Invalid callback token." }, { status: 401 });
   if (!sourceReference) return Response.json({ error: "Missing reconciliation source reference." }, { status: 400 });
+
+  let expectedToken = provider === "telebirr" ? process.env.TELEBIRR_CALLBACK_TOKEN : process.env.MPESA_CALLBACK_TOKEN;
+  if (provider === "safaricom_daraja" && !expectedToken) {
+    const credential = await getMpesaCallbackCredential(sourceReference);
+    expectedToken = credential?.token;
+  }
+  if (!expectedToken) return Response.json({ error: "Provider callback processing is not configured." }, { status: 503 });
+  if (!validToken(token, expectedToken)) return Response.json({ error: "Invalid callback token." }, { status: 401 });
 
   let payload: Record<string, unknown>;
   try {
