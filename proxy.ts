@@ -9,7 +9,7 @@ function securityHeaders(response: NextResponse, nonce: string, legacy: boolean)
     "default-src 'self'",
     `script-src ${scriptPolicy}`,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob: https://*.googleusercontent.com",
+    "img-src 'self' data: blob: https://*.googleusercontent.com https://www.ethiotelecom.et",
     "font-src 'self' data:",
     `connect-src 'self' https://*.supabase.co wss://*.supabase.co ${extraConnect}`.trim(),
     "frame-ancestors 'none'",
@@ -33,7 +33,6 @@ export async function proxy(request: NextRequest) {
   const nonce = crypto.randomUUID().replaceAll("-", "");
   const isLegacy = request.nextUrl.pathname.startsWith("/legacy");
   const isSensitive = request.nextUrl.pathname.startsWith("/auth/") || request.nextUrl.pathname.startsWith("/api/");
-
   if (isSensitive) {
     const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
     const key = `${forwarded || "unknown"}:${request.nextUrl.pathname}`;
@@ -44,13 +43,10 @@ export async function proxy(request: NextRequest) {
       return securityHeaders(response, nonce, isLegacy);
     }
   }
-
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
   const response = await updateSession(request, requestHeaders);
   return securityHeaders(response, nonce, isLegacy);
 }
 
-export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|woff2)$).*)"],
-};
+export const config = { matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|woff2)$).*)"] };
