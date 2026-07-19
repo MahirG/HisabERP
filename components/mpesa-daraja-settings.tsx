@@ -1,5 +1,3 @@
-"use client";
-
 import { saveMpesaDarajaCredentials, validateMpesaDarajaCredentials } from "../lib/actions/mpesa-daraja";
 import { Icon } from "./ui/icon";
 
