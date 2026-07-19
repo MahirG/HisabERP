@@ -40,6 +40,7 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
   const setupLabel = language === "am" ? "የኩባንያ ማዋቀር" : language === "ti" ? "ምድላው ትካል" : "Company setup";
   const controlsLabel = language === "am" ? "የምርት ደህንነት" : language === "ti" ? "ድሕነት ፕሮዳክሽን" : "Production controls";
   const eInvoiceLabel = language === "am" ? "ኤሌክትሮኒክ ደረሰኝ" : language === "ti" ? "ኤሌክትሮኒካዊ ፋክቱር" : "Electronic invoicing";
+  const reconciliationLabel = language === "am" ? "የባንክ እና ክፍያ ማስታረቅ" : language === "ti" ? "ምዕራቕ ባንክን ክፍሊትን" : "Bank and payment reconciliation";
 
   const navGroups = [
     {
@@ -50,6 +51,7 @@ export function WorkspaceShell({ children, user }: WorkspaceShellProps) {
         { label: d.nav.finance, href: "/finance" },
         { label: d.nav.sales, href: "/sales" },
         { label: eInvoiceLabel, href: "/e-invoicing" },
+        { label: reconciliationLabel, href: "/reconciliation" },
         { label: setupLabel, href: "/onboarding" },
       ],
     },
