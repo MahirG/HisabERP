@@ -11,6 +11,7 @@ pnpm-debug.log*
 i18n-audit-report.json
 translation-quality-report.json
 translation-overrides-report.json
+production-release-gate-report.json
 lib/locales/ui.en.json
 lib/locales/ui.am.json
 lib/locales/ui.ti.json
