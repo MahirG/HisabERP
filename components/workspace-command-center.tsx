@@ -515,7 +515,7 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
                 <div className="assistant-suggestions">
                   <p>{t("Suggested questions")}</p>
                   {["How do I create an invoice?", "Where do I review security controls?", "How do I check inventory?", "Show me financial reports."].map((prompt) => (
-                    <button type="button" key={prompt} onClick={() => askAssistant(t(prompt))}>{t(prompt)}</button>
+                    <button type="button" key={prompt} onClick={() => askAssistant(prompt)}>{t(prompt)}</button>
                   ))}
                 </div>
               )}
