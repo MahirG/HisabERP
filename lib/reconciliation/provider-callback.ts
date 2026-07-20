@@ -1,6 +1,7 @@
 import "server-only";
 import { timingSafeEqual } from "node:crypto";
 import { createAdminClient } from "../supabase/admin";
+import { getIntegrationSecret } from "./integration-secrets";
 
 type Provider = "telebirr" | "safaricom_daraja";
 type NormalizedProviderEvent = {
@@ -101,12 +102,30 @@ export async function handleProviderCallback(request: Request, provider: Provide
   const url = new URL(request.url);
   const token = url.searchParams.get("token") || request.headers.get("x-hisab-callback-token");
   const sourceReference = url.searchParams.get("source")?.trim() || "";
-  const expectedToken = provider === "telebirr" ? process.env.TELEBIRR_CALLBACK_TOKEN : process.env.MPESA_CALLBACK_TOKEN;
-  if (!process.env.SUPABASE_SERVICE_ROLE_KEY || !expectedToken) {
+  if (!sourceReference) return Response.json({ error: "Missing reconciliation source reference." }, { status: 400 });
+
+  let admin: ReturnType<typeof createAdminClient>;
+  let expectedToken = provider === "telebirr" ? process.env.TELEBIRR_CALLBACK_TOKEN?.trim() : "";
+  try {
+    admin = createAdminClient();
+    if (provider === "safaricom_daraja") {
+      const { data: sources, error } = await admin
+        .from("reconciliation_sources")
+        .select("organization_id")
+        .eq("provider", "safaricom_daraja")
+        .eq("external_account_reference", sourceReference)
+        .eq("status", "ready")
+        .limit(2);
+      if (error) throw new Error(error.message);
+      if (!sources?.length) return Response.json({ error: "M-Pesa reconciliation source not found." }, { status: 404 });
+      if (sources.length > 1) return Response.json({ error: "M-Pesa source reference is not unique." }, { status: 409 });
+      expectedToken = (await getIntegrationSecret(String(sources[0].organization_id), "callback_token")).value;
+    }
+  } catch {
     return Response.json({ error: "Provider callback processing is not configured." }, { status: 503 });
   }
+
   if (!validToken(token, expectedToken)) return Response.json({ error: "Invalid callback token." }, { status: 401 });
-  if (!sourceReference) return Response.json({ error: "Missing reconciliation source reference." }, { status: 400 });
 
   let payload: Record<string, unknown>;
   try {
@@ -117,7 +136,6 @@ export async function handleProviderCallback(request: Request, provider: Provide
 
   try {
     const event = provider === "telebirr" ? normalizeTelebirr(payload, sourceReference) : normalizeMpesa(payload, sourceReference);
-    const admin = createAdminClient();
     const { data, error } = await admin.rpc("ingest_provider_reconciliation_event", {
       p_provider: provider,
       p_external_account_reference: event.externalAccountReference,
