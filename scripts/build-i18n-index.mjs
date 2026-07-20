@@ -10,7 +10,6 @@ if (!files.length) throw new Error("No UI translation catalogs were found.");
 
 const english = {};
 const amharic = {};
-const tigrinya = {};
 const sourceLocations = new Map();
 const invalidDuplicates = [];
 const invalidOverrides = [];
@@ -23,9 +22,8 @@ for (const file of files) {
   for (const [index, entry] of entries.entries()) {
     const source = String(entry?.source ?? "").replace(/\s+/g, " ").trim();
     const am = String(entry?.am ?? "").replace(/\s+/g, " ").trim();
-    const ti = String(entry?.ti ?? "").replace(/\s+/g, " ").trim();
     const location = `${file}[${index}]`;
-    if (!source || !am || !ti) throw new Error(`${file} contains an incomplete translation entry.`);
+    if (!source || !am) throw new Error(`${file} contains an incomplete English or Amharic translation entry.`);
 
     const previous = sourceLocations.get(source);
     if (previous && entry?.override !== true) invalidDuplicates.push(`${location} duplicates ${previous}`);
@@ -39,7 +37,6 @@ for (const file of files) {
     sourceLocations.set(source, location);
     english[source] = source;
     amharic[source] = am;
-    tigrinya[source] = ti;
   }
 }
 
@@ -49,8 +46,7 @@ if (invalidOverrides.length) throw new Error(`Invalid UI translation overrides: 
 await Promise.all([
   fs.writeFile(path.join(localeDir, "ui.en.json"), `${JSON.stringify(english)}\n`),
   fs.writeFile(path.join(localeDir, "ui.am.json"), `${JSON.stringify(amharic)}\n`),
-  fs.writeFile(path.join(localeDir, "ui.ti.json"), `${JSON.stringify(tigrinya)}\n`),
   fs.writeFile("translation-overrides-report.json", `${JSON.stringify({ generatedAt: new Date().toISOString(), appliedOverrides }, null, 2)}\n`),
 ]);
 
-console.log(`Generated localization indexes for ${Object.keys(english).length} UI strings from ${files.length} catalogs with ${appliedOverrides.length} reviewed override(s).`);
+console.log(`Generated English and Amharic localization indexes for ${Object.keys(english).length} UI strings from ${files.length} catalogs with ${appliedOverrides.length} reviewed override(s).`);

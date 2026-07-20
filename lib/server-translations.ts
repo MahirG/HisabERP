@@ -1,12 +1,12 @@
 import "server-only";
 
 import { cookies } from "next/headers";
-import type { Language } from "./translations";
+import type { SupportedLanguage as Language } from "./translations";
 import { translateUiText, type TranslationValues } from "./ui-translations";
 
 export async function getRequestLanguage(): Promise<Language> {
   const value = (await cookies()).get("hisab_locale")?.value;
-  return value === "am" || value === "ti" ? value : "en";
+  return value === "am" ? "am" : "en";
 }
 
 export async function getServerTranslator() {

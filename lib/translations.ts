@@ -1,9 +1,9 @@
 import type { ModulePriority } from "./erp-modules";
 import en from "./locales/en.json";
 import am from "./locales/am.json";
-import ti from "./locales/ti.json";
 
 export type Language = "en" | "am" | "ti";
+export type SupportedLanguage = Exclude<Language, "ti">;
 
 export type ModuleTranslation = {
   title: string;
@@ -17,7 +17,7 @@ type DashboardMetricCopy = { label: string; change: string };
 type DashboardTransactionCopy = { description: string; category: string; date: string };
 
 export type Dictionary = {
-  language: { label: string; english: string; amharic: string; tigrinya: string };
+  language: { label: string; english: string; amharic: string };
   priorityLabels: Record<ModulePriority, string>;
   dashboard: {
     brandSubtitle: string;
@@ -84,8 +84,7 @@ export type Dictionary = {
   moduleItems: Record<string, ModuleTranslation>;
 };
 
-export const dictionaries: Record<Language, Dictionary> = {
+export const dictionaries: Record<SupportedLanguage, Dictionary> = {
   en: en as Dictionary,
   am: am as Dictionary,
-  ti: ti as Dictionary,
 };

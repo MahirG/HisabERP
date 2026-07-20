@@ -138,18 +138,18 @@ function scanFile(file, content) {
   return findings;
 }
 
-function flattenLegacy(en, am, ti, prefix = "", memory = new Map()) {
+function flattenLegacy(en, am, prefix = "", memory = new Map()) {
   if (typeof en === "string") {
     const source = normalize(en);
-    if (source) memory.set(source, { am: typeof am === "string" ? normalize(am) : "", ti: typeof ti === "string" ? normalize(ti) : "", path: prefix });
+    if (source) memory.set(source, { am: typeof am === "string" ? normalize(am) : "", path: prefix });
     return memory;
   }
   if (Array.isArray(en)) {
-    en.forEach((value, index) => flattenLegacy(value, am?.[index], ti?.[index], `${prefix}[${index}]`, memory));
+    en.forEach((value, index) => flattenLegacy(value, am?.[index], `${prefix}[${index}]`, memory));
     return memory;
   }
   if (en && typeof en === "object") {
-    Object.entries(en).forEach(([key, value]) => flattenLegacy(value, am?.[key], ti?.[key], prefix ? `${prefix}.${key}` : key, memory));
+    Object.entries(en).forEach(([key, value]) => flattenLegacy(value, am?.[key], prefix ? `${prefix}.${key}` : key, memory));
   }
   return memory;
 }
@@ -159,14 +159,14 @@ async function readJson(file, fallback = {}) {
   catch { return fallback; }
 }
 
-const [legacyEn, legacyAm, legacyTi, uiEn, uiAm, uiTi] = await Promise.all([
-  readJson("lib/locales/en.json"), readJson("lib/locales/am.json"), readJson("lib/locales/ti.json"),
-  readJson("lib/locales/ui.en.json"), readJson("lib/locales/ui.am.json"), readJson("lib/locales/ui.ti.json")
+const [legacyEn, legacyAm, uiEn, uiAm] = await Promise.all([
+  readJson("lib/locales/en.json"), readJson("lib/locales/am.json"),
+  readJson("lib/locales/ui.en.json"), readJson("lib/locales/ui.am.json")
 ]);
-const memory = flattenLegacy(legacyEn, legacyAm, legacyTi);
+const memory = flattenLegacy(legacyEn, legacyAm);
 for (const [source, english] of Object.entries(uiEn)) {
   const normalizedSource = normalize(source || english);
-  memory.set(normalizedSource, { am: normalize(uiAm[source] || ""), ti: normalize(uiTi[source] || ""), path: `ui.${source}` });
+  memory.set(normalizedSource, { am: normalize(uiAm[source] || ""), path: `ui.${source}` });
 }
 
 const files = (await Promise.all(ROOTS.map(listFiles))).flat().filter((file) => !IGNORE_FILES.has(file.split(path.sep).join("/")));
@@ -185,7 +185,7 @@ const covered = [];
 const missing = [];
 for (const item of strings) {
   const translation = memory.get(item.source);
-  if (translation?.am && translation?.ti) covered.push({ ...item, translation });
+  if (translation?.am) covered.push({ ...item, translation });
   else missing.push({ ...item, translation: translation || null });
 }
 
@@ -195,9 +195,10 @@ const report = {
   uniqueStrings: strings.length,
   coveredStrings: covered.length,
   missingStrings: missing.length,
+  supportedLanguages: ["en", "am"],
   covered,
   missing
 };
 await fs.writeFile("i18n-audit-report.json", `${JSON.stringify(report, null, 2)}\n`);
-console.log(`i18n audit: ${covered.length}/${strings.length} strings covered; ${missing.length} missing.`);
+console.log(`i18n audit: ${covered.length}/${strings.length} strings covered in Amharic; ${missing.length} missing.`);
 if (process.argv.includes("--check") && missing.length) process.exitCode = 1;
