@@ -9,6 +9,11 @@ import catalog08 from "./locales/ui-catalog-08.json";
 import catalog09 from "./locales/ui-catalog-09.json";
 import catalog10 from "./locales/ui-catalog-10.json";
 import catalog11 from "./locales/ui-catalog-11.json";
+import catalog12 from "./locales/ui-catalog-12.json";
+import catalog13 from "./locales/ui-catalog-13.json";
+import catalog14 from "./locales/ui-catalog-14.json";
+import catalog15 from "./locales/ui-catalog-15.json";
+import catalog16 from "./locales/ui-catalog-16.json";
 import { dictionaries, type SupportedLanguage as Language } from "./translations";
 
 export type TranslationValues = ReadonlyArray<string | number> | Record<string, string | number>;
@@ -29,6 +34,11 @@ const catalogs = [
   catalog09,
   catalog10,
   catalog11,
+  catalog12,
+  catalog13,
+  catalog14,
+  catalog15,
+  catalog16,
 ] as UiCatalogEntry[][];
 const exactTranslations = new Map<string, TranslationEntry>();
 const compiledPatterns: CompiledPattern[] = [];
