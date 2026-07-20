@@ -3,6 +3,13 @@ import type { ReconciliationSnapshot } from "./reconciliation-types";
 export const demoReconciliation: ReconciliationSnapshot = {
   mode: "demo",
   organizationName: "Hisab Demo Trading",
+  daraja: {
+    configured: false,
+    environment: null,
+    credentialSource: "missing",
+    callbackTokenConfigured: false,
+    lastCheck: null,
+  },
   metrics: { unmatched: 2, suggested: 2, partiallyMatched: 1, matched: 8, disputed: 0, unreconciledCredits: 18450, unreconciledDebits: 6250 },
   sources: [
     { id: "demo-bank", branchId: null, sourceType: "bank", provider: "bank_statement", name: "Main ETB bank", bankAccountId: null, ledgerAccountId: "acc-bank", ledgerAccountName: "1010 · Main bank", feeAccountId: "acc-fee", feeAccountName: "6100 · Bank charges", withholdingAccountId: "acc-wht", withholdingAccountName: "1300 · Withholding receivable", suspenseAccountId: "acc-suspense", suspenseAccountName: "1990 · Reconciliation suspense", currency: "ETB", environment: "production", status: "ready", externalAccountReference: "****0042", merchantReference: null, autoMatch: true, amountTolerance: 0.01, dateToleranceDays: 5, notes: "Upload statement exports from the bank portal.", transactionCount: 7, unmatchedCount: 2 },
