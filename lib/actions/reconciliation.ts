@@ -4,6 +4,11 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { isSupabaseConfigured } from "../config";
 import { can, getCurrentUserContext } from "../data/context";
+import {
+  saveAndValidateDarajaCredentials,
+  validateStoredDarajaConnection,
+  type DarajaEnvironmentChoice,
+} from "../reconciliation/mpesa-daraja";
 import { parseStatementFile } from "../reconciliation/statement-parser";
 import { createClient } from "../supabase/server";
 import { optionalText, positiveNumber, requiredText } from "../validation";
@@ -74,6 +79,30 @@ export async function saveReconciliationSource(formData: FormData) {
   if (error) throw new Error(error.message);
   const id = String((data as { id?: string } | null)?.id || "");
   successRedirect(`${sourceType === "bank" ? "Bank" : sourceType === "telebirr" ? "Telebirr" : "M-Pesa"} reconciliation source saved${id ? ` · ${id.slice(0, 8)}` : ""}`);
+}
+
+export async function saveMpesaDarajaCredentials(formData: FormData) {
+  const context = await requirePermission("configure");
+  const environment = requiredText(formData.get("darajaEnvironment"), "darajaEnvironment", 20) as DarajaEnvironmentChoice;
+  if (!["auto", "sandbox", "production"].includes(environment)) {
+    throw new Error("Choose auto-detect, sandbox or production.");
+  }
+
+  const result = await saveAndValidateDarajaCredentials({
+    organizationId: context.organizationId,
+    userId: context.userId,
+    consumerKey: requiredText(formData.get("consumerKey"), "consumerKey", 500),
+    consumerSecret: requiredText(formData.get("consumerSecret"), "consumerSecret", 500),
+    environment,
+  });
+
+  successRedirect(`M-Pesa Daraja OAuth verified in ${result.environment}. Credentials are encrypted per organization.`);
+}
+
+export async function testMpesaDarajaConnection() {
+  const context = await requirePermission("configure");
+  const result = await validateStoredDarajaConnection(context.organizationId, context.userId);
+  successRedirect(`M-Pesa Daraja OAuth connection verified in ${result.environment}.`);
 }
 
 export async function importReconciliationStatement(formData: FormData) {
