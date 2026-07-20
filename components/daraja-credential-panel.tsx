@@ -27,7 +27,7 @@ export function DarajaCredentialPanel({
         <div className="recon-panel-head">
           <div>
             <p className="eyebrow icon-action">
-              <Icon name="key-round" size={16} />
+              <Icon name="lock" size={16} />
               Server-only integration credentials
             </p>
             <h2 id="daraja-credentials-title">Safaricom Daraja OAuth</h2>
