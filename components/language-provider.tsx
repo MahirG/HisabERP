@@ -12,7 +12,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { dictionaries, type Dictionary, type Language } from "../lib/translations";
+import { dictionaries, type Dictionary, type SupportedLanguage as Language } from "../lib/translations";
 import { translateUiText, type TranslationValues } from "../lib/ui-translations";
 
 const STORAGE_KEY = "hisab-erp-language";
