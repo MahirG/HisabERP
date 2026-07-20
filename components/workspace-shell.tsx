@@ -53,15 +53,13 @@ export function WorkspaceShell({ children, user }: Props) {
   const d = dictionary.dashboard;
   const sections = language === "am"
     ? { core: "ዋና የስራ ቦታ", phase1: "ዋና ስራዎች", phase2: "ማስፋፊያ ሞጁሎች" }
-    : language === "ti"
-      ? { core: "ዋና መስርሕ", phase1: "ቀንዲ ስርሓት", phase2: "ምዕባለ ሞጁላት" }
-      : { core: "Core workspace", phase1: "Core operations", phase2: "Growth modules" };
-  const setup = language === "am" ? "የኩባንያ ማዋቀር" : language === "ti" ? "ምድላው ትካል" : "Company setup";
-  const controls = language === "am" ? "የምርት ደህነት" : language === "ti" ? "ድሕነት ፕሮዳክሽን" : "Production controls";
-  const einvoice = language === "am" ? "ኤሌክትሮኒክ ደረሰኝ" : language === "ti" ? "ኤሌክትሮኒካዊ ፋክቱር" : "Electronic invoicing";
-  const reconciliation = language === "am" ? "የባንክ እና ክፍያ ማስታረቅ" : language === "ti" ? "ምዕራቕ ባንክን ክፍሊትን" : "Bank and payment reconciliation";
-  const moreLabel = language === "am" ? "ተጨማሪ" : language === "ti" ? "ተወሳኺ" : "More";
-  const menuLabel = language === "am" ? "የስራ ቦታ ምናሌ" : language === "ti" ? "ዝርዝር መስርሕ" : "Workspace menu";
+    : { core: "Core workspace", phase1: "Core operations", phase2: "Growth modules" };
+  const setup = language === "am" ? "የኩባንያ ማዋቀር" : "Company setup";
+  const controls = language === "am" ? "የምርት ደህነት" : "Production controls";
+  const einvoice = language === "am" ? "ኤሌክትሮኒክ ደረሰኝ" : "Electronic invoicing";
+  const reconciliation = language === "am" ? "የባንክ እና ክፍያ ማስታረቅ" : "Bank and payment reconciliation";
+  const moreLabel = language === "am" ? "ተጨማሪ" : "More";
+  const menuLabel = language === "am" ? "የስራ ቦታ ምናሌ" : "Workspace menu";
 
   const groups: Array<{ label: string; items: NavItem[] }> = [
     {
@@ -162,7 +160,7 @@ export function WorkspaceShell({ children, user }: Props) {
             </div>
           ))}
         </nav>
-        <div className="sidebar-dock-status" aria-label="Navigation is docked"><Icon name="check-circle" size={16} /><strong>{language === "am" ? "ምናሌው ተቆልፏል" : language === "ti" ? "ምናሌ ተሰኪሉ" : "Navigation docked"}</strong></div>
+        <div className="sidebar-dock-status" aria-label="Navigation is docked"><Icon name="check-circle" size={16} /><strong>{language === "am" ? "ምናሌው ተቆልፏል" : "Navigation docked"}</strong></div>
         <footer className="sidebar-footer"><p className="powered-by">Powered by <a href="https://www.hisabtechnologies.com" target="_blank" rel="noopener noreferrer">HisabTech</a></p><p>{user.organizationName}<br />Addis Ababa, Ethiopia</p></footer>
       </aside>
 
