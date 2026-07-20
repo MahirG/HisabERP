@@ -23,9 +23,10 @@ test("global search, help, advice and AI assistance are keyboard accessible", as
   assert.match(commandCenter, /role="dialog"/);
   assert.match(commandCenter, /aria-modal="true"/);
   assert.match(commandCenter, /workspace-command-dialog/);
-  assert.match(commandCenter, /workspace-assistance-help/);
-  assert.match(commandCenter, /workspace-assistance-advice/);
-  assert.match(commandCenter, /workspace-assistance-ai/);
+  assert.match(commandCenter, /workspace-assistance-\$\{surface\}/);
+  assert.match(commandCenter, /surface === "help"/);
+  assert.match(commandCenter, /surface === "advice"/);
+  assert.match(commandCenter, /surface === "ai"/);
   assert.match(commandCenter, /router\.push\(item\.href\)/);
   assert.match(commandCenter, /Advice is read-only and does not change business records/);
   assert.match(commandCenter, /It never posts or edits records/);
