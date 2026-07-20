@@ -11,6 +11,7 @@ import {
   useState,
 } from "react";
 import type { UserContext } from "../lib/data/types";
+import { HelpCenterPanel } from "./help-center-panel";
 import { useLanguage } from "./language-provider";
 import { Icon, type IconName } from "./ui/icon";
 
@@ -464,20 +465,7 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
             <button type="button" onClick={closeSurface} aria-label={t("Close active panel")}><Icon name="x" size={19} /></button>
           </header>
 
-          {surface === "help" && (
-            <div className="assistance-panel-body">
-              <div className="help-link-list">
-                <Link href="/docs/setup" onClick={closeSurface}><Icon name="building" size={19} /><span><strong>{t("Getting started guide")}</strong><small>{t("Connect the platform, configure the company, and prepare the first workspace.")}</small></span><Icon name="chevron-right" size={17} /></Link>
-                <Link href="/account" onClick={closeSurface}><Icon name="shield-check" size={19} /><span><strong>{t("Account and MFA help")}</strong><small>{t("Manage identity, authenticator MFA, and privileged session assurance.")}</small></span><Icon name="chevron-right" size={17} /></Link>
-                <Link href="/security" onClick={closeSurface}><Icon name="activity" size={19} /><span><strong>{t("Production readiness help")}</strong><small>{t("Review alerts, backups, restore evidence, and database health controls.")}</small></span><Icon name="chevron-right" size={17} /></Link>
-              </div>
-              <section className="shortcut-reference">
-                <p>{t("Keyboard shortcuts")}</p>
-                <div><span>{t("Open global search")}</span><kbd>Ctrl K</kbd></div>
-                <div><span>{t("Close active panel")}</span><kbd>Esc</kbd></div>
-              </section>
-            </div>
-          )}
+          {surface === "help" && <HelpCenterPanel activeLabel={activeLabel} onNavigate={closeSurface} />}
 
           {surface === "advice" && (
             <div className="assistance-panel-body">
