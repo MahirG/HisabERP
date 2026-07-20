@@ -71,4 +71,12 @@ jobs:
           path: test.log
           retention-days: 3
       - name: Production build
-        run: npm run build
+        id: production_build
+        run: npm run build 2>&1 | tee production-build.log
+      - name: Upload production build diagnostics
+        if: failure() && steps.production_build.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-build-diagnostics
+          path: production-build.log
+          retention-days: 3
