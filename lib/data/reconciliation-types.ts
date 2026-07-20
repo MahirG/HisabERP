@@ -3,6 +3,19 @@ export type ReconciliationProvider = "manual_csv" | "bank_statement" | "telebirr
 export type ReconciliationStatus = "unmatched" | "suggested" | "partially_matched" | "matched" | "ignored" | "duplicate" | "disputed";
 export type ReconciliationTargetType = "sales_invoice" | "supplier_bill" | "account" | "suspense";
 
+export type DarajaConnectionStatus = {
+  configured: boolean;
+  environment: "sandbox" | "production" | null;
+  credentialSource: "vault" | "environment" | "mixed" | "missing";
+  callbackTokenConfigured: boolean;
+  lastCheck: {
+    status: "verified" | "failed";
+    environment: "sandbox" | "production";
+    checkedAt: string;
+    errorMessage: string | null;
+  } | null;
+};
+
 export type ReconciliationAccount = {
   id: string;
   code: string;
@@ -112,6 +125,7 @@ export type ReconciliationBatch = {
 export type ReconciliationSnapshot = {
   mode: "live" | "demo";
   organizationName: string;
+  daraja: DarajaConnectionStatus;
   metrics: {
     unmatched: number;
     suggested: number;
