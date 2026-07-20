@@ -15,18 +15,20 @@ test("reconciliation tables are tenant isolated and direct writes are revoked", 
 });
 
 test("provider callbacks are service-role only and cannot post journals", async () => {
-  const [migration, handler, telebirr, mpesa] = await Promise.all([
+  const [migration, handler, secrets, telebirr, mpesa] = await Promise.all([
     read("supabase/migrations/20260719080100_reconciliation_import_matching.sql"),
     read("lib/reconciliation/provider-callback.ts"),
+    read("lib/reconciliation/integration-secrets.ts"),
     read("app/api/reconciliation/telebirr/callback/route.ts"),
     read("app/api/reconciliation/mpesa/callback/route.ts"),
   ]);
   assert.match(migration, /grant execute on function public\.ingest_provider_reconciliation_event[\s\S]+to service_role/i);
   assert.match(migration, /revoke all on function public\.ingest_provider_reconciliation_event[\s\S]+authenticated/i);
   assert.match(handler, /timingSafeEqual/);
-  assert.match(handler, /SUPABASE_SERVICE_ROLE_KEY/);
+  assert.match(handler, /createAdminClient/);
   assert.match(handler, /TELEBIRR_CALLBACK_TOKEN/);
-  assert.match(handler, /MPESA_CALLBACK_TOKEN/);
+  assert.match(handler, /getIntegrationSecret[\s\S]+callback_token/);
+  assert.match(secrets, /MPESA_CALLBACK_TOKEN/);
   assert.doesNotMatch(handler, /confirm_reconciliation_match/);
   assert.match(telebirr, /handleProviderCallback\(request, "telebirr"\)/);
   assert.match(mpesa, /handleProviderCallback\(request, "safaricom_daraja"\)/);
@@ -93,7 +95,7 @@ test("workspace exposes the complete reconciliation workflow", async () => {
   assert.match(layout, /import "\.\/reconciliation\.css"/);
 });
 
-test("browser forms never request provider secrets or the Supabase service key", async () => {
+test("browser forms never request provider secrets or the Supabase service key in the generic workspace", async () => {
   const workspace = await read("components/reconciliation-workspace.tsx");
   assert.doesNotMatch(workspace, /name="(?:token|secret|serviceRoleKey|apiKey|consumerSecret)"/i);
   assert.doesNotMatch(workspace, /SUPABASE_SERVICE_ROLE_KEY/);
