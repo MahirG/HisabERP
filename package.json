@@ -14,7 +14,8 @@
     "i18n:check": "node scripts/build-i18n-index.mjs && node scripts/i18n-audit.mjs --check",
     "i18n:quality": "node scripts/translation-quality.mjs --check",
     "check": "npm run i18n:check && npm run i18n:quality && npm run typecheck && npm test && npm run build",
-    "audit:production": "npm audit --omit=dev --audit-level=moderate"
+    "audit:production": "npm audit --omit=dev --audit-level=moderate",
+    "verify:production": "node scripts/production-release-gate.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.3",
