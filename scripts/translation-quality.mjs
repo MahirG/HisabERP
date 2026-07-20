@@ -29,22 +29,19 @@ for (const file of files) {
     const location = `${file}[${index}]`;
     const source = String(entry?.source ?? "").trim();
     const am = String(entry?.am ?? "").trim();
-    const ti = String(entry?.ti ?? "").trim();
 
-    if (!source || !am || !ti) errors.push({ location, issue: "Source, Amharic and Tigrinya are all required." });
+    if (!source || !am) errors.push({ location, issue: "Source and Amharic are required." });
 
     const sourcePlaceholders = placeholders(source);
-    for (const [language, translation] of [["am", am], ["ti", ti]]) {
-      const translatedPlaceholders = placeholders(translation);
-      if (JSON.stringify(sourcePlaceholders) !== JSON.stringify(translatedPlaceholders)) {
-        errors.push({ location, language, issue: "Interpolation placeholders do not match the source.", sourcePlaceholders, translatedPlaceholders });
-      }
-      if (translation.includes("�")) warnings.push({ location, language, issue: "Replacement character detected; inspect source encoding." });
-      if (translation === source && /[A-Za-z]{3}/.test(source) && source.length > 12) {
-        warnings.push({ location, language, issue: "Translation is identical to English; confirm this is intentional." });
-      }
-      if (/\s{2,}/.test(translation)) warnings.push({ location, language, issue: "Repeated whitespace detected." });
+    const translatedPlaceholders = placeholders(am);
+    if (JSON.stringify(sourcePlaceholders) !== JSON.stringify(translatedPlaceholders)) {
+      errors.push({ location, language: "am", issue: "Interpolation placeholders do not match the source.", sourcePlaceholders, translatedPlaceholders });
     }
+    if (am.includes("�")) warnings.push({ location, language: "am", issue: "Replacement character detected; inspect source encoding." });
+    if (am === source && /[A-Za-z]{3}/.test(source) && source.length > 12) {
+      warnings.push({ location, language: "am", issue: "Translation is identical to English; confirm this is intentional." });
+    }
+    if (/\s{2,}/.test(am)) warnings.push({ location, language: "am", issue: "Repeated whitespace detected." });
 
     const previous = sources.get(source);
     if (previous && entry?.override === true) {
@@ -72,13 +69,13 @@ const report = {
   warnings,
   professionalReview: {
     status: "pending-human-sign-off",
-    requiredLanguages: ["am", "ti"],
+    requiredLanguages: ["am"],
     requiredEvidence: ["reviewer name", "review date", "application version", "terminology decisions", "approved exceptions"],
   },
 };
 
 await fs.writeFile("translation-quality-report.json", `${JSON.stringify(report, null, 2)}\n`);
 console.log(`translation quality: ${entries} entries, ${errors.length} errors, ${warnings.length} review warnings, ${overrides.length} reviewed override(s).`);
-console.log("Automated checks do not replace approval by qualified native-language reviewers.");
+console.log("Automated checks do not replace approval by a qualified Amharic reviewer.");
 
 if (process.argv.includes("--check") && errors.length) process.exitCode = 1;
