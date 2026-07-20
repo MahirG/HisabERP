@@ -1,3 +1,4 @@
+import { DarajaCredentialPanel } from "../../components/daraja-credential-panel";
 import { ReconciliationWorkspace } from "../../components/reconciliation-workspace";
 import { can, getCurrentUserContext } from "../../lib/data/context";
 import { getReconciliationSnapshot } from "../../lib/data/reconciliation";
@@ -21,5 +22,17 @@ export default async function ReconciliationPage({
   ]);
   const finance = Boolean(user && can(user, "manage_finance"));
   const importing = Boolean(user && (can(user, "manage_finance") || can(user, "manage_sales")));
-  return <ReconciliationWorkspace snapshot={snapshot} success={params.success} canConfigure={finance} canImport={importing} canPost={finance} />;
+
+  return (
+    <>
+      <ReconciliationWorkspace
+        snapshot={snapshot}
+        success={params.success}
+        canConfigure={finance}
+        canImport={importing}
+        canPost={finance}
+      />
+      <DarajaCredentialPanel status={snapshot.daraja} canConfigure={finance} />
+    </>
+  );
 }
