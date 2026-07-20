@@ -4,7 +4,7 @@ import type { Language } from "./translations";
 
 export async function getServerLanguage(): Promise<Language> {
   const value = (await cookies()).get("hisab_locale")?.value;
-  return value === "am" || value === "ti" ? value : "en";
+  return value === "am" ? "am" : "en";
 }
 
 export async function getServerFoundationCopy() {
