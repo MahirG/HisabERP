@@ -5,7 +5,7 @@ import { AppExperienceProvider } from "../components/app-experience-provider";
 import { LanguageProvider } from "../components/language-provider";
 import { WorkspaceShell } from "../components/workspace-shell";
 import { getCurrentUserContext } from "../lib/data/context";
-import type { Language } from "../lib/translations";
+import type { SupportedLanguage as Language } from "../lib/translations";
 import "./font-benaiah-1.css";
 import "./font-benaiah-2.css";
 import "./font-benaiah-3.css";
