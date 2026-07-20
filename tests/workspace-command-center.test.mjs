@@ -30,6 +30,8 @@ test("global search, help, advice and AI assistance are keyboard accessible", as
   assert.match(commandCenter, /router\.push\(item\.href\)/);
   assert.match(commandCenter, /Advice is read-only and does not change business records/);
   assert.match(commandCenter, /It never posts or edits records/);
+  assert.match(commandCenter, /onClick=\{\(\) => askAssistant\(prompt\)\}>\{t\(prompt\)\}/);
+  assert.doesNotMatch(commandCenter, /askAssistant\(t\(prompt\)\)/);
 });
 
 test("hover expansion overlays the workspace without shifting page content", async () => {
