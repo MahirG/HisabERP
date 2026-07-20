@@ -9,6 +9,7 @@ import { LanguageSelector, useLanguage } from "./language-provider";
 import { ThemeToggle } from "./theme-toggle";
 import { UserMenu } from "./user-menu";
 import { Icon, type IconName } from "./ui/icon";
+import { WorkspaceCommandCenter, type WorkspaceCommandItem } from "./workspace-command-center";
 
 type Props = { children: ReactNode; user: UserContext | null };
 type NavItem = { label: string; href: string; icon: IconName };
@@ -97,6 +98,9 @@ export function WorkspaceShell({ children, user }: Props) {
   ];
 
   const allItems = groups.flatMap((group) => group.items);
+  const commandItems: WorkspaceCommandItem[] = groups.flatMap((group) =>
+    group.items.map((item) => ({ ...item, group: group.label })),
+  );
   const activeItem = allItems.find((item) => isActiveRoute(pathname, item.href));
   const mobileShortcuts: NavItem[] = [
     { label: d.nav.overview, href: "/", icon: "home" },
@@ -124,7 +128,9 @@ export function WorkspaceShell({ children, user }: Props) {
     : children;
 
   return (
-    <div className="erp-shell" data-layout-version="mobile-first-v1" data-mobile-nav-open={mobileNavOpen ? "true" : "false"}>
+    <div className="erp-shell" data-layout-version="hover-command-v1" data-mobile-nav-open={mobileNavOpen ? "true" : "false"}>
+      <WorkspaceCommandCenter items={commandItems} activeLabel={activeItem?.label ?? d.nav.overview} pathname={pathname} user={user} />
+
       <header className="mobile-workspace-header">
         <button type="button" className="mobile-menu-trigger" aria-label={menuLabel} aria-controls="primary-sidebar" aria-expanded={mobileNavOpen} onClick={() => setMobileNavOpen(true)}>
           <span aria-hidden="true"><i /><i /><i /></span>
@@ -137,7 +143,7 @@ export function WorkspaceShell({ children, user }: Props) {
 
       <button className="mobile-nav-backdrop" type="button" aria-label="Close navigation" onClick={() => setMobileNavOpen(false)} />
 
-      <aside className="sidebar" id="primary-sidebar" data-docked="true">
+      <aside className="sidebar" id="primary-sidebar" data-docked="hover" aria-label="Primary workspace navigation">
         <div className="mobile-sidebar-header">
           <div className="brand"><span>H</span><div><strong>Hisab</strong><small>{d.brandSubtitle}</small></div></div>
           <button type="button" aria-label="Close navigation" onClick={() => setMobileNavOpen(false)}>×</button>
@@ -151,7 +157,15 @@ export function WorkspaceShell({ children, user }: Props) {
               {group.items.map((item) => {
                 const active = isActiveRoute(pathname, item.href);
                 return (
-                  <Link aria-current={active ? "page" : undefined} className={active ? "active" : undefined} href={item.href} key={item.href} onClick={() => setMobileNavOpen(false)}>
+                  <Link
+                    aria-current={active ? "page" : undefined}
+                    className={active ? "active" : undefined}
+                    data-label={item.label}
+                    href={item.href}
+                    key={item.href}
+                    onClick={() => setMobileNavOpen(false)}
+                    title={item.label}
+                  >
                     <Icon className="sidebar-nav-icon" name={item.icon} size={20} />
                     <span>{item.label}</span>
                   </Link>
@@ -160,7 +174,7 @@ export function WorkspaceShell({ children, user }: Props) {
             </div>
           ))}
         </nav>
-        <div className="sidebar-dock-status" aria-label="Navigation is docked"><Icon name="check-circle" size={16} /><strong>{language === "am" ? "ምናሌው ተቆልፏል" : "Navigation docked"}</strong></div>
+        <div className="sidebar-dock-status" aria-label="Navigation expands on hover"><Icon name="chevron-right" size={16} /><strong>{language === "am" ? "ለማስፋት ያንዣብቡ" : "Hover to expand"}</strong></div>
         <footer className="sidebar-footer"><p className="powered-by">Powered by <a href="https://www.hisabtechnologies.com" target="_blank" rel="noopener noreferrer">HisabTech</a></p><p>{user.organizationName}<br />Addis Ababa, Ethiopia</p></footer>
       </aside>
 
