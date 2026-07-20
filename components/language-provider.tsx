@@ -124,7 +124,7 @@ export function LanguageProvider({ children, initialLanguage = "en" }: { childre
 
   useEffect(() => {
     const saved = window.localStorage.getItem(STORAGE_KEY);
-    if ((saved === "en" || saved === "am" || saved === "ti") && saved !== language) setLanguageState(saved);
+    if ((saved === "en" || saved === "am") && saved !== language) setLanguageState(saved);
     // The server cookie remains the first-render source of truth.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -191,7 +191,6 @@ export function useLanguage() {
 const languageCodes: Array<{ value: Language; short: string }> = [
   { value: "en", short: "EN" },
   { value: "am", short: "አማ" },
-  { value: "ti", short: "ትግ" },
 ];
 
 export function LanguageSelector({ compact = false }: { compact?: boolean }) {
@@ -213,7 +212,6 @@ export function LanguageSelector({ compact = false }: { compact?: boolean }) {
   const names: Record<Language, string> = {
     en: dictionary.language.english,
     am: dictionary.language.amharic,
-    ti: dictionary.language.tigrinya,
   };
 
   return (
