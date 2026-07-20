@@ -3,19 +3,19 @@ import { signInWithOAuthProvider } from "../lib/actions/auth";
 
 const socialCopy = {
   en: {
-    google: "Continue to HisabTech with Google",
+    google: "Continue with Google",
     apple: "Continue with Apple",
-    divider: "or continue with phone",
+    divider: "or continue with email",
   },
   am: {
-    google: "በGoogle ወደ HisabTech ይቀጥሉ",
+    google: "በGoogle ይቀጥሉ",
     apple: "በApple ይቀጥሉ",
-    divider: "ወይም በስልክ ይቀጥሉ",
+    divider: "ወይም በኢሜይል ይቀጥሉ",
   },
   ti: {
-    google: "ብGoogle ናብ HisabTech ቀጽሉ",
+    google: "ብGoogle ቀጽሉ",
     apple: "ብApple ቀጽሉ",
-    divider: "ወይ ብተሌፎን ቀጽሉ",
+    divider: "ወይ ብኢሜይል ቀጽሉ",
   },
 } as const;
 
@@ -52,7 +52,7 @@ export function SocialAuthButtons({
   const c = socialCopy[language];
 
   return (
-    <section className="social-auth-block" aria-label="Social sign in">
+    <section className="social-auth-block" aria-label="Trusted sign-in providers">
       <div className="social-auth-grid">
         <form action={signInWithOAuthProvider}>
           <input type="hidden" name="provider" value="google"/>
