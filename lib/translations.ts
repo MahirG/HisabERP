@@ -2,7 +2,8 @@ import type { ModulePriority } from "./erp-modules";
 import en from "./locales/en.json";
 import am from "./locales/am.json";
 
-export type Language = "en" | "am";
+export type Language = "en" | "am" | "ti";
+export type SupportedLanguage = Exclude<Language, "ti">;
 
 export type ModuleTranslation = {
   title: string;
@@ -83,7 +84,7 @@ export type Dictionary = {
   moduleItems: Record<string, ModuleTranslation>;
 };
 
-export const dictionaries: Record<Language, Dictionary> = {
+export const dictionaries: Record<SupportedLanguage, Dictionary> = {
   en: en as Dictionary,
   am: am as Dictionary,
 };
