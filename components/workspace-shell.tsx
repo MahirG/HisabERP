@@ -22,6 +22,17 @@ function isActiveRoute(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+function getOrganizationMark(name: string) {
+  const mark = name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part.charAt(0))
+    .join("")
+    .toUpperCase();
+  return mark || "H";
+}
+
 export function WorkspaceShell({ children, user }: Props) {
   const pathname = usePathname();
   const workspaceRef = useRef<HTMLDivElement>(null);
@@ -56,7 +67,7 @@ export function WorkspaceShell({ children, user }: Props) {
     ? { core: "ዋና የስራ ቦታ", phase1: "ዋና ስራዎች", phase2: "ማስፋፊያ ሞጁሎች" }
     : { core: "Core workspace", phase1: "Core operations", phase2: "Growth modules" };
   const setup = language === "am" ? "የኩባንያ ማዋቀር" : "Company setup";
-  const controls = language === "am" ? "የምርት ደህነት" : "Production controls";
+  const controls = language === "am" ? "የምርት ደህንነት" : "Production controls";
   const einvoice = language === "am" ? "ኤሌክትሮኒክ ደረሰኝ" : "Electronic invoicing";
   const reconciliation = language === "am" ? "የባንክ እና ክፍያ ማስታረቅ" : "Bank and payment reconciliation";
   const moreLabel = language === "am" ? "ተጨማሪ" : "More";
@@ -102,6 +113,7 @@ export function WorkspaceShell({ children, user }: Props) {
     group.items.map((item) => ({ ...item, group: group.label })),
   );
   const activeItem = allItems.find((item) => isActiveRoute(pathname, item.href));
+  const organizationMark = getOrganizationMark(user.organizationName);
   const mobileShortcuts: NavItem[] = [
     { label: d.nav.overview, href: "/", icon: "home" },
     { label: d.nav.sales, href: "/sales", icon: "shopping-cart" },
@@ -128,7 +140,7 @@ export function WorkspaceShell({ children, user }: Props) {
     : children;
 
   return (
-    <div className="erp-shell" data-layout-version="hover-command-v1" data-mobile-nav-open={mobileNavOpen ? "true" : "false"}>
+    <div className="erp-shell" data-layout-version="supabase-sidebar-v2" data-mobile-nav-open={mobileNavOpen ? "true" : "false"}>
       <WorkspaceCommandCenter items={commandItems} activeLabel={activeItem?.label ?? d.nav.overview} pathname={pathname} user={user} />
 
       <header className="mobile-workspace-header">
@@ -143,38 +155,59 @@ export function WorkspaceShell({ children, user }: Props) {
 
       <button className="mobile-nav-backdrop" type="button" aria-label="Close navigation" onClick={() => setMobileNavOpen(false)} />
 
-      <aside className="sidebar" id="primary-sidebar" data-docked="hover" aria-label="Primary workspace navigation">
+      <aside className="sidebar supabase-sidebar" id="primary-sidebar" data-docked="hover" aria-label="Primary workspace navigation">
         <div className="mobile-sidebar-header">
           <div className="brand"><span>H</span><div><strong>Hisab</strong><small>{d.brandSubtitle}</small></div></div>
           <button type="button" aria-label="Close navigation" onClick={() => setMobileNavOpen(false)}>×</button>
         </div>
-        <div className="desktop-sidebar-brand brand"><span>H</span><div><strong>Hisab</strong><small>{d.brandSubtitle}</small></div></div>
+
+        <div className="supabase-sidebar-header">
+          <Link href="/" className="desktop-sidebar-brand brand" aria-label="HisabTech dashboard">
+            <span>H</span>
+            <div><strong>HisabTech</strong><small>{d.brandSubtitle}</small></div>
+          </Link>
+          <span className="supabase-rail-indicator" aria-hidden="true"><Icon name="chevron-right" size={14} /></span>
+        </div>
+
+        <Link className="sidebar-workspace-switcher" href="/" title={user.organizationName}>
+          <span className="sidebar-workspace-mark" aria-hidden="true">{organizationMark}</span>
+          <span className="sidebar-workspace-copy">
+            <strong>{user.organizationName}</strong>
+            <small>{activeItem?.label ?? d.nav.overview}</small>
+          </span>
+          <Icon className="sidebar-workspace-chevron" name="chevron-right" size={14} />
+        </Link>
+
         <div className="sidebar-preferences"><LanguageSelector compact /><ThemeToggle /></div>
+
         <nav aria-label="Primary workspace navigation">
           {groups.map((group) => (
             <div className="sidebar-nav-group" key={group.label}>
               <span className="sidebar-section-label">{group.label}</span>
-              {group.items.map((item) => {
-                const active = isActiveRoute(pathname, item.href);
-                return (
-                  <Link
-                    aria-current={active ? "page" : undefined}
-                    className={active ? "active" : undefined}
-                    data-label={item.label}
-                    href={item.href}
-                    key={item.href}
-                    onClick={() => setMobileNavOpen(false)}
-                    title={item.label}
-                  >
-                    <Icon className="sidebar-nav-icon" name={item.icon} size={20} />
-                    <span>{item.label}</span>
-                  </Link>
-                );
-              })}
+              <div className="sidebar-group-items">
+                {group.items.map((item) => {
+                  const active = isActiveRoute(pathname, item.href);
+                  return (
+                    <Link
+                      aria-current={active ? "page" : undefined}
+                      className={active ? "active" : undefined}
+                      data-label={item.label}
+                      href={item.href}
+                      key={item.href}
+                      onClick={() => setMobileNavOpen(false)}
+                      title={item.label}
+                    >
+                      <Icon className="sidebar-nav-icon" name={item.icon} size={16} />
+                      <span>{item.label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           ))}
         </nav>
-        <div className="sidebar-dock-status" aria-label="Navigation expands on hover"><Icon name="chevron-right" size={16} /><strong>{language === "am" ? "ለማስፋት ያንዣብቡ" : "Hover to expand"}</strong></div>
+
+        <div className="sidebar-dock-status" aria-label="Navigation expands on hover"><Icon name="chevron-right" size={14} /><strong>{language === "am" ? "ለማስፋት ያንዣብቡ" : "Hover to expand"}</strong></div>
         <footer className="sidebar-footer"><p className="powered-by">Powered by <a href="https://www.hisabtechnologies.com" target="_blank" rel="noopener noreferrer">HisabTech</a></p><p>{user.organizationName}<br />Addis Ababa, Ethiopia</p></footer>
       </aside>
 
