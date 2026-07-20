@@ -5,7 +5,7 @@ import catalog04 from "./locales/ui-catalog-04.json";
 import catalog05 from "./locales/ui-catalog-05.json";
 import catalog06 from "./locales/ui-catalog-06.json";
 import catalog07 from "./locales/ui-catalog-07.json";
-import { dictionaries, type Language } from "./translations";
+import { dictionaries, type SupportedLanguage as Language } from "./translations";
 
 export type TranslationValues = ReadonlyArray<string | number> | Record<string, string | number>;
 
