@@ -42,6 +42,7 @@ import "./auth-official.css";
 import "./mobile-workspace.css";
 import "./workspace-command-center.css";
 import "./help-center.css";
+import "./supabase-sidebar.css";
 
 export const metadata: Metadata = { title: { default: "HisabTech", template: "%s | HisabTech" }, description: "HisabTech — secure multilingual ERP for Ethiopian businesses.", applicationName: "HisabTech" };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 5, viewportFit: "cover", themeColor: "#0F172A" };
