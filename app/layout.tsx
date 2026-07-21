@@ -41,6 +41,7 @@ import "./workspace-standardization.css";
 import "./phone-auth-standard.css";
 import "./auth-official.css";
 import "./auth-login-slack.css";
+import "./auth-hisab-brand.css";
 import "./mobile-workspace.css";
 import "./workspace-command-center.css";
 import "./help-center.css";
