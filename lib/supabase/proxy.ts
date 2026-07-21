@@ -15,6 +15,7 @@ const publicPageRoutes = new Set([
   "/auth/reset-password",
   "/auth/invalid-link",
   "/auth/callback",
+  "/auth/confirm",
 ]);
 
 const publicApiRoutes = new Set([
@@ -68,7 +69,7 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
 
   const authenticatedRecoveryPage = path === "/auth/reset-password";
   const authenticatedPreview = request.nextUrl.searchParams.get("preview") === "1";
-  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/auth/callback" && !authenticatedRecoveryPage && !authenticatedPreview) {
+  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/auth/callback" && path !== "/auth/confirm" && !authenticatedRecoveryPage && !authenticatedPreview) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     url.search = "";
