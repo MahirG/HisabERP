@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { LanguageSelector } from "./language-provider";
 
 export function EmailAuthCard({ title, description, children, footer }: { title: string; description: string; children: ReactNode; footer?: ReactNode }) {
   return (
@@ -21,7 +20,7 @@ export function EmailAuthCard({ title, description, children, footer }: { title:
         </aside>
         <section className="auth-card auth-form-panel auth-official-form-panel">
           <div className="auth-official-form-wrap">
-            <div className="auth-top"><Link href="/" className="auth-brand auth-mobile-brand"><span>H</span><strong>HisabTech</strong></Link><LanguageSelector/></div>
+            <div className="auth-top"><Link href="/" className="auth-brand auth-mobile-brand"><span>H</span><strong>HisabTech</strong></Link></div>
             <div className="auth-heading auth-official-heading"><p className="eyebrow">HisabTech</p><h1>{title}</h1><p>{description}</p></div>
             {children}
             {footer ? <div className="auth-switch auth-account-switch">{footer}</div> : null}
