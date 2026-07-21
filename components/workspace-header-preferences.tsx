@@ -10,6 +10,7 @@ export function WorkspaceHeaderPreferences() {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const label = language === "am" ? "የስራ ቦታ ምርጫዎች" : "Workspace preferences";
+  const languageCode = language === "am" ? "አማ" : "EN";
 
   useEffect(() => {
     if (!open) return;
@@ -43,7 +44,8 @@ export function WorkspaceHeaderPreferences() {
         aria-controls="workspace-mobile-preferences"
         onClick={() => setOpen((current) => !current)}
       >
-        <Icon name="settings" size={18} />
+        <span>{languageCode}</span>
+        <Icon name="sun" size={16} />
       </button>
 
       {open && (
