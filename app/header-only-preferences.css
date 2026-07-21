@@ -1,0 +1,26 @@
+/*
+ * Global preference controls are owned exclusively by WorkspaceHeaderPreferences.
+ * This final cascade guard prevents legacy pages, authentication surfaces, sidebars,
+ * module toolbars, or future components from rendering duplicate controls.
+ */
+
+.language-selector,
+.theme-toggle {
+  display: none !important;
+}
+
+.workspace-header-preferences .language-selector {
+  display: grid !important;
+}
+
+.workspace-header-preferences .theme-toggle {
+  display: flex !important;
+}
+
+/* Remove spacing left behind by legacy preference-only containers. */
+.sidebar-preferences:empty,
+.top-actions:empty,
+.module-toolbar:empty,
+.auth-top:empty {
+  display: none !important;
+}
