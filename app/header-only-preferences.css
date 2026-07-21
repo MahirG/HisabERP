@@ -1,6 +1,7 @@
 /*
- * Reusable workspace preference controls are owned by WorkspaceHeaderPreferences.
- * Authentication routes use the separate AuthPagePreferences icon controls.
+ * Reusable preference controls belong only in approved top-level headers.
+ * Workspace routes use WorkspaceHeaderPreferences, company launch uses its own
+ * launch header, and authentication routes use AuthPagePreferences icon controls.
  * This final cascade guard keeps legacy page, sidebar, toolbar and auth markup hidden.
  */
 
@@ -9,11 +10,13 @@
   display: none !important;
 }
 
-.workspace-header-preferences .language-selector {
+.workspace-header-preferences .language-selector,
+.launch-header-preferences .language-selector {
   display: grid !important;
 }
 
-.workspace-header-preferences .theme-toggle {
+.workspace-header-preferences .theme-toggle,
+.launch-header-preferences .theme-toggle {
   display: flex !important;
 }
 
