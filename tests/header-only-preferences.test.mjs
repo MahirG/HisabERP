@@ -20,7 +20,7 @@ async function sourceFiles(directory) {
   return files;
 }
 
-test("keeps reusable language and theme controls inside the workspace header", async () => {
+test("keeps reusable language and theme controls out of ordinary components", async () => {
   const files = await sourceFiles(path.join(root, "components"));
   const offenders = [];
 
@@ -34,7 +34,7 @@ test("keeps reusable language and theme controls inside the workspace header", a
   assert.deepEqual(
     offenders,
     [],
-    `reusable preference controls must render only in components/workspace-header-preferences.tsx; found: ${offenders.join(", ")}`,
+    `reusable preference controls must render only in components/workspace-header-preferences.tsx within the components directory; found: ${offenders.join(", ")}`,
   );
 });
 
@@ -74,11 +74,17 @@ test("loads auth styling before the final duplicate-control guard", async () => 
   );
 });
 
-test("hides legacy duplicate controls and restores only workspace header descendants", async () => {
-  const css = await readFile(path.join(root, "app", "header-only-preferences.css"), "utf8");
+test("hides legacy controls and restores only approved header descendants", async () => {
+  const [css, onboarding] = await Promise.all([
+    readFile(path.join(root, "app", "header-only-preferences.css"), "utf8"),
+    readFile(path.join(root, "app", "onboarding", "page.tsx"), "utf8"),
+  ]);
 
   assert.match(css, /\.language-selector,\s*\n\.theme-toggle\s*\{\s*display:\s*none\s*!important;/);
-  assert.match(css, /\.workspace-header-preferences \.language-selector\s*\{\s*display:\s*grid\s*!important;/);
-  assert.match(css, /\.workspace-header-preferences \.theme-toggle\s*\{\s*display:\s*flex\s*!important;/);
-  assert.match(css, /Authentication routes use the separate AuthPagePreferences icon controls/);
+  assert.match(css, /\.workspace-header-preferences \.language-selector,\s*\n\.launch-header-preferences \.language-selector\s*\{\s*display:\s*grid\s*!important;/);
+  assert.match(css, /\.workspace-header-preferences \.theme-toggle,\s*\n\.launch-header-preferences \.theme-toggle\s*\{\s*display:\s*flex\s*!important;/);
+  assert.match(css, /company launch uses its own\s*\n \* launch header/);
+  assert.match(onboarding, /className="launch-header-preferences"/);
+  assert.match(onboarding, /<LanguageSelector compact \/>/);
+  assert.match(onboarding, /<ThemeToggle \/>/);
 });
