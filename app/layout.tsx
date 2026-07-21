@@ -42,6 +42,8 @@ import "./phone-auth-standard.css";
 import "./auth-official.css";
 import "./auth-login-slack.css";
 import "./auth-hisab-brand.css";
+import "./marketing-site.css";
+import "./request-demo.css";
 import "./mobile-workspace.css";
 import "./workspace-command-center.css";
 import "./help-center.css";
@@ -55,6 +57,6 @@ import "./light-theme-component-guards.css";
 import "./auth-page-preferences.css";
 import "./header-only-preferences.css";
 
-export const metadata: Metadata = { title: { default: "HisabTech", template: "%s | HisabTech" }, description: "HisabTech — secure multilingual ERP for Ethiopian businesses.", applicationName: "HisabTech" };
+export const metadata: Metadata = { title: { default: "HisabTech", template: "%s | HisabTech" }, description: "HisabERP — modern, secure and multilingual business management software for Ethiopian businesses.", applicationName: "HisabTech" };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 5, viewportFit: "cover", themeColor: "#0F172A" };
 export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) { const [cookieStore,user]=await Promise.all([cookies(),getCurrentUserContext()]); const saved=cookieStore.get("hisab_locale")?.value; const initialLanguage:Language=saved==="am"?"am":"en"; return <html lang={initialLanguage} data-language={initialLanguage} data-theme="light" suppressHydrationWarning><body data-design-system="hisab-v1" data-workspace-system="financial-os-v1"><LanguageProvider initialLanguage={initialLanguage}><AppExperienceProvider><AuthPagePreferences/><WorkspaceShell user={user}>{children}</WorkspaceShell></AppExperienceProvider></LanguageProvider></body></html>; }
