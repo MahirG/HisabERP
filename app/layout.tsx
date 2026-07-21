@@ -49,6 +49,7 @@ import "./financial-dashboard.css";
 import "./workspace-header-preferences.css";
 import "./light-theme-contrast.css";
 import "./light-theme-component-guards.css";
+import "./header-only-preferences.css";
 
 export const metadata: Metadata = { title: { default: "HisabTech", template: "%s | HisabTech" }, description: "HisabTech — secure multilingual ERP for Ethiopian businesses.", applicationName: "HisabTech" };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 5, viewportFit: "cover", themeColor: "#0F172A" };
