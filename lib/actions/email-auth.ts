@@ -11,6 +11,7 @@ import { requiredText, safeNextPath, ValidationError } from "../validation";
 
 const genericMessage = "If the account can receive email, we sent the next step.";
 const genericLoginError = "The email or password is incorrect, or the account is not ready.";
+const genericSignupError = "We could not complete account creation right now. Please try again shortly.";
 
 function normalizeEmail(value: FormDataEntryValue | null) {
   const email = requiredText(value, "email", 254).trim().toLowerCase();
@@ -30,6 +31,16 @@ function validationMessage(error: unknown, fallback: string) {
   return error instanceof ValidationError ? Object.values(error.fields)[0] || error.message : fallback;
 }
 
+function confirmationUrl(next: string) {
+  return `${appConfig.appUrl}/auth/confirm?next=${encodeURIComponent(next)}`;
+}
+
+function loginErrorMessage(code?: string) {
+  if (code === "email_not_confirmed") return "Confirm your email before signing in.";
+  if (code === "over_request_rate_limit" || code === "over_email_send_rate_limit") return "Too many attempts. Wait a moment and try again.";
+  return genericLoginError;
+}
+
 async function requestMetadata() {
   const requestHeaders = await headers();
   return {
@@ -45,7 +56,7 @@ async function recordLoginAttempt(email: string, succeeded: boolean, userId: str
       user_id: userId,
       identifier_hash: createHash("sha256").update(email).digest("hex"),
       succeeded,
-      failure_reason: reason,
+      failure_reason: reason?.slice(0, 120) || null,
       ip_address: metadata.ip,
       user_agent: metadata.userAgent,
     });
@@ -72,20 +83,28 @@ export async function signUpWithEmail(formData: FormData) {
   }
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email,
     password: secret,
     options: {
-      emailRedirectTo: `${appConfig.appUrl}/auth/callback?next=${encodeURIComponent("/onboarding")}`,
+      emailRedirectTo: confirmationUrl("/onboarding"),
       data: { full_name: fullName },
     },
   });
-  if (error) redirect(`/auth/email-sign-up?message=${encodeURIComponent(genericMessage)}`);
+
+  if (error) {
+    const message = error.code === "over_email_send_rate_limit"
+      ? "Too many verification emails were requested. Wait a moment and try again."
+      : genericSignupError;
+    redirect(`/auth/email-sign-up?error=${encodeURIComponent(message)}`);
+  }
+
+  if (data.session) redirect("/onboarding");
   redirect(`/auth/verify-email?email=${encodeURIComponent(email)}`);
 }
 
 export async function signInWithEmail(formData: FormData) {
-  if (!isSupabaseConfigured()) redirect("/auth/email-login?error=Authentication+is+not+configured");
+  if (!isSupabaseConfigured()) redirect("/auth/login?error=Authentication+is+not+configured");
   const next = safeNextPath(formData.get("next"));
 
   let email: string;
@@ -94,15 +113,15 @@ export async function signInWithEmail(formData: FormData) {
     email = normalizeEmail(formData.get("email"));
     secret = requiredText(formData.get("password"), "password", 200);
   } catch {
-    redirect(`/auth/email-login?error=${encodeURIComponent(genericLoginError)}&next=${encodeURIComponent(next)}`);
+    redirect(`/auth/login?error=${encodeURIComponent(genericLoginError)}&next=${encodeURIComponent(next)}`);
   }
 
   const supabase = await createClient();
   const metadata = await requestMetadata();
   const { data, error } = await supabase.auth.signInWithPassword({ email, password: secret });
   if (error || !data.user) {
-    await recordLoginAttempt(email, false, null, "invalid_credentials", metadata);
-    redirect(`/auth/email-login?error=${encodeURIComponent(genericLoginError)}&next=${encodeURIComponent(next)}`);
+    await recordLoginAttempt(email, false, null, error?.code || "invalid_credentials", metadata);
+    redirect(`/auth/login?error=${encodeURIComponent(loginErrorMessage(error?.code))}&next=${encodeURIComponent(next)}`);
   }
 
   await recordLoginAttempt(email, true, data.user.id, null, metadata);
@@ -123,7 +142,7 @@ export async function requestPasswordReset(formData: FormData) {
     const email = normalizeEmail(formData.get("email"));
     const supabase = await createClient();
     await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${appConfig.appUrl}/auth/callback?next=${encodeURIComponent("/auth/reset-password")}`,
+      redirectTo: confirmationUrl("/auth/reset-password"),
     });
   } catch {
     // Deliberately identical response to prevent account enumeration.
@@ -139,12 +158,32 @@ export async function requestMagicLink(formData: FormData) {
     const supabase = await createClient();
     await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: `${appConfig.appUrl}/auth/callback?next=${encodeURIComponent(next)}`, shouldCreateUser: false },
+      options: { emailRedirectTo: confirmationUrl(next), shouldCreateUser: false },
     });
   } catch {
     // Deliberately identical response to prevent account enumeration.
   }
   redirect(`/auth/magic-link?message=${encodeURIComponent(genericMessage)}`);
+}
+
+export async function resendEmailConfirmation(formData: FormData) {
+  if (!isSupabaseConfigured()) redirect("/auth/verify-email?error=Authentication+is+not+configured");
+
+  let email = "";
+  try {
+    email = normalizeEmail(formData.get("email"));
+    const supabase = await createClient();
+    await supabase.auth.resend({
+      type: "signup",
+      email,
+      options: { emailRedirectTo: confirmationUrl("/onboarding") },
+    });
+  } catch {
+    // Deliberately identical response to prevent account enumeration.
+  }
+
+  const emailQuery = email ? `&email=${encodeURIComponent(email)}` : "";
+  redirect(`/auth/verify-email?message=${encodeURIComponent(genericMessage)}${emailQuery}`);
 }
 
 export async function updatePassword(formData: FormData) {
@@ -166,6 +205,6 @@ export async function updatePassword(formData: FormData) {
   const { error } = await supabase.auth.updateUser({ password: secret });
   if (error) redirect(`/auth/reset-password?error=${encodeURIComponent("The reset link is invalid or expired.")}`);
   await supabase.rpc("record_auth_audit", { p_event_type: "auth.password.changed", p_metadata: { source: "recovery" } });
-  await supabase.auth.signOut({ scope: "others" });
-  redirect("/auth/login?message=Password+updated.+Other+sessions+were+signed+out.");
+  await supabase.auth.signOut({ scope: "global" });
+  redirect("/auth/login?message=Password+updated.+Sign+in+again+with+your+new+password.");
 }
