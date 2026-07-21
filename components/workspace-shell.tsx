@@ -5,11 +5,11 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import type { UserContext } from "../lib/data/types";
-import { LanguageSelector, useLanguage } from "./language-provider";
-import { ThemeToggle } from "./theme-toggle";
+import { useLanguage } from "./language-provider";
 import { UserMenu } from "./user-menu";
 import { Icon, type IconName } from "./ui/icon";
 import { WorkspaceCommandCenter, type WorkspaceCommandItem } from "./workspace-command-center";
+import { WorkspaceHeaderPreferences } from "./workspace-header-preferences";
 
 type Props = { children: ReactNode; user: UserContext | null };
 type NavItem = { label: string; href: string; icon: IconName };
@@ -142,6 +142,7 @@ export function WorkspaceShell({ children, user }: Props) {
   return (
     <div className="erp-shell" data-layout-version="supabase-sidebar-v2" data-mobile-nav-open={mobileNavOpen ? "true" : "false"}>
       <WorkspaceCommandCenter items={commandItems} activeLabel={activeItem?.label ?? d.nav.overview} pathname={pathname} user={user} />
+      <WorkspaceHeaderPreferences />
 
       <header className="mobile-workspace-header">
         <button type="button" className="mobile-menu-trigger" aria-label={menuLabel} aria-controls="primary-sidebar" aria-expanded={mobileNavOpen} onClick={() => setMobileNavOpen(true)}>
@@ -177,8 +178,6 @@ export function WorkspaceShell({ children, user }: Props) {
           </span>
           <Icon className="sidebar-workspace-chevron" name="chevron-right" size={14} />
         </Link>
-
-        <div className="sidebar-preferences"><LanguageSelector compact /><ThemeToggle /></div>
 
         <nav aria-label="Primary workspace navigation">
           {groups.map((group) => (
