@@ -1,7 +1,7 @@
 /*
- * Global preference controls are owned exclusively by WorkspaceHeaderPreferences.
- * This final cascade guard prevents legacy pages, authentication surfaces, sidebars,
- * module toolbars, or future components from rendering duplicate controls.
+ * Reusable workspace preference controls are owned by WorkspaceHeaderPreferences.
+ * Authentication routes use the separate AuthPagePreferences icon controls.
+ * This final cascade guard keeps legacy page, sidebar, toolbar and auth markup hidden.
  */
 
 .language-selector,
