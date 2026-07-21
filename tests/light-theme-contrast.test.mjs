@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const cssPath = new URL("../app/light-theme-contrast.css", import.meta.url);
+const guardPath = new URL("../app/light-theme-component-guards.css", import.meta.url);
 const layoutPath = new URL("../app/layout.tsx", import.meta.url);
 
 function channel(value) {
@@ -23,27 +24,32 @@ function contrastRatio(first, second) {
   return (values[0] + 0.05) / (values[1] + 0.05);
 }
 
-test("loads the contrast layer after every legacy and workspace stylesheet", async () => {
+test("loads both contrast layers after every legacy and workspace stylesheet", async () => {
   const layout = await readFile(layoutPath, "utf8");
   const contrastImport = layout.indexOf('import "./light-theme-contrast.css";');
+  const guardImport = layout.indexOf('import "./light-theme-component-guards.css";');
   const previousImport = layout.indexOf('import "./workspace-header-preferences.css";');
 
   assert.ok(contrastImport > previousImport, "contrast overrides must load after header and legacy styles");
-  assert.equal(layout.slice(contrastImport).match(/import "\.\/.*\.css";/g)?.length, 1, "contrast stylesheet must remain the final CSS import");
+  assert.ok(guardImport > contrastImport, "component guards must load after the semantic contrast layer");
+  assert.equal(layout.slice(guardImport).match(/import "\.\/.*\.css";/g)?.length, 1, "component guards must remain the final CSS import");
 });
 
 test("scopes the correction to light mode and preserves the dark navigation rail", async () => {
   const css = await readFile(cssPath, "utf8");
+  const guards = await readFile(guardPath, "utf8");
 
   assert.match(css, /html\[data-theme="light"\]/);
   assert.match(css, /color-scheme:\s*light/);
   assert.match(css, /Preserve the intentionally dark navigation rail/);
   assert.match(css, /\.erp-shell > \.sidebar/);
-  assert.doesNotMatch(css, /html\[data-theme="dark"\]/, "the correction layer must not mutate dark mode");
+  assert.doesNotMatch(`${css}\n${guards}`, /html\[data-theme="dark"\]/, "the correction layers must not mutate dark mode");
 });
 
 test("covers all high-risk light-mode UI surfaces", async () => {
   const css = await readFile(cssPath, "utf8");
+  const guards = await readFile(guardPath, "utf8");
+  const combined = `${css}\n${guards}`;
 
   for (const selector of [
     ".dashboard-content",
@@ -60,8 +66,10 @@ test("covers all high-risk light-mode UI surfaces", async () => {
     ".workspace-command-header",
     ".workspace-header-preferences-popover",
     ".sticky-user-popover",
+    ".auth-official-page",
+    ".auth-official-showcase",
   ]) {
-    assert.ok(css.includes(selector), `missing light-mode coverage for ${selector}`);
+    assert.ok(combined.includes(selector), `missing light-mode coverage for ${selector}`);
   }
 
   assert.match(css, /button\[type="submit"\]\.primary/);
@@ -69,6 +77,9 @@ test("covers all high-risk light-mode UI surfaces", async () => {
   assert.match(css, /input:not\(\[type="checkbox"\]\)/);
   assert.match(css, /\[aria-disabled="true"\]/);
   assert.match(css, /button:is\(\.active, \[aria-selected="true"\], \[aria-current="page"\]\)/);
+  assert.match(guards, /Solid actions must keep inverse text/);
+  assert.match(guards, /Restore semantic status fills/);
+  assert.match(guards, /\.ops-progress-ring::after/);
 });
 
 test("semantic light palette meets WCAG AA contrast for normal text", () => {
