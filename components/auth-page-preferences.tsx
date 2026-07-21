@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { startTransition, useEffect, useRef, useState } from "react";
 import type { SupportedLanguage as Language } from "../lib/translations";
 import { useLanguage } from "./language-provider";
@@ -18,21 +18,24 @@ function preferredTheme(): Theme {
 }
 
 export function AuthPagePreferences() {
+  const pathname = usePathname();
   const router = useRouter();
   const { language, dictionary, setLanguage } = useLanguage();
   const [theme, setTheme] = useState<Theme>("light");
   const [languageOpen, setLanguageOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
+  const isAuthRoute = pathname === "/auth" || pathname.startsWith("/auth/");
 
   useEffect(() => {
+    if (!isAuthRoute) return;
     const initial = preferredTheme();
     setTheme(initial);
     document.documentElement.dataset.theme = initial;
     document.documentElement.style.colorScheme = initial;
-  }, []);
+  }, [isAuthRoute]);
 
   useEffect(() => {
-    if (!languageOpen) return;
+    if (!isAuthRoute || !languageOpen) return;
 
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setLanguageOpen(false);
@@ -47,7 +50,7 @@ export function AuthPagePreferences() {
       document.removeEventListener("keydown", closeOnEscape);
       document.removeEventListener("mousedown", closeOnOutsideClick);
     };
-  }, [languageOpen]);
+  }, [isAuthRoute, languageOpen]);
 
   function toggleTheme() {
     const next: Theme = theme === "dark" ? "light" : "dark";
@@ -70,6 +73,8 @@ export function AuthPagePreferences() {
     });
     window.setTimeout(() => window.dispatchEvent(new Event("hisab:done")), 900);
   }
+
+  if (!isAuthRoute) return null;
 
   const themeLabel = theme === "dark"
     ? (language === "am" ? "ወደ ብርሃን ገጽታ ይቀይሩ" : "Switch to light mode")
