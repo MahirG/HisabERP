@@ -7,6 +7,7 @@ import { dashboardRoleProfiles } from "./dashboard-role-profiles";
 import { getDashboardInterfaceCopy } from "./dashboard-interface-copy";
 import { DemoNotice } from "./demo-notice";
 import { LanguageSelector, useLanguage } from "./language-provider";
+import { LocalGreeting } from "./local-greeting";
 import { Icon, type IconName } from "./ui/icon";
 import {
   ActionAlert,
@@ -23,21 +24,6 @@ function money(value: number, language: string) {
     currency: "ETB",
     maximumFractionDigits: 0,
   }).format(value);
-}
-
-function dynamicDate(language: string) {
-  return new Intl.DateTimeFormat(language === "am" ? "am-ET" : "en-ET", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date());
-}
-
-function greeting(language: string, firstName: string) {
-  const hour = new Date().getHours();
-  if (language === "am") return `${hour < 12 ? "እንደምን አደሩ" : hour < 18 ? "እንደምን ዋሉ" : "እንደምን አመሹ"}፣ ${firstName}`;
-  return `${hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening"}, ${firstName}`;
 }
 
 function routeIcon(href: string): IconName {
@@ -78,7 +64,7 @@ export function Dashboard({ snapshot, user }: { snapshot: DashboardSnapshot; use
     <main className="dashboard-content financial-dashboard" data-dashboard-role={user.role}>
       <WorkspacePageHeader
         breadcrumb={<><Link href="/">{ui.home}</Link><Icon name="chevron-right" size={12} /><span>{ui.dashboard}</span></>}
-        eyebrow={<><Icon name="activity" size={14} />{greeting(language, snapshot.userName)} · {dynamicDate(language)}</>}
+        eyebrow={<><Icon name="activity" size={14} /><LocalGreeting language={language} firstName={snapshot.userName} /></>}
         title={ui.overview}
         description={profile.summary}
         meta={<><StatusBadge label={profile.title} tone="info" /><span>{ui.roleContext}</span></>}
