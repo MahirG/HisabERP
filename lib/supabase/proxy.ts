@@ -3,6 +3,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import { appConfig, isSupabaseConfigured } from "../config";
 
 const publicPageRoutes = new Set([
+  "/",
+  "/request-demo",
   "/auth/login",
   "/auth/phone-login",
   "/auth/sign-up",
@@ -69,7 +71,7 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
 
   const authenticatedRecoveryPage = path === "/auth/reset-password";
   const authenticatedPreview = request.nextUrl.searchParams.get("preview") === "1";
-  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/auth/callback" && path !== "/auth/confirm" && !authenticatedRecoveryPage && !authenticatedPreview) {
+  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/" && path !== "/request-demo" && path !== "/auth/callback" && path !== "/auth/confirm" && !authenticatedRecoveryPage && !authenticatedPreview) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     url.search = "";
