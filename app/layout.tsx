@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import type { ReactNode } from "react";
 import { AppExperienceProvider } from "../components/app-experience-provider";
+import { AuthPagePreferences } from "../components/auth-page-preferences";
 import { LanguageProvider } from "../components/language-provider";
 import { WorkspaceShell } from "../components/workspace-shell";
 import { getCurrentUserContext } from "../lib/data/context";
@@ -49,8 +50,9 @@ import "./financial-dashboard.css";
 import "./workspace-header-preferences.css";
 import "./light-theme-contrast.css";
 import "./light-theme-component-guards.css";
+import "./auth-page-preferences.css";
 import "./header-only-preferences.css";
 
 export const metadata: Metadata = { title: { default: "HisabTech", template: "%s | HisabTech" }, description: "HisabTech — secure multilingual ERP for Ethiopian businesses.", applicationName: "HisabTech" };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 5, viewportFit: "cover", themeColor: "#0F172A" };
-export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) { const [cookieStore,user]=await Promise.all([cookies(),getCurrentUserContext()]); const saved=cookieStore.get("hisab_locale")?.value; const initialLanguage:Language=saved==="am"?"am":"en"; return <html lang={initialLanguage} data-language={initialLanguage} data-theme="light" suppressHydrationWarning><body data-design-system="hisab-v1" data-workspace-system="financial-os-v1"><LanguageProvider initialLanguage={initialLanguage}><AppExperienceProvider><WorkspaceShell user={user}>{children}</WorkspaceShell></AppExperienceProvider></LanguageProvider></body></html>; }
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) { const [cookieStore,user]=await Promise.all([cookies(),getCurrentUserContext()]); const saved=cookieStore.get("hisab_locale")?.value; const initialLanguage:Language=saved==="am"?"am":"en"; return <html lang={initialLanguage} data-language={initialLanguage} data-theme="light" suppressHydrationWarning><body data-design-system="hisab-v1" data-workspace-system="financial-os-v1"><LanguageProvider initialLanguage={initialLanguage}><AppExperienceProvider><AuthPagePreferences/><WorkspaceShell user={user}>{children}</WorkspaceShell></AppExperienceProvider></LanguageProvider></body></html>; }
