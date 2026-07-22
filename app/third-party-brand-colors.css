@@ -1,0 +1,71 @@
+/*
+ * Third-party trademark protection.
+ * Hisab-owned UI follows the Hisab palette; recognized external brands retain
+ * their official colors and must never inherit the product's terracotta tint.
+ */
+
+/* Google G: preserve the official four-color mark even when legacy brand locks
+   force SVG paths to currentColor. */
+.social-auth-google [data-brand-mark="google"] {
+  color: initial !important;
+  filter: none !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+}
+
+.social-auth-google [data-brand-mark="google"] path:nth-child(1) {
+  fill: #4285F4 !important;
+}
+
+.social-auth-google [data-brand-mark="google"] path:nth-child(2) {
+  fill: #34A853 !important;
+}
+
+.social-auth-google [data-brand-mark="google"] path:nth-child(3) {
+  fill: #FBBC05 !important;
+}
+
+.social-auth-google [data-brand-mark="google"] path:nth-child(4) {
+  fill: #EA4335 !important;
+}
+
+/* The approved black Sign in with Apple button uses the official white Apple
+   mark. It must not inherit Hisab terracotta. */
+.social-auth-apple [data-brand-mark="apple"],
+.social-auth-apple [data-brand-mark="apple"] path {
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Official provider/payment/integration artwork is supplied by the trademark
+   owner. Preserve source pixels and prevent monochrome filters or opacity
+   treatments from altering the artwork. */
+:is(
+  [data-third-party-brand],
+  [data-brand]:not([data-brand="hisab"]),
+  .payment-brand,
+  .official-provider-brand,
+  .official-integration-brand
+) :is(img, svg) {
+  filter: none !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+}
+
+:is(
+  [data-third-party-brand],
+  [data-brand]:not([data-brand="hisab"]),
+  .payment-brand,
+  .official-provider-brand,
+  .official-integration-brand
+) img {
+  background: transparent !important;
+  object-fit: contain;
+}
+
+/* Product icon rules remain scoped away from protected trademark marks. */
+[data-brand-mark] {
+  flex: 0 0 auto;
+}
