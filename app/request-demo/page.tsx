@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MarketingFooter, MarketingHeader } from "../../components/marketing-site-chrome";
 import { submitDemoRequest } from "../../lib/actions/demo-request";
 
 export const metadata: Metadata = {
@@ -10,19 +11,16 @@ export const metadata: Metadata = {
 export default async function RequestDemoPage({
   searchParams,
 }: {
-  searchParams: Promise<{ submitted?: string; error?: string }>;
+  searchParams: Promise<{ submitted?: string; error?: string; source?: string; topic?: string }>;
 }) {
   const params = await searchParams;
   const submitted = params.submitted === "1";
+  const context = [params.source, params.topic].filter(Boolean).join(" · ");
 
   return (
-    <main className="demo-request-page">
-      <header className="demo-request-header">
-        <Link href="/" className="marketing-brand"><span>H</span><strong>HisabTech</strong></Link>
-        <div className="demo-request-header-actions"><Link href="/auth/login">Already a customer? Sign in</Link><Link href="/auth/email-sign-up">Get started</Link></div>
-      </header>
-
-      <section className="demo-request-shell">
+    <main className="marketing-site marketing-site-v2 demo-request-page">
+      <MarketingHeader />
+      <section className="demo-request-shell" id="public-main-content">
         <div className="demo-request-copy">
           <span>Personalized HisabERP demonstration</span>
           <h1>See how HisabERP can run your business.</h1>
@@ -33,7 +31,7 @@ export default async function RequestDemoPage({
             <li>telebirr, M-Pesa, banking and integration-readiness discussion</li>
             <li>Implementation, onboarding and government-program guidance</li>
           </ul>
-          <div><strong>Prefer direct contact?</strong><a href="tel:+251924093037">+251 924 093 037</a><a href="mailto:mahir@hisabtech.com">mahir@hisabtech.com</a></div>
+          <div><strong>Prefer direct contact?</strong><a href="tel:+251924093037">+251 924 093 037</a><a href="mailto:mahir@hisabtech.com">mahir@hisabtech.com</a><a href="https://wa.me/251924093037" target="_blank" rel="noopener noreferrer">WhatsApp HisabTech</a></div>
         </div>
 
         {submitted ? (
@@ -44,11 +42,12 @@ export default async function RequestDemoPage({
           </section>
         ) : (
           <form className="demo-request-form" action={submitDemoRequest}>
-            <div><span>Request your demo</span><h2>Tell us about your business</h2><p>Complete the details below. Fields marked with * are required.</p></div>
+            <div><span>Request your demo</span><h2>Tell us about your business</h2><p>Complete the details below. Fields marked with * are required.</p>{context ? <small className="demo-request-context">Demo context: {context}</small> : null}</div>
 
             {params.error && <div className="demo-request-alert" role="alert">{params.error}</div>}
 
             <label className="demo-request-honeypot" aria-hidden="true">Website<input name="website" type="text" tabIndex={-1} autoComplete="off"/></label>
+            <input type="hidden" name="request_context" value={context}/>
 
             <div className="demo-form-row">
               <label>Full name *<input name="full_name" type="text" autoComplete="name" minLength={2} maxLength={120} required placeholder="Your full name"/></label>
@@ -71,13 +70,14 @@ export default async function RequestDemoPage({
               <label><input type="radio" name="preferred_contact" value="email"/> Email</label>
             </fieldset>
 
-            <label>What would you like to improve?<textarea name="message" rows={5} maxLength={2000} placeholder="Tell us about your current process, challenges, required modules or integration needs."/></label>
+            <label>What would you like to improve?<textarea name="message" rows={5} maxLength={2000} defaultValue={context ? `I am interested in: ${context}. ` : undefined} placeholder="Tell us about your current process, challenges, required modules or integration needs."/></label>
             <label className="demo-request-consent"><input type="checkbox" required/><span>I agree that Hisab Technologies may contact me about this demo request.</span></label>
             <button type="submit">Submit demo request</button>
             <small>Your request is stored securely and cannot be viewed by other website visitors.</small>
           </form>
         )}
       </section>
+      <MarketingFooter />
     </main>
   );
 }
