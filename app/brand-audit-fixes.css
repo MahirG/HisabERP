@@ -1,0 +1,269 @@
+/* Workspace brand-audit remediation.
+ * Loaded after legacy light-theme layers and immediately before the final brand lock.
+ */
+
+html[data-theme="light"] {
+  --lc-canvas: #f8f4f2;
+  --lc-surface: #ffffff;
+  --lc-surface-subtle: #fff8f5;
+  --lc-surface-muted: #f7ede8;
+  --lc-border: #eadbd5;
+  --lc-border-strong: #d9c2b9;
+  --lc-text: #211a18;
+  --lc-text-secondary: #5f504a;
+  --lc-text-muted: #76655f;
+  --lc-text-faint: #a78f86;
+  --lc-primary: var(--hisab-500);
+  --lc-primary-hover: var(--hisab-700);
+  --lc-primary-soft: var(--hisab-100);
+  --lc-info: var(--hisab-700);
+  --lc-info-soft: var(--hisab-100);
+  --lc-success: var(--hisab-500);
+  --lc-success-soft: var(--hisab-100);
+  --lc-warning: var(--hisab-600);
+  --lc-warning-soft: var(--hisab-100);
+  --lc-danger: var(--hisab-800);
+  --lc-danger-hover: var(--hisab-900);
+  --lc-danger-soft: var(--hisab-100);
+  --lc-focus: 0 0 0 3px rgba(218, 119, 87, 0.22);
+  --lc-shadow: 0 1px 2px rgba(94, 48, 36, 0.06);
+  --lc-shadow-popover: 0 18px 48px rgba(94, 48, 36, 0.16);
+}
+
+html[data-theme="light"] body[data-workspace-system="financial-os-v1"] {
+  --fin-primary: var(--hisab-500) !important;
+  --fin-primary-hover: var(--hisab-700) !important;
+  --fin-primary-soft: var(--hisab-100) !important;
+  --fin-success: var(--hisab-500) !important;
+  --fin-success-soft: var(--hisab-100) !important;
+  --fin-warning: var(--hisab-600) !important;
+  --fin-warning-soft: var(--hisab-100) !important;
+  --fin-danger: var(--hisab-800) !important;
+  --fin-danger-soft: var(--hisab-100) !important;
+  --fin-info: var(--hisab-700) !important;
+  --fin-info-soft: var(--hisab-100) !important;
+  --ds-color-success: var(--hisab-500) !important;
+  --ds-color-success-soft: var(--hisab-100) !important;
+  --ds-color-warning: var(--hisab-600) !important;
+  --ds-color-warning-soft: var(--hisab-100) !important;
+  --ds-color-danger: var(--hisab-800) !important;
+  --ds-color-danger-soft: var(--hisab-100) !important;
+  --ds-color-info: var(--hisab-700) !important;
+  --ds-color-info-soft: var(--hisab-100) !important;
+  --brand: var(--hisab-500) !important;
+  --brand-2: var(--hisab-600) !important;
+  --green: var(--hisab-500) !important;
+  --blue: var(--hisab-700) !important;
+  --amber: var(--hisab-600) !important;
+  --danger: var(--hisab-800) !important;
+}
+
+html[data-theme="light"] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .primary,
+  .action-link.primary,
+  .ops-primary-link,
+  .ops-form .primary,
+  .finance-primary,
+  .sales-primary,
+  .core-primary,
+  .setup-primary,
+  .submit-button,
+  .save-button,
+  .create-button,
+  button[type="submit"].primary
+) {
+  border-color: var(--hisab-500) !important;
+  background: var(--hisab-500) !important;
+  color: var(--hisab-charcoal) !important;
+}
+
+html[data-theme="light"] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .primary,
+  .action-link.primary,
+  .ops-primary-link,
+  .ops-form .primary,
+  .finance-primary,
+  .sales-primary,
+  .core-primary,
+  .setup-primary,
+  .submit-button,
+  .save-button,
+  .create-button,
+  button[type="submit"].primary
+):hover {
+  border-color: var(--hisab-700) !important;
+  background: var(--hisab-700) !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="light"] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .secondary,
+  .action-link.secondary,
+  .ghost,
+  .cancel-button,
+  .outline-button,
+  .toolbar button,
+  .table-toolbar button,
+  .panel-actions button
+):hover {
+  border-color: var(--hisab-300) !important;
+  background: var(--hisab-100) !important;
+  color: var(--hisab-800) !important;
+}
+
+html[data-theme="light"] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(button, a, input, select, textarea, summary):focus-visible,
+html[data-theme="light"] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(input, select, textarea):focus {
+  border-color: var(--hisab-500) !important;
+  box-shadow: 0 0 0 3px rgba(218, 119, 87, 0.22) !important;
+}
+
+html[data-theme="light"] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .core-tabs,
+  .finance-tabs,
+  .sales-tabs,
+  .ops-tabs,
+  .tabs,
+  .tab-list,
+  .period-tabs,
+  .filter-tabs
+) button:is(.active, [aria-selected="true"], [aria-current="page"]) {
+  border-color: var(--hisab-500) !important;
+  background: var(--hisab-500) !important;
+  color: var(--hisab-charcoal) !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="light"] body[data-workspace-system="financial-os-v1"] :is(
+  .success,
+  .paid,
+  .posted,
+  .approved,
+  .positive,
+  .income,
+  .warning,
+  .pending,
+  .partially-paid,
+  .soft-closed,
+  .danger,
+  .overdue,
+  .cancelled,
+  .reversed,
+  .expense,
+  .info
+) {
+  color: var(--hisab-700) !important;
+}
+
+html[data-theme="light"] body[data-workspace-system="financial-os-v1"] :is(
+  .workspace-status-badge,
+  .status-badge,
+  .period-pill,
+  .role-badge,
+  .report-result-badge,
+  .ds-badge,
+  .workspace-status,
+  .ops-status,
+  .ops-priority,
+  .mode-notice,
+  .alert,
+  .notice,
+  .info-banner,
+  .warning-banner,
+  .error-banner,
+  .success-banner,
+  .ops-access-notice
+) {
+  border-color: var(--hisab-200) !important;
+  background: var(--hisab-100) !important;
+  color: var(--hisab-800) !important;
+}
+
+html[data-theme="light"] .workspace-header-preferences-inline,
+html[data-theme="light"] .workspace-header-preferences-popover,
+html[data-theme="light"] .workspace-header-preferences-trigger {
+  border-color: var(--hisab-200) !important;
+  background: rgba(255, 250, 247, 0.98) !important;
+  color: var(--hisab-900) !important;
+  box-shadow: 0 10px 28px rgba(94, 48, 36, 0.12) !important;
+}
+
+html[data-theme="light"] .workspace-header-preferences-divider {
+  background: var(--hisab-200) !important;
+}
+
+html[data-theme="light"] .workspace-header-preferences :is(.language-segmented > div, .theme-toggle),
+html[data-theme="light"] .workspace-header-preferences-popover .theme-toggle {
+  border-color: var(--hisab-200) !important;
+  background: var(--hisab-50) !important;
+  color: var(--hisab-800) !important;
+}
+
+html[data-theme="light"] .workspace-header-preferences .language-segmented button {
+  background: transparent !important;
+  color: var(--hisab-800) !important;
+}
+
+html[data-theme="light"] .workspace-header-preferences .language-segmented button:hover,
+html[data-theme="light"] .workspace-header-preferences .language-segmented button.active {
+  background: var(--hisab-500) !important;
+  color: var(--hisab-charcoal) !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="light"] .workspace-header-preferences .theme-toggle:hover,
+html[data-theme="light"] .workspace-header-preferences .theme-toggle:focus-visible {
+  background: var(--hisab-100) !important;
+  color: var(--hisab-800) !important;
+}
+
+html[data-theme="light"] .workspace-header-preferences .theme-toggle-track {
+  background: var(--hisab-200) !important;
+}
+
+html[data-theme="light"] .workspace-header-preferences .theme-toggle-thumb {
+  background: #ffffff !important;
+  color: var(--hisab-700) !important;
+  box-shadow: 0 1px 4px rgba(94, 48, 36, 0.22) !important;
+}
+
+html[data-theme="dark"] .workspace-header-preferences-inline,
+html[data-theme="dark"] .workspace-header-preferences-popover,
+html[data-theme="dark"] .workspace-header-preferences-trigger {
+  border-color: #5a4037 !important;
+  background: rgba(23, 19, 17, 0.98) !important;
+  color: #fff8f4 !important;
+}
+
+html[data-theme="dark"] .workspace-header-preferences-divider {
+  background: #5a4037 !important;
+}
+
+html[data-theme="dark"] .workspace-header-preferences :is(.language-segmented > div, .theme-toggle),
+html[data-theme="dark"] .workspace-header-preferences-popover .theme-toggle {
+  border-color: #5a4037 !important;
+  background: #211916 !important;
+  color: #f0b29c !important;
+}
+
+html[data-theme="dark"] .workspace-header-preferences .language-segmented button {
+  background: transparent !important;
+  color: #bea9a0 !important;
+}
+
+html[data-theme="dark"] .workspace-header-preferences .language-segmented button:hover,
+html[data-theme="dark"] .workspace-header-preferences .language-segmented button.active,
+html[data-theme="dark"] .workspace-header-preferences .theme-toggle:hover,
+html[data-theme="dark"] .workspace-header-preferences .theme-toggle:focus-visible {
+  background: #35231d !important;
+  color: var(--hisab-300) !important;
+}
+
+html[data-theme="dark"] .workspace-header-preferences .theme-toggle-track {
+  background: #5a4037 !important;
+}
+
+html[data-theme="dark"] .workspace-header-preferences .theme-toggle-thumb {
+  background: #171311 !important;
+  color: var(--hisab-300) !important;
+  box-shadow: none !important;
+}
