@@ -23,21 +23,11 @@ function HeroWorkspace() {
     <div className="hero-workspace" aria-label="HisabERP business overview preview">
       <div className="hero-workspace-bar"><div><i/><i/><i/></div><strong>HisabERP Financial Workspace</strong><span>Secure session</span></div>
       <div className="hero-workspace-layout">
-        <aside>
-          <img src="/hisab-logo.svg" alt="" width="36" height="36" />
-          {['Overview','Sales','Inventory','Finance','Customers','Reports'].map((item,index)=><span className={index===0?'active':undefined} key={item}>{item}</span>)}
-        </aside>
+        <aside><img src="/hisab-logo.svg" alt="" width="36" height="36" />{["Overview","Sales","Inventory","Finance","Customers","Reports"].map((item,index)=><span className={index===0?"active":undefined} key={item}>{item}</span>)}</aside>
         <section>
           <div className="hero-workspace-heading"><div><small>Good afternoon, Mahir</small><h2>Business overview</h2></div><button type="button">+ New transaction</button></div>
-          <div className="hero-kpis">
-            <article><small>Today’s revenue</small><strong>ETB 84,600</strong><span>+12.8% this week</span></article>
-            <article><small>Cash available</small><strong>ETB 318,400</strong><span>Current position</span></article>
-            <article><small>Receivables</small><strong>ETB 72,900</strong><span>11 open accounts</span></article>
-          </div>
-          <div className="hero-workspace-main">
-            <article className="hero-performance-card"><header><strong>Revenue performance</strong><small>Last six months</small></header><div className="hero-performance-bars">{[42,55,49,68,76,94].map((height,index)=><span style={{height:`${height}%`}} key={index}/>)}</div></article>
-            <article className="hero-attention-card"><header><strong>Needs attention</strong><small>Today</small></header><div><p><span>Low-stock products</span><b>3 urgent</b></p><p><span>Invoices due</span><b>4 accounts</b></p><p><span>Unmatched payments</span><b>2 records</b></p></div></article>
-          </div>
+          <div className="hero-kpis"><article><small>Today’s revenue</small><strong>ETB 84,600</strong><span>+12.8% this week</span></article><article><small>Cash available</small><strong>ETB 318,400</strong><span>Current position</span></article><article><small>Receivables</small><strong>ETB 72,900</strong><span>11 open accounts</span></article></div>
+          <div className="hero-workspace-main"><article className="hero-performance-card"><header><strong>Revenue performance</strong><small>Last six months</small></header><div className="hero-performance-bars">{[42,55,49,68,76,94].map((height,index)=><span style={{height:`${height}%`}} key={index}/>)}</div></article><article className="hero-attention-card"><header><strong>Needs attention</strong><small>Today</small></header><div><p><span>Low-stock products</span><b>3 urgent</b></p><p><span>Invoices due</span><b>4 accounts</b></p><p><span>Unmatched payments</span><b>2 records</b></p></div></article></div>
         </section>
       </div>
     </div>
@@ -50,118 +40,38 @@ export function MarketingHome() {
   return (
     <MarketingPageShell>
       <section className="marketing-hero marketing-hero-v2">
-        <div className="marketing-hero-copy">
-          <span className="marketing-eyebrow">The business operating system for Ethiopia</span>
-          <h1>Run your entire business from one intelligent workspace.</h1>
-          <p>HisabERP connects sales, expenses, inventory, invoicing, customers, suppliers, cash flow and reporting—so every important decision starts with reliable information.</p>
-          <div className="marketing-hero-actions">
-            <Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link>
-            <Link href="/request-demo" className="marketing-demo marketing-large">Request a demo</Link>
-            <Link href="/product-tour" className="marketing-text-action">Explore the product <span aria-hidden="true">→</span></Link>
-          </div>
-          <div className="marketing-trust"><span>Transparent setup</span><span>English and Amharic</span><span>Mobile ready</span><span>Role-controlled access</span></div>
-        </div>
+        <div className="marketing-hero-copy"><span className="marketing-eyebrow">The business operating system for Ethiopia</span><h1>Run your entire business from one intelligent workspace.</h1><p>HisabERP connects sales, expenses, inventory, invoicing, customers, suppliers, cash flow and reporting—so every important decision starts with reliable information.</p><div className="marketing-hero-actions"><Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a demo</Link><Link href="/product-tour" className="marketing-text-action">Explore the product <span aria-hidden="true">→</span></Link></div><div className="marketing-trust"><span>Transparent setup</span><span>English and Amharic</span><span>Mobile ready</span><span>Role-controlled access</span></div></div>
         <HeroWorkspace />
       </section>
 
-      <section className="marketing-proof marketing-proof-v2">
-        <p>Designed for ambitious businesses moving beyond notebooks and disconnected spreadsheets</p>
-        <div><span>Retail</span><span>Wholesale</span><span>Services</span><span>Hospitality</span><span>Cooperatives</span><span>Multi-branch teams</span></div>
-      </section>
+      <section className="marketing-proof marketing-proof-v2"><p>Designed for ambitious businesses moving beyond notebooks and disconnected spreadsheets</p><div><span>Retail</span><span>Wholesale</span><span>Services</span><span>Hospitality</span><span>Cooperatives</span><span>Multi-branch teams</span></div></section>
 
       <section className="marketing-section marketing-intro-section" id="modules">
-        <div className="marketing-section-heading marketing-section-heading-wide">
-          <span>Connected product modules</span>
-          <h2>Every operational area contributes to the same reliable business picture.</h2>
-          <p>HisabERP is not a collection of isolated screens. Sales affect inventory and customer balances. Purchases affect stock and supplier obligations. Payments affect cash flow and financial reporting.</p>
-        </div>
-        <div className="marketing-module-grid marketing-module-grid-v2">
-          {marketingModules.map((module) => (
-            <article key={module.slug}>
-              <span>{module.number}</span>
-              <h3>{module.shortTitle}</h3>
-              <p>{module.summary}</p>
-              <Link href={`/product/${module.slug}`}>Explore {module.shortTitle.toLowerCase()} <b aria-hidden="true">→</b></Link>
-            </article>
-          ))}
-        </div>
+        <div className="marketing-section-heading marketing-section-heading-wide"><span>Connected product modules</span><h2>Every operational area contributes to the same reliable business picture.</h2><p>HisabERP is not a collection of isolated screens. Sales affect inventory and customer balances. Purchases affect stock and supplier obligations. Payments affect cash flow and financial reporting.</p></div>
+        <div className="marketing-module-grid marketing-module-grid-v2">{marketingModules.map((module)=><article key={module.slug}><span>{module.number}</span><h3>{module.shortTitle}</h3><p>{module.summary}</p><Link href={`/product/${module.slug}`}>Explore {module.shortTitle.toLowerCase()} <b aria-hidden="true">→</b></Link></article>)}</div>
       </section>
 
-      <section className="marketing-tour-section">
-        <div className="marketing-section-heading marketing-section-heading-centered">
-          <span>Interactive product tour</span>
-          <h2>See how daily activity becomes management insight.</h2>
-          <p>Move through the main product areas and inspect the kind of information each workspace brings together.</p>
-        </div>
-        <ProductTourExperience compact />
-        <div className="marketing-centered-action"><Link href="/product-tour" className="marketing-demo marketing-large">Open the complete product tour</Link></div>
-      </section>
+      <section className="marketing-tour-section"><div className="marketing-section-heading marketing-section-heading-centered"><span>Interactive product tour</span><h2>See how daily activity becomes management insight.</h2><p>Move through the main product areas and inspect the kind of information each workspace brings together.</p></div><ProductTourExperience compact /><div className="marketing-centered-action"><Link href="/product-tour" className="marketing-demo marketing-large">Open the complete product tour</Link></div></section>
 
-      <section className="home-local-section">
-        <div><span className="marketing-eyebrow">ERP built for Ethiopia</span><h2>Local context is part of the product—not an afterthought.</h2><p>HisabERP brings Ethiopian birr, English and Amharic access, mobile-ready workflows, local implementation support and business structures into one operating experience.</p><div className="marketing-hero-actions"><Link href="/ethiopia" className="marketing-start marketing-large">Why HisabERP for Ethiopia</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a local demo</Link></div></div>
-        <div className="home-local-grid"><article><span>01</span><strong>ETB-first records</strong><small>Transactions, balances and reports centered on Ethiopian birr.</small></article><article><span>02</span><strong>Multilingual access</strong><small>English and Amharic across core product experiences.</small></article><article><span>03</span><strong>Mobile-ready workflows</strong><small>Responsive access for teams working beyond a single office desk.</small></article><article><span>04</span><strong>Addis Ababa support</strong><small>Local product evaluation, setup and implementation context.</small></article></div>
-      </section>
+      <section className="home-local-section"><div><span className="marketing-eyebrow">ERP built for Ethiopia</span><h2>Local context is part of the product—not an afterthought.</h2><p>HisabERP brings Ethiopian birr, English and Amharic access, mobile-ready workflows, local implementation support and business structures into one operating experience.</p><div className="marketing-hero-actions"><Link href="/ethiopia" className="marketing-start marketing-large">Why HisabERP for Ethiopia</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a local demo</Link></div></div><div className="home-local-grid"><article><span>01</span><strong>ETB-first records</strong><small>Transactions, balances and reports centered on Ethiopian birr.</small></article><article><span>02</span><strong>Multilingual access</strong><small>English and Amharic across core product experiences.</small></article><article><span>03</span><strong>Mobile-ready workflows</strong><small>Responsive access for teams working beyond a single office desk.</small></article><article><span>04</span><strong>Addis Ababa support</strong><small>Local product evaluation, setup and implementation context.</small></article></div></section>
 
-      <section className="home-industry-section">
-        <div className="marketing-section-heading marketing-section-heading-wide"><span>Industry solutions</span><h2>See the product through a workflow your team already understands.</h2><p>Explore focused operating models for different Ethiopian industries, with the modules, metrics and daily controls that matter most.</p></div>
-        <div className="home-industry-grid">{homepageIndustries.map((industry)=><Link href={`/industries/${industry.slug}`} key={industry.slug}><span>{industry.number}</span><strong>{industry.shortTitle}</strong><small>{industry.summary}</small><b>View solution →</b></Link>)}</div>
-        <div className="marketing-centered-action"><Link href="/industries" className="marketing-demo marketing-large">Explore all industries</Link></div>
-      </section>
+      <section className="home-industry-section"><div className="marketing-section-heading marketing-section-heading-wide"><span>Industry solutions</span><h2>See the product through a workflow your team already understands.</h2><p>Explore focused operating models for different Ethiopian industries, with the modules, metrics and daily controls that matter most.</p></div><div className="home-industry-grid">{homepageIndustries.map((industry)=><Link href={`/industries/${industry.slug}`} key={industry.slug}><span>{industry.number}</span><strong>{industry.shortTitle}</strong><small>{industry.summary}</small><b>View solution →</b></Link>)}</div><div className="marketing-centered-action"><Link href="/industries" className="marketing-demo marketing-large">Explore all industries</Link></div></section>
 
-      <section className="home-pricing-section">
-        <div className="marketing-section-heading marketing-section-heading-wide"><span>Transparent ETB pricing</span><h2>Start with the plan that matches the business today.</h2><p>Compare published launch pricing, included users, branch capacity and product scope before requesting implementation.</p></div>
-        <div className="home-pricing-grid">{homepagePlans.map((plan)=><article className={plan.badge?"featured":undefined} key={plan.name}><span>{plan.badge || plan.name}</span><h3>{plan.name}</h3><strong>{plan.monthlyEtb ? `ETB ${plan.monthlyEtb.toLocaleString("en-US")} / month` : "Custom pricing"}</strong><p>{plan.description}</p><Link href="/pricing">Compare plan details →</Link></article>)}</div>
-        <div className="marketing-centered-action"><Link href="/pricing" className="marketing-start marketing-large">View complete pricing</Link></div>
-      </section>
+      <section className="home-pricing-section"><div className="marketing-section-heading marketing-section-heading-wide"><span>Transparent ETB pricing</span><h2>Start with the plan that matches the business today.</h2><p>Compare published launch pricing, included users, branch capacity and product scope before requesting implementation.</p></div><div className="home-pricing-grid">{homepagePlans.map((plan)=><article className={plan.badge?"featured":undefined} key={plan.name}><span>{plan.badge||plan.name}</span><h3>{plan.name}</h3><strong>{plan.monthlyEtb?`ETB ${plan.monthlyEtb.toLocaleString("en-US")} / month`:"Custom pricing"}</strong><p>{plan.description}</p><Link href="/pricing">Compare plan details →</Link></article>)}</div><div className="marketing-centered-action"><Link href="/pricing" className="marketing-start marketing-large">View complete pricing</Link></div></section>
 
-      <section className="home-proof-trust-section">
-        <div className="marketing-section-heading marketing-section-heading-wide"><span>Proof, trust and connectivity</span><h2>Evaluate more than the interface.</h2><p>Inspect how customer evidence is verified, which security controls are implemented and which integrations are available, configurable, in beta or planned.</p></div>
-        <div className="home-proof-trust-grid">
-          <Link href="/customer-stories"><span>Customer proof</span><strong>Evidence before promotion</strong><small>See the reference customer standard and the measurable pilot programs open to Ethiopian businesses.</small><b>Review customer proof →</b></Link>
-          <Link href="/trust"><span>Trust Center</span><strong>Specific security controls</strong><small>Review administrator MFA, audit evidence, security headers, continuity controls and honest limitations.</small><b>Open the Trust Center →</b></Link>
-          <Link href="/integrations"><span>Integrations</span><strong>Clear availability statuses</strong><small>Understand what works today, what requires provider configuration, what is in beta and what remains planned.</small><b>Explore integrations →</b></Link>
-        </div>
-      </section>
+      <section className="home-proof-trust-section"><div className="marketing-section-heading marketing-section-heading-wide"><span>Proof, trust and connectivity</span><h2>Evaluate more than the interface.</h2><p>Inspect how customer evidence is verified, which security controls are implemented and which integrations are available, configurable, in beta or planned.</p></div><div className="home-proof-trust-grid"><Link href="/customer-stories"><span>Customer proof</span><strong>Evidence before promotion</strong><small>See the reference customer standard and the measurable pilot programs open to Ethiopian businesses.</small><b>Review customer proof →</b></Link><Link href="/trust"><span>Trust Center</span><strong>Specific security controls</strong><small>Review administrator MFA, audit evidence, security headers, continuity controls and honest limitations.</small><b>Open the Trust Center →</b></Link><Link href="/integrations"><span>Integrations</span><strong>Clear availability statuses</strong><small>Understand what works today, what requires provider configuration, what is in beta and what remains planned.</small><b>Explore integrations →</b></Link></div></section>
 
-      <section className="home-implementation-resources">
-        <div className="marketing-section-heading marketing-section-heading-wide"><span>Move, evaluate and learn</span><h2>A clearer path from the current system to confident daily use.</h2><p>Prepare source data, compare operating approaches and give the team practical documentation before the first live transaction.</p></div>
-        <div className="home-implementation-resource-grid">
-          <Link href="/migration"><span>Data migration</span><strong>Control the transition</strong><small>Use templates, dry runs, reconciliation and named business approval to move from spreadsheets, notebooks or other software.</small><b>Open migration center →</b></Link>
-          <Link href="/compare"><span>ERP comparisons</span><strong>Evaluate the operating model</strong><small>Compare HisabERP with Excel, notebooks, disconnected tools, desktop software and larger enterprise ERP suites.</small><b>Compare approaches →</b></Link>
-          <Link href="/help-center"><span>Help Center</span><strong>Guide the next action</strong><small>Search practical setup, sales, inventory, finance, security, reconciliation and cutover guides.</small><b>Browse documentation →</b></Link>
-        </div>
-      </section>
+      <section className="home-implementation-resources"><div className="marketing-section-heading marketing-section-heading-wide"><span>Move, evaluate and learn</span><h2>A clearer path from the current system to confident daily use.</h2><p>Prepare source data, compare operating approaches and give the team practical documentation before the first live transaction.</p></div><div className="home-implementation-resource-grid"><Link href="/migration"><span>Data migration</span><strong>Control the transition</strong><small>Use templates, dry runs, reconciliation and named business approval to move from spreadsheets, notebooks or other software.</small><b>Open migration center →</b></Link><Link href="/compare"><span>ERP comparisons</span><strong>Evaluate the operating model</strong><small>Compare HisabERP with Excel, notebooks, disconnected tools, desktop software and larger enterprise ERP suites.</small><b>Compare approaches →</b></Link><Link href="/help-center"><span>Help Center</span><strong>Guide the next action</strong><small>Search practical setup, sales, inventory, finance, security, reconciliation and cutover guides.</small><b>Browse documentation →</b></Link></div></section>
 
-      <section className="marketing-dark-section marketing-dark-section-v2">
-        <div className="marketing-dark-copy">
-          <span>From activity to action</span>
-          <h2>Understand what changed, why it changed and what requires attention next.</h2>
-          <p>HisabERP converts daily operational records into a live view of business health without requiring teams to rebuild the numbers manually.</p>
-          <ul><li>Daily and monthly revenue performance</li><li>Cash, receivables, payables and overdue exposure</li><li>Inventory movement and low-stock risk</li><li>Profitability, expenses and management indicators</li></ul>
-          <Link href="/product/reports-analytics" className="marketing-dark-link">Explore reports and analytics →</Link>
-        </div>
-        <div className="marketing-insight-panel">
-          <header><span>Management summary</span><b>Updated now</b></header>
-          <div className="marketing-insight-kpis"><article><small>Gross sales</small><strong>ETB 1.82M</strong><span>+24% versus prior period</span></article><article><small>Operating margin</small><strong>31.8%</strong><span>Improved 4.2 points</span></article></div>
-          <div className="marketing-insight-list"><p><span>Collections requiring follow-up</span><b>11 accounts</b></p><p><span>Products below reorder level</span><b>9 items</b></p><p><span>Supplier bills due this week</span><b>6 bills</b></p></div>
-        </div>
-      </section>
+      <section className="home-final-recommendations"><div className="marketing-section-heading marketing-section-heading-wide"><span>Learn, verify and connect</span><h2>Continue from product evaluation to a confident business decision.</h2><p>Use practical business guidance, understand the company behind HisabERP and choose the most convenient way to speak with the team.</p></div><div className="home-final-recommendation-grid"><Link href="/resources"><span>Business Learning Center</span><strong>Improve the operating routine</strong><small>Read practical guides for cash flow, customer debt, stock accuracy, monthly close, ERP selection and migration.</small><b>Explore business guides →</b></Link><Link href="/about"><span>About HisabTech</span><strong>Know who is building the product</strong><small>Review the mission, product principles, leadership and standards guiding HisabERP development.</small><b>Meet HisabTech →</b></Link><Link href="/request-demo?source=homepage-final"><span>Focused conversation</span><strong>Use your real business context</strong><small>Request a guided demonstration or contact HisabTech directly through phone, email or WhatsApp.</small><b>Choose the next step →</b></Link></div></section>
 
-      <section className="marketing-section" id="benefits">
-        <div className="marketing-section-heading"><span>Why businesses choose HisabERP</span><h2>Less manual work. More control. Better growth decisions.</h2></div>
-        <div className="marketing-benefit-grid">{benefits.map((benefit)=><article key={benefit.number}><b>{benefit.number}</b><h3>{benefit.title}</h3><p>{benefit.text}</p></article>)}</div>
-      </section>
+      <section className="marketing-dark-section marketing-dark-section-v2"><div className="marketing-dark-copy"><span>From activity to action</span><h2>Understand what changed, why it changed and what requires attention next.</h2><p>HisabERP converts daily operational records into a live view of business health without requiring teams to rebuild the numbers manually.</p><ul><li>Daily and monthly revenue performance</li><li>Cash, receivables, payables and overdue exposure</li><li>Inventory movement and low-stock risk</li><li>Profitability, expenses and management indicators</li></ul><Link href="/product/reports-analytics" className="marketing-dark-link">Explore reports and analytics →</Link></div><div className="marketing-insight-panel"><header><span>Management summary</span><b>Updated now</b></header><div className="marketing-insight-kpis"><article><small>Gross sales</small><strong>ETB 1.82M</strong><span>+24% versus prior period</span></article><article><small>Operating margin</small><strong>31.8%</strong><span>Improved 4.2 points</span></article></div><div className="marketing-insight-list"><p><span>Collections requiring follow-up</span><b>11 accounts</b></p><p><span>Products below reorder level</span><b>9 items</b></p><p><span>Supplier bills due this week</span><b>6 bills</b></p></div></div></section>
 
-      <section className="marketing-how" id="how">
-        <div className="marketing-section-heading"><span>Implementation journey</span><h2>Launch a professional workspace in three clear stages.</h2><p>HisabERP is designed to move a business from setup to daily use and management reporting without unnecessary complexity.</p></div>
-        <div className="marketing-step-grid">{steps.map((step)=><article key={step.number}><span>{step.number}</span><h3>{step.title}</h3><p>{step.text}</p></article>)}</div>
-        <div className="marketing-centered-action"><Link href="/migration" className="marketing-start marketing-large">Plan the implementation</Link></div>
-      </section>
+      <section className="marketing-section" id="benefits"><div className="marketing-section-heading"><span>Why businesses choose HisabERP</span><h2>Less manual work. More control. Better growth decisions.</h2></div><div className="marketing-benefit-grid">{benefits.map((benefit)=><article key={benefit.number}><b>{benefit.number}</b><h3>{benefit.title}</h3><p>{benefit.text}</p></article>)}</div></section>
 
-      <section className="marketing-cta marketing-cta-v2">
-        <div><span>Ready to see HisabERP in your business?</span><h2>Start with a workspace or request a guided demonstration.</h2><p>Explore the product at your own pace, then speak with HisabTech when your team is ready to evaluate implementation.</p></div>
-        <div><Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a demo</Link></div>
-      </section>
+      <section className="marketing-how" id="how"><div className="marketing-section-heading"><span>Implementation journey</span><h2>Launch a professional workspace in three clear stages.</h2><p>HisabERP is designed to move a business from setup to daily use and management reporting without unnecessary complexity.</p></div><div className="marketing-step-grid">{steps.map((step)=><article key={step.number}><span>{step.number}</span><h3>{step.title}</h3><p>{step.text}</p></article>)}</div><div className="marketing-centered-action"><Link href="/migration" className="marketing-start marketing-large">Plan the implementation</Link></div></section>
+
+      <section className="marketing-cta marketing-cta-v2"><div><span>Ready to see HisabERP in your business?</span><h2>Start with a workspace or request a guided demonstration.</h2><p>Explore the product at your own pace, then speak with HisabTech when your team is ready to evaluate implementation.</p></div><div><Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a demo</Link></div></section>
     </MarketingPageShell>
   );
 }

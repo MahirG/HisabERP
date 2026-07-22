@@ -14,7 +14,7 @@ import { WorkspaceHeaderPreferences } from "./workspace-header-preferences";
 type Props = { children: ReactNode; user: UserContext | null };
 type NavItem = { label: string; href: string; icon: IconName };
 
-const shellExcludedRoutes = ["/auth", "/onboarding", "/request-demo", "/product-tour", "/product", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center"];
+const shellExcludedRoutes = ["/auth", "/onboarding", "/request-demo", "/product-tour", "/product", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about"];
 
 function isActiveRoute(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
