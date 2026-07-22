@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { LanguageSelector, useLanguage } from "./language-provider";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -45,6 +45,8 @@ const websiteCopy = {
     conversionText: "Explore HisabERP, request a focused demo or speak directly with HisabTech.",
     whatsapp: "WhatsApp",
     skip: "Skip to main content",
+    language: "Language",
+    theme: "Toggle light or dark mode",
   },
   am: {
     subtitle: "የንግድ ማስኬጃ ስርዓት",
@@ -84,6 +86,8 @@ const websiteCopy = {
     conversionText: "HisabERPን ይመልከቱ፣ የተመረጠ ማሳያ ይጠይቁ ወይም ከHisabTech ጋር በቀጥታ ይነጋገሩ።",
     whatsapp: "ዋትስአፕ",
     skip: "ወደ ዋናው ይዘት ይሂዱ",
+    language: "ቋንቋ",
+    theme: "የብርሃን ወይም የጨለማ ገጽታ ይቀይሩ",
   },
 } as const;
 
@@ -124,27 +128,79 @@ function MarketingStructuredData() {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
 }
 
+function MobileLanguageIcon() {
+  return (
+    <svg aria-hidden="true" className="app-icon" fill="none" height="19" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" viewBox="0 0 24 24" width="19">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18" />
+      <path d="M12 3a15 15 0 0 1 0 18" />
+      <path d="M12 3a15 15 0 0 0 0 18" />
+    </svg>
+  );
+}
+
+function MobileThemeIcons() {
+  return (
+    <>
+      <svg aria-hidden="true" className="app-icon mobile-theme-icon mobile-theme-icon-moon" fill="none" height="19" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" viewBox="0 0 24 24" width="19">
+        <path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 9 9 0 1 0 20.7 15.5Z" />
+      </svg>
+      <svg aria-hidden="true" className="app-icon mobile-theme-icon mobile-theme-icon-sun" fill="none" height="19" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" viewBox="0 0 24 24" width="19">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42" />
+      </svg>
+    </>
+  );
+}
+
 export function MarketingHeader() {
   const { language } = useLanguage();
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
   const c = websiteCopy[language];
-
-  useEffect(() => setOpen(false), [pathname]);
 
   return (
     <>
       <a href="#public-main-content" className="public-skip-link">{c.skip}</a>
-      <header className="marketing-nav marketing-nav-v2" data-menu-open={open ? "true" : "false"}>
+      <header className="marketing-nav marketing-nav-v2">
         <Link href="/" className="marketing-brand" aria-label="HisabTech home">
           <img src="/hisab-logo.svg" alt="" width="44" height="44" className="hisab-logo" />
           <span className="marketing-brand-copy"><strong>HisabTech</strong><small>{c.subtitle}</small></span>
         </Link>
-        <button className="marketing-menu-toggle" type="button" aria-expanded={open} aria-label={open ? c.close : c.menu} onClick={() => setOpen((value) => !value)}><span/><span/><span/></button>
-        <nav aria-label={c.navLabel}>
+
+        <div className="marketing-mobile-header-controls" data-i18n-skip>
+          <details className="mobile-language-control language-icon-selector">
+            <summary className="language-icon-trigger preference-icon-button" aria-label={c.language} title={c.language}>
+              <MobileLanguageIcon />
+            </summary>
+            <div className="language-icon-menu" role="menu" aria-label={c.language}>
+              <button type="button" role="menuitemradio" aria-checked={language === "en"} className={language === "en" ? "active" : ""} data-mobile-language="en"><span>English</span><b>EN</b></button>
+              <button type="button" role="menuitemradio" aria-checked={language === "am"} className={language === "am" ? "active" : ""} data-mobile-language="am"><span>አማርኛ</span><b>አማ</b></button>
+            </div>
+          </details>
+
+          <button className="mobile-prehydration-theme-toggle preference-icon-button" type="button" aria-label={c.theme} title={c.theme} data-mobile-theme-toggle>
+            <MobileThemeIcons />
+          </button>
+
+          <details className="marketing-mobile-menu">
+            <summary className="marketing-menu-toggle" aria-label={c.menu} title={c.menu}><span/><span/><span/></summary>
+            <div className="marketing-mobile-menu-panel">
+              <nav aria-label={c.navLabel}>
+                {navItems.map(([key, href]) => <Link href={href} aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined} key={href}>{c[key]}</Link>)}
+              </nav>
+              <div className="marketing-mobile-menu-actions">
+                <Link href="/auth/login" className="marketing-signin">{c.signIn}</Link>
+                <Link href="/request-demo" className="marketing-demo">{c.demo}</Link>
+                <Link href="/auth/email-sign-up" className="marketing-start">{c.start}</Link>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <nav className="marketing-desktop-nav" aria-label={c.navLabel}>
           {navItems.map(([key, href]) => <Link href={href} aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined} key={href}>{c[key]}</Link>)}
         </nav>
-        <div className="marketing-nav-actions">
+        <div className="marketing-nav-actions marketing-desktop-actions">
           <div className="marketing-preference-icons global-preference-icons">
             <LanguageSelector compact />
             <ThemeToggle />
