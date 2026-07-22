@@ -78,6 +78,7 @@ import "./standard-mobile-header.css";
 import "./full-ui-polish.css";
 import "./brand-typography-color-lock.css";
 import "./sticky-header-lock.css";
+import "./surface-uniformity-lock.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
