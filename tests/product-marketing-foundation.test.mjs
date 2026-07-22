@@ -44,15 +44,17 @@ test("dedicated product module pages are generated from one content model", asyn
 test("public middleware exposes product marketing routes", async () => {
   const proxy = await read("lib/supabase/proxy.ts");
   assert.match(proxy, /"\/product-tour"/);
-  assert.match(proxy, /publicPagePrefixes = \["\/product\/"\]/);
+  assert.match(proxy, /publicPagePrefixes = \["\/product\/", "\/industries\/"\]/);
 });
 
 test("marketing experience is loaded before final brand enforcement", async () => {
   const layout = await read("app/layout.tsx");
   const imports = [...layout.matchAll(/import "\.\/(.+?\.css)";/g)].map((match) => match[1]);
   const experience = imports.indexOf("marketing-experience.css");
+  const expansion = imports.indexOf("market-expansion.css");
   const finalLock = imports.indexOf("brand-final-lock.css");
 
   assert.ok(experience >= 0);
-  assert.ok(finalLock > experience);
+  assert.ok(expansion > experience);
+  assert.ok(finalLock > expansion);
 });
