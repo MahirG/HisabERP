@@ -6,7 +6,7 @@ export function EmailAuthCard({ title, description, children, footer }: { title:
     <main className="auth-page auth-premium-page auth-official-page auth-official-email-card">
       <section className="auth-shell auth-official-shell">
         <aside className="auth-showcase auth-official-showcase">
-          <Link href="/" className="auth-showcase-brand auth-official-brand"><span>H</span><strong>HisabTech</strong></Link>
+          <Link href="/" className="auth-showcase-brand auth-official-brand"><img src="/hisab-logo.svg" alt="" width="40" height="40" className="hisab-logo"/><strong>HisabTech</strong></Link>
           <div className="auth-showcase-content">
             <span className="auth-badge auth-official-badge"><i/> Secure business identity</span>
             <h2>One trusted account for every company you manage.</h2>
@@ -20,7 +20,7 @@ export function EmailAuthCard({ title, description, children, footer }: { title:
         </aside>
         <section className="auth-card auth-form-panel auth-official-form-panel">
           <div className="auth-official-form-wrap">
-            <div className="auth-top"><Link href="/" className="auth-brand auth-mobile-brand"><span>H</span><strong>HisabTech</strong></Link></div>
+            <div className="auth-top"><Link href="/" className="auth-brand auth-mobile-brand"><img src="/hisab-logo.svg" alt="" width="36" height="36" className="hisab-logo"/><strong>HisabTech</strong></Link></div>
             <div className="auth-heading auth-official-heading"><p className="eyebrow">HisabTech</p><h1>{title}</h1><p>{description}</p></div>
             {children}
             {footer ? <div className="auth-switch auth-account-switch">{footer}</div> : null}
