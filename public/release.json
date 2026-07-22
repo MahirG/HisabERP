@@ -1,6 +1,6 @@
 {
-  "release": "932ff1bb46f13c3db44a2d3d346555474e0f0109",
+  "release": "6d70a5fbc2791480ddf898329115a2c9704659c5",
   "environment": "production",
-  "deployedAt": "2026-07-22T14:07:25Z",
-  "description": "HisabTech mobile speed release with direct public first paint, reduced global font payload, lazy Amharic translation loading, and mobile rendering safeguards"
+  "deployedAt": "2026-07-22T14:59:07Z",
+  "description": "Complete HisabTech production release with pre-hydration mobile controls, standard public and workspace mobile headers, and final terracotta-charcoal branding across Electronic Invoicing, reconciliation, finance, account, and remaining operational modules"
 }
