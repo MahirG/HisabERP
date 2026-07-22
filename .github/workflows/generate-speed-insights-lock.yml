@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - perf/vercel-speed-insights
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
