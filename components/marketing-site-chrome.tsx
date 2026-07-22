@@ -16,7 +16,7 @@ const websiteCopy = {
     migration: "Migration",
     resources: "Resources",
     about: "About",
-    help: "Help",
+    help: "Help Center",
     signIn: "Sign in",
     demo: "Request a demo",
     start: "Start free",
@@ -57,7 +57,7 @@ const websiteCopy = {
     migration: "የመረጃ ሽግግር",
     resources: "የትምህርት ማዕከል",
     about: "ስለ እኛ",
-    help: "እገዛ",
+    help: "የእገዛ ማዕከል",
     signIn: "ይግቡ",
     demo: "ማሳያ ይጠይቁ",
     start: "በነፃ ይጀምሩ",
@@ -99,6 +99,16 @@ const navItems = [
   ["resources", "/resources"],
   ["about", "/about"],
   ["help", "/help-center"],
+] as const;
+
+const mobileNavItems = [
+  ["product", "/product-tour"],
+  ["pricing", "/pricing"],
+  ["about", "/about"],
+  ["help", "/help-center"],
+  ["industries", "/industries"],
+  ["resources", "/resources"],
+  ["migration", "/migration"],
 ] as const;
 
 function MarketingStructuredData() {
@@ -186,7 +196,17 @@ export function MarketingHeader() {
             <summary className="marketing-menu-toggle" aria-label={c.menu} title={c.menu}><span/><span/><span/></summary>
             <div className="marketing-mobile-menu-panel">
               <nav aria-label={c.navLabel}>
-                {navItems.map(([key, href]) => <Link href={href} aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined} key={href}>{c[key]}</Link>)}
+                {mobileNavItems.map(([key, href]) => (
+                  <Link
+                    href={href}
+                    aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined}
+                    className={key === "about" || key === "help" ? "mobile-menu-priority-link" : undefined}
+                    data-mobile-nav-key={key}
+                    key={href}
+                  >
+                    {c[key]}
+                  </Link>
+                ))}
               </nav>
               <div className="marketing-mobile-menu-actions">
                 <Link href="/auth/login" className="marketing-signin">{c.signIn}</Link>

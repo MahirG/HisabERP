@@ -1,0 +1,251 @@
+/*
+ * Final rectangle and mobile-drawer contract.
+ * Keeps cards, panels, controls and menu rows visually consistent without
+ * changing application behavior or data flow.
+ */
+
+:root {
+  --hisab-surface-radius: 16px;
+  --hisab-control-radius: 10px;
+  --hisab-surface-border: 1px solid var(--ui-border);
+  --hisab-surface-shadow: var(--ui-shadow-sm);
+  --hisab-surface-padding: clamp(16px, 2vw, 22px);
+}
+
+/* Public content surfaces share one shape, border weight and elevation. */
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 #public-main-content :is(
+  article,
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-panel"],
+  [class*="-panel "],
+  [class$="-tile"],
+  [class*="-tile "],
+  [class$="-window"],
+  [class*="-window "],
+  [class$="-board"],
+  [class*="-board "]
+) {
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: var(--ui-border) !important;
+  border-image: none !important;
+  border-radius: var(--hisab-surface-radius) !important;
+  background-color: var(--ui-surface) !important;
+  box-shadow: var(--hisab-surface-shadow) !important;
+}
+
+/* Workspace content surfaces use the same visual contract. */
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(
+  .panel,
+  .data-panel,
+  .metric-card,
+  .core-panel,
+  .finance-panel,
+  .sales-panel,
+  .ops-panel,
+  .controls-panel,
+  .control-card,
+  .einvoice-panel,
+  .recon-panel,
+  .module-card,
+  .detail-panel,
+  .setup-step-card,
+  .customer-record-card,
+  .report-result-panel,
+  .report-export-panel,
+  .documentation,
+  .workspace-section,
+  .workspace-action-alert,
+  .workspace-metric-tile,
+  .account-card,
+  .asset-card,
+  .transaction,
+  .record-row,
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-panel"],
+  [class*="-panel "]
+) {
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: var(--ui-border) !important;
+  border-image: none !important;
+  border-radius: var(--hisab-surface-radius) !important;
+  background-color: var(--ui-surface) !important;
+  box-shadow: var(--hisab-surface-shadow) !important;
+}
+
+/* Remove old heavy accent edges while retaining state through color. */
+body[data-ui-polish="hisab-2026"] :is(
+  .home-pricing-grid article.featured,
+  .einvoice-kpis article,
+  .recon-transaction,
+  .workspace-action-alert,
+  .metric-card,
+  .control-card,
+  [class*="featured"],
+  [class*="highlight"]
+) {
+  border-width: 1px !important;
+  border-top-width: 1px !important;
+  border-right-width: 1px !important;
+  border-bottom-width: 1px !important;
+  border-left-width: 1px !important;
+  box-shadow: var(--hisab-surface-shadow) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :is(
+  .home-pricing-grid article.featured,
+  .einvoice-kpis article,
+  .workspace-action-alert,
+  [class*="featured"]
+) {
+  border-color: var(--ui-border-strong) !important;
+}
+
+/* Consistent internal rhythm for rectangular content. */
+body[data-ui-polish="hisab-2026"] :is(
+  .marketing-site-v2 #public-main-content article,
+  .erp-shell > .workspace .panel,
+  .erp-shell > .workspace .data-panel,
+  .erp-shell > .workspace .metric-card,
+  .erp-shell > .workspace .module-card,
+  .erp-shell > .workspace .account-card,
+  .erp-shell > .workspace .einvoice-panel,
+  .erp-shell > .workspace .recon-panel
+) > :is(h2, h3, h4, strong):first-child {
+  margin-top: 0 !important;
+}
+
+body[data-ui-polish="hisab-2026"] :is(
+  .marketing-site-v2 #public-main-content article,
+  .erp-shell > .workspace .panel,
+  .erp-shell > .workspace .data-panel,
+  .erp-shell > .workspace .metric-card,
+  .erp-shell > .workspace .module-card,
+  .erp-shell > .workspace .account-card,
+  .erp-shell > .workspace .einvoice-panel,
+  .erp-shell > .workspace .recon-panel
+) > :is(p, small):last-child {
+  margin-bottom: 0 !important;
+}
+
+body[data-ui-polish="hisab-2026"] :is(
+  .marketing-site-v2 #public-main-content article,
+  .erp-shell > .workspace .panel,
+  .erp-shell > .workspace .data-panel,
+  .erp-shell > .workspace .metric-card,
+  .erp-shell > .workspace .module-card,
+  .erp-shell > .workspace .account-card,
+  .erp-shell > .workspace .einvoice-panel,
+  .erp-shell > .workspace .recon-panel
+) > :is(header, footer) {
+  border-color: var(--ui-border) !important;
+  border-width: 1px !important;
+}
+
+/* Controls are a separate, smaller rectangle family. */
+body[data-ui-polish="hisab-2026"] :is(
+  .marketing-site-v2 .marketing-start,
+  .marketing-site-v2 .marketing-demo,
+  .marketing-site-v2 .marketing-signin,
+  .marketing-site-v2 .marketing-text-action,
+  .marketing-site-v2 .conversion-whatsapp,
+  .auth-submit,
+  .auth-primary-button,
+  .auth-slack-primary,
+  .social-auth-button,
+  .erp-shell > .workspace button:not(.preference-icon-button):not(.mobile-menu-trigger),
+  .erp-shell > .workspace .action-link
+) {
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-radius: var(--hisab-control-radius) !important;
+  box-shadow: none !important;
+}
+
+body[data-ui-polish="hisab-2026"] :is(
+  input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+  select,
+  textarea
+) {
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-radius: var(--hisab-control-radius) !important;
+  box-shadow: none !important;
+}
+
+/* Mobile drawer: important links remain visible and actions stay separate. */
+@media (max-width: 920px) {
+  body[data-ui-polish="hisab-2026"] .marketing-mobile-menu-panel {
+    height: calc(100dvh - var(--hisab-public-header-height)) !important;
+    max-height: calc(100dvh - var(--hisab-public-header-height)) !important;
+    grid-template-rows: minmax(0, 1fr) auto !important;
+    gap: 10px !important;
+    overflow: hidden !important;
+    border-top: 1px solid var(--ui-border) !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--ui-border) !important;
+    border-left: 0 !important;
+    border-radius: 0 0 var(--hisab-surface-radius) var(--hisab-surface-radius) !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-mobile-menu-panel nav {
+    min-height: 0;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    padding: 2px 2px 8px !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-mobile-menu-panel nav a {
+    flex: 0 0 auto;
+    min-height: 46px !important;
+    border: 1px solid transparent !important;
+    border-radius: var(--hisab-control-radius) !important;
+    padding: 0 14px !important;
+    background: transparent !important;
+    color: var(--ui-text) !important;
+    box-shadow: none !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-mobile-menu-panel nav a.mobile-menu-priority-link {
+    border-color: var(--ui-border) !important;
+    background: var(--ui-surface-muted) !important;
+    color: var(--ui-text) !important;
+    font-weight: 700 !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-mobile-menu-panel nav a:is(:hover, :focus-visible, [aria-current="page"]) {
+    border-color: var(--ui-brand) !important;
+    background: var(--ui-brand-soft) !important;
+    color: var(--ui-brand-strong) !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-mobile-menu-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    margin: 0 !important;
+    padding: 10px 2px max(2px, env(safe-area-inset-bottom)) !important;
+    border-top: 1px solid var(--ui-border) !important;
+    background: var(--ui-surface-raised) !important;
+  }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --hisab-surface-radius: 14px;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-mobile-menu-panel nav a {
+    min-height: 44px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-ui-polish="hisab-2026"] :is(article, [class*="card"], [class*="panel"], button, a) {
+    transition-duration: 0.01ms !important;
+  }
+}
