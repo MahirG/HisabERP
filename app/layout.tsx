@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import type { ReactNode } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AppExperienceProvider } from "../components/app-experience-provider";
 import { AuthPagePreferences } from "../components/auth-page-preferences";
 import { LanguageProvider } from "../components/language-provider";
@@ -90,5 +91,5 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const [cookieStore, user] = await Promise.all([cookies(), getCurrentUserContext()]);
   const saved = cookieStore.get("hisab_locale")?.value;
   const initialLanguage: Language = saved === "am" ? "am" : "en";
-  return <html lang={initialLanguage} data-language={initialLanguage} data-theme="light" suppressHydrationWarning><body data-design-system="hisab-v1" data-workspace-system="financial-os-v1"><LanguageProvider initialLanguage={initialLanguage}><AppExperienceProvider><AuthPagePreferences/><WorkspaceShell user={user}>{children}</WorkspaceShell></AppExperienceProvider></LanguageProvider></body></html>;
+  return <html lang={initialLanguage} data-language={initialLanguage} data-theme="light" suppressHydrationWarning><body data-design-system="hisab-v1" data-workspace-system="financial-os-v1"><LanguageProvider initialLanguage={initialLanguage}><AppExperienceProvider><AuthPagePreferences/><WorkspaceShell user={user}>{children}</WorkspaceShell></AppExperienceProvider></LanguageProvider><SpeedInsights /></body></html>;
 }
