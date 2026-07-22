@@ -12,6 +12,9 @@ const publicPageRoutes = new Set([
   "/customer-stories",
   "/trust",
   "/integrations",
+  "/migration",
+  "/compare",
+  "/help-center",
   "/auth/login",
   "/auth/phone-login",
   "/auth/sign-up",
@@ -27,8 +30,8 @@ const publicPageRoutes = new Set([
   "/auth/confirm",
 ]);
 
-const publicPagePrefixes = ["/product/", "/industries/"];
-const authenticatedMarketingRoutes = new Set(["/request-demo", "/product-tour", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations"]);
+const publicPagePrefixes = ["/product/", "/industries/", "/compare/", "/help-center/"];
+const authenticatedMarketingRoutes = new Set(["/request-demo", "/product-tour", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center"]);
 
 const publicApiRoutes = new Set([
   "/api/health",
