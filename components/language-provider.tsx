@@ -9,6 +9,7 @@ import {
   useEffect,
   useLayoutEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -212,11 +213,41 @@ const languageCodes: Array<{ value: Language; short: string }> = [
   { value: "am", short: "አማ" },
 ];
 
+function LanguageGlobeIcon() {
+  return (
+    <svg aria-hidden="true" className="app-icon" fill="none" height="19" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" viewBox="0 0 24 24" width="19">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18" />
+      <path d="M12 3a15 15 0 0 1 0 18" />
+      <path d="M12 3a15 15 0 0 0 0 18" />
+    </svg>
+  );
+}
+
 export function LanguageSelector({ compact = false }: { compact?: boolean }) {
   const { language, dictionary, setLanguage } = useLanguage();
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!compact || !open) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    const closeOnOutsideClick = (event: MouseEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    document.addEventListener("mousedown", closeOnOutsideClick);
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      document.removeEventListener("mousedown", closeOnOutsideClick);
+    };
+  }, [compact, open]);
 
   function chooseLanguage(next: Language) {
+    setOpen(false);
     if (next === language) return;
     document.documentElement.classList.add("i18n-switching");
     window.dispatchEvent(new Event("hisab:busy"));
@@ -230,9 +261,44 @@ export function LanguageSelector({ compact = false }: { compact?: boolean }) {
 
   const names: Record<Language, string> = { en: dictionary.language.english, am: dictionary.language.amharic };
 
+  if (compact) {
+    return (
+      <div className="language-selector language-icon-selector compact" ref={rootRef} data-i18n-skip>
+        <button
+          className="language-icon-trigger preference-icon-button"
+          type="button"
+          aria-label={dictionary.language.label}
+          aria-haspopup="menu"
+          aria-expanded={open}
+          title={dictionary.language.label}
+          onClick={() => setOpen((current) => !current)}
+        >
+          <LanguageGlobeIcon />
+        </button>
+        {open && (
+          <div className="language-icon-menu" role="menu" aria-label={dictionary.language.label}>
+            {languageCodes.map((item) => (
+              <button
+                type="button"
+                key={item.value}
+                role="menuitemradio"
+                aria-checked={language === item.value}
+                className={language === item.value ? "active" : ""}
+                onClick={() => chooseLanguage(item.value)}
+              >
+                <span>{names[item.value]}</span>
+                <b>{item.short}</b>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
-    <div className={`language-selector language-segmented${compact ? " compact" : ""}`} role="group" aria-label={dictionary.language.label} data-i18n-skip>
-      {!compact && <span>{dictionary.language.label}</span>}
+    <div className="language-selector language-segmented" role="group" aria-label={dictionary.language.label} data-i18n-skip>
+      <span>{dictionary.language.label}</span>
       <div>{languageCodes.map((item) => <button type="button" key={item.value} className={language === item.value ? "active" : ""} aria-pressed={language === item.value} title={names[item.value]} onClick={() => chooseLanguage(item.value)}>{item.short}</button>)}</div>
     </div>
   );
