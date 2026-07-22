@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Noto_Sans_Ethiopic, Space_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AppExperienceProvider } from "../components/app-experience-provider";
@@ -76,12 +76,20 @@ import "./mobile-controls-menu.css";
 import "./workspace-brand-completion.css";
 import "./standard-mobile-header.css";
 import "./full-ui-polish.css";
+import "./brand-typography-color-lock.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
   variable: "--font-space-grotesk",
+});
+
+const notoSansEthiopic = Noto_Sans_Ethiopic({
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: false,
+  variable: "--font-noto-ethiopic",
 });
 
 const mobileControlsBootstrap = `
@@ -159,11 +167,21 @@ export const metadata: Metadata = {
   icons: { icon: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }], shortcut: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }], apple: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }] },
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 5, viewportFit: "cover", themeColor: "#000000", colorScheme: "dark light" };
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8f4f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d0b0a" },
+  ],
+  colorScheme: "dark light",
+};
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html className={spaceGrotesk.variable} lang="en" data-language="en" data-theme="light" suppressHydrationWarning>
+    <html className={`${spaceGrotesk.variable} ${notoSansEthiopic.variable}`} lang="en" data-language="en" data-theme="light" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: mobileControlsBootstrap }} /></head>
       <body data-design-system="hisab-v1" data-workspace-system="financial-os-v1" data-ui-polish="hisab-2026">
         <LanguageProvider initialLanguage="en">
