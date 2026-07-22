@@ -1,0 +1,450 @@
+/*
+ * Strict Hisab brand enforcement.
+ * Loaded last so the public website, authentication and authenticated ERP use
+ * only the official terracotta family, charcoal and neutral surface colors.
+ */
+
+:root {
+  --hisab-50: #fff8f5;
+  --hisab-100: #fff0e9;
+  --hisab-200: #f8d6ca;
+  --hisab-300: #f0b29c;
+  --hisab-400: #ed9c80;
+  --hisab-500: #da7757;
+  --hisab-600: #c86648;
+  --hisab-700: #b55a3f;
+  --hisab-800: #8f412c;
+  --hisab-900: #5e3024;
+  --hisab-950: #171717;
+  --hisab-transparent: transparent;
+
+  --hisab-brand: var(--hisab-500);
+  --hisab-brand-strong: var(--hisab-700);
+  --hisab-brand-deep: var(--hisab-800);
+  --hisab-brand-soft: var(--hisab-100);
+  --hisab-charcoal: var(--hisab-950);
+
+  /* Every semantic accent resolves to the selected Hisab hue. */
+  --ds-color-success: var(--hisab-500);
+  --ds-color-success-soft: var(--hisab-100);
+  --ds-color-warning: var(--hisab-600);
+  --ds-color-warning-soft: var(--hisab-100);
+  --ds-color-danger: var(--hisab-800);
+  --ds-color-danger-soft: var(--hisab-100);
+  --ds-color-info: var(--hisab-700);
+  --ds-color-info-soft: var(--hisab-100);
+}
+
+body[data-workspace-system="financial-os-v1"] {
+  --fin-primary: var(--hisab-500);
+  --fin-primary-hover: var(--hisab-700);
+  --fin-primary-soft: var(--hisab-100);
+  --fin-success: var(--hisab-500);
+  --fin-success-soft: var(--hisab-100);
+  --fin-warning: var(--hisab-600);
+  --fin-warning-soft: var(--hisab-100);
+  --fin-danger: var(--hisab-800);
+  --fin-danger-soft: var(--hisab-100);
+  --fin-info: var(--hisab-700);
+  --fin-info-soft: var(--hisab-100);
+  --workspace-brand: var(--hisab-500);
+  --workspace-teal: var(--hisab-500);
+  --workspace-danger: var(--hisab-800);
+  --blue: var(--hisab-500);
+  --green: var(--hisab-500);
+  --teal: var(--hisab-500);
+  --cyan: var(--hisab-500);
+  --purple: var(--hisab-700);
+  --violet: var(--hisab-700);
+  --indigo: var(--hisab-700);
+  accent-color: var(--hisab-500);
+}
+
+html[data-theme="dark"] body[data-workspace-system="financial-os-v1"] {
+  --fin-primary: var(--hisab-400);
+  --fin-primary-hover: var(--hisab-300);
+  --fin-primary-soft: #35231d;
+  --fin-success: var(--hisab-400);
+  --fin-success-soft: #35231d;
+  --fin-warning: var(--hisab-400);
+  --fin-warning-soft: #35231d;
+  --fin-danger: var(--hisab-300);
+  --fin-danger-soft: #35231d;
+  --fin-info: var(--hisab-400);
+  --fin-info-soft: #35231d;
+}
+
+/* Transparent official logo everywhere: no white tile, border or box. */
+.hisab-logo,
+.hisab-logo-on-dark,
+.marketing-brand .hisab-logo,
+.marketing-window-body aside .hisab-logo,
+.brand > .hisab-logo,
+.mobile-workspace-brand .hisab-logo {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 3px 7px rgba(94, 48, 36, 0.16));
+}
+
+.auth-hisab-mark,
+.brand > span,
+.mobile-workspace-brand > span,
+.desktop-sidebar-brand > span,
+.mobile-sidebar-header .brand > span {
+  overflow: visible !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  background-image: url('/hisab-logo.svg') !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  filter: drop-shadow(0 3px 7px rgba(94, 48, 36, 0.16));
+}
+
+html[data-theme="dark"] .auth-hisab-mark,
+html[data-theme="dark"] .brand > span,
+html[data-theme="dark"] .mobile-workspace-brand > span,
+html[data-theme="dark"] .desktop-sidebar-brand > span,
+html[data-theme="dark"] .mobile-sidebar-header .brand > span {
+  background-color: transparent !important;
+  border: 0 !important;
+}
+
+/* Public website: all decorative and interactive accents use the Hisab family. */
+.marketing-site {
+  --mk-blue: var(--hisab-500);
+  --mk-blue-dark: var(--hisab-700);
+  --mk-teal: var(--hisab-600);
+}
+
+.marketing-site :is(a, button):focus-visible,
+.auth-page :is(a, button, input, select):focus-visible {
+  outline: 0 !important;
+  box-shadow: 0 0 0 4px rgba(218, 119, 87, 0.22) !important;
+}
+
+.marketing-start,
+.marketing-preview-top button,
+.auth-primary-button,
+.auth-slack-primary {
+  border-color: var(--hisab-500) !important;
+  background: var(--hisab-500) !important;
+  color: var(--hisab-950) !important;
+}
+
+.marketing-start:hover,
+.marketing-preview-top button:hover,
+.auth-primary-button:hover,
+.auth-slack-primary:hover {
+  border-color: var(--hisab-700) !important;
+  background: var(--hisab-700) !important;
+  color: #fff !important;
+}
+
+.marketing-bars span,
+.marketing-cta,
+.marketing-chart-card,
+.marketing-step-grid article > span,
+.marketing-integration-grid article > span,
+.marketing-analytics-head b,
+.marketing-analytics-kpis em {
+  border-color: var(--hisab-500) !important;
+}
+
+.social-auth-button .social-provider-icon {
+  color: var(--hisab-700) !important;
+}
+.social-auth-button .social-provider-icon path {
+  fill: currentColor !important;
+}
+
+/* Workspace navigation, headers and active states. */
+.supabase-sidebar {
+  --supabase-sidebar-accent: var(--hisab-500) !important;
+}
+
+.erp-shell > .sidebar.supabase-sidebar nav a[aria-current="page"],
+.erp-shell > .sidebar.supabase-sidebar nav a.active,
+.mobile-bottom-nav a[aria-current="page"],
+.mobile-bottom-nav button.active {
+  border-color: rgba(218, 119, 87, 0.34) !important;
+  background: rgba(218, 119, 87, 0.16) !important;
+  color: var(--hisab-300) !important;
+  box-shadow: inset 2px 0 0 var(--hisab-500) !important;
+}
+
+.mobile-bottom-nav a[aria-current="page"],
+.mobile-bottom-nav button.active {
+  color: var(--hisab-700) !important;
+  box-shadow: none !important;
+}
+
+.sidebar-nav-icon,
+.workspace-link-icon,
+.section-shell-mark,
+.workspace-eyebrow,
+.erp-shell > .workspace .eyebrow,
+.workspace-inline-action,
+.text-button,
+.finance-panel-head > button,
+.financial-module-grid b,
+.help-link-list a > .app-icon:first-child,
+.command-result-icon,
+.assistance-title-icon,
+.advice-icon {
+  color: var(--hisab-700) !important;
+}
+
+/* Buttons and form controls. */
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .primary,
+  .action-link.primary,
+  button[type="submit"]:not(.secondary):not(.ghost):not(.danger):not(.destructive)
+) {
+  border-color: var(--hisab-500) !important;
+  background: var(--hisab-500) !important;
+  color: var(--hisab-950) !important;
+  box-shadow: none !important;
+}
+
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .primary,
+  .action-link.primary,
+  button[type="submit"]:not(.secondary):not(.ghost):not(.danger):not(.destructive)
+):hover {
+  border-color: var(--hisab-700) !important;
+  background: var(--hisab-700) !important;
+  color: #fff !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :is(
+  .danger,
+  .destructive,
+  .sticky-user-logout,
+  .account-actions button,
+  button[data-variant="danger"]
+) {
+  border-color: var(--hisab-800) !important;
+  background: var(--hisab-100) !important;
+  color: var(--hisab-800) !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :is(
+  .danger,
+  .destructive,
+  .sticky-user-logout,
+  .account-actions button,
+  button[data-variant="danger"]
+):hover {
+  background: var(--hisab-800) !important;
+  color: #fff !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :where(input, select, textarea):focus,
+body[data-workspace-system="financial-os-v1"] :where(button, a, input, select, textarea, summary):focus-visible {
+  border-color: var(--hisab-500) !important;
+  outline: 0 !important;
+  box-shadow: 0 0 0 3px rgba(218, 119, 87, 0.2) !important;
+}
+
+body[data-workspace-system="financial-os-v1"] input[type="checkbox"],
+body[data-workspace-system="financial-os-v1"] input[type="radio"],
+body[data-workspace-system="financial-os-v1"] input[type="range"],
+body[data-workspace-system="financial-os-v1"] progress {
+  accent-color: var(--hisab-500) !important;
+}
+
+/* Tabs, filters and segmented controls. */
+body[data-workspace-system="financial-os-v1"] :is(
+  [class*="tabs"] button.active,
+  [class*="tab-list"] button.active,
+  [role="tab"][aria-selected="true"],
+  .filter-chip.active,
+  .segment.active,
+  .period-pill.active
+) {
+  border-color: var(--hisab-500) !important;
+  background: var(--hisab-500) !important;
+  color: var(--hisab-950) !important;
+  box-shadow: none !important;
+}
+
+/* All semantic states stay inside the same terracotta hue family. */
+body[data-workspace-system="financial-os-v1"] :is(
+  .workspace-metric-tile.tone-success,
+  .workspace-metric-tile.tone-warning,
+  .workspace-metric-tile.tone-danger,
+  .workspace-metric-tile.tone-info,
+  .workspace-action-alert.tone-success,
+  .workspace-action-alert.tone-warning,
+  .workspace-action-alert.tone-danger,
+  .workspace-action-alert.tone-info
+) :is(.workspace-metric-icon, .workspace-action-alert-icon) {
+  background: var(--hisab-100) !important;
+  color: var(--hisab-700) !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :is(
+  .workspace-status-badge,
+  .status-badge,
+  .period-pill,
+  .role-badge,
+  .report-result-badge,
+  .ds-badge,
+  .finance-status,
+  .account-type,
+  .control-ok,
+  .control-alert
+) {
+  border-color: var(--hisab-200) !important;
+  background: var(--hisab-100) !important;
+  color: var(--hisab-800) !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :is(
+  .amount-income,
+  .amount-expense,
+  .positive,
+  .negative,
+  .success,
+  .warning,
+  .danger,
+  .info
+) {
+  color: var(--hisab-700) !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :is(
+  .transaction-mark.income,
+  .transaction-mark.expense,
+  .metric-icon.success,
+  .metric-icon.warning,
+  .metric-icon.danger,
+  .metric-icon.info
+) {
+  background: var(--hisab-100) !important;
+  color: var(--hisab-700) !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :is(
+  .form-alert,
+  .success-banner,
+  .error-banner,
+  .warning-banner,
+  .info-banner,
+  .mode-notice,
+  .alert,
+  .notice
+) {
+  border-color: var(--hisab-200) !important;
+  background: var(--hisab-50) !important;
+  color: var(--hisab-900) !important;
+}
+
+/* Charts, progress indicators and live-status dots. */
+body[data-workspace-system="financial-os-v1"] :is(
+  .bar,
+  .financial-dashboard .bar,
+  .health-summary-bar span,
+  .profit-meter i,
+  .asset-progress i,
+  [class*="progress"] > i,
+  [class*="progress"] > span
+) {
+  background: var(--hisab-500) !important;
+}
+
+body[data-workspace-system="financial-os-v1"] [class*="chart"] svg :is(path, line, polyline, circle)[stroke]:not([stroke="none"]) {
+  stroke: var(--hisab-500) !important;
+}
+body[data-workspace-system="financial-os-v1"] [class*="chart"] svg :is(path, rect, circle)[fill]:not([fill="none"]):not([fill="transparent"]) {
+  fill: rgba(218, 119, 87, 0.18) !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :is(
+  .workspace-status i,
+  .finance-live-dot,
+  .sticky-user-online,
+  .closing-legend i,
+  .closing-legend i.soft,
+  .closing-legend i.locked
+) {
+  background: var(--hisab-500) !important;
+  box-shadow: 0 0 0 5px rgba(218, 119, 87, 0.14) !important;
+}
+
+/* User, profile and account surfaces. */
+.sticky-user-avatar,
+.sticky-user-profile-avatar,
+.account-avatar {
+  background: var(--hisab-100) !important;
+  color: var(--hisab-800) !important;
+}
+.sticky-user-context strong,
+.sticky-user-popover nav a > span,
+.account-security,
+.advice-context {
+  border-color: var(--hisab-200) !important;
+  background: var(--hisab-100) !important;
+  color: var(--hisab-800) !important;
+}
+
+/* Remove residual named accent colors from common legacy utility classes. */
+body[data-workspace-system="financial-os-v1"] :is(
+  [class*="teal"],
+  [class*="cyan"],
+  [class*="blue"],
+  [class*="indigo"],
+  [class*="violet"],
+  [class*="purple"],
+  [class*="green"]
+) {
+  --accent-color: var(--hisab-500);
+  border-color: var(--hisab-200);
+}
+
+/* Dark mode uses the same hue with dark neutral surfaces. */
+html[data-theme="dark"] body[data-workspace-system="financial-os-v1"] :is(
+  .workspace-status-badge,
+  .status-badge,
+  .period-pill,
+  .role-badge,
+  .report-result-badge,
+  .ds-badge,
+  .finance-status,
+  .account-type,
+  .control-ok,
+  .control-alert,
+  .form-alert,
+  .success-banner,
+  .error-banner,
+  .warning-banner,
+  .info-banner,
+  .mode-notice,
+  .alert,
+  .notice
+) {
+  border-color: #5a4037 !important;
+  background: #35231d !important;
+  color: var(--hisab-300) !important;
+}
+
+html[data-theme="dark"] .sticky-user-avatar,
+html[data-theme="dark"] .sticky-user-profile-avatar,
+html[data-theme="dark"] .account-avatar,
+html[data-theme="dark"] .sticky-user-context strong,
+html[data-theme="dark"] .sticky-user-popover nav a > span,
+html[data-theme="dark"] .account-security,
+html[data-theme="dark"] .advice-context {
+  border-color: #5a4037 !important;
+  background: #35231d !important;
+  color: var(--hisab-300) !important;
+}
