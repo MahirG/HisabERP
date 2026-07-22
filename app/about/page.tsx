@@ -69,7 +69,7 @@ const copy = {
     principlesTitle: "እያንዳንዱን ልቀት የሚመሩ የምርት መርሆዎች።",
     principles: [
       ["01", "አካባቢያዊ ሁኔታ በቅድሚያ", "የኢትዮጵያ ብር፣ ብዙ ቋንቋ፣ የሞባይል የሥራ ሂደት እና የአካባቢ ትግበራ ሁኔታዎች ከመጀመሪያ ይታሰባሉ።"],
-      ["02", "ከንግግር በላይ ማስረጃ", "ደህንነት፣ ውህደቶች እና የደንበኛ ውጤቶች በተተገበረውና በተረጋገጠው መሠረት ይገለጻሉ።"],
+      ["02", "ከንግግር በላይ ማስረጃ", "ደህነት፣ ውህደቶች እና የደንበኛ ውጤቶች በተተገበረውና በተረጋገጠው መሠረት ይገለጻሉ።"],
       ["03", "ያለ አላስፈላጊ ውስብስብነት ቁጥጥር", "ምርቱ የተለመደውን ሥራ ሳያስቸግር ኃላፊነትን፣ ማጽደቅን እና ልዩነቶችን ግልጽ ማድረግ አለበት።"],
       ["04", "የተገናኙ ውሳኔዎች", "የሥራ እንቅስቃሴ ሪፖርቶችን በእጅ ሳይገነቡ ጠቃሚ የአስተዳደር መረጃ መሆን አለበት።"],
     ],
@@ -84,7 +84,7 @@ const copy = {
       "ግልጽ የምርት ወሰን እና የትግበራ ኃላፊነቶች",
       "ግልጽ ዋጋ እና የውህደት ሁኔታ",
       "የተፈጠሩ ምስክርነቶች፣ ሰርተፍኬቶች ወይም የአፈጻጸም ጥያቄዎች አለመጠቀም",
-      "የደህንነት ቁጥጥሮችን ከእውነተኛ ገደቦቻቸው ጋር መግለጽ",
+      "የደህነት ቁጥጥሮችን ከእውነተኛ ገደቦቻቸው ጋር መግለጽ",
       "ወደ ምርት ሥራ ከመሸጋገር በፊት የመረጃ ማረጋገጥ",
       "በእውነተኛ የሥራ ችግሮች የሚመራ የምርት ዕቅድ",
     ],
@@ -104,7 +104,7 @@ export default async function AboutPage() {
   return (
     <MarketingPageShell>
       <section className="about-hero">
-        <div><span className="marketing-eyebrow">{c.eyebrow}</span><h1>{c.title}</h1><p>{c.intro}</p><div className="marketing-hero-actions"><Link href="/request-demo?source=about" className="marketing-start marketing-large">{c.demo}</Link><a href="mailto:mahir@hisabtech.com" className="marketing-demo marketing-large">{c.email}</a></div></div>
+        <div><span className="marketing-eyebrow">{c.eyebrow}</span><h1>{c.title}</h1><p>{c.intro}</p><div className="marketing-hero-actions"><Link href="/request-demo?source=about" className="marketing-start marketing-large">{c.demo}</Link><a href="mailto:info@hisabtech.com" className="marketing-demo marketing-large">{c.email}</a></div></div>
         <div className="about-fact-grid">{c.facts.map(([label, value]) => <article key={label}><span>{label}</span><strong>{value}</strong></article>)}</div>
       </section>
 
@@ -112,7 +112,7 @@ export default async function AboutPage() {
 
       <section className="marketing-section about-principles-section"><div className="marketing-section-heading marketing-section-heading-wide"><span>{c.principlesEyebrow}</span><h2>{c.principlesTitle}</h2></div><div className="about-principles-grid">{c.principles.map(([number, title, text]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{text}</p></article>)}</div></section>
 
-      <section className="about-leadership-section"><div><span className="marketing-eyebrow">{c.leadershipEyebrow}</span><h2>{c.leadershipTitle}</h2><p>{c.founderText}</p></div><article><span className="about-founder-avatar">MA</span><div><strong>{c.founderName}</strong><small>{c.founderRole}</small><a href="mailto:mahir@hisabtech.com">mahir@hisabtech.com</a></div></article></section>
+      <section className="about-leadership-section"><div><span className="marketing-eyebrow">{c.leadershipEyebrow}</span><h2>{c.leadershipTitle}</h2><p>{c.founderText}</p></div><article><span className="about-founder-avatar">MA</span><div><strong>{c.founderName}</strong><small>{c.founderRole}</small><a href="mailto:info@hisabtech.com">info@hisabtech.com</a></div></article></section>
 
       <section className="marketing-section about-standards-section"><div className="marketing-section-heading"><span>{c.standardsEyebrow}</span><h2>{c.standardsTitle}</h2></div><div className="about-standards-grid">{c.standards.map((standard, index) => <article key={standard}><span>{String(index + 1).padStart(2, "0")}</span><strong>{standard}</strong></article>)}</div></section>
 
