@@ -1,0 +1,308 @@
+/* Global language and appearance controls: icon-only, transparent and consistently branded. */
+
+.global-preference-icons,
+.marketing-preference-icons,
+.workspace-header-preferences-inline {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.preference-icon-button,
+.language-icon-trigger,
+.theme-toggle.preference-icon-button {
+  display: inline-grid !important;
+  width: 38px !important;
+  min-width: 38px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  place-items: center;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #E17A5B !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  line-height: 1;
+  opacity: .94;
+  transition: color .16s ease, opacity .16s ease, transform .16s ease !important;
+}
+
+.preference-icon-button::before,
+.preference-icon-button::after,
+.language-icon-trigger::before,
+.language-icon-trigger::after {
+  display: none !important;
+  content: none !important;
+}
+
+.preference-icon-button svg,
+.language-icon-trigger svg,
+.marketing-site-v2 .preference-icon-button svg,
+.marketing-site-v2 .language-icon-trigger svg {
+  color: #E17A5B !important;
+  stroke: currentColor;
+}
+
+.preference-icon-button:hover,
+.language-icon-trigger:hover,
+.preference-icon-button:active,
+.language-icon-trigger:active {
+  border: 0 !important;
+  background: transparent !important;
+  color: #E17A5B !important;
+  box-shadow: none !important;
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.preference-icon-button:focus-visible,
+.language-icon-trigger:focus-visible {
+  border: 0 !important;
+  outline: 2px solid #E17A5B !important;
+  outline-offset: 3px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.language-icon-selector {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  margin: 0 !important;
+}
+
+.language-icon-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 2400;
+  display: grid;
+  gap: 4px;
+  width: 174px;
+  padding: 6px;
+  border: 1px solid rgba(26, 26, 26, .2);
+  border-radius: 12px;
+  background: #fffaf7;
+  box-shadow: 0 18px 46px rgba(26, 26, 26, .18);
+}
+
+.language-icon-menu button {
+  display: flex !important;
+  width: 100% !important;
+  min-height: 40px !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 0 11px !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+  color: #1A1A1A !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.language-icon-menu button b {
+  color: #E17A5B !important;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.language-icon-menu button:hover,
+.language-icon-menu button.active {
+  background: rgba(225, 122, 91, .12) !important;
+  color: #1A1A1A !important;
+}
+
+html[data-theme="dark"] .language-icon-menu,
+.marketing-site-v2 .language-icon-menu {
+  border-color: #1A1A1A;
+  background: #0D0D0D;
+  box-shadow: 0 18px 46px rgba(0, 0, 0, .5);
+}
+
+html[data-theme="dark"] .language-icon-menu button,
+.marketing-site-v2 .language-icon-menu button {
+  color: #EDEDED !important;
+}
+
+html[data-theme="dark"] .language-icon-menu button:hover,
+html[data-theme="dark"] .language-icon-menu button.active,
+.marketing-site-v2 .language-icon-menu button:hover,
+.marketing-site-v2 .language-icon-menu button.active {
+  background: rgba(225, 122, 91, .14) !important;
+  color: #EDEDED !important;
+}
+
+/* Public pages now honor the global light/dark switch. */
+html[data-theme="light"] .marketing-site-v2 {
+  --hisab-public-background: #fffaf7;
+  --hisab-public-surface: #ffffff;
+  --hisab-public-secondary: #1A1A1A;
+  --hisab-public-accent: #1A1A1A;
+  color-scheme: light;
+}
+
+html[data-theme="dark"] .marketing-site-v2 {
+  --hisab-public-background: #000000;
+  --hisab-public-surface: #0D0D0D;
+  --hisab-public-secondary: #1A1A1A;
+  --hisab-public-accent: #EDEDED;
+  color-scheme: dark;
+}
+
+html[data-theme="light"] .marketing-site-v2 .language-icon-menu {
+  border-color: rgba(26, 26, 26, .2);
+  background: #ffffff;
+  box-shadow: 0 18px 46px rgba(26, 26, 26, .16);
+}
+
+html[data-theme="light"] .marketing-site-v2 .language-icon-menu button {
+  color: #1A1A1A !important;
+}
+
+html[data-theme="light"] .marketing-site-v2 .language-icon-menu button:hover,
+html[data-theme="light"] .marketing-site-v2 .language-icon-menu button.active {
+  background: rgba(225, 122, 91, .12) !important;
+  color: #1A1A1A !important;
+}
+
+.marketing-preference-icons {
+  flex: 0 0 auto;
+}
+
+.marketing-site-v2 .marketing-preference-icons,
+.marketing-site-v2 .marketing-preference-icons:hover {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Authentication pages always expose both icon controls. */
+.auth-page-preferences {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Workspace: keep both controls visible on desktop and mobile without a container tile. */
+.workspace-header-preferences {
+  display: flex !important;
+  align-items: center;
+  min-height: 38px !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.workspace-header-preferences-inline {
+  display: inline-flex !important;
+}
+
+.workspace-header-preferences-divider,
+.workspace-header-preferences-trigger,
+.workspace-header-preferences-popover {
+  display: none !important;
+}
+
+html[data-theme="light"] .workspace-header-preferences,
+html[data-theme="light"] .workspace-header-preferences-inline,
+html[data-theme="dark"] .workspace-header-preferences,
+html[data-theme="dark"] .workspace-header-preferences-inline {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+@media (min-width: 761px) {
+  .workspace-command-header {
+    padding-right: 170px !important;
+  }
+
+  .workspace-header-preferences {
+    position: fixed;
+    top: 10px;
+    right: 70px;
+    z-index: 210;
+  }
+}
+
+@media (max-width: 980px) {
+  .marketing-nav-actions {
+    gap: 8px !important;
+  }
+
+  .marketing-preference-icons {
+    order: -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .workspace-header-preferences {
+    position: fixed;
+    top: calc(env(safe-area-inset-top) + 11px);
+    right: 92px;
+    z-index: 220;
+  }
+
+  .workspace-header-preferences-inline {
+    display: inline-flex !important;
+    gap: 4px;
+  }
+
+  .workspace-header-preferences .preference-icon-button,
+  .workspace-header-preferences .language-icon-trigger {
+    width: 34px !important;
+    min-width: 34px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+  }
+
+  .mobile-workspace-title {
+    padding-right: 118px !important;
+  }
+
+  .language-icon-menu {
+    position: fixed;
+    top: calc(env(safe-area-inset-top) + 58px);
+    right: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .auth-page-preferences {
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+  }
+
+  .marketing-nav-actions .preference-icon-button,
+  .marketing-nav-actions .language-icon-trigger {
+    width: 34px !important;
+    min-width: 34px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preference-icon-button,
+  .language-icon-trigger {
+    transition: none !important;
+  }
+}
