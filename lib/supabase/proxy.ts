@@ -48,8 +48,16 @@ const publicApiRoutes = new Set([
   "/api/reconciliation/mpesa/callback",
 ]);
 
-function isPublicPath(path: string) {
+export function isPublicPath(path: string) {
   return publicPageRoutes.has(path) || publicAssetRoutes.has(path) || publicPagePrefixes.some((prefix) => path.startsWith(prefix)) || publicApiRoutes.has(path);
+}
+
+export function isCacheablePublicPath(path: string) {
+  return publicAssetRoutes.has(path) || path === "/" || authenticatedMarketingRoutes.has(path) || publicPagePrefixes.some((prefix) => path.startsWith(prefix));
+}
+
+function hasSupabaseSessionCookie(request: NextRequest) {
+  return request.cookies.getAll().some(({ name }) => /^sb-.+-auth-token(?:\.\d+)?$/.test(name));
 }
 
 function loginRedirect(request: NextRequest) {
@@ -64,6 +72,9 @@ function loginRedirect(request: NextRequest) {
 export async function updateSession(request: NextRequest, requestHeaders: Headers) {
   const path = request.nextUrl.pathname;
   const publicPath = isPublicPath(path);
+  const cacheablePublicPath = isCacheablePublicPath(path);
+  requestHeaders.set("x-hisab-public-path", publicPath ? "1" : "0");
+  requestHeaders.set("x-hisab-cacheable-public-path", cacheablePublicPath ? "1" : "0");
 
   if (!isSupabaseConfigured()) {
     if (publicPath) return NextResponse.next({ request: { headers: requestHeaders } });
@@ -71,24 +82,48 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
     return loginRedirect(request);
   }
 
-  let response = NextResponse.next({ request: { headers: requestHeaders } });
+  // Marketing pages and metadata never need a user lookup. The home page only
+  // validates a session when a Supabase auth cookie is actually present so the
+  // anonymous path remains a fast, cacheable static response.
+  if (cacheablePublicPath && path !== "/") {
+    return NextResponse.next({ request: { headers: requestHeaders } });
+  }
+  if (path === "/" && !hasSupabaseSessionCookie(request)) {
+    return NextResponse.next({ request: { headers: requestHeaders } });
+  }
+  if (publicApiRoutes.has(path)) {
+    return NextResponse.next({ request: { headers: requestHeaders } });
+  }
+
+  const pendingCookies: Array<{ name: string; value: string; options: Parameters<NextResponse["cookies"]["set"]>[2] }> = [];
   const supabase = createServerClient(appConfig.supabaseUrl, appConfig.supabaseKey, {
     cookies: {
       getAll: () => request.cookies.getAll(),
       setAll(cookiesToSet) {
         cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-        response = NextResponse.next({ request: { headers: requestHeaders } });
-        cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+        cookiesToSet.forEach(({ name, value, options }) => pendingCookies.push({ name, value, options }));
       },
     },
   });
 
+  const withCookies = (response: NextResponse) => {
+    pendingCookies.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+    return response;
+  };
+
   const { data } = await supabase.auth.getClaims();
   const isAuthenticated = Boolean(data?.claims?.sub);
 
+  if (path === "/") {
+    if (!isAuthenticated) return withCookies(NextResponse.next({ request: { headers: requestHeaders } }));
+    const url = request.nextUrl.clone();
+    url.pathname = "/workspace-home";
+    return withCookies(NextResponse.rewrite(url, { request: { headers: requestHeaders } }));
+  }
+
   if (!isAuthenticated && !publicPath) {
-    if (path.startsWith("/api/")) return NextResponse.json({ error: "Authentication required." }, { status: 401 });
-    return loginRedirect(request);
+    if (path.startsWith("/api/")) return withCookies(NextResponse.json({ error: "Authentication required." }, { status: 401 }));
+    return withCookies(loginRedirect(request));
   }
 
   const authenticatedRecoveryPage = path === "/auth/reset-password";
@@ -98,8 +133,8 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
     const url = request.nextUrl.clone();
     url.pathname = "/";
     url.search = "";
-    return NextResponse.redirect(url);
+    return withCookies(NextResponse.redirect(url));
   }
 
-  return response;
+  return withCookies(NextResponse.next({ request: { headers: requestHeaders } }));
 }
