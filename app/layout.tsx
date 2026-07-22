@@ -73,6 +73,8 @@ import "./third-party-brand-colors.css";
 import "./mobile-first-paint.css";
 import "./mobile-controls-recovery.css";
 import "./mobile-controls-menu.css";
+import "./workspace-brand-completion.css";
+import "./standard-mobile-header.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
