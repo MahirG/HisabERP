@@ -1,6 +1,6 @@
 {
-  "release": "e35dbc149c27653d6e3f0819f395662ec8f29927",
+  "release": "9341c48609b4e3e095f90ec4dde0fb7b2bc86de0",
   "environment": "production",
-  "deployedAt": "2026-07-22T06:46:00Z",
-  "description": "HisabTech public website recommendations, localization, smooth interactions and conversion system"
+  "deployedAt": "2026-07-22T07:15:00Z",
+  "description": "HisabTech production release with Vercel Speed Insights enabled in the root Next.js layout"
 }
