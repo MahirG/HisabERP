@@ -36,6 +36,13 @@ const experienceCopy = {
 
 type ToastState = { title: string; detail: string } | null;
 
+const publicRoutes = new Set(["/", "/request-demo", "/product-tour", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about"]);
+const publicPrefixes = ["/auth/", "/product/", "/industries/", "/compare/", "/help-center/", "/resources/"];
+
+function isPublicRoute(pathname: string) {
+  return publicRoutes.has(pathname) || publicPrefixes.some((prefix) => pathname.startsWith(prefix));
+}
+
 function money(value: string | null) {
   const amount = Number(value || 0);
   return new Intl.NumberFormat("en-ET", { style: "currency", currency: "ETB", maximumFractionDigits: 2 }).format(Number.isFinite(amount) ? amount : 0);
@@ -68,6 +75,7 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const busyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastToastKey = useRef("");
+  const publicNavigation = isPublicRoute(pathname);
 
   useEffect(() => {
     function start() {
@@ -157,7 +165,13 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   return (
     <>
       {children}
-      {busy && (
+      {busy && publicNavigation && (
+        <div className="public-route-progress app-navigation-progress" role="status" aria-live="polite" aria-label={copy.loadingDetail}>
+          <span aria-hidden="true" />
+          <b className="sr-only">{copy.loadingDetail}</b>
+        </div>
+      )}
+      {busy && !publicNavigation && (
         <div className="experience-overlay brand-route-loading" role="status" aria-live="polite" aria-atomic="true" aria-label={copy.loading}>
           <BrandLoader title={copy.loading} detail={copy.loadingDetail} />
         </div>

@@ -1,6 +1,6 @@
 {
-  "release": "a4527e3b0517f7298738fccc562498aec3c9d43a",
+  "release": "a9508e512512b9bdfab487a036d64eca2b3512bb",
   "environment": "production",
-  "deployedAt": "2026-07-22T10:37:00Z",
-  "description": "HisabTech production performance release with cacheable public pages, isolated workspace authentication, and lightweight public navigation progress"
+  "deployedAt": "2026-07-22T12:20:00Z",
+  "description": "HisabTech complete public CDN release with prerendered marketing pages, lightweight navigation progress, and info@hisabtech.com across public contact surfaces"
 }
