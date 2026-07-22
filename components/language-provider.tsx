@@ -24,6 +24,8 @@ const originalText = new WeakMap<Text, string>();
 const appliedText = new WeakMap<Text, string>();
 const originalAttributes = new WeakMap<Element, Map<string, string>>();
 const appliedAttributes = new WeakMap<Element, Map<string, string>>();
+let originalDocumentTitle: string | null = null;
+const originalMetaContent = new WeakMap<HTMLMetaElement, string>();
 
 type LanguageContextValue = {
   language: Language;
@@ -35,9 +37,7 @@ type LanguageContextValue = {
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 function shouldSkip(node: Node) {
-  const element = node.nodeType === Node.ELEMENT_NODE
-    ? node as Element
-    : node.parentElement;
+  const element = node.nodeType === Node.ELEMENT_NODE ? node as Element : node.parentElement;
   return Boolean(element?.closest(SKIP_SELECTOR));
 }
 
@@ -55,12 +55,10 @@ function localizeTextNode(node: Text, language: Language) {
   const current = node.nodeValue ?? "";
   const lastApplied = appliedText.get(node);
   let source = originalText.get(node);
-
   if (source === undefined || current !== lastApplied) {
     source = current;
     originalText.set(node, source);
   }
-
   const translated = language === "en" ? source : translateUiText(source, language);
   if (current !== translated) node.nodeValue = translated;
   appliedText.set(node, translated);
@@ -70,22 +68,43 @@ function localizeElementAttributes(element: Element, language: Language) {
   if (shouldSkip(element)) return;
   const sources = sourceAttributeMap(originalAttributes, element);
   const applied = sourceAttributeMap(appliedAttributes, element);
-
   for (const attribute of TRANSLATED_ATTRIBUTES) {
     if (!element.hasAttribute(attribute)) continue;
     const current = element.getAttribute(attribute) ?? "";
     const lastApplied = applied.get(attribute);
     let source = sources.get(attribute);
-
     if (source === undefined || current !== lastApplied) {
       source = current;
       sources.set(attribute, source);
     }
-
     const translated = language === "en" ? source : translateUiText(source, language);
     if (current !== translated) element.setAttribute(attribute, translated);
     applied.set(attribute, translated);
   }
+  if (element instanceof HTMLInputElement && ["submit", "button", "reset"].includes(element.type)) {
+    const sourcesForInput = sourceAttributeMap(originalAttributes, element);
+    const appliedForInput = sourceAttributeMap(appliedAttributes, element);
+    const current = element.value;
+    const lastApplied = appliedForInput.get("value");
+    let source = sourcesForInput.get("value");
+    if (source === undefined || current !== lastApplied) {
+      source = current;
+      sourcesForInput.set("value", source);
+    }
+    const translated = language === "en" ? source : translateUiText(source, language);
+    if (current !== translated) element.value = translated;
+    appliedForInput.set("value", translated);
+  }
+}
+
+function localizeHead(language: Language) {
+  if (originalDocumentTitle === null) originalDocumentTitle = document.title;
+  document.title = language === "en" ? originalDocumentTitle : translateUiText(originalDocumentTitle, language);
+  document.querySelectorAll<HTMLMetaElement>('meta[name="description"],meta[property="og:title"],meta[property="og:description"],meta[name="twitter:title"],meta[name="twitter:description"]').forEach((meta) => {
+    if (!originalMetaContent.has(meta)) originalMetaContent.set(meta, meta.content);
+    const source = originalMetaContent.get(meta) ?? meta.content;
+    meta.content = language === "en" ? source : translateUiText(source, language);
+  });
 }
 
 function localizeSubtree(root: Node, language: Language) {
@@ -93,24 +112,18 @@ function localizeSubtree(root: Node, language: Language) {
     localizeTextNode(root as Text, language);
     return;
   }
-
   if (root.nodeType !== Node.ELEMENT_NODE && root.nodeType !== Node.DOCUMENT_NODE) return;
   const element = root.nodeType === Node.ELEMENT_NODE ? root as Element : null;
   if (element && shouldSkip(element)) return;
   if (element) localizeElementAttributes(element, language);
 
   const ownerDocument = root.ownerDocument ?? document;
-  const walker = ownerDocument.createTreeWalker(
-    root,
-    NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT,
-    {
-      acceptNode(node) {
-        if (node !== root && shouldSkip(node)) return NodeFilter.FILTER_REJECT;
-        return NodeFilter.FILTER_ACCEPT;
-      },
+  const walker = ownerDocument.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (node !== root && shouldSkip(node)) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
     },
-  );
-
+  });
   let node = walker.nextNode();
   while (node) {
     if (node.nodeType === Node.TEXT_NODE) localizeTextNode(node as Text, language);
@@ -133,10 +146,12 @@ export function LanguageProvider({ children, initialLanguage = "en" }: { childre
     document.documentElement.lang = language;
     document.documentElement.dataset.language = language;
     document.documentElement.dir = "ltr";
+    document.documentElement.setAttribute("aria-busy", "true");
     window.localStorage.setItem(STORAGE_KEY, language);
     document.cookie = `${COOKIE_NAME}=${language}; Path=/; Max-Age=31536000; SameSite=Lax`;
 
     localizeSubtree(document.documentElement, language);
+    localizeHead(language);
 
     const pending = new Set<Node>();
     let scheduled = false;
@@ -144,6 +159,7 @@ export function LanguageProvider({ children, initialLanguage = "en" }: { childre
       scheduled = false;
       for (const node of pending) localizeSubtree(node, language);
       pending.clear();
+      localizeHead(language);
     };
     const schedule = (node: Node) => {
       pending.add(node);
@@ -168,17 +184,20 @@ export function LanguageProvider({ children, initialLanguage = "en" }: { childre
       attributeFilter: [...TRANSLATED_ATTRIBUTES],
     });
 
-    return () => observer.disconnect();
+    const finish = window.setTimeout(() => {
+      document.documentElement.classList.remove("i18n-switching");
+      document.documentElement.removeAttribute("aria-busy");
+      window.dispatchEvent(new Event("hisab:done"));
+    }, 180);
+
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(finish);
+    };
   }, [language]);
 
-  const t = useCallback(
-    (source: string, values?: TranslationValues) => translateUiText(source, language, values),
-    [language],
-  );
-  const value = useMemo<LanguageContextValue>(
-    () => ({ language, dictionary: dictionaries[language], setLanguage: setLanguageState, t }),
-    [language, t],
-  );
+  const t = useCallback((source: string, values?: TranslationValues) => translateUiText(source, language, values), [language]);
+  const value = useMemo<LanguageContextValue>(() => ({ language, dictionary: dictionaries[language], setLanguage: setLanguageState, t }), [language, t]);
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
@@ -199,6 +218,7 @@ export function LanguageSelector({ compact = false }: { compact?: boolean }) {
 
   function chooseLanguage(next: Language) {
     if (next === language) return;
+    document.documentElement.classList.add("i18n-switching");
     window.dispatchEvent(new Event("hisab:busy"));
     window.localStorage.setItem(STORAGE_KEY, next);
     document.cookie = `${COOKIE_NAME}=${next}; Path=/; Max-Age=31536000; SameSite=Lax`;
@@ -206,36 +226,14 @@ export function LanguageSelector({ compact = false }: { compact?: boolean }) {
       setLanguage(next);
       router.refresh();
     });
-    window.setTimeout(() => window.dispatchEvent(new Event("hisab:done")), 900);
   }
 
-  const names: Record<Language, string> = {
-    en: dictionary.language.english,
-    am: dictionary.language.amharic,
-  };
+  const names: Record<Language, string> = { en: dictionary.language.english, am: dictionary.language.amharic };
 
   return (
-    <div
-      className={`language-selector language-segmented${compact ? " compact" : ""}`}
-      role="group"
-      aria-label={dictionary.language.label}
-      data-i18n-skip
-    >
+    <div className={`language-selector language-segmented${compact ? " compact" : ""}`} role="group" aria-label={dictionary.language.label} data-i18n-skip>
       {!compact && <span>{dictionary.language.label}</span>}
-      <div>
-        {languageCodes.map((item) => (
-          <button
-            type="button"
-            key={item.value}
-            className={language === item.value ? "active" : ""}
-            aria-pressed={language === item.value}
-            title={names[item.value]}
-            onClick={() => chooseLanguage(item.value)}
-          >
-            {item.short}
-          </button>
-        ))}
-      </div>
+      <div>{languageCodes.map((item) => <button type="button" key={item.value} className={language === item.value ? "active" : ""} aria-pressed={language === item.value} title={names[item.value]} onClick={() => chooseLanguage(item.value)}>{item.short}</button>)}</div>
     </div>
   );
 }
