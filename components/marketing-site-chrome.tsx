@@ -10,12 +10,11 @@ export function MarketingHeader() {
       </Link>
       <nav aria-label="Main navigation">
         <Link href="/product-tour">Product tour</Link>
-        <Link href="/ethiopia">For Ethiopia</Link>
         <Link href="/industries">Industries</Link>
         <Link href="/pricing">Pricing</Link>
-        <Link href="/customer-stories">Customer proof</Link>
-        <Link href="/trust">Trust</Link>
-        <Link href="/integrations">Integrations</Link>
+        <Link href="/migration">Migration</Link>
+        <Link href="/compare">Compare</Link>
+        <Link href="/help-center">Help</Link>
       </nav>
       <div className="marketing-nav-actions">
         <Link href="/auth/login" className="marketing-signin">Sign in</Link>
@@ -48,19 +47,20 @@ export function MarketingFooter() {
           <Link href="/pricing">Pricing in ETB</Link>
         </div>
         <div>
-          <strong>Trust and connectivity</strong>
+          <strong>Implementation and support</strong>
+          <Link href="/migration">Data migration and onboarding</Link>
+          <Link href="/compare">ERP comparisons</Link>
+          <Link href="/help-center">Help Center</Link>
           <Link href="/customer-stories">Customer proof</Link>
-          <Link href="/trust">Trust Center</Link>
-          <Link href="/integrations">Integrations</Link>
           <Link href="/request-demo">Request a demo</Link>
-          <a href="mailto:mahir@hisabtech.com?subject=HisabERP%20security%20question">Security contact</a>
         </div>
         <div>
-          <strong>Account</strong>
+          <strong>Trust and account</strong>
+          <Link href="/trust">Trust Center</Link>
+          <Link href="/integrations">Integrations</Link>
           <Link href="/auth/login">Sign in</Link>
           <Link href="/auth/email-sign-up">Create account</Link>
-          <Link href="/auth/forgot-password">Reset password</Link>
-          <a href="mailto:mahir@hisabtech.com">Contact HisabTech</a>
+          <a href="mailto:mahir@hisabtech.com?subject=HisabERP%20security%20question">Security contact</a>
         </div>
       </div>
       <div className="marketing-footer-bottom">
