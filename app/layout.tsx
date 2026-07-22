@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Space_Grotesk } from "next/font/google";
 import { cookies, headers } from "next/headers";
 import type { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -70,6 +71,14 @@ import "./strict-brand.css";
 import "./brand-loading.css";
 import "./brand-audit-fixes.css";
 import "./brand-final-lock.css";
+import "./public-visual-system.css";
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-space-grotesk",
+});
 
 const themeBootstrap = `(function(){try{var stored=window.localStorage.getItem("hisab-theme");var theme=stored==="dark"||stored==="light"?stored:(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.dataset.theme=theme;document.documentElement.style.colorScheme=theme;document.cookie="hisab_theme="+theme+"; Path=/; Max-Age=31536000; SameSite=Lax";}catch(error){}})();`;
 
@@ -89,7 +98,7 @@ export const metadata: Metadata = {
   icons: { icon: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }], shortcut: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }], apple: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }] },
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 5, viewportFit: "cover", themeColor: "#DA7757", colorScheme: "light dark" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 5, viewportFit: "cover", themeColor: "#000000", colorScheme: "dark light" };
 
 export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   const [cookieStore, headerStore, user] = await Promise.all([cookies(), headers(), getCurrentUserContext()]);
@@ -100,7 +109,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const nonce = headerStore.get("x-nonce") ?? undefined;
 
   return (
-    <html lang={initialLanguage} data-language={initialLanguage} data-theme={initialTheme} suppressHydrationWarning>
+    <html className={spaceGrotesk.variable} lang={initialLanguage} data-language={initialLanguage} data-theme={initialTheme} suppressHydrationWarning>
       <head><script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head>
       <body data-design-system="hisab-v1" data-workspace-system="financial-os-v1">
         <LanguageProvider initialLanguage={initialLanguage}>
