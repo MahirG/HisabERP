@@ -1,0 +1,10 @@
+/* Homepage implementation resources: Hisab terracotta, charcoal and neutral surfaces only. */
+.home-implementation-resources{padding:105px clamp(22px,7vw,110px);background:#fff2ec}
+.home-implementation-resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:42px}
+.home-implementation-resource-grid>a{display:flex;min-height:340px;flex-direction:column;padding:29px;border:1px solid #e2ccc3;border-radius:20px;background:#fff;color:#171717;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.home-implementation-resource-grid>a:hover{transform:translateY(-4px);border-color:#da7757;box-shadow:0 20px 42px rgba(94,48,36,.09)}
+.home-implementation-resource-grid>a>span{color:#8f412c;font-size:10px;font-weight:900;text-transform:uppercase}
+.home-implementation-resource-grid>a>strong{margin:38px 0 13px;font-size:29px;letter-spacing:-.045em}
+.home-implementation-resource-grid>a>small{flex:1;color:#735f57;font-size:14px;line-height:1.65}
+.home-implementation-resource-grid>a>b{margin-top:27px;color:#8f412c;font-size:12px}
+@media(max-width:900px){.home-implementation-resource-grid{grid-template-columns:1fr}.home-implementation-resource-grid>a{min-height:auto}}
