@@ -7,9 +7,9 @@ import { Icon } from "./ui/icon";
 type Theme = "light" | "dark";
 
 const labels = {
-  en: { light: "Light mode", dark: "Dark mode" },
-  am: { light: "ብርሃን ገጽታ", dark: "ጨለማ ገጽታ" },
-  ti: { light: "ብርሃን መልክዕ", dark: "ጸልማት መልክዕ" },
+  en: { light: "Switch to light mode", dark: "Switch to dark mode" },
+  am: { light: "ወደ ብርሃን ገጽታ ይቀይሩ", dark: "ወደ ጨለማ ገጽታ ይቀይሩ" },
+  ti: { light: "ናብ ብርሃን መልክዕ ቀይሩ", dark: "ናብ ጸልማት መልክዕ ቀይሩ" },
 } as const;
 
 function preferredTheme(): Theme {
@@ -43,14 +43,12 @@ export function ThemeToggle() {
     persistTheme(next);
   }
 
-  const nextLabel = theme === "dark" ? labels[language].light : labels[language].dark;
+  const nextMode = theme === "dark" ? "light" : "dark";
+  const nextLabel = labels[language][nextMode];
 
   return (
-    <button className="theme-toggle" type="button" onClick={toggleTheme} aria-label={nextLabel} title={nextLabel}>
-      <span className="theme-toggle-track" aria-hidden="true">
-        <span className="theme-toggle-thumb"><Icon name={theme === "dark" ? "moon" : "sun"} size={16} /></span>
-      </span>
-      <span>{theme === "dark" ? labels[language].dark : labels[language].light}</span>
+    <button className="theme-toggle preference-icon-button" type="button" onClick={toggleTheme} aria-label={nextLabel} title={nextLabel} data-i18n-skip>
+      <Icon name={theme === "dark" ? "sun" : "moon"} size={19} />
     </button>
   );
 }
