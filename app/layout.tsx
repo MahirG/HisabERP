@@ -1,14 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk } from "next/font/google";
-import { cookies, headers } from "next/headers";
 import type { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AppExperienceProvider } from "../components/app-experience-provider";
 import { AuthPagePreferences } from "../components/auth-page-preferences";
 import { LanguageProvider } from "../components/language-provider";
 import { WorkspaceShell } from "../components/workspace-shell";
-import { getCurrentUserContext } from "../lib/data/context";
-import type { SupportedLanguage as Language } from "../lib/translations";
 import "./font-benaiah-1.css";
 import "./font-benaiah-2.css";
 import "./font-benaiah-3.css";
@@ -69,6 +66,7 @@ import "./header-only-preferences.css";
 import "./official-brand.css";
 import "./strict-brand.css";
 import "./brand-loading.css";
+import "./public-route-progress.css";
 import "./brand-audit-fixes.css";
 import "./brand-final-lock.css";
 import "./public-visual-system.css";
@@ -81,8 +79,6 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
   variable: "--font-space-grotesk",
 });
-
-const themeBootstrap = `(function(){try{var stored=window.localStorage.getItem("hisab-theme");var theme=stored==="dark"||stored==="light"?stored:(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.dataset.theme=theme;document.documentElement.style.colorScheme=theme;document.cookie="hisab_theme="+theme+"; Path=/; Max-Age=31536000; SameSite=Lax";}catch(error){}})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.hisabtech.com"),
@@ -102,22 +98,14 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 5, viewportFit: "cover", themeColor: "#000000", colorScheme: "dark light" };
 
-export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  const [cookieStore, headerStore, user] = await Promise.all([cookies(), headers(), getCurrentUserContext()]);
-  const savedLanguage = cookieStore.get("hisab_locale")?.value;
-  const initialLanguage: Language = savedLanguage === "am" ? "am" : "en";
-  const savedTheme = cookieStore.get("hisab_theme")?.value;
-  const initialTheme = savedTheme === "dark" ? "dark" : "light";
-  const nonce = headerStore.get("x-nonce") ?? undefined;
-
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html className={spaceGrotesk.variable} lang={initialLanguage} data-language={initialLanguage} data-theme={initialTheme} suppressHydrationWarning>
-      <head><script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head>
+    <html className={spaceGrotesk.variable} lang="en" data-language="en" data-theme="light" suppressHydrationWarning>
       <body data-design-system="hisab-v1" data-workspace-system="financial-os-v1">
-        <LanguageProvider initialLanguage={initialLanguage}>
+        <LanguageProvider initialLanguage="en">
           <AppExperienceProvider>
             <AuthPagePreferences />
-            <WorkspaceShell user={user}>{children}</WorkspaceShell>
+            <WorkspaceShell>{children}</WorkspaceShell>
           </AppExperienceProvider>
         </LanguageProvider>
         <SpeedInsights />

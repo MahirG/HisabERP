@@ -1,11 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { updateSession } from "./lib/supabase/proxy";
+import { isCacheablePublicPath, updateSession } from "./lib/supabase/proxy";
 import { rateLimit } from "./lib/security/rate-limit";
 
-function securityHeaders(response: NextResponse, nonce: string, legacy: boolean) {
+function contentSecurityPolicy(nonce: string, relaxedScripts: boolean) {
   const extraConnect = process.env.CSP_CONNECT_SRC?.split(",").map((value) => value.trim()).filter(Boolean).join(" ") ?? "";
-  const scriptPolicy = legacy ? "'self' 'unsafe-inline'" : `'self' 'nonce-${nonce}' 'strict-dynamic'`;
-  const csp = [
+  const scriptPolicy = relaxedScripts ? "'self' 'unsafe-inline'" : `'self' 'nonce-${nonce}' 'strict-dynamic'`;
+  return [
     "default-src 'self'",
     `script-src ${scriptPolicy}`,
     "style-src 'self' 'unsafe-inline'",
@@ -18,7 +18,9 @@ function securityHeaders(response: NextResponse, nonce: string, legacy: boolean)
     "object-src 'none'",
     "upgrade-insecure-requests",
   ].join("; ");
+}
 
+function securityHeaders(response: NextResponse, csp: string, nonce: string) {
   response.headers.set("Content-Security-Policy", csp);
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   response.headers.set("X-Content-Type-Options", "nosniff");
@@ -29,24 +31,40 @@ function securityHeaders(response: NextResponse, nonce: string, legacy: boolean)
   return response;
 }
 
+function hasSupabaseSessionCookie(request: NextRequest) {
+  return request.cookies.getAll().some(({ name }) => /^sb-.+-auth-token(?:\.\d+)?$/.test(name));
+}
+
 export async function proxy(request: NextRequest) {
   const nonce = crypto.randomUUID().replaceAll("-", "");
-  const isLegacy = request.nextUrl.pathname.startsWith("/legacy");
-  const isSensitive = request.nextUrl.pathname.startsWith("/auth/") || request.nextUrl.pathname.startsWith("/api/");
+  const path = request.nextUrl.pathname;
+  const isLegacy = path.startsWith("/legacy");
+  const cacheablePublic = isCacheablePublicPath(path) && !(path === "/" && hasSupabaseSessionCookie(request));
+  const relaxedScripts = isLegacy || cacheablePublic;
+  const csp = contentSecurityPolicy(nonce, relaxedScripts);
+  const isSensitive = path.startsWith("/auth/") || path.startsWith("/api/");
+
   if (isSensitive) {
     const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-    const key = `${forwarded || "unknown"}:${request.nextUrl.pathname}`;
-    const result = rateLimit(key, request.nextUrl.pathname.startsWith("/auth/") ? 12 : 60);
+    const key = `${forwarded || "unknown"}:${path}`;
+    const result = rateLimit(key, path.startsWith("/auth/") ? 12 : 60);
     if (!result.allowed) {
       const response = NextResponse.json({ error: "Too many requests. Please try again shortly." }, { status: 429 });
       response.headers.set("Retry-After", String(Math.ceil((result.resetAt - Date.now()) / 1000)));
-      return securityHeaders(response, nonce, isLegacy);
+      return securityHeaders(response, csp, nonce);
     }
   }
+
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
+  requestHeaders.set("Content-Security-Policy", csp);
   const response = await updateSession(request, requestHeaders);
-  return securityHeaders(response, nonce, isLegacy);
+
+  if (cacheablePublic && request.method === "GET") {
+    response.headers.set("Cache-Control", "public, s-maxage=300, stale-while-revalidate=86400");
+  }
+
+  return securityHeaders(response, csp, nonce);
 }
 
 export const config = { matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|woff2)$).*)"] };
