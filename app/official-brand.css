@@ -2,7 +2,10 @@
 :root{
   --hisab-brand:#da7757;
   --hisab-brand-strong:#b55a3f;
+  --hisab-brand-deep:#8f412c;
   --hisab-brand-soft:#fff1eb;
+  --hisab-brand-softer:#fff8f5;
+  --hisab-brand-line:#ead1c7;
   --hisab-charcoal:#171717;
   --hisab-cream:#fffaf7;
   --navy:var(--hisab-charcoal);
@@ -128,7 +131,63 @@ body{accent-color:var(--hisab-brand)}
 html[data-theme="dark"] .auth-slack-brand strong{color:#fff8f4}
 html[data-theme="dark"] .auth-hisab-mark{background-color:#fff6f1!important;border-color:rgba(240,161,133,.45)}
 
-/* Authenticated workspace and mobile shell. */
+/* Authenticated workspace: authoritative application-wide brand tokens. */
+body[data-workspace-system="financial-os-v1"]{
+  --fin-canvas:#f8f4f2;
+  --fin-surface:#ffffff;
+  --fin-surface-subtle:#fff8f5;
+  --fin-surface-muted:#f7ede8;
+  --fin-border:#eadbd5;
+  --fin-border-strong:#d9c2b9;
+  --fin-text:#211a18;
+  --fin-text-secondary:#5f504a;
+  --fin-text-muted:#76655f;
+  --fin-text-faint:#a78f86;
+  --fin-primary:#da7757;
+  --fin-primary-hover:#b55a3f;
+  --fin-primary-soft:#fff0e9;
+  --fin-info:#c86648;
+  --fin-info-soft:#fff0e9;
+  --fin-focus:0 0 0 3px rgba(218,119,87,.2);
+  --workspace-brand:#da7757;
+  --workspace-teal:#da7757;
+  --workspace-page:#f8f4f2;
+  --workspace-surface:#ffffff;
+  --workspace-soft:#fff8f5;
+  --workspace-line:#eadbd5;
+  --workspace-ink:#211a18;
+  --workspace-muted:#76655f;
+  --blue:#da7757;
+  --navy:#171717;
+  background:#f8f4f2;
+}
+html[data-theme="dark"] body[data-workspace-system="financial-os-v1"]{
+  --fin-canvas:#0d0b0a;
+  --fin-surface:#171311;
+  --fin-surface-subtle:#211916;
+  --fin-surface-muted:#2a1f1b;
+  --fin-border:#3b2c27;
+  --fin-border-strong:#5a4037;
+  --fin-text:#fff8f4;
+  --fin-text-secondary:#dec9c0;
+  --fin-text-muted:#bea9a0;
+  --fin-text-faint:#8f7770;
+  --fin-primary:#ed9c80;
+  --fin-primary-hover:#f0b29c;
+  --fin-primary-soft:#35231d;
+  --fin-info:#ed9c80;
+  --fin-info-soft:#35231d;
+  --fin-focus:0 0 0 3px rgba(237,156,128,.24);
+  --workspace-page:#0d0b0a;
+  --workspace-surface:#171311;
+  --workspace-soft:#211916;
+  --workspace-line:#3b2c27;
+  --workspace-ink:#fff8f4;
+  --workspace-muted:#bea9a0;
+  background:#0d0b0a;
+}
+
+/* Official logo in every application shell location. */
 .sidebar,.supabase-sidebar{background:#171717!important}
 .brand>span,
 .mobile-workspace-brand>span{
@@ -144,15 +203,159 @@ html[data-theme="dark"] .auth-hisab-mark{background-color:#fff6f1!important;bord
 .mobile-workspace-brand>span{width:34px!important;height:34px!important;border-radius:9px!important}
 .brand>.hisab-logo{width:42px;height:42px;padding:3px;border-radius:12px;background:#fff6f1}
 .mobile-workspace-brand .hisab-logo{width:34px;height:34px;padding:2px;border-radius:9px;background:#fff6f1}
-.sidebar nav a:hover,.sidebar nav a.active{background:rgba(218,119,87,.14)!important;color:#fff!important}
-.sidebar nav a.active .sidebar-nav-icon,.sidebar nav a:hover .sidebar-nav-icon{color:#f0a185!important}
-.sidebar-workspace-mark{background:var(--hisab-brand)!important;color:var(--hisab-charcoal)!important}
-.primary{background:var(--hisab-brand)!important;color:var(--hisab-charcoal)!important}
-.primary:hover{background:var(--hisab-brand-strong)!important;color:#fff!important}
-.text-button{color:var(--hisab-brand-strong)!important}
-.avatar{background:#fff0e9!important;color:#a94f36!important}
-.metric-icon.neutral{color:var(--hisab-brand-strong)!important;background:#fff0e9!important}
-.bar{background:linear-gradient(180deg,#f0a185,#da7757)!important}
+
+/* Sidebar and navigation. */
+.supabase-sidebar{
+  --supabase-sidebar-bg:#171717;
+  --supabase-sidebar-border:#33251f;
+  --supabase-sidebar-text:#b8a7a0;
+  --supabase-sidebar-text-strong:#fff4ef;
+  --supabase-sidebar-muted:#826d65;
+  --supabase-sidebar-hover:#241b18;
+  --supabase-sidebar-active:#30211c;
+  --supabase-sidebar-accent:#da7757;
+}
+.erp-shell>.sidebar.supabase-sidebar nav a:hover,
+.erp-shell>.sidebar.supabase-sidebar nav a:focus-visible{
+  background:#241b18!important;
+  color:#fff4ef!important;
+}
+.erp-shell>.sidebar.supabase-sidebar nav a[aria-current="page"],
+.erp-shell>.sidebar.supabase-sidebar nav a.active{
+  border-color:rgba(218,119,87,.3)!important;
+  background:#30211c!important;
+  color:#fff!important;
+  box-shadow:inset 2px 0 0 #da7757!important;
+}
+.erp-shell>.sidebar.supabase-sidebar nav a[aria-current="page"] .sidebar-nav-icon,
+.erp-shell>.sidebar.supabase-sidebar nav a.active .sidebar-nav-icon,
+.sidebar nav a.active .sidebar-nav-icon,
+.sidebar nav a:hover .sidebar-nav-icon{color:#f0a185!important}
+.sidebar-workspace-switcher:hover,.sidebar-workspace-switcher:focus-visible{border-color:#5b3d33!important;background:#241b18!important}
+.sidebar-workspace-mark{border-color:rgba(218,119,87,.35)!important;background:#da7757!important;color:#171717!important}
+.sidebar-footer a{color:#f0a185!important}
+
+/* Desktop command header and quick actions. */
+body[data-workspace-system="financial-os-v1"] .workspace-command-header{
+  border-bottom-color:rgba(218,119,87,.22)!important;
+  background:rgba(255,250,247,.95)!important;
+  box-shadow:0 8px 24px rgba(76,38,27,.06)!important;
+}
+.workspace-search-trigger{border-color:#dec8bf!important;background:#fffaf7!important;color:#76655f!important}
+.workspace-search-trigger:hover,.workspace-search-trigger:focus-visible{border-color:#da7757!important;background:#fff!important;box-shadow:0 0 0 3px rgba(218,119,87,.14)!important}
+.workspace-header-actions button:hover,.workspace-header-actions button:focus-visible{border-color:#ead1c7!important;background:#fff5f0!important;color:#5e3024!important}
+.workspace-header-actions .workspace-ai-trigger{border-color:#e8c4b6!important;background:#fff0e9!important;color:#a94f36!important}
+.workspace-header-actions .workspace-ai-trigger:hover,.workspace-header-actions .workspace-ai-trigger:focus-visible{border-color:#da7757!important;background:#ffe4da!important;color:#8f412c!important}
+
+/* Command palette and assistance panel. */
+.workspace-command-dialog,.workspace-assistance-panel{border-color:#e5cec5!important;background:#fffaf7!important;box-shadow:0 30px 90px rgba(62,31,22,.28)!important}
+.command-search-field{border-color:#da7757!important;background:#fffaf7!important;color:#76655f!important;box-shadow:0 0 0 3px rgba(218,119,87,.13)!important}
+.command-search-field input{color:#211a18!important}
+.command-results>button.active,.command-results>button:hover{border-color:#e8c4b6!important;background:#fff0e9!important}
+.command-result-icon,.assistance-title-icon{border-color:#e8c4b6!important;background:#fff0e9!important;color:#b55a3f!important}
+.command-dialog-footer{border-top-color:#eadbd5!important;background:#fff8f5!important}
+.help-link-list a:hover,.advice-list a:hover{border-color:#daaa98!important;background:#fff5f0!important}
+.help-link-list a>.app-icon:first-child{color:#b55a3f!important}
+.shortcut-reference{border-color:#eadbd5!important;background:#fff8f5!important}
+.advice-context{border-color:#ead1c7!important;background:#fff5f0!important;color:#7a574b!important}
+.advice-icon{background:#fff0e9!important;color:#b55a3f!important}
+
+/* Mobile app chrome. */
+@media(max-width:760px){
+  body[data-workspace-system="financial-os-v1"] .erp-shell{background:#f8f4f2!important}
+  .mobile-workspace-header{border-bottom-color:rgba(218,119,87,.22)!important;background:rgba(255,250,247,.96)!important;box-shadow:0 8px 26px rgba(76,38,27,.08)!important}
+  .mobile-menu-trigger{border-color:#ead1c7!important;background:#fff5f0!important;color:#5e3024!important}
+  .mobile-workspace-title small{color:#9a7468!important}
+  .mobile-workspace-title strong{color:#211a18!important}
+  .mobile-bottom-nav{border-top-color:rgba(218,119,87,.24)!important;background:rgba(255,250,247,.97)!important;box-shadow:0 -10px 30px rgba(76,38,27,.08)!important}
+  .mobile-bottom-nav a,.mobile-bottom-nav button{color:#8d756c!important}
+  .mobile-bottom-nav a[aria-current="page"],.mobile-bottom-nav button.active{background:#fff0e9!important;color:#b55a3f!important}
+}
+
+/* Primary controls, links, focus states and selection treatments. */
+body[data-workspace-system="financial-os-v1"] .erp-shell>.workspace :is(.primary,.action-link.primary){border-color:#da7757!important;background:#da7757!important;color:#171717!important}
+body[data-workspace-system="financial-os-v1"] .erp-shell>.workspace :is(.primary,.action-link.primary):hover{border-color:#b55a3f!important;background:#b55a3f!important;color:#fff!important}
+body[data-workspace-system="financial-os-v1"] .erp-shell>.workspace :where(input,select,textarea):focus{border-color:#da7757!important;box-shadow:0 0 0 3px rgba(218,119,87,.18)!important}
+body[data-workspace-system="financial-os-v1"] .erp-shell>.workspace :where(button,a,input,select,textarea,summary):focus-visible{box-shadow:0 0 0 3px rgba(218,119,87,.2)!important}
+body[data-workspace-system="financial-os-v1"] :is(.workspace-inline-action,.text-button,.finance-panel-head>button,.module-card a,.financial-module-grid b){color:#b55a3f!important}
+
+/* Tabs, filters, segmented controls and active states throughout all modules. */
+body[data-workspace-system="financial-os-v1"] [class*="tabs"] button.active,
+body[data-workspace-system="financial-os-v1"] [class*="tab-list"] button.active,
+body[data-workspace-system="financial-os-v1"] [role="tab"][aria-selected="true"]{
+  border-color:#da7757!important;
+  background:linear-gradient(120deg,#b55a3f,#da7757)!important;
+  color:#fff!important;
+  box-shadow:0 8px 20px rgba(181,90,63,.2)!important;
+}
+body[data-workspace-system="financial-os-v1"] [class*="tabs"] button:hover{background:#fff0e9!important;color:#7e3c2a!important}
+
+/* Module action buttons that predate the standardized primary class. */
+body[data-workspace-system="financial-os-v1"] :is(
+  .finance-form button,
+  .period-action button,
+  .asset-card footer button,
+  .sales-form button,
+  .ops-form button,
+  .core-form button,
+  .customer-form button,
+  .einvoice-form button,
+  .recon-form button,
+  .setup-form button,
+  .guided-setup-page form button[type="submit"],
+  .module-detail-page form button[type="submit"]
+):not(.secondary):not(.ghost):not(.danger){
+  border-color:#da7757!important;
+  background:linear-gradient(115deg,#b55a3f,#da7757)!important;
+  color:#fff!important;
+  box-shadow:0 10px 24px rgba(181,90,63,.18)!important;
+}
+
+/* Charts, progress, neutral information and decorative data accents. */
+.bar,.financial-dashboard .bar,.health-summary-bar span,.profit-meter i,.asset-progress i{
+  background:linear-gradient(180deg,#f0a185,#da7757)!important;
+}
+.workspace-link-icon,.section-shell-mark,.metric-icon.neutral,.workspace-metric-tile.tone-info .workspace-metric-icon,.workspace-action-alert.tone-info .workspace-action-alert-icon{
+  background:#fff0e9!important;
+  color:#b55a3f!important;
+}
+.workspace-status-badge.tone-info,
+body[data-workspace-system="financial-os-v1"] :is(.status-badge.info,.status-badge.draft,.status-badge.open){border-color:#e5b9a8!important;background:#fff0e9!important;color:#a94f36!important}
+.finance-kpis article:after{background:radial-gradient(circle,rgba(218,119,87,.15),transparent 67%)!important}
+.finance-equation span,.tax-code-grid article>div>span,.asset-card header>div>span,.finance-page .eyebrow{color:#b55a3f!important}
+
+/* User menu and account surfaces. */
+.sticky-user-trigger:hover,.sticky-user-trigger[aria-expanded="true"]{border-color:#da7757!important;box-shadow:0 20px 48px rgba(76,38,27,.18)!important}
+.sticky-user-avatar,.sticky-user-profile-avatar{background:linear-gradient(145deg,#fff0e9,#f5ddd4)!important;color:#a94f36!important}
+.sticky-user-context strong{background:#fff0e9!important;color:#a94f36!important}
+.sticky-user-popover nav a:hover{background:#fff5f0!important}
+.sticky-user-popover nav a>span{background:#fff0e9!important;color:#b55a3f!important}
+.account-page{background:radial-gradient(circle at 8% 0%,rgba(218,119,87,.15),transparent 34%),radial-gradient(circle at 96% 8%,rgba(181,90,63,.11),transparent 29%),#f8f4f2!important}
+.account-hero{background:linear-gradient(135deg,#171717,#33231d 58%,#b55a3f)!important}
+.account-avatar{background:linear-gradient(145deg,#f0a185,#da7757)!important}
+.account-hero p{color:#f3b39c!important}
+.account-security{border-color:#ead1c7!important;background:#fff5f0!important}
+.account-security strong{color:#a94f36!important}
+.account-security span{color:#7a574b!important}
+
+/* Dark mode completion for internal app surfaces. */
+html[data-theme="dark"] .workspace-command-header{border-bottom-color:#3b2c27!important;background:rgba(23,19,17,.96)!important}
+html[data-theme="dark"] .workspace-search-trigger,
+html[data-theme="dark"] .workspace-command-dialog,
+html[data-theme="dark"] .workspace-assistance-panel,
+html[data-theme="dark"] .command-dialog-footer,
+html[data-theme="dark"] .shortcut-reference{border-color:#4b342c!important;background:#171311!important;color:#dec9c0!important}
+html[data-theme="dark"] .command-search-field{border-color:#ed9c80!important;background:#211916!important}
+html[data-theme="dark"] .command-search-field input{color:#fff8f4!important}
+html[data-theme="dark"] .command-results>button.active,
+html[data-theme="dark"] .command-results>button:hover,
+html[data-theme="dark"] .workspace-header-actions .workspace-ai-trigger,
+html[data-theme="dark"] .mobile-bottom-nav a[aria-current="page"],
+html[data-theme="dark"] .mobile-bottom-nav button.active{background:#35231d!important;color:#f0b29c!important}
+html[data-theme="dark"] .mobile-workspace-header,
+html[data-theme="dark"] .mobile-bottom-nav{border-color:#3b2c27!important;background:rgba(23,19,17,.97)!important}
+html[data-theme="dark"] .mobile-menu-trigger{border-color:#4b342c!important;background:#211916!important;color:#f0d9cf!important}
+html[data-theme="dark"] .mobile-workspace-title strong{color:#fff8f4!important}
 
 @media(max-width:640px){
   .auth-hisab-mark{width:34px;height:34px;flex-basis:34px;border-radius:9px}
