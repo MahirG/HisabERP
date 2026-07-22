@@ -11,8 +11,9 @@ import { Icon, type IconName } from "./ui/icon";
 import { WorkspaceCommandCenter, type WorkspaceCommandItem } from "./workspace-command-center";
 import { WorkspaceHeaderPreferences } from "./workspace-header-preferences";
 
-type Props = { children: ReactNode; user: UserContext | null };
+type Props = { children: ReactNode; user?: UserContext | null };
 type NavItem = { label: string; href: string; icon: IconName };
+type SessionContextResponse = { user: UserContext | null };
 
 const shellExcludedRoutes = ["/auth", "/onboarding", "/request-demo", "/product-tour", "/product", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about"];
 
@@ -33,13 +34,66 @@ function getOrganizationMark(name: string) {
   return mark || "H";
 }
 
-export function WorkspaceShell({ children, user }: Props) {
+function WorkspaceSessionLoading() {
+  return (
+    <main className="route-loading brand-route-loading" role="status" aria-live="polite" aria-label="Loading secure workspace">
+      <div className="experience-loader-card brand-loader-card">
+        <div className="brand-loader-mark" aria-hidden="true">
+          <span className="brand-loader-ring" />
+          <span className="brand-loader-logo-shell"><img src="/hisab-logo.svg" alt="" width="48" height="48" /></span>
+        </div>
+        <div className="brand-loader-copy"><strong>Preparing your workspace</strong><span>Loading your secure business session…</span></div>
+        <div className="brand-loader-progress" aria-hidden="true"><span /></div>
+      </div>
+    </main>
+  );
+}
+
+export function WorkspaceShell({ children, user: initialUser = null }: Props) {
   const pathname = usePathname();
   const workspaceRef = useRef<HTMLDivElement>(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const { dictionary, language } = useLanguage();
   const isExcluded = shellExcludedRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
-  const show = Boolean(user) && !isExcluded;
+  const [activeUser, setActiveUser] = useState<UserContext | null>(initialUser);
+  const [sessionResolved, setSessionResolved] = useState(Boolean(initialUser) || isExcluded || pathname === "/");
+  const show = Boolean(activeUser) && !isExcluded;
+
+  useEffect(() => {
+    if (isExcluded) {
+      if (pathname.startsWith("/auth")) setActiveUser(null);
+      setSessionResolved(true);
+      return;
+    }
+    if (activeUser) {
+      setSessionResolved(true);
+      return;
+    }
+
+    const controller = new AbortController();
+    if (pathname !== "/") setSessionResolved(false);
+
+    fetch("/api/session-context", {
+      credentials: "same-origin",
+      cache: "no-store",
+      signal: controller.signal,
+    })
+      .then(async (response) => {
+        if (!response.ok) return null;
+        return response.json() as Promise<SessionContextResponse>;
+      })
+      .then((payload) => {
+        if (payload?.user) setActiveUser(payload.user);
+      })
+      .catch((error: unknown) => {
+        if (!(error instanceof DOMException && error.name === "AbortError")) console.error("Unable to load workspace session", error);
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setSessionResolved(true);
+      });
+
+    return () => controller.abort();
+  }, [activeUser, isExcluded, pathname]);
 
   useEffect(() => {
     if (show) workspaceRef.current?.scrollTo({ top: 0, behavior: "auto" });
@@ -60,14 +114,16 @@ export function WorkspaceShell({ children, user }: Props) {
     };
   }, [mobileNavOpen]);
 
-  if (!show || !user) return <>{children}</>;
+  if (!sessionResolved && !isExcluded) return <WorkspaceSessionLoading />;
+  if (!show || !activeUser) return <>{children}</>;
+  const user = activeUser;
 
   const d = dictionary.dashboard;
   const sections = language === "am"
     ? { core: "ዋና የስራ ቦታ", phase1: "ዋና ስራዎች", phase2: "ማስፋፊያ ሞጁሎች" }
     : { core: "Core workspace", phase1: "Core operations", phase2: "Growth modules" };
   const setup = language === "am" ? "የኩባንያ ማዋቀር" : "Company setup";
-  const controls = language === "am" ? "የምርት ደህንነት" : "Production controls";
+  const controls = language === "am" ? "የምርት ደህነት" : "Production controls";
   const einvoice = language === "am" ? "ኤሌክትሮኒክ ደረሰኝ" : "Electronic invoicing";
   const reconciliation = language === "am" ? "የባንክ እና ክፍያ ማስታረቅ" : "Bank and payment reconciliation";
   const moreLabel = language === "am" ? "ተጨማሪ" : "More";
