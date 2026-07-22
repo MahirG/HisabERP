@@ -25,7 +25,7 @@ function ProductPreview() {
     <div className="marketing-product-window" aria-label="HisabERP dashboard preview">
       <div className="marketing-window-bar"><span/><span/><span/><b>HisabERP Financial Workspace</b></div>
       <div className="marketing-window-body">
-        <aside><strong>H</strong><span>Overview</span><span>Sales</span><span>Expenses</span><span>Inventory</span><span>Customers</span><span>Reports</span></aside>
+        <aside><img src="/hisab-logo.svg" alt="HisabERP" width="36" height="36" className="hisab-logo"/><span>Overview</span><span>Sales</span><span>Expenses</span><span>Inventory</span><span>Customers</span><span>Reports</span></aside>
         <section>
           <div className="marketing-preview-top"><div><small>Good morning, Mahir</small><h3>Business overview</h3></div><button type="button">+ New transaction</button></div>
           <div className="marketing-kpis"><article><small>Revenue</small><b>ETB 284,600</b><em>+18.4%</em></article><article><small>Net cash flow</small><b>ETB 96,240</b><em>Healthy</em></article><article><small>Receivables</small><b>ETB 42,850</b><em>6 due soon</em></article></div>
@@ -40,7 +40,7 @@ function MarketingHome() {
   return (
     <main className="marketing-site">
       <header className="marketing-nav">
-        <Link href="/" className="marketing-brand"><span>H</span><strong>HisabTech</strong></Link>
+        <Link href="/" className="marketing-brand"><img src="/hisab-logo.svg" alt="" width="42" height="42" className="hisab-logo"/><strong>HisabTech</strong></Link>
         <nav aria-label="Main navigation"><a href="#product">Product</a><a href="#benefits">Benefits</a><a href="#how">How it works</a><a href="#integrations">Integrations</a></nav>
         <div className="marketing-nav-actions"><Link href="/auth/login" className="marketing-signin">Sign in</Link><Link href="/request-demo" className="marketing-demo">Request a demo</Link><Link href="/auth/email-sign-up" className="marketing-start">Get started</Link></div>
       </header>
@@ -66,7 +66,7 @@ function MarketingHome() {
 
       <section className="marketing-cta"><div><span>Ready to modernize your business?</span><h2>Start with HisabERP today.</h2><p>Create your workspace or speak with our team for a guided product demonstration.</p></div><div><Link href="/auth/email-sign-up" className="marketing-start marketing-large">Get started</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a demo</Link></div></section>
 
-      <footer className="marketing-footer"><div className="marketing-footer-top"><div><Link href="/" className="marketing-brand marketing-footer-brand"><span>H</span><strong>HisabTech</strong></Link><p>Secure, multilingual ERP software for Ethiopian businesses.</p><a href="mailto:mahir@hisabtech.com">mahir@hisabtech.com</a><a href="tel:+251924093037">+251 924 093 037</a></div><div><strong>Product</strong><a href="#product">Features</a><a href="#how">How it works</a><a href="#integrations">Integrations</a><Link href="/auth/email-sign-up">Get started</Link></div><div><strong>Company</strong><a href="#benefits">Why HisabERP</a><Link href="/request-demo">Request a demo</Link><a href="mailto:mahir@hisabtech.com">Contact</a></div><div><strong>Access</strong><Link href="/auth/login">Sign in</Link><Link href="/auth/email-sign-up">Create account</Link><Link href="/auth/forgot-password">Reset password</Link></div></div><div className="marketing-footer-bottom"><span>© {new Date().getFullYear()} Hisab Technologies. All rights reserved.</span><span>Addis Ababa, Ethiopia</span></div></footer>
+      <footer className="marketing-footer"><div className="marketing-footer-top"><div><Link href="/" className="marketing-brand marketing-footer-brand"><img src="/hisab-logo.svg" alt="" width="42" height="42" className="hisab-logo hisab-logo-on-dark"/><strong>HisabTech</strong></Link><p>Secure, multilingual ERP software for Ethiopian businesses.</p><a href="mailto:mahir@hisabtech.com">mahir@hisabtech.com</a><a href="tel:+251924093037">+251 924 093 037</a></div><div><strong>Product</strong><a href="#product">Features</a><a href="#how">How it works</a><a href="#integrations">Integrations</a><Link href="/auth/email-sign-up">Get started</Link></div><div><strong>Company</strong><a href="#benefits">Why HisabERP</a><Link href="/request-demo">Request a demo</Link><a href="mailto:mahir@hisabtech.com">Contact</a></div><div><strong>Access</strong><Link href="/auth/login">Sign in</Link><Link href="/auth/email-sign-up">Create account</Link><Link href="/auth/forgot-password">Reset password</Link></div></div><div className="marketing-footer-bottom"><span>© {new Date().getFullYear()} Hisab Technologies. All rights reserved.</span><span>Addis Ababa, Ethiopia</span></div></footer>
     </main>
   );
 }
