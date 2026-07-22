@@ -5,6 +5,7 @@ import { appConfig, isSupabaseConfigured } from "../config";
 const publicPageRoutes = new Set([
   "/",
   "/request-demo",
+  "/product-tour",
   "/auth/login",
   "/auth/phone-login",
   "/auth/sign-up",
@@ -20,6 +21,8 @@ const publicPageRoutes = new Set([
   "/auth/confirm",
 ]);
 
+const publicPagePrefixes = ["/product/"];
+
 const publicApiRoutes = new Set([
   "/api/health",
   "/api/reconciliation/telebirr/callback",
@@ -27,7 +30,7 @@ const publicApiRoutes = new Set([
 ]);
 
 function isPublicPath(path: string) {
-  return publicPageRoutes.has(path) || publicApiRoutes.has(path);
+  return publicPageRoutes.has(path) || publicPagePrefixes.some((prefix) => path.startsWith(prefix)) || publicApiRoutes.has(path);
 }
 
 function loginRedirect(request: NextRequest) {
@@ -71,7 +74,7 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
 
   const authenticatedRecoveryPage = path === "/auth/reset-password";
   const authenticatedPreview = request.nextUrl.searchParams.get("preview") === "1";
-  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/" && path !== "/request-demo" && path !== "/auth/callback" && path !== "/auth/confirm" && !authenticatedRecoveryPage && !authenticatedPreview) {
+  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/" && path !== "/request-demo" && path !== "/product-tour" && path !== "/auth/callback" && path !== "/auth/confirm" && !authenticatedRecoveryPage && !authenticatedPreview) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     url.search = "";
