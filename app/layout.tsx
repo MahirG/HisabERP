@@ -72,6 +72,7 @@ import "./brand-final-lock.css";
 import "./public-visual-system.css";
 import "./global-preferences-icons.css";
 import "./brand-hamburger-menu.css";
+import "./third-party-brand-colors.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
