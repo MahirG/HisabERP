@@ -1,0 +1,377 @@
+/* HisabTech public website visual system
+   Space Grotesk, pure-black canvas, onyx surfaces, charcoal structure,
+   terracotta interaction states and off-white content. */
+
+:root {
+  --hisab-public-primary: #E17A5B;
+  --hisab-public-secondary: #1A1A1A;
+  --hisab-public-background: #000000;
+  --hisab-public-surface: #0D0D0D;
+  --hisab-public-accent: #EDEDED;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea,
+code,
+pre {
+  font-family: var(--font-space-grotesk), sans-serif !important;
+}
+
+.marketing-site-v2 {
+  min-height: 100vh;
+  background: var(--hisab-public-background);
+  color: var(--hisab-public-accent);
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-weight: 400;
+}
+
+.marketing-site-v2,
+.marketing-site-v2 * {
+  box-sizing: border-box;
+}
+
+.marketing-site-v2 :where(h1, h2, h3, h4, h5, h6, strong, b) {
+  color: var(--hisab-public-accent);
+  font-family: var(--font-space-grotesk), sans-serif;
+}
+
+.marketing-site-v2 :where(h1, h2) {
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+
+.marketing-site-v2 :where(h3, h4, h5, h6) {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.marketing-site-v2 :where(p, li, small, label, input, textarea, select) {
+  color: var(--hisab-public-accent);
+  font-weight: 400;
+}
+
+.marketing-site-v2 :where(.marketing-eyebrow, .marketing-section-heading > span, article > span, label, button, [class*="label"], [class*="badge"]) {
+  font-weight: 600;
+}
+
+.marketing-site-v2 :where(a, button) {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-weight: 600;
+}
+
+.marketing-site-v2 :where(a) {
+  color: var(--hisab-public-accent);
+  text-decoration-color: var(--hisab-public-primary);
+  text-underline-offset: 0.22em;
+}
+
+.marketing-site-v2 :where(a:hover, a:focus-visible) {
+  color: var(--hisab-public-primary);
+}
+
+.marketing-site-v2 :where(section, [class*="-section"], [class*="-hero"], [class*="-proof"], [class*="-how"]) {
+  background-color: var(--hisab-public-background) !important;
+  background-image: none !important;
+  color: var(--hisab-public-accent);
+}
+
+.marketing-site-v2 :where(section + section) {
+  border-top: 1px solid var(--hisab-public-secondary);
+}
+
+.marketing-site-v2 .marketing-nav,
+.marketing-site-v2 .marketing-nav-v2 {
+  background: var(--hisab-public-surface) !important;
+  border-bottom: 1px solid var(--hisab-public-secondary) !important;
+  box-shadow: 0 16px 40px var(--hisab-public-background);
+  color: var(--hisab-public-accent);
+}
+
+.marketing-site-v2 .marketing-brand,
+.marketing-site-v2 .marketing-brand-copy strong,
+.marketing-site-v2 .marketing-brand-copy small,
+.marketing-site-v2 .marketing-nav nav a,
+.marketing-site-v2 .marketing-signin {
+  color: var(--hisab-public-accent) !important;
+}
+
+.marketing-site-v2 .marketing-brand-copy strong {
+  font-weight: 700;
+}
+
+.marketing-site-v2 .marketing-brand-copy small,
+.marketing-site-v2 .marketing-nav nav a,
+.marketing-site-v2 .marketing-signin {
+  font-weight: 600;
+}
+
+.marketing-site-v2 .marketing-nav nav a::after {
+  background: var(--hisab-public-primary) !important;
+}
+
+.marketing-site-v2 .marketing-nav nav a:hover,
+.marketing-site-v2 .marketing-nav nav a[aria-current="page"],
+.marketing-site-v2 .marketing-signin:hover {
+  color: var(--hisab-public-primary) !important;
+}
+
+.marketing-site-v2 .marketing-menu-toggle,
+.marketing-site-v2 .language-segmented > div {
+  border-color: var(--hisab-public-secondary) !important;
+  background: var(--hisab-public-surface) !important;
+}
+
+.marketing-site-v2 .marketing-menu-toggle span {
+  background: var(--hisab-public-accent) !important;
+}
+
+.marketing-site-v2 .language-segmented button {
+  background: transparent !important;
+  color: var(--hisab-public-accent) !important;
+  font-weight: 600 !important;
+}
+
+.marketing-site-v2 .language-segmented button:hover,
+.marketing-site-v2 .language-segmented button.active {
+  background: var(--hisab-public-primary) !important;
+  color: var(--hisab-public-background) !important;
+}
+
+.marketing-site-v2 :where(.marketing-start, button[type="submit"], input[type="submit"], .primary-button, [class*="primary-cta"]) {
+  border: 1px solid var(--hisab-public-primary) !important;
+  background: var(--hisab-public-primary) !important;
+  color: var(--hisab-public-background) !important;
+  box-shadow: none !important;
+  font-weight: 600 !important;
+}
+
+.marketing-site-v2 :where(.marketing-start, button[type="submit"], input[type="submit"], .primary-button, [class*="primary-cta"]):hover {
+  transform: translateY(-2px);
+  border-color: var(--hisab-public-accent) !important;
+  color: var(--hisab-public-background) !important;
+}
+
+.marketing-site-v2 :where(.marketing-demo, .marketing-text-action, .marketing-dark-link, .conversion-whatsapp) {
+  border: 1px solid var(--hisab-public-secondary) !important;
+  background: var(--hisab-public-surface) !important;
+  color: var(--hisab-public-accent) !important;
+  box-shadow: none !important;
+  font-weight: 600 !important;
+}
+
+.marketing-site-v2 :where(.marketing-demo, .marketing-text-action, .marketing-dark-link, .conversion-whatsapp):hover {
+  border-color: var(--hisab-public-primary) !important;
+  color: var(--hisab-public-primary) !important;
+}
+
+.marketing-site-v2 :where(.marketing-eyebrow, .marketing-section-heading > span, article > span, [class*="eyebrow"], [class*="kicker"]) {
+  color: var(--hisab-public-primary) !important;
+  font-weight: 600 !important;
+}
+
+.marketing-site-v2 :where(article, [class*="card"], [class*="panel"], [class*="tile"], [class*="fact"], [class*="workspace"], [class*="window"]) {
+  border-color: var(--hisab-public-secondary) !important;
+  background-color: var(--hisab-public-surface) !important;
+  background-image: none !important;
+  color: var(--hisab-public-accent) !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 :where(article, [class*="card"], [class*="panel"], [class*="tile"]):hover {
+  border-color: var(--hisab-public-primary) !important;
+}
+
+.marketing-site-v2 :where(article p, article small, [class*="card"] p, [class*="card"] small, [class*="panel"] p, [class*="panel"] small) {
+  color: var(--hisab-public-accent) !important;
+  opacity: 0.78;
+}
+
+.marketing-site-v2 :where(article a, article b, article > span, [class*="card"] a, [class*="panel"] a) {
+  color: var(--hisab-public-primary) !important;
+}
+
+.marketing-site-v2 :where(svg, [class*="icon"]) {
+  color: var(--hisab-public-accent);
+}
+
+.marketing-site-v2 :where(a:hover svg, button:hover svg, [aria-current="page"] svg, .active svg, [class*="active"] [class*="icon"]) {
+  color: var(--hisab-public-primary);
+}
+
+.marketing-site-v2 :where(pre, [class*="code-block"], [class*="syntax"], [class*="data-example"], [class*="usage-example"]) {
+  overflow-x: auto;
+  border: 1px solid var(--hisab-public-secondary) !important;
+  border-radius: 14px;
+  background: var(--hisab-public-surface) !important;
+  color: var(--hisab-public-accent) !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 :where(code) {
+  color: var(--hisab-public-accent) !important;
+  background: var(--hisab-public-surface) !important;
+  font-family: var(--font-space-grotesk), sans-serif !important;
+  font-weight: 500;
+}
+
+.marketing-site-v2 :where(input, textarea, select) {
+  border: 1px solid var(--hisab-public-secondary) !important;
+  background: var(--hisab-public-surface) !important;
+  color: var(--hisab-public-accent) !important;
+  caret-color: var(--hisab-public-primary);
+}
+
+.marketing-site-v2 :where(input::placeholder, textarea::placeholder) {
+  color: var(--hisab-public-accent) !important;
+  opacity: 0.55;
+}
+
+.marketing-site-v2 :where(input:focus, textarea:focus, select:focus) {
+  border-color: var(--hisab-public-primary) !important;
+  outline: none;
+  box-shadow: 0 0 0 3px var(--hisab-public-background), 0 0 0 5px var(--hisab-public-primary) !important;
+}
+
+.marketing-site-v2 :where(a, button, input, textarea, select):focus-visible {
+  outline: 3px solid var(--hisab-public-primary) !important;
+  outline-offset: 3px;
+}
+
+.marketing-site-v2 .public-skip-link {
+  background: var(--hisab-public-primary) !important;
+  color: var(--hisab-public-background) !important;
+}
+
+.marketing-site-v2 :where(.marketing-trust, .marketing-proof-v2, .marketing-proof-v2 > div, .resource-article-meta) {
+  border-color: var(--hisab-public-secondary) !important;
+  background: var(--hisab-public-background) !important;
+  color: var(--hisab-public-accent) !important;
+}
+
+.marketing-site-v2 :where(.marketing-trust span, .marketing-proof-v2 span, .resource-article-meta span) {
+  border-color: var(--hisab-public-secondary) !important;
+  background: var(--hisab-public-surface) !important;
+  color: var(--hisab-public-accent) !important;
+}
+
+.marketing-site-v2 .hero-workspace,
+.marketing-site-v2 .product-tour-shell,
+.marketing-site-v2 .product-tour-experience {
+  border: 1px solid var(--hisab-public-secondary) !important;
+  background: var(--hisab-public-surface) !important;
+  box-shadow: 0 28px 80px var(--hisab-public-background) !important;
+}
+
+.marketing-site-v2 .hero-workspace-bar,
+.marketing-site-v2 .hero-workspace-layout > aside,
+.marketing-site-v2 .hero-workspace-layout > section,
+.marketing-site-v2 .product-tour-sidebar,
+.marketing-site-v2 .product-tour-toolbar {
+  border-color: var(--hisab-public-secondary) !important;
+  background: var(--hisab-public-surface) !important;
+  color: var(--hisab-public-accent) !important;
+}
+
+.marketing-site-v2 .hero-workspace-layout aside span,
+.marketing-site-v2 .product-tour-sidebar button {
+  color: var(--hisab-public-accent) !important;
+}
+
+.marketing-site-v2 .hero-workspace-layout aside span.active,
+.marketing-site-v2 .product-tour-sidebar button.active,
+.marketing-site-v2 .product-tour-sidebar button[aria-selected="true"] {
+  background: var(--hisab-public-primary) !important;
+  color: var(--hisab-public-background) !important;
+}
+
+.marketing-site-v2 .hero-workspace-heading button {
+  border: 1px solid var(--hisab-public-primary) !important;
+  background: var(--hisab-public-primary) !important;
+  color: var(--hisab-public-background) !important;
+}
+
+.marketing-site-v2 .hero-performance-bars span,
+.marketing-site-v2 :where([class*="chart"] [class*="bar"], [class*="graph"] [class*="bar"]) {
+  background: var(--hisab-public-primary) !important;
+}
+
+.marketing-site-v2 :where(.marketing-cta, .marketing-cta-v2, .marketing-dark-section, .marketing-dark-section-v2, .resource-apply-section, .about-mission-section, .resources-framework-section) {
+  border-top: 1px solid var(--hisab-public-secondary) !important;
+  border-bottom: 1px solid var(--hisab-public-secondary) !important;
+  background: var(--hisab-public-surface) !important;
+  color: var(--hisab-public-accent) !important;
+}
+
+.marketing-site-v2 :where(.marketing-cta p, .marketing-dark-section p, .resource-apply-section p, .about-mission-section p, .resources-framework-section p) {
+  color: var(--hisab-public-accent) !important;
+  opacity: 0.78;
+}
+
+.marketing-site-v2 .marketing-conversion-bar {
+  border: 1px solid var(--hisab-public-secondary) !important;
+  background: var(--hisab-public-surface) !important;
+  box-shadow: 0 20px 60px var(--hisab-public-background) !important;
+  color: var(--hisab-public-accent) !important;
+}
+
+.marketing-site-v2 .marketing-conversion-bar span {
+  color: var(--hisab-public-accent) !important;
+  opacity: 0.72;
+}
+
+.marketing-site-v2 .marketing-footer {
+  border-top: 1px solid var(--hisab-public-secondary) !important;
+  background: var(--hisab-public-surface) !important;
+  color: var(--hisab-public-accent) !important;
+}
+
+.marketing-site-v2 .marketing-footer :where(p, a, span, small, strong) {
+  color: var(--hisab-public-accent) !important;
+}
+
+.marketing-site-v2 .marketing-footer a:hover {
+  color: var(--hisab-public-primary) !important;
+}
+
+.marketing-site-v2 .marketing-footer-bottom {
+  border-top: 1px solid var(--hisab-public-secondary) !important;
+}
+
+.marketing-site-v2 :where(hr, [class*="divider"], [class*="separator"]) {
+  border-color: var(--hisab-public-secondary) !important;
+  background: var(--hisab-public-secondary) !important;
+}
+
+.marketing-site-v2 ::selection {
+  background: var(--hisab-public-primary);
+  color: var(--hisab-public-background);
+}
+
+@media (max-width: 980px) {
+  .marketing-site-v2 .marketing-nav[data-menu-open="true"] nav,
+  .marketing-site-v2 .marketing-nav[data-menu-open="true"] .marketing-nav-actions {
+    border-color: var(--hisab-public-secondary) !important;
+    background: var(--hisab-public-surface) !important;
+  }
+
+  .marketing-site-v2 .marketing-conversion-bar {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-site-v2 *,
+  .marketing-site-v2 *::before,
+  .marketing-site-v2 *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
