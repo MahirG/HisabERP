@@ -1,0 +1,147 @@
+/* Official Hisab Technologies identity: terracotta #DA7757 + charcoal #171717. */
+:root{
+  --hisab-brand:#da7757;
+  --hisab-brand-strong:#b55a3f;
+  --hisab-brand-soft:#fff1eb;
+  --hisab-charcoal:#171717;
+  --hisab-cream:#fffaf7;
+  --navy:var(--hisab-charcoal);
+  --blue:var(--hisab-brand);
+  --bg:#f8f4f2;
+  --card:#ffffff;
+  --text:#211a18;
+  --muted:#76655f;
+  --border:#eadbd5;
+  --ds-color-brand-950:#171717;
+  --ds-color-brand-900:#251c19;
+  --ds-color-brand-700:#a94f36;
+  --ds-color-brand-600:#da7757;
+  --ds-color-accent-600:#da7757;
+  --ds-color-accent-500:#ed9c80;
+  --ds-color-surface-canvas:#f8f4f2;
+  --ds-color-surface-subtle:#fff8f5;
+  --ds-color-text-primary:#211a18;
+  --ds-color-text-secondary:#76655f;
+  --ds-color-border:#eadbd5;
+  --ds-color-info:#b55a3f;
+  --ds-color-info-soft:#fff0ea;
+  --ds-focus:0 0 0 4px rgba(218,119,87,.24);
+}
+
+html[data-theme="dark"]{
+  --bg:#0d0b0a;
+  --card:#171311;
+  --text:#fff8f4;
+  --muted:#bea9a0;
+  --border:#3b2c27;
+  --ds-color-surface-canvas:#0d0b0a;
+  --ds-color-surface-panel:#171311;
+  --ds-color-surface-subtle:#211916;
+  --ds-color-text-primary:#fff8f4;
+  --ds-color-text-secondary:#bea9a0;
+  --ds-color-border:#3b2c27;
+}
+
+::selection{background:rgba(218,119,87,.35);color:#171717}
+body{accent-color:var(--hisab-brand)}
+
+/* Reusable official logo treatment. */
+.hisab-logo{
+  display:block;
+  width:42px;
+  height:42px;
+  object-fit:contain;
+  flex:0 0 auto;
+}
+.hisab-logo-on-dark{
+  padding:3px;
+  border:1px solid rgba(218,119,87,.28);
+  border-radius:12px;
+  background:#fff6f1;
+  box-shadow:0 8px 22px rgba(0,0,0,.2);
+}
+
+/* Public website. */
+.marketing-site{
+  --mk-ink:#211a18;
+  --mk-muted:#76655f;
+  --mk-border:#eadbd5;
+  --mk-soft:#fff5f0;
+  --mk-blue:#da7757;
+  --mk-blue-dark:#b55a3f;
+  --mk-teal:#c86648;
+  --mk-white:#fff;
+}
+.marketing-nav{border-bottom-color:rgba(218,119,87,.18);background:rgba(255,250,247,.94)}
+.marketing-brand>span{display:none}
+.marketing-brand>.hisab-logo{width:42px;height:42px}
+.marketing-brand strong{color:var(--hisab-charcoal)}
+.marketing-start{color:var(--hisab-charcoal);box-shadow:0 12px 26px rgba(181,90,63,.2)}
+.marketing-start:hover{color:#fff}
+.marketing-demo{border-color:#d8b8ac;background:#fffaf7}
+.marketing-hero{background:radial-gradient(circle at 82% 18%,rgba(218,119,87,.14),transparent 30%),linear-gradient(180deg,#fffaf7,#fff4ee)}
+.marketing-product-window{border-color:#e7d3cb;box-shadow:0 35px 90px rgba(71,39,29,.16),0 5px 20px rgba(71,39,29,.08)}
+.marketing-window-body aside{background:#171717;color:#e9d9d2}
+.marketing-window-body aside .hisab-logo{width:36px;height:36px;margin-bottom:14px;padding:3px;border-radius:9px;background:#fff6f1}
+.marketing-window-body>section{background:#fbf5f2}
+.marketing-preview-top button{background:var(--hisab-brand);color:var(--hisab-charcoal);font-weight:900}
+.marketing-chart-card{color:var(--hisab-brand-strong)}
+.marketing-dark-section{background:#171717}
+.marketing-analytics{background:#241b18;border-color:rgba(218,119,87,.24)}
+.marketing-bars{background:#110e0d}
+.marketing-bars span{background:linear-gradient(#f0a185,#da7757)}
+.marketing-dark-copy li:before{color:#f0a185}
+.marketing-analytics-head b{background:rgba(218,119,87,.15);color:#f3b39c}
+.marketing-analytics-kpis em{color:#f0a185}
+.marketing-step-grid article>span{background:#fff0e9;color:#a94f36}
+.marketing-integration-grid article>span{background:#fff0e9;color:#b55a3f}
+.marketing-quote{background:#fff0e9}
+.marketing-quote blockquote{color:#38231d}
+.marketing-quote p{color:#7a574b}
+.marketing-cta{background:linear-gradient(135deg,#b55a3f,#da7757);color:#fff}
+.marketing-cta>div:first-child>span,.marketing-cta p{color:#fff3ee}
+.marketing-cta .marketing-start{background:#fff8f4;border-color:#fff8f4;color:#7e321f}
+.marketing-footer{background:#171717;color:#eaded9}
+.marketing-footer .marketing-brand strong{color:#fff}
+.marketing-footer-top a{color:#cbb7af}
+.marketing-footer-top a:hover{color:#f0a185}
+
+/* Authentication. */
+.auth-hisab-mark{
+  display:block;
+  width:40px;
+  height:40px;
+  flex:0 0 40px;
+  object-fit:contain;
+  padding:2px;
+  border:1px solid rgba(218,119,87,.24);
+  border-radius:11px;
+  background:#fff6f1;
+  box-shadow:0 8px 20px rgba(181,90,63,.16);
+}
+.auth-hisab-mark::after{display:none!important}
+.auth-slack-primary,.auth-primary-button{background:var(--hisab-brand)!important;color:var(--hisab-charcoal)!important;border-color:var(--hisab-brand)!important}
+.auth-slack-primary:hover,.auth-primary-button:hover{background:var(--hisab-brand-strong)!important;color:#fff!important}
+.auth-slack-brand strong{color:var(--hisab-charcoal)}
+html[data-theme="dark"] .auth-slack-brand strong{color:#fff8f4}
+html[data-theme="dark"] .auth-hisab-mark{background:#fff6f1;border-color:rgba(240,161,133,.45)}
+
+/* Authenticated workspace and mobile shell. */
+.sidebar,.supabase-sidebar{background:#171717!important}
+.brand>span{background:var(--hisab-brand)!important;color:var(--hisab-charcoal)!important}
+.brand>.hisab-logo{width:42px;height:42px;padding:3px;border-radius:12px;background:#fff6f1}
+.mobile-workspace-brand .hisab-logo{width:34px;height:34px;padding:2px;border-radius:9px;background:#fff6f1}
+.sidebar nav a:hover,.sidebar nav a.active{background:rgba(218,119,87,.14)!important;color:#fff!important}
+.sidebar nav a.active .sidebar-nav-icon,.sidebar nav a:hover .sidebar-nav-icon{color:#f0a185!important}
+.sidebar-workspace-mark{background:var(--hisab-brand)!important;color:var(--hisab-charcoal)!important}
+.primary{background:var(--hisab-brand)!important;color:var(--hisab-charcoal)!important}
+.primary:hover{background:var(--hisab-brand-strong)!important;color:#fff!important}
+.text-button{color:var(--hisab-brand-strong)!important}
+.avatar{background:#fff0e9!important;color:#a94f36!important}
+.metric-icon.neutral{color:var(--hisab-brand-strong)!important;background:#fff0e9!important}
+.bar{background:linear-gradient(180deg,#f0a185,#da7757)!important}
+
+@media(max-width:640px){
+  .auth-hisab-mark{width:34px;height:34px;flex-basis:34px;border-radius:9px}
+  .marketing-brand>.hisab-logo{width:38px;height:38px}
+}
