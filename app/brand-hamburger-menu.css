@@ -1,0 +1,152 @@
+/* Final Hisab hamburger treatment: transparent controls, terracotta strokes and compact geometry. */
+
+.marketing-site-v2 .marketing-menu-toggle {
+  position: relative;
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #E17A5B !important;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.marketing-site-v2 .marketing-menu-toggle:hover,
+.marketing-site-v2 .marketing-menu-toggle:active,
+.marketing-site-v2 .marketing-menu-toggle:focus-visible,
+.marketing-site-v2 .marketing-nav[data-menu-open="true"] .marketing-menu-toggle {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #E17A5B !important;
+}
+
+.marketing-site-v2 .marketing-menu-toggle:focus-visible {
+  outline: 2px solid #E17A5B !important;
+  outline-offset: 4px;
+}
+
+.marketing-site-v2 .marketing-menu-toggle span {
+  display: block;
+  height: 2px;
+  margin: 0;
+  justify-self: end;
+  border-radius: 999px;
+  background: currentColor !important;
+  transform-origin: center;
+  transition: width .2s ease, transform .22s cubic-bezier(.22, 1, .36, 1), opacity .16s ease;
+}
+
+.marketing-site-v2 .marketing-menu-toggle span:nth-child(1),
+.marketing-site-v2 .marketing-menu-toggle span:nth-child(3) {
+  width: 22px;
+}
+
+.marketing-site-v2 .marketing-menu-toggle span:nth-child(2) {
+  width: 14px;
+}
+
+.marketing-site-v2 .marketing-nav[data-menu-open="true"] .marketing-menu-toggle span:nth-child(1) {
+  width: 22px;
+  transform: translateY(5px) rotate(45deg);
+}
+
+.marketing-site-v2 .marketing-nav[data-menu-open="true"] .marketing-menu-toggle span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.marketing-site-v2 .marketing-nav[data-menu-open="true"] .marketing-menu-toggle span:nth-child(3) {
+  width: 22px;
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+/* Match the authenticated mobile workspace menu to the same brand geometry. */
+.mobile-workspace-header .mobile-menu-trigger {
+  width: 44px !important;
+  height: 44px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #E17A5B !important;
+}
+
+.mobile-workspace-header .mobile-menu-trigger > span {
+  display: grid !important;
+  justify-items: end;
+  align-content: center;
+  row-gap: 3px;
+  width: 22px;
+  height: 22px;
+}
+
+.mobile-workspace-header .mobile-menu-trigger i {
+  display: block !important;
+  height: 2px !important;
+  margin: 0 !important;
+  border-radius: 999px !important;
+  background: currentColor !important;
+}
+
+.mobile-workspace-header .mobile-menu-trigger i:nth-child(1),
+.mobile-workspace-header .mobile-menu-trigger i:nth-child(3) {
+  width: 22px !important;
+}
+
+.mobile-workspace-header .mobile-menu-trigger i:nth-child(2) {
+  width: 14px !important;
+}
+
+.mobile-sidebar-header > button {
+  display: grid !important;
+  width: 42px !important;
+  height: 42px !important;
+  place-items: center;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #E17A5B !important;
+  font-size: 30px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+}
+
+.mobile-sidebar-header > button:hover,
+.mobile-sidebar-header > button:active,
+.mobile-sidebar-header > button:focus-visible {
+  background: transparent !important;
+  color: #E17A5B !important;
+}
+
+.mobile-sidebar-header > button:focus-visible {
+  outline: 2px solid #E17A5B !important;
+  outline-offset: 3px;
+}
+
+@media (max-width: 920px) {
+  .marketing-site-v2 .marketing-menu-toggle {
+    display: grid;
+    align-content: center;
+    justify-items: end;
+    row-gap: 3px;
+  }
+
+  .marketing-site-v2 .marketing-nav[data-menu-open="true"] nav {
+    border-top-color: #1A1A1A !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-site-v2 .marketing-menu-toggle span {
+    transition: none;
+  }
+}
