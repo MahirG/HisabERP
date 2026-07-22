@@ -1,6 +1,6 @@
 {
-  "release": "9341c48609b4e3e095f90ec4dde0fb7b2bc86de0",
+  "release": "a99e770865b067683dfae14d07bf3bb053fc7204",
   "environment": "production",
-  "deployedAt": "2026-07-22T07:15:00Z",
-  "description": "HisabTech production release with Vercel Speed Insights enabled in the root Next.js layout"
+  "deployedAt": "2026-07-22T10:04:51Z",
+  "description": "HisabTech production release with global theme and language controls, branded loading experience, workspace brand fixes, and refined terracotta hamburger menus"
 }
