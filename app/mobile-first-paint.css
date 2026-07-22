@@ -1,0 +1,44 @@
+/* Mobile first-paint safeguards for the public website.
+   Keep above-the-fold content immediately paintable and avoid GPU-heavy effects
+   on constrained mobile browsers. */
+
+@media (max-width: 760px) {
+  .marketing-site :where(section, article) {
+    content-visibility: visible !important;
+    contain: none !important;
+    contain-intrinsic-size: auto !important;
+  }
+
+  .marketing-site-v2 .marketing-nav,
+  .marketing-site-v2 .marketing-nav-v2,
+  .marketing-conversion-bar {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .marketing-site-v2 :where(
+    .marketing-brand,
+    .marketing-brand-copy,
+    .marketing-hero-copy,
+    .marketing-hero-copy > *,
+    .marketing-hero-actions,
+    .marketing-hero-actions > *,
+    .marketing-trust,
+    .marketing-trust > *
+  ) {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .marketing-site-v2 :where(
+    .marketing-nav,
+    .marketing-hero,
+    .hero-workspace,
+    .marketing-conversion-bar,
+    article,
+    [class*="card"],
+    [class*="panel"]
+  ) {
+    box-shadow: none !important;
+  }
+}
