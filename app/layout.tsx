@@ -49,6 +49,7 @@ import "./proof-trust-integrations.css";
 import "./migration-comparisons-help.css";
 import "./home-implementation-resources.css";
 import "./public-experience-final.css";
+import "./home-final-recommendations.css";
 import "./request-demo.css";
 import "./request-demo-secure.css";
 import "./mobile-workspace.css";
@@ -77,23 +78,10 @@ export const metadata: Metadata = {
   creator: "Hisab Technologies",
   publisher: "Hisab Technologies",
   alternates: { canonical: "/", languages: { "en-ET": "/", "am-ET": "/" } },
-  openGraph: {
-    type: "website",
-    locale: "en_ET",
-    alternateLocale: ["am_ET"],
-    siteName: "HisabTech",
-    title: "HisabERP — Business Operating System for Ethiopia",
-    description: "One connected workspace for sales, finance, inventory, customers, suppliers and reporting.",
-    url: "/",
-    images: [{ url: "/hisab-logo.svg", width: 512, height: 512, alt: "HisabTech" }],
-  },
+  openGraph: { type: "website", locale: "en_ET", alternateLocale: ["am_ET"], siteName: "HisabTech", title: "HisabERP — Business Operating System for Ethiopia", description: "One connected workspace for sales, finance, inventory, customers, suppliers and reporting.", url: "/", images: [{ url: "/hisab-logo.svg", width: 512, height: 512, alt: "HisabTech" }] },
   twitter: { card: "summary", title: "HisabERP", description: "Business operating system for growing Ethiopian organizations.", images: ["/hisab-logo.svg"] },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
-  icons: {
-    icon: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }],
-    shortcut: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }],
-  },
+  icons: { icon: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }], shortcut: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }], apple: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }] },
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 5, viewportFit: "cover", themeColor: "#DA7757", colorScheme: "light dark" };
