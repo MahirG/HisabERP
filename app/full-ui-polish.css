@@ -1,0 +1,778 @@
+/*
+ * HisabTech full-page UI polish layer.
+ * This file is intentionally imported last. It normalizes the shared public,
+ * authentication, onboarding, and authenticated workspace experiences without
+ * changing business logic or third-party brand marks.
+ */
+
+:root {
+  --ui-brand: #e17a5b;
+  --ui-brand-hover: #c86648;
+  --ui-brand-strong: #8f412c;
+  --ui-brand-soft: rgba(225, 122, 91, 0.12);
+  --ui-brand-ring: rgba(225, 122, 91, 0.24);
+  --ui-radius-sm: 10px;
+  --ui-radius-md: 14px;
+  --ui-radius-lg: 18px;
+  --ui-radius-xl: 24px;
+  --ui-control-height: 46px;
+  --ui-page-gutter: clamp(16px, 3.4vw, 52px);
+  --ui-section-space: clamp(52px, 7vw, 92px);
+  --ui-content-width: 1240px;
+}
+
+html[data-theme="light"] {
+  --ui-canvas: #fffaf7;
+  --ui-surface: #ffffff;
+  --ui-surface-raised: #ffffff;
+  --ui-surface-muted: #fff4ef;
+  --ui-surface-hover: #fff0e9;
+  --ui-text: #1a1a1a;
+  --ui-text-secondary: #5f504a;
+  --ui-text-muted: #76655f;
+  --ui-border: #eadbd5;
+  --ui-border-strong: #d8c2b9;
+  --ui-shadow-sm: 0 4px 14px rgba(26, 26, 26, 0.05);
+  --ui-shadow-md: 0 14px 38px rgba(26, 26, 26, 0.08);
+  --ui-shadow-lg: 0 24px 64px rgba(26, 26, 26, 0.12);
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  --ui-canvas: #000000;
+  --ui-surface: #0d0d0d;
+  --ui-surface-raised: #141414;
+  --ui-surface-muted: #17110f;
+  --ui-surface-hover: #241b18;
+  --ui-text: #ededed;
+  --ui-text-secondary: #d8c9c3;
+  --ui-text-muted: #bda9a1;
+  --ui-border: #3b2c27;
+  --ui-border-strong: #5a4037;
+  --ui-shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.28);
+  --ui-shadow-md: 0 16px 42px rgba(0, 0, 0, 0.38);
+  --ui-shadow-lg: 0 26px 72px rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+}
+
+html {
+  background: var(--ui-canvas);
+  scroll-behavior: smooth;
+}
+
+body[data-ui-polish="hisab-2026"] {
+  margin: 0;
+  background: var(--ui-canvas);
+  color: var(--ui-text);
+  font-family: var(--font-space-grotesk), "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html[data-language="am"] body[data-ui-polish="hisab-2026"] {
+  font-family: var(--font-space-grotesk), "Noto Sans Ethiopic", "Abyssinica SIL", Nyala, "Segoe UI", sans-serif;
+  line-height: 1.7;
+}
+
+body[data-ui-polish="hisab-2026"] :is(button, input, select, textarea) {
+  font: inherit;
+}
+
+body[data-ui-polish="hisab-2026"] :is(h1, h2, h3, h4, h5, h6, p) {
+  overflow-wrap: anywhere;
+}
+
+body[data-ui-polish="hisab-2026"] :is(h1, h2, h3, h4, h5, h6) {
+  margin-top: 0;
+  color: var(--ui-text);
+  font-weight: 700;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+body[data-ui-polish="hisab-2026"] p {
+  color: var(--ui-text-secondary);
+  line-height: 1.68;
+}
+
+body[data-ui-polish="hisab-2026"] small {
+  color: var(--ui-text-muted);
+  line-height: 1.5;
+}
+
+body[data-ui-polish="hisab-2026"] ::selection {
+  background: var(--ui-brand);
+  color: #1a1a1a;
+}
+
+body[data-ui-polish="hisab-2026"] :is(input, textarea)::placeholder {
+  color: var(--ui-text-muted);
+  opacity: 0.72;
+}
+
+body[data-ui-polish="hisab-2026"] :is(a, button, summary, input, select, textarea):focus-visible {
+  outline: 3px solid var(--ui-brand-ring) !important;
+  outline-offset: 3px;
+}
+
+body[data-ui-polish="hisab-2026"] :is(a, button, summary, input, select, textarea) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body[data-ui-polish="hisab-2026"] :is(button, a, summary, input, select, textarea, article, [class*="card"], [class*="panel"]) {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 160ms;
+  transition-timing-function: ease;
+}
+
+/* Shared preference controls */
+body[data-ui-polish="hisab-2026"] :is(.preference-icon-button, .language-icon-trigger, .theme-toggle) {
+  color: var(--ui-brand) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .language-icon-menu {
+  border: 1px solid var(--ui-border) !important;
+  background: var(--ui-surface-raised) !important;
+  color: var(--ui-text) !important;
+  box-shadow: var(--ui-shadow-md) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .language-icon-menu button {
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .language-icon-menu button:hover,
+body[data-ui-polish="hisab-2026"] .language-icon-menu button.active {
+  background: var(--ui-brand-soft) !important;
+  color: var(--ui-text) !important;
+}
+
+/* Public marketing pages */
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 {
+  background: var(--ui-canvas) !important;
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 #public-main-content > section {
+  padding-block: var(--ui-section-space);
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 #public-main-content > section + section {
+  border-top: 0 !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 #public-main-content > :is(.marketing-proof, .marketing-proof-v2) {
+  padding-block: clamp(22px, 3vw, 36px);
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.marketing-hero, .module-page-hero, .industry-detail-hero, .public-page-hero) {
+  min-height: auto !important;
+  padding-top: clamp(46px, 7vw, 86px) !important;
+  padding-bottom: clamp(54px, 8vw, 96px) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 h1 {
+  font-size: clamp(2.35rem, 5.4vw, 4.8rem) !important;
+  letter-spacing: -0.052em !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 h2 {
+  font-size: clamp(1.85rem, 3.5vw, 3.15rem) !important;
+  letter-spacing: -0.04em !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 h3 {
+  font-size: clamp(1.08rem, 1.6vw, 1.35rem) !important;
+  letter-spacing: -0.022em !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(p, li) {
+  color: var(--ui-text-secondary) !important;
+  font-size: clamp(0.96rem, 1.1vw, 1.05rem);
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.marketing-eyebrow, .marketing-section-heading > span, article > span, [class*="kicker"]) {
+  color: var(--ui-brand) !important;
+  font-size: 0.76rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.marketing-section-heading, .marketing-section-heading-wide, .marketing-section-heading-centered) {
+  margin-bottom: clamp(24px, 4vw, 42px) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.marketing-section-heading, .marketing-section-heading-wide) > p {
+  max-width: 760px;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :where([class$="-grid"], [class*="-grid "]) {
+  gap: clamp(14px, 2vw, 22px) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :where([class$="-grid"], [class*="-grid "]) > :is(article, a),
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.module-preview-card, .industry-metric-board, .hero-workspace, .tour-app-window, .marketing-insight-panel) {
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius-lg) !important;
+  background: var(--ui-surface) !important;
+  background-image: none !important;
+  color: var(--ui-text) !important;
+  box-shadow: var(--ui-shadow-sm) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :where([class$="-grid"], [class*="-grid "]) > :is(article, a):hover {
+  border-color: var(--ui-border-strong) !important;
+  background: var(--ui-surface-hover) !important;
+  box-shadow: var(--ui-shadow-md) !important;
+  transform: translateY(-2px);
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.marketing-start, .marketing-demo, .marketing-signin, .marketing-text-action, .marketing-dark-link, .conversion-whatsapp) {
+  min-height: var(--ui-control-height) !important;
+  padding: 0 18px !important;
+  border-radius: var(--ui-radius-sm) !important;
+  font-size: 0.9rem !important;
+  font-weight: 650 !important;
+  line-height: 1.2;
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.marketing-start) {
+  border: 1px solid var(--ui-brand) !important;
+  background: var(--ui-brand) !important;
+  color: #1a1a1a !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-start:hover {
+  border-color: var(--ui-brand-hover) !important;
+  background: var(--ui-brand-hover) !important;
+  color: #1a1a1a !important;
+  transform: translateY(-1px);
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.marketing-demo, .marketing-signin, .marketing-text-action, .marketing-dark-link, .conversion-whatsapp) {
+  border: 1px solid var(--ui-border) !important;
+  background: var(--ui-surface) !important;
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.marketing-demo, .marketing-signin, .marketing-text-action, .marketing-dark-link, .conversion-whatsapp):hover {
+  border-color: var(--ui-brand) !important;
+  background: var(--ui-brand-soft) !important;
+  color: var(--ui-brand-strong) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), select, textarea) {
+  width: 100%;
+  min-height: 48px;
+  padding: 11px 13px;
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius-sm) !important;
+  background: var(--ui-surface) !important;
+  color: var(--ui-text) !important;
+  box-shadow: none !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 textarea {
+  min-height: 132px;
+  resize: vertical;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(input, select, textarea):focus {
+  border-color: var(--ui-brand) !important;
+  box-shadow: 0 0 0 4px var(--ui-brand-ring) !important;
+  outline: none !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.marketing-dark-section, .marketing-dark-section-v2, .marketing-cta, .marketing-cta-v2) {
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius-xl) !important;
+  background: var(--ui-surface-muted) !important;
+  color: var(--ui-text) !important;
+  box-shadow: none !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-footer {
+  padding-top: clamp(44px, 6vw, 72px) !important;
+  border-top: 1px solid var(--ui-border) !important;
+  background: var(--ui-surface) !important;
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-footer :is(p, a, span, small, strong) {
+  color: inherit !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-footer a {
+  color: var(--ui-text-secondary) !important;
+  text-decoration: none;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-footer a:hover {
+  color: var(--ui-brand-strong) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-footer-bottom {
+  margin-top: clamp(28px, 4vw, 44px);
+  padding-block: 18px !important;
+  border-top: 1px solid var(--ui-border) !important;
+  color: var(--ui-text-muted) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-conversion-bar {
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius-lg) !important;
+  background: color-mix(in srgb, var(--ui-surface) 94%, transparent) !important;
+  color: var(--ui-text) !important;
+  box-shadow: var(--ui-shadow-lg) !important;
+  backdrop-filter: blur(16px);
+}
+
+/* Authentication and account-entry pages */
+body[data-ui-polish="hisab-2026"] :is(.auth-page, .auth-premium-page, .auth-official-page) {
+  min-height: 100vh;
+  background: var(--ui-canvas) !important;
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :is(.auth-slack-panel, .auth-card, .premium-auth-card, .auth-official-card) {
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius-xl) !important;
+  background: var(--ui-surface) !important;
+  color: var(--ui-text) !important;
+  box-shadow: var(--ui-shadow-md) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :is(.auth-page, .auth-premium-page, .auth-official-page) :is(h1, h2, h3, strong, label) {
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :is(.auth-page, .auth-premium-page, .auth-official-page) :is(p, small, .field-help, .auth-slack-legal) {
+  color: var(--ui-text-secondary) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :is(.auth-page, .auth-premium-page, .auth-official-page) :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+  width: 100%;
+  min-height: 48px;
+  padding: 11px 13px;
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius-sm) !important;
+  background: var(--ui-surface-muted) !important;
+  color: var(--ui-text) !important;
+  box-shadow: none !important;
+}
+
+body[data-ui-polish="hisab-2026"] :is(.auth-page, .auth-premium-page, .auth-official-page) :is(input, select, textarea):focus {
+  border-color: var(--ui-brand) !important;
+  box-shadow: 0 0 0 4px var(--ui-brand-ring) !important;
+  outline: none !important;
+}
+
+body[data-ui-polish="hisab-2026"] :is(.auth-submit, .auth-primary-button, .auth-slack-primary) {
+  min-height: 48px !important;
+  border: 1px solid var(--ui-brand) !important;
+  border-radius: var(--ui-radius-sm) !important;
+  background: var(--ui-brand) !important;
+  color: #1a1a1a !important;
+  box-shadow: none !important;
+}
+
+body[data-ui-polish="hisab-2026"] .social-auth-button {
+  min-height: 48px !important;
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius-sm) !important;
+  background: var(--ui-surface) !important;
+  color: var(--ui-text) !important;
+  box-shadow: none !important;
+}
+
+body[data-ui-polish="hisab-2026"] .auth-slack-footer {
+  border-top-color: var(--ui-border) !important;
+  color: var(--ui-text-muted) !important;
+}
+
+/* Standalone onboarding and guided setup */
+body[data-ui-polish="hisab-2026"] .guided-setup-page {
+  background: var(--ui-canvas) !important;
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .guided-setup-page :is(.launch-topbar, .launch-create-card, .launch-blueprint, .launch-task, .launch-overview, .setup-card) {
+  border-color: var(--ui-border) !important;
+  background: var(--ui-surface) !important;
+  color: var(--ui-text) !important;
+  box-shadow: var(--ui-shadow-sm) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .guided-setup-page :is(h1, h2, h3, strong, label) {
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .guided-setup-page :is(p, small) {
+  color: var(--ui-text-secondary) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .guided-setup-page :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+  min-height: 48px;
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius-sm) !important;
+  background: var(--ui-surface-muted) !important;
+  color: var(--ui-text) !important;
+  box-shadow: none !important;
+}
+
+body[data-ui-polish="hisab-2026"] .guided-setup-page :is(.launch-submit-button, button.primary, a.primary) {
+  border-color: var(--ui-brand) !important;
+  background: var(--ui-brand) !important;
+  color: #1a1a1a !important;
+  box-shadow: none !important;
+}
+
+/* Authenticated ERP workspace */
+body[data-ui-polish="hisab-2026"][data-workspace-system="financial-os-v1"] {
+  --workspace-page-bg: var(--ui-canvas);
+  --workspace-panel: var(--ui-surface);
+  --workspace-panel-muted: var(--ui-surface-muted);
+  --workspace-border: var(--ui-border);
+  --workspace-text: var(--ui-text);
+  --workspace-muted: var(--ui-text-muted);
+  --workspace-brand: var(--ui-brand);
+  --workspace-brand-strong: var(--ui-brand-strong);
+  --workspace-brand-soft: var(--ui-brand-soft);
+  --bg: var(--ui-canvas);
+  --card: var(--ui-surface);
+  --text: var(--ui-text);
+  --muted: var(--ui-text-muted);
+  --border: var(--ui-border);
+  --blue: var(--ui-brand);
+  --teal: var(--ui-brand);
+  background: var(--ui-canvas) !important;
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell,
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace {
+  background: var(--ui-canvas) !important;
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace {
+  padding: clamp(20px, 3vw, 38px) var(--ui-page-gutter) clamp(84px, 9vw, 116px) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(
+  .dashboard-content,
+  .section-page,
+  .section-page-modern,
+  .core-page,
+  .finance-page,
+  .sales-page,
+  .ops-page,
+  .controls-page,
+  .guided-setup-page,
+  .module-page,
+  .module-detail-page,
+  .einvoice-page,
+  .recon-page,
+  .account-page,
+  .account-security-page,
+  .help-center-page,
+  .docs-page
+) {
+  width: min(100%, 1700px);
+  margin-inline: auto;
+  background: transparent !important;
+  background-image: none !important;
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(h1, .page-title, .workspace-page-title) {
+  color: var(--ui-text) !important;
+  font-size: clamp(1.8rem, 3vw, 2.55rem) !important;
+  letter-spacing: -0.038em !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace h2 {
+  color: var(--ui-text) !important;
+  font-size: clamp(1.25rem, 2vw, 1.65rem) !important;
+  letter-spacing: -0.026em !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace h3 {
+  color: var(--ui-text) !important;
+  font-size: 1.05rem !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(p, small, time, .muted, .description, .help-text, .field-help, .panel-description) {
+  color: var(--ui-text-secondary) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(.eyebrow, .workspace-eyebrow, .section-breadcrumb, .workspace-breadcrumb, .back-link, .text-button) {
+  color: var(--ui-brand-strong) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(
+  .panel,
+  .data-panel,
+  .metric-card,
+  .core-panel,
+  .finance-panel,
+  .sales-panel,
+  .ops-panel,
+  .controls-panel,
+  .control-card,
+  .einvoice-panel,
+  .recon-panel,
+  .module-card,
+  .detail-panel,
+  .setup-step-card,
+  .customer-record-card,
+  .report-result-panel,
+  .report-export-panel,
+  .documentation,
+  .workspace-section,
+  .workspace-action-alert,
+  .workspace-metric-tile,
+  .account-card,
+  .asset-card,
+  .transaction,
+  .record-row
+) {
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius-lg) !important;
+  background: var(--ui-surface) !important;
+  background-image: none !important;
+  color: var(--ui-text) !important;
+  box-shadow: var(--ui-shadow-sm) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(.panel, .module-card, .record-row, .transaction, .workspace-action-alert):hover {
+  border-color: var(--ui-border-strong) !important;
+  background: var(--ui-surface-raised) !important;
+  box-shadow: var(--ui-shadow-md) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is([class$="-hero"], [class*="-hero "]) {
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius-xl) !important;
+  background: linear-gradient(135deg, #1a1a1a, #241b18) !important;
+  color: #ededed !important;
+  box-shadow: var(--ui-shadow-md) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is([class$="-hero"], [class*="-hero "]) :is(h1, h2, h3, strong) {
+  color: #ededed !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is([class$="-hero"], [class*="-hero "]) :is(p, small) {
+  color: #d8c9c3 !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(button, .action-link, [role="button"]) {
+  min-height: 42px;
+  border-radius: var(--ui-radius-sm) !important;
+  font-size: 0.88rem;
+  font-weight: 650;
+  box-shadow: none !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(.primary, .action-link.primary, button[type="submit"], .finance-primary, .sales-primary, .core-primary, .setup-primary, .submit-button, .save-button, .create-button) {
+  border: 1px solid var(--ui-brand) !important;
+  background: var(--ui-brand) !important;
+  color: #1a1a1a !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(.primary, .action-link.primary, button[type="submit"]):hover {
+  border-color: var(--ui-brand-hover) !important;
+  background: var(--ui-brand-hover) !important;
+  color: #1a1a1a !important;
+  transform: translateY(-1px);
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(.secondary, .action-link.secondary, .ghost, .cancel-button, .outline-button, .toolbar button, .table-toolbar button, .panel-actions button) {
+  border: 1px solid var(--ui-border) !important;
+  background: var(--ui-surface) !important;
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(.secondary, .action-link.secondary, .ghost, .cancel-button, .outline-button):hover {
+  border-color: var(--ui-brand) !important;
+  background: var(--ui-brand-soft) !important;
+  color: var(--ui-brand-strong) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), select, textarea) {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius-sm) !important;
+  background: var(--ui-surface-muted) !important;
+  color: var(--ui-text) !important;
+  box-shadow: none !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace textarea {
+  min-height: 116px;
+  resize: vertical;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(input, select, textarea):focus {
+  border-color: var(--ui-brand) !important;
+  box-shadow: 0 0 0 4px var(--ui-brand-ring) !important;
+  outline: none !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(label, .field-label, .launch-field-label) {
+  color: var(--ui-text) !important;
+  font-size: 0.86rem;
+  font-weight: 650;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(form, .erp-form, .setup-form, .finance-form, .sales-form, .core-form, .ops-form, .controls-form) {
+  gap: clamp(12px, 2vw, 18px) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(.finance-tabs, .sales-tabs, .core-tabs, .ops-tabs, .module-tabs, .recon-tabs) {
+  gap: 6px !important;
+  padding: 5px !important;
+  border: 1px solid var(--ui-border) !important;
+  border-radius: var(--ui-radius-md) !important;
+  background: var(--ui-surface-muted) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(.finance-tabs, .sales-tabs, .core-tabs, .ops-tabs, .module-tabs, .recon-tabs) button {
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--ui-text-secondary) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(.finance-tabs, .sales-tabs, .core-tabs, .ops-tabs, .module-tabs, .recon-tabs) button.active {
+  background: var(--ui-brand) !important;
+  color: #1a1a1a !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(table, .data-table) {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  color: var(--ui-text);
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(th, td) {
+  padding: 13px 14px !important;
+  border-bottom: 1px solid var(--ui-border) !important;
+  text-align: left;
+  vertical-align: middle;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace th {
+  background: var(--ui-surface-muted) !important;
+  color: var(--ui-text-secondary) !important;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace tbody tr:hover td {
+  background: var(--ui-surface-hover) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(.panel, .card, [class*="panel"], [class*="card"]) :is(.panel, .card, [class*="panel"], [class*="card"]) {
+  box-shadow: none !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(.panel, .card, [class*="panel"], [class*="card"]) > footer {
+  border-top-color: var(--ui-border) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :is(.mobile-workspace-header, .mobile-bottom-nav, .marketing-nav) {
+  color: var(--ui-text) !important;
+}
+
+/* Compact, calm mobile rhythm */
+@media (max-width: 760px) {
+  :root {
+    --ui-section-space: clamp(42px, 12vw, 62px);
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 #public-main-content > section {
+    padding-inline: 16px !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 h1 {
+    font-size: clamp(2.15rem, 11vw, 3.15rem) !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 h2 {
+    font-size: clamp(1.65rem, 7.5vw, 2.35rem) !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 :where([class$="-grid"], [class*="-grid "]) {
+    gap: 12px !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 :where([class$="-grid"], [class*="-grid "]) > :is(article, a) {
+    border-radius: var(--ui-radius-md) !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-conversion-bar {
+    left: 10px !important;
+    right: 10px !important;
+    bottom: max(10px, env(safe-area-inset-bottom)) !important;
+    gap: 10px !important;
+    padding: 10px !important;
+    border-radius: var(--ui-radius-md) !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-conversion-bar > div:first-child span {
+    display: none;
+  }
+
+  body[data-ui-polish="hisab-2026"] .erp-shell > .workspace {
+    padding: 14px 12px calc(92px + env(safe-area-inset-bottom)) !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(.panel, .data-panel, .metric-card, .module-card, .account-card, .einvoice-panel, .recon-panel) {
+    border-radius: var(--ui-radius-md) !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .guided-setup-page {
+    padding-bottom: max(28px, env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 420px) {
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.marketing-start, .marketing-demo, .marketing-signin, .marketing-text-action) {
+    min-height: 44px !important;
+    padding-inline: 14px !important;
+    font-size: 0.84rem !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(th, td) {
+    padding: 11px 10px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body[data-ui-polish="hisab-2026"] *,
+  body[data-ui-polish="hisab-2026"] *::before,
+  body[data-ui-polish="hisab-2026"] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
