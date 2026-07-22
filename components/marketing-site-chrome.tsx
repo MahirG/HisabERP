@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import { LanguageSelector, useLanguage } from "./language-provider";
+import { ThemeToggle } from "./theme-toggle";
 
 const websiteCopy = {
   en: {
@@ -144,7 +145,10 @@ export function MarketingHeader() {
           {navItems.map(([key, href]) => <Link href={href} aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined} key={href}>{c[key]}</Link>)}
         </nav>
         <div className="marketing-nav-actions">
-          <LanguageSelector compact />
+          <div className="marketing-preference-icons global-preference-icons">
+            <LanguageSelector compact />
+            <ThemeToggle />
+          </div>
           <Link href="/auth/login" className="marketing-signin">{c.signIn}</Link>
           <Link href="/request-demo" className="marketing-demo">{c.demo}</Link>
           <Link href="/auth/email-sign-up" className="marketing-start">{c.start}</Link>
