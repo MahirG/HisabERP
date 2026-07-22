@@ -1,0 +1,366 @@
+/* Final Hisab visual lock. Loaded after every legacy stylesheet. */
+:root {
+  --hisab-50: #fff8f5;
+  --hisab-100: #fff0e9;
+  --hisab-200: #f8d6ca;
+  --hisab-300: #f0b29c;
+  --hisab-400: #ed9c80;
+  --hisab-500: #da7757;
+  --hisab-600: #c86648;
+  --hisab-700: #b55a3f;
+  --hisab-800: #8f412c;
+  --hisab-900: #5e3024;
+  --hisab-charcoal: #171717;
+
+  /* Legacy semantic names are intentionally mapped into one hue family. */
+  --blue: var(--hisab-500);
+  --green: var(--hisab-500);
+  --red: var(--hisab-700);
+  --orange: var(--hisab-600);
+  --amber: var(--hisab-600);
+  --yellow: var(--hisab-400);
+  --teal: var(--hisab-500);
+  --cyan: var(--hisab-500);
+  --purple: var(--hisab-700);
+  --violet: var(--hisab-700);
+  --indigo: var(--hisab-700);
+}
+
+body[data-workspace-system="financial-os-v1"] {
+  --ds-color-brand-600: var(--hisab-500);
+  --ds-color-accent-600: var(--hisab-500);
+  --ds-color-accent-500: var(--hisab-400);
+  --ds-color-success: var(--hisab-500);
+  --ds-color-success-soft: var(--hisab-100);
+  --ds-color-warning: var(--hisab-600);
+  --ds-color-warning-soft: var(--hisab-100);
+  --ds-color-danger: var(--hisab-800);
+  --ds-color-danger-soft: var(--hisab-100);
+  --ds-color-info: var(--hisab-700);
+  --ds-color-info-soft: var(--hisab-100);
+  --fin-primary: var(--hisab-500);
+  --fin-primary-hover: var(--hisab-700);
+  --fin-primary-soft: var(--hisab-100);
+  --fin-success: var(--hisab-500);
+  --fin-success-soft: var(--hisab-100);
+  --fin-warning: var(--hisab-600);
+  --fin-warning-soft: var(--hisab-100);
+  --fin-danger: var(--hisab-800);
+  --fin-danger-soft: var(--hisab-100);
+  --fin-info: var(--hisab-700);
+  --fin-info-soft: var(--hisab-100);
+  --workspace-brand: var(--hisab-500);
+  --workspace-teal: var(--hisab-500);
+  --workspace-danger: var(--hisab-800);
+  accent-color: var(--hisab-500);
+}
+
+/* The SVG and every visible logo placement remain genuinely transparent. */
+.hisab-logo,
+.auth-hisab-mark,
+.auth-showcase-brand > img,
+.auth-brand > img,
+.auth-mobile-brand > img,
+.desktop-sidebar-brand > img,
+.mobile-workspace-brand > img,
+.mobile-sidebar-header .brand > img,
+.marketing-brand > img,
+.marketing-window-body aside img {
+  display: block !important;
+  object-fit: contain !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+:is(
+  .marketing-brand,
+  .auth-slack-brand,
+  .auth-showcase-brand,
+  .auth-official-brand,
+  .auth-brand,
+  .auth-mobile-brand,
+  .desktop-sidebar-brand,
+  .mobile-workspace-brand,
+  .mobile-sidebar-header .brand
+) {
+  border: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+:is(
+  .auth-hisab-mark,
+  .auth-showcase-brand > span:first-child,
+  .auth-brand > span:first-child,
+  .auth-mobile-brand > span:first-child,
+  .desktop-sidebar-brand > span:first-child,
+  .mobile-workspace-brand > span:first-child,
+  .mobile-sidebar-header .brand > span:first-child
+) {
+  overflow: visible !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent url('/hisab-logo.svg') center / contain no-repeat !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+
+:is(
+  .auth-hisab-mark,
+  .auth-showcase-brand > span:first-child,
+  .auth-brand > span:first-child,
+  .auth-mobile-brand > span:first-child,
+  .desktop-sidebar-brand > span:first-child,
+  .mobile-workspace-brand > span:first-child,
+  .mobile-sidebar-header .brand > span:first-child
+)::before,
+:is(
+  .auth-hisab-mark,
+  .auth-showcase-brand > span:first-child,
+  .auth-brand > span:first-child,
+  .auth-mobile-brand > span:first-child,
+  .desktop-sidebar-brand > span:first-child,
+  .mobile-workspace-brand > span:first-child,
+  .mobile-sidebar-header .brand > span:first-child
+)::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Sidebar follows the selected theme instead of being permanently dark. */
+html[data-theme="light"] .erp-shell > .sidebar.supabase-sidebar,
+html[data-theme="light"] .sidebar.supabase-sidebar {
+  --supabase-sidebar-bg: #fffaf7;
+  --supabase-sidebar-border: #eadbd5;
+  --supabase-sidebar-text: #76655f;
+  --supabase-sidebar-text-strong: #211a18;
+  --supabase-sidebar-muted: #a78f86;
+  --supabase-sidebar-hover: var(--hisab-100);
+  --supabase-sidebar-active: var(--hisab-200);
+  --supabase-sidebar-accent: var(--hisab-500);
+  border-color: #eadbd5 !important;
+  background: #fffaf7 !important;
+  color: #76655f !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="light"] .supabase-sidebar :is(
+  .supabase-sidebar-header,
+  .mobile-sidebar-header,
+  .sidebar-footer,
+  .sidebar-dock-status
+) {
+  border-color: #eadbd5 !important;
+  background: #fffaf7 !important;
+  color: #76655f !important;
+}
+
+html[data-theme="light"] .supabase-sidebar :is(
+  .desktop-sidebar-brand strong,
+  .mobile-sidebar-header .brand strong,
+  .sidebar-workspace-copy strong
+) { color: #211a18 !important; }
+
+html[data-theme="light"] .supabase-sidebar :is(
+  .desktop-sidebar-brand small,
+  .mobile-sidebar-header .brand small,
+  .sidebar-workspace-copy small,
+  .sidebar-section-label,
+  .sidebar-footer,
+  .sidebar-dock-status
+) { color: #8d756c !important; }
+
+html[data-theme="light"] .erp-shell > .sidebar.supabase-sidebar nav a {
+  color: #66554f !important;
+  background: transparent !important;
+}
+html[data-theme="light"] .erp-shell > .sidebar.supabase-sidebar nav a:hover,
+html[data-theme="light"] .erp-shell > .sidebar.supabase-sidebar nav a:focus-visible {
+  border-color: var(--hisab-200) !important;
+  background: var(--hisab-100) !important;
+  color: var(--hisab-800) !important;
+}
+html[data-theme="light"] .erp-shell > .sidebar.supabase-sidebar nav a.active,
+html[data-theme="light"] .erp-shell > .sidebar.supabase-sidebar nav a[aria-current="page"] {
+  border-color: var(--hisab-300) !important;
+  background: var(--hisab-200) !important;
+  color: var(--hisab-900) !important;
+  box-shadow: inset 2px 0 0 var(--hisab-500) !important;
+}
+html[data-theme="light"] .supabase-sidebar .sidebar-nav-icon,
+html[data-theme="light"] .supabase-sidebar .supabase-rail-indicator,
+html[data-theme="light"] .supabase-sidebar .sidebar-workspace-chevron {
+  color: var(--hisab-700) !important;
+}
+html[data-theme="light"] .sidebar-workspace-switcher {
+  border-color: transparent !important;
+  background: transparent !important;
+  color: #66554f !important;
+}
+html[data-theme="light"] .sidebar-workspace-switcher:hover,
+html[data-theme="light"] .sidebar-workspace-switcher:focus-visible {
+  border-color: var(--hisab-200) !important;
+  background: var(--hisab-100) !important;
+  color: var(--hisab-900) !important;
+}
+html[data-theme="light"] .sidebar-workspace-mark {
+  border-color: var(--hisab-500) !important;
+  background: var(--hisab-500) !important;
+  color: var(--hisab-charcoal) !important;
+}
+
+html[data-theme="dark"] .erp-shell > .sidebar.supabase-sidebar,
+html[data-theme="dark"] .sidebar.supabase-sidebar {
+  --supabase-sidebar-bg: #171717;
+  --supabase-sidebar-border: #3b2c27;
+  --supabase-sidebar-text: #bea9a0;
+  --supabase-sidebar-text-strong: #fff8f4;
+  --supabase-sidebar-muted: #8f7770;
+  --supabase-sidebar-hover: #241b18;
+  --supabase-sidebar-active: #35231d;
+  --supabase-sidebar-accent: var(--hisab-400);
+  border-color: #3b2c27 !important;
+  background: #171717 !important;
+  color: #bea9a0 !important;
+}
+html[data-theme="dark"] .supabase-sidebar :is(
+  .supabase-sidebar-header,
+  .mobile-sidebar-header,
+  .sidebar-footer,
+  .sidebar-dock-status
+) {
+  border-color: #3b2c27 !important;
+  background: #171717 !important;
+  color: #bea9a0 !important;
+}
+html[data-theme="dark"] .erp-shell > .sidebar.supabase-sidebar nav a {
+  color: #bea9a0 !important;
+  background: transparent !important;
+}
+html[data-theme="dark"] .erp-shell > .sidebar.supabase-sidebar nav a:hover,
+html[data-theme="dark"] .erp-shell > .sidebar.supabase-sidebar nav a:focus-visible {
+  border-color: #5a4037 !important;
+  background: #241b18 !important;
+  color: var(--hisab-300) !important;
+}
+html[data-theme="dark"] .erp-shell > .sidebar.supabase-sidebar nav a.active,
+html[data-theme="dark"] .erp-shell > .sidebar.supabase-sidebar nav a[aria-current="page"] {
+  border-color: #6d493d !important;
+  background: #35231d !important;
+  color: var(--hisab-300) !important;
+  box-shadow: inset 2px 0 0 var(--hisab-400) !important;
+}
+html[data-theme="dark"] .supabase-sidebar :is(
+  .desktop-sidebar-brand strong,
+  .mobile-sidebar-header .brand strong,
+  .sidebar-workspace-copy strong
+) { color: #fff8f4 !important; }
+html[data-theme="dark"] .supabase-sidebar :is(
+  .desktop-sidebar-brand small,
+  .mobile-sidebar-header .brand small,
+  .sidebar-workspace-copy small,
+  .sidebar-section-label,
+  .sidebar-footer,
+  .sidebar-dock-status
+) { color: #bea9a0 !important; }
+
+/* All semantic UI states use the Hisab hue family. Meaning remains in text/icons. */
+body[data-workspace-system="financial-os-v1"] :is(
+  [class*="success"], [class*="positive"], [class*="income"], [class*="paid"], [class*="healthy"],
+  [class*="warning"], [class*="pending"], [class*="overdue"], [class*="due"], [class*="attention"],
+  [class*="danger"], [class*="error"], [class*="negative"], [class*="expense"], [class*="failed"], [class*="destructive"],
+  [class*="info"], [class*="blue"], [class*="green"], [class*="red"], [class*="orange"], [class*="amber"],
+  [class*="yellow"], [class*="teal"], [class*="cyan"], [class*="purple"], [class*="violet"], [class*="indigo"], [class*="emerald"]
+) {
+  --accent-color: var(--hisab-500) !important;
+  --status-color: var(--hisab-700) !important;
+  border-color: var(--hisab-200) !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :is(
+  .workspace-status-badge, .status-badge, .role-badge, .report-result-badge, .ds-badge,
+  .finance-status, .account-type, .control-ok, .control-alert, .period-pill,
+  .form-alert, .success-banner, .error-banner, .warning-banner, .info-banner,
+  .mode-notice, .alert, .notice, .toast, [role="alert"], [role="status"]
+) {
+  border-color: var(--hisab-200) !important;
+  background: var(--hisab-100) !important;
+  color: var(--hisab-800) !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :is(
+  .metric-icon, .workspace-metric-icon, .workspace-action-alert-icon,
+  .transaction-mark, .command-result-icon, .assistance-title-icon,
+  .advice-icon, .workspace-link-icon, .section-shell-mark
+) {
+  border-color: var(--hisab-200) !important;
+  background: var(--hisab-100) !important;
+  color: var(--hisab-700) !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :is(
+  .amount-income, .amount-expense, .positive, .negative, .success, .warning,
+  .danger, .error, .info, .text-success, .text-warning, .text-danger, .text-info
+) { color: var(--hisab-700) !important; }
+
+body[data-workspace-system="financial-os-v1"] :is(
+  .bar, .financial-dashboard .bar, .health-summary-bar span, .profit-meter i,
+  .asset-progress i, [class*="progress"] > i, [class*="progress"] > span,
+  .workspace-status i, .finance-live-dot, .sticky-user-online
+) {
+  background: var(--hisab-500) !important;
+  border-color: var(--hisab-500) !important;
+  box-shadow: none !important;
+}
+
+body[data-workspace-system="financial-os-v1"] [class*="chart"] svg :is(path, line, polyline, circle, rect)[stroke]:not([stroke="none"]) {
+  stroke: var(--hisab-500) !important;
+}
+body[data-workspace-system="financial-os-v1"] [class*="chart"] svg :is(path, rect, circle)[fill]:not([fill="none"]):not([fill="transparent"]) {
+  fill: rgba(218, 119, 87, 0.2) !important;
+}
+
+/* Neutralize common hard-coded legacy palette values when they appear inline. */
+body[data-workspace-system="financial-os-v1"] :is(
+  [style*="#22c55e"], [style*="#16a34a"], [style*="#15803d"], [style*="#10b981"],
+  [style*="#ef4444"], [style*="#dc2626"], [style*="#b91c1c"],
+  [style*="#3b82f6"], [style*="#2563eb"], [style*="#1d4ed8"],
+  [style*="#f59e0b"], [style*="#d97706"], [style*="#eab308"],
+  [style*="#8b5cf6"], [style*="#7c3aed"], [style*="#06b6d4"], [style*="#14b8a6"]
+) {
+  color: var(--hisab-700) !important;
+  border-color: var(--hisab-200) !important;
+  background-color: var(--hisab-100) !important;
+}
+
+/* Third-party auth marks are rendered as a single Hisab-colored mark. */
+.auth-page .social-provider-icon,
+.auth-page .social-provider-icon path,
+.auth-page .social-provider-icon circle,
+.auth-page .social-provider-icon rect {
+  color: var(--hisab-700) !important;
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+html[data-theme="dark"] body[data-workspace-system="financial-os-v1"] :is(
+  .workspace-status-badge, .status-badge, .role-badge, .report-result-badge, .ds-badge,
+  .finance-status, .account-type, .control-ok, .control-alert, .period-pill,
+  .form-alert, .success-banner, .error-banner, .warning-banner, .info-banner,
+  .mode-notice, .alert, .notice, .toast, [role="alert"], [role="status"],
+  .metric-icon, .workspace-metric-icon, .workspace-action-alert-icon,
+  .transaction-mark, .command-result-icon, .assistance-title-icon,
+  .advice-icon, .workspace-link-icon, .section-shell-mark
+) {
+  border-color: #5a4037 !important;
+  background: #35231d !important;
+  color: var(--hisab-300) !important;
+}
