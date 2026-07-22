@@ -1,0 +1,95 @@
+/*
+ * Final sticky-header contract.
+ * Keeps the public navigation and authenticated workspace controls available
+ * while their own page or workspace content scrolls.
+ */
+
+:root {
+  --hisab-public-header-height: 76px;
+  --hisab-workspace-header-height: 58px;
+}
+
+html {
+  scroll-padding-top: calc(var(--hisab-public-header-height) + 16px);
+}
+
+body[data-ui-polish="hisab-2026"] {
+  overflow-x: clip;
+}
+
+/* Public website: genuine sticky positioning on desktop and mobile. */
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 {
+  overflow: visible !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 > .marketing-nav {
+  position: sticky !important;
+  top: 0 !important;
+  right: auto !important;
+  left: auto !important;
+  z-index: 1400 !important;
+  isolation: isolate;
+  width: 100%;
+  transform: translateZ(0);
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 #public-main-content :is(section, [id]) {
+  scroll-margin-top: calc(var(--hisab-public-header-height) + 16px);
+}
+
+/* Workspace desktop command bar stays pinned while the workspace pane scrolls. */
+@media (min-width: 761px) {
+  body[data-ui-polish="hisab-2026"] .workspace-command-header {
+    position: fixed !important;
+    top: 0 !important;
+    z-index: 145 !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .erp-shell > .workspace {
+    scroll-padding-top: calc(var(--hisab-workspace-header-height) + 16px) !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(section, article, form, [id]) {
+    scroll-margin-top: calc(var(--hisab-workspace-header-height) + 16px);
+  }
+}
+
+/* Mobile public navigation and workspace app bar remain at the viewport top. */
+@media (max-width: 920px) {
+  :root {
+    --hisab-public-header-height: calc(64px + env(safe-area-inset-top));
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 > .marketing-nav {
+    top: 0 !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-mobile-menu-panel {
+    top: var(--hisab-public-header-height) !important;
+    max-height: calc(100dvh - var(--hisab-public-header-height)) !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .mobile-language-control .language-icon-menu {
+    top: calc(var(--hisab-public-header-height) - 4px) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-ui-polish="hisab-2026"] .mobile-workspace-header {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    z-index: 130 !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .erp-shell > .workspace {
+    scroll-padding-top: 16px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 > .marketing-nav {
+    transform: none;
+  }
+}
