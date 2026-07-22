@@ -75,6 +75,7 @@ import "./mobile-controls-recovery.css";
 import "./mobile-controls-menu.css";
 import "./workspace-brand-completion.css";
 import "./standard-mobile-header.css";
+import "./full-ui-polish.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -100,6 +101,13 @@ const mobileControlsBootstrap = `
       document.cookie = 'hisab_theme=' + theme + '; Path=/; Max-Age=31536000; SameSite=Lax';
     }
   }
+  function announceTheme(theme) {
+    try {
+      window.dispatchEvent(new CustomEvent('hisab:theme-change', { detail: { theme: theme } }));
+    } catch (_) {
+      window.dispatchEvent(new Event('hisab:theme-change'));
+    }
+  }
   var savedTheme = safeGet('hisab-theme');
   var initialTheme = savedTheme === 'dark' || savedTheme === 'light'
     ? savedTheme
@@ -113,7 +121,9 @@ const mobileControlsBootstrap = `
     var themeButton = target.closest('[data-mobile-theme-toggle]');
     if (themeButton) {
       event.preventDefault();
-      applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark', true);
+      var nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme, true);
+      announceTheme(nextTheme);
       return;
     }
 
@@ -155,7 +165,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html className={spaceGrotesk.variable} lang="en" data-language="en" data-theme="light" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: mobileControlsBootstrap }} /></head>
-      <body data-design-system="hisab-v1" data-workspace-system="financial-os-v1">
+      <body data-design-system="hisab-v1" data-workspace-system="financial-os-v1" data-ui-polish="hisab-2026">
         <LanguageProvider initialLanguage="en">
           <AppExperienceProvider>
             <AuthPagePreferences />
