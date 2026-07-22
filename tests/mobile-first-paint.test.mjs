@@ -23,7 +23,8 @@ test("public first paint avoids the root streaming fallback and embedded Ethiopi
   assert.match(layout, /mobile-first-paint\.css/);
 
   assert.match(languageProvider, /import\("\.\.\/lib\/ui-translations"\)/);
-  assert.doesNotMatch(languageProvider, /from "\.\.\/lib\/ui-translations";/);
+  assert.match(languageProvider, /import type \{ TranslationValues \} from "\.\.\/lib\/ui-translations"/);
+  assert.doesNotMatch(languageProvider, /import\s+\{\s*translateUiText/);
   assert.doesNotMatch(languageProvider, /router\.refresh\(\)/);
   assert.match(languageProvider, /language === "en" && !translator/);
 
