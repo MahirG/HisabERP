@@ -9,6 +9,9 @@ const publicPageRoutes = new Set([
   "/ethiopia",
   "/industries",
   "/pricing",
+  "/customer-stories",
+  "/trust",
+  "/integrations",
   "/auth/login",
   "/auth/phone-login",
   "/auth/sign-up",
@@ -25,7 +28,7 @@ const publicPageRoutes = new Set([
 ]);
 
 const publicPagePrefixes = ["/product/", "/industries/"];
-const authenticatedMarketingRoutes = new Set(["/request-demo", "/product-tour", "/ethiopia", "/industries", "/pricing"]);
+const authenticatedMarketingRoutes = new Set(["/request-demo", "/product-tour", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations"]);
 
 const publicApiRoutes = new Set([
   "/api/health",
