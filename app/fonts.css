@@ -1,1 +1,15 @@
-html[data-language="am"] body,html[data-language="am"] button,html[data-language="am"] select,html[data-language="ti"] body,html[data-language="ti"] button,html[data-language="ti"] select{font-family:"Benaiah","Noto Sans Ethiopic",Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:normal}
+:root{
+  --hisab-latin-font:var(--font-space-grotesk),"Segoe UI",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  --hisab-ethiopic-font:var(--font-noto-ethiopic),"Noto Sans Ethiopic","Abyssinica SIL",Nyala,sans-serif;
+}
+
+body,button,input,select,textarea{font-family:var(--hisab-latin-font)}
+
+html:is([data-language="am"],[data-language="ti"]) body,
+html:is([data-language="am"],[data-language="ti"]) button,
+html:is([data-language="am"],[data-language="ti"]) input,
+html:is([data-language="am"],[data-language="ti"]) select,
+html:is([data-language="am"],[data-language="ti"]) textarea{
+  font-family:var(--hisab-ethiopic-font);
+  letter-spacing:normal;
+}
