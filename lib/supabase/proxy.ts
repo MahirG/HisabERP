@@ -6,6 +6,9 @@ const publicPageRoutes = new Set([
   "/",
   "/request-demo",
   "/product-tour",
+  "/ethiopia",
+  "/industries",
+  "/pricing",
   "/auth/login",
   "/auth/phone-login",
   "/auth/sign-up",
@@ -21,7 +24,8 @@ const publicPageRoutes = new Set([
   "/auth/confirm",
 ]);
 
-const publicPagePrefixes = ["/product/"];
+const publicPagePrefixes = ["/product/", "/industries/"];
+const authenticatedMarketingRoutes = new Set(["/request-demo", "/product-tour", "/ethiopia", "/industries", "/pricing"]);
 
 const publicApiRoutes = new Set([
   "/api/health",
@@ -74,7 +78,8 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
 
   const authenticatedRecoveryPage = path === "/auth/reset-password";
   const authenticatedPreview = request.nextUrl.searchParams.get("preview") === "1";
-  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/" && path !== "/request-demo" && path !== "/product-tour" && path !== "/auth/callback" && path !== "/auth/confirm" && !authenticatedRecoveryPage && !authenticatedPreview) {
+  const authenticatedMarketingPath = authenticatedMarketingRoutes.has(path) || publicPagePrefixes.some((prefix) => path.startsWith(prefix));
+  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/" && !authenticatedMarketingPath && path !== "/auth/callback" && path !== "/auth/confirm" && !authenticatedRecoveryPage && !authenticatedPreview) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     url.search = "";
