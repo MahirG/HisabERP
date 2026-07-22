@@ -76,7 +76,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
     <main className="auth-page auth-premium-page auth-official-page auth-slack-page">
       <header className="auth-slack-header">
         <Link href="/" className="auth-slack-brand" aria-label="HisabTech home">
-          <span className="auth-hisab-mark" aria-hidden="true">H</span>
+          <img src="/hisab-logo.svg" alt="" width="40" height="40" className="auth-hisab-mark hisab-logo" />
           <strong>HisabTech</strong>
         </Link>
         <div className="auth-slack-new-account">
