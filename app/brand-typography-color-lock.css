@@ -1,0 +1,417 @@
+/*
+ * Exact Hisab identity lock.
+ *
+ * This is the authoritative typography and colour contract for every route.
+ * It intentionally maps the older module token names onto the exact colours
+ * sampled from public/hisab-logo.svg: terracotta #DA7757 and charcoal #171717.
+ */
+
+:root {
+  --hisab-logo-terracotta: #da7757;
+  --hisab-logo-charcoal: #171717;
+  --hisab-terracotta-hover: #b55a3f;
+  --hisab-terracotta-deep: #8f412c;
+  --hisab-terracotta-light: #ed9c80;
+  --hisab-terracotta-pale: #f0b29c;
+
+  --ui-brand: var(--hisab-logo-terracotta);
+  --ui-brand-hover: var(--hisab-terracotta-hover);
+  --ui-brand-strong: var(--hisab-terracotta-deep);
+  --ui-brand-soft: rgba(218, 119, 87, 0.14);
+  --ui-brand-ring: rgba(218, 119, 87, 0.28);
+  --ui-brand-contrast: var(--hisab-logo-charcoal);
+
+  --font-app-latin: var(--font-space-grotesk), "Segoe UI", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-app-ethiopic: var(--font-noto-ethiopic), "Noto Sans Ethiopic", "Abyssinica SIL", Nyala, sans-serif;
+
+  /* Compatibility tokens used by older public and workspace styles. */
+  --hisab-brand: var(--hisab-logo-terracotta);
+  --hisab-brand-strong: var(--hisab-terracotta-hover);
+  --hisab-brand-deep: var(--hisab-terracotta-deep);
+  --hisab-charcoal: var(--hisab-logo-charcoal);
+  --blue: var(--hisab-logo-terracotta);
+  --teal: var(--hisab-logo-terracotta);
+  --navy: var(--hisab-logo-charcoal);
+}
+
+html[data-theme="light"] {
+  --ui-canvas: #f8f4f2;
+  --ui-surface: #ffffff;
+  --ui-surface-raised: #ffffff;
+  --ui-surface-muted: #fff8f5;
+  --ui-surface-hover: #fff1eb;
+  --ui-text: #211a18;
+  --ui-text-secondary: #5f504a;
+  --ui-text-muted: #76655f;
+  --ui-border: #eadbd5;
+  --ui-border-strong: #d9c2b9;
+  --ui-link: #8f412c;
+  --ui-on-dark: #fff8f4;
+  --ui-on-dark-secondary: #dec9c0;
+  --ui-shadow-sm: 0 4px 14px rgba(33, 26, 24, 0.05);
+  --ui-shadow-md: 0 14px 38px rgba(33, 26, 24, 0.08);
+  --ui-shadow-lg: 0 24px 64px rgba(33, 26, 24, 0.12);
+
+  --hisab-cream: #fffaf7;
+  --hisab-brand-soft: #fff1eb;
+  --hisab-brand-softer: #fff8f5;
+  --hisab-brand-line: #ead1c7;
+  --bg: var(--ui-canvas);
+  --card: var(--ui-surface);
+  --text: var(--ui-text);
+  --muted: var(--ui-text-muted);
+  --border: var(--ui-border);
+
+  --ds-color-brand-950: var(--hisab-logo-charcoal);
+  --ds-color-brand-900: #251c19;
+  --ds-color-brand-700: #a94f36;
+  --ds-color-brand-600: var(--hisab-logo-terracotta);
+  --ds-color-accent-600: var(--hisab-logo-terracotta);
+  --ds-color-accent-500: var(--hisab-terracotta-light);
+  --ds-color-surface-canvas: var(--ui-canvas);
+  --ds-color-surface-panel: var(--ui-surface);
+  --ds-color-surface-subtle: var(--ui-surface-muted);
+  --ds-color-text-primary: var(--ui-text);
+  --ds-color-text-secondary: var(--ui-text-muted);
+  --ds-color-border: var(--ui-border);
+  --ds-color-info: var(--hisab-terracotta-hover);
+  --ds-color-info-soft: #fff0ea;
+  --ds-focus: 0 0 0 4px var(--ui-brand-ring);
+
+  --mk-ink: var(--ui-text);
+  --mk-muted: var(--ui-text-muted);
+  --mk-border: var(--ui-border);
+  --mk-soft: var(--ui-surface-muted);
+  --mk-blue: var(--hisab-logo-terracotta);
+  --mk-blue-dark: var(--hisab-terracotta-hover);
+  --mk-teal: var(--hisab-logo-terracotta);
+  --mk-white: #ffffff;
+}
+
+html[data-theme="dark"] {
+  --ui-canvas: #0d0b0a;
+  --ui-surface: #171311;
+  --ui-surface-raised: #211916;
+  --ui-surface-muted: #211916;
+  --ui-surface-hover: #30211c;
+  --ui-text: #fff8f4;
+  --ui-text-secondary: #dec9c0;
+  --ui-text-muted: #bea9a0;
+  --ui-border: #3b2c27;
+  --ui-border-strong: #5a4037;
+  --ui-link: #f0b29c;
+  --ui-on-dark: #fff8f4;
+  --ui-on-dark-secondary: #dec9c0;
+  --ui-shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --ui-shadow-md: 0 16px 42px rgba(0, 0, 0, 0.4);
+  --ui-shadow-lg: 0 26px 72px rgba(0, 0, 0, 0.52);
+
+  --bg: var(--ui-canvas);
+  --card: var(--ui-surface);
+  --text: var(--ui-text);
+  --muted: var(--ui-text-muted);
+  --border: var(--ui-border);
+
+  --ds-color-surface-canvas: var(--ui-canvas);
+  --ds-color-surface-panel: var(--ui-surface);
+  --ds-color-surface-subtle: var(--ui-surface-muted);
+  --ds-color-text-primary: var(--ui-text);
+  --ds-color-text-secondary: var(--ui-text-muted);
+  --ds-color-border: var(--ui-border);
+}
+
+/* Typography: one Latin family and one real, bundled Ethiopic family. */
+body[data-ui-polish="hisab-2026"] {
+  font-family: var(--font-app-latin) !important;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  background: var(--ui-canvas) !important;
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :where(
+  h1, h2, h3, h4, h5, h6,
+  p, a, span, strong, b, small, label,
+  button, input, select, textarea,
+  li, dt, dd, th, td, summary, time
+) {
+  font-family: var(--font-app-latin) !important;
+}
+
+html:is([data-language="am"], [data-language="ti"]) body[data-ui-polish="hisab-2026"],
+html:is([data-language="am"], [data-language="ti"]) body[data-ui-polish="hisab-2026"] :where(
+  h1, h2, h3, h4, h5, h6,
+  p, a, span, strong, b, small, label,
+  button, input, select, textarea,
+  li, dt, dd, th, td, summary, time
+) {
+  font-family: var(--font-app-ethiopic) !important;
+  letter-spacing: normal !important;
+}
+
+body[data-ui-polish="hisab-2026"] :where(h1, h2, h3, h4, h5, h6) {
+  color: var(--ui-text) !important;
+  font-weight: 700 !important;
+  text-wrap: balance;
+}
+
+body[data-ui-polish="hisab-2026"] :where(p, li, dd) {
+  color: var(--ui-text-secondary) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :where(small, time, .muted, .description, .help-text, .field-help, .panel-description) {
+  color: var(--ui-text-muted) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :where(a:not([class*="button"]):not([class*="primary"]):not([class*="start"])) {
+  color: var(--ui-link);
+}
+
+body[data-ui-polish="hisab-2026"] :where(input, textarea)::placeholder {
+  color: var(--ui-text-muted) !important;
+  opacity: 0.78;
+}
+
+/* Public website type scale. */
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 h1 {
+  font-size: clamp(2.4rem, 4.7vw, 4.35rem) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -0.045em !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 h2 {
+  font-size: clamp(1.75rem, 3vw, 2.8rem) !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.035em !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 h3 {
+  font-size: clamp(1.08rem, 1.35vw, 1.32rem) !important;
+  line-height: 1.28 !important;
+  letter-spacing: -0.018em !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :where(p, li) {
+  font-size: clamp(0.96rem, 1vw, 1.04rem) !important;
+  line-height: 1.7 !important;
+}
+
+html:is([data-language="am"], [data-language="ti"]) body[data-ui-polish="hisab-2026"] .marketing-site-v2 :where(h1, h2, h3) {
+  line-height: 1.35 !important;
+  letter-spacing: normal !important;
+}
+
+html:is([data-language="am"], [data-language="ti"]) body[data-ui-polish="hisab-2026"] .marketing-site-v2 :where(p, li) {
+  line-height: 1.82 !important;
+}
+
+/* Workspace type scale. */
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(h1, .page-title, .workspace-page-title) {
+  font-size: clamp(1.72rem, 2.4vw, 2.28rem) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.032em !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace h2 {
+  font-size: clamp(1.22rem, 1.65vw, 1.52rem) !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.022em !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace h3 {
+  font-size: 1.02rem !important;
+  line-height: 1.32 !important;
+  letter-spacing: -0.01em !important;
+}
+
+body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :where(p, li, td, input, select, textarea) {
+  font-size: 0.94rem;
+}
+
+/* Exact colour mapping for authenticated modules. */
+body[data-ui-polish="hisab-2026"][data-workspace-system="financial-os-v1"] {
+  --fin-canvas: var(--ui-canvas);
+  --fin-surface: var(--ui-surface);
+  --fin-surface-subtle: var(--ui-surface-muted);
+  --fin-surface-muted: var(--ui-surface-muted);
+  --fin-border: var(--ui-border);
+  --fin-border-strong: var(--ui-border-strong);
+  --fin-text: var(--ui-text);
+  --fin-text-secondary: var(--ui-text-secondary);
+  --fin-text-muted: var(--ui-text-muted);
+  --fin-text-faint: var(--ui-text-muted);
+  --fin-primary: var(--ui-brand);
+  --fin-primary-hover: var(--ui-brand-hover);
+  --fin-primary-soft: var(--ui-brand-soft);
+  --fin-info: var(--ui-brand);
+  --fin-info-soft: var(--ui-brand-soft);
+  --fin-focus: 0 0 0 3px var(--ui-brand-ring);
+
+  --workspace-page-bg: var(--ui-canvas);
+  --workspace-page: var(--ui-canvas);
+  --workspace-panel: var(--ui-surface);
+  --workspace-surface: var(--ui-surface);
+  --workspace-panel-muted: var(--ui-surface-muted);
+  --workspace-soft: var(--ui-surface-muted);
+  --workspace-border: var(--ui-border);
+  --workspace-line: var(--ui-border);
+  --workspace-text: var(--ui-text);
+  --workspace-ink: var(--ui-text);
+  --workspace-muted: var(--ui-text-muted);
+  --workspace-brand: var(--ui-brand);
+  --workspace-brand-strong: var(--ui-brand-strong);
+  --workspace-brand-soft: var(--ui-brand-soft);
+  --workspace-teal: var(--ui-brand);
+}
+
+/* Headers and menus must change surface and text together. */
+body[data-ui-polish="hisab-2026"] :is(.marketing-nav, .mobile-workspace-header, .mobile-bottom-nav) {
+  border-color: var(--ui-border) !important;
+  background: color-mix(in srgb, var(--ui-surface) 96%, transparent) !important;
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :is(.marketing-nav, .mobile-workspace-header, .mobile-bottom-nav) :where(a, button, strong, small, span) {
+  color: inherit;
+}
+
+body[data-ui-polish="hisab-2026"] :is(.language-icon-menu, .marketing-mobile-menu-panel, .sticky-user-popover) {
+  border-color: var(--ui-border) !important;
+  background: var(--ui-surface-raised) !important;
+  color: var(--ui-text) !important;
+}
+
+/* Cards, forms and tables use the same semantic surfaces in both themes. */
+body[data-ui-polish="hisab-2026"] :is(
+  .marketing-site-v2,
+  .auth-page,
+  .auth-premium-page,
+  .auth-official-page,
+  .guided-setup-page,
+  .erp-shell,
+  .erp-shell > .workspace
+) {
+  background-color: var(--ui-canvas) !important;
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :is(
+  .auth-slack-panel,
+  .auth-card,
+  .premium-auth-card,
+  .auth-official-card,
+  .panel,
+  .data-panel,
+  .metric-card,
+  .module-card,
+  .account-card,
+  .einvoice-panel,
+  .recon-panel,
+  .workspace-section,
+  .workspace-metric-tile
+) {
+  border-color: var(--ui-border) !important;
+  background: var(--ui-surface) !important;
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :where(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), select, textarea) {
+  border-color: var(--ui-border) !important;
+  background: var(--ui-surface-muted) !important;
+  color: var(--ui-text) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :where(input, select, textarea):focus {
+  border-color: var(--ui-brand) !important;
+  box-shadow: 0 0 0 4px var(--ui-brand-ring) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :where(
+  .marketing-start,
+  .auth-submit,
+  .auth-primary-button,
+  .auth-slack-primary,
+  button.primary,
+  button[type="submit"],
+  .action-link.primary,
+  .save-button,
+  .create-button
+) {
+  border-color: var(--ui-brand) !important;
+  background: var(--ui-brand) !important;
+  color: var(--ui-brand-contrast) !important;
+}
+
+body[data-ui-polish="hisab-2026"] :where(
+  .marketing-start,
+  .auth-submit,
+  .auth-primary-button,
+  .auth-slack-primary,
+  button.primary,
+  button[type="submit"],
+  .action-link.primary,
+  .save-button,
+  .create-button
+):hover {
+  border-color: var(--ui-brand-hover) !important;
+  background: var(--ui-brand-hover) !important;
+  color: #ffffff !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-footer {
+  border-top-color: #3b2c27 !important;
+  background: var(--hisab-logo-charcoal) !important;
+  color: var(--ui-on-dark) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-footer :where(h1, h2, h3, h4, strong, b) {
+  color: var(--ui-on-dark) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-footer :where(p, a, span, small) {
+  color: var(--ui-on-dark-secondary) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-footer a:hover {
+  color: var(--hisab-terracotta-pale) !important;
+}
+
+/* Dark presentation sections remain intentionally charcoal in either mode. */
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.marketing-dark-section, .marketing-dark-section-v2) {
+  border-color: #3b2c27 !important;
+  background: var(--hisab-logo-charcoal) !important;
+  color: var(--ui-on-dark) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.marketing-dark-section, .marketing-dark-section-v2) :where(h1, h2, h3, strong, b) {
+  color: var(--ui-on-dark) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.marketing-dark-section, .marketing-dark-section-v2) :where(p, li, small, span) {
+  color: var(--ui-on-dark-secondary) !important;
+}
+
+@media (max-width: 760px) {
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 h1 {
+    font-size: clamp(2.1rem, 10vw, 3.05rem) !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 h2 {
+    font-size: clamp(1.6rem, 7vw, 2.18rem) !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .erp-shell > .workspace :is(h1, .page-title, .workspace-page-title) {
+    font-size: clamp(1.55rem, 7vw, 1.95rem) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-ui-polish="hisab-2026"] *,
+  body[data-ui-polish="hisab-2026"] *::before,
+  body[data-ui-polish="hisab-2026"] *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
