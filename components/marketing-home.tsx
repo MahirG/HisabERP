@@ -123,6 +123,15 @@ export function MarketingHome() {
         </div>
       </section>
 
+      <section className="home-implementation-resources">
+        <div className="marketing-section-heading marketing-section-heading-wide"><span>Move, evaluate and learn</span><h2>A clearer path from the current system to confident daily use.</h2><p>Prepare source data, compare operating approaches and give the team practical documentation before the first live transaction.</p></div>
+        <div className="home-implementation-resource-grid">
+          <Link href="/migration"><span>Data migration</span><strong>Control the transition</strong><small>Use templates, dry runs, reconciliation and named business approval to move from spreadsheets, notebooks or other software.</small><b>Open migration center →</b></Link>
+          <Link href="/compare"><span>ERP comparisons</span><strong>Evaluate the operating model</strong><small>Compare HisabERP with Excel, notebooks, disconnected tools, desktop software and larger enterprise ERP suites.</small><b>Compare approaches →</b></Link>
+          <Link href="/help-center"><span>Help Center</span><strong>Guide the next action</strong><small>Search practical setup, sales, inventory, finance, security, reconciliation and cutover guides.</small><b>Browse documentation →</b></Link>
+        </div>
+      </section>
+
       <section className="marketing-dark-section marketing-dark-section-v2">
         <div className="marketing-dark-copy">
           <span>From activity to action</span>
@@ -146,7 +155,7 @@ export function MarketingHome() {
       <section className="marketing-how" id="how">
         <div className="marketing-section-heading"><span>Implementation journey</span><h2>Launch a professional workspace in three clear stages.</h2><p>HisabERP is designed to move a business from setup to daily use and management reporting without unnecessary complexity.</p></div>
         <div className="marketing-step-grid">{steps.map((step)=><article key={step.number}><span>{step.number}</span><h3>{step.title}</h3><p>{step.text}</p></article>)}</div>
-        <div className="marketing-centered-action"><Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start setting up your business</Link></div>
+        <div className="marketing-centered-action"><Link href="/migration" className="marketing-start marketing-large">Plan the implementation</Link></div>
       </section>
 
       <section className="marketing-cta marketing-cta-v2">
