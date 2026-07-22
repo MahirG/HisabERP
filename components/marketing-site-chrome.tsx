@@ -1,7 +1,5 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { marketingIndustries } from "../lib/marketing-industries";
-import { marketingModules } from "../lib/marketing-modules";
 
 export function MarketingHeader() {
   return (
@@ -12,10 +10,12 @@ export function MarketingHeader() {
       </Link>
       <nav aria-label="Main navigation">
         <Link href="/product-tour">Product tour</Link>
-        <Link href="/#modules">Modules</Link>
         <Link href="/ethiopia">For Ethiopia</Link>
         <Link href="/industries">Industries</Link>
         <Link href="/pricing">Pricing</Link>
+        <Link href="/customer-stories">Customer proof</Link>
+        <Link href="/trust">Trust</Link>
+        <Link href="/integrations">Integrations</Link>
       </nav>
       <div className="marketing-nav-actions">
         <Link href="/auth/login" className="marketing-signin">Sign in</Link>
@@ -40,18 +40,20 @@ export function MarketingFooter() {
           <a href="tel:+251924093037">+251 924 093 037</a>
         </div>
         <div>
-          <strong>Explore</strong>
+          <strong>Product and market</strong>
           <Link href="/product-tour">Interactive product tour</Link>
+          <Link href="/#modules">Product modules</Link>
           <Link href="/ethiopia">ERP built for Ethiopia</Link>
           <Link href="/industries">Industry solutions</Link>
           <Link href="/pricing">Pricing in ETB</Link>
-          <Link href="/request-demo">Request a demo</Link>
         </div>
         <div>
-          <strong>Popular modules</strong>
-          {marketingModules.slice(0, 4).map((module) => <Link href={`/product/${module.slug}`} key={module.slug}>{module.shortTitle}</Link>)}
-          <strong className="marketing-footer-subheading">Popular industries</strong>
-          {marketingIndustries.slice(0, 3).map((industry) => <Link href={`/industries/${industry.slug}`} key={industry.slug}>{industry.shortTitle}</Link>)}
+          <strong>Trust and connectivity</strong>
+          <Link href="/customer-stories">Customer proof</Link>
+          <Link href="/trust">Trust Center</Link>
+          <Link href="/integrations">Integrations</Link>
+          <Link href="/request-demo">Request a demo</Link>
+          <a href="mailto:mahir@hisabtech.com?subject=HisabERP%20security%20question">Security contact</a>
         </div>
         <div>
           <strong>Account</strong>

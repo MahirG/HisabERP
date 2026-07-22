@@ -114,6 +114,15 @@ export function MarketingHome() {
         <div className="marketing-centered-action"><Link href="/pricing" className="marketing-start marketing-large">View complete pricing</Link></div>
       </section>
 
+      <section className="home-proof-trust-section">
+        <div className="marketing-section-heading marketing-section-heading-wide"><span>Proof, trust and connectivity</span><h2>Evaluate more than the interface.</h2><p>Inspect how customer evidence is verified, which security controls are implemented and which integrations are available, configurable, in beta or planned.</p></div>
+        <div className="home-proof-trust-grid">
+          <Link href="/customer-stories"><span>Customer proof</span><strong>Evidence before promotion</strong><small>See the reference customer standard and the measurable pilot programs open to Ethiopian businesses.</small><b>Review customer proof →</b></Link>
+          <Link href="/trust"><span>Trust Center</span><strong>Specific security controls</strong><small>Review administrator MFA, audit evidence, security headers, continuity controls and honest limitations.</small><b>Open the Trust Center →</b></Link>
+          <Link href="/integrations"><span>Integrations</span><strong>Clear availability statuses</strong><small>Understand what works today, what requires provider configuration, what is in beta and what remains planned.</small><b>Explore integrations →</b></Link>
+        </div>
+      </section>
+
       <section className="marketing-dark-section marketing-dark-section-v2">
         <div className="marketing-dark-copy">
           <span>From activity to action</span>
