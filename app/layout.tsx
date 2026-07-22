@@ -59,6 +59,7 @@ import "./auth-page-preferences.css";
 import "./header-only-preferences.css";
 import "./official-brand.css";
 import "./strict-brand.css";
+import "./brand-final-lock.css";
 
 export const metadata: Metadata = {
   title: { default: "HisabTech", template: "%s | HisabTech" },
