@@ -1,6 +1,6 @@
 {
-  "release": "a9508e512512b9bdfab487a036d64eca2b3512bb",
+  "release": "932ff1bb46f13c3db44a2d3d346555474e0f0109",
   "environment": "production",
-  "deployedAt": "2026-07-22T12:20:00Z",
-  "description": "HisabTech complete public CDN release with prerendered marketing pages, lightweight navigation progress, and info@hisabtech.com across public contact surfaces"
+  "deployedAt": "2026-07-22T14:07:25Z",
+  "description": "HisabTech mobile speed release with direct public first paint, reduced global font payload, lazy Amharic translation loading, and mobile rendering safeguards"
 }
