@@ -1,6 +1,6 @@
 {
   "release": "6d70a5fbc2791480ddf898329115a2c9704659c5",
   "environment": "production",
-  "deployedAt": "2026-07-22T14:59:07Z",
-  "description": "Complete HisabTech production release with pre-hydration mobile controls, standard public and workspace mobile headers, and final terracotta-charcoal branding across Electronic Invoicing, reconciliation, finance, account, and remaining operational modules"
+  "deployedAt": "2026-07-22T18:55:21Z",
+  "description": "Canonical HisabTech production release containing all previously completed non-billing work: performance and CDN improvements, mobile first paint, native mobile language/theme/menu controls, standardized public and workspace headers, complete terracotta-charcoal branding, authentication and workspace improvements, and operational modules including Electronic Invoicing and reconciliation"
 }
