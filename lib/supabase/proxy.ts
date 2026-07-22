@@ -32,6 +32,13 @@ const publicPageRoutes = new Set([
   "/auth/confirm",
 ]);
 
+const publicAssetRoutes = new Set([
+  "/manifest.webmanifest",
+  "/robots.txt",
+  "/sitemap.xml",
+  "/release.json",
+]);
+
 const publicPagePrefixes = ["/product/", "/industries/", "/compare/", "/help-center/", "/resources/"];
 const authenticatedMarketingRoutes = new Set(["/request-demo", "/product-tour", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about"]);
 
@@ -42,7 +49,7 @@ const publicApiRoutes = new Set([
 ]);
 
 function isPublicPath(path: string) {
-  return publicPageRoutes.has(path) || publicPagePrefixes.some((prefix) => path.startsWith(prefix)) || publicApiRoutes.has(path);
+  return publicPageRoutes.has(path) || publicAssetRoutes.has(path) || publicPagePrefixes.some((prefix) => path.startsWith(prefix)) || publicApiRoutes.has(path);
 }
 
 function loginRedirect(request: NextRequest) {

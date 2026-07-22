@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import type { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AppExperienceProvider } from "../components/app-experience-provider";
@@ -67,7 +67,10 @@ import "./auth-page-preferences.css";
 import "./header-only-preferences.css";
 import "./official-brand.css";
 import "./strict-brand.css";
+import "./brand-audit-fixes.css";
 import "./brand-final-lock.css";
+
+const themeBootstrap = `(function(){try{var stored=window.localStorage.getItem("hisab-theme");var theme=stored==="dark"||stored==="light"?stored:(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.dataset.theme=theme;document.documentElement.style.colorScheme=theme;document.cookie="hisab_theme="+theme+"; Path=/; Max-Age=31536000; SameSite=Lax";}catch(error){}})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.hisabtech.com"),
@@ -88,8 +91,25 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 5, viewportFit: "cover", themeColor: "#DA7757", colorScheme: "light dark" };
 
 export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  const [cookieStore, user] = await Promise.all([cookies(), getCurrentUserContext()]);
-  const saved = cookieStore.get("hisab_locale")?.value;
-  const initialLanguage: Language = saved === "am" ? "am" : "en";
-  return <html lang={initialLanguage} data-language={initialLanguage} data-theme="light" suppressHydrationWarning><body data-design-system="hisab-v1" data-workspace-system="financial-os-v1"><LanguageProvider initialLanguage={initialLanguage}><AppExperienceProvider><AuthPagePreferences/><WorkspaceShell user={user}>{children}</WorkspaceShell></AppExperienceProvider></LanguageProvider><SpeedInsights /></body></html>;
+  const [cookieStore, headerStore, user] = await Promise.all([cookies(), headers(), getCurrentUserContext()]);
+  const savedLanguage = cookieStore.get("hisab_locale")?.value;
+  const initialLanguage: Language = savedLanguage === "am" ? "am" : "en";
+  const savedTheme = cookieStore.get("hisab_theme")?.value;
+  const initialTheme = savedTheme === "dark" ? "dark" : "light";
+  const nonce = headerStore.get("x-nonce") ?? undefined;
+
+  return (
+    <html lang={initialLanguage} data-language={initialLanguage} data-theme={initialTheme} suppressHydrationWarning>
+      <head><script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head>
+      <body data-design-system="hisab-v1" data-workspace-system="financial-os-v1">
+        <LanguageProvider initialLanguage={initialLanguage}>
+          <AppExperienceProvider>
+            <AuthPagePreferences />
+            <WorkspaceShell user={user}>{children}</WorkspaceShell>
+          </AppExperienceProvider>
+        </LanguageProvider>
+        <SpeedInsights />
+      </body>
+    </html>
+  );
 }
