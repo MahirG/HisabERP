@@ -76,7 +76,7 @@ const websiteCopy = {
     aboutHisab: "ስለ HisabTech",
     trustCenter: "የእምነት ማዕከል",
     integrations: "ውህደቶች",
-    securityContact: "የደህንነት ግንኙነት",
+    securityContact: "የደህነት ግንኙነት",
     rights: "መብቶቹ ሁሉ የተጠበቁ ናቸው።",
     location: "አዲስ አበባ፣ ኢትዮጵያ",
     conversionEyebrow: "የበለጠ ግልጽ የንግድ ምስል ይፈልጋሉ?",
@@ -104,7 +104,7 @@ function MarketingStructuredData() {
       name: "Hisab Technologies",
       url: "https://www.hisabtech.com",
       logo: "https://www.hisabtech.com/hisab-logo.svg",
-      email: "mahir@hisabtech.com",
+      email: "info@hisabtech.com",
       telephone: "+251924093037",
       address: { "@type": "PostalAddress", addressLocality: "Addis Ababa", addressCountry: "ET" },
     },
@@ -162,11 +162,11 @@ export function MarketingFooter() {
       <div className="marketing-footer-top">
         <div>
           <Link href="/" className="marketing-brand marketing-footer-brand"><img src="/hisab-logo.svg" alt="" width="44" height="44" className="hisab-logo" /><span className="marketing-brand-copy"><strong>HisabTech</strong><small>HisabERP</small></span></Link>
-          <p>{c.footerIntro}</p><a href="mailto:mahir@hisabtech.com">mahir@hisabtech.com</a><a href="tel:+251924093037">+251 924 093 037</a>
+          <p>{c.footerIntro}</p><a href="mailto:info@hisabtech.com">info@hisabtech.com</a><a href="tel:+251924093037">+251 924 093 037</a>
         </div>
         <div><strong>{c.productMarket}</strong><Link href="/product-tour">{c.product}</Link><Link href="/#modules">{c.modules}</Link><Link href="/ethiopia">{c.ethiopia}</Link><Link href="/industries">{c.industrySolutions}</Link><Link href="/pricing">{c.pricingEtb}</Link></div>
         <div><strong>{c.learnImplement}</strong><Link href="/resources">{c.learningCenter}</Link><Link href="/migration">{c.dataMigration}</Link><Link href="/compare">{c.comparisons}</Link><Link href="/help-center">{c.helpCenter}</Link><Link href="/customer-stories">{c.customerProof}</Link></div>
-        <div><strong>{c.companyTrust}</strong><Link href="/about">{c.aboutHisab}</Link><Link href="/trust">{c.trustCenter}</Link><Link href="/integrations">{c.integrations}</Link><Link href="/auth/login">{c.signIn}</Link><a href="mailto:mahir@hisabtech.com?subject=HisabERP%20security%20question">{c.securityContact}</a></div>
+        <div><strong>{c.companyTrust}</strong><Link href="/about">{c.aboutHisab}</Link><Link href="/trust">{c.trustCenter}</Link><Link href="/integrations">{c.integrations}</Link><Link href="/auth/login">{c.signIn}</Link><a href="mailto:info@hisabtech.com?subject=HisabERP%20security%20question">{c.securityContact}</a></div>
       </div>
       <div className="marketing-footer-bottom"><span>© {new Date().getFullYear()} Hisab Technologies. {c.rights}</span><span>{c.location}</span></div>
     </footer>
