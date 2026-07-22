@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { marketingIndustries } from "../lib/marketing-industries";
 import { marketingModules } from "../lib/marketing-modules";
+import { pricingPlans } from "../lib/marketing-pricing";
 import { MarketingPageShell } from "./marketing-site-chrome";
 import { ProductTourExperience } from "./product-tour-experience";
 
@@ -43,6 +45,8 @@ function HeroWorkspace() {
 }
 
 export function MarketingHome() {
+  const homepageIndustries = marketingIndustries.slice(0, 6);
+  const homepagePlans = pricingPlans.slice(0, 3);
   return (
     <MarketingPageShell>
       <section className="marketing-hero marketing-hero-v2">
@@ -91,6 +95,23 @@ export function MarketingHome() {
         </div>
         <ProductTourExperience compact />
         <div className="marketing-centered-action"><Link href="/product-tour" className="marketing-demo marketing-large">Open the complete product tour</Link></div>
+      </section>
+
+      <section className="home-local-section">
+        <div><span className="marketing-eyebrow">ERP built for Ethiopia</span><h2>Local context is part of the product—not an afterthought.</h2><p>HisabERP brings Ethiopian birr, English and Amharic access, mobile-ready workflows, local implementation support and business structures into one operating experience.</p><div className="marketing-hero-actions"><Link href="/ethiopia" className="marketing-start marketing-large">Why HisabERP for Ethiopia</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a local demo</Link></div></div>
+        <div className="home-local-grid"><article><span>01</span><strong>ETB-first records</strong><small>Transactions, balances and reports centered on Ethiopian birr.</small></article><article><span>02</span><strong>Multilingual access</strong><small>English and Amharic across core product experiences.</small></article><article><span>03</span><strong>Mobile-ready workflows</strong><small>Responsive access for teams working beyond a single office desk.</small></article><article><span>04</span><strong>Addis Ababa support</strong><small>Local product evaluation, setup and implementation context.</small></article></div>
+      </section>
+
+      <section className="home-industry-section">
+        <div className="marketing-section-heading marketing-section-heading-wide"><span>Industry solutions</span><h2>See the product through a workflow your team already understands.</h2><p>Explore focused operating models for different Ethiopian industries, with the modules, metrics and daily controls that matter most.</p></div>
+        <div className="home-industry-grid">{homepageIndustries.map((industry)=><Link href={`/industries/${industry.slug}`} key={industry.slug}><span>{industry.number}</span><strong>{industry.shortTitle}</strong><small>{industry.summary}</small><b>View solution →</b></Link>)}</div>
+        <div className="marketing-centered-action"><Link href="/industries" className="marketing-demo marketing-large">Explore all industries</Link></div>
+      </section>
+
+      <section className="home-pricing-section">
+        <div className="marketing-section-heading marketing-section-heading-wide"><span>Transparent ETB pricing</span><h2>Start with the plan that matches the business today.</h2><p>Compare published launch pricing, included users, branch capacity and product scope before requesting implementation.</p></div>
+        <div className="home-pricing-grid">{homepagePlans.map((plan)=><article className={plan.badge?"featured":undefined} key={plan.name}><span>{plan.badge || plan.name}</span><h3>{plan.name}</h3><strong>{plan.monthlyEtb ? `ETB ${plan.monthlyEtb.toLocaleString("en-US")} / month` : "Custom pricing"}</strong><p>{plan.description}</p><Link href="/pricing">Compare plan details →</Link></article>)}</div>
+        <div className="marketing-centered-action"><Link href="/pricing" className="marketing-start marketing-large">View complete pricing</Link></div>
       </section>
 
       <section className="marketing-dark-section marketing-dark-section-v2">

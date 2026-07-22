@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { marketingIndustries } from "../lib/marketing-industries";
 import { marketingModules } from "../lib/marketing-modules";
 
 export function MarketingHeader() {
@@ -12,8 +13,9 @@ export function MarketingHeader() {
       <nav aria-label="Main navigation">
         <Link href="/product-tour">Product tour</Link>
         <Link href="/#modules">Modules</Link>
-        <Link href="/#benefits">Benefits</Link>
-        <Link href="/#how">How it works</Link>
+        <Link href="/ethiopia">For Ethiopia</Link>
+        <Link href="/industries">Industries</Link>
+        <Link href="/pricing">Pricing</Link>
       </nav>
       <div className="marketing-nav-actions">
         <Link href="/auth/login" className="marketing-signin">Sign in</Link>
@@ -40,13 +42,16 @@ export function MarketingFooter() {
         <div>
           <strong>Explore</strong>
           <Link href="/product-tour">Interactive product tour</Link>
-          <Link href="/#modules">Product modules</Link>
-          <Link href="/#benefits">Why HisabERP</Link>
+          <Link href="/ethiopia">ERP built for Ethiopia</Link>
+          <Link href="/industries">Industry solutions</Link>
+          <Link href="/pricing">Pricing in ETB</Link>
           <Link href="/request-demo">Request a demo</Link>
         </div>
         <div>
           <strong>Popular modules</strong>
-          {marketingModules.slice(0, 5).map((module) => <Link href={`/product/${module.slug}`} key={module.slug}>{module.shortTitle}</Link>)}
+          {marketingModules.slice(0, 4).map((module) => <Link href={`/product/${module.slug}`} key={module.slug}>{module.shortTitle}</Link>)}
+          <strong className="marketing-footer-subheading">Popular industries</strong>
+          {marketingIndustries.slice(0, 3).map((industry) => <Link href={`/industries/${industry.slug}`} key={industry.slug}>{industry.shortTitle}</Link>)}
         </div>
         <div>
           <strong>Account</strong>
