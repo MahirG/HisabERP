@@ -67,6 +67,7 @@ import "./auth-page-preferences.css";
 import "./header-only-preferences.css";
 import "./official-brand.css";
 import "./strict-brand.css";
+import "./brand-loading.css";
 import "./brand-audit-fixes.css";
 import "./brand-final-lock.css";
 
