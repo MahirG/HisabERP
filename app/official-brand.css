@@ -106,17 +106,19 @@ body{accent-color:var(--hisab-brand)}
 .marketing-footer-top a{color:#cbb7af}
 .marketing-footer-top a:hover{color:#f0a185}
 
-/* Authentication. */
+/* Authentication. The existing H fallback remains in markup, but the official logo is rendered visually. */
 .auth-hisab-mark{
   display:block;
   width:40px;
   height:40px;
   flex:0 0 40px;
-  object-fit:contain;
+  overflow:hidden;
   padding:2px;
   border:1px solid rgba(218,119,87,.24);
   border-radius:11px;
-  background:#fff6f1;
+  background:#fff6f1 url('/hisab-logo.svg') center/88% no-repeat!important;
+  color:transparent!important;
+  font-size:0!important;
   box-shadow:0 8px 20px rgba(181,90,63,.16);
 }
 .auth-hisab-mark::after{display:none!important}
@@ -124,11 +126,22 @@ body{accent-color:var(--hisab-brand)}
 .auth-slack-primary:hover,.auth-primary-button:hover{background:var(--hisab-brand-strong)!important;color:#fff!important}
 .auth-slack-brand strong{color:var(--hisab-charcoal)}
 html[data-theme="dark"] .auth-slack-brand strong{color:#fff8f4}
-html[data-theme="dark"] .auth-hisab-mark{background:#fff6f1;border-color:rgba(240,161,133,.45)}
+html[data-theme="dark"] .auth-hisab-mark{background-color:#fff6f1!important;border-color:rgba(240,161,133,.45)}
 
 /* Authenticated workspace and mobile shell. */
 .sidebar,.supabase-sidebar{background:#171717!important}
-.brand>span{background:var(--hisab-brand)!important;color:var(--hisab-charcoal)!important}
+.brand>span,
+.mobile-workspace-brand>span{
+  display:block!important;
+  overflow:hidden;
+  background:#fff6f1 url('/hisab-logo.svg') center/88% no-repeat!important;
+  color:transparent!important;
+  font-size:0!important;
+  border:1px solid rgba(218,119,87,.28)!important;
+  box-shadow:0 8px 18px rgba(0,0,0,.18);
+}
+.brand>span{width:42px!important;height:42px!important;border-radius:12px!important;flex:0 0 42px}
+.mobile-workspace-brand>span{width:34px!important;height:34px!important;border-radius:9px!important}
 .brand>.hisab-logo{width:42px;height:42px;padding:3px;border-radius:12px;background:#fff6f1}
 .mobile-workspace-brand .hisab-logo{width:34px;height:34px;padding:2px;border-radius:9px;background:#fff6f1}
 .sidebar nav a:hover,.sidebar nav a.active{background:rgba(218,119,87,.14)!important;color:#fff!important}
