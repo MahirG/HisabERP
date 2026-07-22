@@ -41,6 +41,24 @@ function money(value: string | null) {
   return new Intl.NumberFormat("en-ET", { style: "currency", currency: "ETB", maximumFractionDigits: 2 }).format(Number.isFinite(amount) ? amount : 0);
 }
 
+function BrandLoader({ title, detail }: { title: string; detail: string }) {
+  return (
+    <div className="experience-loader-card brand-loader-card">
+      <div className="brand-loader-mark" aria-hidden="true">
+        <span className="brand-loader-ring" />
+        <span className="brand-loader-logo-shell">
+          <img src="/hisab-logo.svg" alt="" width="48" height="48" decoding="async" />
+        </span>
+      </div>
+      <div className="brand-loader-copy">
+        <strong>{title}</strong>
+        <span>{detail}</span>
+      </div>
+      <div className="brand-loader-progress" aria-hidden="true"><span /></div>
+    </div>
+  );
+}
+
 export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const { language } = useLanguage();
@@ -140,12 +158,8 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
     <>
       {children}
       {busy && (
-        <div className="experience-overlay" role="status" aria-live="polite" aria-label={copy.loading}>
-          <div className="experience-loader-card">
-            <div className="hisab-orbit-loader" aria-hidden="true"><i /><i /><b>H</b></div>
-            <strong>{copy.loading}</strong>
-            <span>{copy.loadingDetail}</span>
-          </div>
+        <div className="experience-overlay brand-route-loading" role="status" aria-live="polite" aria-atomic="true" aria-label={copy.loading}>
+          <BrandLoader title={copy.loading} detail={copy.loadingDetail} />
         </div>
       )}
       {toast && (
