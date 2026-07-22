@@ -12,6 +12,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/ethiopia", priority: 0.9, changeFrequency: "monthly" as const },
     { path: "/industries", priority: 0.9, changeFrequency: "monthly" as const },
     { path: "/pricing", priority: 0.9, changeFrequency: "monthly" as const },
+    { path: "/customer-stories", priority: 0.85, changeFrequency: "monthly" as const },
+    { path: "/trust", priority: 0.85, changeFrequency: "monthly" as const },
+    { path: "/integrations", priority: 0.85, changeFrequency: "monthly" as const },
     { path: "/request-demo", priority: 0.8, changeFrequency: "monthly" as const },
   ];
 
