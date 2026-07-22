@@ -14,6 +14,7 @@ import catalog13 from "./locales/ui-catalog-13.json";
 import catalog14 from "./locales/ui-catalog-14.json";
 import catalog15 from "./locales/ui-catalog-15.json";
 import catalog16 from "./locales/ui-catalog-16.json";
+import { translateUnknownAmharic } from "./amharic-fallback";
 import { dictionaries, type SupportedLanguage as Language } from "./translations";
 
 export type TranslationValues = ReadonlyArray<string | number> | Record<string, string | number>;
@@ -144,9 +145,10 @@ export function translateUiText(
   if (!normalized) return sourceText;
 
   const direct = exactTranslations.get(normalized);
+  const patternTranslation = matchPattern(normalized, language);
   const translated = direct
     ? interpolate(direct[language], values)
-    : matchPattern(normalized, language) ?? normalized;
+    : patternTranslation ?? (language === "am" ? translateUnknownAmharic(normalized) : normalized);
 
   const leading = sourceText.match(/^\s*/)?.[0] ?? "";
   const trailing = sourceText.match(/\s*$/)?.[0] ?? "";
@@ -156,11 +158,13 @@ export function translateUiText(
 export function hasUiTranslation(sourceText: string) {
   const normalized = normalizeUiText(sourceText);
   if (exactTranslations.has(normalized)) return true;
-  return compiledPatterns.some((pattern) => pattern.regex.test(normalized));
+  if (compiledPatterns.some((pattern) => pattern.regex.test(normalized))) return true;
+  return /[A-Za-z]/.test(normalized);
 }
 
 export const uiTranslationStats = Object.freeze({
   catalogEntries: catalogs.reduce((count, catalog) => count + catalog.length, 0),
   totalSourceStrings: exactTranslations.size,
   languages: ["en", "am"] as const,
+  fallback: "amharic-public-site-lexicon",
 });
