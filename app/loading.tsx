@@ -10,12 +10,22 @@ const copy = {
 
 export default function Loading() {
   const { language } = useLanguage();
+  const [title, description] = copy[language];
+
   return (
-    <main className="route-loading" role="status" aria-live="polite">
-      <div className="experience-loader-card">
-        <div className="hisab-orbit-loader" aria-hidden="true"><i /><i /><b>H</b></div>
-        <strong>{copy[language][0]}</strong>
-        <span>{copy[language][1]}</span>
+    <main className="route-loading brand-route-loading" role="status" aria-live="polite" aria-atomic="true">
+      <div className="experience-loader-card brand-loader-card">
+        <div className="brand-loader-mark" aria-hidden="true">
+          <span className="brand-loader-ring" />
+          <span className="brand-loader-logo-shell">
+            <img src="/hisab-logo.svg" alt="" width="48" height="48" decoding="async" />
+          </span>
+        </div>
+        <div className="brand-loader-copy">
+          <strong>{title}</strong>
+          <span>{description}</span>
+        </div>
+        <div className="brand-loader-progress" aria-hidden="true"><span /></div>
       </div>
     </main>
   );
