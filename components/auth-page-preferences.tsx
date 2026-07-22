@@ -8,10 +8,13 @@ export function AuthPagePreferences() {
   const pathname = usePathname();
   const { language } = useLanguage();
   const isAuthRoute = pathname === "/auth" || pathname.startsWith("/auth/");
+  const isStandaloneRoute = pathname === "/onboarding" || pathname.startsWith("/onboarding/");
 
-  if (!isAuthRoute) return null;
+  if (!isAuthRoute && !isStandaloneRoute) return null;
 
-  const label = language === "am" ? "የመግቢያ ገጽ ምርጫዎች" : "Authentication page preferences";
+  const label = language === "am"
+    ? (isAuthRoute ? "የመግቢያ ገጽ ምርጫዎች" : "የገጽ ምርጫዎች")
+    : (isAuthRoute ? "Authentication page preferences" : "Page preferences");
 
   return (
     <div className="auth-page-preferences global-preference-icons" aria-label={label}>
