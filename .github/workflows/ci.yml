@@ -22,8 +22,6 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm ci --no-audit --no-fund
-      - name: Production dependency audit
-        run: npm run audit:production
       - name: Localization coverage
         id: localization
         run: npm run i18n:check 2>&1 | tee localization.log
@@ -80,3 +78,5 @@ jobs:
           name: production-build-diagnostics
           path: production-build.log
           retention-days: 3
+      - name: Production dependency audit
+        run: npm run audit:production
