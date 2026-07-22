@@ -6,9 +6,6 @@ import { AppExperienceProvider } from "../components/app-experience-provider";
 import { AuthPagePreferences } from "../components/auth-page-preferences";
 import { LanguageProvider } from "../components/language-provider";
 import { WorkspaceShell } from "../components/workspace-shell";
-import "./font-benaiah-1.css";
-import "./font-benaiah-2.css";
-import "./font-benaiah-3.css";
 import "./fonts.css";
 import "./globals.css";
 import "./design-system.css";
@@ -73,6 +70,7 @@ import "./public-visual-system.css";
 import "./global-preferences-icons.css";
 import "./brand-hamburger-menu.css";
 import "./third-party-brand-colors.css";
+import "./mobile-first-paint.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
