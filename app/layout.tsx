@@ -80,6 +80,7 @@ import "./brand-typography-color-lock.css";
 import "./sticky-header-lock.css";
 import "./surface-uniformity-lock.css";
 import "./auth-standard-experience.css";
+import "./workspace-theme-visibility.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
