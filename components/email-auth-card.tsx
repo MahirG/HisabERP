@@ -1,30 +1,73 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-export function EmailAuthCard({ title, description, children, footer }: { title: string; description: string; children: ReactNode; footer?: ReactNode }) {
+type EmailAuthCardProps = {
+  title: string;
+  description: string;
+  children: ReactNode;
+  footer?: ReactNode;
+  eyebrow?: string;
+  badge?: string;
+  showcaseTitle?: string;
+  showcaseDescription?: string;
+};
+
+export function EmailAuthCard({
+  title,
+  description,
+  children,
+  footer,
+  eyebrow = "HisabTech secure access",
+  badge = "Protected business workspace",
+  showcaseTitle = "Run your business from one trusted workspace.",
+  showcaseDescription = "Keep sales, finance, inventory and reporting connected with secure, role-aware access.",
+}: EmailAuthCardProps) {
   return (
-    <main className="auth-page auth-premium-page auth-official-page auth-official-email-card">
-      <section className="auth-shell auth-official-shell">
-        <aside className="auth-showcase auth-official-showcase">
-          <Link href="/" className="auth-showcase-brand auth-official-brand"><img src="/hisab-logo.svg" alt="" width="40" height="40" className="hisab-logo"/><strong>HisabTech</strong></Link>
-          <div className="auth-showcase-content">
-            <span className="auth-badge auth-official-badge"><i/> Secure business identity</span>
-            <h2>One trusted account for every company you manage.</h2>
-            <p>Use verified access, protected sessions and clear recovery flows across your HisabTech workspace.</p>
-            <div className="auth-benefits auth-official-benefits">
-              <div><span className="benefit-icon" aria-hidden="true">✓</span><strong>Verified access</strong><small>Email confirmation and secure account recovery.</small></div>
-              <div><span className="benefit-icon" aria-hidden="true">◫</span><strong>Controlled workspace</strong><small>Role-aware access to organization records.</small></div>
-            </div>
+    <main className="auth-page auth-premium-page auth-official-page auth-standard-page">
+      <section className="auth-standard-shell">
+        <aside className="auth-standard-showcase" aria-label="HisabTech product introduction">
+          <Link href="/" className="auth-standard-brand" aria-label="HisabTech home">
+            <img src="/hisab-logo.svg" alt="" width="44" height="44" className="hisab-logo" />
+            <span><strong>HisabTech</strong><small>Business operating system</small></span>
+          </Link>
+
+          <div className="auth-standard-showcase-copy">
+            <span className="auth-standard-badge"><i aria-hidden="true" />{badge}</span>
+            <h2>{showcaseTitle}</h2>
+            <p>{showcaseDescription}</p>
+            <ul className="auth-standard-benefits">
+              <li><span aria-hidden="true">✓</span><div><strong>Secure by design</strong><small>Verified identity, protected sessions and reliable recovery.</small></div></li>
+              <li><span aria-hidden="true">✓</span><div><strong>Built for Ethiopia</strong><small>Localized workflows for growing Ethiopian organizations.</small></div></li>
+              <li><span aria-hidden="true">✓</span><div><strong>Your data stays connected</strong><small>Move between devices without losing business context.</small></div></li>
+            </ul>
           </div>
-          <div className="auth-showcase-footer"><span>●</span>HisabTech identity and access</div>
+
+          <p className="auth-standard-trust"><span aria-hidden="true">●</span> Encrypted connection · Role-aware access</p>
         </aside>
-        <section className="auth-card auth-form-panel auth-official-form-panel">
-          <div className="auth-official-form-wrap">
-            <div className="auth-top"><Link href="/" className="auth-brand auth-mobile-brand"><img src="/hisab-logo.svg" alt="" width="36" height="36" className="hisab-logo"/><strong>HisabTech</strong></Link></div>
-            <div className="auth-heading auth-official-heading"><p className="eyebrow">HisabTech</p><h1>{title}</h1><p>{description}</p></div>
-            {children}
-            {footer ? <div className="auth-switch auth-account-switch">{footer}</div> : null}
+
+        <section className="auth-standard-form-side">
+          <div className="auth-standard-mobile-topbar">
+            <Link href="/" className="auth-standard-brand" aria-label="HisabTech home">
+              <img src="/hisab-logo.svg" alt="" width="38" height="38" className="hisab-logo" />
+              <strong>HisabTech</strong>
+            </Link>
+            <Link href="/" className="auth-standard-home-link">Back to website</Link>
           </div>
+
+          <div className="auth-standard-card">
+            <header className="auth-standard-heading">
+              <p className="auth-standard-eyebrow">{eyebrow}</p>
+              <h1>{title}</h1>
+              <p>{description}</p>
+            </header>
+            {children}
+            {footer ? <div className="auth-standard-switch">{footer}</div> : null}
+          </div>
+
+          <footer className="auth-standard-form-footer">
+            <Link href="/trust">Privacy & security</Link>
+            <Link href="/help-center">Help Center</Link>
+          </footer>
         </section>
       </section>
     </main>
