@@ -1,0 +1,23 @@
+/*
+ * Public website light-mode canvas.
+ * Keep the marketing experience pure white while preserving dark-mode surfaces.
+ */
+html[data-theme="light"] body[data-ui-polish="hisab-2026"] .marketing-site-v2 {
+  --ui-canvas: #ffffff;
+  --hisab-public-background: #ffffff;
+  --hisab-cream: #ffffff;
+  background: #ffffff !important;
+}
+
+html[data-theme="light"] body[data-ui-polish="hisab-2026"] .marketing-site-v2 #public-main-content {
+  background: #ffffff !important;
+}
+
+html[data-theme="light"] body[data-ui-polish="hisab-2026"] .marketing-site-v2 #public-main-content > section:not(.marketing-dark-section):not(.marketing-dark-section-v2) {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+html[data-theme="light"] body[data-ui-polish="hisab-2026"] .marketing-site-v2 > .marketing-nav {
+  background: rgba(255, 255, 255, 0.97) !important;
+}
