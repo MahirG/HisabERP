@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AuthNotice, EmailAuthCard } from "../../../components/email-auth-card";
 import { SocialAuthButtons } from "../../../components/social-auth-buttons";
 import { signInWithEmail } from "../../../lib/actions/email-auth";
 import { isSupabaseConfigured } from "../../../lib/config";
@@ -8,58 +9,49 @@ export const metadata = { title: "Sign in" };
 
 const loginCopy = {
   en: {
-    greeting: "Sign in to HisabTech",
-    helper: "Enter your business email and password to access your workspace.",
+    title: "Welcome back",
+    description: "Sign in with your business email to continue to your HisabTech workspace.",
     email: "Business email",
     emailPlaceholder: "name@company.com",
     password: "Password",
     passwordPlaceholder: "Enter your password",
-    submit: "Sign in",
-    divider: "or sign in with",
-    magic: "Send me a magic sign-in link",
-    magicPrompt: "Prefer password-free access?",
+    submit: "Sign in to workspace",
+    divider: "or continue with",
+    magic: "Email me a secure sign-in link",
     forgot: "Forgot password?",
-    phone: "Sign in with mobile number",
+    phone: "Use mobile number instead",
     newUser: "New to HisabTech?",
     create: "Create an account",
-    legal: "By continuing, you agree to use HisabTech responsibly and protect your organization’s financial information.",
-    footer: "Secure business access for Ethiopia",
   },
   am: {
-    greeting: "ወደ HisabTech ይግቡ",
-    helper: "ወደ የሥራ ቦታዎ ለመግባት የንግድ ኢሜይልዎንና የይለፍ ቃልዎን ያስገቡ።",
+    title: "እንኳን ደህና መጡ",
+    description: "ወደ HisabTech የሥራ ቦታዎ ለመቀጠል በንግድ ኢሜይልዎ ይግቡ።",
     email: "የንግድ ኢሜይል",
     emailPlaceholder: "name@company.com",
     password: "የይለፍ ቃል",
     passwordPlaceholder: "የይለፍ ቃልዎን ያስገቡ",
-    submit: "ይግቡ",
-    divider: "ወይም በዚህ ይግቡ",
-    magic: "የማጂክ መግቢያ ሊንክ ይላኩልኝ",
-    magicPrompt: "ያለ የይለፍ ቃል መግባት ይፈልጋሉ?",
+    submit: "ወደ የሥራ ቦታ ይግቡ",
+    divider: "ወይም በዚህ ይቀጥሉ",
+    magic: "የተጠበቀ መግቢያ ሊንክ በኢሜይል ይላኩልኝ",
     forgot: "የይለፍ ቃልዎን ረሱ?",
     phone: "በሞባይል ቁጥር ይግቡ",
     newUser: "ለHisabTech አዲስ ነዎት?",
     create: "መለያ ይፍጠሩ",
-    legal: "በመቀጠል HisabTechን በኃላፊነት ለመጠቀምና የድርጅትዎን የፋይናንስ መረጃ ለመጠበቅ ይስማማሉ።",
-    footer: "ለኢትዮጵያ ንግዶች የተጠበቀ መግቢያ",
   },
   ti: {
-    greeting: "ናብ HisabTech እተዉ",
-    helper: "ናብ መስርሒ ቦታኹም ንምእታው ናይ ንግዲ ኢሜይልኩምን መሕለፊ ቃልኩምን ኣእትዉ።",
+    title: "እንቋዕ ብደሓን መጻእኩም",
+    description: "ናብ HisabTech መስርሒ ቦታኹም ንምቕጻል ብናይ ንግዲ ኢሜይልኩም እተዉ።",
     email: "ናይ ንግዲ ኢሜይል",
     emailPlaceholder: "name@company.com",
     password: "መሕለፊ ቃል",
     passwordPlaceholder: "መሕለፊ ቃልኩም ኣእትዉ",
-    submit: "እተዉ",
-    divider: "ወይ በዚ እተዉ",
-    magic: "ናይ ማጂክ መእተዊ ሊንክ ስደዱለይ",
-    magicPrompt: "ብዘይ መሕለፊ ቃል ክትኣትዉ ትደልዩ?",
+    submit: "ናብ መስርሒ ቦታ እተዉ",
+    divider: "ወይ በዚ ቀጽሉ",
+    magic: "ውሑስ መእተዊ ሊንክ ብኢሜይል ስደዱለይ",
     forgot: "መሕለፊ ቃልኩም ረሲዕኩም?",
     phone: "ብቁጽሪ ሞባይል እተዉ",
     newUser: "ኣብ HisabTech ሓድሽ ዲኹም?",
     create: "ኣካውንት ፍጠሩ",
-    legal: "ብምቕጻል HisabTechን ብሓላፍነት ክትጥቀሙን ናይ ውድብኩም ፋይናንሳዊ ሓበሬታ ክትሕልዉን ትሰማምዑ።",
-    footer: "ንንግዲ ኢትዮጵያ ውሑስ መእተዊ",
   },
 } as const;
 
@@ -73,73 +65,42 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   const signUpHref = `/auth/email-sign-up${preview ? "?preview=1" : ""}`;
 
   return (
-    <main className="auth-page auth-premium-page auth-official-page auth-slack-page">
-      <header className="auth-slack-header">
-        <Link href="/" className="auth-slack-brand" aria-label="HisabTech home">
-          <img src="/hisab-logo.svg" alt="" width="40" height="40" className="auth-hisab-mark hisab-logo" />
-          <strong>HisabTech</strong>
-        </Link>
-        <div className="auth-slack-new-account">
-          <span>{p.newUser}</span>
-          <Link href={signUpHref}>{p.create}</Link>
-        </div>
-      </header>
+    <EmailAuthCard
+      title={p.title}
+      description={p.description}
+      footer={<>{p.newUser} <Link href={signUpHref}>{p.create}</Link></>}
+      eyebrow="Secure workspace access"
+      badge="Trusted access for your business"
+      showcaseTitle="Your business, organized and ready when you are."
+      showcaseDescription="Return to a single connected workspace for sales, finance, inventory, customers and reporting."
+    >
+      {!configured && <AuthNotice type="warning">Authentication is not configured.</AuthNotice>}
+      <AuthNotice type="error">{params.error}</AuthNotice>
+      <AuthNotice type="success">{params.message}</AuthNotice>
 
-      <section className="auth-slack-stage">
-        <div className="auth-slack-panel">
-          <div className="auth-slack-heading">
-            <h1>{p.greeting}</h1>
-            <p>{p.helper}</p>
-          </div>
+      <form action={signInWithEmail} className="auth-standard-form">
+        <input type="hidden" name="next" value={next} />
+        <label className="auth-standard-field" htmlFor="login-email">
+          <span>{p.email}</span>
+          <input id="login-email" name="email" type="email" autoComplete="email" inputMode="email" placeholder={p.emailPlaceholder} required autoFocus />
+        </label>
 
-          {!configured && <div className="form-alert warning">Authentication is not configured.</div>}
-          {params.error && <div className="form-alert error" role="alert">{params.error}</div>}
-          {params.message && <div className="form-alert success" role="status">{params.message}</div>}
+        <label className="auth-standard-field" htmlFor="login-password">
+          <span className="auth-standard-label-row"><b>{p.password}</b><Link href={`/auth/forgot-password${preview ? "?preview=1" : ""}`}>{p.forgot}</Link></span>
+          <input id="login-password" name="password" type="password" autoComplete="current-password" placeholder={p.passwordPlaceholder} required />
+        </label>
 
-          <form action={signInWithEmail} className="erp-form premium-auth-form auth-slack-form">
-            <input type="hidden" name="next" value={next}/>
-            <label className="premium-field" htmlFor="login-email">
-              <span className="field-label">{p.email}</span>
-              <span className="field-control">
-                <input id="login-email" name="email" type="email" autoComplete="email" inputMode="email" placeholder={p.emailPlaceholder} required autoFocus/>
-              </span>
-            </label>
-            <div className="auth-field-block">
-              <div className="auth-field-label-row">
-                <label className="field-label" htmlFor="login-password">{p.password}</label>
-                <Link href={`/auth/forgot-password${preview ? "?preview=1" : ""}`}>{p.forgot}</Link>
-              </div>
-              <span className="field-control">
-                <input id="login-password" name="password" type="password" autoComplete="current-password" placeholder={p.passwordPlaceholder} required/>
-              </span>
-            </div>
-            <button className="primary auth-submit auth-primary-button auth-slack-primary" type="submit" disabled={!configured}>
-              <span>{p.submit}</span><b aria-hidden="true">→</b>
-            </button>
-          </form>
+        <button className="auth-standard-primary" type="submit" disabled={!configured}>
+          <span>{p.submit}</span><b aria-hidden="true">→</b>
+        </button>
+      </form>
 
-          <SocialAuthButtons language={localized.language} next={next} disabled={!configured} dividerText={p.divider}/>
+      <SocialAuthButtons language={localized.language} next={next} disabled={!configured} dividerText={p.divider} />
 
-          <div className="auth-slack-passwordless">
-            <span aria-hidden="true">✦</span>
-            <p>{p.magicPrompt} <Link href={`/auth/magic-link?next=${encodeURIComponent(next)}${previewQuery}`}>{p.magic}</Link></p>
-          </div>
-
-          <div className="auth-slack-options" aria-label="Other sign-in options">
-            <Link href={`/auth/phone-login?next=${encodeURIComponent(next)}${previewQuery}`}>{p.phone}</Link>
-            <span aria-hidden="true">•</span>
-            <Link href={`/auth/forgot-password${preview ? "?preview=1" : ""}`}>{p.forgot}</Link>
-          </div>
-
-          <p className="auth-slack-legal">{p.legal}</p>
-          <p className="auth-slack-mobile-switch">{p.newUser} <Link href={signUpHref}>{p.create}</Link></p>
-        </div>
-      </section>
-
-      <footer className="auth-slack-footer">
-        <span>© {new Date().getFullYear()} Hisab Technologies</span>
-        <span>{p.footer}</span>
-      </footer>
-    </main>
+      <div className="auth-standard-secondary-actions">
+        <Link href={`/auth/magic-link?next=${encodeURIComponent(next)}${previewQuery}`}>{p.magic}</Link>
+        <Link href={`/auth/phone-login?next=${encodeURIComponent(next)}${previewQuery}`}>{p.phone}</Link>
+      </div>
+    </EmailAuthCard>
   );
 }
