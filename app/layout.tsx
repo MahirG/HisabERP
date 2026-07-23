@@ -83,6 +83,7 @@ import "./auth-standard-experience.css";
 import "./workspace-theme-visibility.css";
 import "./public-dashboard-theme-visibility.css";
 import "./public-white-background.css";
+import "./mobile-cta-premium.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
