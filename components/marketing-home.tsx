@@ -2,6 +2,7 @@ import Link from "next/link";
 import { marketingIndustries } from "../lib/marketing-industries";
 import { marketingModules } from "../lib/marketing-modules";
 import { pricingPlans } from "../lib/marketing-pricing";
+import { HeroImacWorkspace } from "./hero-imac-workspace";
 import { MarketingPageShell } from "./marketing-site-chrome";
 import { ProductTourExperience } from "./product-tour-experience";
 
@@ -18,22 +19,6 @@ const steps = [
   { number: "03", title: "Act on reliable information", text: "Use dashboards, reports, balances, trends and attention lists to manage cash flow, stock, profitability and growth." },
 ];
 
-function HeroWorkspace() {
-  return (
-    <div className="hero-workspace" aria-label="HisabERP business overview preview">
-      <div className="hero-workspace-bar"><div><i/><i/><i/></div><strong>HisabERP Financial Workspace</strong><span>Secure session</span></div>
-      <div className="hero-workspace-layout">
-        <aside><img src="/hisab-logo.svg" alt="" width="36" height="36" />{["Overview","Sales","Inventory","Finance","Customers","Reports"].map((item,index)=><span className={index===0?"active":undefined} key={item}>{item}</span>)}</aside>
-        <section>
-          <div className="hero-workspace-heading"><div><small>Good afternoon, Mahir</small><h2>Business overview</h2></div><button type="button">+ New transaction</button></div>
-          <div className="hero-kpis"><article><small>Today’s revenue</small><strong>ETB 84,600</strong><span>+12.8% this week</span></article><article><small>Cash available</small><strong>ETB 318,400</strong><span>Current position</span></article><article><small>Receivables</small><strong>ETB 72,900</strong><span>11 open accounts</span></article></div>
-          <div className="hero-workspace-main"><article className="hero-performance-card"><header><strong>Revenue performance</strong><small>Last six months</small></header><div className="hero-performance-bars">{[42,55,49,68,76,94].map((height,index)=><span style={{height:`${height}%`}} key={index}/>)}</div></article><article className="hero-attention-card"><header><strong>Needs attention</strong><small>Today</small></header><div><p><span>Low-stock products</span><b>3 urgent</b></p><p><span>Invoices due</span><b>4 accounts</b></p><p><span>Unmatched payments</span><b>2 records</b></p></div></article></div>
-        </section>
-      </div>
-    </div>
-  );
-}
-
 export function MarketingHome() {
   const homepageIndustries = marketingIndustries.slice(0, 6);
   const homepagePlans = pricingPlans.slice(0, 3);
@@ -41,7 +26,7 @@ export function MarketingHome() {
     <MarketingPageShell>
       <section className="marketing-hero marketing-hero-v2">
         <div className="marketing-hero-copy"><h1>Run your entire business from one intelligent workspace.</h1><p>HisabERP connects sales, expenses, inventory, invoicing, customers, suppliers, cash flow and reporting—so every important decision starts with reliable information.</p><div className="marketing-hero-actions"><Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a demo</Link><Link href="/product-tour" className="marketing-text-action">Explore the product <span aria-hidden="true">→</span></Link></div></div>
-        <HeroWorkspace />
+        <HeroImacWorkspace />
       </section>
 
       <section className="marketing-proof marketing-proof-v2"><p>Designed for ambitious businesses moving beyond notebooks and disconnected spreadsheets</p><div><span>Retail</span><span>Wholesale</span><span>Services</span><span>Hospitality</span><span>Cooperatives</span><span>Multi-branch teams</span></div></section>
