@@ -1,0 +1,23 @@
+/* The checkout route is authenticated but intentionally uses its own commerce shell. */
+body[data-ui-polish="hisab-2026"]:has(.billing-checkout-page) .erp-shell {
+  display:block!important;
+  min-height:100dvh;
+  background:var(--ui-canvas)!important;
+}
+body[data-ui-polish="hisab-2026"]:has(.billing-checkout-page) .erp-shell > :not(.workspace) {
+  display:none!important;
+}
+body[data-ui-polish="hisab-2026"]:has(.billing-checkout-page) .erp-shell > .workspace {
+  position:static!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:100dvh!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:visible!important;
+  background:var(--ui-canvas)!important;
+}
+body[data-ui-polish="hisab-2026"]:has(.billing-checkout-page) .billing-checkout-page {
+  display:block!important;
+  visibility:visible!important;
+}
