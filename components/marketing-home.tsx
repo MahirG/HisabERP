@@ -40,7 +40,7 @@ export function MarketingHome() {
   return (
     <MarketingPageShell>
       <section className="marketing-hero marketing-hero-v2">
-        <div className="marketing-hero-copy"><h1>Run your entire business from one intelligent workspace.</h1><p>HisabERP connects sales, expenses, inventory, invoicing, customers, suppliers, cash flow and reporting—so every important decision starts with reliable information.</p><div className="marketing-hero-actions"><Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a demo</Link><Link href="/product-tour" className="marketing-text-action">Explore the product <span aria-hidden="true">→</span></Link></div><div className="marketing-trust"><span>Transparent setup</span><span>English and Amharic</span><span>Mobile ready</span><span>Role-controlled access</span></div></div>
+        <div className="marketing-hero-copy"><h1>Run your entire business from one intelligent workspace.</h1><p>HisabERP connects sales, expenses, inventory, invoicing, customers, suppliers, cash flow and reporting—so every important decision starts with reliable information.</p><div className="marketing-hero-actions"><Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a demo</Link><Link href="/product-tour" className="marketing-text-action">Explore the product <span aria-hidden="true">→</span></Link></div></div>
         <HeroWorkspace />
       </section>
 
