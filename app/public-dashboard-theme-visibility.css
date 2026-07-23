@@ -1,0 +1,248 @@
+/*
+ * Final public dashboard-preview visibility contract.
+ *
+ * The homepage workspace mock and interactive product-tour windows are
+ * intentionally miniature application surfaces. Global theme typography must
+ * never place light text on their light cards or dark text on their dark cards.
+ */
+
+html[data-theme="light"] body[data-ui-polish="hisab-2026"] .marketing-site-v2 {
+  --preview-frame: #ffffff;
+  --preview-topbar: #fff8f5;
+  --preview-canvas: #fbf5f2;
+  --preview-card: #ffffff;
+  --preview-card-muted: #fff5f0;
+  --preview-border: #dfcbc3;
+  --preview-text: #211a18;
+  --preview-text-secondary: #5f504a;
+  --preview-text-muted: #76655f;
+  --preview-sidebar: #171717;
+  --preview-sidebar-text: #dec9c0;
+  --preview-sidebar-active: #f0b29c;
+  --preview-accent-text: #8f412c;
+  --preview-button-text: #171717;
+  --preview-shadow: 0 42px 100px rgba(94, 48, 36, 0.18), 0 10px 30px rgba(94, 48, 36, 0.08);
+}
+
+html[data-theme="dark"] body[data-ui-polish="hisab-2026"] .marketing-site-v2 {
+  --preview-frame: #100d0c;
+  --preview-topbar: #171311;
+  --preview-canvas: #0d0b0a;
+  --preview-card: #171311;
+  --preview-card-muted: #211916;
+  --preview-border: #4b352e;
+  --preview-text: #fff8f4;
+  --preview-text-secondary: #dec9c0;
+  --preview-text-muted: #bea9a0;
+  --preview-sidebar: #090909;
+  --preview-sidebar-text: #dec9c0;
+  --preview-sidebar-active: #f0b29c;
+  --preview-accent-text: #f0b29c;
+  --preview-button-text: #171717;
+  --preview-shadow: 0 42px 100px rgba(0, 0, 0, 0.44), 0 10px 30px rgba(0, 0, 0, 0.26);
+}
+
+/* Homepage hero dashboard frame. */
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-workspace {
+  border-color: var(--preview-border) !important;
+  background: var(--preview-frame) !important;
+  color: var(--preview-text) !important;
+  box-shadow: var(--preview-shadow) !important;
+  color-scheme: light dark;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-workspace-bar {
+  border-bottom-color: var(--preview-border) !important;
+  background: var(--preview-topbar) !important;
+  color: var(--preview-text-secondary) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-workspace-bar :is(strong, span) {
+  color: var(--preview-text-secondary) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-workspace-layout > aside {
+  background: var(--preview-sidebar) !important;
+  color: var(--preview-sidebar-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-workspace-layout > aside span {
+  color: var(--preview-sidebar-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-workspace-layout > aside span.active {
+  background: rgba(218, 119, 87, 0.18) !important;
+  color: var(--preview-sidebar-active) !important;
+  box-shadow: inset 2px 0 #da7757 !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-workspace-layout > section {
+  background: var(--preview-canvas) !important;
+  color: var(--preview-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-workspace-heading h2 {
+  margin: 4px 0 0 !important;
+  color: var(--preview-text) !important;
+  font-size: 20px !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.03em !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-workspace-heading small {
+  color: var(--preview-text-muted) !important;
+  font-size: 9px !important;
+  line-height: 1.35 !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-workspace-heading button {
+  background: #da7757 !important;
+  color: var(--preview-button-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-workspace-heading button :where(span, strong, b, svg) {
+  color: var(--preview-button-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(
+  .hero-kpis article,
+  .hero-performance-card,
+  .hero-attention-card
+) {
+  border-color: var(--preview-border) !important;
+  background: var(--preview-card) !important;
+  color: var(--preview-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-kpis small,
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.hero-performance-card, .hero-attention-card) header small {
+  color: var(--preview-text-muted) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-kpis strong,
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(.hero-performance-card, .hero-attention-card) header strong {
+  color: var(--preview-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-kpis span {
+  color: var(--preview-accent-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-attention-card p {
+  margin: 0 !important;
+  background: var(--preview-card-muted) !important;
+  color: var(--preview-text-secondary) !important;
+  font-size: 8px !important;
+  line-height: 1.35 !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-attention-card p span {
+  color: var(--preview-text-secondary) !important;
+  font-size: 8px !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .hero-attention-card p b {
+  color: var(--preview-accent-text) !important;
+  font-size: 8px !important;
+}
+
+/* Interactive product-tour dashboard windows use the same theme contract. */
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .product-tour-stage {
+  border-color: var(--preview-border) !important;
+  background: var(--preview-frame) !important;
+  color: var(--preview-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .tour-app-window {
+  border-color: var(--preview-border) !important;
+  background: var(--preview-frame) !important;
+  color: var(--preview-text) !important;
+  box-shadow: var(--preview-shadow) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .tour-window-top {
+  border-bottom-color: var(--preview-border) !important;
+  background: var(--preview-topbar) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .tour-window-top :is(strong, span) {
+  color: var(--preview-text-secondary) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .tour-window-layout > aside {
+  background: var(--preview-sidebar) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .tour-window-layout > aside span {
+  color: var(--preview-sidebar-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .tour-window-layout > aside span.active {
+  background: rgba(218, 119, 87, 0.18) !important;
+  color: var(--preview-sidebar-active) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .tour-window-content {
+  background: var(--preview-canvas) !important;
+  color: var(--preview-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .tour-content-heading h3 {
+  color: var(--preview-text) !important;
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .tour-content-heading small {
+  color: var(--preview-text-muted) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .tour-content-heading button {
+  background: #da7757 !important;
+  color: var(--preview-button-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(
+  .tour-metrics article,
+  .tour-chart,
+  .tour-activity
+) {
+  border-color: var(--preview-border) !important;
+  background: var(--preview-card) !important;
+  color: var(--preview-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(
+  .tour-metrics strong,
+  .tour-chart header strong,
+  .tour-activity header strong,
+  .tour-activity article span strong
+) {
+  color: var(--preview-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 :is(
+  .tour-metrics small,
+  .tour-chart header small,
+  .tour-activity header small,
+  .tour-activity article span small
+) {
+  color: var(--preview-text-muted) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .tour-metrics span,
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .tour-activity article b {
+  color: var(--preview-accent-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 .tour-activity article {
+  background: var(--preview-card-muted) !important;
+  color: var(--preview-text-secondary) !important;
+}
+
+@media (prefers-contrast: more) {
+  html[data-theme] body[data-ui-polish="hisab-2026"] .marketing-site-v2 {
+    --preview-text-secondary: var(--preview-text);
+    --preview-text-muted: var(--preview-text);
+  }
+}
