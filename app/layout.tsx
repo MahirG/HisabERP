@@ -82,6 +82,7 @@ import "./surface-uniformity-lock.css";
 import "./auth-standard-experience.css";
 import "./workspace-theme-visibility.css";
 import "./public-dashboard-theme-visibility.css";
+import "./public-white-background.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -178,7 +179,7 @@ export const viewport: Viewport = {
   maximumScale: 5,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f8f4f2" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)", color: "#0d0b0a" },
   ],
   colorScheme: "dark light",
