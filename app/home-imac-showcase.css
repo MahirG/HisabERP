@@ -1,0 +1,427 @@
+/* Homepage desktop product showcase inspired by a premium all-in-one computer presentation. */
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-hero-v2 {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  align-items: start !important;
+  gap: clamp(34px, 5vw, 68px) !important;
+  overflow: hidden;
+  padding-bottom: clamp(56px, 8vw, 112px) !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-hero-v2 .marketing-hero-copy {
+  width: min(100%, 920px) !important;
+  margin-inline: auto !important;
+  text-align: center !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-hero-v2 .marketing-hero-copy > p {
+  width: min(100%, 760px);
+  margin-inline: auto !important;
+}
+
+body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-hero-v2 .marketing-hero-actions {
+  justify-content: center !important;
+}
+
+.hero-imac-scene {
+  position: relative;
+  width: min(1180px, calc(100% - 20px));
+  margin: 0 auto;
+  padding-bottom: clamp(96px, 11vw, 138px);
+  isolation: isolate;
+}
+
+.hero-imac-scene::before {
+  position: absolute;
+  z-index: -2;
+  top: 4%;
+  left: 50%;
+  width: min(1080px, 92vw);
+  height: 76%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(218, 119, 87, .13), rgba(218, 119, 87, .035) 46%, transparent 72%);
+  content: "";
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.hero-imac-shell {
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+  width: 100%;
+  padding: clamp(10px, 1.15vw, 15px) clamp(10px, 1.15vw, 15px) 0;
+  border: 1px solid rgba(255, 255, 255, .38);
+  border-radius: clamp(18px, 2.2vw, 30px);
+  background: linear-gradient(145deg, #252525 0%, #050505 48%, #1c1c1c 100%);
+  box-shadow: 0 42px 90px rgba(31, 18, 14, .20), 0 15px 34px rgba(31, 18, 14, .13), inset 0 1px rgba(255, 255, 255, .22);
+}
+
+.hero-imac-camera {
+  position: absolute;
+  z-index: 5;
+  top: 5px;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #343434;
+  box-shadow: 0 0 0 1px #000, inset 0 0 2px rgba(118, 162, 255, .85);
+  transform: translateX(-50%);
+}
+
+.hero-imac-screen {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9.55;
+  border-radius: clamp(10px, 1.25vw, 18px) clamp(10px, 1.25vw, 18px) 3px 3px;
+  background: #0a0a0a;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .09);
+}
+
+.hero-imac-screen::after {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: linear-gradient(115deg, rgba(255, 255, 255, .09), transparent 18%, transparent 72%, rgba(255, 255, 255, .035));
+  content: "";
+  pointer-events: none;
+}
+
+.hero-imac-screen .hero-workspace {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.hero-imac-screen .hero-workspace-bar {
+  min-height: clamp(28px, 3.4vw, 43px) !important;
+  padding-inline: clamp(9px, 1.4vw, 18px) !important;
+}
+
+.hero-imac-screen .hero-workspace-layout {
+  height: calc(100% - clamp(28px, 3.4vw, 43px));
+}
+
+.hero-imac-screen .hero-workspace-layout > aside {
+  width: clamp(82px, 13.5vw, 166px) !important;
+  min-width: clamp(82px, 13.5vw, 166px) !important;
+  padding: clamp(9px, 1.3vw, 18px) clamp(7px, 1vw, 13px) !important;
+}
+
+.hero-imac-screen .hero-workspace-layout > aside img {
+  width: clamp(20px, 2.7vw, 34px) !important;
+  height: clamp(20px, 2.7vw, 34px) !important;
+  margin-bottom: clamp(5px, 1vw, 12px);
+}
+
+.hero-imac-screen .hero-workspace-layout > aside span {
+  min-height: clamp(21px, 2.7vw, 34px) !important;
+  padding-inline: clamp(6px, .8vw, 10px) !important;
+  font-size: clamp(5px, .72vw, 9px) !important;
+}
+
+.hero-imac-screen .hero-workspace-layout > section {
+  min-width: 0;
+  overflow: hidden;
+  padding: clamp(10px, 1.7vw, 22px) !important;
+}
+
+.hero-imac-screen .hero-workspace-heading {
+  margin-bottom: clamp(7px, 1vw, 13px) !important;
+}
+
+.hero-imac-screen .hero-workspace-heading h2 {
+  font-size: clamp(10px, 1.65vw, 20px) !important;
+}
+
+.hero-imac-screen .hero-workspace-heading small,
+.hero-imac-screen .hero-workspace-heading button,
+.hero-imac-screen .hero-workspace-bar :is(strong, span) {
+  font-size: clamp(5px, .72vw, 9px) !important;
+}
+
+.hero-imac-screen .hero-workspace-heading button {
+  min-height: clamp(22px, 2.9vw, 36px) !important;
+  padding-inline: clamp(7px, 1.1vw, 14px) !important;
+  border-radius: clamp(5px, .7vw, 9px) !important;
+}
+
+.hero-imac-screen .hero-kpis {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: clamp(5px, .8vw, 10px) !important;
+  margin-bottom: clamp(6px, 1vw, 13px) !important;
+}
+
+.hero-imac-screen .hero-kpis article {
+  min-width: 0;
+  padding: clamp(7px, 1.05vw, 13px) !important;
+  border-radius: clamp(7px, 1vw, 12px) !important;
+}
+
+.hero-imac-screen .hero-kpis small,
+.hero-imac-screen .hero-kpis span {
+  font-size: clamp(4px, .62vw, 8px) !important;
+  white-space: nowrap;
+}
+
+.hero-imac-screen .hero-kpis strong {
+  margin-block: 2px !important;
+  font-size: clamp(7px, 1.08vw, 13px) !important;
+  white-space: nowrap;
+}
+
+.hero-imac-screen .hero-workspace-main {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.65fr) minmax(130px, .72fr) !important;
+  gap: clamp(5px, .8vw, 10px) !important;
+  margin-bottom: clamp(6px, .9vw, 11px) !important;
+}
+
+.hero-imac-screen :is(.hero-performance-card, .hero-attention-card, .hero-transactions-card) {
+  padding: clamp(7px, 1vw, 13px) !important;
+  border-radius: clamp(7px, 1vw, 12px) !important;
+}
+
+.hero-imac-screen :is(.hero-performance-card, .hero-attention-card, .hero-transactions-card) header {
+  margin-bottom: clamp(4px, .65vw, 8px) !important;
+}
+
+.hero-imac-screen :is(.hero-performance-card, .hero-attention-card, .hero-transactions-card) header strong {
+  font-size: clamp(5px, .78vw, 10px) !important;
+}
+
+.hero-imac-screen :is(.hero-performance-card, .hero-attention-card, .hero-transactions-card) header small {
+  font-size: clamp(4px, .58vw, 7px) !important;
+}
+
+.hero-imac-screen .hero-performance-bars {
+  height: clamp(48px, 8vw, 100px) !important;
+}
+
+.hero-imac-screen .hero-attention-card p {
+  min-height: clamp(18px, 2.5vw, 30px) !important;
+  padding: 0 clamp(5px, .7vw, 9px) !important;
+  border-radius: clamp(4px, .55vw, 7px) !important;
+}
+
+.hero-imac-screen .hero-attention-card p :is(span, b) {
+  font-size: clamp(4px, .58vw, 7px) !important;
+  white-space: nowrap;
+}
+
+.hero-transactions-card {
+  border: 1px solid var(--preview-border, #dfcbc3);
+  background: var(--preview-card, #fff);
+  color: var(--preview-text, #211a18);
+}
+
+.hero-transactions-card header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-transaction-row {
+  display: grid;
+  grid-template-columns: .7fr 1.25fr .8fr .55fr;
+  align-items: center;
+  min-height: clamp(16px, 2vw, 25px);
+  padding-inline: clamp(4px, .7vw, 9px);
+  border-top: 1px solid var(--preview-border, #dfcbc3);
+  color: var(--preview-text-secondary, #5f504a);
+  font-size: clamp(4px, .56vw, 7px);
+}
+
+.hero-transaction-row b {
+  justify-self: end;
+  color: var(--preview-accent-text, #8f412c) !important;
+  font-size: inherit !important;
+}
+
+.hero-transaction-head {
+  border-top: 0;
+  background: var(--preview-card-muted, #fff5f0);
+  color: var(--preview-text-muted, #76655f);
+  font-weight: 700;
+}
+
+.hero-imac-chin {
+  display: grid;
+  min-height: clamp(44px, 5.8vw, 72px);
+  place-items: center;
+  border-radius: 0 0 clamp(16px, 2vw, 27px) clamp(16px, 2vw, 27px);
+  background: linear-gradient(180deg, #f1f1f0 0%, #d7d7d5 50%, #bcbcb9 100%);
+  color: #5a5a58;
+  box-shadow: inset 0 1px rgba(255, 255, 255, .8), inset 0 -1px rgba(0, 0, 0, .1);
+}
+
+.hero-imac-chin span {
+  color: #555 !important;
+  font-size: clamp(7px, .86vw, 11px);
+  font-weight: 650;
+  letter-spacing: .08em;
+}
+
+.hero-imac-stand {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 20px;
+  left: 0;
+  display: grid;
+  justify-items: center;
+  pointer-events: none;
+}
+
+.hero-imac-neck {
+  display: block;
+  width: clamp(82px, 14vw, 170px);
+  height: clamp(58px, 8vw, 102px);
+  clip-path: polygon(17% 0, 83% 0, 95% 100%, 5% 100%);
+  background: linear-gradient(90deg, #aaa 0%, #efefed 20%, #cfcfcd 52%, #f5f5f3 78%, #a8a8a6 100%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08);
+}
+
+.hero-imac-base {
+  display: block;
+  width: clamp(190px, 32vw, 390px);
+  height: clamp(14px, 2vw, 25px);
+  margin-top: -2px;
+  border-radius: 50% 50% 28% 28% / 60% 60% 40% 40%;
+  background: linear-gradient(180deg, #ededeb 0%, #b8b8b5 66%, #8d8d8a 100%);
+  box-shadow: 0 8px 18px rgba(40, 30, 26, .22), inset 0 1px rgba(255, 255, 255, .9);
+}
+
+.hero-imac-floor-shadow {
+  position: absolute;
+  z-index: 1;
+  right: 8%;
+  bottom: 1px;
+  left: 8%;
+  height: clamp(22px, 3.6vw, 44px);
+  border-radius: 50%;
+  background: rgba(41, 27, 22, .16);
+  filter: blur(18px);
+  transform: scaleX(.72);
+}
+
+html[data-theme="dark"] .hero-imac-scene::before {
+  background: radial-gradient(circle, rgba(218, 119, 87, .18), rgba(218, 119, 87, .045) 45%, transparent 72%);
+}
+
+html[data-theme="dark"] .hero-imac-shell {
+  border-color: rgba(255, 255, 255, .12);
+  box-shadow: 0 45px 100px rgba(0, 0, 0, .62), 0 16px 36px rgba(0, 0, 0, .44), inset 0 1px rgba(255, 255, 255, .12);
+}
+
+@media (max-width: 760px) {
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-hero-v2 {
+    gap: 34px !important;
+    padding-inline: 14px !important;
+    padding-bottom: 58px !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-hero-v2 .marketing-hero-copy {
+    text-align: left !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-hero-v2 .marketing-hero-copy > p {
+    margin-inline: 0 !important;
+  }
+
+  body[data-ui-polish="hisab-2026"] .marketing-site-v2 .marketing-hero-v2 .marketing-hero-actions {
+    justify-content: stretch !important;
+  }
+
+  .hero-imac-scene {
+    width: calc(100% + 20px);
+    margin-inline: -10px;
+    padding-bottom: 74px;
+  }
+
+  .hero-imac-shell {
+    padding: 6px 6px 0;
+    border-radius: 14px;
+  }
+
+  .hero-imac-camera {
+    top: 2px;
+    width: 3px;
+    height: 3px;
+  }
+
+  .hero-imac-screen {
+    border-radius: 8px 8px 2px 2px;
+  }
+
+  .hero-imac-screen .hero-workspace-layout > aside {
+    width: 66px !important;
+    min-width: 66px !important;
+  }
+
+  .hero-imac-screen .hero-workspace-layout > aside span {
+    min-height: 18px !important;
+  }
+
+  .hero-imac-screen .hero-workspace-layout > section {
+    padding: 7px !important;
+  }
+
+  .hero-imac-screen .hero-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .hero-imac-screen .hero-kpis article:nth-child(4) {
+    display: none !important;
+  }
+
+  .hero-imac-screen .hero-workspace-main {
+    grid-template-columns: minmax(0, 1.55fr) minmax(86px, .72fr) !important;
+  }
+
+  .hero-imac-chin {
+    min-height: 34px;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .hero-imac-neck {
+    width: 74px;
+    height: 48px;
+  }
+
+  .hero-imac-base {
+    width: 164px;
+    height: 13px;
+  }
+}
+
+@media (max-width: 430px) {
+  .hero-imac-screen .hero-workspace-bar span,
+  .hero-imac-screen .hero-workspace-layout > aside span:nth-of-type(n+6),
+  .hero-imac-screen .hero-transactions-card {
+    display: none !important;
+  }
+
+  .hero-imac-screen .hero-workspace-main {
+    margin-bottom: 0 !important;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-imac-shell {
+    animation: hero-imac-arrive .8s cubic-bezier(.22, 1, .36, 1) both;
+  }
+
+  @keyframes hero-imac-arrive {
+    from { opacity: 0; transform: translateY(26px) scale(.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+}
