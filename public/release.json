@@ -1,6 +1,6 @@
 {
-  "release": "6d70a5fbc2791480ddf898329115a2c9704659c5",
+  "release": "3ffd60fcd008b2eaabd38d70ec506cfb41c9f0d9",
   "environment": "production",
-  "deployedAt": "2026-07-22T18:55:21Z",
-  "description": "Canonical HisabTech production release containing all previously completed non-billing work: performance and CDN improvements, mobile first paint, native mobile language/theme/menu controls, standardized public and workspace headers, complete terracotta-charcoal branding, authentication and workspace improvements, and operational modules including Electronic Invoicing and reconciliation"
+  "deployedAt": "2026-07-23T08:55:37Z",
+  "description": "Full HisabTech production redeployment from the latest main branch, including the visible About Us and Help Center mobile navigation, standardized mobile headers, complete terracotta-charcoal workspace branding, authentication redesign, responsive UI improvements, and all previously merged operational modules."
 }
