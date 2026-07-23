@@ -41,9 +41,6 @@ const websiteCopy = {
     securityContact: "Security contact",
     rights: "All rights reserved.",
     location: "Addis Ababa, Ethiopia",
-    conversionEyebrow: "Ready for a clearer business picture?",
-    conversionText: "Explore HisabERP, request a focused demo or speak directly with HisabTech.",
-    whatsapp: "WhatsApp",
     skip: "Skip to main content",
     language: "Language",
     theme: "Toggle light or dark mode",
@@ -78,13 +75,10 @@ const websiteCopy = {
     companyTrust: "ኩባንያ እና እምነት",
     aboutHisab: "ስለ HisabTech",
     trustCenter: "የእምነት ማዕከል",
-    integrations: "ውህደቶች",
+    integrations: "ውህዶች",
     securityContact: "የደህነት ግንኙነት",
     rights: "መብቶቹ ሁሉ የተጠበቁ ናቸው።",
     location: "አዲስ አበባ፣ ኢትዮጵያ",
-    conversionEyebrow: "የበለጠ ግልጽ የንግድ ምስል ይፈልጋሉ?",
-    conversionText: "HisabERPን ይመልከቱ፣ የተመረጠ ማሳያ ይጠይቁ ወይም ከHisabTech ጋር በቀጥታ ይነጋገሩ።",
-    whatsapp: "ዋትስአፕ",
     skip: "ወደ ዋናው ይዘት ይሂዱ",
     language: "ቋንቋ",
     theme: "የብርሃን ወይም የጨለማ ገጽታ ይቀይሩ",
@@ -253,17 +247,6 @@ export function MarketingFooter() {
   );
 }
 
-function MarketingConversionBar() {
-  const { language } = useLanguage();
-  const c = websiteCopy[language];
-  return (
-    <aside className="marketing-conversion-bar" aria-label={c.conversionEyebrow}>
-      <div><strong>{c.conversionEyebrow}</strong><span>{c.conversionText}</span></div>
-      <div><a href="https://wa.me/251924093037" target="_blank" rel="noopener noreferrer" className="conversion-whatsapp">{c.whatsapp}</a><Link href="/request-demo?source=sticky-cta" className="marketing-demo">{c.demo}</Link><Link href="/auth/email-sign-up" className="marketing-start">{c.start}</Link></div>
-    </aside>
-  );
-}
-
 export function MarketingPageShell({ children }: { children: ReactNode }) {
-  return <main className="marketing-site marketing-site-v2"><MarketingStructuredData/><MarketingHeader/><div id="public-main-content">{children}</div><MarketingFooter/><MarketingConversionBar/></main>;
+  return <main className="marketing-site marketing-site-v2"><MarketingStructuredData/><MarketingHeader/><div id="public-main-content">{children}</div><MarketingFooter/></main>;
 }
