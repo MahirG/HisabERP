@@ -18,6 +18,10 @@ function readSecret() {
   return value;
 }
 
+function readWebhookSecret() {
+  return process.env.CHAPA_WEBHOOK_SECRET?.trim() || process.env.CHAPA_SECRET_KEY?.trim() || "";
+}
+
 export type ChapaPaymentCustomer = {
   email: string;
   firstName: string;
@@ -52,7 +56,7 @@ export function getChapaReadiness() {
   const secret = process.env.CHAPA_SECRET_KEY?.trim() ?? "";
   return {
     configured: Boolean(secret),
-    webhookConfigured: Boolean(process.env.CHAPA_WEBHOOK_SECRET?.trim()),
+    webhookConfigured: Boolean(readWebhookSecret()),
     mode: secret ? (secret.toLowerCase().includes("test") ? "test" : "live") : "unconfigured",
   } as const;
 }
@@ -141,7 +145,7 @@ function safeSignatureEqual(expected: string, received: string) {
 }
 
 export function verifyChapaWebhookSignature(rawBody: string, headers: Headers) {
-  const webhookSecret = process.env.CHAPA_WEBHOOK_SECRET?.trim();
+  const webhookSecret = readWebhookSecret();
   if (!webhookSecret) return false;
 
   const payloadSignature = headers.get("x-chapa-signature")?.trim() ?? "";
