@@ -1,0 +1,50 @@
+/* Final isolation and layout safeguards for the Apple-grade workspace layer. */
+
+body[data-workspace-system="financial-os-v1"]:not(:has(.erp-shell)) {
+  background: #ffffff;
+}
+
+html[data-theme="dark"] body[data-workspace-system="financial-os-v1"]:not(:has(.erp-shell)) {
+  background: #0d0b0a;
+}
+
+body[data-workspace-system="financial-os-v1"] .dashboard-health-ring {
+  position: relative;
+  isolation: isolate;
+}
+
+body[data-workspace-system="financial-os-v1"] .dashboard-health-ring::before {
+  inset: 19px;
+}
+
+@media (min-width: 961px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .sidebar.supabase-sidebar .sidebar-footer {
+    display: block !important;
+    margin-top: auto;
+    padding: 14px 10px 0;
+    border-top: 1px solid var(--supabase-sidebar-border);
+    color: var(--supabase-sidebar-muted);
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .sidebar.supabase-sidebar .sidebar-footer p {
+    margin: 0 0 6px;
+    font-size: 9px;
+    line-height: 1.5;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .sidebar.supabase-sidebar .sidebar-footer a {
+    color: var(--fin-primary);
+  }
+}
+
+body[data-workspace-system="financial-os-v1"] .workspace-command-header + .mobile-command-trigger {
+  z-index: 121;
+}
+
+body[data-workspace-system="financial-os-v1"] .dashboard-content,
+body[data-workspace-system="financial-os-v1"] .workspace-section,
+body[data-workspace-system="financial-os-v1"] .workspace-page-header {
+  min-width: 0;
+}
