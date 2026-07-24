@@ -26,8 +26,11 @@ test("Stripe subscriptions use ETB hosted checkout and signed webhooks", async (
   assert.match(webhook, /parseVerifiedStripeEvent/);
   assert.match(webhook, /hisab_billing_webhook_events/);
   assert.match(webhook, /checkout\.session\.completed/);
+  assert.match(webhook, /checkout\.session\.async_payment_succeeded/);
   assert.match(webhook, /customer\.subscription\./);
   assert.match(webhook, /invoice\.payment_failed/);
+  assert.match(webhook, /PROCESSING_LEASE_MS/);
+  assert.match(webhook, /Stripe Checkout Session is not registered for this Hisab user/);
   assert.match(proxy, /"\/api\/stripe\/webhook"/);
   assert.match(migration, /enable row level security/gi);
   assert.match(migration, /Users can read their own Hisab subscription/);
@@ -58,13 +61,14 @@ test("sign-up preserves checkout intent across every identity provider", async (
 });
 
 test("billing UI waits for webhook verification and exposes self-service management", async () => {
-  const [checkout, billing, success, status, pricing, userMenu] = await Promise.all([
+  const [checkout, billing, success, status, pricing, userMenu, actions] = await Promise.all([
     read("app/checkout/page.tsx"),
     read("app/billing/page.tsx"),
     read("components/billing-success-status.tsx"),
     read("app/api/billing/status/route.ts"),
     read("components/pricing-experience.tsx"),
     read("components/user-menu.tsx"),
+    read("lib/actions/billing.ts"),
   ]);
 
   assert.match(checkout, /createSubscriptionCheckout/);
@@ -75,6 +79,10 @@ test("billing UI waits for webhook verification and exposes self-service managem
   assert.match(status, /subscriptionGrantsAccess/);
   assert.match(pricing, /\/checkout\?plan=\$\{plan\.code\}&billing=\$\{billing\}/);
   assert.match(userMenu, /Billing &amp; subscription/);
+  assert.match(actions, /subscriptionGrantsAccess/);
+  assert.match(actions, /retrieveStripeCheckoutSession/);
+  assert.match(actions, /minuteBucket/);
+  assert.doesNotMatch(actions, /randomUUID/);
 });
 
 test("premium Hisab mobile navigation and commercial motion remain accessible", async () => {
@@ -88,6 +96,9 @@ test("premium Hisab mobile navigation and commercial motion remain accessible", 
   assert.match(menu, /premium-mobile-menu/);
   assert.match(menu, /aria-modal="true"/);
   assert.match(menu, /event\.key === "Escape"/);
+  assert.match(menu, /event\.key !== "Tab"/);
+  assert.match(menu, /querySelectorAll<HTMLElement>/);
+  assert.match(menu, /toggleButtonRef\.current\?\.focus/);
   assert.match(menu, /document\.body\.style\.overflow = "hidden"/);
   assert.match(orbit, /provider-google/);
   assert.match(orbit, /provider-apple/);

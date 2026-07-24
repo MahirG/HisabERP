@@ -7,6 +7,7 @@ import { parseVerifiedStripeEvent } from "../../../../lib/stripe/webhook";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+const PROCESSING_LEASE_MS = 5 * 60 * 1000;
 type UnknownRecord = Record<string, unknown>;
 
 function asRecord(value: unknown): UnknownRecord {
@@ -90,14 +91,23 @@ async function beginEvent(event: ReturnType<typeof parseVerifiedStripeEvent>) {
   if (!inserted.error) return "process" as const;
   if (inserted.error.code !== "23505") throw new Error(inserted.error.message);
 
-  const existing = await admin.from("hisab_billing_webhook_events").select("status,attempts").eq("stripe_event_id", event.id).maybeSingle();
+  const existing = await admin
+    .from("hisab_billing_webhook_events")
+    .select("status,attempts,updated_at")
+    .eq("stripe_event_id", event.id)
+    .maybeSingle();
   if (existing.error) throw new Error(existing.error.message);
-  if (existing.data?.status === "processed" || existing.data?.status === "processing") return "duplicate" as const;
+  if (existing.data?.status === "processed") return "duplicate" as const;
+
+  const updatedAt = existing.data?.updated_at ? Date.parse(String(existing.data.updated_at)) : 0;
+  const processingLeaseIsFresh = existing.data?.status === "processing" && Number.isFinite(updatedAt) && Date.now() - updatedAt < PROCESSING_LEASE_MS;
+  if (processingLeaseIsFresh) return "duplicate" as const;
 
   const retried = await admin.from("hisab_billing_webhook_events").update({
     status: "processing",
     attempts: Number(existing.data?.attempts || 1) + 1,
     error_message: null,
+    payload: event,
     updated_at: new Date().toISOString(),
   }).eq("stripe_event_id", event.id);
   if (retried.error) throw new Error(retried.error.message);
@@ -106,62 +116,85 @@ async function beginEvent(event: ReturnType<typeof parseVerifiedStripeEvent>) {
 
 async function completeEvent(eventId: string) {
   const admin = createAdminClient();
-  await admin.from("hisab_billing_webhook_events").update({
+  const result = await admin.from("hisab_billing_webhook_events").update({
     status: "processed",
     processed_at: new Date().toISOString(),
     error_message: null,
     updated_at: new Date().toISOString(),
   }).eq("stripe_event_id", eventId);
+  if (result.error) throw new Error(result.error.message);
 }
 
 async function failEvent(eventId: string, error: unknown) {
   const admin = createAdminClient();
-  await admin.from("hisab_billing_webhook_events").update({
+  const result = await admin.from("hisab_billing_webhook_events").update({
     status: "failed",
     error_message: (error instanceof Error ? error.message : "Webhook processing failed.").slice(0, 1000),
     updated_at: new Date().toISOString(),
   }).eq("stripe_event_id", eventId);
+  if (result.error) throw new Error(result.error.message);
+}
+
+async function completeCheckout(object: UnknownRecord, eventId: string) {
+  const sessionId = stringValue(object.id);
+  const userId = typeof object.client_reference_id === "string"
+    ? object.client_reference_id
+    : String(asRecord(object.metadata).hisab_user_id || "");
+  const customerId = stringValue(object.customer);
+  const subscriptionId = stringValue(object.subscription);
+  if (!sessionId || !userId || !customerId || !subscriptionId) {
+    throw new Error("Completed Checkout Session is missing trusted identifiers.");
+  }
+
+  const admin = createAdminClient();
+  const checkout = await admin.from("hisab_billing_checkout_sessions").update({
+    status: "complete",
+    stripe_customer_id: customerId,
+    stripe_subscription_id: subscriptionId,
+    completed_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  }).eq("stripe_session_id", sessionId).eq("user_id", userId).select("stripe_session_id").maybeSingle();
+  if (checkout.error) throw new Error(checkout.error.message);
+  if (!checkout.data) throw new Error("Stripe Checkout Session is not registered for this Hisab user.");
+
+  const customerDetails = asRecord(object.customer_details);
+  const customer = await admin.from("hisab_billing_customers").upsert({
+    user_id: userId,
+    stripe_customer_id: customerId,
+    email: typeof customerDetails.email === "string" ? customerDetails.email : null,
+    updated_at: new Date().toISOString(),
+  }, { onConflict: "user_id" });
+  if (customer.error) throw new Error(customer.error.message);
+
+  await syncSubscription(await retrieveStripeSubscription(subscriptionId), eventId);
+}
+
+async function markCheckout(object: UnknownRecord, status: "failed" | "expired") {
+  const sessionId = stringValue(object.id);
+  if (!sessionId) return;
+  const admin = createAdminClient();
+  const result = await admin.from("hisab_billing_checkout_sessions").update({
+    status,
+    updated_at: new Date().toISOString(),
+  }).eq("stripe_session_id", sessionId);
+  if (result.error) throw new Error(result.error.message);
 }
 
 async function processEvent(event: ReturnType<typeof parseVerifiedStripeEvent>) {
   const object = asRecord(event.data.object);
-  const admin = createAdminClient();
 
-  if (event.type === "checkout.session.completed") {
-    const sessionId = stringValue(object.id);
-    const userId = typeof object.client_reference_id === "string" ? object.client_reference_id : String(asRecord(object.metadata).hisab_user_id || "");
-    const customerId = stringValue(object.customer);
-    const subscriptionId = stringValue(object.subscription);
-    if (!sessionId || !userId || !customerId || !subscriptionId) throw new Error("Completed Checkout Session is missing trusted identifiers.");
+  if (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") {
+    await completeCheckout(object, event.id);
+    return;
+  }
 
-    const checkout = await admin.from("hisab_billing_checkout_sessions").update({
-      status: "complete",
-      stripe_customer_id: customerId,
-      stripe_subscription_id: subscriptionId,
-      completed_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    }).eq("stripe_session_id", sessionId).eq("user_id", userId);
-    if (checkout.error) throw new Error(checkout.error.message);
-
-    const customerDetails = asRecord(object.customer_details);
-    const customer = await admin.from("hisab_billing_customers").upsert({
-      user_id: userId,
-      stripe_customer_id: customerId,
-      email: typeof customerDetails.email === "string" ? customerDetails.email : null,
-      updated_at: new Date().toISOString(),
-    }, { onConflict: "user_id" });
-    if (customer.error) throw new Error(customer.error.message);
-
-    await syncSubscription(await retrieveStripeSubscription(subscriptionId), event.id);
+  if (event.type === "checkout.session.async_payment_failed") {
+    await markCheckout(object, "failed");
     return;
   }
 
   if (event.type === "checkout.session.expired") {
-    const sessionId = stringValue(object.id);
-    if (sessionId) {
-      const result = await admin.from("hisab_billing_checkout_sessions").update({ status: "expired", updated_at: new Date().toISOString() }).eq("stripe_session_id", sessionId);
-      if (result.error) throw new Error(result.error.message);
-    }
+    await markCheckout(object, "expired");
     return;
   }
 
@@ -170,11 +203,12 @@ async function processEvent(event: ReturnType<typeof parseVerifiedStripeEvent>) 
     return;
   }
 
-  if (event.type === "invoice.paid" || event.type === "invoice.payment_failed") {
+  if (event.type === "invoice.paid" || event.type === "invoice.payment_succeeded" || event.type === "invoice.payment_failed") {
     const subscriptionId = invoiceSubscriptionId(object);
     if (!subscriptionId) return;
     await syncSubscription(await retrieveStripeSubscription(subscriptionId), event.id);
-    const invoiceStatus = event.type === "invoice.paid" ? "paid" : "payment_failed";
+    const invoiceStatus = event.type === "invoice.payment_failed" ? "payment_failed" : "paid";
+    const admin = createAdminClient();
     const result = await admin.from("hisab_billing_subscriptions").update({
       last_invoice_status: invoiceStatus,
       last_event_id: event.id,
