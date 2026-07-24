@@ -9,33 +9,33 @@ const MAX_STATUS_CHECKS = 24;
 
 const copy: Record<BillingState, { eyebrow: string; title: string; description: string }> = {
   processing: {
-    eyebrow: "Payment received by Stripe",
-    title: "Confirming the signed payment event…",
-    description: "HisabTech is waiting for Stripe’s verified webhook before activating your subscription.",
+    eyebrow: "Payment submitted through Chapa",
+    title: "Verifying the transaction directly…",
+    description: "HisabTech is checking the reference, ETB amount, currency and final payment status with Chapa.",
   },
   activating: {
-    eyebrow: "Checkout complete",
+    eyebrow: "Chapa payment verified",
     title: "Activating your HisabERP access…",
-    description: "The payment is recorded. Your subscription ledger is being synchronized securely.",
+    description: "The payment is successful. Your monthly or annual access period is being recorded securely.",
   },
   verified: {
-    eyebrow: "Subscription verified",
+    eyebrow: "Paid access verified",
     title: "Your HisabERP workspace is ready.",
-    description: "Stripe confirmation has been validated and your paid subscription is active.",
+    description: "The Chapa transaction was verified and your paid access period is active.",
   },
   failed: {
-    eyebrow: "Checkout not completed",
-    title: "The subscription could not be activated.",
-    description: "The checkout session expired or failed. No browser-only state was accepted as payment.",
+    eyebrow: "Payment not completed",
+    title: "Your HisabERP access was not activated.",
+    description: "The payment failed, was cancelled, refunded or reversed. No browser-only status was accepted.",
   },
   error: {
     eyebrow: "Verification is taking longer",
     title: "Your payment status is still being checked.",
-    description: "Open the billing center to review the latest verified status or contact HisabTech support.",
+    description: "Open the paid access center to review the latest verified status or contact HisabTech support.",
   },
 };
 
-export function BillingSuccessStatus({ sessionId }: { sessionId: string }) {
+export function BillingSuccessStatus({ txRef }: { txRef: string }) {
   const [state, setState] = useState<BillingState>("processing");
 
   useEffect(() => {
@@ -52,17 +52,13 @@ export function BillingSuccessStatus({ sessionId }: { sessionId: string }) {
       checks += 1;
 
       try {
-        const response = await fetch(`/api/billing/status?session_id=${encodeURIComponent(sessionId)}`, { cache: "no-store" });
+        const response = await fetch(`/api/billing/status?tx_ref=${encodeURIComponent(txRef)}`, { cache: "no-store" });
         if (!response.ok) throw new Error("Status unavailable");
         const payload = await response.json() as { state?: BillingState };
         const nextState = payload.state || "processing";
         if (cancelled) return;
         if (nextState === "verified" || nextState === "failed") {
           setState(nextState);
-          return;
-        }
-        if (checks >= MAX_STATUS_CHECKS) {
-          setState("error");
           return;
         }
         setState(nextState === "activating" ? "activating" : "processing");
@@ -82,7 +78,7 @@ export function BillingSuccessStatus({ sessionId }: { sessionId: string }) {
       cancelled = true;
       if (timer) clearTimeout(timer);
     };
-  }, [sessionId]);
+  }, [txRef]);
 
   const content = copy[state];
   return (
@@ -91,11 +87,11 @@ export function BillingSuccessStatus({ sessionId }: { sessionId: string }) {
       <span className="commerce-kicker">{content.eyebrow}</span>
       <h1>{content.title}</h1>
       <p>{content.description}</p>
-      {state === "processing" || state === "activating" ? <div className="billing-verification-progress"><span/><small>Do not close this page while confirmation is in progress.</small></div> : null}
+      {state === "processing" || state === "activating" ? <div className="billing-verification-progress"><span/><small>Keep this page open while verification is in progress.</small></div> : null}
       <div className="billing-success-actions">
         {state === "verified" ? <Link href="/onboarding" className="commerce-primary">Continue to company setup <b aria-hidden="true">→</b></Link> : null}
         {state === "failed" ? <Link href="/pricing" className="commerce-primary">Return to pricing <b aria-hidden="true">→</b></Link> : null}
-        {state === "error" ? <Link href="/billing" className="commerce-primary">Open billing center <b aria-hidden="true">→</b></Link> : null}
+        {state === "error" ? <Link href="/billing" className="commerce-primary">Open paid access center <b aria-hidden="true">→</b></Link> : null}
         <Link href="/" className="commerce-secondary">Go to HisabTech</Link>
       </div>
     </section>
