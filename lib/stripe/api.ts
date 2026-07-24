@@ -1,7 +1,8 @@
 import "server-only";
 
 const STRIPE_API_BASE = "https://api.stripe.com/v1";
-const DEFAULT_STRIPE_API_VERSION = "2026-02-25.clover";
+const DEFAULT_STRIPE_API_VERSION = "2026-06-24.dahlia";
+const DEFAULT_STRIPE_INTEGRATION_IDENTIFIER = "hisaberp_checkout_qmzktjfw";
 
 type StripeScalar = string | number | boolean | null | undefined;
 export type StripeForm = Record<string, StripeScalar>;
@@ -70,6 +71,14 @@ function stripeApiVersion() {
   return process.env.STRIPE_API_VERSION?.trim() || DEFAULT_STRIPE_API_VERSION;
 }
 
+function stripeIntegrationIdentifier() {
+  const value = process.env.STRIPE_INTEGRATION_IDENTIFIER?.trim() || DEFAULT_STRIPE_INTEGRATION_IDENTIFIER;
+  if (!/[a-z]{8}$/.test(value)) {
+    throw new Error("STRIPE_INTEGRATION_IDENTIFIER must end with eight lowercase letters.");
+  }
+  return value;
+}
+
 function formBody(values: StripeForm) {
   const body = new URLSearchParams();
   Object.entries(values).forEach(([key, value]) => {
@@ -125,6 +134,7 @@ export async function createStripeCheckoutSession(input: {
   const form: StripeForm = {
     mode: "subscription",
     locale: "auto",
+    integration_identifier: stripeIntegrationIdentifier(),
     client_reference_id: input.userId,
     success_url: input.successUrl,
     cancel_url: input.cancelUrl,
