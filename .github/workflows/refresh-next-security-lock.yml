@@ -1,0 +1,39 @@
+name: Refresh Next security lock
+
+on:
+  push:
+    branches:
+      - agent/complete-auth-stripe-commerce
+    paths:
+      - .github/workflows/refresh-next-security-lock.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/complete-auth-stripe-commerce
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Refresh patched Next and PostCSS lockfile
+        run: |
+          npm pkg set overrides.next.postcss=8.5.12
+          npm install --package-lock-only --ignore-scripts --save-exact next@16.2.11
+      - name: Verify production dependency audit
+        run: npm audit --omit=dev --audit-level=moderate
+      - name: Commit generated lockfile
+        run: |
+          if git diff --quiet -- package.json package-lock.json; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          git commit -m "Patch Next.js production dependencies"
+          git push origin HEAD:agent/complete-auth-stripe-commerce
