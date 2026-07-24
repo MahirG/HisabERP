@@ -1,12 +1,12 @@
 "use server";
 
-import { randomUUID } from "node:crypto";
 import { redirect } from "next/navigation";
 import { getBillingPlan, getPlanAmountEtb, getPlanAmountMinor, isBillingCycle } from "../billing/catalog";
 import { appConfig } from "../config";
+import { subscriptionGrantsAccess } from "../data/billing";
 import { createAdminClient } from "../supabase/admin";
 import { createClient } from "../supabase/server";
-import { createStripeCheckoutSession, createStripePortalSession } from "../stripe/api";
+import { createStripeCheckoutSession, createStripePortalSession, retrieveStripeCheckoutSession } from "../stripe/api";
 
 function checkoutError(message: string, planCode = "growth", billingCycle = "annual"): never {
   redirect(`/checkout?plan=${encodeURIComponent(planCode)}&billing=${encodeURIComponent(billingCycle)}&error=${encodeURIComponent(message)}`);
@@ -30,11 +30,61 @@ export async function createSubscriptionCheckout(formData: FormData) {
 
   const { userId, email } = await authenticatedBillingIdentity();
   const admin = createAdminClient();
-  const customerResult = await admin.from("hisab_billing_customers").select("stripe_customer_id").eq("user_id", userId).maybeSingle();
+
+  const subscriptionResult = await admin
+    .from("hisab_billing_subscriptions")
+    .select("status")
+    .eq("user_id", userId)
+    .maybeSingle();
+  if (subscriptionResult.error) checkoutError("Subscription status is temporarily unavailable.", plan.code, billingCycle);
+  if (subscriptionGrantsAccess(subscriptionResult.data?.status)) {
+    redirect("/billing?notice=Your+HisabERP+subscription+is+already+active.");
+  }
+
+  const now = new Date().toISOString();
+  const recentCheckout = await admin
+    .from("hisab_billing_checkout_sessions")
+    .select("stripe_session_id")
+    .eq("user_id", userId)
+    .eq("plan_code", plan.code)
+    .eq("billing_cycle", billingCycle)
+    .eq("status", "open")
+    .gt("expires_at", now)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (recentCheckout.error) checkoutError("Checkout status is temporarily unavailable.", plan.code, billingCycle);
+
+  let reusableCheckoutUrl = "";
+  if (recentCheckout.data?.stripe_session_id) {
+    try {
+      const existing = await retrieveStripeCheckoutSession(String(recentCheckout.data.stripe_session_id));
+      if (existing.status === "open" && existing.url) reusableCheckoutUrl = existing.url;
+      else {
+        await admin
+          .from("hisab_billing_checkout_sessions")
+          .update({ status: existing.status === "complete" ? "complete" : "expired", updated_at: new Date().toISOString() })
+          .eq("stripe_session_id", String(recentCheckout.data.stripe_session_id));
+      }
+    } catch {
+      await admin
+        .from("hisab_billing_checkout_sessions")
+        .update({ status: "expired", updated_at: new Date().toISOString() })
+        .eq("stripe_session_id", String(recentCheckout.data.stripe_session_id));
+    }
+  }
+  if (reusableCheckoutUrl) redirect(reusableCheckoutUrl);
+
+  const customerResult = await admin
+    .from("hisab_billing_customers")
+    .select("stripe_customer_id")
+    .eq("user_id", userId)
+    .maybeSingle();
   if (customerResult.error) checkoutError("Billing is being prepared. Please try again shortly.", plan.code, billingCycle);
 
   let session: Awaited<ReturnType<typeof createStripeCheckoutSession>> | null = null;
   try {
+    const minuteBucket = Math.floor(Date.now() / 60_000);
     session = await createStripeCheckoutSession({
       userId,
       email,
@@ -46,7 +96,7 @@ export async function createSubscriptionCheckout(formData: FormData) {
       amountMinor: getPlanAmountMinor(plan, billingCycle),
       successUrl: `${appConfig.appUrl}/billing/success?session_id={CHECKOUT_SESSION_ID}`,
       cancelUrl: `${appConfig.appUrl}/billing/cancelled?plan=${encodeURIComponent(plan.code)}&billing=${encodeURIComponent(billingCycle)}`,
-      idempotencyKey: `hisab-checkout-${userId}-${plan.code}-${billingCycle}-${randomUUID()}`,
+      idempotencyKey: `hisab-checkout-${userId}-${plan.code}-${billingCycle}-${minuteBucket}`,
     });
   } catch (error) {
     checkoutError(error instanceof Error ? error.message : "Stripe checkout could not start.", plan.code, billingCycle);
