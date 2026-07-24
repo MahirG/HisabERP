@@ -4,6 +4,7 @@ import test from "node:test";
 
 const home = await readFile("components/marketing-home.tsx", "utf8");
 const hero = await readFile("components/hero-office-workspace.tsx", "utf8");
+const route = await readFile("app/api/homepage-hero/route.ts", "utf8");
 const css = await readFile("app/home-office-hero.css", "utf8");
 
 test("homepage renders the Ethiopian office hero instead of the iMac", () => {
@@ -11,9 +12,11 @@ test("homepage renders the Ethiopian office hero instead of the iMac", () => {
   assert.doesNotMatch(home, /HeroImacWorkspace/);
 });
 
-test("office hero points to the production image asset", () => {
-  assert.match(hero, /hisab-ethiopian-office-hero\.webp/);
+test("office hero uses the cached production image endpoint", () => {
+  assert.match(hero, /\/api\/homepage-hero/);
   assert.match(hero, /Ethiopian business professional/);
+  assert.match(route, /Content-Type": "image\/webp"/);
+  assert.match(route, /Buffer\.from\(encoded\.trim\(\), "base64"\)/);
 });
 
 test("office hero has responsive framing", () => {
