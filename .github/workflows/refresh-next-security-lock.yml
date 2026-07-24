@@ -37,3 +37,5 @@ jobs:
           git add package.json package-lock.json
           git commit -m "Patch Next.js production dependencies"
           git push origin HEAD:agent/complete-auth-stripe-commerce
+
+# One-shot security maintenance workflow. Removed after the generated lockfile is committed.
