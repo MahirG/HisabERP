@@ -61,12 +61,13 @@ async function recordLoginAttempt(email: string, succeeded: boolean, userId: str
       user_agent: metadata.userAgent,
     });
   } catch {
-    // The optional service-role audit path must never disclose account state or block authentication.
+    // Optional audit storage must never disclose account state or block authentication.
   }
 }
 
 export async function signUpWithEmail(formData: FormData) {
   if (!isSupabaseConfigured()) redirect("/auth/email-sign-up?error=Authentication+is+not+configured");
+  const next = safeNextPath(formData.get("next") || "/onboarding");
 
   let email: string;
   let secret: string;
@@ -78,8 +79,9 @@ export async function signUpWithEmail(formData: FormData) {
     const confirmation = requiredText(formData.get("confirmPassword"), "confirm password", 200);
     if (secret !== confirmation) throw new ValidationError({ confirmPassword: "Passwords must match." });
     fullName = requiredText(formData.get("fullName"), "full name", 120);
+    if (formData.get("acceptedTerms") !== "yes") throw new ValidationError({ acceptedTerms: "Accept the privacy and security terms to continue." });
   } catch (error) {
-    redirect(`/auth/email-sign-up?error=${encodeURIComponent(validationMessage(error, "Check the form and try again."))}`);
+    redirect(`/auth/email-sign-up?error=${encodeURIComponent(validationMessage(error, "Check the form and try again."))}&next=${encodeURIComponent(next)}`);
   }
 
   const supabase = await createClient();
@@ -87,8 +89,8 @@ export async function signUpWithEmail(formData: FormData) {
     email,
     password: secret,
     options: {
-      emailRedirectTo: confirmationUrl("/onboarding"),
-      data: { full_name: fullName },
+      emailRedirectTo: confirmationUrl(next),
+      data: { full_name: fullName, terms_accepted_at: new Date().toISOString() },
     },
   });
 
@@ -96,11 +98,11 @@ export async function signUpWithEmail(formData: FormData) {
     const message = error.code === "over_email_send_rate_limit"
       ? "Too many verification emails were requested. Wait a moment and try again."
       : genericSignupError;
-    redirect(`/auth/email-sign-up?error=${encodeURIComponent(message)}`);
+    redirect(`/auth/email-sign-up?error=${encodeURIComponent(message)}&next=${encodeURIComponent(next)}`);
   }
 
-  if (data.session) redirect("/onboarding");
-  redirect(`/auth/verify-email?email=${encodeURIComponent(email)}`);
+  if (data.session) redirect(next);
+  redirect(`/auth/verify-email?email=${encodeURIComponent(email)}&next=${encodeURIComponent(next)}`);
 }
 
 export async function signInWithEmail(formData: FormData) {
@@ -141,9 +143,7 @@ export async function requestPasswordReset(formData: FormData) {
   try {
     const email = normalizeEmail(formData.get("email"));
     const supabase = await createClient();
-    await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: confirmationUrl("/auth/reset-password"),
-    });
+    await supabase.auth.resetPasswordForEmail(email, { redirectTo: confirmationUrl("/auth/reset-password") });
   } catch {
     // Deliberately identical response to prevent account enumeration.
   }
@@ -156,10 +156,7 @@ export async function requestMagicLink(formData: FormData) {
     const email = normalizeEmail(formData.get("email"));
     const next = safeNextPath(formData.get("next"));
     const supabase = await createClient();
-    await supabase.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: confirmationUrl(next), shouldCreateUser: false },
-    });
+    await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: confirmationUrl(next), shouldCreateUser: false } });
   } catch {
     // Deliberately identical response to prevent account enumeration.
   }
@@ -168,22 +165,19 @@ export async function requestMagicLink(formData: FormData) {
 
 export async function resendEmailConfirmation(formData: FormData) {
   if (!isSupabaseConfigured()) redirect("/auth/verify-email?error=Authentication+is+not+configured");
+  const next = safeNextPath(formData.get("next") || "/onboarding");
 
   let email = "";
   try {
     email = normalizeEmail(formData.get("email"));
     const supabase = await createClient();
-    await supabase.auth.resend({
-      type: "signup",
-      email,
-      options: { emailRedirectTo: confirmationUrl("/onboarding") },
-    });
+    await supabase.auth.resend({ type: "signup", email, options: { emailRedirectTo: confirmationUrl(next) } });
   } catch {
     // Deliberately identical response to prevent account enumeration.
   }
 
   const emailQuery = email ? `&email=${encodeURIComponent(email)}` : "";
-  redirect(`/auth/verify-email?message=${encodeURIComponent(genericMessage)}${emailQuery}`);
+  redirect(`/auth/verify-email?message=${encodeURIComponent(genericMessage)}&next=${encodeURIComponent(next)}${emailQuery}`);
 }
 
 export async function updatePassword(formData: FormData) {

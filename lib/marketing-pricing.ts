@@ -1,4 +1,5 @@
 export type PricingPlan = {
+  code: "starter" | "growth" | "business" | "enterprise";
   name: string;
   audience: string;
   monthlyEtb: number | null;
@@ -14,6 +15,7 @@ export type PricingPlan = {
 
 export const pricingPlans: PricingPlan[] = [
   {
+    code: "starter",
     name: "Starter",
     audience: "Small businesses establishing dependable digital records",
     monthlyEtb: 1500,
@@ -23,9 +25,10 @@ export const pricingPlans: PricingPlan[] = [
     description: "A focused operating workspace for sales, expenses, customer balances and essential reporting.",
     features: ["Sales and transaction records", "Expense tracking", "Customer and supplier records", "Receivables and payables", "Basic dashboard and reports", "English and Amharic access", "Email support"],
     cta: "Start with Starter",
-    href: "/auth/email-sign-up?plan=starter",
+    href: "/checkout?plan=starter&billing=annual",
   },
   {
+    code: "growth",
     name: "Growth",
     audience: "Growing teams that need inventory, purchasing and stronger controls",
     monthlyEtb: 4500,
@@ -36,9 +39,10 @@ export const pricingPlans: PricingPlan[] = [
     description: "Connect sales, inventory, purchasing, invoicing, customer credit and advanced operational reporting.",
     features: ["Everything in Starter", "Inventory and warehouse controls", "Purchasing and supplier obligations", "Invoices and collection follow-up", "Advanced operational reports", "Role-based user access", "Priority onboarding support"],
     cta: "Choose Growth",
-    href: "/auth/email-sign-up?plan=growth",
+    href: "/checkout?plan=growth&billing=annual",
   },
   {
+    code: "business",
     name: "Business",
     audience: "Established companies coordinating departments and branches",
     monthlyEtb: 9500,
@@ -47,10 +51,11 @@ export const pricingPlans: PricingPlan[] = [
     branches: "Up to 5 locations",
     description: "A wider management system for finance, reconciliation, HR, permissions, branches and executive reporting.",
     features: ["Everything in Growth", "Finance and cash-flow workspaces", "Bank and payment reconciliation", "HR and payroll workspace", "Multi-branch reporting", "Advanced roles and approvals", "Guided implementation and migration"],
-    cta: "Request Business setup",
-    href: "/request-demo?plan=business",
+    cta: "Choose Business",
+    href: "/checkout?plan=business&billing=annual",
   },
   {
+    code: "enterprise",
     name: "Enterprise",
     audience: "Larger organizations with custom workflows, integrations or support requirements",
     monthlyEtb: null,

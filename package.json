@@ -24,14 +24,13 @@
     "@types/react": "^19.0.3",
     "@types/react-dom": "^19.0.3",
     "@vercel/speed-insights": "^2.0.0",
-    "next": "16.2.10",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "next": "16.2.11",
+    "react": "19.1.7",
+    "react-dom": "19.1.7",
     "typescript": "^5.7.2"
   },
   "overrides": {
-    "next": {
-      "postcss": "8.5.10"
-    }
+    "postcss": "8.5.12",
+    "sharp": "0.35.3"
   }
 }

@@ -16,13 +16,14 @@ export function PricingExperience() {
   return (
     <>
       <div className="pricing-controls" aria-label="Billing period">
-        <button type="button" className={!annual ? "active" : undefined} onClick={() => setBilling("monthly")}>Monthly billing</button>
-        <button type="button" className={annual ? "active" : undefined} onClick={() => setBilling("annual")}>Annual billing <span>Save about 2 months</span></button>
+        <button type="button" className={!annual ? "active" : undefined} aria-pressed={!annual} onClick={() => setBilling("monthly")}>Monthly billing</button>
+        <button type="button" className={annual ? "active" : undefined} aria-pressed={annual} onClick={() => setBilling("annual")}>Annual billing <span>Save about 2 months</span></button>
       </div>
 
       <div className="pricing-plan-grid">
         {pricingPlans.map((plan, index) => {
           const amount = annual ? plan.annualEtb : plan.monthlyEtb;
+          const checkoutHref = plan.code === "enterprise" ? plan.href : `/checkout?plan=${plan.code}&billing=${billing}`;
           return (
             <article className={plan.badge ? "featured" : undefined} key={plan.name}>
               {plan.badge ? <b className="pricing-badge">{plan.badge}</b> : null}
@@ -33,7 +34,8 @@ export function PricingExperience() {
               <p className="pricing-description">{plan.description}</p>
               <div className="pricing-capacity"><span>{plan.users}</span><span>{plan.branches}</span></div>
               <ul>{plan.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
-              <Link href={plan.href} className={plan.badge ? "marketing-start" : "marketing-demo"}>{plan.cta}</Link>
+              <Link href={checkoutHref} className={plan.badge ? "marketing-start" : "marketing-demo"}>{plan.cta}</Link>
+              {plan.code !== "enterprise" ? <small className="pricing-secure-note">Secure Stripe checkout · cancel from the billing portal</small> : null}
             </article>
           );
         })}
