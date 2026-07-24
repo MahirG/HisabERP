@@ -46,6 +46,7 @@ const publicApiRoutes = new Set([
   "/api/health",
   "/api/reconciliation/telebirr/callback",
   "/api/reconciliation/mpesa/callback",
+  "/api/stripe/webhook",
 ]);
 
 export function isPublicPath(path: string) {
@@ -82,9 +83,6 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
     return loginRedirect(request);
   }
 
-  // Marketing pages and metadata never need a user lookup. The home page only
-  // validates a session when a Supabase auth cookie is actually present so the
-  // anonymous path remains a fast, cacheable static response.
   if (cacheablePublicPath && path !== "/") {
     return NextResponse.next({ request: { headers: requestHeaders } });
   }
