@@ -1,0 +1,15 @@
+== npm version ==
+10.9.8
+== update package policy ==
+== refresh lockfile ==
+
+up to date, audited 72 packages in 3s
+
+31 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+install_status=0
+== production audit ==
+found 0 vulnerabilities
+audit_status=0
