@@ -81,10 +81,6 @@ export function getPlanAmountEtb(plan: BillingPlan, cycle: BillingCycle) {
   return cycle === "annual" ? plan.annualAmountEtb : plan.monthlyAmountEtb;
 }
 
-export function getPlanAmountMinor(plan: BillingPlan, cycle: BillingCycle) {
-  return Math.round(getPlanAmountEtb(plan, cycle) * 100);
-}
-
 export function formatEtb(value: number) {
   return new Intl.NumberFormat("en-ET", { maximumFractionDigits: 0 }).format(value);
 }
