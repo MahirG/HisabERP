@@ -3,51 +3,16 @@ import { NextResponse, type NextRequest } from "next/server";
 import { appConfig, isSupabaseConfigured } from "../config";
 
 const publicPageRoutes = new Set([
-  "/",
-  "/request-demo",
-  "/product-tour",
-  "/ethiopia",
-  "/industries",
-  "/pricing",
-  "/customer-stories",
-  "/trust",
-  "/integrations",
-  "/migration",
-  "/compare",
-  "/help-center",
-  "/resources",
-  "/about",
-  "/auth/login",
-  "/auth/phone-login",
-  "/auth/sign-up",
-  "/auth/verify-phone",
-  "/auth/email-login",
-  "/auth/email-sign-up",
-  "/auth/verify-email",
-  "/auth/forgot-password",
-  "/auth/magic-link",
-  "/auth/reset-password",
-  "/auth/invalid-link",
-  "/auth/callback",
-  "/auth/confirm",
+  "/", "/request-demo", "/product-tour", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about",
+  "/auth/login", "/auth/phone-login", "/auth/sign-up", "/auth/verify-phone", "/auth/email-login", "/auth/email-sign-up", "/auth/verify-email", "/auth/forgot-password", "/auth/magic-link", "/auth/reset-password", "/auth/invalid-link", "/auth/callback", "/auth/confirm",
 ]);
 
-const publicAssetRoutes = new Set([
-  "/manifest.webmanifest",
-  "/robots.txt",
-  "/sitemap.xml",
-  "/release.json",
-]);
-
+const publicAssetRoutes = new Set(["/manifest.webmanifest", "/robots.txt", "/sitemap.xml", "/release.json"]);
 const publicPagePrefixes = ["/product/", "/industries/", "/compare/", "/help-center/", "/resources/"];
 const authenticatedMarketingRoutes = new Set(["/request-demo", "/product-tour", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about"]);
-
-const publicApiRoutes = new Set([
-  "/api/health",
-  "/api/reconciliation/telebirr/callback",
-  "/api/reconciliation/mpesa/callback",
-  "/api/stripe/webhook",
-]);
+const publicApiRoutes = new Set(["/api/health", "/api/reconciliation/telebirr/callback", "/api/reconciliation/mpesa/callback", "/api/stripe/webhook"]);
+const billingBypassPrefixes = ["/billing", "/checkout", "/onboarding", "/account", "/auth"];
+const billingEnforcementEnabled = process.env.BILLING_ENFORCEMENT_ENABLED?.trim().toLowerCase() === "true";
 
 export function isPublicPath(path: string) {
   return publicPageRoutes.has(path) || publicAssetRoutes.has(path) || publicPagePrefixes.some((prefix) => path.startsWith(prefix)) || publicApiRoutes.has(path);
@@ -70,6 +35,15 @@ function loginRedirect(request: NextRequest) {
   return NextResponse.redirect(url);
 }
 
+function billingRedirect(request: NextRequest) {
+  const url = request.nextUrl.clone();
+  url.pathname = "/billing";
+  url.search = "";
+  url.searchParams.set("notice", "Choose or restore an active HisabERP subscription to continue.");
+  url.searchParams.set("next", `${request.nextUrl.pathname}${request.nextUrl.search}`);
+  return NextResponse.redirect(url);
+}
+
 export async function updateSession(request: NextRequest, requestHeaders: Headers) {
   const path = request.nextUrl.pathname;
   const publicPath = isPublicPath(path);
@@ -83,15 +57,9 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
     return loginRedirect(request);
   }
 
-  if (cacheablePublicPath && path !== "/") {
-    return NextResponse.next({ request: { headers: requestHeaders } });
-  }
-  if (path === "/" && !hasSupabaseSessionCookie(request)) {
-    return NextResponse.next({ request: { headers: requestHeaders } });
-  }
-  if (publicApiRoutes.has(path)) {
-    return NextResponse.next({ request: { headers: requestHeaders } });
-  }
+  if (cacheablePublicPath && path !== "/") return NextResponse.next({ request: { headers: requestHeaders } });
+  if (path === "/" && !hasSupabaseSessionCookie(request)) return NextResponse.next({ request: { headers: requestHeaders } });
+  if (publicApiRoutes.has(path)) return NextResponse.next({ request: { headers: requestHeaders } });
 
   const pendingCookies: Array<{ name: string; value: string; options: Parameters<NextResponse["cookies"]["set"]>[2] }> = [];
   const supabase = createServerClient(appConfig.supabaseUrl, appConfig.supabaseKey, {
@@ -110,18 +78,30 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
   };
 
   const { data } = await supabase.auth.getClaims();
-  const isAuthenticated = Boolean(data?.claims?.sub);
+  const userId = typeof data?.claims?.sub === "string" ? data.claims.sub : "";
+  const isAuthenticated = Boolean(userId);
+
+  if (!isAuthenticated && !publicPath) {
+    if (path.startsWith("/api/")) return withCookies(NextResponse.json({ error: "Authentication required." }, { status: 401 }));
+    return withCookies(loginRedirect(request));
+  }
+
+  const billingBypass = billingBypassPrefixes.some((prefix) => path === prefix || path.startsWith(`${prefix}/`));
+  const paidWorkspacePath = path === "/" || (!publicPath && !billingBypass);
+  if (isAuthenticated && billingEnforcementEnabled && paidWorkspacePath) {
+    const subscription = await supabase.from("hisab_billing_subscriptions").select("status").eq("user_id", userId).maybeSingle();
+    const grantsAccess = subscription.data?.status === "active" || subscription.data?.status === "trialing";
+    if (!grantsAccess) {
+      if (path.startsWith("/api/")) return withCookies(NextResponse.json({ error: "Active subscription required." }, { status: 402 }));
+      return withCookies(billingRedirect(request));
+    }
+  }
 
   if (path === "/") {
     if (!isAuthenticated) return withCookies(NextResponse.next({ request: { headers: requestHeaders } }));
     const url = request.nextUrl.clone();
     url.pathname = "/workspace-home";
     return withCookies(NextResponse.rewrite(url, { request: { headers: requestHeaders } }));
-  }
-
-  if (!isAuthenticated && !publicPath) {
-    if (path.startsWith("/api/")) return withCookies(NextResponse.json({ error: "Authentication required." }, { status: 401 }));
-    return withCookies(loginRedirect(request));
   }
 
   const authenticatedRecoveryPage = path === "/auth/reset-password";
