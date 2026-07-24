@@ -86,6 +86,7 @@ import "./public-white-background.css";
 import "./mobile-cta-premium.css";
 import "./home-imac-showcase.css";
 import "./commercial-platform.css";
+import "./apple-workspace-redesign.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
