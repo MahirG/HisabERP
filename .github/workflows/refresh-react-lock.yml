@@ -1,0 +1,35 @@
+name: Refresh React security lock
+
+on:
+  push:
+    branches:
+      - agent/complete-auth-stripe-commerce
+    paths:
+      - .github/workflows/refresh-react-lock.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/complete-auth-stripe-commerce
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Refresh patched React lockfile
+        run: npm install --package-lock-only --ignore-scripts --save-exact react@19.1.7 react-dom@19.1.7
+      - name: Commit generated lockfile
+        run: |
+          if git diff --quiet -- package.json package-lock.json; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          git commit -m "Patch React Server Components dependency"
+          git push origin HEAD:agent/complete-auth-stripe-commerce
