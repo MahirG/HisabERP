@@ -75,13 +75,19 @@ export function HeroMarketingSlider({ slides }: HeroMarketingSliderProps) {
         else showPrevious();
       }}
     >
-      <div className="hero-marketing-track" aria-live="polite">
+      <div className="hero-marketing-track">
         {slides.map((slide, index) => {
           const active = index === activeIndex;
+          const panelId = `hero-marketing-slide-${index + 1}`;
+          const Heading = index === 0 ? "h1" : "h2";
+
           return (
             <article
+              id={panelId}
               className={`hero-marketing-slide${active ? " is-active" : ""}`}
               aria-hidden={!active}
+              aria-roledescription="slide"
+              aria-label={`${index + 1} of ${slides.length}`}
               key={slide.title}
             >
               <img
@@ -96,7 +102,7 @@ export function HeroMarketingSlider({ slides }: HeroMarketingSliderProps) {
               <div className="hero-marketing-shade" aria-hidden="true" />
               <div className="hero-marketing-content">
                 <span className="hero-marketing-eyebrow">{slide.eyebrow}</span>
-                <h1>{slide.title}</h1>
+                <Heading className="hero-marketing-heading">{slide.title}</Heading>
                 <p>{slide.description}</p>
                 <div className="hero-marketing-actions">
                   <Link href={slide.primary.href} className="hero-marketing-primary" tabIndex={active ? 0 : -1}>
@@ -119,6 +125,7 @@ export function HeroMarketingSlider({ slides }: HeroMarketingSliderProps) {
               type="button"
               role="tab"
               aria-selected={index === activeIndex}
+              aria-controls={`hero-marketing-slide-${index + 1}`}
               aria-label={`Show slide ${index + 1}: ${slide.title}`}
               className={index === activeIndex ? "is-active" : ""}
               onClick={() => showSlide(index)}
