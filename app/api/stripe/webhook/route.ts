@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { getBillingPlan, getPlanAmountEtb, isBillingCycle } from "../../../../lib/billing/catalog";
 import { createAdminClient } from "../../../../lib/supabase/admin";
-import { parseVerifiedStripeEvent } from "../../../../lib/stripe/webhook";
 import { retrieveStripeSubscription, type StripeSubscription } from "../../../../lib/stripe/api";
+import { parseVerifiedStripeEvent } from "../../../../lib/stripe/webhook";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -158,7 +158,10 @@ async function processEvent(event: ReturnType<typeof parseVerifiedStripeEvent>) 
 
   if (event.type === "checkout.session.expired") {
     const sessionId = stringValue(object.id);
-    if (sessionId) await admin.from("hisab_billing_checkout_sessions").update({ status: "expired", updated_at: new Date().toISOString() }).eq("stripe_session_id", sessionId);
+    if (sessionId) {
+      const result = await admin.from("hisab_billing_checkout_sessions").update({ status: "expired", updated_at: new Date().toISOString() }).eq("stripe_session_id", sessionId);
+      if (result.error) throw new Error(result.error.message);
+    }
     return;
   }
 
@@ -170,15 +173,13 @@ async function processEvent(event: ReturnType<typeof parseVerifiedStripeEvent>) 
   if (event.type === "invoice.paid" || event.type === "invoice.payment_failed") {
     const subscriptionId = invoiceSubscriptionId(object);
     if (!subscriptionId) return;
+    await syncSubscription(await retrieveStripeSubscription(subscriptionId), event.id);
     const invoiceStatus = event.type === "invoice.paid" ? "paid" : "payment_failed";
-    const update: Record<string, unknown> = {
+    const result = await admin.from("hisab_billing_subscriptions").update({
       last_invoice_status: invoiceStatus,
       last_event_id: event.id,
       updated_at: new Date().toISOString(),
-    };
-    if (event.type === "invoice.paid") update.status = "active";
-    if (event.type === "invoice.payment_failed") update.status = "past_due";
-    const result = await admin.from("hisab_billing_subscriptions").update(update).eq("stripe_subscription_id", subscriptionId);
+    }).eq("stripe_subscription_id", subscriptionId);
     if (result.error) throw new Error(result.error.message);
   }
 }
