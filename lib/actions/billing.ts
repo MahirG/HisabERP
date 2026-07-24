@@ -2,13 +2,13 @@
 
 import { randomUUID } from "node:crypto";
 import { redirect } from "next/navigation";
-import { appConfig } from "../config";
 import { getBillingPlan, getPlanAmountEtb, getPlanAmountMinor, isBillingCycle } from "../billing/catalog";
+import { appConfig } from "../config";
 import { createAdminClient } from "../supabase/admin";
 import { createClient } from "../supabase/server";
 import { createStripeCheckoutSession, createStripePortalSession } from "../stripe/api";
 
-function checkoutError(message: string, planCode = "growth", billingCycle = "annual") {
+function checkoutError(message: string, planCode = "growth", billingCycle = "annual"): never {
   redirect(`/checkout?plan=${encodeURIComponent(planCode)}&billing=${encodeURIComponent(billingCycle)}&error=${encodeURIComponent(message)}`);
 }
 
@@ -30,14 +30,10 @@ export async function createSubscriptionCheckout(formData: FormData) {
 
   const { userId, email } = await authenticatedBillingIdentity();
   const admin = createAdminClient();
-  const customerResult = await admin
-    .from("hisab_billing_customers")
-    .select("stripe_customer_id")
-    .eq("user_id", userId)
-    .maybeSingle();
+  const customerResult = await admin.from("hisab_billing_customers").select("stripe_customer_id").eq("user_id", userId).maybeSingle();
   if (customerResult.error) checkoutError("Billing is being prepared. Please try again shortly.", plan.code, billingCycle);
 
-  let session;
+  let session: Awaited<ReturnType<typeof createStripeCheckoutSession>> | null = null;
   try {
     session = await createStripeCheckoutSession({
       userId,
@@ -75,17 +71,15 @@ export async function createSubscriptionCheckout(formData: FormData) {
 export async function openStripeBillingPortal() {
   const { userId } = await authenticatedBillingIdentity();
   const admin = createAdminClient();
-  const { data, error } = await admin
-    .from("hisab_billing_customers")
-    .select("stripe_customer_id")
-    .eq("user_id", userId)
-    .maybeSingle();
+  const { data, error } = await admin.from("hisab_billing_customers").select("stripe_customer_id").eq("user_id", userId).maybeSingle();
   if (error || !data?.stripe_customer_id) redirect("/billing?error=No+Stripe+billing+account+is+available+yet.");
 
+  let portalUrl = "";
   try {
     const portal = await createStripePortalSession(String(data.stripe_customer_id), `${appConfig.appUrl}/billing`);
-    redirect(portal.url);
+    portalUrl = portal.url;
   } catch (error) {
     redirect(`/billing?error=${encodeURIComponent(error instanceof Error ? error.message : "The billing portal could not open.")}`);
   }
+  redirect(portalUrl);
 }
