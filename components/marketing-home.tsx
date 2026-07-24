@@ -2,7 +2,7 @@ import Link from "next/link";
 import { marketingIndustries } from "../lib/marketing-industries";
 import { marketingModules } from "../lib/marketing-modules";
 import { pricingPlans } from "../lib/marketing-pricing";
-import { HeroImacWorkspace } from "./hero-imac-workspace";
+import { HeroOfficeWorkspace } from "./hero-office-workspace";
 import { MarketingPageShell } from "./marketing-site-chrome";
 import { ProductTourExperience } from "./product-tour-experience";
 
@@ -26,7 +26,7 @@ export function MarketingHome() {
     <MarketingPageShell>
       <section className="marketing-hero marketing-hero-v2">
         <div className="marketing-hero-copy"><h1>Run your entire business from one intelligent workspace.</h1><p>HisabERP connects sales, expenses, inventory, invoicing, customers, suppliers, cash flow and reporting—so every important decision starts with reliable information.</p><div className="marketing-hero-actions"><Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a demo</Link><Link href="/product-tour" className="marketing-text-action">Explore the product <span aria-hidden="true">→</span></Link></div></div>
-        <HeroImacWorkspace />
+        <HeroOfficeWorkspace />
       </section>
 
       <section className="marketing-proof marketing-proof-v2"><p>Designed for ambitious businesses moving beyond notebooks and disconnected spreadsheets</p><div><span>Retail</span><span>Wholesale</span><span>Services</span><span>Hospitality</span><span>Cooperatives</span><span>Multi-branch teams</span></div></section>
