@@ -8,12 +8,13 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (relativePath) => readFile(path.join(root, relativePath), "utf8");
 
 test("Stripe subscriptions use ETB hosted checkout and signed webhooks", async () => {
-  const [catalog, stripe, webhook, proxy, migration, env] = await Promise.all([
+  const [catalog, stripe, webhook, proxy, migration, hardening, env] = await Promise.all([
     read("lib/billing/catalog.ts"),
     read("lib/stripe/api.ts"),
     read("app/api/stripe/webhook/route.ts"),
     read("lib/supabase/proxy.ts"),
     read("supabase/migrations/20260724_hisab_billing_foundation.sql"),
+    read("supabase/migrations/20260724_hisab_billing_concurrency_hardening.sql"),
     read(".env.example"),
   ]);
 
@@ -24,17 +25,24 @@ test("Stripe subscriptions use ETB hosted checkout and signed webhooks", async (
   assert.match(stripe, /mode:\s*"subscription"/);
   assert.match(stripe, /subscription_data\]\[metadata\]\[hisab_user_id\]/);
   assert.match(webhook, /parseVerifiedStripeEvent/);
-  assert.match(webhook, /hisab_billing_webhook_events/);
+  assert.match(webhook, /hisab_claim_stripe_webhook_event/);
   assert.match(webhook, /checkout\.session\.completed/);
   assert.match(webhook, /checkout\.session\.async_payment_succeeded/);
   assert.match(webhook, /customer\.subscription\./);
+  assert.match(webhook, /retrieveStripeSubscription\(subscriptionId\)/);
   assert.match(webhook, /invoice\.payment_failed/);
-  assert.match(webhook, /PROCESSING_LEASE_MS/);
   assert.match(webhook, /Stripe Checkout Session is not registered for this Hisab user/);
+  assert.doesNotMatch(webhook, /syncSubscription\(object as unknown as StripeSubscription/);
   assert.match(proxy, /"\/api\/stripe\/webhook"/);
   assert.match(migration, /enable row level security/gi);
   assert.match(migration, /Users can read their own Hisab subscription/);
   assert.match(migration, /revoke all on public\.hisab_billing_subscriptions from anon, authenticated/);
+  assert.match(hardening, /hisab_billing_checkout_locks/);
+  assert.match(hardening, /hisab_claim_checkout_lock/);
+  assert.match(hardening, /hisab_attach_checkout_lock/);
+  assert.match(hardening, /hisab_claim_stripe_webhook_event/);
+  assert.match(hardening, /on conflict \(stripe_event_id\) do update/);
+  assert.match(hardening, /updated_at <= now\(\) - v_lease/);
   assert.match(env, /STRIPE_SECRET_KEY=/);
   assert.match(env, /STRIPE_WEBHOOK_SECRET=/);
   assert.match(env, /BILLING_ENFORCEMENT_ENABLED=false/);
@@ -60,7 +68,7 @@ test("sign-up preserves checkout intent across every identity provider", async (
   assert.match(social, /value="google"/);
 });
 
-test("billing UI waits for webhook verification and exposes self-service management", async () => {
+test("billing UI waits for webhook verification and checkout creation is serialized", async () => {
   const [checkout, billing, success, status, pricing, userMenu, actions] = await Promise.all([
     read("app/checkout/page.tsx"),
     read("app/billing/page.tsx"),
@@ -81,7 +89,10 @@ test("billing UI waits for webhook verification and exposes self-service managem
   assert.match(userMenu, /Billing &amp; subscription/);
   assert.match(actions, /subscriptionGrantsAccess/);
   assert.match(actions, /retrieveStripeCheckoutSession/);
-  assert.match(actions, /minuteBucket/);
+  assert.match(actions, /hisab_claim_checkout_lock/);
+  assert.match(actions, /hisab_attach_checkout_lock/);
+  assert.match(actions, /hisab-checkout-\$\{userId\}-\$\{claim\.checkout_token\}/);
+  assert.doesNotMatch(actions, /minuteBucket/);
   assert.doesNotMatch(actions, /randomUUID/);
 });
 
