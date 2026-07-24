@@ -11,17 +11,18 @@ function statusLabel(status: string | null | undefined) {
   return status.replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
-export default async function BillingPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+export default async function BillingPage({ searchParams }: { searchParams: Promise<{ error?: string; notice?: string; next?: string }> }) {
   const [snapshot, params] = await Promise.all([getCurrentBillingSnapshot(), searchParams]);
   const subscription = snapshot.subscription;
   const plan = billingPlans.find((item) => item.code === subscription?.planCode) || null;
   const active = subscriptionGrantsAccess(subscription?.status);
+  const safeNext = params.next?.startsWith("/") && !params.next.startsWith("//") ? params.next : "/";
 
   return (
     <main className="commerce-page billing-page">
       <header className="commerce-topbar">
         <Link href="/" className="commerce-brand"><img src="/hisab-logo.svg" alt="" width="42" height="42"/><span><strong>HisabTech</strong><small>Billing center</small></span></Link>
-        <Link href="/">Return to workspace</Link>
+        <Link href={active ? safeNext : "/"}>{active ? "Continue to workspace" : "Return to HisabTech"}</Link>
       </header>
 
       <section className="billing-hero">
@@ -29,6 +30,7 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
         <span className={`billing-status ${active ? "active" : "inactive"}`}><i aria-hidden="true"/>{statusLabel(subscription?.status)}</span>
       </section>
 
+      {params.notice ? <div className="commerce-alert warning billing-alert" role="status">{params.notice}</div> : null}
       {params.error ? <div className="commerce-alert error billing-alert" role="alert">{params.error}</div> : null}
       {!snapshot.configured ? <div className="commerce-alert warning billing-alert" role="status">Stripe is not configured in this environment. The billing ledger remains protected, but provider actions are unavailable.</div> : null}
 
