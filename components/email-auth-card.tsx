@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { ProviderOrbit } from "./provider-orbit";
 
 type EmailAuthCardProps = {
   title: string;
@@ -35,6 +36,7 @@ export function EmailAuthCard({
             <span className="auth-standard-badge"><i aria-hidden="true" />{badge}</span>
             <h2>{showcaseTitle}</h2>
             <p>{showcaseDescription}</p>
+            <ProviderOrbit compact />
             <ul className="auth-standard-benefits">
               <li><span aria-hidden="true">✓</span><div><strong>Secure by design</strong><small>Verified identity, protected sessions and reliable recovery.</small></div></li>
               <li><span aria-hidden="true">✓</span><div><strong>Built for Ethiopia</strong><small>Localized workflows for growing Ethiopian organizations.</small></div></li>
@@ -65,7 +67,7 @@ export function EmailAuthCard({
           </div>
 
           <footer className="auth-standard-form-footer">
-            <Link href="/trust">Privacy & security</Link>
+            <Link href="/trust">Privacy &amp; security</Link>
             <Link href="/help-center">Help Center</Link>
           </footer>
         </section>
