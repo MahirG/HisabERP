@@ -2,8 +2,8 @@
 
 import { randomUUID } from "node:crypto";
 import { redirect } from "next/navigation";
-import { initializeChapaPayment } from "../chapa/api";
 import { getBillingPlan, getPlanAmountEtb, isBillingCycle } from "../billing/catalog";
+import { initializeChapaPayment } from "../chapa/api";
 import { appConfig } from "../config";
 import { createAdminClient } from "../supabase/admin";
 import { createClient } from "../supabase/server";
@@ -45,6 +45,7 @@ export async function createChapaCheckout(formData: FormData) {
   });
   if (created.error) checkoutError("Secure Chapa checkout could not be reserved. Please try again.", plan.code, billingCycle);
 
+  let checkoutUrl = "";
   try {
     const initialized = await initializeChapaPayment({
       txRef,
@@ -57,15 +58,14 @@ export async function createChapaCheckout(formData: FormData) {
       callbackUrl: `${appConfig.appUrl}/api/chapa/callback?tx_ref=${encodeURIComponent(txRef)}`,
       returnUrl: `${appConfig.appUrl}/billing/success?tx_ref=${encodeURIComponent(txRef)}`,
     });
+    checkoutUrl = initialized.checkoutUrl;
 
     const updated = await admin.from("hisab_billing_payment_attempts").update({
       status: "open",
-      checkout_url: initialized.checkoutUrl,
+      checkout_url: checkoutUrl,
       updated_at: new Date().toISOString(),
     }).eq("tx_ref", txRef).eq("user_id", userId);
     if (updated.error) throw new Error(updated.error.message);
-
-    redirect(initialized.checkoutUrl);
   } catch (error) {
     await admin.from("hisab_billing_payment_attempts").update({
       status: "failed",
@@ -73,4 +73,6 @@ export async function createChapaCheckout(formData: FormData) {
     }).eq("tx_ref", txRef).eq("user_id", userId);
     checkoutError(error instanceof Error ? error.message : "Chapa checkout could not start.", plan.code, billingCycle);
   }
+
+  redirect(checkoutUrl);
 }
