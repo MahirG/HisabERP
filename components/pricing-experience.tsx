@@ -15,9 +15,9 @@ export function PricingExperience() {
 
   return (
     <>
-      <div className="pricing-controls" aria-label="Billing period">
-        <button type="button" className={!annual ? "active" : undefined} aria-pressed={!annual} onClick={() => setBilling("monthly")}>Monthly billing</button>
-        <button type="button" className={annual ? "active" : undefined} aria-pressed={annual} onClick={() => setBilling("annual")}>Annual billing <span>Save about 2 months</span></button>
+      <div className="pricing-controls" aria-label="Access period">
+        <button type="button" className={!annual ? "active" : undefined} aria-pressed={!annual} onClick={() => setBilling("monthly")}>Monthly access</button>
+        <button type="button" className={annual ? "active" : undefined} aria-pressed={annual} onClick={() => setBilling("annual")}>Annual access <span>Save about 2 months</span></button>
       </div>
 
       <div className="pricing-plan-grid">
@@ -29,20 +29,20 @@ export function PricingExperience() {
               {plan.badge ? <b className="pricing-badge">{plan.badge}</b> : null}
               <header><span>{String(index + 1).padStart(2, "0")}</span><h2>{plan.name}</h2><p>{plan.audience}</p></header>
               <div className="pricing-amount">
-                {amount === null ? <><strong>Custom</strong><small>Scoped to your organization</small></> : <><strong>ETB {formatEtb(amount)}</strong><small>{annual ? "per year" : "per month"}{annual && savings[index] ? ` · save ETB ${formatEtb(savings[index])}` : ""}</small></>}
+                {amount === null ? <><strong>Custom</strong><small>Scoped to your organization</small></> : <><strong>ETB {formatEtb(amount)}</strong><small>{annual ? "for one year" : "for one month"}{annual && savings[index] ? ` · save ETB ${formatEtb(savings[index])}` : ""}</small></>}
               </div>
               <p className="pricing-description">{plan.description}</p>
               <div className="pricing-capacity"><span>{plan.users}</span><span>{plan.branches}</span></div>
               <ul>{plan.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
               <Link href={checkoutHref} className={plan.badge ? "marketing-start" : "marketing-demo"}>{plan.cta}</Link>
-              {plan.code !== "enterprise" ? <small className="pricing-secure-note">Secure Stripe checkout · cancel from the billing portal</small> : null}
+              {plan.code !== "enterprise" ? <small className="pricing-secure-note">Secure Chapa checkout · manual renewal · no automatic charge</small> : null}
             </article>
           );
         })}
       </div>
 
       <div className="pricing-addons">
-        <div><span className="marketing-eyebrow">Optional additions</span><h2>Know what changes the final commercial scope.</h2><p>These items are separated so businesses can compare the software subscription with migration, branch growth and specialized implementation work.</p></div>
+        <div><span className="marketing-eyebrow">Optional additions</span><h2>Know what changes the final commercial scope.</h2><p>These items are separated so businesses can compare paid software access with migration, branch growth and specialized implementation work.</p></div>
         <div>{pricingAddOns.map((item) => <article key={item.label}><span><strong>{item.label}</strong><small>{item.detail}</small></span><b>{item.price}</b></article>)}</div>
       </div>
     </>

@@ -1,47 +1,55 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { isValidHisabTxRef, verifyAndApplyChapaPayment } from "../../../../lib/chapa/settlement";
+import { billingGrantsAccess } from "../../../../lib/data/billing";
 import { createClient } from "../../../../lib/supabase/server";
-import { subscriptionGrantsAccess } from "../../../../lib/data/billing";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const sessionId = request.nextUrl.searchParams.get("session_id")?.trim() || "";
-  if (!/^cs_(test_|live_)?[A-Za-z0-9]+$/.test(sessionId)) {
-    return NextResponse.json({ error: "Invalid checkout session." }, { status: 400 });
-  }
+  const txRef = request.nextUrl.searchParams.get("tx_ref")?.trim() || "";
+  if (!isValidHisabTxRef(txRef)) return NextResponse.json({ error: "Invalid transaction reference." }, { status: 400 });
 
   const supabase = await createClient();
   const { data: claimsData } = await supabase.auth.getClaims();
   const userId = typeof claimsData?.claims?.sub === "string" ? claimsData.claims.sub : "";
   if (!userId) return NextResponse.json({ error: "Authentication required." }, { status: 401 });
 
-  const checkout = await supabase
-    .from("hisab_billing_checkout_sessions")
-    .select("status,plan_code,billing_cycle,stripe_subscription_id,completed_at")
-    .eq("stripe_session_id", sessionId)
+  let attempt = await supabase
+    .from("hisab_billing_payment_attempts")
+    .select("status,plan_code,billing_cycle,amount_etb,currency,chapa_reference,verified_at")
+    .eq("tx_ref", txRef)
     .eq("user_id", userId)
     .maybeSingle();
-  if (checkout.error) return NextResponse.json({ error: "Billing status is unavailable." }, { status: 503 });
-  if (!checkout.data) return NextResponse.json({ state: "processing", checkout: null, subscription: null });
+  if (attempt.error) return NextResponse.json({ error: "Payment status is unavailable." }, { status: 503 });
+  if (!attempt.data) return NextResponse.json({ error: "Payment reference not found." }, { status: 404 });
 
-  const subscription = await supabase
-    .from("hisab_billing_subscriptions")
-    .select("status,plan_code,billing_cycle,current_period_end,cancel_at_period_end")
+  if (["creating", "open", "pending"].includes(String(attempt.data.status))) {
+    await verifyAndApplyChapaPayment(txRef).catch(() => undefined);
+    attempt = await supabase
+      .from("hisab_billing_payment_attempts")
+      .select("status,plan_code,billing_cycle,amount_etb,currency,chapa_reference,verified_at")
+      .eq("tx_ref", txRef)
+      .eq("user_id", userId)
+      .maybeSingle();
+  }
+
+  const access = await supabase
+    .from("hisab_billing_access")
+    .select("status,plan_code,billing_cycle,current_period_start,current_period_end,last_payment_status,last_tx_ref")
     .eq("user_id", userId)
     .maybeSingle();
-  if (subscription.error) return NextResponse.json({ error: "Subscription status is unavailable." }, { status: 503 });
+  if (access.error) return NextResponse.json({ error: "Paid access status is unavailable." }, { status: 503 });
 
-  const state = subscriptionGrantsAccess(subscription.data?.status)
+  const grantsAccess = billingGrantsAccess(access.data?.status, access.data?.current_period_end);
+  const paymentStatus = String(attempt.data?.status || "pending");
+  const failed = ["failed", "cancelled", "refunded", "reversed"].includes(paymentStatus);
+  const state = grantsAccess && paymentStatus === "success"
     ? "verified"
-    : checkout.data.status === "complete"
+    : paymentStatus === "success"
       ? "activating"
-      : checkout.data.status === "expired" || checkout.data.status === "failed"
+      : failed
         ? "failed"
         : "processing";
 
-  return NextResponse.json({
-    state,
-    checkout: checkout.data,
-    subscription: subscription.data,
-  }, { headers: { "Cache-Control": "no-store" } });
+  return NextResponse.json({ state, payment: attempt.data, access: access.data }, { headers: { "Cache-Control": "no-store" } });
 }

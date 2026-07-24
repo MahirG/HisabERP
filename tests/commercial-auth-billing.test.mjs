@@ -7,49 +7,40 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (relativePath) => readFile(path.join(root, relativePath), "utf8");
 
-test("Stripe subscriptions use ETB hosted checkout and signed webhooks", async () => {
-  const [catalog, stripe, webhook, proxy, migration, hardening, env] = await Promise.all([
+test("Chapa checkout uses ETB and verifies every successful transaction server-side", async () => {
+  const [catalog, chapa, signature, settlement, webhook, proxy, migration, env] = await Promise.all([
     read("lib/billing/catalog.ts"),
-    read("lib/stripe/api.ts"),
-    read("app/api/stripe/webhook/route.ts"),
+    read("lib/chapa/api.ts"),
+    read("lib/chapa/webhook.ts"),
+    read("lib/chapa/settlement.ts"),
+    read("app/api/chapa/webhook/route.ts"),
     read("lib/supabase/proxy.ts"),
-    read("supabase/migrations/20260724_hisab_billing_foundation.sql"),
-    read("supabase/migrations/20260724_hisab_billing_concurrency_hardening.sql"),
+    read("supabase/migrations/20260724_hisab_chapa_billing_foundation.sql"),
     read(".env.example"),
   ]);
 
   assert.match(catalog, /monthlyAmountEtb:\s*1500/);
   assert.match(catalog, /annualAmountEtb:\s*95000/);
-  assert.match(stripe, /2026-06-24\.dahlia/);
-  assert.match(stripe, /integration_identifier:\s*stripeIntegrationIdentifier\(\)/);
-  assert.match(stripe, /STRIPE_INTEGRATION_IDENTIFIER/);
-  assert.match(stripe, /currency\]":\s*"etb"/);
-  assert.match(stripe, /mode:\s*"subscription"/);
-  assert.doesNotMatch(stripe, /payment_method_types/);
-  assert.match(stripe, /subscription_data\]\[metadata\]\[hisab_user_id\]/);
-  assert.match(webhook, /parseVerifiedStripeEvent/);
-  assert.match(webhook, /hisab_claim_stripe_webhook_event/);
-  assert.match(webhook, /checkout\.session\.completed/);
-  assert.match(webhook, /checkout\.session\.async_payment_succeeded/);
-  assert.match(webhook, /customer\.subscription\./);
-  assert.match(webhook, /retrieveStripeSubscription\(subscriptionId\)/);
-  assert.match(webhook, /invoice\.payment_failed/);
-  assert.match(webhook, /Stripe Checkout Session is not registered for this Hisab user/);
-  assert.doesNotMatch(webhook, /syncSubscription\(object as unknown as StripeSubscription/);
-  assert.match(proxy, /"\/api\/stripe\/webhook"/);
-  assert.match(migration, /enable row level security/gi);
-  assert.match(migration, /Users can read their own Hisab subscription/);
-  assert.match(migration, /revoke all on public\.hisab_billing_subscriptions from anon, authenticated/);
-  assert.match(hardening, /hisab_billing_checkout_locks/);
-  assert.match(hardening, /hisab_claim_checkout_lock/);
-  assert.match(hardening, /hisab_attach_checkout_lock/);
-  assert.match(hardening, /hisab_claim_stripe_webhook_event/);
-  assert.match(hardening, /on conflict \(stripe_event_id\) do update/);
-  assert.match(hardening, /updated_at <= now\(\) - v_lease/);
-  assert.match(env, /STRIPE_SECRET_KEY=/);
-  assert.match(env, /STRIPE_WEBHOOK_SECRET=/);
-  assert.match(env, /STRIPE_API_VERSION=2026-06-24\.dahlia/);
-  assert.match(env, /STRIPE_INTEGRATION_IDENTIFIER=hisaberp_checkout_[a-z]{8}/);
+  assert.match(chapa, /https:\/\/api\.chapa\.co\/v1/);
+  assert.match(chapa, /transaction\/initialize/);
+  assert.match(chapa, /transaction\/verify/);
+  assert.match(chapa, /currency:\s*"ETB"/);
+  assert.match(signature, /x-chapa-signature/);
+  assert.match(signature, /createHmac\("sha256"/);
+  assert.match(settlement, /verifiedTxRef !== txRef/);
+  assert.match(settlement, /currency !== "ETB"/);
+  assert.match(settlement, /unexpected payment amount/);
+  assert.match(settlement, /hisab_apply_chapa_transaction/);
+  assert.match(webhook, /parseVerifiedChapaWebhook/);
+  assert.match(webhook, /verifyAndApplyChapaPayment/);
+  assert.match(proxy, /"\/api\/chapa\/webhook"/);
+  assert.match(proxy, /hisab_billing_access/);
+  assert.match(migration, /provider text not null default 'chapa'/);
+  assert.match(migration, /Users can read their own Chapa payment attempts/);
+  assert.match(migration, /No client access to Chapa webhook ledger/);
+  assert.match(env, /CHAPA_SECRET_KEY=/);
+  assert.match(env, /CHAPA_WEBHOOK_SECRET=/);
+  assert.doesNotMatch(env, /STRIPE_/);
   assert.match(env, /BILLING_ENFORCEMENT_ENABLED=false/);
 });
 
@@ -73,8 +64,8 @@ test("sign-up preserves checkout intent across every identity provider", async (
   assert.match(social, /value="google"/);
 });
 
-test("billing UI waits for webhook verification and checkout creation is serialized", async () => {
-  const [checkout, billing, success, status, pricing, userMenu, actions] = await Promise.all([
+test("paid-access UI states that Chapa renewal is manual", async () => {
+  const [checkout, billing, success, status, pricing, userMenu, actions, orbit] = await Promise.all([
     read("app/checkout/page.tsx"),
     read("app/billing/page.tsx"),
     read("components/billing-success-status.tsx"),
@@ -82,29 +73,26 @@ test("billing UI waits for webhook verification and checkout creation is seriali
     read("components/pricing-experience.tsx"),
     read("components/user-menu.tsx"),
     read("lib/actions/billing.ts"),
+    read("components/provider-orbit.tsx"),
   ]);
 
-  assert.match(checkout, /createSubscriptionCheckout/);
-  assert.match(checkout, /webhook/);
-  assert.match(billing, /openStripeBillingPortal/);
-  assert.match(success, /api\/billing\/status/);
+  assert.match(checkout, /createChapaCheckout/);
+  assert.match(checkout, /does not authorize automatic recurring charges/);
+  assert.match(billing, /Manual payment through Chapa/);
+  assert.match(success, /api\/billing\/status\?tx_ref/);
   assert.match(success, /state === "verified"/);
-  assert.match(status, /subscriptionGrantsAccess/);
-  assert.match(pricing, /\/checkout\?plan=\$\{plan\.code\}&billing=\$\{billing\}/);
-  assert.match(userMenu, /Billing &amp; subscription/);
-  assert.match(actions, /subscriptionGrantsAccess/);
-  assert.match(actions, /retrieveStripeCheckoutSession/);
-  assert.match(actions, /hisab_claim_checkout_lock/);
-  assert.match(actions, /hisab_attach_checkout_lock/);
-  assert.match(actions, /hisab-checkout-\$\{userId\}-\$\{claim\.checkout_token\}/);
-  assert.doesNotMatch(actions, /minuteBucket/);
-  assert.doesNotMatch(actions, /randomUUID/);
+  assert.match(status, /verifyAndApplyChapaPayment/);
+  assert.match(pricing, /manual renewal · no automatic charge/);
+  assert.match(userMenu, /Payments &amp; paid access/);
+  assert.match(actions, /initializeChapaPayment/);
+  assert.match(actions, /hisab_billing_payment_attempts/);
+  assert.match(orbit, /provider-chapa/);
+  assert.doesNotMatch(checkout + billing + success + status + pricing + userMenu + actions + orbit, /Stripe|stripe/);
 });
 
 test("premium Hisab mobile navigation and commercial motion remain accessible", async () => {
-  const [menu, orbit, styles, layout] = await Promise.all([
+  const [menu, styles, layout] = await Promise.all([
     read("components/marketing-site-chrome.tsx"),
-    read("components/provider-orbit.tsx"),
     read("app/commercial-platform.css"),
     read("app/layout.tsx"),
   ]);
@@ -116,9 +104,6 @@ test("premium Hisab mobile navigation and commercial motion remain accessible", 
   assert.match(menu, /querySelectorAll<HTMLElement>/);
   assert.match(menu, /toggleButtonRef\.current\?\.focus/);
   assert.match(menu, /document\.body\.style\.overflow = "hidden"/);
-  assert.match(orbit, /provider-google/);
-  assert.match(orbit, /provider-apple/);
-  assert.match(orbit, /provider-stripe/);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(styles, /--commerce-accent:\s*#DA7757/);
   assert.match(styles, /--commerce-ink:\s*#171717/);

@@ -52,7 +52,7 @@ export function UserMenu({ user }: { user: MenuUser }) {
           <div className="sticky-user-context"><span>{user.organizationName}</span><strong>{roleLabel(user.role)}</strong></div>
           <nav aria-label="Account navigation">
             <Link role="menuitem" href="/account" onClick={() => setOpen(false)}><Icon name="shield-check" size={20}/><div><strong>Account &amp; security</strong><small>{providerLabel(user.provider)}</small></div><Icon name="chevron-right" size={18}/></Link>
-            <Link role="menuitem" href="/billing" onClick={() => setOpen(false)}><Icon name="wallet" size={20}/><div><strong>Billing &amp; subscription</strong><small>Plan, invoices and payment methods</small></div><Icon name="chevron-right" size={18}/></Link>
+            <Link role="menuitem" href="/billing" onClick={() => setOpen(false)}><Icon name="wallet" size={20}/><div><strong>Payments &amp; paid access</strong><small>Chapa payments, plan and access period</small></div><Icon name="chevron-right" size={18}/></Link>
           </nav>
           <form action={signOut}><button className="sticky-user-logout button-with-icon" type="submit" role="menuitem"><Icon name="log-out" size={18}/><strong>Log out</strong></button></form>
         </section>
