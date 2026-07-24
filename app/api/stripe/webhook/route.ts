@@ -7,7 +7,6 @@ import { parseVerifiedStripeEvent } from "../../../../lib/stripe/webhook";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const PROCESSING_LEASE_MS = 5 * 60 * 1000;
 type UnknownRecord = Record<string, unknown>;
 
 function asRecord(value: unknown): UnknownRecord {
@@ -81,37 +80,17 @@ async function syncSubscription(subscription: StripeSubscription, eventId: strin
 
 async function beginEvent(event: ReturnType<typeof parseVerifiedStripeEvent>) {
   const admin = createAdminClient();
-  const inserted = await admin.from("hisab_billing_webhook_events").insert({
-    stripe_event_id: event.id,
-    event_type: event.type,
-    livemode: Boolean(event.livemode),
-    status: "processing",
-    payload: event,
+  const claim = await admin.rpc("hisab_claim_stripe_webhook_event", {
+    p_event_id: event.id,
+    p_event_type: event.type,
+    p_livemode: Boolean(event.livemode),
+    p_payload: event,
+    p_lease_seconds: 300,
   });
-  if (!inserted.error) return "process" as const;
-  if (inserted.error.code !== "23505") throw new Error(inserted.error.message);
-
-  const existing = await admin
-    .from("hisab_billing_webhook_events")
-    .select("status,attempts,updated_at")
-    .eq("stripe_event_id", event.id)
-    .maybeSingle();
-  if (existing.error) throw new Error(existing.error.message);
-  if (existing.data?.status === "processed") return "duplicate" as const;
-
-  const updatedAt = existing.data?.updated_at ? Date.parse(String(existing.data.updated_at)) : 0;
-  const processingLeaseIsFresh = existing.data?.status === "processing" && Number.isFinite(updatedAt) && Date.now() - updatedAt < PROCESSING_LEASE_MS;
-  if (processingLeaseIsFresh) return "duplicate" as const;
-
-  const retried = await admin.from("hisab_billing_webhook_events").update({
-    status: "processing",
-    attempts: Number(existing.data?.attempts || 1) + 1,
-    error_message: null,
-    payload: event,
-    updated_at: new Date().toISOString(),
-  }).eq("stripe_event_id", event.id);
-  if (retried.error) throw new Error(retried.error.message);
-  return "process" as const;
+  if (claim.error) throw new Error(claim.error.message);
+  if (claim.data === "process") return "process" as const;
+  if (claim.data === "duplicate") return "duplicate" as const;
+  throw new Error("Stripe webhook claim returned an invalid state.");
 }
 
 async function completeEvent(eventId: string) {
@@ -121,7 +100,7 @@ async function completeEvent(eventId: string) {
     processed_at: new Date().toISOString(),
     error_message: null,
     updated_at: new Date().toISOString(),
-  }).eq("stripe_event_id", eventId);
+  }).eq("stripe_event_id", eventId).eq("status", "processing");
   if (result.error) throw new Error(result.error.message);
 }
 
@@ -131,8 +110,14 @@ async function failEvent(eventId: string, error: unknown) {
     status: "failed",
     error_message: (error instanceof Error ? error.message : "Webhook processing failed.").slice(0, 1000),
     updated_at: new Date().toISOString(),
-  }).eq("stripe_event_id", eventId);
+  }).eq("stripe_event_id", eventId).eq("status", "processing");
   if (result.error) throw new Error(result.error.message);
+}
+
+async function releaseCheckoutLock(sessionId: string) {
+  const admin = createAdminClient();
+  const released = await admin.from("hisab_billing_checkout_locks").delete().eq("stripe_session_id", sessionId);
+  if (released.error) throw new Error(released.error.message);
 }
 
 async function completeCheckout(object: UnknownRecord, eventId: string) {
@@ -167,6 +152,7 @@ async function completeCheckout(object: UnknownRecord, eventId: string) {
   if (customer.error) throw new Error(customer.error.message);
 
   await syncSubscription(await retrieveStripeSubscription(subscriptionId), eventId);
+  await releaseCheckoutLock(sessionId);
 }
 
 async function markCheckout(object: UnknownRecord, status: "failed" | "expired") {
@@ -178,6 +164,7 @@ async function markCheckout(object: UnknownRecord, status: "failed" | "expired")
     updated_at: new Date().toISOString(),
   }).eq("stripe_session_id", sessionId);
   if (result.error) throw new Error(result.error.message);
+  await releaseCheckoutLock(sessionId);
 }
 
 async function processEvent(event: ReturnType<typeof parseVerifiedStripeEvent>) {
@@ -199,7 +186,9 @@ async function processEvent(event: ReturnType<typeof parseVerifiedStripeEvent>) 
   }
 
   if (event.type.startsWith("customer.subscription.")) {
-    await syncSubscription(object as unknown as StripeSubscription, event.id);
+    const subscriptionId = stringValue(object.id);
+    if (!subscriptionId) throw new Error("Stripe subscription event is missing its subscription ID.");
+    await syncSubscription(await retrieveStripeSubscription(subscriptionId), event.id);
     return;
   }
 
