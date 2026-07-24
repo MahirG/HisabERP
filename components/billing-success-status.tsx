@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 
 type BillingState = "processing" | "activating" | "verified" | "failed" | "error";
 
+const MAX_STATUS_CHECKS = 24;
+
 const copy: Record<BillingState, { eyebrow: string; title: string; description: string }> = {
   processing: {
     eyebrow: "Payment received by Stripe",
@@ -35,26 +37,42 @@ const copy: Record<BillingState, { eyebrow: string; title: string; description: 
 
 export function BillingSuccessStatus({ sessionId }: { sessionId: string }) {
   const [state, setState] = useState<BillingState>("processing");
-  const [attempts, setAttempts] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
     let timer: ReturnType<typeof setTimeout> | undefined;
+    let checks = 0;
 
     async function check() {
+      if (cancelled) return;
+      if (checks >= MAX_STATUS_CHECKS) {
+        setState("error");
+        return;
+      }
+      checks += 1;
+
       try {
         const response = await fetch(`/api/billing/status?session_id=${encodeURIComponent(sessionId)}`, { cache: "no-store" });
         if (!response.ok) throw new Error("Status unavailable");
         const payload = await response.json() as { state?: BillingState };
         const nextState = payload.state || "processing";
         if (cancelled) return;
-        setState(nextState);
-        setAttempts((current) => current + 1);
-        if (nextState === "verified" || nextState === "failed") return;
+        if (nextState === "verified" || nextState === "failed") {
+          setState(nextState);
+          return;
+        }
+        if (checks >= MAX_STATUS_CHECKS) {
+          setState("error");
+          return;
+        }
+        setState(nextState === "activating" ? "activating" : "processing");
         timer = setTimeout(check, 1800);
       } catch {
         if (cancelled) return;
-        setAttempts((current) => current + 1);
+        if (checks >= MAX_STATUS_CHECKS) {
+          setState("error");
+          return;
+        }
         timer = setTimeout(check, 2500);
       }
     }
@@ -65,10 +83,6 @@ export function BillingSuccessStatus({ sessionId }: { sessionId: string }) {
       if (timer) clearTimeout(timer);
     };
   }, [sessionId]);
-
-  useEffect(() => {
-    if (attempts >= 24 && state !== "verified" && state !== "failed") setState("error");
-  }, [attempts, state]);
 
   const content = copy[state];
   return (
