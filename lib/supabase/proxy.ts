@@ -10,7 +10,7 @@ const publicPageRoutes = new Set([
 const publicAssetRoutes = new Set(["/manifest.webmanifest", "/robots.txt", "/sitemap.xml", "/release.json"]);
 const publicPagePrefixes = ["/product/", "/industries/", "/compare/", "/help-center/", "/resources/"];
 const authenticatedMarketingRoutes = new Set(["/request-demo", "/product-tour", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about"]);
-const publicApiRoutes = new Set(["/api/health", "/api/reconciliation/telebirr/callback", "/api/reconciliation/mpesa/callback", "/api/stripe/webhook"]);
+const publicApiRoutes = new Set(["/api/health", "/api/reconciliation/telebirr/callback", "/api/reconciliation/mpesa/callback", "/api/chapa/callback", "/api/chapa/webhook"]);
 const billingBypassPrefixes = ["/billing", "/checkout", "/onboarding", "/account", "/auth"];
 const billingEnforcementEnabled = process.env.BILLING_ENFORCEMENT_ENABLED?.trim().toLowerCase() === "true";
 
@@ -39,7 +39,7 @@ function billingRedirect(request: NextRequest) {
   const url = request.nextUrl.clone();
   url.pathname = "/billing";
   url.search = "";
-  url.searchParams.set("notice", "Choose or restore an active HisabERP subscription to continue.");
+  url.searchParams.set("notice", "Choose or renew a verified HisabERP paid-access period to continue.");
   url.searchParams.set("next", `${request.nextUrl.pathname}${request.nextUrl.search}`);
   return NextResponse.redirect(url);
 }
@@ -89,10 +89,11 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
   const billingBypass = billingBypassPrefixes.some((prefix) => path === prefix || path.startsWith(`${prefix}/`));
   const paidWorkspacePath = path === "/" || (!publicPath && !billingBypass);
   if (isAuthenticated && billingEnforcementEnabled && paidWorkspacePath) {
-    const subscription = await supabase.from("hisab_billing_subscriptions").select("status").eq("user_id", userId).maybeSingle();
-    const grantsAccess = subscription.data?.status === "active" || subscription.data?.status === "trialing";
+    const access = await supabase.from("hisab_billing_access").select("status,current_period_end").eq("user_id", userId).maybeSingle();
+    const end = access.data?.current_period_end ? new Date(String(access.data.current_period_end)).getTime() : 0;
+    const grantsAccess = access.data?.status === "active" && Number.isFinite(end) && end > Date.now();
     if (!grantsAccess) {
-      if (path.startsWith("/api/")) return withCookies(NextResponse.json({ error: "Active subscription required." }, { status: 402 }));
+      if (path.startsWith("/api/")) return withCookies(NextResponse.json({ error: "Active paid access required." }, { status: 402 }));
       return withCookies(billingRedirect(request));
     }
   }
