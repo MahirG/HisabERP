@@ -20,9 +20,12 @@ test("Stripe subscriptions use ETB hosted checkout and signed webhooks", async (
 
   assert.match(catalog, /monthlyAmountEtb:\s*1500/);
   assert.match(catalog, /annualAmountEtb:\s*95000/);
-  assert.match(stripe, /2026-02-25\.clover/);
+  assert.match(stripe, /2026-06-24\.dahlia/);
+  assert.match(stripe, /integration_identifier:\s*stripeIntegrationIdentifier\(\)/);
+  assert.match(stripe, /STRIPE_INTEGRATION_IDENTIFIER/);
   assert.match(stripe, /currency\]":\s*"etb"/);
   assert.match(stripe, /mode:\s*"subscription"/);
+  assert.doesNotMatch(stripe, /payment_method_types/);
   assert.match(stripe, /subscription_data\]\[metadata\]\[hisab_user_id\]/);
   assert.match(webhook, /parseVerifiedStripeEvent/);
   assert.match(webhook, /hisab_claim_stripe_webhook_event/);
@@ -45,6 +48,8 @@ test("Stripe subscriptions use ETB hosted checkout and signed webhooks", async (
   assert.match(hardening, /updated_at <= now\(\) - v_lease/);
   assert.match(env, /STRIPE_SECRET_KEY=/);
   assert.match(env, /STRIPE_WEBHOOK_SECRET=/);
+  assert.match(env, /STRIPE_API_VERSION=2026-06-24\.dahlia/);
+  assert.match(env, /STRIPE_INTEGRATION_IDENTIFIER=hisaberp_checkout_[a-z]{8}/);
   assert.match(env, /BILLING_ENFORCEMENT_ENABLED=false/);
 });
 
