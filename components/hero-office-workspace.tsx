@@ -1,44 +1,72 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import Link from "next/link";
+import {
+  HeroImageBannerSlider,
+  type HeroImageBannerSlide,
+} from "./hero-image-banner-slider";
 
-async function readHeroImage(filename: string) {
-  const encoded = await readFile(path.join(process.cwd(), "public", filename), "utf8");
-  return `data:image/webp;base64,${encoded.trim()}`;
+async function readChunkedHero(prefix: string, chunkCount: number) {
+  const chunks = await Promise.all(
+    Array.from({ length: chunkCount }, (_, index) =>
+      readFile(
+        path.join(
+          process.cwd(),
+          "public",
+          "hero-assets",
+          `${prefix}.part-${String(index + 1).padStart(2, "0")}`,
+        ),
+        "utf8",
+      ),
+    ),
+  );
+
+  return `data:image/webp;base64,${chunks.join("").replace(/\s+/g, "")}`;
 }
 
 export async function HeroOfficeWorkspace() {
-  const primaryImage = await readHeroImage("hisab-ethiopian-office-hero.webp");
+  const [workSmarterImage, clarityImage] = await Promise.all([
+    readChunkedHero("slide-1", 5),
+    readChunkedHero("slide-2", 4),
+  ]);
 
-  return (
-    <section className="hero-marketing-slider hero-marketing-single" aria-label="HisabTech ERP">
-      <div className="hero-marketing-track">
-        <article className="hero-marketing-slide is-active" aria-label="HisabTech ERP hero banner">
-          <img
-            src={primaryImage}
-            alt="Ethiopian business professional using the HisabTech ERP dashboard on a laptop"
-            width="1600"
-            height="686"
-            fetchPriority="high"
-            decoding="async"
-            className="hero-marketing-image"
-          />
-          <div className="hero-marketing-shade" aria-hidden="true" />
-          <div className="hero-marketing-content">
-            <span className="hero-marketing-eyebrow">HisabTech ERP</span>
-            <h1 className="hero-marketing-heading">Run Your Business with Clarity</h1>
-            <p>Bring sales, inventory, finance, and reporting into one powerful Ethiopian-ready workspace.</p>
-            <div className="hero-marketing-actions">
-              <Link href="/request-demo?source=homepage-hero" className="hero-marketing-primary">
-                Request a Demo
-              </Link>
-              <Link href="/product-tour" className="hero-marketing-secondary">
-                Explore Features
-              </Link>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-  );
+  const slides: HeroImageBannerSlide[] = [
+    {
+      title: "Work Smarter, Wherever Business Happens",
+      imageSrc: workSmarterImage,
+      imageAlt:
+        "Ethiopian professional using HisabTech ERP outdoors with Work Smarter website message",
+      links: [
+        {
+          label: "See the Dashboard",
+          href: "/product-tour",
+          className: "slide-one-primary",
+        },
+        {
+          label: "Talk to Sales",
+          href: "/request-demo?source=homepage-slider",
+          className: "slide-one-secondary",
+        },
+      ],
+    },
+    {
+      title: "Run Your Business with Clarity",
+      imageSrc: clarityImage,
+      imageAlt:
+        "Ethiopian professional using HisabTech ERP outdoors with Run Your Business with Clarity website message",
+      links: [
+        {
+          label: "Request a Demo",
+          href: "/request-demo?source=homepage-hero",
+          className: "slide-two-primary",
+        },
+        {
+          label: "Explore Features",
+          href: "/product-tour",
+          className: "slide-two-secondary",
+        },
+      ],
+    },
+  ];
+
+  return <HeroImageBannerSlider slides={slides} />;
 }
