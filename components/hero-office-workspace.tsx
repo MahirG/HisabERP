@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { HeroMarketingSlider, type HeroMarketingSlide } from "./hero-marketing-slider";
+import Link from "next/link";
 
 async function readHeroImage(filename: string) {
   const encoded = await readFile(path.join(process.cwd(), "public", filename), "utf8");
@@ -8,31 +8,37 @@ async function readHeroImage(filename: string) {
 }
 
 export async function HeroOfficeWorkspace() {
-  const [primaryImage, secondaryImage] = await Promise.all([
-    readHeroImage("hisab-ethiopian-office-hero.webp"),
-    readHeroImage("hisab-ethiopian-office-hero-2.webp"),
-  ]);
+  const primaryImage = await readHeroImage("hisab-ethiopian-office-hero.webp");
 
-  const slides: HeroMarketingSlide[] = [
-    {
-      eyebrow: "HisabTech ERP",
-      title: "Run Your Business with Clarity",
-      description: "Bring sales, inventory, finance, and reporting into one powerful Ethiopian-ready workspace.",
-      imageSrc: primaryImage,
-      imageAlt: "Ethiopian business professional using the HisabTech ERP dashboard on a laptop",
-      primary: { label: "Request a Demo", href: "/request-demo?source=homepage-hero" },
-      secondary: { label: "Explore Features", href: "/product-tour" },
-    },
-    {
-      eyebrow: "Built for Modern Ethiopian Business",
-      title: "Work Smarter, Wherever Business Happens",
-      description: "Track cash flow, monitor operations, and make faster decisions from one connected ERP platform.",
-      imageSrc: secondaryImage,
-      imageAlt: "Ethiopian digital professional working remotely with HisabTech ERP displayed on a laptop",
-      primary: { label: "See the Dashboard", href: "/product-tour" },
-      secondary: { label: "Talk to Sales", href: "/request-demo?source=homepage-slider" },
-    },
-  ];
-
-  return <HeroMarketingSlider slides={slides} />;
+  return (
+    <section className="hero-marketing-slider hero-marketing-single" aria-label="HisabTech ERP">
+      <div className="hero-marketing-track">
+        <article className="hero-marketing-slide is-active" aria-label="HisabTech ERP hero banner">
+          <img
+            src={primaryImage}
+            alt="Ethiopian business professional using the HisabTech ERP dashboard on a laptop"
+            width="1600"
+            height="686"
+            fetchPriority="high"
+            decoding="async"
+            className="hero-marketing-image"
+          />
+          <div className="hero-marketing-shade" aria-hidden="true" />
+          <div className="hero-marketing-content">
+            <span className="hero-marketing-eyebrow">HisabTech ERP</span>
+            <h1 className="hero-marketing-heading">Run Your Business with Clarity</h1>
+            <p>Bring sales, inventory, finance, and reporting into one powerful Ethiopian-ready workspace.</p>
+            <div className="hero-marketing-actions">
+              <Link href="/request-demo?source=homepage-hero" className="hero-marketing-primary">
+                Request a Demo
+              </Link>
+              <Link href="/product-tour" className="hero-marketing-secondary">
+                Explore Features
+              </Link>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  );
 }
