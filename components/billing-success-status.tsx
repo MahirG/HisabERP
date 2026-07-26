@@ -11,27 +11,27 @@ const copy: Record<BillingState, { eyebrow: string; title: string; description: 
   processing: {
     eyebrow: "Payment submitted through Chapa",
     title: "Verifying the transaction directly…",
-    description: "HisabTech is checking the reference, ETB amount, currency and final payment status with Chapa.",
+    description: "Biloo ERP is checking the reference, ETB amount, currency and final payment status with Chapa.",
   },
   activating: {
     eyebrow: "Chapa payment verified",
-    title: "Activating your HisabERP access…",
+    title: "Activating your Biloo ERP access…",
     description: "The payment is successful. Your monthly or annual access period is being recorded securely.",
   },
   verified: {
     eyebrow: "Paid access verified",
-    title: "Your HisabERP workspace is ready.",
+    title: "Your Biloo ERP workspace is ready.",
     description: "The Chapa transaction was verified and your paid access period is active.",
   },
   failed: {
     eyebrow: "Payment not completed",
-    title: "Your HisabERP access was not activated.",
+    title: "Your Biloo ERP access was not activated.",
     description: "The payment failed, was cancelled, refunded or reversed. No browser-only status was accepted.",
   },
   error: {
     eyebrow: "Verification is taking longer",
     title: "Your payment status is still being checked.",
-    description: "Open the paid access center to review the latest verified status or contact HisabTech support.",
+    description: "Open the paid access center to review the latest verified status or contact Biloo ERP support.",
   },
 };
 
@@ -92,7 +92,7 @@ export function BillingSuccessStatus({ txRef }: { txRef: string }) {
         {state === "verified" ? <Link href="/onboarding" className="commerce-primary">Continue to company setup <b aria-hidden="true">→</b></Link> : null}
         {state === "failed" ? <Link href="/pricing" className="commerce-primary">Return to pricing <b aria-hidden="true">→</b></Link> : null}
         {state === "error" ? <Link href="/billing" className="commerce-primary">Open paid access center <b aria-hidden="true">→</b></Link> : null}
-        <Link href="/" className="commerce-secondary">Go to HisabTech</Link>
+        <Link href="/" className="commerce-secondary">Go to Biloo ERP</Link>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
-# Hisab ERP localization
+# Biloo ERP localization
 
-Hisab ERP supports English (`en`), Amharic (`am`) and Tigrinya (`ti`) across the complete application interface.
+Biloo ERP supports English (`en`), Amharic (`am`) and Tigrinya (`ti`) across the complete application interface.
 
 ## Runtime behavior
 

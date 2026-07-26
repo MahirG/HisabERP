@@ -401,7 +401,7 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
         <section className="workspace-command-dialog" role="dialog" aria-modal="true" aria-labelledby="workspace-search-title">
           <div className="command-dialog-heading">
             <div>
-              <strong id="workspace-search-title">{t("Search HisabTech")}</strong>
+              <strong id="workspace-search-title">{t("Search Biloo ERP")}</strong>
               <span>{t("Find pages, modules, reports, and actions.")}</span>
             </div>
             <button type="button" onClick={closeSurface} aria-label={t("Close active panel")}><Icon name="x" size={18} /></button>
@@ -456,7 +456,7 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
               </strong>
               <span>
                 {surface === "help"
-                  ? t("Guides and shortcuts for using HisabTech safely.")
+                  ? t("Guides and shortcuts for using Biloo ERP safely.")
                   : surface === "advice"
                     ? t("Recommended next steps for this workspace.")
                     : t("Context-aware guidance for {0}.", [activeLabel])}

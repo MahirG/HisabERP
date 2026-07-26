@@ -5,7 +5,7 @@ This release marker requests a clean Vercel production deployment from the curre
 Required production verification:
 
 - exact GitHub commit parity with the latest `main`
-- `hisabtech.com` and `www.hisabtech.com` aliases
+- `erp.biloogroup.com` and `erp.biloogroup.com` aliases
 - healthy `/api/health` response
 - official Telebirr asset origin present in the production CSP
 - Telebirr and M-Pesa callback routes reach their token-protected handlers

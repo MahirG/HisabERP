@@ -1,6 +1,6 @@
 # Electronic Invoicing
 
-Hisab ERP includes a provider-neutral electronic-invoicing foundation for Ethiopian clearance workflows. It does **not** claim government accreditation and does not invent Ministry of Revenue endpoints, credentials, certificates, invoice identifiers or QR values.
+Biloo ERP includes a provider-neutral electronic-invoicing foundation for Ethiopian clearance workflows. It does **not** claim government accreditation and does not invent Ministry of Revenue endpoints, credentials, certificates, invoice identifiers or QR values.
 
 ## Operating modes
 
@@ -8,7 +8,7 @@ Hisab ERP includes a provider-neutral electronic-invoicing foundation for Ethiop
 - `clearance_api`: reserved for a documented direct government API contract.
 - `offline_queue`: preserves payloads and retry timing for connectivity interruptions; a connected provider adapter is still required for transmission.
 
-The issuer profile can use `manual_portal`, `ministry_api` or `accredited_provider`. API modes must remain in sandbox or draft/review status until HisabTech receives approved technical documentation and credentials.
+The issuer profile can use `manual_portal`, `ministry_api` or `accredited_provider`. API modes must remain in sandbox or draft/review status until Biloo ERP receives approved technical documentation and credentials.
 
 ## Data model
 

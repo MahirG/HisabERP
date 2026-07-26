@@ -39,7 +39,7 @@ function billingRedirect(request: NextRequest) {
   const url = request.nextUrl.clone();
   url.pathname = "/billing";
   url.search = "";
-  url.searchParams.set("notice", "Choose or renew a verified HisabERP paid-access period to continue.");
+  url.searchParams.set("notice", "Choose or renew a verified Biloo ERP paid-access period to continue.");
   url.searchParams.set("next", `${request.nextUrl.pathname}${request.nextUrl.search}`);
   return NextResponse.redirect(url);
 }

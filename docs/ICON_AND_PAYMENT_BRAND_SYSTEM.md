@@ -1,8 +1,8 @@
-# HisabTech icon and payment-brand system
+# Biloo ERP icon and payment-brand system
 
 ## Product icon rules
 
-HisabTech uses one curated Lucide-style outline component in `components/ui/icon.tsx`.
+Biloo ERP uses one curated Lucide-style outline component in `components/ui/icon.tsx`.
 
 - Navigation icons: 20px.
 - Dashboard and prominent status icons: 20–24px.
@@ -31,14 +31,14 @@ Official source: `https://www.ethiotelecom.et/wp-content/uploads/2025/10/telebir
 ### Safaricom M-PESA
 
 - Safaricom publishes an official M-PESA brand-asset page, but its download endpoint blocks automated retrieval.
-- HisabTech deliberately displays an `Official logo upload required` state rather than using a third-party or reconstructed logo.
+- Biloo ERP deliberately displays an `Official logo upload required` state rather than using a third-party or reconstructed logo.
 - Replace that state only with the exact official file supplied by Safaricom or the approved merchant account owner.
 
 Official source page: `https://www.safaricom.co.ke/brand-assets?id=2021`
 
 ### Visa, Mastercard, Apple Pay and Google Pay
 
-These methods are not currently exposed as supported HisabTech checkout rails. Their marks must not be displayed as decoration or imply payment capability. When a card or wallet integration is approved:
+These methods are not currently exposed as supported Biloo ERP checkout rails. Their marks must not be displayed as decoration or imply payment capability. When a card or wallet integration is approved:
 
 1. Obtain the exact acceptance mark from the official brand owner.
 2. Store or serve it according to that owner's current guidelines.

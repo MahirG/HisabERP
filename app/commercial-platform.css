@@ -1,4 +1,4 @@
-/* HisabTech commercial platform: premium identity, navigation and Stripe billing. */
+/* Biloo ERP commercial platform: premium identity, navigation and Stripe billing. */
 
 :root {
   --commerce-accent: #DA7757;
@@ -20,7 +20,7 @@ html[data-theme="dark"] {
   --commerce-shadow: 0 32px 100px rgba(0, 0, 0, .46);
 }
 
-/* Payoneer-inspired interaction structure, expressed entirely in HisabTech branding. */
+/* Payoneer-inspired interaction structure, expressed entirely in Biloo ERP branding. */
 .premium-mobile-menu {
   position: fixed;
   z-index: 1100;

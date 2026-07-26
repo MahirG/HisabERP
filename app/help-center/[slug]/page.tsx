@@ -11,7 +11,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const article = getHelpArticle(slug);
-  if (!article) return { title: "HisabERP help" };
+  if (!article) return { title: "Biloo ERP help" };
   return { title: article.title, description: article.summary };
 }
 
@@ -30,7 +30,7 @@ export default async function HelpArticlePage({ params }: { params: Promise<{ sl
           <span className="marketing-eyebrow">{category?.title || article.category}</span>
           <h1>{article.title}</h1>
           <p>{article.summary}</p>
-          <div className="help-article-meta"><span>{article.readTime}</span><span>{article.audience}</span><span>Updated for current HisabERP workflow</span></div>
+          <div className="help-article-meta"><span>{article.readTime}</span><span>{article.audience}</span><span>Updated for current Biloo ERP workflow</span></div>
         </div>
         <aside><span>Before you begin</span><ul>{article.prerequisites.map((item) => <li key={item}>{item}</li>)}</ul></aside>
       </section>
@@ -43,9 +43,9 @@ export default async function HelpArticlePage({ params }: { params: Promise<{ sl
         </article>
       </section>
 
-      {related.length ? <section className="help-related-section"><div className="marketing-section-heading"><span>Continue learning</span><h2>Related HisabERP guides</h2></div><div>{related.map((item) => item ? <Link href={`/help-center/${item.slug}`} key={item.slug}><span>{getHelpCategory(item.category)?.title}</span><strong>{item.title}</strong><small>{item.summary}</small><b>{item.readTime} →</b></Link> : null)}</div></section> : null}
+      {related.length ? <section className="help-related-section"><div className="marketing-section-heading"><span>Continue learning</span><h2>Related Biloo ERP guides</h2></div><div>{related.map((item) => item ? <Link href={`/help-center/${item.slug}`} key={item.slug}><span>{getHelpCategory(item.category)?.title}</span><strong>{item.title}</strong><small>{item.summary}</small><b>{item.readTime} →</b></Link> : null)}</div></section> : null}
 
-      <section className="help-article-support"><div><span>Need support with this workflow?</span><h2>Describe the exact action and where the process stopped.</h2><p>Include the page, expected result and visible error. Never send passwords, authenticator codes, secret keys or complete payment credentials.</p></div><div><a href={`mailto:mahir@hisabtech.com?subject=${encodeURIComponent(`HisabERP help: ${article.title}`)}`} className="marketing-start marketing-large">Contact support</a><Link href="/help-center" className="marketing-demo marketing-large">All guides</Link></div></section>
+      <section className="help-article-support"><div><span>Need support with this workflow?</span><h2>Describe the exact action and where the process stopped.</h2><p>Include the page, expected result and visible error. Never send passwords, authenticator codes, secret keys or complete payment credentials.</p></div><div><a href={`mailto:mahir@erp.biloogroup.com?subject=${encodeURIComponent(`Biloo ERP help: ${article.title}`)}`} className="marketing-start marketing-large">Contact support</a><Link href="/help-center" className="marketing-demo marketing-large">All guides</Link></div></section>
     </MarketingPageShell>
   );
 }

@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       { userAgent: "*", allow: "/", disallow: ["/api/", "/account", "/security", "/onboarding", "/modules/", "/finance", "/sales", "/inventory", "/purchasing", "/hr", "/reconciliation", "/e-invoicing"] },
     ],
-    sitemap: "https://www.hisabtech.com/sitemap.xml",
-    host: "https://www.hisabtech.com",
+    sitemap: "https://erp.biloogroup.com/sitemap.xml",
+    host: "https://erp.biloogroup.com",
   };
 }

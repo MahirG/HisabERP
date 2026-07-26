@@ -1,6 +1,6 @@
 export function HeroImacWorkspace() {
   return (
-    <div className="hero-imac-scene" aria-label="HisabERP dashboard displayed on a premium all-in-one desktop computer">
+    <div className="hero-imac-scene" aria-label="Biloo ERP dashboard displayed on a premium all-in-one desktop computer">
       <span className="hero-imac-orbit" aria-hidden="true" />
 
       <div className="hero-imac-product">
@@ -8,16 +8,16 @@ export function HeroImacWorkspace() {
           <span className="hero-imac-camera" aria-hidden="true" />
 
           <div className="hero-imac-screen">
-            <div className="hero-workspace" aria-label="HisabERP business overview dashboard preview">
+            <div className="hero-workspace" aria-label="Biloo ERP business overview dashboard preview">
               <div className="hero-workspace-bar">
                 <div><i /><i /><i /></div>
-                <strong>HisabERP Financial Workspace</strong>
+                <strong>Biloo ERP Financial Workspace</strong>
                 <span>Live overview</span>
               </div>
 
               <div className="hero-workspace-layout">
                 <aside>
-                  <img src="/hisab-logo.svg" alt="" width="36" height="36" />
+                  <img src="/biloo-erp-mark.svg" alt="" width="36" height="36" />
                   {[
                     "Overview",
                     "Sales",
@@ -78,8 +78,8 @@ export function HeroImacWorkspace() {
           </div>
 
           <div className="hero-imac-chin">
-            <img src="/hisab-logo.svg" alt="" width="28" height="28" />
-            <span>HisabERP</span>
+            <img src="/biloo-erp-mark.svg" alt="" width="28" height="28" />
+            <span>Biloo ERP</span>
           </div>
         </div>
 

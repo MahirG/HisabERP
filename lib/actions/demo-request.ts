@@ -35,7 +35,7 @@ export async function submitDemoRequest(formData: FormData) {
   if (businessType.length < 2) fail("Please select your business type.");
   if (!TEAM_SIZES.has(teamSize)) fail("Please select your team size.");
   if (!CONTACT_METHODS.has(preferredContact)) fail("Please choose how we should contact you.");
-  if (!isSupabaseConfigured()) fail("Demo requests are temporarily unavailable. Please email mahir@hisabtech.com.");
+  if (!isSupabaseConfigured()) fail("Demo requests are temporarily unavailable. Please email mahir@erp.biloogroup.com.");
 
   const supabase = await createClient();
   const { error } = await supabase.from("demo_requests").insert({
@@ -51,7 +51,7 @@ export async function submitDemoRequest(formData: FormData) {
 
   if (error) {
     console.error("Demo request submission failed", { code: error.code });
-    fail("We could not save your request. Please try again or email mahir@hisabtech.com.");
+    fail("We could not save your request. Please try again or email mahir@erp.biloogroup.com.");
   }
 
   redirect("/request-demo?submitted=1");

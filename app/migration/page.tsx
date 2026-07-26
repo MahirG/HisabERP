@@ -4,7 +4,7 @@ import { MarketingPageShell } from "../../components/marketing-site-chrome";
 
 export const metadata: Metadata = {
   title: "Data Migration and Onboarding",
-  description: "Move customers, suppliers, products, opening balances and operating workflows into HisabERP through a controlled assessment, dry run, validation and go-live process.",
+  description: "Move customers, suppliers, products, opening balances and operating workflows into Biloo ERP through a controlled assessment, dry run, validation and go-live process.",
 };
 
 const migrationSources = [
@@ -25,12 +25,12 @@ const migrationStages = [
 
 const responsibilities = [
   { owner: "Your business", items: ["Name a migration owner and data reviewers", "Provide complete source exports and supporting statements", "Resolve duplicates and approve opening balances", "Control the source freeze and staff readiness", "Retain historical evidence after cutover"] },
-  { owner: "HisabTech", items: ["Provide preparation templates and field guidance", "Configure the agreed HisabERP workspace scope", "Run or support controlled import dry runs", "Report validation exceptions clearly", "Support training and the agreed go-live window"] },
+  { owner: "Biloo ERP", items: ["Provide preparation templates and field guidance", "Configure the agreed Biloo ERP workspace scope", "Run or support controlled import dry runs", "Report validation exceptions clearly", "Support training and the agreed go-live window"] },
 ];
 
 const packages = [
   { title: "Self-guided preparation", badge: "For clean, smaller datasets", text: "Use the public templates and help guides to prepare data, then create the organization and validate records internally.", includes: ["CSV preparation templates", "Public migration checklist", "Help-center guides", "Standard product onboarding"] },
-  { title: "Assisted migration", badge: "Most growing businesses", text: "HisabTech reviews scope, supports mapping and dry-run validation, and coordinates a documented cutover with business reviewers.", includes: ["Migration assessment", "Field mapping review", "Dry-run exception report", "Opening-balance validation session"] },
+  { title: "Assisted migration", badge: "Most growing businesses", text: "Biloo ERP reviews scope, supports mapping and dry-run validation, and coordinates a documented cutover with business reviewers.", includes: ["Migration assessment", "Field mapping review", "Dry-run exception report", "Opening-balance validation session"] },
   { title: "Complex implementation", badge: "Multi-branch or multiple systems", text: "A separately quoted project for large volumes, several source systems, complex branches or integration dependencies.", includes: ["Phased migration plan", "Source-system mapping", "Branch-by-branch validation", "Custom implementation scope"] },
 ];
 
@@ -40,7 +40,7 @@ export default function MigrationPage() {
       <section className="migration-hero">
         <div>
           <span className="marketing-eyebrow">Data migration and onboarding</span>
-          <h1>Move into HisabERP without losing control of the source.</h1>
+          <h1>Move into Biloo ERP without losing control of the source.</h1>
           <p>A successful migration is not simply an imported file. It is a documented transition in which master data, opening balances, users and daily workflows are prepared, tested, reconciled and approved.</p>
           <div className="marketing-hero-actions"><Link href="/request-demo?topic=migration" className="marketing-start marketing-large">Request a migration assessment</Link><Link href="/help-center/prepare-data-for-import" className="marketing-demo marketing-large">Open the preparation guide</Link></div>
           <div className="migration-hero-pills"><span>Source preserved</span><span>Dry run required</span><span>Business approval</span><span>Controlled cutover</span></div>
@@ -72,7 +72,7 @@ export default function MigrationPage() {
       </section>
 
       <section className="marketing-section migration-responsibility-section">
-        <div className="marketing-section-heading"><span>Shared responsibility</span><h2>Clear ownership prevents hidden migration risk.</h2><p>HisabTech can support configuration and data movement, but the business remains responsible for source accuracy and approval.</p></div>
+        <div className="marketing-section-heading"><span>Shared responsibility</span><h2>Clear ownership prevents hidden migration risk.</h2><p>Biloo ERP can support configuration and data movement, but the business remains responsible for source accuracy and approval.</p></div>
         <div className="migration-responsibility-grid">{responsibilities.map((group) => <article key={group.owner}><h3>{group.owner}</h3><ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}</div>
       </section>
 
@@ -81,9 +81,9 @@ export default function MigrationPage() {
         <div className="migration-package-grid">{packages.map((item) => <article key={item.title}><span>{item.badge}</span><h3>{item.title}</h3><p>{item.text}</p><ul>{item.includes.map((included) => <li key={included}>{included}</li>)}</ul><Link href={`/request-demo?topic=${encodeURIComponent(item.title)}`}>Discuss this approach →</Link></article>)}</div>
       </section>
 
-      <section className="migration-warning-section"><div><span>Important migration principle</span><h2>Do not migrate bad data faster.</h2><p>Duplicates, unsupported balances and unclear ownership should be resolved before cutover. Old source records should remain preserved until the organization confirms the new workspace is stable and required evidence is retained.</p></div><Link href="/compare/excel" className="marketing-demo marketing-large">Compare HisabERP with Excel</Link></section>
+      <section className="migration-warning-section"><div><span>Important migration principle</span><h2>Do not migrate bad data faster.</h2><p>Duplicates, unsupported balances and unclear ownership should be resolved before cutover. Old source records should remain preserved until the organization confirms the new workspace is stable and required evidence is retained.</p></div><Link href="/compare/excel" className="marketing-demo marketing-large">Compare Biloo ERP with Excel</Link></section>
 
-      <section className="marketing-cta marketing-cta-v2"><div><span>Plan the transition before importing</span><h2>Start with a migration assessment based on your real source data.</h2><p>Share the source systems, approximate record volumes, branch structure and target go-live period. HisabTech will identify the preparation and validation path.</p></div><div><Link href="/request-demo?topic=migration" className="marketing-start marketing-large">Request assessment</Link><Link href="/help-center" className="marketing-demo marketing-large">Browse help guides</Link></div></section>
+      <section className="marketing-cta marketing-cta-v2"><div><span>Plan the transition before importing</span><h2>Start with a migration assessment based on your real source data.</h2><p>Share the source systems, approximate record volumes, branch structure and target go-live period. Biloo ERP will identify the preparation and validation path.</p></div><div><Link href="/request-demo?topic=migration" className="marketing-start marketing-large">Request assessment</Link><Link href="/help-center" className="marketing-demo marketing-large">Browse help guides</Link></div></section>
     </MarketingPageShell>
   );
 }

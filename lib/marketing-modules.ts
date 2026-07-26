@@ -23,7 +23,7 @@ export const marketingModules: MarketingModule[] = [
     eyebrow: "Revenue operations",
     summary: "Create sales, issue professional invoices, track collections and understand revenue without moving between disconnected tools.",
     problem: "Manual sales records make it difficult to know what was sold, what has been paid and which customers still owe money.",
-    outcome: "HisabERP creates one reliable sales trail from transaction to invoice, payment and management reporting.",
+    outcome: "Biloo ERP creates one reliable sales trail from transaction to invoice, payment and management reporting.",
     features: [
       "Fast sales entry for products and services",
       "Professional invoice generation",
@@ -57,7 +57,7 @@ export const marketingModules: MarketingModule[] = [
     eyebrow: "Cost management",
     summary: "Record expenses, manage purchases, understand supplier obligations and see where operational cash is going.",
     problem: "When receipts, supplier purchases and operating costs are recorded separately, owners lose a reliable picture of profitability.",
-    outcome: "HisabERP connects every purchase and expense to suppliers, categories, payment status and financial reporting.",
+    outcome: "Biloo ERP connects every purchase and expense to suppliers, categories, payment status and financial reporting.",
     features: [
       "Expense categorization and supporting notes",
       "Supplier purchase and bill tracking",
@@ -91,7 +91,7 @@ export const marketingModules: MarketingModule[] = [
     eyebrow: "Stock control",
     summary: "Track quantities, movements, low-stock risk and product performance across daily business operations.",
     problem: "Inaccurate stock records create lost sales, unnecessary purchasing, theft risk and unreliable financial reporting.",
-    outcome: "HisabERP maintains a live stock position connected to sales, purchasing and operational adjustments.",
+    outcome: "Biloo ERP maintains a live stock position connected to sales, purchasing and operational adjustments.",
     features: [
       "Real-time stock quantities and movement history",
       "Low-stock and reorder attention lists",
@@ -125,7 +125,7 @@ export const marketingModules: MarketingModule[] = [
     eyebrow: "Relationship records",
     summary: "Maintain customer and supplier histories, balances, contacts, transactions and follow-up information.",
     problem: "Scattered contact lists and handwritten balances make it difficult to serve customers and manage supplier commitments professionally.",
-    outcome: "HisabERP gives each relationship a complete operational and financial history.",
+    outcome: "Biloo ERP gives each relationship a complete operational and financial history.",
     features: [
       "Customer and supplier profiles",
       "Transaction, invoice and payment history",
@@ -159,7 +159,7 @@ export const marketingModules: MarketingModule[] = [
     eyebrow: "Financial control",
     summary: "Monitor cash, income, expenses, receivables, payables and operating performance from one decision-ready workspace.",
     problem: "Business activity can look strong while cash is unavailable, debts are growing or expenses are eroding profitability.",
-    outcome: "HisabERP turns daily operational records into a current view of financial health and required action.",
+    outcome: "Biloo ERP turns daily operational records into a current view of financial health and required action.",
     features: [
       "Cash position and movement visibility",
       "Income and expense summaries",
@@ -193,7 +193,7 @@ export const marketingModules: MarketingModule[] = [
     eyebrow: "Transaction assurance",
     summary: "Review recorded transactions against bank and digital-payment activity to identify missing, duplicated or unmatched items.",
     problem: "Unmatched deposits, fees, transfers and payment records make cash reporting unreliable and increase fraud or error risk.",
-    outcome: "HisabERP provides a controlled reconciliation workflow with clear exceptions and resolution history.",
+    outcome: "Biloo ERP provides a controlled reconciliation workflow with clear exceptions and resolution history.",
     features: [
       "Bank and digital-payment reconciliation workspace",
       "Matched and unmatched transaction queues",
@@ -204,7 +204,7 @@ export const marketingModules: MarketingModule[] = [
     ],
     workflow: [
       { step: "01", title: "Bring in activity", description: "Load or review bank and payment-channel transactions for the period." },
-      { step: "02", title: "Match records", description: "Connect external activity to the corresponding HisabERP transaction." },
+      { step: "02", title: "Match records", description: "Connect external activity to the corresponding Biloo ERP transaction." },
       { step: "03", title: "Resolve exceptions", description: "Investigate differences and preserve the closing evidence." },
     ],
     metrics: [
@@ -227,7 +227,7 @@ export const marketingModules: MarketingModule[] = [
     eyebrow: "Business intelligence",
     summary: "Review performance, trends, balances and operational signals without rebuilding reports in spreadsheets.",
     problem: "When reporting depends on manual consolidation, decisions arrive late and teams debate which numbers are correct.",
-    outcome: "HisabERP creates a consistent reporting layer from the same records used to run the business.",
+    outcome: "Biloo ERP creates a consistent reporting layer from the same records used to run the business.",
     features: [
       "Revenue, expense and profitability reporting",
       "Receivable and payable reports",
@@ -261,7 +261,7 @@ export const marketingModules: MarketingModule[] = [
     eyebrow: "Workforce operations",
     summary: "Maintain employee information, roles, compensation records and payroll workflows inside the same controlled business platform.",
     problem: "Separate employee files and payroll calculations create privacy, accuracy and access-control risks.",
-    outcome: "HisabERP provides a role-aware foundation for workforce administration and payroll operations.",
+    outcome: "Biloo ERP provides a role-aware foundation for workforce administration and payroll operations.",
     features: [
       "Employee profiles and role information",
       "Compensation and payroll-period records",

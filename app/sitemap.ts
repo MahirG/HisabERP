@@ -5,7 +5,7 @@ import { marketingIndustries } from "../lib/marketing-industries";
 import { marketingModules } from "../lib/marketing-modules";
 import { marketingResources } from "../lib/marketing-resources";
 
-const baseUrl = "https://www.hisabtech.com";
+const baseUrl = "https://erp.biloogroup.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

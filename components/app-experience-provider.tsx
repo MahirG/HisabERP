@@ -54,7 +54,7 @@ function BrandLoader({ title, detail }: { title: string; detail: string }) {
       <div className="brand-loader-mark" aria-hidden="true">
         <span className="brand-loader-ring" />
         <span className="brand-loader-logo-shell">
-          <img src="/hisab-logo.svg" alt="" width="48" height="48" decoding="async" />
+          <img src="/biloo-erp-mark.svg" alt="" width="48" height="48" decoding="async" />
         </span>
       </div>
       <div className="brand-loader-copy">

@@ -4,8 +4,8 @@ import { MarketingFooter, MarketingHeader } from "../../components/marketing-sit
 import { submitDemoRequest } from "../../lib/actions/demo-request";
 
 export const metadata: Metadata = {
-  title: "Request a HisabERP demo",
-  description: "Request a guided HisabERP demonstration for your business, institution or government program.",
+  title: "Request a Biloo ERP demo",
+  description: "Request a guided Biloo ERP demonstration for your business, institution or government program.",
 };
 
 export default async function RequestDemoPage({
@@ -22,8 +22,8 @@ export default async function RequestDemoPage({
       <MarketingHeader />
       <section className="demo-request-shell" id="public-main-content">
         <div className="demo-request-copy">
-          <span>Personalized HisabERP demonstration</span>
-          <h1>See how HisabERP can run your business.</h1>
+          <span>Personalized Biloo ERP demonstration</span>
+          <h1>See how Biloo ERP can run your business.</h1>
           <p>Tell us about your organization and the workflows you want to improve. Our team will prepare a focused demonstration covering the modules, integrations and reporting that matter to you.</p>
           <ul>
             <li>Business-specific product walkthrough</li>
@@ -31,13 +31,13 @@ export default async function RequestDemoPage({
             <li>telebirr, M-Pesa, banking and integration-readiness discussion</li>
             <li>Implementation, onboarding and government-program guidance</li>
           </ul>
-          <div><strong>Prefer direct contact?</strong><a href="tel:+251924093037">+251 924 093 037</a><a href="mailto:info@hisabtech.com">info@hisabtech.com</a><a href="https://wa.me/251924093037" target="_blank" rel="noopener noreferrer">WhatsApp HisabTech</a></div>
+          <div><strong>Prefer direct contact?</strong><a href="tel:+251924093037">+251 924 093 037</a><a href="mailto:info@erp.biloogroup.com">info@erp.biloogroup.com</a><a href="https://wa.me/251924093037" target="_blank" rel="noopener noreferrer">WhatsApp Biloo ERP</a></div>
         </div>
 
         {submitted ? (
           <section className="demo-request-form demo-request-success" role="status" aria-labelledby="demo-success-title">
             <span className="demo-success-mark" aria-hidden="true">✓</span>
-            <div><span>Request received</span><h2 id="demo-success-title">Thank you. We will contact you shortly.</h2><p>Your demo request has been securely recorded. The HisabTech team will contact you using your preferred method to arrange the product walkthrough.</p></div>
+            <div><span>Request received</span><h2 id="demo-success-title">Thank you. We will contact you shortly.</h2><p>Your demo request has been securely recorded. The Biloo ERP team will contact you using your preferred method to arrange the product walkthrough.</p></div>
             <div className="demo-success-actions"><Link className="demo-request-primary-link" href="/">Return to website</Link><Link href="/auth/email-sign-up">Create an account instead</Link></div>
           </section>
         ) : (
@@ -71,7 +71,7 @@ export default async function RequestDemoPage({
             </fieldset>
 
             <label>What would you like to improve?<textarea name="message" rows={5} maxLength={2000} defaultValue={context ? `I am interested in: ${context}. ` : undefined} placeholder="Tell us about your current process, challenges, required modules or integration needs."/></label>
-            <label className="demo-request-consent"><input type="checkbox" required/><span>I agree that Hisab Technologies may contact me about this demo request.</span></label>
+            <label className="demo-request-consent"><input type="checkbox" required/><span>I agree that Biloo Group may contact me about this demo request.</span></label>
             <button type="submit">Submit demo request</button>
             <small>Your request is stored securely and cannot be viewed by other website visitors.</small>
           </form>

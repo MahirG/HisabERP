@@ -4,7 +4,7 @@ import { sharedResponsibility, trustControls } from "../../lib/marketing-trust";
 
 export const metadata = {
   title: "Trust Center",
-  description: "Review implemented HisabERP security controls, operational safeguards and shared responsibilities.",
+  description: "Review implemented Biloo ERP security controls, operational safeguards and shared responsibilities.",
 };
 
 export default function TrustPage() {
@@ -13,10 +13,10 @@ export default function TrustPage() {
     <MarketingPageShell>
       <section className="trust-page-hero">
         <div>
-          <span className="marketing-eyebrow">HisabERP Trust Center</span>
+          <span className="marketing-eyebrow">Biloo ERP Trust Center</span>
           <h1>Security claims should be specific, inspectable and honest.</h1>
           <p>This Trust Center separates controls that are implemented today from safeguards that require configuration, ongoing operational evidence or a platform upgrade.</p>
-          <div className="marketing-hero-actions"><a className="marketing-start marketing-large" href="mailto:mahir@hisabtech.com?subject=HisabERP%20security%20question">Ask a security question</a><Link className="marketing-demo marketing-large" href="/request-demo">Request a controlled demo</Link></div>
+          <div className="marketing-hero-actions"><a className="marketing-start marketing-large" href="mailto:mahir@erp.biloogroup.com?subject=Biloo ERP%20security%20question">Ask a security question</a><Link className="marketing-demo marketing-large" href="/request-demo">Request a controlled demo</Link></div>
         </div>
         <aside className="trust-summary-card">
           <span>Current control register</span>
@@ -27,7 +27,7 @@ export default function TrustPage() {
       </section>
 
       <section className="trust-section trust-section-light">
-        <div className="marketing-section-heading marketing-section-heading-wide"><span>Control register</span><h2>What HisabERP protects—and what still depends on configuration.</h2><p>Each control includes its current state and the evidence or limitation buyers should understand.</p></div>
+        <div className="marketing-section-heading marketing-section-heading-wide"><span>Control register</span><h2>What Biloo ERP protects—and what still depends on configuration.</h2><p>Each control includes its current state and the evidence or limitation buyers should understand.</p></div>
         <div className="trust-control-grid">
           {trustControls.map((control) => (
             <article key={control.number} data-status={control.status}>
@@ -41,21 +41,21 @@ export default function TrustPage() {
       </section>
 
       <section className="trust-responsibility-section">
-        <div className="marketing-section-heading marketing-section-heading-wide"><span>Shared responsibility</span><h2>Strong software still requires disciplined administration.</h2><p>HisabTech maintains product controls. Each organization remains responsible for how users, credentials, exports, devices and operational evidence are managed.</p></div>
+        <div className="marketing-section-heading marketing-section-heading-wide"><span>Shared responsibility</span><h2>Strong software still requires disciplined administration.</h2><p>Biloo ERP maintains product controls. Each organization remains responsible for how users, credentials, exports, devices and operational evidence are managed.</p></div>
         <div className="trust-responsibility-grid">
-          <article><span>HisabTech responsibilities</span><ul>{sharedResponsibility.hisab.map((item) => <li key={item}>{item}</li>)}</ul></article>
+          <article><span>Biloo ERP responsibilities</span><ul>{sharedResponsibility.hisab.map((item) => <li key={item}>{item}</li>)}</ul></article>
           <article><span>Customer responsibilities</span><ul>{sharedResponsibility.customer.map((item) => <li key={item}>{item}</li>)}</ul></article>
         </div>
       </section>
 
       <section className="trust-process-section">
         <div><span className="marketing-eyebrow">Operational assurance</span><h2>Controls are useful only when their evidence stays current.</h2><p>The internal production-control workspace tracks administrator MFA, alerts, audit activity, backup evidence, restore testing, database health and monitoring configuration.</p></div>
-        <div className="trust-process-grid"><article><span>01</span><strong>Protect privileged access</strong><small>Require AAL2 MFA before administrators change sensitive records or security policy.</small></article><article><span>02</span><strong>Review activity</strong><small>Inspect authentication, financial and security-alert evidence instead of relying on memory.</small></article><article><span>03</span><strong>Verify continuity</strong><small>Keep backup evidence current and document isolated restore tests.</small></article><article><span>04</span><strong>Escalate findings</strong><small>Report suspected vulnerabilities or security concerns directly to HisabTech.</small></article></div>
+        <div className="trust-process-grid"><article><span>01</span><strong>Protect privileged access</strong><small>Require AAL2 MFA before administrators change sensitive records or security policy.</small></article><article><span>02</span><strong>Review activity</strong><small>Inspect authentication, financial and security-alert evidence instead of relying on memory.</small></article><article><span>03</span><strong>Verify continuity</strong><small>Keep backup evidence current and document isolated restore tests.</small></article><article><span>04</span><strong>Escalate findings</strong><small>Report suspected vulnerabilities or security concerns directly to Biloo ERP.</small></article></div>
       </section>
 
       <section className="marketing-cta marketing-cta-v2">
         <div><span>Responsible security reporting</span><h2>Found a security concern?</h2><p>Provide the affected route, observed behavior, reproduction steps and any relevant timestamps. Do not include customer passwords or unnecessary personal data.</p></div>
-        <div><a className="marketing-start marketing-large" href="mailto:mahir@hisabtech.com?subject=Responsible%20security%20report%20for%20HisabERP">Report securely by email</a><Link className="marketing-demo marketing-large" href="/integrations">Review integrations</Link></div>
+        <div><a className="marketing-start marketing-large" href="mailto:mahir@erp.biloogroup.com?subject=Responsible%20security%20report%20for%20Biloo ERP">Report securely by email</a><Link className="marketing-demo marketing-large" href="/integrations">Review integrations</Link></div>
       </section>
     </MarketingPageShell>
   );

@@ -68,13 +68,13 @@ Never use the Supabase service-role key or callback tokens in `NEXT_PUBLIC_*` va
 Telebirr:
 
 ```text
-https://www.hisabtech.com/api/reconciliation/telebirr/callback?source=YOUR_SOURCE_REFERENCE&token=YOUR_CALLBACK_TOKEN
+https://erp.biloogroup.com/api/reconciliation/telebirr/callback?source=YOUR_SOURCE_REFERENCE&token=YOUR_CALLBACK_TOKEN
 ```
 
 M-Pesa:
 
 ```text
-https://www.hisabtech.com/api/reconciliation/mpesa/callback?source=YOUR_SOURCE_REFERENCE&token=YOUR_CALLBACK_TOKEN
+https://erp.biloogroup.com/api/reconciliation/mpesa/callback?source=YOUR_SOURCE_REFERENCE&token=YOUR_CALLBACK_TOKEN
 ```
 
 The source reference must exactly match the active reconciliation source's account, shortcode or merchant reference.

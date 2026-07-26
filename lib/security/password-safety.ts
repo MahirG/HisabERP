@@ -24,7 +24,7 @@ export async function assertPasswordIsSafe(password: string) {
 
   try {
     const response = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`, {
-      headers: { "Add-Padding": "true", "User-Agent": "HisabERP-password-protection" },
+      headers: { "Add-Padding": "true", "User-Agent": "Biloo ERP-password-protection" },
       cache: "no-store",
       signal: controller.signal,
     });

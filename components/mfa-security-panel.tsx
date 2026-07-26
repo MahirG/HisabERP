@@ -35,7 +35,7 @@ export function MfaSecurityPanel({ organizationId, required, initialAal }: { org
     setBusy(true); setError(""); setMessage("");
     try {
       const supabase = createClient();
-      const { data, error: enrollError } = await supabase.auth.mfa.enroll({ factorType: "totp", friendlyName: "HisabTech Authenticator" });
+      const { data, error: enrollError } = await supabase.auth.mfa.enroll({ factorType: "totp", friendlyName: "Biloo ERP Authenticator" });
       if (enrollError) throw enrollError;
       setEnrollment({ id: data.id, qr: data.totp.qr_code, secret: data.totp.secret });
     } catch (reason) {

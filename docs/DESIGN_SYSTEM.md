@@ -1,4 +1,4 @@
-# Hisab ERP Design System
+# Biloo ERP Design System
 
 Hisab uses the `hisab-v1` design system for every authenticated ERP screen, setup flow and future module.
 

@@ -6,12 +6,12 @@ import { getPublicLanguage, localize } from "../../lib/public-localization";
 
 export const metadata: Metadata = {
   title: "Business Learning Center",
-  description: "Practical HisabTech guides for cash flow, inventory, customer debt, ERP selection and digital operations.",
+  description: "Practical Biloo ERP guides for cash flow, inventory, customer debt, ERP selection and digital operations.",
 };
 
 const copy = {
   en: {
-    eyebrow: "HisabTech Business Learning Center",
+    eyebrow: "Biloo ERP Business Learning Center",
     title: "Practical operating guidance for growing Ethiopian businesses.",
     intro: "Use concise, implementation-focused guides to improve cash visibility, stock control, collections, monthly reporting and the move from manual records to ERP.",
     guides: "Practical guides",
@@ -27,14 +27,14 @@ const copy = {
       ["03", "Standardize the evidence", "Use the same records, definitions and review rhythm every period."],
       ["04", "Measure the result", "Compare timeliness, accuracy and business outcomes before and after the change."],
     ],
-    ctaEyebrow: "Apply the guidance in HisabERP",
+    ctaEyebrow: "Apply the guidance in Biloo ERP",
     ctaTitle: "See how the same routines work inside one connected workspace.",
     ctaText: "Request a focused demonstration using the reports, controls and workflows most relevant to your business.",
     demo: "Request a demo",
     tour: "Explore the product",
   },
   am: {
-    eyebrow: "የHisabTech የንግድ ትምህርት ማዕከል",
+    eyebrow: "የBiloo ERP የንግድ ትምህርት ማዕከል",
     title: "ለሚያድጉ የኢትዮጵያ ንግዶች ተግባራዊ የአሰራር መመሪያ።",
     intro: "የገንዘብ ግልጽነትን፣ የክምችት ቁጥጥርን፣ የዕዳ ስብስብን፣ የወር ሪፖርትን እና ከእጅ መዝገብ ወደ ERP ሽግግርን ለማሻሻል አጭርና በትግበራ ላይ ያተኮሩ መመሪያዎችን ይጠቀሙ።",
     guides: "ተግባራዊ መመሪያዎች",
@@ -50,7 +50,7 @@ const copy = {
       ["03", "ማስረጃውን ደረጃ ያድርጉ", "በእያንዳንዱ ጊዜ ተመሳሳይ መዝገቦችን፣ ትርጓሜዎችን እና የግምገማ ጊዜን ይጠቀሙ።"],
       ["04", "ውጤቱን ይለኩ", "ከለውጡ በፊትና በኋላ ወቅታዊነትን፣ ትክክለኛነትን እና የንግድ ውጤቶችን ያወዳድሩ።"],
     ],
-    ctaEyebrow: "መመሪያውን በHisabERP ውስጥ ይተግብሩ",
+    ctaEyebrow: "መመሪያውን በBiloo ERP ውስጥ ይተግብሩ",
     ctaTitle: "ተመሳሳይ ልማዶች በአንድ የተገናኘ የሥራ ቦታ ውስጥ እንዴት እንደሚሰሩ ይመልከቱ።",
     ctaText: "ለንግድዎ በጣም አስፈላጊ የሆኑ ሪፖርቶች፣ ቁጥጥሮች እና የሥራ ሂደቶችን በመጠቀም የተመረጠ ማሳያ ይጠይቁ።",
     demo: "ማሳያ ይጠይቁ",

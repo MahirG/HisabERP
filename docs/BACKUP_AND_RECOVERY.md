@@ -1,6 +1,6 @@
 # Backup and recovery
 
-Hisab ERP must not rely on browser storage or the production Supabase project as its only copy of business records.
+Biloo ERP must not rely on browser storage or the production Supabase project as its only copy of business records.
 
 ## Active controls
 

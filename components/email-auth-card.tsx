@@ -18,7 +18,7 @@ export function EmailAuthCard({
   description,
   children,
   footer,
-  eyebrow = "HisabTech secure access",
+  eyebrow = "Biloo ERP secure access",
   badge = "Protected business workspace",
   showcaseTitle = "Run your business from one trusted workspace.",
   showcaseDescription = "Keep sales, finance, inventory and reporting connected with secure, role-aware access.",
@@ -26,10 +26,10 @@ export function EmailAuthCard({
   return (
     <main className="auth-page auth-premium-page auth-official-page auth-standard-page">
       <section className="auth-standard-shell">
-        <aside className="auth-standard-showcase" aria-label="HisabTech product introduction">
-          <Link href="/" className="auth-standard-brand" aria-label="HisabTech home">
-            <img src="/hisab-logo.svg" alt="" width="44" height="44" className="hisab-logo" />
-            <span><strong>HisabTech</strong><small>Business operating system</small></span>
+        <aside className="auth-standard-showcase" aria-label="Biloo ERP product introduction">
+          <Link href="/" className="auth-standard-brand" aria-label="Biloo ERP home">
+            <img src="/biloo-erp-mark.svg" alt="" width="44" height="44" className="hisab-logo" />
+            <span><strong>Biloo ERP</strong><small>Business operating system</small></span>
           </Link>
 
           <div className="auth-standard-showcase-copy">
@@ -49,9 +49,9 @@ export function EmailAuthCard({
 
         <section className="auth-standard-form-side">
           <div className="auth-standard-mobile-topbar">
-            <Link href="/" className="auth-standard-brand" aria-label="HisabTech home">
-              <img src="/hisab-logo.svg" alt="" width="38" height="38" className="hisab-logo" />
-              <strong>HisabTech</strong>
+            <Link href="/" className="auth-standard-brand" aria-label="Biloo ERP home">
+              <img src="/biloo-erp-mark.svg" alt="" width="38" height="38" className="hisab-logo" />
+              <strong>Biloo ERP</strong>
             </Link>
             <Link href="/" className="auth-standard-home-link">Back to website</Link>
           </div>

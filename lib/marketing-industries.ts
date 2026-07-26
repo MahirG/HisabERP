@@ -23,7 +23,7 @@ export const marketingIndustries: MarketingIndustry[] = [
     eyebrow: "Fast-moving daily operations",
     summary: "Connect sales, cash, inventory, customer balances and daily performance in one workspace built for busy retail teams.",
     challenge: "Retail owners often discover stock shortages, cash differences and declining product performance after the problem has already affected the business.",
-    outcome: "HisabERP gives owners and store teams a live view of sales, stock movement, cash position and the products that need attention.",
+    outcome: "Biloo ERP gives owners and store teams a live view of sales, stock movement, cash position and the products that need attention.",
     capabilities: ["Daily sales and receipt records", "Low-stock and reorder visibility", "Cashier and manager access controls", "Customer credit tracking", "Product and category performance", "Branch-level operational summaries"],
     workflow: [
       { title: "Record the sale", text: "Capture each sale, payment method, customer and product movement as the transaction happens." },
@@ -42,7 +42,7 @@ export const marketingIndustries: MarketingIndustry[] = [
     eyebrow: "Control stock, credit and fulfillment",
     summary: "Coordinate customer orders, inventory, supplier purchases, receivables and distribution performance without disconnected spreadsheets.",
     challenge: "Wholesale teams manage high transaction values, many products, customer credit and supplier obligations—often across several people and locations.",
-    outcome: "HisabERP connects orders, stock, customer balances, purchasing and management reporting so teams can fulfil demand with better control.",
+    outcome: "Biloo ERP connects orders, stock, customer balances, purchasing and management reporting so teams can fulfil demand with better control.",
     capabilities: ["Customer order and invoice tracking", "Receivables and credit follow-up", "Warehouse stock visibility", "Purchasing and supplier obligations", "Fast-moving product analysis", "Multi-branch performance review"],
     workflow: [
       { title: "Receive the order", text: "Create the customer transaction with products, quantities, prices and payment terms." },
@@ -61,7 +61,7 @@ export const marketingIndustries: MarketingIndustry[] = [
     eyebrow: "Understand sales, costs and stock",
     summary: "Bring daily revenue, ingredient purchasing, expenses, suppliers, cash and management reporting into one clear operating picture.",
     challenge: "Hospitality businesses can generate strong sales while losing margin through uncontrolled purchasing, stock waste, cash differences and incomplete expense records.",
-    outcome: "HisabERP helps management compare revenue with operating costs, supplier obligations, stock movement and cash position every day.",
+    outcome: "Biloo ERP helps management compare revenue with operating costs, supplier obligations, stock movement and cash position every day.",
     capabilities: ["Daily revenue and payment summaries", "Ingredient and consumable stock", "Supplier purchasing records", "Operating expense control", "Cash and digital payment review", "Location-level profitability"],
     workflow: [
       { title: "Capture daily activity", text: "Record revenue, payment channels and operational expenses for each day or shift." },
@@ -80,7 +80,7 @@ export const marketingIndustries: MarketingIndustry[] = [
     eyebrow: "Track work, billing and collections",
     summary: "Manage clients, service revenue, expenses, invoices, collections and project-level visibility from one secure workspace.",
     challenge: "Service companies frequently deliver work before billing, invoice without consistent follow-up and struggle to connect project activity with cash collection.",
-    outcome: "HisabERP keeps client records, invoices, expenses, receivables and performance connected so owners know what was delivered, billed and collected.",
+    outcome: "Biloo ERP keeps client records, invoices, expenses, receivables and performance connected so owners know what was delivered, billed and collected.",
     capabilities: ["Client and service records", "Invoice and collection tracking", "Recurring operating expenses", "Project or engagement visibility", "Receivables aging", "Revenue and margin summaries"],
     workflow: [
       { title: "Create the client record", text: "Maintain the organization, contacts, service terms and outstanding position." },
@@ -99,7 +99,7 @@ export const marketingIndustries: MarketingIndustry[] = [
     eyebrow: "Control project cash and procurement",
     summary: "Track project spending, supplier obligations, materials, customer billing and financial performance across active construction work.",
     challenge: "Construction businesses must coordinate purchases, materials, subcontractor costs, staged billing and cash requirements across multiple projects.",
-    outcome: "HisabERP creates a structured record of purchasing, expenses, supplier balances, billing and project-level management indicators.",
+    outcome: "Biloo ERP creates a structured record of purchasing, expenses, supplier balances, billing and project-level management indicators.",
     capabilities: ["Project-linked expenses", "Materials and inventory control", "Supplier and subcontractor balances", "Progress billing records", "Cash requirement visibility", "Project performance summaries"],
     workflow: [
       { title: "Set the project context", text: "Organize the customer, budget, responsible team and expected billing stages." },
@@ -118,7 +118,7 @@ export const marketingIndustries: MarketingIndustry[] = [
     eyebrow: "Connect materials, purchasing and output",
     summary: "Coordinate raw materials, supplier purchases, stock movement, operating expenses, sales and management reporting in one system.",
     challenge: "Manufacturers need dependable visibility across raw materials, work requirements, finished goods, purchasing, sales and cash commitments.",
-    outcome: "HisabERP helps teams understand material availability, purchasing obligations, stock movement and the financial impact of operational activity.",
+    outcome: "Biloo ERP helps teams understand material availability, purchasing obligations, stock movement and the financial impact of operational activity.",
     capabilities: ["Raw-material stock visibility", "Supplier purchasing and balances", "Finished-goods inventory", "Operating expense control", "Sales and customer demand", "Production-oriented reporting"],
     workflow: [
       { title: "Plan material requirements", text: "Review available quantities and purchasing needs before production activity begins." },
@@ -137,7 +137,7 @@ export const marketingIndustries: MarketingIndustry[] = [
     eyebrow: "Create accountable shared operations",
     summary: "Maintain structured sales, purchases, member-facing balances, inventory and reporting with role-controlled access and traceable records.",
     challenge: "Cooperatives need transparent records and clear responsibility across teams while managing shared assets, purchasing, sales and member-related balances.",
-    outcome: "HisabERP provides one controlled operational record that authorized teams can use for daily work and management reporting.",
+    outcome: "Biloo ERP provides one controlled operational record that authorized teams can use for daily work and management reporting.",
     capabilities: ["Role-controlled team access", "Sales and purchase records", "Inventory and shared assets", "Customer, supplier and member balances", "Audit-ready activity history", "Periodic management reporting"],
     workflow: [
       { title: "Define responsibility", text: "Assign access according to operational and approval responsibilities." },
@@ -156,7 +156,7 @@ export const marketingIndustries: MarketingIndustry[] = [
     eyebrow: "Manage high-value trade operations",
     summary: "Track suppliers, customers, purchasing, landed operational costs, inventory, receivables, payables and cash requirements across trade activity.",
     challenge: "Import and export companies coordinate high-value purchases, long lead times, supplier obligations, inventory availability, customer credit and significant cash commitments.",
-    outcome: "HisabERP brings purchasing, supplier balances, stock, sales, receivables and cash visibility into one management view.",
+    outcome: "Biloo ERP brings purchasing, supplier balances, stock, sales, receivables and cash visibility into one management view.",
     capabilities: ["Supplier and purchase tracking", "Inventory availability", "Customer orders and receivables", "Operational cost records", "Payables and cash planning", "Trade performance reporting"],
     workflow: [
       { title: "Record the purchase cycle", text: "Track supplier, products, quantities, costs, payments and outstanding obligations." },
@@ -175,7 +175,7 @@ export const marketingIndustries: MarketingIndustry[] = [
     eyebrow: "One business view across locations",
     summary: "Give each location the workspace it needs while owners and management review consolidated activity, balances and performance.",
     challenge: "As a business adds locations, separate spreadsheets and informal reporting make it difficult to compare branches or understand the total financial position.",
-    outcome: "HisabERP structures branch activity and management reporting so leaders can review location performance and consolidated business indicators.",
+    outcome: "Biloo ERP structures branch activity and management reporting so leaders can review location performance and consolidated business indicators.",
     capabilities: ["Branch-aware transaction records", "Location-level sales and expenses", "Inventory visibility by location", "Team access by responsibility", "Consolidated management summaries", "Cross-branch comparison"],
     workflow: [
       { title: "Configure each location", text: "Define branch responsibilities, users and operating context." },

@@ -12,12 +12,12 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ e
   return (
     <EmailAuthCard
       title="Check your email"
-      description="Open the single-use verification link. HisabTech will securely return you to your selected plan or company setup."
+      description="Open the single-use verification link. Biloo ERP will securely return you to your selected plan or company setup."
       footer={<Link href={`/auth/login?next=${encodeURIComponent(next)}`}>Return to sign in</Link>}
       eyebrow="Verify your business identity"
       badge="Single-use email verification"
       showcaseTitle="Your next step is protected and remembered."
-      showcaseDescription="Verification confirms ownership of the business email before HisabTech creates a workspace or begins paid activation."
+      showcaseDescription="Verification confirms ownership of the business email before Biloo ERP creates a workspace or begins paid activation."
     >
       <AuthNotice type="error">{error}</AuthNotice>
       <AuthNotice type="success">{message}</AuthNotice>

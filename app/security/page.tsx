@@ -59,7 +59,7 @@ export default async function SecurityPage({ searchParams }: { searchParams: Pro
         <article className="control-card">
           <div className="control-card-head"><div><span>02</span><h2>Leaked-password protection</h2></div><b className="ready">Active</b></div>
           <p>New and reset passwords are screened locally for predictable patterns and through a privacy-preserving breach-prefix lookup.</p>
-          <small>Only the first five characters of a SHA-1 hash are sent to the breach lookup service; the password never leaves HisabTech.</small>
+          <small>Only the first five characters of a SHA-1 hash are sent to the breach lookup service; the password never leaves Biloo ERP.</small>
         </article>
 
         <article className="control-card">

@@ -1,6 +1,6 @@
 # Ethiopian Compliance Review Readiness
 
-This document is a product-readiness checklist for Hisab ERP. It is not legal, tax, accounting or regulatory advice and does not certify compliance. Requirements vary by entity type, tax status, reporting tier, workforce and regulated sector.
+This document is a product-readiness checklist for Biloo ERP. It is not legal, tax, accounting or regulatory advice and does not certify compliance. Requirements vary by entity type, tax status, reporting tier, workforce and regulated sector.
 
 ## Suggested review team
 

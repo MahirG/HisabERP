@@ -11,7 +11,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const comparison = getMarketingComparison(slug);
-  if (!comparison) return { title: "HisabERP comparison" };
+  if (!comparison) return { title: "Biloo ERP comparison" };
   return { title: comparison.title, description: comparison.summary };
 }
 
@@ -61,7 +61,7 @@ export default async function ComparisonDetailPage({ params }: { params: Promise
         <div>{related.map((item) => <Link href={`/compare/${item.slug}`} key={item.slug}><span>{item.number}</span><strong>{item.shortTitle}</strong><small>{item.summary}</small><b>Compare →</b></Link>)}</div>
       </section>
 
-      <section className="marketing-cta marketing-cta-v2"><div><span>Validate the highest-risk workflow</span><h2>Use a focused demonstration to test whether HisabERP fits.</h2><p>Bring examples of the records, reports and approval steps your team uses today. The evaluation should confirm gaps as clearly as it confirms strengths.</p></div><div><Link href="/request-demo?topic=comparison" className="marketing-start marketing-large">Request comparison demo</Link><Link href="/compare" className="marketing-demo marketing-large">All comparisons</Link></div></section>
+      <section className="marketing-cta marketing-cta-v2"><div><span>Validate the highest-risk workflow</span><h2>Use a focused demonstration to test whether Biloo ERP fits.</h2><p>Bring examples of the records, reports and approval steps your team uses today. The evaluation should confirm gaps as clearly as it confirms strengths.</p></div><div><Link href="/request-demo?topic=comparison" className="marketing-start marketing-large">Request comparison demo</Link><Link href="/compare" className="marketing-demo marketing-large">All comparisons</Link></div></section>
     </MarketingPageShell>
   );
 }

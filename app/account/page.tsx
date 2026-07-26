@@ -53,7 +53,7 @@ export default async function AccountPage() {
       <section className="security-status-strip" aria-label="Current account security status">
         <article className="security-status-card is-ready">
           <span className="security-status-indicator" aria-hidden="true" />
-          <div><small>Identity</small><strong>Signed in</strong><p>{user.email || "Verified HisabTech account"}</p></div>
+          <div><small>Identity</small><strong>Signed in</strong><p>{user.email || "Verified Biloo ERP account"}</p></div>
         </article>
         <article className={`security-status-card ${strongSession ? "is-ready" : "is-attention"}`}>
           <span className="security-status-indicator" aria-hidden="true" />
@@ -72,7 +72,7 @@ export default async function AccountPage() {
             <div className="security-profile-copy">
               <small>Signed in as</small>
               <h2>{user.fullName}</h2>
-              <p>{user.email || "Verified HisabTech account"}</p>
+              <p>{user.email || "Verified Biloo ERP account"}</p>
             </div>
             <span className="security-active-badge"><i aria-hidden="true" /> Active</span>
           </header>
@@ -101,7 +101,7 @@ export default async function AccountPage() {
           <MfaSecurityPanel organizationId={user.organizationId} required={user.mfaRequired} initialAal={user.aal} />
           <aside className="security-privacy-note">
             <span aria-hidden="true">i</span>
-            <div><strong>Your authenticator secret stays private</strong><p>HisabTech uses Supabase MFA verification. Authenticator codes are validated securely and are never stored in the browser as reusable credentials.</p></div>
+            <div><strong>Your authenticator secret stays private</strong><p>Biloo ERP uses Supabase MFA verification. Authenticator codes are validated securely and are never stored in the browser as reusable credentials.</p></div>
           </aside>
         </div>
       </section>
