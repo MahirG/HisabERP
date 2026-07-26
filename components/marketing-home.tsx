@@ -2,7 +2,6 @@ import Link from "next/link";
 import { marketingIndustries } from "../lib/marketing-industries";
 import { marketingModules } from "../lib/marketing-modules";
 import { pricingPlans } from "../lib/marketing-pricing";
-import { HeroOfficeWorkspace } from "./hero-office-workspace";
 import { MarketingPageShell } from "./marketing-site-chrome";
 import { ProductTourExperience } from "./product-tour-experience";
 
@@ -24,7 +23,29 @@ export function MarketingHome() {
   const homepagePlans = pricingPlans.slice(0, 3);
   return (
     <MarketingPageShell>
-      <HeroOfficeWorkspace />
+      <section className="marketing-hero marketing-hero-text-only" aria-labelledby="home-hero-title">
+        <div className="marketing-hero-copy">
+          <span className="marketing-eyebrow">HisabERP · Business operating system</span>
+          <h1 id="home-hero-title">Run every part of your business with clarity.</h1>
+          <p>Connect sales, inventory, finance, customers, suppliers and management reporting in one secure workspace built for ambitious Ethiopian businesses.</p>
+          <div className="marketing-hero-actions">
+            <Link href="/auth/email-sign-up" className="marketing-start marketing-large">Get started</Link>
+            <Link href="/request-demo?source=homepage-hero" className="marketing-demo marketing-large">Request a demo</Link>
+          </div>
+          <div className="marketing-trust" aria-label="HisabERP product highlights">
+            <span>ETB-first operations</span>
+            <span>English and Amharic</span>
+            <span>Secure cloud access</span>
+            <span>Mobile-ready workflows</span>
+          </div>
+        </div>
+        <div className="home-hero-capability-strip" aria-label="Connected HisabERP capabilities">
+          <span><b>01</b> Sales and invoicing</span>
+          <span><b>02</b> Inventory and purchasing</span>
+          <span><b>03</b> Finance and cash flow</span>
+          <span><b>04</b> Reports and decisions</span>
+        </div>
+      </section>
 
       <section className="marketing-proof marketing-proof-v2"><p>Designed for ambitious businesses moving beyond notebooks and disconnected spreadsheets</p><div><span>Retail</span><span>Wholesale</span><span>Services</span><span>Hospitality</span><span>Cooperatives</span><span>Multi-branch teams</span></div></section>
 
