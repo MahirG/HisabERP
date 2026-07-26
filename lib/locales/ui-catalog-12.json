@@ -16,7 +16,6 @@
   {"source":"Add a customer, confirm stock, calculate VAT, and post a protected sales invoice.","am":"ደንበኛ ያክሉ፣ ክምችትን ያረጋግጡ፣ ቫትን ያስሉ እና የተጠበቀ የሽያጭ ደረሰኝ ይመዝግቡ።"},
   {"source":"Review business performance","am":"የንግድ አፈጻጸምን ይገምግሙ"},
   {"source":"Understand sales, expenses, cash, operating result, and exportable reports.","am":"ሽያጭ፣ ወጪ፣ ጥሬ ገንዘብ፣ የስራ ውጤት እና ሊወጡ የሚችሉ ሪፖርቶችን ይረዱ።"},
-  {"source":"Secure administrator access","am":"የአስተዳዳሪ መዳረሻን ያስጠብቁ"},
   {"source":"Configure authenticator MFA and review session assurance before sensitive work.","am":"ስሱ ስራ ከመጀመር በፊት የማረጋገጫ MFAን ያዋቅሩ እና የክፍለ ጊዜ ማረጋገጫን ይገምግሙ።"},
   {"source":"Recommended order","am":"የሚመከር ቅደም ተከተል"},
   {"source":"Your first operating workflow","am":"የመጀመሪያዎ የስራ ሂደት"},
