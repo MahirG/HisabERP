@@ -8,5 +8,5 @@ export const bilooErpBrand = {
     ivoryWhite: "#F8FAFC",
   },
   plannedProductionUrl: "https://erp.biloogroup.com",
-  deploymentRevision: "2026-07-26T14:20:00+03:00",
+  deploymentRevision: "2026-07-26T15:19:00+03:00",
 } as const;
