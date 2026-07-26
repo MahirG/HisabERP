@@ -26,7 +26,7 @@ export async function createChapaCheckout(formData: FormData) {
   const rawBilling = typeof formData.get("billing") === "string" ? String(formData.get("billing")) : "";
   const plan = getBillingPlan(rawPlan);
   const billingCycle = isBillingCycle(rawBilling) ? rawBilling : "annual";
-  if (!plan) checkoutError("Choose a valid HisabERP plan.", rawPlan, billingCycle);
+  if (!plan) checkoutError("Choose a valid Biloo ERP plan.", rawPlan, billingCycle);
 
   const { userId, email } = await authenticatedBillingIdentity();
   const amountEtb = getPlanAmountEtb(plan, billingCycle);

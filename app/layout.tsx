@@ -89,6 +89,7 @@ import "./commercial-platform.css";
 import "./apple-workspace-redesign.css";
 import "./apple-workspace-redesign-fixes.css";
 import "./dashboard-color-system.css";
+import "./biloo-brand.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -164,19 +165,19 @@ const mobileControlsBootstrap = `
 })();`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.hisabtech.com"),
-  title: { default: "HisabTech — Business Operating System for Ethiopia", template: "%s | HisabTech" },
-  description: "HisabERP connects sales, finance, inventory, customers, suppliers and reporting for growing Ethiopian businesses.",
-  applicationName: "HisabTech",
-  keywords: ["HisabERP", "ERP Ethiopia", "business software Ethiopia", "inventory", "sales", "finance", "accounting workflow"],
-  authors: [{ name: "Hisab Technologies", url: "https://www.hisabtech.com/about" }],
-  creator: "Hisab Technologies",
-  publisher: "Hisab Technologies",
+  metadataBase: new URL("https://erp.biloogroup.com"),
+  title: { default: "Biloo ERP — Business Operating System for Ethiopia", template: "%s | Biloo ERP" },
+  description: "Biloo ERP connects sales, finance, inventory, customers, suppliers and reporting for growing Ethiopian businesses.",
+  applicationName: "Biloo ERP",
+  keywords: ["Biloo ERP", "ERP Ethiopia", "business software Ethiopia", "inventory", "sales", "finance", "accounting workflow"],
+  authors: [{ name: "Biloo Group", url: "https://erp.biloogroup.com/about" }],
+  creator: "Biloo Group",
+  publisher: "Biloo Group",
   alternates: { canonical: "/", languages: { "en-ET": "/", "am-ET": "/" } },
-  openGraph: { type: "website", locale: "en_ET", alternateLocale: ["am_ET"], siteName: "HisabTech", title: "HisabERP — Business Operating System for Ethiopia", description: "One connected workspace for sales, finance, inventory, customers, suppliers and reporting.", url: "/", images: [{ url: "/hisab-logo.svg", width: 512, height: 512, alt: "HisabTech" }] },
-  twitter: { card: "summary", title: "HisabERP", description: "Business operating system for growing Ethiopian organizations.", images: ["/hisab-logo.svg"] },
+  openGraph: { type: "website", locale: "en_ET", alternateLocale: ["am_ET"], siteName: "Biloo ERP", title: "Biloo ERP — Business Operating System for Ethiopia", description: "One connected workspace for sales, finance, inventory, customers, suppliers and reporting.", url: "/", images: [{ url: "/biloo-erp-mark.svg", width: 512, height: 512, alt: "Biloo ERP" }] },
+  twitter: { card: "summary", title: "Biloo ERP", description: "Business operating system for growing Ethiopian organizations.", images: ["/biloo-erp-mark.svg"] },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
-  icons: { icon: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }], shortcut: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }], apple: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }] },
+  icons: { icon: [{ url: "/biloo-erp-mark.svg", type: "image/svg+xml" }], shortcut: [{ url: "/biloo-erp-mark.svg", type: "image/svg+xml" }], apple: [{ url: "/biloo-erp-mark.svg", type: "image/svg+xml" }] },
 };
 
 export const viewport: Viewport = {
@@ -185,8 +186,8 @@ export const viewport: Viewport = {
   maximumScale: 5,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0d0b0a" },
+    { media: "(prefers-color-scheme: light)", color: "#F8FAFC" },
+    { media: "(prefers-color-scheme: dark)", color: "#0F172A" },
   ],
   colorScheme: "dark light",
 };
@@ -195,7 +196,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html className={`${spaceGrotesk.variable} ${notoSansEthiopic.variable}`} lang="en" data-language="en" data-theme="light" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: mobileControlsBootstrap }} /></head>
-      <body data-design-system="hisab-v1" data-workspace-system="financial-os-v1" data-ui-polish="hisab-2026">
+      <body data-design-system="hisab-v1" data-workspace-system="financial-os-v1" data-ui-polish="biloo-erp-2026">
         <LanguageProvider initialLanguage="en">
           <AppExperienceProvider>
             <AuthPagePreferences />

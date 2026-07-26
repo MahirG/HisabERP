@@ -15,7 +15,7 @@ export function HelpCenterPage() {
       </div>
       <div className="help-center-page-frame">
         <header className="help-center-page-header">
-          <p>{t("HisabTech support")}</p>
+          <p>{t("Biloo ERP support")}</p>
           <h1>{t("Help Center")}</h1>
           <span>{t("Complete product guidance for setup, daily operations, finance, security, and troubleshooting.")}</span>
         </header>

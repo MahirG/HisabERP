@@ -72,8 +72,8 @@ export async function initializeChapaPayment(input: {
       return_url: input.returnUrl,
       ...(input.email ? { email: input.email } : {}),
       customization: {
-        title: `HisabERP ${input.planName}`,
-        description: `${input.billingCycle === "annual" ? "Annual" : "Monthly"} HisabERP access`,
+        title: `Biloo ERP ${input.planName}`,
+        description: `${input.billingCycle === "annual" ? "Annual" : "Monthly"} Biloo ERP access`,
       },
       meta: {
         hisab_user_id: input.userId,

@@ -1,6 +1,6 @@
-# HisabERP production release gate
+# Biloo ERP production release gate
 
-HisabERP uses a non-destructive production verification gate to detect availability, authentication-boundary and security-header regressions without creating or changing business records.
+Biloo ERP uses a non-destructive production verification gate to detect availability, authentication-boundary and security-header regressions without creating or changing business records.
 
 ## Automated checks
 

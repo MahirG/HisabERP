@@ -20,12 +20,12 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
   return (
     <main className="commerce-page billing-page">
       <header className="commerce-topbar">
-        <Link href="/" className="commerce-brand"><img src="/hisab-logo.svg" alt="" width="42" height="42"/><span><strong>HisabTech</strong><small>Paid access center</small></span></Link>
-        <Link href={active ? safeNext : "/"}>{active ? "Continue to workspace" : "Return to HisabTech"}</Link>
+        <Link href="/" className="commerce-brand"><img src="/biloo-erp-mark.svg" alt="" width="42" height="42"/><span><strong>Biloo ERP</strong><small>Paid access center</small></span></Link>
+        <Link href={active ? safeNext : "/"}>{active ? "Continue to workspace" : "Return to Biloo ERP"}</Link>
       </header>
 
       <section className="billing-hero">
-        <div><span className="commerce-kicker">Chapa payment and access</span><h1>Clear payment history, verified access, no automatic charge.</h1><p>Review the current HisabERP plan and access end date. Payments are made manually through Chapa and accepted only after direct server verification.</p></div>
+        <div><span className="commerce-kicker">Chapa payment and access</span><h1>Clear payment history, verified access, no automatic charge.</h1><p>Review the current Biloo ERP plan and access end date. Payments are made manually through Chapa and accepted only after direct server verification.</p></div>
         <span className={`billing-status ${active ? "active" : "inactive"}`}><i aria-hidden="true"/>{active ? "Active" : statusLabel(access?.status)}</span>
       </section>
 
@@ -37,7 +37,7 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
         <article className="billing-plan-card">
           <span>Current access</span>
           <h2>{plan?.name || "No paid plan"}</h2>
-          <p>{plan?.description || "Choose a HisabERP plan and complete a verified Chapa payment to activate access."}</p>
+          <p>{plan?.description || "Choose a Biloo ERP plan and complete a verified Chapa payment to activate access."}</p>
           {access ? <div className="billing-price"><strong>ETB {formatEtb(access.amountEtb)}</strong><small>{access.billingCycle === "annual" ? "annual access payment" : "monthly access payment"}</small></div> : null}
           <div className="billing-card-actions">
             <Link href="/pricing" className="commerce-primary">{active ? "Renew or change plan with Chapa" : "Choose a plan"} <b aria-hidden="true">→</b></Link>
@@ -61,7 +61,7 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
         <article className="billing-security-card">
           <span>How access is protected</span>
           <h2>Payment state cannot be changed from the browser.</h2>
-          <p>HisabTech rechecks the transaction with Chapa and validates the transaction reference, ETB amount, currency and final status before updating the access ledger.</p>
+          <p>Biloo ERP rechecks the transaction with Chapa and validates the transaction reference, ETB amount, currency and final status before updating the access ledger.</p>
           <div><span><b>01</b> Authenticated webhook delivery</span><span><b>02</b> Direct transaction verification</span><span><b>03</b> User-isolated RLS</span></div>
           <Link href="/trust">Review the Trust Center →</Link>
         </article>

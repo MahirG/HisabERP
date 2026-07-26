@@ -70,7 +70,7 @@
   {"source":"Profile ready","am":"መገለጫው ዝግጁ ነው","ti":"ፕሮፋይል ድሉው እዩ"},
   {"source":"Configuration required","am":"ቅንብር ያስፈልጋል","ti":"ምድላው የድሊ"},
   {"source":"Provider-neutral foundation","am":"ከአቅራቢ ነጻ የሆነ መሠረት","ti":"ካብ ወሃቢ ናጻ ዝኾነ መሰረት"},
-  {"source":"Manual clearance works now. Direct ministry or accredited-provider submission remains disabled until HisabTech receives approved endpoint documentation, credentials and certificate requirements.","am":"በእጅ ማጽደቅ አሁን ይሰራል። HisabTech የተፈቀደ የመገናኛ መጨረሻ ሰነድ፣ የመግቢያ መረጃ እና የምስክር ወረቀት መስፈርቶችን እስኪቀበል ድረስ ቀጥተኛ የሚኒስቴር ወይም የተፈቀደ አቅራቢ ማስገቢያ ተዘግቶ ይቆያል።","ti":"ምጽዳቕ ብኢድ ሕጂ ይሰርሕ። HisabTech ዝተፈቕደ ሰነድ መወዳእታ ነጥቢ፣ መረጋገጺታትን ጠለባት ሰርቲፊኬትን ክሳብ ዝቕበል ቀጥታዊ ምቕራብ ሚኒስቴር ወይ እውቅና ዘለዎ ወሃቢ ተዓጽዩ ይጸንሕ።"},
+  {"source":"Manual clearance works now. Direct ministry or accredited-provider submission remains disabled until Biloo ERP receives approved endpoint documentation, credentials and certificate requirements.","am":"በእጅ ማጽደቅ አሁን ይሰራል። Biloo ERP የተፈቀደ የመገናኛ መጨረሻ ሰነድ፣ የመግቢያ መረጃ እና የምስክር ወረቀት መስፈርቶችን እስኪቀበል ድረስ ቀጥተኛ የሚኒስቴር ወይም የተፈቀደ አቅራቢ ማስገቢያ ተዘግቶ ይቆያል።","ti":"ምጽዳቕ ብኢድ ሕጂ ይሰርሕ። Biloo ERP ዝተፈቕደ ሰነድ መወዳእታ ነጥቢ፣ መረጋገጺታትን ጠለባት ሰርቲፊኬትን ክሳብ ዝቕበል ቀጥታዊ ምቕራብ ሚኒስቴር ወይ እውቅና ዘለዎ ወሃቢ ተዓጽዩ ይጸንሕ።"},
   {"source":"Profile or payload action required","am":"በመገለጫው ወይም በይዘቱ ላይ እርምጃ ያስፈልጋል","ti":"ኣብ ፕሮፋይል ወይ ትሕዝቶ ስጉምቲ የድሊ"},
   {"source":"Online or offline submission queue","am":"የመስመር ላይ ወይም ከመስመር ውጭ ማስገቢያ ወረፋ","ti":"ሪጋ ምቕራብ ኣብ መስመር ወይ ካብ መስመር ወጻኢ"},
   {"source":"Official identifiers preserved","am":"ይፋዊ መለያዎች ተጠብቀዋል","ti":"ወግዓዊ መለለዪታት ተዓቂቦም"},

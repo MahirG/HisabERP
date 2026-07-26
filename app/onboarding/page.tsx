@@ -61,7 +61,7 @@ const stepCopy: Record<SetupStepKey, StepCopy> = {
     number: "06",
     title: "Opening balances",
     description: "Post the first balanced accounting journal.",
-    outcome: "Bring the company into HisabTech with a traceable opening position for cash, capital, stock and obligations.",
+    outcome: "Bring the company into Biloo ERP with a traceable opening position for cash, capital, stock and obligations.",
     icon: "landmark",
   },
   invoice: {
@@ -88,9 +88,9 @@ function formatPercent(value: number) {
 
 function LaunchBrand() {
   return (
-    <Link href="/" className="launch-brand" aria-label="HisabTech home">
+    <Link href="/" className="launch-brand" aria-label="Biloo ERP home">
       <span aria-hidden="true">H</span>
-      <div><strong>HisabTech</strong><small>Company launch</small></div>
+      <div><strong>Biloo ERP</strong><small>Company launch</small></div>
     </Link>
   );
 }
@@ -144,7 +144,7 @@ export default async function OnboardingPage({ searchParams }: { searchParams: P
             <div className="launch-create-copy">
               <span className="launch-kicker light"><Icon name="sparkles" size={15} /> Guided ERP launch</span>
               <h1>Launch your company on a finance-ready foundation.</h1>
-              <p>Start with the legal and operating details HisabTech needs to prepare your books, locations, stock controls and administrator access correctly from day one.</p>
+              <p>Start with the legal and operating details Biloo ERP needs to prepare your books, locations, stock controls and administrator access correctly from day one.</p>
             </div>
 
             <div className="launch-create-proof" aria-label="Launch benefits">

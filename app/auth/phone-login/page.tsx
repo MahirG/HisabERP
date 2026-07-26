@@ -49,14 +49,14 @@ export default async function PhoneLoginPage({ searchParams }: { searchParams: P
     <main className="auth-page auth-premium-page auth-official-page">
       <section className="auth-shell auth-official-shell">
         <aside className="auth-showcase auth-official-showcase">
-          <Link href="/" className="auth-showcase-brand auth-official-brand"><span>H</span><strong>HisabTech</strong></Link>
+          <Link href="/" className="auth-showcase-brand auth-official-brand"><span>H</span><strong>Biloo ERP</strong></Link>
           <div className="auth-showcase-content"><span className="auth-badge auth-official-badge"><i/> {p.badge}</span><h2>{p.title}</h2><p>{p.text}</p></div>
           <div className="auth-showcase-footer"><span>●</span>{p.trust}</div>
         </aside>
         <section className="auth-card auth-form-panel auth-official-form-panel">
           <div className="auth-official-form-wrap">
-            <div className="auth-top"><Link href="/" className="auth-brand auth-mobile-brand"><span>H</span><strong>HisabTech</strong></Link><LanguageSelector/></div>
-            <div className="auth-heading auth-official-heading"><p className="eyebrow">HisabTech</p><h1>{p.heading}</h1><p>{p.helper}</p></div>
+            <div className="auth-top"><Link href="/" className="auth-brand auth-mobile-brand"><span>H</span><strong>Biloo ERP</strong></Link><LanguageSelector/></div>
+            <div className="auth-heading auth-official-heading"><p className="eyebrow">Biloo ERP</p><h1>{p.heading}</h1><p>{p.helper}</p></div>
             {!configured && <div className="form-alert warning">Authentication is not configured.</div>}
             {params.error && <div className="form-alert error" role="alert">{params.error}</div>}
             {params.message && <div className="form-alert success" role="status">{params.message}</div>}

@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "HisabTech — HisabERP",
-    short_name: "HisabERP",
+    name: "Biloo ERP — Biloo ERP",
+    short_name: "Biloo ERP",
     description: "A multilingual business operating system for Ethiopian organizations.",
     start_url: "/",
     display: "standalone",
@@ -11,8 +11,8 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#000000",
     categories: ["business", "finance", "productivity"],
     icons: [
-      { src: "/hisab-logo.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
-      { src: "/hisab-logo.svg", sizes: "any", type: "image/svg+xml", purpose: "maskable" },
+      { src: "/biloo-erp-mark.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
+      { src: "/biloo-erp-mark.svg", sizes: "any", type: "image/svg+xml", purpose: "maskable" },
     ],
   };
 }

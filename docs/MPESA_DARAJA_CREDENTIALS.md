@@ -2,7 +2,7 @@
 
 ## Purpose
 
-HisabERP stores each organization's Safaricom Daraja Consumer Key and Consumer Secret in Supabase Vault. The credentials are used only by server-side code to request a short-lived OAuth access token.
+Biloo ERP stores each organization's Safaricom Daraja Consumer Key and Consumer Secret in Supabase Vault. The credentials are used only by server-side code to request a short-lived OAuth access token.
 
 The OAuth validation flow does not initiate, reverse, query or settle any payment.
 
@@ -15,7 +15,7 @@ The OAuth validation flow does not initiate, reverse, query or settle any paymen
 - Only the Supabase service role can decrypt the key pair for OAuth.
 - Every save and validation attempt creates an audit event.
 
-## Configure from HisabERP
+## Configure from Biloo ERP
 
 1. Sign in as an owner or administrator.
 2. Complete authenticator MFA so the session reaches AAL2.
@@ -26,11 +26,11 @@ The OAuth validation flow does not initiate, reverse, query or settle any paymen
 7. Select **Encrypt and save Daraja credentials**.
 8. Select **Validate OAuth connection**.
 
-A successful validation means Safaricom issued a short-lived OAuth access token. HisabERP discards that token after the check and stores only the result, HTTP status, provider response code and timestamp.
+A successful validation means Safaricom issued a short-lived OAuth access token. Biloo ERP discards that token after the check and stores only the result, HTTP status, provider response code and timestamp.
 
 ## Callback isolation
 
-The Consumer Secret is never used as a callback credential. HisabERP generates a separate organization-scoped callback token when the Daraja credentials are first stored.
+The Consumer Secret is never used as a callback credential. Biloo ERP generates a separate organization-scoped callback token when the Daraja credentials are first stored.
 
 The existing `MPESA_CALLBACK_TOKEN` server environment variable remains supported as a global fallback for older deployments. When it is absent, the M-Pesa callback handler resolves the organization-specific Vault token from the active reconciliation source.
 
@@ -44,8 +44,8 @@ OAuth authentication alone does not enable an M-Pesa payment flow. STK Push, C2B
 - Product-specific initiator credentials or security credential
 - Sandbox test numbers and production approval
 
-HisabERP must not invent these values or treat sandbox credentials as production credentials.
+Biloo ERP must not invent these values or treat sandbox credentials as production credentials.
 
 ## Rotation
 
-Saving a new Consumer Key and Consumer Secret replaces the encrypted pair. Existing callback protection remains separate. Rotate credentials immediately in the Safaricom developer portal whenever a key pair is suspected to have been exposed, then replace it in HisabERP and re-run OAuth validation.
+Saving a new Consumer Key and Consumer Secret replaces the encrypted pair. Existing callback protection remains separate. Rotate credentials immediately in the Safaricom developer portal whenever a key pair is suspected to have been exposed, then replace it in Biloo ERP and re-run OAuth validation.

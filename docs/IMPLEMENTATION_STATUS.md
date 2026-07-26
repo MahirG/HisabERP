@@ -119,7 +119,7 @@ Each workspace includes module-specific record types and statuses, create/update
 - upgraded English, Amharic and Tigrinya segmented language control
 - expanded docked navigation for all phases
 - responsive and reduced-motion styles
-- Powered by HisabTech.com and hisabtechnologies.com footer branding
+- Powered by Biloo ERP.com and biloogroup.com footer branding
 
 ## Validation
 

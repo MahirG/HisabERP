@@ -203,7 +203,7 @@ export function EInvoicingWorkspace({
       {success && <div className="form-alert success einvoice-success">{success}</div>}
       <section className="einvoice-notice">
         <strong>Provider-neutral foundation</strong>
-        <p>Manual clearance works now. Direct ministry or accredited-provider submission remains disabled until HisabTech receives approved endpoint documentation, credentials and certificate requirements.</p>
+        <p>Manual clearance works now. Direct ministry or accredited-provider submission remains disabled until Biloo ERP receives approved endpoint documentation, credentials and certificate requirements.</p>
       </section>
 
       <section className="einvoice-kpis">

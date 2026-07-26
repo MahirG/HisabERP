@@ -21,13 +21,13 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ e
 
   return (
     <EmailAuthCard
-      title="Create your HisabTech account"
+      title="Create your Biloo ERP account"
       description="Set up your secure business identity. Verify your email, then continue exactly where you left off."
       footer={<>Already have an account? <Link href={`/auth/login?${loginQuery.toString()}`}>Sign in</Link></>}
       eyebrow="Start your business workspace"
       badge="Verified identity · protected activation"
       showcaseTitle="Build a stronger operating foundation from day one."
-      showcaseDescription="Create one verified identity, select the right HisabERP plan and launch a connected company workspace."
+      showcaseDescription="Create one verified identity, select the right Biloo ERP plan and launch a connected company workspace."
     >
       {!configured ? <AuthNotice type="warning">Authentication is not configured.</AuthNotice> : null}
       <AuthNotice type="error">{p.error}</AuthNotice>
@@ -35,7 +35,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ e
 
       {plan ? (
         <div className="auth-selected-plan" aria-label={`Selected ${plan.name} plan`}>
-          <span>Selected plan</span><strong>HisabERP {plan.name}</strong><small>ETB {formatEtb(getPlanAmountEtb(plan, billingCycle))} {billingCycle === "annual" ? "per year" : "per month"}</small>
+          <span>Selected plan</span><strong>Biloo ERP {plan.name}</strong><small>ETB {formatEtb(getPlanAmountEtb(plan, billingCycle))} {billingCycle === "annual" ? "per year" : "per month"}</small>
         </div>
       ) : null}
 

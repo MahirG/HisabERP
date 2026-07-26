@@ -56,7 +56,7 @@ export default async function VerifyPhonePage({ searchParams }: { searchParams: 
       <div className="auth-orb auth-orb-one"/><div className="auth-orb auth-orb-two"/>
       <section className="auth-shell auth-verify-shell">
         <aside className="auth-showcase auth-verify-showcase">
-          <Link href="/" className="auth-showcase-brand"><span>H</span><strong>Hisab ERP</strong></Link>
+          <Link href="/" className="auth-showcase-brand"><span>H</span><strong>Biloo ERP</strong></Link>
           <div className="auth-showcase-content">
             <div className="verification-illustration" aria-hidden="true"><span>✓</span><i/><i/><i/></div>
             <h2>{c.asideTitle}</h2>
@@ -65,7 +65,7 @@ export default async function VerifyPhonePage({ searchParams }: { searchParams: 
           <div className="auth-showcase-footer"><span>●</span>Secure identity verification</div>
         </aside>
         <section className="auth-card auth-form-panel">
-          <div className="auth-top"><Link href="/" className="auth-brand auth-mobile-brand"><span>H</span><strong>Hisab ERP</strong></Link><LanguageSelector/></div>
+          <div className="auth-top"><Link href="/" className="auth-brand auth-mobile-brand"><span>H</span><strong>Biloo ERP</strong></Link><LanguageSelector/></div>
           <div className="auth-heading">
             <p className="eyebrow">{c.label}</p>
             <h1>{c.title}</h1>

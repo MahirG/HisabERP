@@ -4,7 +4,7 @@ import { integrationStatusCopy, marketingIntegrations, type IntegrationStatus } 
 
 export const metadata = {
   title: "Integrations",
-  description: "Review available, configuration-required, beta and planned HisabERP integrations.",
+  description: "Review available, configuration-required, beta and planned Biloo ERP integrations.",
 };
 
 const statusOrder: IntegrationStatus[] = ["available", "configuration", "beta", "planned"];
@@ -14,7 +14,7 @@ export default function IntegrationsPage() {
     <MarketingPageShell>
       <section className="integration-page-hero">
         <div>
-          <span className="marketing-eyebrow">HisabERP integrations</span>
+          <span className="marketing-eyebrow">Biloo ERP integrations</span>
           <h1>Know what works today, what needs configuration and what is still planned.</h1>
           <p>The directory uses explicit statuses so an authentication button, callback route or roadmap item is never presented as a fully activated production integration without the required provider setup.</p>
           <div className="marketing-hero-actions"><Link className="marketing-start marketing-large" href="/request-demo">Discuss an integration</Link><Link className="marketing-demo marketing-large" href="/trust">Review security controls</Link></div>
@@ -46,8 +46,8 @@ export default function IntegrationsPage() {
       </section>
 
       <section className="integration-request-section">
-        <div><span className="marketing-eyebrow">Need another connection?</span><h2>Describe the workflow—not only the provider name.</h2><p>Share the source system, records involved, expected direction, update frequency, authentication method and business outcome. HisabTech can then assess whether the work belongs in configuration, a controlled beta or the product roadmap.</p></div>
-        <a className="marketing-start marketing-large" href="mailto:mahir@hisabtech.com?subject=HisabERP%20integration%20request">Submit an integration request</a>
+        <div><span className="marketing-eyebrow">Need another connection?</span><h2>Describe the workflow—not only the provider name.</h2><p>Share the source system, records involved, expected direction, update frequency, authentication method and business outcome. Biloo ERP can then assess whether the work belongs in configuration, a controlled beta or the product roadmap.</p></div>
+        <a className="marketing-start marketing-large" href="mailto:mahir@erp.biloogroup.com?subject=Biloo ERP%20integration%20request">Submit an integration request</a>
       </section>
     </MarketingPageShell>
   );

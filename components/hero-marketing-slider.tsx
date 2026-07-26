@@ -51,7 +51,7 @@ export function HeroMarketingSlider({ slides }: HeroMarketingSliderProps) {
   return (
     <section
       className="hero-marketing-slider"
-      aria-label="HisabTech ERP highlights"
+      aria-label="Biloo ERP ERP highlights"
       aria-roledescription="carousel"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}

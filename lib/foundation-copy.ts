@@ -82,7 +82,7 @@ export const foundationCopies = {
       email: "Email",
       password: "Password",
       signIn: "Sign in",
-      newUser: "New to Hisab ERP?",
+      newUser: "New to Biloo ERP?",
       createAccount: "Create a company account",
       onboardingLabel: "Company onboarding",
       signupTitle: "Create your secure workspace",
@@ -104,7 +104,7 @@ export const foundationCopies = {
     setup: {
       back: "Dashboard",
       label: "Deployment checklist",
-      title: "Connect Hisab ERP to Supabase",
+      title: "Connect Biloo ERP to Supabase",
       steps: [
         "Create a Supabase project in the same region as most customers.",
         "Run the foundation SQL migration in the Supabase SQL editor.",
@@ -128,7 +128,7 @@ export const foundationCopies = {
       notFoundTitle: "This ERP page does not exist.",
       notFoundText: "The module may have moved or is not available for your role.",
       returnDashboard: "Return to dashboard",
-      loading: "Loading Hisab ERP…",
+      loading: "Loading Biloo ERP…",
     },
   },
   am: {
@@ -212,7 +212,7 @@ export const foundationCopies = {
       email: "ኢሜይል",
       password: "የይለፍ ቃል",
       signIn: "ግባ",
-      newUser: "ለHisab ERP አዲስ ነዎት?",
+      newUser: "ለBiloo ERP አዲስ ነዎት?",
       createAccount: "የድርጅት መለያ ፍጠር",
       onboardingLabel: "የድርጅት ማዋቀር",
       signupTitle: "ደህንነቱ የተጠበቀ የሥራ ቦታዎን ይፍጠሩ",
@@ -234,7 +234,7 @@ export const foundationCopies = {
     setup: {
       back: "ዳሽቦርድ",
       label: "የማሰማራት ዝርዝር",
-      title: "Hisab ERPን ከSupabase ጋር ያገናኙ",
+      title: "Biloo ERPን ከSupabase ጋር ያገናኙ",
       steps: [
         "አብዛኛዎቹ ደንበኞች በሚገኙበት ክልል የSupabase ፕሮጀክት ይፍጠሩ።",
         "የመሠረት SQL ማይግሬሽኑን በSupabase SQL አርታዒ ውስጥ ያስኪዱ።",
@@ -258,7 +258,7 @@ export const foundationCopies = {
       notFoundTitle: "ይህ የERP ገጽ የለም።",
       notFoundText: "ሞጁሉ ተዛውሮ ሊሆን ይችላል ወይም ለእርስዎ ሚና አይገኝም።",
       returnDashboard: "ወደ ዳሽቦርድ ተመለስ",
-      loading: "Hisab ERP በመጫን ላይ…",
+      loading: "Biloo ERP በመጫን ላይ…",
     },
   },
   ti: {
@@ -342,7 +342,7 @@ export const foundationCopies = {
       email: "ኢመይል",
       password: "መሕለፊ ቃል",
       signIn: "እቶ",
-      newUser: "ንHisab ERP ሓድሽ ዲኹም?",
+      newUser: "ንBiloo ERP ሓድሽ ዲኹም?",
       createAccount: "ናይ ውድብ ኣካውንት ፍጠሩ",
       onboardingLabel: "ምውቓር ውድብ",
       signupTitle: "ውሑስ መስርሒ ቦታኹም ፍጠሩ",
@@ -364,7 +364,7 @@ export const foundationCopies = {
     setup: {
       back: "ዳሽቦርድ",
       label: "ዝርዝር ምዝርጋሕ",
-      title: "Hisab ERP ምስ Supabase ኣራኽቡ",
+      title: "Biloo ERP ምስ Supabase ኣራኽቡ",
       steps: [
         "ኣብ መብዛሕትኦም ዓማዊል ዝርከቡሉ ዞባ ፕሮጀክት Supabase ፍጠሩ።",
         "ናይ መሰረት SQL migration ኣብ Supabase SQL editor ኣካይዱ።",
@@ -388,7 +388,7 @@ export const foundationCopies = {
       notFoundTitle: "እዚ ገጽ ERP የለን።",
       notFoundText: "ሞጁሉ ተዛዊሩ ክኸውን ይኽእል ወይ ንግደኹም ኣይፍቀድን።",
       returnDashboard: "ናብ ዳሽቦርድ ተመለስ",
-      loading: "Hisab ERP ይጽዕን ኣሎ…",
+      loading: "Biloo ERP ይጽዕን ኣሎ…",
     },
   },
 } as const satisfies Record<Language, unknown>;

@@ -11,6 +11,6 @@ export async function GET() {
     const html = source.includes("</body>") ? source.replace("</body>", `${warning}</body>`) : `${warning}${source}`;
     return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "public, max-age=0, must-revalidate", "X-Robots-Tag": "noindex, nofollow, noarchive" } });
   } catch {
-    return new Response("Hisab ERP legacy source file was not found.", { status: 404, headers: { "Content-Type": "text/plain; charset=utf-8" } });
+    return new Response("Biloo ERP legacy source file was not found.", { status: 404, headers: { "Content-Type": "text/plain; charset=utf-8" } });
   }
 }

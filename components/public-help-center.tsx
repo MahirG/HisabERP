@@ -21,7 +21,7 @@ export function PublicHelpCenter({ articles, categories }: { articles: HelpArtic
 
   return (
     <div className="public-help-experience">
-      <section className="public-help-search" aria-label="Search HisabERP help articles">
+      <section className="public-help-search" aria-label="Search Biloo ERP help articles">
         <label htmlFor="help-search">Search the help center</label>
         <div><span aria-hidden="true">⌕</span><input id="help-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Try: invoice, stock, MFA, migration or reconciliation" /></div>
         <small>{filtered.length} {filtered.length === 1 ? "guide" : "guides"} available</small>
@@ -50,8 +50,8 @@ export function PublicHelpCenter({ articles, categories }: { articles: HelpArtic
         <section className="public-help-empty" role="status">
           <span aria-hidden="true">?</span>
           <h2>No guide matches that search.</h2>
-          <p>Try a broader term or contact HisabTech with the workflow you are trying to complete.</p>
-          <a href="mailto:mahir@hisabtech.com?subject=HisabERP%20help%20request">Contact support</a>
+          <p>Try a broader term or contact Biloo ERP with the workflow you are trying to complete.</p>
+          <a href="mailto:mahir@erp.biloogroup.com?subject=Biloo ERP%20help%20request">Contact support</a>
         </section>
       )}
     </div>

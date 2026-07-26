@@ -1,4 +1,4 @@
-/* Official Hisab Technologies identity: terracotta #DA7757 + charcoal #171717. */
+/* Official Biloo Group identity: terracotta #DA7757 + charcoal #171717. */
 :root{
   --hisab-brand:#da7757;
   --hisab-brand-strong:#b55a3f;
@@ -119,7 +119,7 @@ body{accent-color:var(--hisab-brand)}
   padding:2px;
   border:1px solid rgba(218,119,87,.24);
   border-radius:11px;
-  background:#fff6f1 url('/hisab-logo.svg') center/88% no-repeat!important;
+  background:#fff6f1 url('/biloo-erp-mark.svg') center/88% no-repeat!important;
   color:transparent!important;
   font-size:0!important;
   box-shadow:0 8px 20px rgba(181,90,63,.16);
@@ -193,7 +193,7 @@ html[data-theme="dark"] body[data-workspace-system="financial-os-v1"]{
 .mobile-workspace-brand>span{
   display:block!important;
   overflow:hidden;
-  background:#fff6f1 url('/hisab-logo.svg') center/88% no-repeat!important;
+  background:#fff6f1 url('/biloo-erp-mark.svg') center/88% no-repeat!important;
   color:transparent!important;
   font-size:0!important;
   border:1px solid rgba(218,119,87,.28)!important;

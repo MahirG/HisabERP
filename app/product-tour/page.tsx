@@ -4,8 +4,8 @@ import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { ProductTourExperience } from "../../components/product-tour-experience";
 
 export const metadata: Metadata = {
-  title: "HisabERP Product Tour",
-  description: "Explore the HisabERP dashboard, sales, inventory, finance and reporting workflows in an interactive product tour.",
+  title: "Biloo ERP Product Tour",
+  description: "Explore the Biloo ERP dashboard, sales, inventory, finance and reporting workflows in an interactive product tour.",
 };
 
 export default function ProductTourPage() {
@@ -13,8 +13,8 @@ export default function ProductTourPage() {
     <MarketingPageShell>
       <section className="marketing-page-hero product-tour-hero">
         <div>
-          <span className="marketing-eyebrow">Interactive HisabERP product tour</span>
-          <h1>See how HisabERP connects daily work to better business decisions.</h1>
+          <span className="marketing-eyebrow">Interactive Biloo ERP product tour</span>
+          <h1>See how Biloo ERP connects daily work to better business decisions.</h1>
           <p>Move through the major product areas and explore how sales, inventory, finance and reporting contribute to one reliable operating picture.</p>
           <div className="marketing-hero-actions">
             <Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link>
@@ -48,7 +48,7 @@ export default function ProductTourPage() {
       </section>
 
       <section className="marketing-cta marketing-cta-v2">
-        <div><span>Need a tour based on your business?</span><h2>Tell us how your company currently manages operations.</h2><p>HisabTech can demonstrate the workflows most relevant to your industry, team structure and current challenges.</p></div>
+        <div><span>Need a tour based on your business?</span><h2>Tell us how your company currently manages operations.</h2><p>Biloo ERP can demonstrate the workflows most relevant to your industry, team structure and current challenges.</p></div>
         <div><Link href="/request-demo" className="marketing-start marketing-large">Request a guided demo</Link><Link href="/auth/email-sign-up" className="marketing-demo marketing-large">Create a workspace</Link></div>
       </section>
     </MarketingPageShell>

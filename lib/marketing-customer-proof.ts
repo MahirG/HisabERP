@@ -13,7 +13,7 @@ export type ReferenceProgram = {
 };
 
 export const proofStandards: ProofStandard[] = [
-  { number: "01", title: "Verified business identity", description: "A published story identifies the participating business and confirms that HisabERP was used in the described workflow." },
+  { number: "01", title: "Verified business identity", description: "A published story identifies the participating business and confirms that Biloo ERP was used in the described workflow." },
   { number: "02", title: "Documented starting point", description: "The case study records the process before implementation, including the operational problem and the baseline measurement." },
   { number: "03", title: "Defined implementation scope", description: "Readers can see which modules, teams, locations and reporting periods were included in the evaluation." },
   { number: "04", title: "Measured outcome", description: "Results are published only when they can be supported by product records, operational evidence or an agreed measurement method." },

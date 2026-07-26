@@ -13,7 +13,7 @@ export default async function BillingSuccessPage({ searchParams }: { searchParam
   return (
     <main className="commerce-page billing-result-page">
       <header className="commerce-topbar">
-        <Link href="/" className="commerce-brand"><img src="/hisab-logo.svg" alt="" width="42" height="42"/><span><strong>HisabTech</strong><small>Chapa verification</small></span></Link>
+        <Link href="/" className="commerce-brand"><img src="/biloo-erp-mark.svg" alt="" width="42" height="42"/><span><strong>Biloo ERP</strong><small>Chapa verification</small></span></Link>
         <Link href="/billing">Paid access center</Link>
       </header>
       {valid ? <BillingSuccessStatus txRef={txRef}/> : (

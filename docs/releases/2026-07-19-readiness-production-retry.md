@@ -9,6 +9,6 @@ Included release scope:
 - role-based dashboards for all supported roles
 - Ethiopian compliance readiness suggestions
 - larger Hisab branding
-- Powered by HisabTech link to https://www.hisabtechnologies.com
+- Powered by Biloo ERP link to https://www.biloogroup.com
 
 Source release merged through PR #15. Production must be verified by exact deployment commit, custom-domain aliases, health endpoint and runtime logs.

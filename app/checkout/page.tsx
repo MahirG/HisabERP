@@ -18,15 +18,15 @@ export default async function CheckoutPage({ searchParams }: { searchParams: Pro
   return (
     <main className="commerce-page checkout-page">
       <header className="commerce-topbar">
-        <Link href="/" className="commerce-brand"><img src="/hisab-logo.svg" alt="" width="42" height="42"/><span><strong>HisabTech</strong><small>Secure Chapa payment</small></span></Link>
+        <Link href="/" className="commerce-brand"><img src="/biloo-erp-mark.svg" alt="" width="42" height="42"/><span><strong>Biloo ERP</strong><small>Secure Chapa payment</small></span></Link>
         <Link href="/pricing">Back to pricing</Link>
       </header>
 
       <section className="checkout-shell">
         <aside className="checkout-trust-panel">
-          <span className="commerce-kicker">Protected HisabERP activation</span>
+          <span className="commerce-kicker">Protected Biloo ERP activation</span>
           <h1>One final review before your paid access period begins.</h1>
-          <p>Payment is completed on Chapa’s hosted checkout. HisabTech activates access only after the transaction reference, amount, currency and successful status are verified directly with Chapa.</p>
+          <p>Payment is completed on Chapa’s hosted checkout. Biloo ERP activates access only after the transaction reference, amount, currency and successful status are verified directly with Chapa.</p>
           <ProviderOrbit compact />
           <div className="checkout-trust-list">
             <span><b>01</b><div><strong>ETB hosted checkout</strong><small>Complete payment using the options Chapa makes available for your transaction.</small></div></span>
@@ -36,7 +36,7 @@ export default async function CheckoutPage({ searchParams }: { searchParams: Pro
         </aside>
 
         <section className="checkout-review-card">
-          <div className="checkout-review-heading"><span>Payment summary</span><h2>HisabERP {plan.name}</h2><p>{plan.description}</p></div>
+          <div className="checkout-review-heading"><span>Payment summary</span><h2>Biloo ERP {plan.name}</h2><p>{plan.description}</p></div>
           {params.error ? <div className="commerce-alert error" role="alert">{params.error}</div> : null}
           {!snapshot.configured ? <div className="commerce-alert warning" role="status">Chapa checkout is not configured in this environment yet.</div> : null}
           {alreadyActive ? <div className="commerce-alert success" role="status">Your workspace is active. A new verified payment will extend your access period.</div> : null}
@@ -51,7 +51,7 @@ export default async function CheckoutPage({ searchParams }: { searchParams: Pro
             <input type="hidden" name="billing" value={billingCycle}/>
             <button className="commerce-primary" type="submit" disabled={!snapshot.configured}>{alreadyActive ? "Pay with Chapa and extend access" : "Continue to secure Chapa checkout"} <b aria-hidden="true">→</b></button>
           </form>
-          <p className="checkout-legal">This payment does not authorize automatic recurring charges. Renewal is manual. HisabTech accepts the payment only after direct server verification with Chapa.</p>
+          <p className="checkout-legal">This payment does not authorize automatic recurring charges. Renewal is manual. Biloo ERP accepts the payment only after direct server verification with Chapa.</p>
           <div className="checkout-secondary"><Link href="/pricing">Change plan</Link><Link href="/trust">Security details</Link></div>
         </section>
       </section>

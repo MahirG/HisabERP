@@ -1,24 +1,24 @@
-# HisabERP business email authentication setup
+# Biloo ERP business email authentication setup
 
 The application code supports email/password sign-up, verified email sign-in, magic links, password recovery, resend confirmation, and cookie-based Supabase SSR sessions.
 
 ## 1. Supabase URL configuration
 
-In the HisabERP Supabase project, open **Authentication → URL Configuration**.
+In the Biloo ERP Supabase project, open **Authentication → URL Configuration**.
 
 Set the production Site URL to:
 
 ```text
-https://www.hisabtech.com
+https://erp.biloogroup.com
 ```
 
 Add these exact redirect URLs:
 
 ```text
-https://www.hisabtech.com/auth/confirm
-https://hisabtech.com/auth/confirm
-https://www.hisabtech.com/auth/callback
-https://hisabtech.com/auth/callback
+https://erp.biloogroup.com/auth/confirm
+https://erp.biloogroup.com/auth/confirm
+https://erp.biloogroup.com/auth/callback
+https://erp.biloogroup.com/auth/callback
 ```
 
 Add preview or local redirect URLs only for environments that are actively used and trusted.
@@ -39,9 +39,9 @@ The built-in Supabase sender is intended for testing and is rate-limited. Config
 Recommended sender identity:
 
 ```text
-From name: HisabTech
-From address: no-reply@hisabtech.com
-Reply-to: support@hisabtech.com
+From name: Biloo ERP
+From address: no-reply@erp.biloogroup.com
+Reply-to: support@erp.biloogroup.com
 ```
 
 Authenticate the sending domain with SPF, DKIM, and DMARC through the selected email provider.
@@ -53,7 +53,7 @@ The app passes a trusted `/auth/confirm?next=...` URL through `RedirectTo`. The 
 ### Confirm signup
 
 ```html
-<h2>Confirm your HisabTech account</h2>
+<h2>Confirm your Biloo ERP account</h2>
 <p>Verify this business email to continue company setup.</p>
 <p><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">Confirm business email</a></p>
 <p>If you did not create this account, ignore this message.</p>
@@ -62,7 +62,7 @@ The app passes a trusted `/auth/confirm?next=...` URL through `RedirectTo`. The 
 ### Magic link
 
 ```html
-<h2>Sign in to HisabTech</h2>
+<h2>Sign in to Biloo ERP</h2>
 <p>Use this single-use link to sign in.</p>
 <p><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">Sign in securely</a></p>
 <p>If you did not request this link, ignore this message.</p>
@@ -71,7 +71,7 @@ The app passes a trusted `/auth/confirm?next=...` URL through `RedirectTo`. The 
 ### Reset password
 
 ```html
-<h2>Reset your HisabTech password</h2>
+<h2>Reset your Biloo ERP password</h2>
 <p>Use this single-use link to choose a new password.</p>
 <p><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=recovery">Reset password</a></p>
 <p>If you did not request a password reset, ignore this message.</p>
@@ -80,7 +80,7 @@ The app passes a trusted `/auth/confirm?next=...` URL through `RedirectTo`. The 
 ## 5. Required Vercel environment variables
 
 ```text
-NEXT_PUBLIC_APP_URL=https://www.hisabtech.com
+NEXT_PUBLIC_APP_URL=https://erp.biloogroup.com
 NEXT_PUBLIC_SUPABASE_URL=https://<hisab-project-ref>.supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<publishable-key>
 ```

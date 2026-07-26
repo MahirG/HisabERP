@@ -8,7 +8,7 @@ function csv(value: string | number) {
 export async function GET() {
   const snapshot = await getDashboardSnapshot();
   const rows = [
-    ["Hisab ERP dashboard export"],
+    ["Biloo ERP dashboard export"],
     ["Organization", snapshot.organizationName],
     ["Generated", new Date().toISOString()],
     ["Data mode", snapshot.mode],

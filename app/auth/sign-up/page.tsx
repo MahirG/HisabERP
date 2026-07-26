@@ -17,7 +17,7 @@ const officialCopy = {
     ownerText: "Your first verified account leads company setup.",
     protected: "Business-grade controls",
     protectedText: "Roles, audit trails and organization-level data isolation.",
-    heading: "Create your HisabTech account",
+    heading: "Create your Biloo ERP account",
     helper: "Choose a secure sign-up method. You can create or join a company after verification.",
     email: "Continue with email",
     emailHelp: "Recommended for account recovery and administrator access.",
@@ -36,7 +36,7 @@ const officialCopy = {
     ownerText: "የመጀመሪያው የተረጋገጠ መለያ የድርጅቱን ማዋቀር ይመራል።",
     protected: "የንግድ ደረጃ ቁጥጥር",
     protectedText: "ሚናዎች፣ የኦዲት መዝገብና የድርጅት ውሂብ መለያየት።",
-    heading: "የHisabTech መለያዎን ይፍጠሩ",
+    heading: "የBiloo ERP መለያዎን ይፍጠሩ",
     helper: "ደህንነቱ የተጠበቀ የመመዝገቢያ ዘዴ ይምረጡ። ከማረጋገጫ በኋላ ድርጅት መፍጠር ወይም መቀላቀል ይችላሉ።",
     email: "በኢሜይል ይቀጥሉ",
     emailHelp: "ለመለያ መልሶ ማግኛና ለአስተዳዳሪ መግቢያ ይመከራል።",
@@ -55,7 +55,7 @@ const officialCopy = {
     ownerText: "ቀዳማይ ዝተረጋገጸ ኣካውንት ምውቓር ውድብ ይመርሕ።",
     protected: "ቁጽጽር ደረጃ ንግዲ",
     protectedText: "ተራታት፣ መዝገብ ኦዲትን ምፍላይ ዳታ ውድብን።",
-    heading: "ኣካውንት HisabTech ፍጠሩ",
+    heading: "ኣካውንት Biloo ERP ፍጠሩ",
     helper: "ውሑስ መንገዲ ምዝገባ ምረጹ። ድሕሪ ምርግጋጽ ውድብ ክትፈጥሩ ወይ ክትጽንበሩ ትኽእሉ።",
     email: "ብኢሜይል ቀጽሉ",
     emailHelp: "ንምምላስ ኣካውንትን መእተዊ ኣመሓዳሪን ይምከር።",
@@ -78,7 +78,7 @@ export default async function SignUpPage({ searchParams }: { searchParams: Promi
     <main className="auth-page auth-premium-page auth-signup-page auth-official-page">
       <section className="auth-shell auth-shell-wide auth-official-shell">
         <aside className="auth-showcase auth-official-showcase">
-          <Link href="/" className="auth-showcase-brand auth-official-brand"><span>H</span><strong>HisabTech</strong></Link>
+          <Link href="/" className="auth-showcase-brand auth-official-brand"><span>H</span><strong>Biloo ERP</strong></Link>
           <div className="auth-showcase-content">
             <span className="auth-badge auth-official-badge"><i/> {p.badge}</span>
             <h2>{p.title}</h2>
@@ -94,11 +94,11 @@ export default async function SignUpPage({ searchParams }: { searchParams: Promi
         <section className="auth-card auth-form-panel auth-official-form-panel">
           <div className="auth-official-form-wrap">
             <div className="auth-top">
-              <Link href="/" className="auth-brand auth-mobile-brand"><span>H</span><strong>HisabTech</strong></Link>
+              <Link href="/" className="auth-brand auth-mobile-brand"><span>H</span><strong>Biloo ERP</strong></Link>
               <LanguageSelector/>
             </div>
             <div className="auth-heading auth-official-heading">
-              <p className="eyebrow">HisabTech</p>
+              <p className="eyebrow">Biloo ERP</p>
               <h1>{p.heading}</h1>
               <p>{p.helper}</p>
             </div>

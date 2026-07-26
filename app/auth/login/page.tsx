@@ -10,7 +10,7 @@ export const metadata = { title: "Sign in" };
 const loginCopy = {
   en: {
     title: "Welcome back",
-    description: "Sign in with your business email to continue to your HisabTech workspace.",
+    description: "Sign in with your business email to continue to your Biloo ERP workspace.",
     email: "Business email",
     emailPlaceholder: "name@company.com",
     password: "Password",
@@ -20,12 +20,12 @@ const loginCopy = {
     magic: "Email me a secure sign-in link",
     forgot: "Forgot password?",
     phone: "Use mobile number instead",
-    newUser: "New to HisabTech?",
+    newUser: "New to Biloo ERP?",
     create: "Create an account",
   },
   am: {
     title: "እንኳን ደህና መጡ",
-    description: "ወደ HisabTech የሥራ ቦታዎ ለመቀጠል በንግድ ኢሜይልዎ ይግቡ።",
+    description: "ወደ Biloo ERP የሥራ ቦታዎ ለመቀጠል በንግድ ኢሜይልዎ ይግቡ።",
     email: "የንግድ ኢሜይል",
     emailPlaceholder: "name@company.com",
     password: "የይለፍ ቃል",
@@ -35,12 +35,12 @@ const loginCopy = {
     magic: "የተጠበቀ መግቢያ ሊንክ በኢሜይል ይላኩልኝ",
     forgot: "የይለፍ ቃልዎን ረሱ?",
     phone: "በሞባይል ቁጥር ይግቡ",
-    newUser: "ለHisabTech አዲስ ነዎት?",
+    newUser: "ለBiloo ERP አዲስ ነዎት?",
     create: "መለያ ይፍጠሩ",
   },
   ti: {
     title: "እንቋዕ ብደሓን መጻእኩም",
-    description: "ናብ HisabTech መስርሒ ቦታኹም ንምቕጻል ብናይ ንግዲ ኢሜይልኩም እተዉ።",
+    description: "ናብ Biloo ERP መስርሒ ቦታኹም ንምቕጻል ብናይ ንግዲ ኢሜይልኩም እተዉ።",
     email: "ናይ ንግዲ ኢሜይል",
     emailPlaceholder: "name@company.com",
     password: "መሕለፊ ቃል",
@@ -50,7 +50,7 @@ const loginCopy = {
     magic: "ውሑስ መእተዊ ሊንክ ብኢሜይል ስደዱለይ",
     forgot: "መሕለፊ ቃልኩም ረሲዕኩም?",
     phone: "ብቁጽሪ ሞባይል እተዉ",
-    newUser: "ኣብ HisabTech ሓድሽ ዲኹም?",
+    newUser: "ኣብ Biloo ERP ሓድሽ ዲኹም?",
     create: "ኣካውንት ፍጠሩ",
   },
 } as const;

@@ -30,7 +30,7 @@ export function SectionShell({ title, description, children, actions }: SectionS
           <div className="section-shell-title">
             <span className="section-shell-mark" aria-hidden="true">{mark}</span>
             <div>
-              <p className="eyebrow">HisabTech</p>
+              <p className="eyebrow">Biloo ERP</p>
               <h1>{title}</h1>
               <p>{description}</p>
             </div>

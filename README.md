@@ -1,6 +1,6 @@
-# Hisab ERP — production foundation
+# Biloo ERP — production foundation
 
-Hisab ERP is a multilingual Next.js application for Ethiopian businesses. The native application includes a production-oriented Supabase/PostgreSQL foundation while retaining the original HTML prototype at `/legacy` as a clearly marked demonstration.
+Biloo ERP is a multilingual Next.js application for Ethiopian businesses. The native application includes a production-oriented Supabase/PostgreSQL foundation while retaining the original HTML prototype at `/legacy` as a clearly marked demonstration.
 
 ## Run locally
 
@@ -20,7 +20,7 @@ Without Supabase variables the application runs in **safe demo mode** using samp
 4. Add the production `/auth/callback` URL to Supabase Auth redirects.
 5. Create an account and finish organization onboarding.
 
-The connected Hisab Technologies Supabase project already has the Finance, Sales and shared operational-module migrations applied. The committed migration files keep new environments and disaster-recovery restores reproducible.
+The connected Biloo Group Supabase project already has the Finance, Sales and shared operational-module migrations applied. The committed migration files keep new environments and disaster-recovery restores reproducible.
 
 ## Google OAuth configuration
 
@@ -31,8 +31,8 @@ For the production Google **Web application** OAuth client, configure:
 **Authorized JavaScript origins**
 
 ```text
-https://www.hisabtech.com
-https://hisabtech.com
+https://erp.biloogroup.com
+https://erp.biloogroup.com
 http://localhost:3000
 ```
 
@@ -42,15 +42,15 @@ http://localhost:3000
 https://amwpbnczylbarqqcprev.supabase.co/auth/v1/callback
 ```
 
-In Supabase **Authentication → URL Configuration**, use `https://www.hisabtech.com` as the production Site URL and allow these application redirects:
+In Supabase **Authentication → URL Configuration**, use `https://erp.biloogroup.com` as the production Site URL and allow these application redirects:
 
 ```text
-https://www.hisabtech.com/auth/callback
-https://hisabtech.com/auth/callback
+https://erp.biloogroup.com/auth/callback
+https://erp.biloogroup.com/auth/callback
 http://localhost:3000/auth/callback
 ```
 
-After changing Google OAuth settings, start a completely new sign-in attempt from the HisabERP login page. Do not reuse an old Google error or callback tab because its OAuth state may have expired.
+After changing Google OAuth settings, start a completely new sign-in attempt from the Biloo ERP login page. Do not reuse an old Google error or callback tab because its OAuth state may have expired.
 
 ## Production architecture
 
@@ -119,7 +119,7 @@ The shared operational foundation is an extensible workflow layer. Domain-specif
 - the appearance toggle persists light or dark mode locally
 - the language toggle refreshes English, Amharic and Tigrinya server and client content
 - responsive cards, tables, forms, focus states and reduced-motion support are included
-- the docked footer identifies HisabTech.com and links to hisabtechnologies.com
+- the docked footer identifies Biloo ERP.com and links to biloogroup.com
 
 ## Main routes
 
