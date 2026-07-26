@@ -1,0 +1,266 @@
+name: Apply Biloo ERP brand
+
+on:
+  push:
+    branches: [agent/biloo-erp-rebrand]
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout rebrand branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/biloo-erp-rebrand
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Apply Biloo identity
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path('.')
+          replacements = {
+              'Hisab Technologies': 'Biloo Group',
+              'HisabTech': 'Biloo ERP',
+              'HisabERP': 'Biloo ERP',
+              'Hisab ERP': 'Biloo ERP',
+              'www.hisabtech.com': 'erp.biloogroup.com',
+              'hisabtech.com': 'erp.biloogroup.com',
+              'hisabtechnologies.com': 'biloogroup.com',
+              '/hisab-logo.svg': '/biloo-erp-mark.svg',
+          }
+          allowed_suffixes = {'.ts', '.tsx', '.js', '.mjs', '.css', '.md', '.html', '.json'}
+          roots = [Path('app'), Path('components'), Path('lib'), Path('docs')]
+          files = [Path('README.md'), Path('SECURITY.md')]
+          for base in roots:
+              if base.exists():
+                  files.extend(path for path in base.rglob('*') if path.is_file() and path.suffix in allowed_suffixes)
+
+          for path in files:
+              if not path.exists():
+                  continue
+              text = path.read_text(encoding='utf-8')
+              updated = text
+              for old, new in replacements.items():
+                  updated = updated.replace(old, new)
+              if updated != text:
+                  path.write_text(updated, encoding='utf-8')
+
+          layout = Path('app/layout.tsx')
+          text = layout.read_text(encoding='utf-8')
+          import_line = 'import "./biloo-brand.css";'
+          if import_line not in text:
+              text = text.replace('import "./dashboard-color-system.css";', 'import "./dashboard-color-system.css";\n' + import_line)
+          text = text.replace('color: "#ffffff"', 'color: "#F8FAFC"')
+          text = text.replace('color: "#0d0b0a"', 'color: "#0F172A"')
+          text = text.replace('data-ui-polish="hisab-2026"', 'data-ui-polish="biloo-erp-2026"')
+          layout.write_text(text, encoding='utf-8')
+
+          Path('public/biloo-erp-mark.svg').write_text('''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title desc">
+          <title id="title">Biloo ERP</title>
+          <desc id="desc">Biloo double-circle mark in midnight graphite, ivory white and royal sapphire blue.</desc>
+          <rect width="48" height="48" rx="15" fill="#0F172A"/>
+          <circle cx="19" cy="24" r="8" fill="none" stroke="#F8FAFC" stroke-width="3.5"/>
+          <circle cx="29" cy="24" r="8" fill="none" stroke="#F8FAFC" stroke-width="3.5"/>
+          <path d="M22 18.4C24 16.6 26 16.6 28 18.4" fill="none" stroke="#1E3A8A" stroke-width="3.5" stroke-linecap="round"/>
+          </svg>\n''', encoding='utf-8')
+
+          Path('app/biloo-brand.css').write_text('''/* Biloo ERP identity layer. Loaded last so product branding remains authoritative. */
+          :root {
+            --hisab-brand: #1e3a8a;
+            --hisab-brand-strong: #172f72;
+            --hisab-brand-deep: #10265f;
+            --hisab-brand-soft: #eaf0ff;
+            --hisab-brand-softer: #f8fafc;
+            --hisab-brand-line: #cbd5e1;
+            --hisab-charcoal: #0f172a;
+            --hisab-cream: #f8fafc;
+            --navy: #0f172a;
+            --blue: #1e3a8a;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --ds-color-brand-950: #0f172a;
+            --ds-color-brand-900: #172554;
+            --ds-color-brand-700: #1e3a8a;
+            --ds-color-brand-600: #294da8;
+            --ds-color-accent-600: #1e3a8a;
+            --ds-color-accent-500: #3b5fc0;
+            --ds-color-surface-canvas: #f1f5f9;
+            --ds-color-surface-subtle: #f8fafc;
+            --ds-color-text-primary: #0f172a;
+            --ds-color-text-secondary: #64748b;
+            --ds-color-border: #e2e8f0;
+            --ds-color-info: #1e3a8a;
+            --ds-color-info-soft: #eaf0ff;
+            --ds-focus: 0 0 0 4px rgba(30, 58, 138, 0.22);
+          }
+
+          html[data-theme="dark"] {
+            --bg: #0b1220;
+            --card: #111c30;
+            --text: #f8fafc;
+            --muted: #a8b4c8;
+            --border: #25334b;
+            --ds-color-surface-canvas: #0b1220;
+            --ds-color-surface-panel: #111c30;
+            --ds-color-surface-subtle: #16233a;
+            --ds-color-text-primary: #f8fafc;
+            --ds-color-text-secondary: #a8b4c8;
+            --ds-color-border: #25334b;
+          }
+
+          ::selection { background: rgba(30, 58, 138, 0.28); color: #0f172a; }
+          body { accent-color: #1e3a8a; }
+
+          .marketing-site {
+            --mk-ink: #0f172a;
+            --mk-muted: #64748b;
+            --mk-border: #d9e2ef;
+            --mk-soft: #eef3ff;
+            --mk-blue: #1e3a8a;
+            --mk-blue-dark: #172f72;
+            --mk-teal: #294da8;
+            --mk-white: #ffffff;
+          }
+          .marketing-nav { border-bottom-color: rgba(30, 58, 138, 0.14) !important; background: rgba(248, 250, 252, 0.95) !important; }
+          .marketing-hero { background: radial-gradient(circle at 82% 18%, rgba(30, 58, 138, 0.16), transparent 31%), linear-gradient(180deg, #f8fafc, #eef3ff) !important; }
+          .marketing-dark-section, .marketing-footer { background: #0f172a !important; }
+          .marketing-analytics { background: #172554 !important; border-color: rgba(96, 125, 204, 0.25) !important; }
+          .marketing-bars { background: #0b1220 !important; }
+          .marketing-bars span { background: linear-gradient(#5d7bd0, #1e3a8a) !important; }
+          .marketing-cta { background: linear-gradient(135deg, #172f72, #1e3a8a) !important; }
+
+          .hisab-logo,
+          .brand-loader-logo-shell img,
+          .marketing-brand img,
+          .mobile-workspace-brand img,
+          .desktop-sidebar-brand img { background: transparent !important; border: 0 !important; padding: 0 !important; }
+          .auth-hisab-mark { background: #0f172a url('/biloo-erp-mark.svg') center/100% no-repeat !important; border-color: rgba(30, 58, 138, 0.3) !important; box-shadow: 0 8px 22px rgba(15, 23, 42, 0.22) !important; }
+          .auth-slack-primary, .auth-primary-button { background: #1e3a8a !important; color: #f8fafc !important; border-color: #1e3a8a !important; }
+          .auth-slack-primary:hover, .auth-primary-button:hover { background: #172f72 !important; color: #ffffff !important; }
+
+          body[data-workspace-system="financial-os-v1"] {
+            --fin-canvas: #f1f5f9;
+            --fin-surface: #ffffff;
+            --fin-surface-subtle: #f8fafc;
+            --fin-surface-muted: #eef2f7;
+            --fin-border: #e2e8f0;
+            --fin-border-strong: #cbd5e1;
+            --fin-text: #0f172a;
+            --fin-text-secondary: #475569;
+            --fin-text-muted: #64748b;
+            --fin-text-faint: #94a3b8;
+            --fin-primary: #1e3a8a;
+            --fin-primary-hover: #172f72;
+            --fin-primary-soft: #eaf0ff;
+            --fin-info: #294da8;
+            --fin-info-soft: #eaf0ff;
+            --fin-focus: 0 0 0 3px rgba(30, 58, 138, 0.2);
+            --workspace-brand: #1e3a8a;
+            --workspace-teal: #294da8;
+            --workspace-page: #f1f5f9;
+            --workspace-surface: #ffffff;
+            --workspace-soft: #f8fafc;
+            --workspace-line: #e2e8f0;
+            --workspace-ink: #0f172a;
+            --workspace-muted: #64748b;
+            --blue: #1e3a8a;
+            --navy: #0f172a;
+            background: #f1f5f9;
+          }
+
+          html[data-theme="dark"] body[data-workspace-system="financial-os-v1"] {
+            --fin-canvas: #0b1220;
+            --fin-surface: #111c30;
+            --fin-surface-subtle: #16233a;
+            --fin-surface-muted: #1b2a43;
+            --fin-border: #25334b;
+            --fin-border-strong: #34445f;
+            --fin-text: #f8fafc;
+            --fin-text-secondary: #d4dbea;
+            --fin-text-muted: #a8b4c8;
+            --fin-text-faint: #7d8aa2;
+            --fin-primary: #7390e0;
+            --fin-primary-hover: #8da5e8;
+            --fin-primary-soft: #172554;
+            --fin-info: #7390e0;
+            --fin-info-soft: #172554;
+            --workspace-page: #0b1220;
+            --workspace-surface: #111c30;
+            --workspace-soft: #16233a;
+            --workspace-line: #25334b;
+            --workspace-ink: #f8fafc;
+            --workspace-muted: #a8b4c8;
+            background: #0b1220;
+          }
+
+          .sidebar, .supabase-sidebar { background: #0f172a !important; }
+          .supabase-sidebar {
+            --supabase-sidebar-bg: #0f172a;
+            --supabase-sidebar-border: #26334b;
+            --supabase-sidebar-text: #b9c4d6;
+            --supabase-sidebar-text-strong: #f8fafc;
+            --supabase-sidebar-muted: #7d8aa2;
+            --supabase-sidebar-hover: #172554;
+            --supabase-sidebar-active: #1b2f68;
+            --supabase-sidebar-accent: #5d7bd0;
+          }
+          .erp-shell > .sidebar.supabase-sidebar nav a:hover,
+          .erp-shell > .sidebar.supabase-sidebar nav a:focus-visible { background: #172554 !important; color: #f8fafc !important; }
+          .erp-shell > .sidebar.supabase-sidebar nav a[aria-current="page"],
+          .erp-shell > .sidebar.supabase-sidebar nav a.active { border-color: rgba(93, 123, 208, 0.35) !important; background: #1b2f68 !important; color: #ffffff !important; box-shadow: inset 2px 0 0 #7390e0 !important; }
+          .sidebar nav a.active .sidebar-nav-icon,
+          .sidebar nav a:hover .sidebar-nav-icon { color: #8da5e8 !important; }
+          .sidebar-workspace-mark { border-color: rgba(93, 123, 208, 0.4) !important; background: #1e3a8a !important; color: #f8fafc !important; }
+          .sidebar-footer a { color: #8da5e8 !important; }
+
+          body[data-workspace-system="financial-os-v1"] .workspace-command-header { border-bottom-color: rgba(30, 58, 138, 0.18) !important; background: rgba(248, 250, 252, 0.96) !important; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06) !important; }
+          .workspace-search-trigger { border-color: #cbd5e1 !important; background: #f8fafc !important; color: #64748b !important; }
+          .workspace-search-trigger:hover, .workspace-search-trigger:focus-visible { border-color: #1e3a8a !important; background: #ffffff !important; box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.14) !important; }
+          .workspace-header-actions .workspace-ai-trigger { border-color: #c5d2f2 !important; background: #eaf0ff !important; color: #1e3a8a !important; }
+          .workspace-header-actions .workspace-ai-trigger:hover, .workspace-header-actions .workspace-ai-trigger:focus-visible { border-color: #1e3a8a !important; background: #dce6ff !important; color: #172f72 !important; }
+
+          @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; }
+          }
+          ''', encoding='utf-8')
+
+          Path('docs/BILOO_MIGRATION.md').write_text('''# Biloo ERP brand migration\n\nThe Hisab ERP application foundation is now presented as **Biloo ERP**, a Biloo Group product.\n\n## Brand system\n\n- Midnight Graphite: `#0F172A`\n- Royal Sapphire Blue: `#1E3A8A`\n- Ivory White: `#F8FAFC`\n- Product name: **Biloo ERP**\n- Planned application URL: `https://erp.biloogroup.com`\n\n## What remains technically unchanged\n\nDatabase migrations, organization tenancy, Row Level Security, accounting posting logic, audit history, Supabase configuration interfaces, and internal compatibility keys remain intact. This prevents a visual rebrand from becoming a data migration.\n\n## Production requirements\n\nBefore moving authentication traffic to the Biloo domain, configure the new Site URL and callback URLs in Supabase and Google OAuth, then validate login, onboarding, organization isolation, and write operations in a staging environment.\n''', encoding='utf-8')
+          PY
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Validate strict types
+        run: npm run typecheck
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build production application
+        run: npm run build
+
+      - name: Remove migration workflow
+        run: rm .github/workflows/apply-biloo-erp-brand.yml
+
+      - name: Commit Biloo ERP migration
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Rebrand Hisab ERP as Biloo ERP"
+          git push origin HEAD:agent/biloo-erp-rebrand
