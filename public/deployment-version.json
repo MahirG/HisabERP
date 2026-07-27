@@ -1,7 +1,8 @@
 {
-  "application": "HisabERP",
+  "application": "Biloo ERP",
+  "brand": "Biloo",
   "environment": "production",
-  "deployedAt": "2026-07-27T17:36:52+03:00",
-  "sourceCommit": "347794a2846fd66e722debc21847875e711db193",
-  "release": "hisab-precision-runtime-v2"
+  "deployedAt": "2026-07-27T19:50:00+03:00",
+  "sourceCommit": "7b1d4db5c7d19255bec4cc96a39fa1b5d5f5ed7e",
+  "release": "biloo-brand-system-v1"
 }
