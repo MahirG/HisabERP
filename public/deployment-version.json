@@ -2,7 +2,7 @@
   "application": "Biloo ERP",
   "brand": "Biloo",
   "environment": "production",
-  "deployedAt": "2026-07-27T19:50:00+03:00",
-  "sourceCommit": "7b1d4db5c7d19255bec4cc96a39fa1b5d5f5ed7e",
+  "deployedAt": "2026-07-27T20:43:43+03:00",
+  "sourceCommit": "d571dc85768ac58ed46c064f8237a646d878ccab",
   "release": "biloo-brand-system-v1"
 }
