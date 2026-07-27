@@ -91,6 +91,7 @@ import "./apple-workspace-redesign-fixes.css";
 import "./dashboard-color-system.css";
 import "./hisab-premium-fintech.css";
 import "./apple-editorial-public-system.css";
+import "./public-pure-white-background.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -197,7 +198,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html className={`${spaceGrotesk.variable} ${notoSansEthiopic.variable}`} lang="en" data-language="en" data-theme="light" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: mobileControlsBootstrap }} /></head>
-      <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="apple-editorial-2026">
+      <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="public-pure-white-2026">
         <LanguageProvider initialLanguage="en">
           <AppExperienceProvider>
             <AuthPagePreferences />
