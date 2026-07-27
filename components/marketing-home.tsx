@@ -18,33 +18,67 @@ const steps = [
   { number: "03", title: "Act on reliable information", text: "Use dashboards, reports, balances, trends and attention lists to manage cash flow, stock, profitability and growth." },
 ];
 
+const ledgerRows = [
+  { account: "1100 · Cash", memo: "Customer receipt", debit: "ETB 48,500", credit: "—" },
+  { account: "1200 · Receivables", memo: "Invoice allocation", debit: "—", credit: "ETB 48,500" },
+  { account: "5100 · Operations", memo: "Supplier payment", debit: "ETB 16,240", credit: "—" },
+  { account: "1010 · Bank", memo: "Settlement", debit: "—", credit: "ETB 16,240" },
+];
+
+function FinancialOperatingSystemPreview() {
+  return (
+    <div className="hisab-fintech-preview" aria-label="HisabERP financial operating system preview">
+      <div className="hisab-preview-window">
+        <div className="hisab-preview-topbar">
+          <div className="hisab-preview-brand"><img src="/hisab-logo.svg" alt="" width="26" height="26" /><span>HisabERP</span></div>
+          <div className="hisab-preview-status"><i aria-hidden="true" /><span>Ledger synchronized</span></div>
+        </div>
+        <div className="hisab-preview-body">
+          <div className="hisab-preview-heading">
+            <div><small>Finance control center</small><strong>July operating position</strong></div>
+            <span className="hisab-preview-balance">Balanced · ETB 0.00 difference</span>
+          </div>
+          <div className="hisab-preview-kpis">
+            <article className="hisab-preview-kpi"><span>Cash &amp; bank</span><strong>ETB 2.84M</strong><small>+12.8% this month</small></article>
+            <article className="hisab-preview-kpi"><span>Receivables</span><strong>ETB 486K</strong><small>8 accounts require attention</small></article>
+            <article className="hisab-preview-kpi"><span>Net income</span><strong>ETB 712K</strong><small>31.8% operating margin</small></article>
+          </div>
+          <div className="hisab-preview-ledger">
+            <div className="hisab-preview-ledger-head"><span>Account</span><span>Description</span><span>Debit</span><span>Credit</span></div>
+            {ledgerRows.map((row) => (
+              <div className="hisab-preview-ledger-row" key={`${row.account}-${row.memo}`}>
+                <strong>{row.account}</strong><span>{row.memo}</span><span className="debit">{row.debit}</span><span className="credit">{row.credit}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function MarketingHome() {
   const homepageIndustries = marketingIndustries.slice(0, 6);
   const homepagePlans = pricingPlans.slice(0, 3);
   return (
     <MarketingPageShell>
-      <section className="marketing-hero marketing-hero-text-only" aria-labelledby="home-hero-title">
+      <section className="marketing-hero hisab-fintech-hero" aria-labelledby="home-hero-title">
         <div className="marketing-hero-copy">
-          <span className="marketing-eyebrow">HisabERP · Business operating system</span>
-          <h1 id="home-hero-title">Run every part of your business with clarity.</h1>
-          <p>Connect sales, inventory, finance, customers, suppliers and management reporting in one secure workspace built for ambitious Ethiopian businesses.</p>
+          <span className="marketing-eyebrow">HisabERP · Financial operating system</span>
+          <h1 id="home-hero-title">Financial clarity at the speed of your business.</h1>
+          <p>Run sales, inventory, finance, reconciliations and management reporting from one precise, real-time workspace designed for ambitious Ethiopian organizations.</p>
           <div className="marketing-hero-actions">
-            <Link href="/auth/email-sign-up" className="marketing-start marketing-large">Get started</Link>
+            <Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link>
             <Link href="/request-demo?source=homepage-hero" className="marketing-demo marketing-large">Request a demo</Link>
           </div>
           <div className="marketing-trust" aria-label="HisabERP product highlights">
+            <span>Double-entry ledger</span>
             <span>ETB-first operations</span>
             <span>English and Amharic</span>
-            <span>Secure cloud access</span>
             <span>Mobile-ready workflows</span>
           </div>
         </div>
-        <div className="home-hero-capability-strip" aria-label="Connected HisabERP capabilities">
-          <span><b>01</b> Sales and invoicing</span>
-          <span><b>02</b> Inventory and purchasing</span>
-          <span><b>03</b> Finance and cash flow</span>
-          <span><b>04</b> Reports and decisions</span>
-        </div>
+        <FinancialOperatingSystemPreview />
       </section>
 
       <section className="marketing-proof marketing-proof-v2"><p>Designed for ambitious businesses moving beyond notebooks and disconnected spreadsheets</p><div><span>Retail</span><span>Wholesale</span><span>Services</span><span>Hospitality</span><span>Cooperatives</span><span>Multi-branch teams</span></div></section>
