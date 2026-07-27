@@ -22,14 +22,17 @@ test("uses a dedicated PKCE-compatible confirmation endpoint", async () => {
   assert.match(proxy, /"\/auth\/confirm"/);
 });
 
-test("handles signup, verification resend, and immediate sessions", async () => {
+test("handles signup, verification resend, immediate sessions, and existing identities", async () => {
   const [actions, verifyPage] = await Promise.all([
     read("lib/actions/email-auth.ts"),
     read("app/auth/verify-email/page.tsx"),
   ]);
 
   assert.match(actions, /const \{ data, error \} = await supabase\.auth\.signUp/);
-  assert.match(actions, /if \(data\.session\) redirect\("\/onboarding"\)/);
+  assert.match(actions, /if \(data\.session\) redirect\(next\)/);
+  assert.match(actions, /data\.user\?\.identities/);
+  assert.match(actions, /data\.user\.identities\.length === 0/);
+  assert.match(actions, /reason=existing-account/);
   assert.match(actions, /export async function resendEmailConfirmation/);
   assert.match(actions, /supabase\.auth\.resend\(\{/);
   assert.match(actions, /type: "signup"/);
@@ -38,12 +41,32 @@ test("handles signup, verification resend, and immediate sessions", async () => 
 });
 
 test("keeps login errors useful without exposing account existence", async () => {
-  const actions = await read("lib/actions/email-auth.ts");
+  const [actions, loginPage] = await Promise.all([
+    read("lib/actions/email-auth.ts"),
+    read("app/auth/login/page.tsx"),
+  ]);
 
   assert.match(actions, /email_not_confirmed/);
   assert.match(actions, /Confirm your email before signing in/);
   assert.match(actions, /genericLoginError/);
+  assert.match(actions, /If you originally joined with Google/);
   assert.match(actions, /identifier_hash: createHash\("sha256"\)/);
+  assert.match(loginPage, /password-or-provider/);
+  assert.match(loginPage, /Create or reset email password/);
+  assert.match(loginPage, /Resend verification email/);
+});
+
+test("supports password setup for accounts originally created with OAuth", async () => {
+  const [actions, recoveryPage] = await Promise.all([
+    read("lib/actions/email-auth.ts"),
+    read("app/auth/forgot-password/page.tsx"),
+  ]);
+
+  assert.match(actions, /resetPasswordForEmail/);
+  assert.match(actions, /redirectTo: confirmationUrl\("\/auth\/reset-password"\)/);
+  assert.match(recoveryPage, /originally created with Google/);
+  assert.match(recoveryPage, /without creating a duplicate account/);
+  assert.match(recoveryPage, /name="next"/);
 });
 
 test("forces a clean sign-in after password recovery", async () => {
