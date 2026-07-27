@@ -81,34 +81,40 @@
     }
   }
 
-  var observer = new MutationObserver(function (mutations) {
-    for (var index = 0; index < mutations.length; index += 1) {
-      var mutation = mutations[index];
-      if (mutation.type === "characterData") updateTextNode(mutation.target);
-      if (mutation.type === "attributes" && mutation.target.nodeType === Node.ELEMENT_NODE) updateElement(mutation.target);
-      if (mutation.type === "childList") {
-        for (var childIndex = 0; childIndex < mutation.addedNodes.length; childIndex += 1) {
-          updateSubtree(mutation.addedNodes[childIndex]);
-        }
-      }
-    }
-    updateHead();
-  });
-
-  observer.observe(document.documentElement, {
-    subtree: true,
-    childList: true,
-    characterData: true,
-    attributes: true,
-    attributeFilter: ATTRIBUTES
-  });
-
-  function initialize() {
+  function startMigration() {
     updateSubtree(document.documentElement);
     updateHead();
     document.documentElement.dataset.brand = "biloo";
+
+    var observer = new MutationObserver(function (mutations) {
+      for (var index = 0; index < mutations.length; index += 1) {
+        var mutation = mutations[index];
+        if (mutation.type === "characterData") updateTextNode(mutation.target);
+        if (mutation.type === "attributes" && mutation.target.nodeType === Node.ELEMENT_NODE) updateElement(mutation.target);
+        if (mutation.type === "childList") {
+          for (var childIndex = 0; childIndex < mutation.addedNodes.length; childIndex += 1) {
+            updateSubtree(mutation.addedNodes[childIndex]);
+          }
+        }
+      }
+      updateHead();
+    });
+
+    observer.observe(document.documentElement, {
+      subtree: true,
+      childList: true,
+      characterData: true,
+      attributes: true,
+      attributeFilter: ATTRIBUTES
+    });
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initialize, { once: true });
-  else initialize();
+  function initializeAfterHydration() {
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(startMigration);
+    });
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initializeAfterHydration, { once: true });
+  else initializeAfterHydration();
 })();
