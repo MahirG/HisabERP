@@ -25,7 +25,7 @@ function resolveAppUrl() {
 }
 
 export const appConfig = {
-  name: "Hisab ERP",
+  name: "Biloo ERP",
   defaultLocale: "en" as const,
   supportedLocales: ["en", "am", "ti"] as const,
   supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() ?? "",

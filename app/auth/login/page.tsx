@@ -11,7 +11,7 @@ export const metadata = { title: "Sign in" };
 const loginCopy = {
   en: {
     title: "Welcome back",
-    description: "Sign in with your business email to continue to your HisabTech workspace.",
+    description: "Sign in with your business email to continue to your Biloo workspace.",
     email: "Business email",
     emailPlaceholder: "name@company.com",
     password: "Password",
@@ -21,7 +21,7 @@ const loginCopy = {
     magic: "Email me a secure sign-in link",
     forgot: "Forgot password?",
     phone: "Use mobile number instead",
-    newUser: "New to HisabTech?",
+    newUser: "New to Biloo?",
     create: "Create an account",
     passwordHelpTitle: "Need email and password access?",
     passwordHelp: "If this email was first registered with Google, create a password securely without creating a second account.",
@@ -31,7 +31,7 @@ const loginCopy = {
   },
   am: {
     title: "እንኳን ደህና መጡ",
-    description: "ወደ HisabTech የሥራ ቦታዎ ለመቀጠል በንግድ ኢሜይልዎ ይግቡ።",
+    description: "ወደ Biloo የሥራ ቦታዎ ለመቀጠል በንግድ ኢሜይልዎ ይግቡ።",
     email: "የንግድ ኢሜይል",
     emailPlaceholder: "name@company.com",
     password: "የይለፍ ቃል",
@@ -41,7 +41,7 @@ const loginCopy = {
     magic: "የተጠበቀ መግቢያ ሊንክ በኢሜይል ይላኩልኝ",
     forgot: "የይለፍ ቃልዎን ረሱ?",
     phone: "በሞባይል ቁጥር ይግቡ",
-    newUser: "ለHisabTech አዲስ ነዎት?",
+    newUser: "ለBiloo አዲስ ነዎት?",
     create: "መለያ ይፍጠሩ",
     passwordHelpTitle: "በኢሜይልና የይለፍ ቃል መግባት ይፈልጋሉ?",
     passwordHelp: "ይህ ኢሜይል በGoogle ከተመዘገበ፣ ሁለተኛ መለያ ሳይፈጥሩ የይለፍ ቃል ያዘጋጁ።",
@@ -51,7 +51,7 @@ const loginCopy = {
   },
   ti: {
     title: "እንቋዕ ብደሓን መጻእኩም",
-    description: "ናብ HisabTech መስርሒ ቦታኹም ንምቕጻል ብናይ ንግዲ ኢሜይልኩም እተዉ።",
+    description: "ናብ Biloo መስርሒ ቦታኹም ንምቕጻል ብናይ ንግዲ ኢሜይልኩም እተዉ።",
     email: "ናይ ንግዲ ኢሜይል",
     emailPlaceholder: "name@company.com",
     password: "መሕለፊ ቃል",
@@ -61,7 +61,7 @@ const loginCopy = {
     magic: "ውሑስ መእተዊ ሊንክ ብኢሜይል ስደዱለይ",
     forgot: "መሕለፊ ቃልኩም ረሲዕኩም?",
     phone: "ብቁጽሪ ሞባይል እተዉ",
-    newUser: "ኣብ HisabTech ሓድሽ ዲኹም?",
+    newUser: "ኣብ Biloo ሓድሽ ዲኹም?",
     create: "ኣካውንት ፍጠሩ",
     passwordHelpTitle: "ብኢሜይልን መሕለፊ ቃልን ክትኣትዉ ትደልዩ?",
     passwordHelp: "እዚ ኢሜይል መጀመርታ ብGoogle እንተተመዝጊቡ፣ ካልእ ኣካውንት ከይፈጠርኩም መሕለፊ ቃል ኣዳልዉ።",
