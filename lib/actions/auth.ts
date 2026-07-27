@@ -78,7 +78,15 @@ export async function signInWithOAuthProvider(formData: FormData) {
   const provider = providerValue === "google" || providerValue === "apple" ? providerValue : null;
   const next = safeNextPath(formData.get("next"));
 
-  if (!provider) redirect("/auth/login?error=Unsupported+sign-in+provider");
+  const providerEnabled = provider === "google"
+    ? appConfig.authProviders.google
+    : provider === "apple"
+      ? appConfig.authProviders.apple
+      : false;
+
+  if (!provider || !providerEnabled) {
+    redirect(`/auth/login?error=${encodeURIComponent("That sign-in provider is not available yet.")}&next=${encodeURIComponent(next)}`);
+  }
 
   const supabase = await createClient();
   const redirectTo = `${appConfig.appUrl}/auth/callback?next=${encodeURIComponent(next)}`;
@@ -96,6 +104,7 @@ export async function signInWithOAuthProvider(formData: FormData) {
 }
 
 export async function signIn(formData: FormData) {
+  if (!appConfig.authProviders.phone) redirect("/auth/login?error=Mobile+number+sign-in+is+not+available+yet");
   if (!isSupabaseConfigured()) redirect("/auth/login?error=Supabase+is+not+configured");
 
   let credentials: ReturnType<typeof readCredentials>;
@@ -113,6 +122,7 @@ export async function signIn(formData: FormData) {
 }
 
 export async function signUp(formData: FormData) {
+  if (!appConfig.authProviders.phone) redirect("/auth/login?error=Mobile+number+sign-up+is+not+available+yet");
   if (!isSupabaseConfigured()) redirect("/auth/sign-up?error=Supabase+is+not+configured");
 
   let credentials: ReturnType<typeof readCredentials>;
@@ -147,6 +157,7 @@ export async function signUp(formData: FormData) {
 }
 
 export async function verifyPhoneOtp(formData: FormData) {
+  if (!appConfig.authProviders.phone) redirect("/auth/login?error=Mobile+number+verification+is+not+available+yet");
   if (!isSupabaseConfigured()) redirect("/auth/verify-phone?error=Supabase+is+not+configured");
 
   let phone: string;

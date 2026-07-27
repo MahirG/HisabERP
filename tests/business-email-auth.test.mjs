@@ -77,6 +77,22 @@ test("forces a clean sign-in after password recovery", async () => {
   assert.doesNotMatch(actions, /signOut\(\{ scope: "others" \}\)/);
 });
 
+test("does not advertise or execute providers that have not been configured", async () => {
+  const [config, providers, loginPage, actions] = await Promise.all([
+    read("lib/config.ts"),
+    read("components/social-auth-buttons.tsx"),
+    read("app/auth/login/page.tsx"),
+    read("lib/actions/auth.ts"),
+  ]);
+
+  assert.match(config, /NEXT_PUBLIC_ENABLE_APPLE_AUTH/);
+  assert.match(config, /NEXT_PUBLIC_ENABLE_PHONE_AUTH/);
+  assert.match(providers, /\{apple \? \(/);
+  assert.match(loginPage, /appConfig\.authProviders\.phone \?/);
+  assert.match(actions, /providerEnabled/);
+  assert.match(actions, /if \(!appConfig\.authProviders\.phone\)/);
+});
+
 test("removes legacy email-card language controls", async () => {
   const card = await read("components/email-auth-card.tsx");
   assert.doesNotMatch(card, /LanguageSelector/);
