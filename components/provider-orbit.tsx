@@ -1,3 +1,5 @@
+import { appConfig } from "../lib/config";
+
 function GoogleMark() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -26,8 +28,8 @@ export function ProviderOrbit({ compact = false }: { compact?: boolean }) {
         <img src="/hisab-logo.svg" alt="" width="70" height="70" />
         <span><strong>HisabERP</strong><small>One trusted workspace</small></span>
       </div>
-      <span className="provider-orbit-card provider-google" data-third-party-brand><GoogleMark/><b>Google</b><small>Secure identity</small></span>
-      <span className="provider-orbit-card provider-apple" data-third-party-brand><AppleMark/><b>Apple</b><small>Private sign-in</small></span>
+      {appConfig.authProviders.google ? <span className="provider-orbit-card provider-google" data-third-party-brand><GoogleMark/><b>Google</b><small>Secure identity</small></span> : null}
+      {appConfig.authProviders.apple ? <span className="provider-orbit-card provider-apple" data-third-party-brand><AppleMark/><b>Apple</b><small>Private sign-in</small></span> : null}
       <span className="provider-orbit-card provider-chapa" style={{ right: "2%", bottom: "12%", color: "#171717", background: "rgba(255,255,255,.94)" }} data-third-party-brand><strong style={{ gridRow: "1 / 3", fontSize: 18 }}>Chapa</strong><small>ETB checkout</small></span>
       <span className="provider-orbit-card provider-supabase" data-third-party-brand><i aria-hidden="true"/><b>Supabase</b><small>Identity &amp; data</small></span>
       <span className="provider-orbit-caption">Identity · payments · protected business data</span>
