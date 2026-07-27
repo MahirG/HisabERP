@@ -12,6 +12,8 @@ import { requiredText, safeNextPath, ValidationError } from "../validation";
 const genericMessage = "If the account can receive email, we sent the next step.";
 const genericLoginError = "The email or password is incorrect, or the account is not ready.";
 const genericSignupError = "We could not complete account creation right now. Please try again shortly.";
+const existingAccountMessage = "This email may already belong to an account. Sign in, request a secure email link, or create an email password through password recovery.";
+const providerPasswordHelp = "If you originally joined with Google, use Forgot password to create an email password for the same account.";
 
 function normalizeEmail(value: FormDataEntryValue | null) {
   const email = requiredText(value, "email", 254).trim().toLowerCase();
@@ -38,7 +40,15 @@ function confirmationUrl(next: string) {
 function loginErrorMessage(code?: string) {
   if (code === "email_not_confirmed") return "Confirm your email before signing in.";
   if (code === "over_request_rate_limit" || code === "over_email_send_rate_limit") return "Too many attempts. Wait a moment and try again.";
+  if (code === "invalid_credentials") return `${genericLoginError} ${providerPasswordHelp}`;
   return genericLoginError;
+}
+
+function loginReason(code?: string) {
+  if (code === "email_not_confirmed") return "email-not-confirmed";
+  if (code === "invalid_credentials") return "password-or-provider";
+  if (code === "over_request_rate_limit" || code === "over_email_send_rate_limit") return "rate-limited";
+  return "sign-in-failed";
 }
 
 async function requestMetadata() {
@@ -95,6 +105,10 @@ export async function signUpWithEmail(formData: FormData) {
   });
 
   if (error) {
+    if (error.code === "user_already_exists" || error.code === "email_exists") {
+      redirect(`/auth/login?message=${encodeURIComponent(existingAccountMessage)}&reason=existing-account&email=${encodeURIComponent(email)}&next=${encodeURIComponent(next)}`);
+    }
+
     const message = error.code === "over_email_send_rate_limit"
       ? "Too many verification emails were requested. Wait a moment and try again."
       : genericSignupError;
@@ -102,6 +116,14 @@ export async function signUpWithEmail(formData: FormData) {
   }
 
   if (data.session) redirect(next);
+
+  // Supabase can deliberately return an obfuscated user with no identities when the
+  // address is already registered. Guide the person to sign-in/recovery without
+  // definitively disclosing whether an account exists.
+  if (Array.isArray(data.user?.identities) && data.user.identities.length === 0) {
+    redirect(`/auth/login?message=${encodeURIComponent(existingAccountMessage)}&reason=existing-account&email=${encodeURIComponent(email)}&next=${encodeURIComponent(next)}`);
+  }
+
   redirect(`/auth/verify-email?email=${encodeURIComponent(email)}&next=${encodeURIComponent(next)}`);
 }
 
@@ -115,7 +137,7 @@ export async function signInWithEmail(formData: FormData) {
     email = normalizeEmail(formData.get("email"));
     secret = requiredText(formData.get("password"), "password", 200);
   } catch {
-    redirect(`/auth/login?error=${encodeURIComponent(genericLoginError)}&next=${encodeURIComponent(next)}`);
+    redirect(`/auth/login?error=${encodeURIComponent(genericLoginError)}&reason=sign-in-failed&next=${encodeURIComponent(next)}`);
   }
 
   const supabase = await createClient();
@@ -123,7 +145,7 @@ export async function signInWithEmail(formData: FormData) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password: secret });
   if (error || !data.user) {
     await recordLoginAttempt(email, false, null, error?.code || "invalid_credentials", metadata);
-    redirect(`/auth/login?error=${encodeURIComponent(loginErrorMessage(error?.code))}&next=${encodeURIComponent(next)}`);
+    redirect(`/auth/login?error=${encodeURIComponent(loginErrorMessage(error?.code))}&reason=${encodeURIComponent(loginReason(error?.code))}&email=${encodeURIComponent(email)}&next=${encodeURIComponent(next)}`);
   }
 
   await recordLoginAttempt(email, true, data.user.id, null, metadata);
@@ -140,14 +162,17 @@ export async function signInWithEmail(formData: FormData) {
 
 export async function requestPasswordReset(formData: FormData) {
   if (!isSupabaseConfigured()) redirect("/auth/forgot-password?error=Authentication+is+not+configured");
+  const next = safeNextPath(formData.get("next") || "/");
+  let email = "";
   try {
-    const email = normalizeEmail(formData.get("email"));
+    email = normalizeEmail(formData.get("email"));
     const supabase = await createClient();
     await supabase.auth.resetPasswordForEmail(email, { redirectTo: confirmationUrl("/auth/reset-password") });
   } catch {
     // Deliberately identical response to prevent account enumeration.
   }
-  redirect(`/auth/forgot-password?message=${encodeURIComponent(genericMessage)}`);
+  const emailQuery = email ? `&email=${encodeURIComponent(email)}` : "";
+  redirect(`/auth/forgot-password?message=${encodeURIComponent(genericMessage)}&next=${encodeURIComponent(next)}${emailQuery}`);
 }
 
 export async function requestMagicLink(formData: FormData) {
