@@ -1,0 +1,468 @@
+/*
+ * HisabTech Apple-inspired editorial system.
+ * This is the final public-site layer. It replaces boxed marketing UI with
+ * open, spacious sections while preserving framed dashboard/product previews.
+ */
+
+:root {
+  --apple-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  --apple-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  --apple-background: #f5f5f7;
+  --apple-surface: #ffffff;
+  --apple-text: #1d1d1f;
+  --apple-secondary: #6e6e73;
+  --apple-tertiary: #86868b;
+  --apple-hairline: rgba(0, 0, 0, .10);
+  --apple-blue: #0066cc;
+  --apple-blue-hover: #0077ed;
+  --apple-black: #000000;
+  --apple-radius-pill: 999px;
+  --apple-section-space: clamp(5rem, 9vw, 9rem);
+  --hisab-font: var(--apple-font);
+}
+
+html[data-theme="dark"] {
+  --apple-background: #000000;
+  --apple-surface: #101010;
+  --apple-text: #f5f5f7;
+  --apple-secondary: #a1a1a6;
+  --apple-tertiary: #86868b;
+  --apple-hairline: rgba(255, 255, 255, .14);
+  --apple-blue: #2997ff;
+  --apple-blue-hover: #64b5ff;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--apple-font) !important;
+}
+
+html[lang="am"] body,
+html[data-language="am"] body,
+html[lang="am"] button,
+html[data-language="am"] button,
+html[lang="am"] input,
+html[data-language="am"] input,
+html[lang="am"] select,
+html[data-language="am"] select,
+html[lang="am"] textarea,
+html[data-language="am"] textarea {
+  font-family: var(--font-noto-ethiopic), var(--apple-font) !important;
+}
+
+body {
+  background: var(--apple-background) !important;
+  color: var(--apple-text) !important;
+}
+
+/* Public canvas */
+.marketing-site-v2 {
+  font-family: var(--apple-font) !important;
+  background: var(--apple-background) !important;
+  color: var(--apple-text) !important;
+  overflow: clip;
+}
+
+.marketing-site-v2 #public-main-content {
+  background: var(--apple-background) !important;
+}
+
+.marketing-site-v2 :where(h1, h2, h3, h4, strong, b) {
+  font-family: var(--apple-display) !important;
+  color: var(--apple-text);
+  letter-spacing: -.025em;
+}
+
+.marketing-site-v2 :where(p, small, li) {
+  color: var(--apple-secondary);
+  letter-spacing: -.008em;
+}
+
+.marketing-site-v2 :where(h1) {
+  font-size: clamp(3.25rem, 7.4vw, 7.5rem) !important;
+  line-height: .94 !important;
+  letter-spacing: -.055em !important;
+  font-weight: 700 !important;
+  text-wrap: balance;
+}
+
+.marketing-site-v2 :where(h2) {
+  font-size: clamp(2.35rem, 5vw, 5.25rem) !important;
+  line-height: 1 !important;
+  letter-spacing: -.045em !important;
+  font-weight: 700 !important;
+  text-wrap: balance;
+}
+
+.marketing-site-v2 :where(h3) {
+  letter-spacing: -.03em !important;
+  font-weight: 650 !important;
+}
+
+.marketing-site-v2 :where(a) {
+  text-underline-offset: .22em;
+}
+
+/* Apple-like translucent navigation */
+.marketing-site-v2 .marketing-nav {
+  min-height: 52px !important;
+  padding-block: .45rem !important;
+  border-bottom: 1px solid var(--apple-hairline) !important;
+  background: color-mix(in srgb, var(--apple-background) 82%, transparent) !important;
+  box-shadow: none !important;
+  backdrop-filter: saturate(180%) blur(20px) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+}
+
+.marketing-site-v2 .marketing-brand-copy strong {
+  font-size: .98rem !important;
+  letter-spacing: -.025em !important;
+}
+
+.marketing-site-v2 .marketing-brand-copy small {
+  font-size: .68rem !important;
+  color: var(--apple-secondary) !important;
+}
+
+.marketing-site-v2 .marketing-desktop-nav a,
+.marketing-site-v2 .marketing-signin {
+  color: var(--apple-text) !important;
+  font-size: .78rem !important;
+  font-weight: 500 !important;
+  letter-spacing: -.01em !important;
+}
+
+.marketing-site-v2 .marketing-desktop-nav a:hover,
+.marketing-site-v2 .marketing-signin:hover {
+  color: var(--apple-blue) !important;
+}
+
+/* Buttons remain controls, but become small Apple-style pills rather than boxes. */
+.marketing-site-v2 :where(.marketing-start, .marketing-demo, .marketing-dark-link) {
+  min-height: 42px !important;
+  padding: .72rem 1.25rem !important;
+  border-radius: var(--apple-radius-pill) !important;
+  font-family: var(--apple-font) !important;
+  font-size: .95rem !important;
+  font-weight: 500 !important;
+  letter-spacing: -.012em !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 .marketing-start {
+  color: #fff !important;
+  background: var(--apple-blue) !important;
+  border: 1px solid var(--apple-blue) !important;
+}
+
+.marketing-site-v2 .marketing-start:hover {
+  background: var(--apple-blue-hover) !important;
+  border-color: var(--apple-blue-hover) !important;
+}
+
+.marketing-site-v2 .marketing-demo,
+.marketing-site-v2 .marketing-dark-link {
+  color: var(--apple-blue) !important;
+  background: transparent !important;
+  border: 1px solid color-mix(in srgb, var(--apple-blue) 42%, transparent) !important;
+}
+
+.marketing-site-v2 :where(.marketing-start, .marketing-demo, .marketing-dark-link):active {
+  transform: scale(.97) !important;
+}
+
+/* Open editorial hero */
+.marketing-site-v2 .marketing-hero {
+  min-height: min(900px, calc(100svh - 52px));
+  padding-top: clamp(6rem, 11vw, 10rem) !important;
+  padding-bottom: clamp(4rem, 8vw, 8rem) !important;
+  background:
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--apple-surface) 84%, transparent), transparent 54%),
+    var(--apple-background) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 .marketing-hero-copy {
+  max-width: 920px !important;
+}
+
+.marketing-site-v2 .marketing-hero-copy > p {
+  max-width: 760px !important;
+  font-size: clamp(1.18rem, 2vw, 1.6rem) !important;
+  line-height: 1.45 !important;
+  color: var(--apple-secondary) !important;
+}
+
+.marketing-site-v2 :where(.marketing-eyebrow, .marketing-section-heading > span, .marketing-dark-copy > span) {
+  color: var(--apple-tertiary) !important;
+  font-size: .78rem !important;
+  font-weight: 600 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase;
+}
+
+.marketing-site-v2 .marketing-trust {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+.marketing-site-v2 .marketing-trust span {
+  color: var(--apple-secondary) !important;
+}
+
+/* Full-bleed alternating sections; no floating rectangular section shells. */
+.marketing-site-v2 #public-main-content > section {
+  position: relative;
+  margin: 0 !important;
+  padding-top: var(--apple-section-space) !important;
+  padding-bottom: var(--apple-section-space) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 #public-main-content > section:nth-child(odd) {
+  background: var(--apple-background) !important;
+}
+
+.marketing-site-v2 #public-main-content > section:nth-child(even) {
+  background: var(--apple-surface) !important;
+}
+
+.marketing-site-v2 .marketing-section-heading {
+  max-width: 980px !important;
+  margin-bottom: clamp(3rem, 6vw, 5.5rem) !important;
+}
+
+.marketing-site-v2 .marketing-section-heading > p {
+  max-width: 760px;
+  font-size: clamp(1.08rem, 1.7vw, 1.35rem) !important;
+  line-height: 1.55 !important;
+}
+
+/* Flatten ordinary cards and tiles into editorial columns. */
+.marketing-site-v2 :where(
+  .marketing-module-grid,
+  .marketing-benefit-grid,
+  .marketing-step-grid,
+  .home-local-grid,
+  .home-industry-grid,
+  .home-pricing-grid,
+  .home-proof-trust-grid,
+  .home-implementation-resource-grid,
+  .home-final-recommendation-grid,
+  .industry-grid,
+  .pricing-grid,
+  .resource-grid,
+  .comparison-grid,
+  .integration-grid,
+  .trust-grid,
+  .feature-grid
+) > :where(article, a) {
+  position: relative;
+  padding: 1.75rem 0 2.25rem !important;
+  color: var(--apple-text) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-top: 1px solid var(--apple-hairline) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.marketing-site-v2 :where(
+  .marketing-module-grid,
+  .marketing-benefit-grid,
+  .marketing-step-grid,
+  .home-local-grid,
+  .home-industry-grid,
+  .home-pricing-grid,
+  .home-proof-trust-grid,
+  .home-implementation-resource-grid,
+  .home-final-recommendation-grid
+) > :where(article, a):hover {
+  background: transparent !important;
+  border-top-color: color-mix(in srgb, var(--apple-text) 30%, transparent) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.marketing-site-v2 :where(
+  .marketing-module-grid,
+  .marketing-benefit-grid,
+  .marketing-step-grid,
+  .home-local-grid,
+  .home-industry-grid,
+  .home-pricing-grid,
+  .home-proof-trust-grid,
+  .home-implementation-resource-grid,
+  .home-final-recommendation-grid
+) > :where(article, a) :where(span, small) {
+  color: var(--apple-secondary) !important;
+}
+
+.marketing-site-v2 :where(
+  .marketing-module-grid,
+  .home-industry-grid,
+  .home-pricing-grid,
+  .home-proof-trust-grid,
+  .home-implementation-resource-grid,
+  .home-final-recommendation-grid
+) > :where(article, a) :where(a, b) {
+  color: var(--apple-blue) !important;
+}
+
+.marketing-site-v2 .home-pricing-grid > article.featured {
+  background: transparent !important;
+  border: 0 !important;
+  border-top: 2px solid var(--apple-text) !important;
+  box-shadow: none !important;
+}
+
+/* Proof strips become quiet typography, not pills or boxes. */
+.marketing-site-v2 .marketing-proof {
+  text-align: center;
+}
+
+.marketing-site-v2 .marketing-proof div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .85rem 1.6rem !important;
+}
+
+.marketing-site-v2 .marketing-proof div span {
+  padding: 0 !important;
+  color: var(--apple-secondary) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Local and dark narrative sections remain full-bleed, not container cards. */
+.marketing-site-v2 :where(.home-local-section, .marketing-dark-section) {
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 .marketing-dark-section {
+  color: #f5f5f7 !important;
+  background: #000 !important;
+}
+
+.marketing-site-v2 .marketing-dark-section :where(h2, h3, strong, b) {
+  color: #f5f5f7 !important;
+}
+
+.marketing-site-v2 .marketing-dark-section :where(p, li, small) {
+  color: #a1a1a6 !important;
+}
+
+/* Dashboard and product preview surfaces are intentionally preserved. */
+.marketing-site-v2 :where(
+  .hisab-fintech-preview,
+  .hisab-preview-window,
+  .hisab-preview-kpi,
+  .hisab-preview-ledger,
+  .marketing-insight-panel,
+  .product-tour-experience,
+  .product-tour-frame,
+  .product-tour-shell,
+  [class*="dashboard-preview"],
+  [class*="workspace-preview"],
+  [class*="product-preview"]
+) {
+  border-radius: clamp(18px, 2vw, 28px) !important;
+}
+
+.marketing-site-v2 .hisab-preview-window,
+.marketing-site-v2 .marketing-insight-panel,
+.marketing-site-v2 :where(.product-tour-frame, .product-tour-shell, [class*="dashboard-preview"], [class*="workspace-preview"]) {
+  border: 1px solid var(--apple-hairline) !important;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, .16) !important;
+}
+
+html[data-theme="dark"] .marketing-site-v2 .hisab-preview-window,
+html[data-theme="dark"] .marketing-site-v2 .marketing-insight-panel,
+html[data-theme="dark"] .marketing-site-v2 :where(.product-tour-frame, .product-tour-shell, [class*="dashboard-preview"], [class*="workspace-preview"]) {
+  box-shadow: 0 34px 100px rgba(0, 0, 0, .55) !important;
+}
+
+/* Footer is editorial and flat. */
+.marketing-site-v2 .marketing-footer {
+  color: var(--apple-text) !important;
+  background: var(--apple-background) !important;
+  border-top: 1px solid var(--apple-hairline) !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 .marketing-footer :where(a, p, small, span) {
+  color: var(--apple-secondary) !important;
+}
+
+.marketing-site-v2 .marketing-footer a:hover {
+  color: var(--apple-blue) !important;
+}
+
+/* Mobile: keep the same open composition and avoid boxed mobile panels. */
+@media (max-width: 780px) {
+  .marketing-site-v2 :where(h1) {
+    font-size: clamp(3rem, 14vw, 4.8rem) !important;
+  }
+
+  .marketing-site-v2 :where(h2) {
+    font-size: clamp(2.35rem, 11vw, 4rem) !important;
+  }
+
+  .marketing-site-v2 .marketing-hero {
+    min-height: auto;
+    padding-top: 6rem !important;
+  }
+
+  .marketing-site-v2 .marketing-hero-actions {
+    align-items: stretch;
+  }
+
+  .marketing-site-v2 .marketing-hero-actions :where(a, button) {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel {
+    background: var(--apple-background) !important;
+    border: 0 !important;
+    border-left: 1px solid var(--apple-hairline) !important;
+    border-radius: 0 !important;
+    box-shadow: -24px 0 70px rgba(0, 0, 0, .18) !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel nav a {
+    background: transparent !important;
+    border: 0 !important;
+    border-top: 1px solid var(--apple-hairline) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-site-v2 *,
+  .marketing-site-v2 *::before,
+  .marketing-site-v2 *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
