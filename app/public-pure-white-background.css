@@ -157,3 +157,44 @@ html[data-theme="dark"] .marketing-site-v2 .marketing-footer-brand .marketing-br
   background-clip: text;
   -webkit-background-clip: text;
 }
+
+/* Biloo is now a text-only identity. Remove the standalone B image everywhere. */
+img[src$="/hisab-logo.svg"] {
+  display: none !important;
+}
+
+:where(
+  .marketing-brand,
+  .auth-standard-brand,
+  .hisab-preview-brand,
+  .provider-orbit-core,
+  .mobile-sidebar-header .brand,
+  .desktop-sidebar-brand
+) {
+  gap: 0 !important;
+}
+
+:where(
+  .marketing-brand-copy,
+  .auth-standard-brand > span,
+  .mobile-sidebar-header .brand > div,
+  .desktop-sidebar-brand > div,
+  .provider-orbit-core > span
+) {
+  margin-inline-start: 0 !important;
+}
+
+.mobile-workspace-brand,
+.brand-loader-logo-shell {
+  display: none !important;
+}
+
+.provider-orbit-core {
+  justify-content: center !important;
+  text-align: center;
+}
+
+.hisab-preview-brand,
+.tour-window-layout > aside {
+  padding-top: 0 !important;
+}

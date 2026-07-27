@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc" style="background:transparent" overflow="visible">
-  <title id="title">Biloo logo</title>
-  <desc id="desc">Transparent rounded Biloo B monogram in charcoal with a terracotta accent.</desc>
-  <path fill="#1D1D1F" d="M104 56h172c87 0 142 45 142 116 0 47-25 84-68 103 55 18 90 60 90 116 0 80-62 133-158 133H104V56Zm94 84v102h68c40 0 63-19 63-52 0-32-23-50-63-50h-68Zm0 178v122h78c47 0 73-22 73-61 0-39-26-61-73-61h-78Z"/>
-  <circle cx="394" cy="389" r="34" fill="#DA7757"/>
+  <title id="title">Biloo wordmark</title>
+  <desc id="desc">Transparent lowercase Biloo text wordmark with no standalone capital B symbol.</desc>
+  <text x="256" y="294" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="138" font-weight="700" letter-spacing="-9" fill="#1D1D1F">biloo</text>
+  <circle cx="407" cy="321" r="12" fill="#DA7757"/>
 </svg>
