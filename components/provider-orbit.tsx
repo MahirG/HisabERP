@@ -21,12 +21,12 @@ function AppleMark() {
 
 export function ProviderOrbit({ compact = false }: { compact?: boolean }) {
   return (
-    <div className={`provider-orbit${compact ? " compact" : ""}`} aria-label="HisabTech trusted identity and payment providers">
+    <div className={`provider-orbit${compact ? " compact" : ""}`} aria-label="Biloo trusted identity and payment providers">
       <span className="provider-orbit-ring provider-orbit-ring-one" aria-hidden="true" />
       <span className="provider-orbit-ring provider-orbit-ring-two" aria-hidden="true" />
       <div className="provider-orbit-core">
         <img src="/hisab-logo.svg" alt="" width="70" height="70" />
-        <span><strong>HisabERP</strong><small>One trusted workspace</small></span>
+        <span><strong>Biloo ERP</strong><small>One trusted workspace</small></span>
       </div>
       {appConfig.authProviders.google ? <span className="provider-orbit-card provider-google" data-third-party-brand><GoogleMark/><b>Google</b><small>Secure identity</small></span> : null}
       {appConfig.authProviders.apple ? <span className="provider-orbit-card provider-apple" data-third-party-brand><AppleMark/><b>Apple</b><small>Private sign-in</small></span> : null}
