@@ -4,6 +4,7 @@ import { SocialAuthButtons } from "../../../components/social-auth-buttons";
 import { signInWithEmail } from "../../../lib/actions/email-auth";
 import { isSupabaseConfigured } from "../../../lib/config";
 import { getServerFoundationCopy } from "../../../lib/server-locale";
+import { safeNextPath } from "../../../lib/validation";
 
 export const metadata = { title: "Sign in" };
 
@@ -22,6 +23,11 @@ const loginCopy = {
     phone: "Use mobile number instead",
     newUser: "New to HisabTech?",
     create: "Create an account",
+    passwordHelpTitle: "Need email and password access?",
+    passwordHelp: "If this email was first registered with Google, create a password securely without creating a second account.",
+    passwordHelpAction: "Create or reset email password",
+    confirmationHelp: "Your email still needs verification before password sign-in is available.",
+    confirmationAction: "Resend verification email",
   },
   am: {
     title: "እንኳን ደህና መጡ",
@@ -37,6 +43,11 @@ const loginCopy = {
     phone: "በሞባይል ቁጥር ይግቡ",
     newUser: "ለHisabTech አዲስ ነዎት?",
     create: "መለያ ይፍጠሩ",
+    passwordHelpTitle: "በኢሜይልና የይለፍ ቃል መግባት ይፈልጋሉ?",
+    passwordHelp: "ይህ ኢሜይል በGoogle ከተመዘገበ፣ ሁለተኛ መለያ ሳይፈጥሩ የይለፍ ቃል ያዘጋጁ።",
+    passwordHelpAction: "የኢሜይል የይለፍ ቃል ይፍጠሩ ወይም ይቀይሩ",
+    confirmationHelp: "በይለፍ ቃል ከመግባትዎ በፊት ኢሜይልዎን ማረጋገጥ ያስፈልጋል።",
+    confirmationAction: "የማረጋገጫ ኢሜይል እንደገና ይላኩ",
   },
   ti: {
     title: "እንቋዕ ብደሓን መጻእኩም",
@@ -52,23 +63,57 @@ const loginCopy = {
     phone: "ብቁጽሪ ሞባይል እተዉ",
     newUser: "ኣብ HisabTech ሓድሽ ዲኹም?",
     create: "ኣካውንት ፍጠሩ",
+    passwordHelpTitle: "ብኢሜይልን መሕለፊ ቃልን ክትኣትዉ ትደልዩ?",
+    passwordHelp: "እዚ ኢሜይል መጀመርታ ብGoogle እንተተመዝጊቡ፣ ካልእ ኣካውንት ከይፈጠርኩም መሕለፊ ቃል ኣዳልዉ።",
+    passwordHelpAction: "ናይ ኢሜይል መሕለፊ ቃል ፍጠሩ ወይ ቀይሩ",
+    confirmationHelp: "ብመሕለፊ ቃል ቅድሚ ምእታውኩም ኢሜይልኩም ክረጋገጽ ኣለዎ።",
+    confirmationAction: "ናይ ምርግጋጽ ኢሜይል ደጊምኩም ስደዱ",
   },
 } as const;
 
-export default async function LoginPage({ searchParams }: { searchParams: Promise<{ error?: string; message?: string; next?: string; preview?: string }> }) {
+type LoginSearchParams = {
+  error?: string;
+  message?: string;
+  next?: string;
+  preview?: string;
+  reason?: string;
+  email?: string;
+};
+
+export default async function LoginPage({ searchParams }: { searchParams: Promise<LoginSearchParams> }) {
   const [params, localized] = await Promise.all([searchParams, getServerFoundationCopy()]);
   const p = loginCopy[localized.language];
   const configured = isSupabaseConfigured();
-  const next = params.next || "/";
+  const next = safeNextPath(params.next || "/");
   const preview = params.preview === "1";
-  const previewQuery = preview ? "&preview=1" : "";
-  const signUpHref = `/auth/email-sign-up${preview ? "?preview=1" : ""}`;
+  const email = typeof params.email === "string" ? params.email.trim().slice(0, 254) : "";
+  const showPasswordHelp = params.reason === "existing-account" || params.reason === "password-or-provider";
+  const showConfirmationHelp = params.reason === "email-not-confirmed" && Boolean(email);
+
+  const signUpQuery = new URLSearchParams({ next });
+  const resetQuery = new URLSearchParams({ next });
+  const verifyQuery = new URLSearchParams({ next });
+  if (preview) {
+    signUpQuery.set("preview", "1");
+    resetQuery.set("preview", "1");
+  }
+  if (email) {
+    resetQuery.set("email", email);
+    verifyQuery.set("email", email);
+  }
+
+  const magicQuery = new URLSearchParams({ next });
+  const phoneQuery = new URLSearchParams({ next });
+  if (preview) {
+    magicQuery.set("preview", "1");
+    phoneQuery.set("preview", "1");
+  }
 
   return (
     <EmailAuthCard
       title={p.title}
       description={p.description}
-      footer={<>{p.newUser} <Link href={signUpHref}>{p.create}</Link></>}
+      footer={<>{p.newUser} <Link href={`/auth/email-sign-up?${signUpQuery.toString()}`}>{p.create}</Link></>}
       eyebrow="Secure workspace access"
       badge="Trusted access for your business"
       showcaseTitle="Your business, organized and ready when you are."
@@ -78,15 +123,29 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
       <AuthNotice type="error">{params.error}</AuthNotice>
       <AuthNotice type="success">{params.message}</AuthNotice>
 
+      {showPasswordHelp ? (
+        <AuthNotice type="warning">
+          <strong>{p.passwordHelpTitle}</strong> {p.passwordHelp}{" "}
+          <Link href={`/auth/forgot-password?${resetQuery.toString()}`}>{p.passwordHelpAction}</Link>.
+        </AuthNotice>
+      ) : null}
+
+      {showConfirmationHelp ? (
+        <AuthNotice type="warning">
+          {p.confirmationHelp}{" "}
+          <Link href={`/auth/verify-email?${verifyQuery.toString()}`}>{p.confirmationAction}</Link>.
+        </AuthNotice>
+      ) : null}
+
       <form action={signInWithEmail} className="auth-standard-form">
         <input type="hidden" name="next" value={next} />
         <label className="auth-standard-field" htmlFor="login-email">
           <span>{p.email}</span>
-          <input id="login-email" name="email" type="email" autoComplete="email" inputMode="email" placeholder={p.emailPlaceholder} required autoFocus />
+          <input id="login-email" name="email" type="email" autoComplete="email" inputMode="email" placeholder={p.emailPlaceholder} defaultValue={email} required autoFocus />
         </label>
 
         <label className="auth-standard-field" htmlFor="login-password">
-          <span className="auth-standard-label-row"><b>{p.password}</b><Link href={`/auth/forgot-password${preview ? "?preview=1" : ""}`}>{p.forgot}</Link></span>
+          <span className="auth-standard-label-row"><b>{p.password}</b><Link href={`/auth/forgot-password?${resetQuery.toString()}`}>{p.forgot}</Link></span>
           <input id="login-password" name="password" type="password" autoComplete="current-password" placeholder={p.passwordPlaceholder} required />
         </label>
 
@@ -98,8 +157,8 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
       <SocialAuthButtons language={localized.language} next={next} disabled={!configured} dividerText={p.divider} />
 
       <div className="auth-standard-secondary-actions">
-        <Link href={`/auth/magic-link?next=${encodeURIComponent(next)}${previewQuery}`}>{p.magic}</Link>
-        <Link href={`/auth/phone-login?next=${encodeURIComponent(next)}${previewQuery}`}>{p.phone}</Link>
+        <Link href={`/auth/magic-link?${magicQuery.toString()}`}>{p.magic}</Link>
+        <Link href={`/auth/phone-login?${phoneQuery.toString()}`}>{p.phone}</Link>
       </div>
     </EmailAuthCard>
   );
