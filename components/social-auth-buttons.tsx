@@ -1,5 +1,6 @@
 import type { Language } from "../lib/translations";
 import { signInWithOAuthProvider } from "../lib/actions/auth";
+import { appConfig } from "../lib/config";
 
 const socialCopy = {
   en: {
@@ -50,26 +51,31 @@ export function SocialAuthButtons({
   dividerText?: string;
 }) {
   const c = socialCopy[language];
+  const { google, apple } = appConfig.authProviders;
 
   return (
     <section className="social-auth-block" data-third-party-brand aria-label="Trusted sign-in providers">
       <div className="social-auth-grid">
-        <form action={signInWithOAuthProvider}>
-          <input type="hidden" name="provider" value="google"/>
-          <input type="hidden" name="next" value={next}/>
-          <button className="social-auth-button social-auth-google" data-brand-provider="google" type="submit" disabled={disabled}>
-            <GoogleIcon/>
-            <span>{c.google}</span>
-          </button>
-        </form>
-        <form action={signInWithOAuthProvider}>
-          <input type="hidden" name="provider" value="apple"/>
-          <input type="hidden" name="next" value={next}/>
-          <button className="social-auth-button social-auth-apple" data-brand-provider="apple" type="submit" disabled={disabled}>
-            <AppleIcon/>
-            <span>{c.apple}</span>
-          </button>
-        </form>
+        {google ? (
+          <form action={signInWithOAuthProvider}>
+            <input type="hidden" name="provider" value="google"/>
+            <input type="hidden" name="next" value={next}/>
+            <button className="social-auth-button social-auth-google" data-brand-provider="google" type="submit" disabled={disabled}>
+              <GoogleIcon/>
+              <span>{c.google}</span>
+            </button>
+          </form>
+        ) : null}
+        {apple ? (
+          <form action={signInWithOAuthProvider}>
+            <input type="hidden" name="provider" value="apple"/>
+            <input type="hidden" name="next" value={next}/>
+            <button className="social-auth-button social-auth-apple" data-brand-provider="apple" type="submit" disabled={disabled}>
+              <AppleIcon/>
+              <span>{c.apple}</span>
+            </button>
+          </form>
+        ) : null}
       </div>
       <div className="social-auth-divider"><span>{dividerText || c.divider}</span></div>
     </section>
