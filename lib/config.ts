@@ -9,6 +9,10 @@ function isLocalUrl(value: string) {
   return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(value);
 }
 
+function enabledWhenTrue(value?: string) {
+  return value?.trim().toLowerCase() === "true";
+}
+
 const configuredAppUrl = normalizeUrl(process.env.NEXT_PUBLIC_APP_URL);
 const vercelProductionUrl = normalizeUrl(process.env.VERCEL_PROJECT_PRODUCTION_URL);
 const vercelDeploymentUrl = normalizeUrl(process.env.VERCEL_URL);
@@ -27,6 +31,11 @@ export const appConfig = {
   supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() ?? "",
   supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim() ?? "",
   appUrl: resolveAppUrl(),
+  authProviders: {
+    google: process.env.NEXT_PUBLIC_ENABLE_GOOGLE_AUTH?.trim().toLowerCase() !== "false",
+    apple: enabledWhenTrue(process.env.NEXT_PUBLIC_ENABLE_APPLE_AUTH),
+    phone: enabledWhenTrue(process.env.NEXT_PUBLIC_ENABLE_PHONE_AUTH),
+  },
 };
 
 export function isSupabaseConfigured() {
