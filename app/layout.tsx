@@ -168,16 +168,16 @@ const mobileControlsBootstrap = `
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.hisabtech.com"),
-  title: { default: "HisabTech — Business Operating System for Ethiopia", template: "%s | HisabTech" },
-  description: "HisabERP connects sales, finance, inventory, customers, suppliers and reporting for growing Ethiopian businesses.",
-  applicationName: "HisabTech",
-  keywords: ["HisabERP", "ERP Ethiopia", "business software Ethiopia", "inventory", "sales", "finance", "accounting workflow"],
-  authors: [{ name: "Hisab Technologies", url: "https://www.hisabtech.com/about" }],
-  creator: "Hisab Technologies",
-  publisher: "Hisab Technologies",
+  title: { default: "Biloo — Business Operating System for Ethiopia", template: "%s | Biloo" },
+  description: "Biloo ERP connects sales, finance, inventory, customers, suppliers and reporting for growing Ethiopian businesses.",
+  applicationName: "Biloo",
+  keywords: ["Biloo ERP", "ERP Ethiopia", "business software Ethiopia", "inventory", "sales", "finance", "accounting workflow"],
+  authors: [{ name: "Biloo", url: "https://www.hisabtech.com/about" }],
+  creator: "Biloo",
+  publisher: "Biloo",
   alternates: { canonical: "/", languages: { "en-ET": "/", "am-ET": "/" } },
-  openGraph: { type: "website", locale: "en_ET", alternateLocale: ["am_ET"], siteName: "HisabTech", title: "HisabERP — Business Operating System for Ethiopia", description: "One connected workspace for sales, finance, inventory, customers, suppliers and reporting.", url: "/", images: [{ url: "/hisab-logo.svg", width: 512, height: 512, alt: "HisabTech" }] },
-  twitter: { card: "summary", title: "HisabERP", description: "Business operating system for growing Ethiopian organizations.", images: ["/hisab-logo.svg"] },
+  openGraph: { type: "website", locale: "en_ET", alternateLocale: ["am_ET"], siteName: "Biloo", title: "Biloo ERP — Business Operating System for Ethiopia", description: "One connected workspace for sales, finance, inventory, customers, suppliers and reporting.", url: "/", images: [{ url: "/hisab-logo.svg", width: 512, height: 512, alt: "Biloo" }] },
+  twitter: { card: "summary", title: "Biloo ERP", description: "Business operating system for growing Ethiopian organizations.", images: ["/hisab-logo.svg"] },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
   icons: { icon: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }], shortcut: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }], apple: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }] },
 };
@@ -188,17 +188,17 @@ export const viewport: Viewport = {
   maximumScale: 5,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f5f5f7" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#ffffff" },
   ],
   colorScheme: "dark light",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html className={`${spaceGrotesk.variable} ${notoSansEthiopic.variable}`} lang="en" data-language="en" data-theme="light" suppressHydrationWarning>
-      <head><script dangerouslySetInnerHTML={{ __html: mobileControlsBootstrap }} /></head>
-      <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="public-pure-white-2026">
+    <html className={`${spaceGrotesk.variable} ${notoSansEthiopic.variable}`} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
+      <head><script src="/biloo-brand-bootstrap.js" /><script dangerouslySetInnerHTML={{ __html: mobileControlsBootstrap }} /></head>
+      <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="biloo-brand-2026">
         <LanguageProvider initialLanguage="en">
           <AppExperienceProvider>
             <AuthPagePreferences />
