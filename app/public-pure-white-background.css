@@ -93,21 +93,3 @@ html[data-theme="dark"] .marketing-site-v2 .marketing-footer {
 html[data-theme="dark"] .marketing-site-v2 .premium-mobile-menu-panel {
   background: #ffffff !important;
 }
-
-/* Preserve the contrast and structure of actual product/dashboard demonstrations. */
-.marketing-site-v2 :where(
-  .hisab-fintech-preview,
-  .hisab-preview-window,
-  .hisab-preview-body,
-  .hisab-preview-kpi,
-  .hisab-preview-ledger,
-  .marketing-insight-panel,
-  .product-tour-experience,
-  .product-tour-frame,
-  .product-tour-shell,
-  [class*="dashboard-preview"],
-  [class*="workspace-preview"],
-  [class*="product-preview"]
-) {
-  background-color: revert-layer;
-}
