@@ -78,9 +78,10 @@ test("forces a clean sign-in after password recovery", async () => {
 });
 
 test("does not advertise or execute providers that have not been configured", async () => {
-  const [config, providers, loginPage, actions] = await Promise.all([
+  const [config, providers, providerOrbit, loginPage, actions] = await Promise.all([
     read("lib/config.ts"),
     read("components/social-auth-buttons.tsx"),
+    read("components/provider-orbit.tsx"),
     read("app/auth/login/page.tsx"),
     read("lib/actions/auth.ts"),
   ]);
@@ -88,6 +89,7 @@ test("does not advertise or execute providers that have not been configured", as
   assert.match(config, /NEXT_PUBLIC_ENABLE_APPLE_AUTH/);
   assert.match(config, /NEXT_PUBLIC_ENABLE_PHONE_AUTH/);
   assert.match(providers, /\{apple \? \(/);
+  assert.match(providerOrbit, /appConfig\.authProviders\.apple \?/);
   assert.match(loginPage, /appConfig\.authProviders\.phone \?/);
   assert.match(actions, /providerEnabled/);
   assert.match(actions, /if \(!appConfig\.authProviders\.phone\)/);
