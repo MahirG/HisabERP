@@ -11,6 +11,7 @@
   ];
   var ATTRIBUTES = ["aria-label", "title", "alt", "placeholder"];
   var SKIP_SELECTOR = "script:not([type='application/ld+json']),style,code,pre,textarea,[contenteditable='true'],[data-brand-legacy]";
+  var TEXT_SKIP_SELECTOR = "script,style,code,pre,textarea,[contenteditable='true'],[data-brand-legacy]";
 
   function renameBrand(value) {
     var next = value || "";
@@ -21,6 +22,7 @@
   }
 
   function updateTextNode(node) {
+    if (node.parentElement && node.parentElement.closest(TEXT_SKIP_SELECTOR)) return;
     var current = node.nodeValue || "";
     var next = renameBrand(current);
     if (current.trim() === "info@hisabtech.com") {
