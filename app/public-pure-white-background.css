@@ -1,0 +1,95 @@
+/*
+ * Final public-site canvas lock.
+ * Every public website surface is pure white in both theme preferences.
+ * Framed product and dashboard previews retain their internal UI surfaces.
+ */
+
+body:has(.marketing-site-v2) {
+  background: #ffffff !important;
+}
+
+.marketing-site-v2,
+.marketing-site-v2 #public-main-content,
+.marketing-site-v2 .marketing-nav,
+.marketing-site-v2 .marketing-footer,
+.marketing-site-v2 .premium-mobile-menu,
+.marketing-site-v2 .premium-mobile-menu-panel {
+  --apple-background: #ffffff;
+  --apple-surface: #ffffff;
+  --apple-text: #1d1d1f;
+  --apple-secondary: #6e6e73;
+  --apple-tertiary: #86868b;
+  --apple-hairline: rgba(0, 0, 0, .10);
+  background-color: #ffffff !important;
+  color: var(--apple-text) !important;
+}
+
+html[data-theme="dark"] .marketing-site-v2 {
+  --apple-background: #ffffff;
+  --apple-surface: #ffffff;
+  --apple-text: #1d1d1f;
+  --apple-secondary: #6e6e73;
+  --apple-tertiary: #86868b;
+  --apple-hairline: rgba(0, 0, 0, .10);
+  --apple-blue: #0066cc;
+  --apple-blue-hover: #0077ed;
+  color-scheme: light;
+}
+
+.marketing-site-v2 .marketing-nav {
+  background: rgba(255, 255, 255, .88) !important;
+}
+
+.marketing-site-v2 .marketing-hero,
+.marketing-site-v2 #public-main-content > section,
+.marketing-site-v2 #public-main-content > section:nth-child(odd),
+.marketing-site-v2 #public-main-content > section:nth-child(even),
+.marketing-site-v2 :where(
+  .marketing-proof,
+  .marketing-section,
+  .marketing-tour-section,
+  .home-local-section,
+  .home-industry-section,
+  .home-pricing-section,
+  .home-proof-trust-section,
+  .home-implementation-resources,
+  .home-final-recommendations,
+  .marketing-dark-section,
+  .marketing-how,
+  .industry-section,
+  .pricing-section,
+  .resource-section,
+  .comparison-section,
+  .integration-section,
+  .trust-section,
+  .public-page-hero,
+  .public-page-section
+) {
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+.marketing-site-v2 .marketing-dark-section,
+html[data-theme="dark"] .marketing-site-v2 .marketing-dark-section {
+  color: var(--apple-text) !important;
+}
+
+.marketing-site-v2 .marketing-dark-section :where(h1, h2, h3, h4, strong, b),
+html[data-theme="dark"] .marketing-site-v2 :where(h1, h2, h3, h4, strong, b) {
+  color: var(--apple-text) !important;
+}
+
+.marketing-site-v2 .marketing-dark-section :where(p, li, small, span),
+html[data-theme="dark"] .marketing-site-v2 :where(p, li, small) {
+  color: var(--apple-secondary) !important;
+}
+
+.marketing-site-v2 .marketing-footer,
+html[data-theme="dark"] .marketing-site-v2 .marketing-footer {
+  background: #ffffff !important;
+}
+
+.marketing-site-v2 .premium-mobile-menu-panel,
+html[data-theme="dark"] .marketing-site-v2 .premium-mobile-menu-panel {
+  background: #ffffff !important;
+}
