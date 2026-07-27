@@ -2,7 +2,7 @@ import Link from "next/link";
 import { AuthNotice, EmailAuthCard } from "../../../components/email-auth-card";
 import { SocialAuthButtons } from "../../../components/social-auth-buttons";
 import { signInWithEmail } from "../../../lib/actions/email-auth";
-import { isSupabaseConfigured } from "../../../lib/config";
+import { appConfig, isSupabaseConfigured } from "../../../lib/config";
 import { getServerFoundationCopy } from "../../../lib/server-locale";
 import { safeNextPath } from "../../../lib/validation";
 
@@ -158,7 +158,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
 
       <div className="auth-standard-secondary-actions">
         <Link href={`/auth/magic-link?${magicQuery.toString()}`}>{p.magic}</Link>
-        <Link href={`/auth/phone-login?${phoneQuery.toString()}`}>{p.phone}</Link>
+        {appConfig.authProviders.phone ? <Link href={`/auth/phone-login?${phoneQuery.toString()}`}>{p.phone}</Link> : null}
       </div>
     </EmailAuthCard>
   );
