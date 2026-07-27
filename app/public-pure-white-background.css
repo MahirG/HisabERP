@@ -198,3 +198,10 @@ img[src$="/hisab-logo.svg"] {
 .tour-window-layout > aside {
   padding-top: 0 !important;
 }
+
+/* Biloo uses a single permanent light appearance. */
+.theme-toggle,
+.mobile-prehydration-theme-toggle,
+[data-mobile-theme-toggle] {
+  display: none !important;
+}
