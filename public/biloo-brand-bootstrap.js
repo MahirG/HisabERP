@@ -1,4 +1,10 @@
 (function () {
+  var root = document.documentElement;
+  root.dataset.theme = "light";
+  root.style.colorScheme = "light";
+  try { window.localStorage.setItem("hisab-theme", "light"); } catch (_) {}
+  document.cookie = "hisab_theme=light; Path=/; Max-Age=31536000; SameSite=Lax";
+
   var NAME_REPLACEMENTS = [
     [/Hisab Technologies/g, "Biloo"],
     [/HisabTech/g, "Biloo"],
