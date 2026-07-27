@@ -90,6 +90,7 @@ import "./apple-workspace-redesign.css";
 import "./apple-workspace-redesign-fixes.css";
 import "./dashboard-color-system.css";
 import "./hisab-premium-fintech.css";
+import "./apple-editorial-public-system.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -186,8 +187,8 @@ export const viewport: Viewport = {
   maximumScale: 5,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f8fb" },
-    { media: "(prefers-color-scheme: dark)", color: "#080a0f" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f5f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
   ],
   colorScheme: "dark light",
 };
@@ -196,7 +197,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html className={`${spaceGrotesk.variable} ${notoSansEthiopic.variable}`} lang="en" data-language="en" data-theme="light" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: mobileControlsBootstrap }} /></head>
-      <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="hisab-precision-2026">
+      <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="apple-editorial-2026">
         <LanguageProvider initialLanguage="en">
           <AppExperienceProvider>
             <AuthPagePreferences />
