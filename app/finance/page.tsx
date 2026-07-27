@@ -1,4 +1,4 @@
-import { FinanceWorkspace } from "../../components/finance-workspace";
+import { FinanceWorkspaceV2 } from "../../components/finance-workspace-v2";
 import { getCurrentUserContext } from "../../lib/data/context";
 import { getFinanceSnapshot } from "../../lib/data/erp";
 
@@ -23,7 +23,7 @@ export default async function FinancePage({
   const canManage = user?.role === "owner" || user?.role === "admin" || user?.role === "accountant";
 
   return (
-    <FinanceWorkspace
+    <FinanceWorkspaceV2
       snapshot={snapshot}
       initialTab={params.tab || "overview"}
       success={params.success}
