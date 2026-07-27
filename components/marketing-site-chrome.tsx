@@ -22,7 +22,7 @@ const websiteCopy = {
     start: "Start free",
     menu: "Open website menu",
     close: "Close website menu",
-    menuEyebrow: "HisabERP navigation",
+    menuEyebrow: "Biloo ERP navigation",
     menuTitle: "Move from product discovery to a working business system.",
     menuDescription: "Explore the platform, understand implementation and choose the next commercial step.",
     footerIntro: "One secure, multilingual business workspace for Ethiopian companies that want clearer operations and better decisions.",
@@ -38,7 +38,7 @@ const websiteCopy = {
     helpCenter: "Help Center",
     customerProof: "Customer proof",
     companyTrust: "Company and trust",
-    aboutHisab: "About HisabTech",
+    aboutHisab: "About Biloo",
     trustCenter: "Trust Center",
     integrations: "Integrations",
     securityContact: "Security contact",
@@ -63,7 +63,7 @@ const websiteCopy = {
     start: "በነፃ ይጀምሩ",
     menu: "የድር ጣቢያ ምናሌን ይክፈቱ",
     close: "የድር ጣቢያ ምናሌን ይዝጉ",
-    menuEyebrow: "የHisabERP ምናሌ",
+    menuEyebrow: "የBiloo ERP ምናሌ",
     menuTitle: "ከምርት ማወቅ ወደ ተግባራዊ የንግድ ስርዓት ይሂዱ።",
     menuDescription: "መድረኩን ያስሱ፣ አተገባበሩን ይረዱ እና ቀጣዩን የንግድ እርምጃ ይምረጡ።",
     footerIntro: "የበለጠ ግልጽ አሰራርና የተሻለ ውሳኔ ለሚፈልጉ የኢትዮጵያ ኩባንያዎች አንድ ደህንነቱ የተጠበቀ ብዙ ቋንቋ የንግድ የሥራ ቦታ።",
@@ -79,7 +79,7 @@ const websiteCopy = {
     helpCenter: "የእገዛ ማዕከል",
     customerProof: "የደንበኛ ማስረጃ",
     companyTrust: "ኩባንያ እና እምነት",
-    aboutHisab: "ስለ HisabTech",
+    aboutHisab: "ስለ Biloo",
     trustCenter: "የእምነት ማዕከል",
     integrations: "ውህዶች",
     securityContact: "የደህነት ግንኙነት",
@@ -116,7 +116,7 @@ function MarketingStructuredData() {
     {
       "@context": "https://schema.org",
       "@type": "Organization",
-      name: "Hisab Technologies",
+      name: "Biloo",
       url: "https://www.hisabtech.com",
       logo: "https://www.hisabtech.com/hisab-logo.svg",
       email: "info@hisabtech.com",
@@ -126,13 +126,13 @@ function MarketingStructuredData() {
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      name: "HisabERP",
+      name: "Biloo ERP",
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web",
       url: "https://www.hisabtech.com",
       description: "A multilingual business operating system for Ethiopian organizations.",
       offers: { "@type": "AggregateOffer", priceCurrency: "ETB", lowPrice: "1500", offerCount: "4" },
-      provider: { "@type": "Organization", name: "Hisab Technologies" },
+      provider: { "@type": "Organization", name: "Biloo" },
     },
   ];
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
@@ -227,9 +227,9 @@ export function MarketingHeader() {
     <>
       <a href="#public-main-content" className="public-skip-link">{c.skip}</a>
       <header className="marketing-nav marketing-nav-v2">
-        <Link href="/" className="marketing-brand" aria-label="HisabTech home">
+        <Link href="/" className="marketing-brand" aria-label="Biloo home">
           <img src="/hisab-logo.svg" alt="" width="44" height="44" className="hisab-logo" />
-          <span className="marketing-brand-copy"><strong>HisabTech</strong><small>{c.subtitle}</small></span>
+          <span className="marketing-brand-copy"><strong>Biloo</strong><small>{c.subtitle}</small></span>
         </Link>
 
         <div className="marketing-mobile-header-controls" data-i18n-skip>
@@ -259,7 +259,7 @@ export function MarketingHeader() {
         <button className="premium-mobile-menu-backdrop" type="button" aria-label={c.close} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)} />
         <section ref={menuPanelRef} className="premium-mobile-menu-panel" role="dialog" aria-modal="true" aria-label={c.navLabel}>
           <header>
-            <Link href="/" className="marketing-brand" onClick={() => setMenuOpen(false)}><img src="/hisab-logo.svg" alt="" width="46" height="46" /><span className="marketing-brand-copy"><strong>HisabTech</strong><small>{c.subtitle}</small></span></Link>
+            <Link href="/" className="marketing-brand" onClick={() => setMenuOpen(false)}><img src="/hisab-logo.svg" alt="" width="46" height="46" /><span className="marketing-brand-copy"><strong>Biloo</strong><small>{c.subtitle}</small></span></Link>
             <button ref={closeButtonRef} type="button" aria-label={c.close} onClick={() => setMenuOpen(false)}><span /><span /></button>
           </header>
           <div className="premium-mobile-menu-intro"><span>{c.menuEyebrow}</span><h2>{c.menuTitle}</h2><p>{c.menuDescription}</p></div>
@@ -275,7 +275,7 @@ export function MarketingHeader() {
             <Link href="/request-demo" className="marketing-demo" onClick={() => setMenuOpen(false)}>{c.demo}</Link>
             <Link href="/auth/login" className="marketing-signin" onClick={() => setMenuOpen(false)}>{c.signIn}</Link>
           </div>
-          <footer><span>Addis Ababa · Ethiopia</span><a href="mailto:info@hisabtech.com">info@hisabtech.com</a></footer>
+          <footer><span>Addis Ababa · Ethiopia</span><a href="mailto:info@hisabtech.com">Email support</a></footer>
         </section>
       </div>
     </>
@@ -288,12 +288,12 @@ export function MarketingFooter() {
   return (
     <footer className="marketing-footer">
       <div className="marketing-footer-top">
-        <div><Link href="/" className="marketing-brand marketing-footer-brand"><img src="/hisab-logo.svg" alt="" width="44" height="44" className="hisab-logo" /><span className="marketing-brand-copy"><strong>HisabTech</strong><small>HisabERP</small></span></Link><p>{c.footerIntro}</p><a href="mailto:info@hisabtech.com">info@hisabtech.com</a><a href="tel:+251924093037">+251 924 093 037</a></div>
+        <div><Link href="/" className="marketing-brand marketing-footer-brand"><img src="/hisab-logo.svg" alt="" width="44" height="44" className="hisab-logo" /><span className="marketing-brand-copy"><strong>Biloo</strong><small>Biloo ERP</small></span></Link><p>{c.footerIntro}</p><a href="mailto:info@hisabtech.com">Email support</a><a href="tel:+251924093037">+251 924 093 037</a></div>
         <div><strong>{c.productMarket}</strong><Link href="/product-tour">{c.product}</Link><Link href="/#modules">{c.modules}</Link><Link href="/ethiopia">{c.ethiopia}</Link><Link href="/industries">{c.industrySolutions}</Link><Link href="/pricing">{c.pricingEtb}</Link></div>
         <div><strong>{c.learnImplement}</strong><Link href="/resources">{c.learningCenter}</Link><Link href="/migration">{c.dataMigration}</Link><Link href="/compare">{c.comparisons}</Link><Link href="/help-center">{c.helpCenter}</Link><Link href="/customer-stories">{c.customerProof}</Link></div>
-        <div><strong>{c.companyTrust}</strong><Link href="/about">{c.aboutHisab}</Link><Link href="/trust">{c.trustCenter}</Link><Link href="/integrations">{c.integrations}</Link><Link href="/auth/login">{c.signIn}</Link><a href="mailto:info@hisabtech.com?subject=HisabERP%20security%20question">{c.securityContact}</a></div>
+        <div><strong>{c.companyTrust}</strong><Link href="/about">{c.aboutHisab}</Link><Link href="/trust">{c.trustCenter}</Link><Link href="/integrations">{c.integrations}</Link><Link href="/auth/login">{c.signIn}</Link><a href="mailto:info@hisabtech.com?subject=Biloo%20ERP%20security%20question">{c.securityContact}</a></div>
       </div>
-      <div className="marketing-footer-bottom"><span>© {new Date().getFullYear()} Hisab Technologies. {c.rights}</span><span>{c.location}</span></div>
+      <div className="marketing-footer-bottom"><span>© {new Date().getFullYear()} Biloo. {c.rights}</span><span>{c.location}</span></div>
     </footer>
   );
 }
