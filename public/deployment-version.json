@@ -1,0 +1,7 @@
+{
+  "application": "HisabERP",
+  "environment": "production",
+  "deployedAt": "2026-07-27T17:36:52+03:00",
+  "sourceCommit": "347794a2846fd66e722debc21847875e711db193",
+  "release": "hisab-precision-runtime-v2"
+}
