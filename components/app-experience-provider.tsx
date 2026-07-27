@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { InteractionOrchestrator } from "./interaction-orchestrator";
 import { useLanguage } from "./language-provider";
 
 const experienceCopy = {
@@ -164,6 +165,7 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
 
   return (
     <>
+      <InteractionOrchestrator />
       {children}
       {busy && publicNavigation && (
         <div className="public-route-progress app-navigation-progress" role="status" aria-live="polite" aria-label={copy.loadingDetail}>
