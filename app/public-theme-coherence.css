@@ -1,0 +1,262 @@
+/*
+ * Final Biloo public-site light/dark contract.
+ * A surface and its foreground always change together.
+ */
+
+html[data-theme="light"] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 {
+  --public-canvas: #ffffff;
+  --public-surface: #f5f5f7;
+  --public-raised: #ffffff;
+  --public-text: #1d1d1f;
+  --public-secondary: #515154;
+  --public-muted: #6e6e73;
+  --public-border: rgba(0, 0, 0, .12);
+  --public-nav: rgba(255, 255, 255, .9);
+  --public-accent: #a94f36;
+  --public-shadow: rgba(29, 29, 31, .12);
+}
+
+html[data-theme="dark"] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 {
+  --public-canvas: #050505;
+  --public-surface: #101010;
+  --public-raised: #171717;
+  --public-text: #f5f5f7;
+  --public-secondary: #c7c7cc;
+  --public-muted: #a1a1a6;
+  --public-border: rgba(255, 255, 255, .16);
+  --public-nav: rgba(10, 10, 10, .9);
+  --public-accent: #f0a185;
+  --public-shadow: rgba(0, 0, 0, .55);
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"]:has(.marketing-site-v2),
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2,
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 #public-main-content {
+  background: var(--public-canvas) !important;
+  color: var(--public-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-nav,
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .premium-mobile-menu-panel,
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-footer {
+  border-color: var(--public-border) !important;
+  background: var(--public-nav) !important;
+  color: var(--public-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-nav {
+  box-shadow: 0 14px 38px color-mix(in srgb, var(--public-shadow) 42%, transparent) !important;
+  backdrop-filter: saturate(180%) blur(20px) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-hero,
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-hero.hisab-fintech-hero {
+  background:
+    radial-gradient(circle at 72% 2%, color-mix(in srgb, #da7757 13%, transparent), transparent 34%),
+    var(--public-canvas) !important;
+  color: var(--public-text) !important;
+}
+
+/* This is the exact broken rectangle visible in the mobile screenshot. */
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-hero-copy {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--public-text) !important;
+  filter: none !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-hero-copy :where(h1, h2, h3, h4, strong, b),
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-section-heading :where(h1, h2, h3, h4, strong, b),
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .public-page-hero :where(h1, h2, h3, h4, strong, b),
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .public-page-section :where(h1, h2, h3, h4, strong, b) {
+  color: var(--public-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-hero-copy :where(p, small, li),
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-section-heading :where(p, small, li),
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .public-page-hero :where(p, small, li),
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .public-page-section :where(p, small, li) {
+  color: var(--public-secondary) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :where(
+  .marketing-eyebrow,
+  .marketing-section-heading > span,
+  .public-page-eyebrow
+) {
+  color: var(--public-accent) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-trust,
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-trust span {
+  border-color: var(--public-border) !important;
+  background: transparent !important;
+  color: var(--public-muted) !important;
+  box-shadow: none !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .marketing-desktop-nav,
+  .marketing-nav-actions,
+  .marketing-mobile-header-controls,
+  .premium-mobile-menu-panel
+) :where(a, button, summary, span, strong, small, svg) {
+  color: var(--public-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-brand-copy > small,
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-footer :where(p, small, span, a) {
+  color: var(--public-muted) !important;
+}
+
+html[data-theme="light"] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-brand-copy > strong {
+  background: linear-gradient(92deg, #1d1d1f 0 69%, #da7757 69% 100%) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html[data-theme="dark"] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-brand-copy > strong {
+  background: linear-gradient(92deg, #f5f5f7 0 69%, #f0a185 69% 100%) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 #public-main-content > section,
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 #public-main-content > section:nth-child(odd),
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 #public-main-content > section:nth-child(even),
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .marketing-proof,
+  .marketing-section,
+  .marketing-tour-section,
+  .home-local-section,
+  .home-industry-section,
+  .home-pricing-section,
+  .home-proof-trust-section,
+  .home-implementation-resources,
+  .home-final-recommendations,
+  .marketing-how,
+  .public-page-section
+) {
+  background-color: var(--public-canvas) !important;
+  background-image: none !important;
+  color: var(--public-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :where(
+  .marketing-module-grid,
+  .marketing-benefit-grid,
+  .marketing-step-grid,
+  .home-local-grid,
+  .home-industry-grid,
+  .home-pricing-grid,
+  .home-proof-trust-grid,
+  .home-implementation-resource-grid,
+  .home-final-recommendation-grid
+) > :where(article, a) {
+  border-color: var(--public-border) !important;
+  background: transparent !important;
+  color: var(--public-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :where(
+  .marketing-module-grid,
+  .marketing-benefit-grid,
+  .marketing-step-grid,
+  .home-local-grid,
+  .home-industry-grid,
+  .home-pricing-grid,
+  .home-proof-trust-grid,
+  .home-implementation-resource-grid,
+  .home-final-recommendation-grid
+) > :where(article, a) :where(h3, strong) {
+  color: var(--public-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :where(
+  .marketing-module-grid,
+  .marketing-benefit-grid,
+  .marketing-step-grid,
+  .home-local-grid,
+  .home-industry-grid,
+  .home-pricing-grid,
+  .home-proof-trust-grid,
+  .home-implementation-resource-grid,
+  .home-final-recommendation-grid
+) > :where(article, a) :where(p, small, span) {
+  color: var(--public-secondary) !important;
+}
+
+/* Intentionally dark analytics surfaces always get light foregrounds. */
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .marketing-dark-section,
+  .marketing-insight-panel
+) {
+  border-color: rgba(255, 255, 255, .16) !important;
+  background: #080808 !important;
+  color: #f5f5f7 !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .marketing-dark-section,
+  .marketing-insight-panel
+) :where(h1, h2, h3, h4, strong, b) {
+  color: #f5f5f7 !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .marketing-dark-section,
+  .marketing-insight-panel
+) :where(p, li, small, span) {
+  color: #b8b8bd !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-start {
+  border-color: #da7757 !important;
+  background: #da7757 !important;
+  color: #171717 !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-start :where(span, strong, b, svg) {
+  color: #171717 !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-demo {
+  border-color: color-mix(in srgb, #da7757 48%, var(--public-border)) !important;
+  background: var(--public-raised) !important;
+  color: var(--public-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-demo :where(span, strong, b, svg) {
+  color: var(--public-text) !important;
+}
+
+@media (max-width: 780px) {
+  html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-hero-copy {
+    width: 100% !important;
+    padding-inline: 0 !important;
+  }
+
+  html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-hero-copy h1 {
+    color: var(--public-text) !important;
+  }
+
+  html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 .marketing-hero-copy > p {
+    color: var(--public-secondary) !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 {
+    --public-secondary: var(--public-text);
+    --public-muted: var(--public-text);
+    --public-border: currentColor;
+  }
+}
