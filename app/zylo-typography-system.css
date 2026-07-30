@@ -1,0 +1,482 @@
+/*
+ * Biloo enterprise typography system.
+ * Uses a licensed open-source grotesk with Zylo-inspired density, rhythm and hierarchy.
+ * Loaded last so legacy component styles cannot reintroduce inconsistent typefaces.
+ */
+
+:root {
+  --biloo-font-display: var(--font-biloo-manrope), Manrope, "Segoe UI", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --biloo-font-ui: var(--biloo-font-display);
+  --biloo-type-ink: #15171c;
+  --biloo-type-muted: #626873;
+  --biloo-type-soft: #858b95;
+  --biloo-tracking-display: -0.047em;
+  --biloo-tracking-heading: -0.036em;
+  --biloo-tracking-ui: -0.018em;
+  --biloo-tracking-label: 0.055em;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea,
+option,
+table,
+th,
+td {
+  font-family: var(--biloo-font-ui) !important;
+}
+
+html {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-weight: 450;
+  letter-spacing: -0.011em;
+  line-height: 1.55;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b {
+  font-family: var(--biloo-font-display) !important;
+  font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: inherit;
+  text-wrap: balance;
+}
+
+h1 {
+  font-weight: 800;
+  letter-spacing: var(--biloo-tracking-display);
+  line-height: 0.98;
+}
+
+h2 {
+  font-weight: 760;
+  letter-spacing: -0.043em;
+  line-height: 1.02;
+}
+
+h3 {
+  font-weight: 720;
+  letter-spacing: var(--biloo-tracking-heading);
+  line-height: 1.12;
+}
+
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  letter-spacing: -0.026em;
+  line-height: 1.18;
+}
+
+p,
+li,
+blockquote,
+figcaption,
+label,
+small,
+span,
+a,
+button,
+input,
+select,
+textarea,
+th,
+td {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+button,
+[role="button"],
+.button,
+.action-link,
+.marketing-start,
+.marketing-demo,
+.marketing-signin,
+.primary,
+.secondary,
+.ghost {
+  font-weight: 700 !important;
+  letter-spacing: -0.018em !important;
+}
+
+input,
+select,
+textarea,
+option {
+  font-weight: 520;
+  letter-spacing: -0.012em;
+}
+
+input::placeholder,
+textarea::placeholder {
+  font-weight: 480;
+  letter-spacing: -0.008em;
+}
+
+label,
+legend,
+th,
+.eyebrow,
+.marketing-eyebrow,
+[class*="eyebrow"],
+[class*="overline"],
+[class*="kicker"] {
+  font-family: var(--biloo-font-ui) !important;
+  font-weight: 720 !important;
+}
+
+/* Marketing website hierarchy */
+.marketing-site,
+.marketing-site-v2,
+.marketing-site-v2 button,
+.marketing-site-v2 input,
+.marketing-site-v2 select,
+.marketing-site-v2 textarea {
+  font-family: var(--biloo-font-ui) !important;
+}
+
+.marketing-site-v2 .marketing-brand-copy strong,
+.marketing-site-v2 .home-zylo-brand strong,
+.marketing-site-v2 .home-imac-brand strong,
+.marketing-site-v2 .hisab-preview-brand span,
+.marketing-site-v2 .tour-window-top strong {
+  font-weight: 800 !important;
+  letter-spacing: -0.052em !important;
+}
+
+.marketing-site-v2 .marketing-hero h1,
+.marketing-site-v2 .public-page-hero h1,
+.marketing-site-v2 .marketing-page-hero h1,
+.marketing-site-v2 .home-hero h1 {
+  font-family: var(--biloo-font-display) !important;
+  font-weight: 800 !important;
+  letter-spacing: clamp(-0.065em, -0.052em, -0.045em) !important;
+  line-height: 0.96 !important;
+}
+
+.marketing-site-v2 .marketing-section-heading h2,
+.marketing-site-v2 .marketing-dark-copy h2,
+.marketing-site-v2 .marketing-cta h2,
+.marketing-site-v2 .home-local-section h2,
+.marketing-site-v2 .home-zylo-device-showcase h2,
+.marketing-site-v2 .home-imac-showcase h2,
+.marketing-site-v2 .product-tour-copy h2 {
+  font-family: var(--biloo-font-display) !important;
+  font-weight: 760 !important;
+  letter-spacing: -0.046em !important;
+  line-height: 1.01 !important;
+}
+
+.marketing-site-v2 h3,
+.marketing-site-v2 article > strong,
+.marketing-site-v2 a > strong {
+  font-weight: 720;
+  letter-spacing: -0.032em;
+}
+
+.marketing-site-v2 p,
+.marketing-site-v2 article small,
+.marketing-site-v2 a small,
+.marketing-site-v2 li {
+  letter-spacing: -0.013em;
+  line-height: 1.58;
+}
+
+.marketing-site-v2 .marketing-eyebrow,
+.marketing-site-v2 .marketing-section-heading > span,
+.marketing-site-v2 .marketing-dark-copy > span,
+.marketing-site-v2 .home-pricing-grid article > span,
+.marketing-site-v2 [class*="section"] > div > span:first-child {
+  font-weight: 760 !important;
+  letter-spacing: 0.075em !important;
+  text-transform: uppercase;
+}
+
+.marketing-site-v2 .marketing-desktop-nav a,
+.marketing-site-v2 .premium-mobile-menu nav a strong,
+.marketing-site-v2 .marketing-footer a {
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.marketing-site-v2 .marketing-large {
+  font-size: 1rem;
+  font-weight: 740 !important;
+  letter-spacing: -0.024em !important;
+}
+
+/* Authentication and onboarding */
+.auth-page,
+.auth-shell,
+.auth-card,
+.email-auth-card,
+.onboarding-shell,
+.onboarding-page,
+.onboarding-card {
+  font-family: var(--biloo-font-ui) !important;
+}
+
+.auth-page h1,
+.auth-shell h1,
+.auth-card h1,
+.email-auth-card h1,
+.onboarding-shell h1,
+.onboarding-page h1 {
+  font-weight: 780 !important;
+  letter-spacing: -0.046em !important;
+  line-height: 1.02 !important;
+}
+
+.auth-page h2,
+.auth-shell h2,
+.auth-card h2,
+.onboarding-shell h2,
+.onboarding-page h2 {
+  font-weight: 740 !important;
+  letter-spacing: -0.038em !important;
+}
+
+.auth-page p,
+.auth-shell p,
+.auth-card p,
+.onboarding-shell p,
+.onboarding-page p {
+  letter-spacing: -0.012em;
+  line-height: 1.55;
+}
+
+.auth-page label,
+.auth-shell label,
+.auth-card label,
+.onboarding-shell label,
+.onboarding-page label {
+  font-size: 0.82rem;
+  font-weight: 700 !important;
+  letter-spacing: -0.012em !important;
+  text-transform: none;
+}
+
+/* Signed-in ERP workspace */
+.workspace-shell,
+.workspace-shell *,
+.app-shell,
+.app-shell *,
+.dashboard-shell,
+.dashboard-shell *,
+.financial-workspace,
+.financial-workspace * {
+  font-family: var(--biloo-font-ui) !important;
+}
+
+.workspace-shell h1,
+.app-shell h1,
+.dashboard-shell h1,
+.financial-workspace h1,
+.workspace-page h1,
+.module-page h1 {
+  font-weight: 780 !important;
+  letter-spacing: -0.044em !important;
+  line-height: 1.02 !important;
+}
+
+.workspace-shell h2,
+.app-shell h2,
+.dashboard-shell h2,
+.financial-workspace h2,
+.workspace-page h2,
+.module-page h2 {
+  font-weight: 740 !important;
+  letter-spacing: -0.037em !important;
+  line-height: 1.08 !important;
+}
+
+.workspace-shell h3,
+.app-shell h3,
+.dashboard-shell h3,
+.financial-workspace h3,
+.workspace-page h3,
+.module-page h3 {
+  font-weight: 700 !important;
+  letter-spacing: -0.029em !important;
+}
+
+.workspace-shell nav a,
+.workspace-shell nav button,
+.app-sidebar a,
+.app-sidebar button,
+.workspace-sidebar a,
+.workspace-sidebar button,
+.sidebar-nav a,
+.sidebar-nav button {
+  font-weight: 630 !important;
+  letter-spacing: -0.016em !important;
+}
+
+.workspace-shell label,
+.app-shell label,
+.dashboard-shell label,
+.financial-workspace label,
+.workspace-page label,
+.module-page label {
+  font-weight: 680 !important;
+  letter-spacing: -0.012em !important;
+  text-transform: none;
+}
+
+.workspace-shell table,
+.app-shell table,
+.dashboard-shell table,
+.financial-workspace table,
+.workspace-page table,
+.module-page table {
+  font-size: 0.875rem;
+  letter-spacing: -0.012em;
+}
+
+.workspace-shell th,
+.app-shell th,
+.dashboard-shell th,
+.financial-workspace th,
+.workspace-page th,
+.module-page th {
+  font-size: 0.74rem;
+  font-weight: 720 !important;
+  letter-spacing: 0.045em !important;
+  text-transform: uppercase;
+}
+
+.workspace-shell td,
+.app-shell td,
+.dashboard-shell td,
+.financial-workspace td,
+.workspace-page td,
+.module-page td {
+  font-weight: 510;
+}
+
+/* Financial data needs fixed-width alignment without introducing a second font. */
+[class*="amount"],
+[class*="balance"],
+[class*="metric"],
+[class*="kpi"],
+[class*="total"],
+[class*="price"],
+[class*="value"],
+[class*="number"],
+[data-numeric],
+td:last-child,
+.home-zylo-dashboard strong,
+.home-imac-dashboard strong,
+.hisab-fintech-preview strong,
+.tour-app-window strong {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1, "kern" 1;
+}
+
+[class*="metric"] strong,
+[class*="kpi"] strong,
+[class*="stat"] strong,
+.dashboard-card > strong,
+.financial-card > strong {
+  font-weight: 760 !important;
+  letter-spacing: -0.04em !important;
+}
+
+.badge,
+.status,
+.pill,
+.chip,
+[class*="badge"],
+[class*="status"],
+[class*="pill"],
+[class*="chip"] {
+  font-weight: 680;
+  letter-spacing: -0.012em;
+}
+
+/* Dashboard monitor preview */
+.home-zylo-app,
+.home-zylo-app *,
+.home-imac-dashboard,
+.home-imac-dashboard * {
+  font-family: var(--biloo-font-ui) !important;
+}
+
+.home-zylo-dashboard-title h2,
+.home-imac-title-row h3 {
+  font-weight: 760 !important;
+  letter-spacing: -0.044em !important;
+}
+
+.home-zylo-kpis strong,
+.home-imac-kpis strong {
+  font-weight: 760 !important;
+  letter-spacing: -0.045em !important;
+}
+
+.home-zylo-appbar nav span,
+.home-imac-sidebar nav span {
+  font-weight: 650;
+  letter-spacing: -0.018em;
+}
+
+/* Compact, controlled mobile hierarchy. */
+@media (max-width: 767px) {
+  body {
+    letter-spacing: -0.008em;
+  }
+
+  .marketing-site-v2 .marketing-hero h1,
+  .marketing-site-v2 .public-page-hero h1,
+  .marketing-site-v2 .marketing-page-hero h1 {
+    letter-spacing: -0.052em !important;
+    line-height: 0.99 !important;
+  }
+
+  .marketing-site-v2 .marketing-section-heading h2,
+  .marketing-site-v2 .marketing-dark-copy h2,
+  .marketing-site-v2 .marketing-cta h2,
+  .workspace-shell h1,
+  .app-shell h1,
+  .dashboard-shell h1,
+  .workspace-page h1,
+  .module-page h1 {
+    letter-spacing: -0.039em !important;
+  }
+
+  .workspace-shell table,
+  .app-shell table,
+  .dashboard-shell table,
+  .workspace-page table,
+  .module-page table {
+    font-size: 0.82rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    text-rendering: optimizeLegibility;
+  }
+}

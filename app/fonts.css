@@ -1,9 +1,12 @@
+/* Biloo enterprise typography release: Zylo-inspired Manrope system. */
 :root{
-  --hisab-latin-font:var(--font-space-grotesk),"Segoe UI",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  --hisab-ethiopic-font:var(--font-noto-ethiopic),"Noto Sans Ethiopic","Abyssinica SIL",Nyala,sans-serif;
+  --hisab-latin-font:var(--font-biloo-manrope),Manrope,"Segoe UI",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  --hisab-ethiopic-font:"Noto Sans Ethiopic","Abyssinica SIL",Nyala,sans-serif;
+  --biloo-display-font:var(--hisab-latin-font);
+  --biloo-ui-font:var(--hisab-latin-font);
 }
 
-body,button,input,select,textarea{font-family:var(--hisab-latin-font)}
+html,body,button,input,select,textarea{font-family:var(--hisab-latin-font)}
 
 html:is([data-language="am"],[data-language="ti"]) body,
 html:is([data-language="am"],[data-language="ti"]) button,
