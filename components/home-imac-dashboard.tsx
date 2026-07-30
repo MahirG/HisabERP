@@ -2,112 +2,139 @@ const kpis = [
   { label: "Gross sales", value: "ETB 1.82M", change: "+24.6%", tone: "positive" },
   { label: "Cash & bank", value: "ETB 2.84M", change: "+12.8%", tone: "positive" },
   { label: "Receivables", value: "ETB 486K", change: "8 overdue", tone: "warning" },
-  { label: "Net income", value: "ETB 712K", change: "31.8% margin", tone: "positive" },
+  { label: "Inventory value", value: "ETB 3.26M", change: "9 low stock", tone: "warning" },
 ];
 
-const chartBars = [42, 55, 48, 67, 61, 78, 72, 88, 81, 94, 87, 100];
+const navigation = ["Dashboard", "Sales", "Inventory", "Finance", "Customers", "Reports"];
+
+const categoryBars = [
+  { label: "Retail sales", value: 92 },
+  { label: "Wholesale", value: 78 },
+  { label: "Services", value: 62 },
+  { label: "Hospitality", value: 48 },
+];
 
 const transactions = [
-  { reference: "INV-1098", customer: "Abay Trading", status: "Paid", amount: "ETB 48,500" },
-  { reference: "INV-1097", customer: "Biftu Retail", status: "Pending", amount: "ETB 31,240" },
-  { reference: "PAY-0872", customer: "Nile Supplies", status: "Posted", amount: "ETB 16,800" },
+  { name: "Abay Trading", type: "Customer receipt", amount: "ETB 48,500", status: "Paid" },
+  { name: "Biftu Retail", type: "Sales invoice", amount: "ETB 31,240", status: "Pending" },
+  { name: "Nile Supplies", type: "Supplier payment", amount: "ETB 16,800", status: "Posted" },
 ];
-
-const navigation = ["Overview", "Sales", "Inventory", "Finance", "Customers", "Reports"];
 
 export function HomeImacDashboardShowcase() {
   return (
-    <section className="home-imac-showcase" aria-labelledby="home-imac-title">
-      <div className="home-imac-heading">
-        <span>One live operating picture</span>
-        <h2 id="home-imac-title">Your complete ERP dashboard, presented with clarity.</h2>
-        <p>See revenue, cash, receivables, stock risk and recent activity together in a workspace designed for confident daily decisions.</p>
-      </div>
+    <section className="home-zylo-device-showcase" aria-label="Biloo ERP dashboard displayed on a desktop monitor">
+      <div className="home-zylo-device-glow" aria-hidden="true" />
 
-      <div className="home-imac-stage">
-        <div className="home-imac-ambient" aria-hidden="true" />
-        <div className="home-imac-computer">
-          <div className="home-imac-frame">
-            <span className="home-imac-camera" aria-hidden="true" />
-            <div className="home-imac-display">
-              <div className="home-imac-dashboard" aria-label="Biloo ERP executive dashboard preview">
-                <aside className="home-imac-sidebar">
-                  <div className="home-imac-brand"><strong>Biloo</strong><small>ERP</small></div>
-                  <nav aria-label="Dashboard preview navigation">
-                    {navigation.map((item, index) => (
-                      <span className={index === 0 ? "active" : undefined} key={item}>
-                        <i aria-hidden="true">{String(index + 1).padStart(2, "0")}</i>{item}
-                      </span>
-                    ))}
-                  </nav>
-                  <div className="home-imac-company"><b>BA</b><span><strong>Bilo Addis</strong><small>Main workspace</small></span></div>
-                </aside>
+      <div className="home-zylo-monitor">
+        <div className="home-zylo-monitor-frame">
+          <span className="home-zylo-monitor-camera" aria-hidden="true" />
 
-                <main className="home-imac-workspace">
-                  <header className="home-imac-topbar">
-                    <div><span>Executive dashboard</span><small>Thursday, 30 July 2026</small></div>
-                    <div className="home-imac-top-actions"><span className="synced"><i />Live data</span><b>BA</b></div>
-                  </header>
+          <div className="home-zylo-monitor-screen">
+            <div className="home-zylo-app" aria-label="Biloo ERP executive dashboard preview">
+              <header className="home-zylo-appbar">
+                <div className="home-zylo-brand"><strong>Biloo</strong><i aria-hidden="true" /></div>
+                <nav aria-label="Dashboard preview navigation">
+                  {navigation.map((item, index) => (
+                    <span className={index === 0 ? "active" : undefined} key={item}>{item}</span>
+                  ))}
+                </nav>
+                <div className="home-zylo-app-actions">
+                  <span className="home-zylo-search">Search</span>
+                  <b>BA</b>
+                </div>
+              </header>
 
-                  <div className="home-imac-title-row">
-                    <div><small>Good afternoon, team</small><h3>Business overview</h3><p>Here is what requires attention across the organization today.</p></div>
-                    <button type="button" tabIndex={-1} aria-hidden="true">Create invoice <span aria-hidden="true">＋</span></button>
+              <main className="home-zylo-dashboard">
+                <div className="home-zylo-dashboard-title">
+                  <div>
+                    <small>Executive workspace</small>
+                    <h2>Business overview</h2>
+                    <p>Financial and operational performance across the organization.</p>
                   </div>
+                  <span className="home-zylo-period">This month⌄</span>
+                </div>
 
-                  <div className="home-imac-kpis">
-                    {kpis.map((kpi) => (
-                      <article key={kpi.label}>
-                        <span>{kpi.label}</span>
-                        <strong>{kpi.value}</strong>
-                        <small className={kpi.tone}>{kpi.change}</small>
-                      </article>
-                    ))}
-                  </div>
+                <div className="home-zylo-kpis">
+                  {kpis.map((kpi) => (
+                    <article key={kpi.label}>
+                      <span>{kpi.label}</span>
+                      <strong>{kpi.value}</strong>
+                      <small className={kpi.tone}>{kpi.change}</small>
+                    </article>
+                  ))}
+                </div>
 
-                  <div className="home-imac-dashboard-grid">
-                    <section className="home-imac-chart-card">
-                      <header><div><strong>Revenue performance</strong><small>Monthly sales · ETB</small></div><span>Last 12 months</span></header>
-                      <div className="home-imac-chart">
-                        <div className="home-imac-chart-grid" aria-hidden="true"><i /><i /><i /><i /></div>
-                        <div className="home-imac-bars" aria-label="Revenue increased across the last twelve months">
-                          {chartBars.map((height, index) => <i key={`${height}-${index}`} style={{ height: `${height}%` }} />)}
+                <div className="home-zylo-grid">
+                  <section className="home-zylo-revenue-card">
+                    <header>
+                      <div><strong>Revenue performance</strong><small>Sales and collections · ETB</small></div>
+                      <span>Last 12 months</span>
+                    </header>
+                    <div className="home-zylo-line-chart" aria-label="Revenue and collections increased over the last twelve months">
+                      <span className="home-zylo-axis-label top">2.0M</span>
+                      <span className="home-zylo-axis-label middle">1.0M</span>
+                      <span className="home-zylo-axis-label bottom">0</span>
+                      <svg viewBox="0 0 620 190" preserveAspectRatio="none" role="img" aria-hidden="true">
+                        <defs>
+                          <linearGradient id="bilooRevenueArea" x1="0" x2="0" y1="0" y2="1">
+                            <stop offset="0%" stopColor="#da7757" stopOpacity="0.24" />
+                            <stop offset="100%" stopColor="#da7757" stopOpacity="0" />
+                          </linearGradient>
+                        </defs>
+                        <path className="area" d="M0 166 C45 154 72 140 110 144 C151 149 180 113 222 120 C269 128 300 86 344 96 C390 106 418 62 458 72 C506 83 545 34 620 42 L620 190 L0 190 Z" />
+                        <path className="primary-line" d="M0 166 C45 154 72 140 110 144 C151 149 180 113 222 120 C269 128 300 86 344 96 C390 106 418 62 458 72 C506 83 545 34 620 42" />
+                        <path className="secondary-line" d="M0 174 C55 162 79 166 118 154 C166 139 196 149 238 133 C280 116 322 126 366 107 C410 88 446 100 488 78 C535 54 574 63 620 52" />
+                      </svg>
+                      <div className="home-zylo-chart-months"><span>Aug</span><span>Oct</span><span>Dec</span><span>Feb</span><span>Apr</span><span>Jul</span></div>
+                    </div>
+                  </section>
+
+                  <section className="home-zylo-categories-card">
+                    <header><div><strong>Revenue by operation</strong><small>Current period</small></div><span>ETB</span></header>
+                    <div className="home-zylo-category-bars">
+                      {categoryBars.map((item) => (
+                        <div key={item.label}>
+                          <span>{item.label}</span>
+                          <i><b style={{ width: `${item.value}%` }} /></i>
+                          <strong>{item.value}%</strong>
                         </div>
-                      </div>
-                      <footer><span>Aug</span><span>Oct</span><span>Dec</span><span>Feb</span><span>Apr</span><span>Jul</span></footer>
-                    </section>
+                      ))}
+                    </div>
+                  </section>
+                </div>
 
-                    <aside className="home-imac-attention-card">
-                      <header><strong>Needs attention</strong><span>4 items</span></header>
-                      <div><i className="warning" /><span><strong>8 overdue invoices</strong><small>ETB 146,200 outstanding</small></span><b>›</b></div>
-                      <div><i className="danger" /><span><strong>9 low-stock items</strong><small>3 products are critical</small></span><b>›</b></div>
-                      <div><i className="info" /><span><strong>6 bills due</strong><small>Due within seven days</small></span><b>›</b></div>
-                    </aside>
-                  </div>
-
-                  <section className="home-imac-transactions">
-                    <header><div><strong>Recent transactions</strong><small>Latest verified activity</small></div><span>View all</span></header>
-                    <div className="home-imac-table-head"><span>Reference</span><span>Customer / supplier</span><span>Status</span><span>Amount</span></div>
+                <div className="home-zylo-lower-grid">
+                  <section className="home-zylo-transactions-card">
+                    <header><div><strong>Recent activity</strong><small>Latest verified transactions</small></div><span>View all</span></header>
                     {transactions.map((transaction) => (
-                      <div className="home-imac-table-row" key={transaction.reference}>
-                        <strong>{transaction.reference}</strong><span>{transaction.customer}</span><i className={transaction.status.toLowerCase()}>{transaction.status}</i><b>{transaction.amount}</b>
+                      <div className="home-zylo-transaction" key={`${transaction.name}-${transaction.type}`}>
+                        <i aria-hidden="true">{transaction.name.slice(0, 1)}</i>
+                        <span><strong>{transaction.name}</strong><small>{transaction.type}</small></span>
+                        <b>{transaction.amount}</b>
+                        <em className={transaction.status.toLowerCase()}>{transaction.status}</em>
                       </div>
                     ))}
                   </section>
-                </main>
-              </div>
+
+                  <section className="home-zylo-attention-card">
+                    <header><strong>Needs attention</strong><span>Today</span></header>
+                    <div><i className="warning" /><span><strong>8 overdue invoices</strong><small>ETB 146,200 outstanding</small></span></div>
+                    <div><i className="danger" /><span><strong>9 low-stock products</strong><small>3 products are critical</small></span></div>
+                    <div><i className="info" /><span><strong>6 supplier bills due</strong><small>Due within seven days</small></span></div>
+                  </section>
+                </div>
+              </main>
             </div>
-            <div className="home-imac-chin"><span>Biloo ERP</span></div>
           </div>
-          <div className="home-imac-stand" aria-hidden="true"><span className="home-imac-neck" /><span className="home-imac-base" /></div>
         </div>
-        <div className="home-imac-shadow" aria-hidden="true" />
+
+        <div className="home-zylo-monitor-stand" aria-hidden="true">
+          <span className="home-zylo-monitor-neck" />
+          <span className="home-zylo-monitor-base" />
+        </div>
       </div>
 
-      <div className="home-imac-value-strip">
-        <article><span>01</span><div><strong>Real-time visibility</strong><small>Every operational area contributes to the same reliable picture.</small></div></article>
-        <article><span>02</span><div><strong>Action-focused</strong><small>Attention items appear beside the metrics that explain them.</small></div></article>
-        <article><span>03</span><div><strong>Built for ETB</strong><small>Financial performance is presented naturally for Ethiopian teams.</small></div></article>
-      </div>
+      <div className="home-zylo-floor-shadow" aria-hidden="true" />
     </section>
   );
 }
