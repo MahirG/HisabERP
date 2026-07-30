@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Manrope } from "next/font/google";
 import type { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AppExperienceProvider } from "../components/app-experience-provider";
@@ -97,12 +97,15 @@ import "./adaptive-theme-contrast.css";
 import "./public-theme-coherence.css";
 import "./english-light-lock.css";
 import "./home-dashboard-imac.css";
+import "./zylo-typography-system.css";
 
-const spaceGrotesk = Space_Grotesk({
+const bilooManrope = Manrope({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
-  variable: "--font-space-grotesk",
+  variable: "--font-biloo-manrope",
+  preload: true,
+  fallback: ["Segoe UI", "Arial", "sans-serif"],
 });
 
 const preferenceBootstrap = `
@@ -204,7 +207,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html className={spaceGrotesk.variable} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
+    <html className={bilooManrope.variable} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
       <head>
         <script src="/biloo-brand-bootstrap.js" />
         <script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} />
