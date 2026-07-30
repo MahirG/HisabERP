@@ -1,11 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Noto_Sans_Ethiopic, Space_Grotesk } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AppExperienceProvider } from "../components/app-experience-provider";
 import { AuthPagePreferences } from "../components/auth-page-preferences";
 import { LanguageProvider } from "../components/language-provider";
-import { ThemeToggle } from "../components/theme-toggle";
 import { WorkspaceShell } from "../components/workspace-shell";
 import "./fonts.css";
 import "./globals.css";
@@ -96,6 +95,7 @@ import "./public-pure-white-background.css";
 import "./application-polish.css";
 import "./adaptive-theme-contrast.css";
 import "./public-theme-coherence.css";
+import "./english-light-lock.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -104,44 +104,49 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
 });
 
-const notoSansEthiopic = Noto_Sans_Ethiopic({
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  preload: false,
-  variable: "--font-noto-ethiopic",
-});
-
-const mobileControlsBootstrap = `
+const preferenceBootstrap = `
 (function () {
   var root = document.documentElement;
-  var themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  var theme = themeQuery.matches ? 'dark' : 'light';
-  root.dataset.theme = theme;
-  root.style.colorScheme = theme;
-  try { window.localStorage.setItem('hisab-theme', theme); } catch (_) {}
-  document.cookie = 'hisab_theme=' + theme + '; Path=/; Max-Age=31536000; SameSite=Lax';
+  var obsoleteControls = '.language-selector,.language-icon-selector,.mobile-language-control,[data-mobile-language],.theme-toggle,.mobile-prehydration-theme-toggle,[data-mobile-theme-toggle],[data-theme-toggle],[aria-label="Theme"],[aria-label="Appearance"],[aria-label="Language"]';
 
-  function safeSet(key, value) {
-    try { window.localStorage.setItem(key, value); } catch (_) {}
+  function persistEnglishLight() {
+    if (root.dataset.theme !== 'light') root.dataset.theme = 'light';
+    if (root.dataset.language !== 'en') root.dataset.language = 'en';
+    if (root.lang !== 'en') root.lang = 'en';
+    if (root.style.colorScheme !== 'light') root.style.colorScheme = 'light';
+
+    try {
+      window.localStorage.setItem('hisab-theme', 'light');
+      window.localStorage.setItem('hisab-erp-language', 'en');
+    } catch (_) {}
+
+    document.cookie = 'hisab_theme=light; Path=/; Max-Age=31536000; SameSite=Lax';
+    document.cookie = 'hisab_locale=en; Path=/; Max-Age=31536000; SameSite=Lax';
   }
 
-  document.addEventListener('click', function (event) {
-    var target = event.target;
-    if (!(target instanceof Element)) return;
-    var languageButton = target.closest('[data-mobile-language]');
-    if (!languageButton) return;
+  function removeObsoleteControls() {
+    document.querySelectorAll(obsoleteControls).forEach(function (control) {
+      control.remove();
+    });
+  }
 
-    event.preventDefault();
-    var language = languageButton.getAttribute('data-mobile-language');
-    if (language !== 'en' && language !== 'am') return;
-    safeSet('hisab-erp-language', language);
-    document.cookie = 'hisab_locale=' + language + '; Path=/; Max-Age=31536000; SameSite=Lax';
-    root.dataset.language = language;
-    root.lang = language;
-    var disclosure = languageButton.closest('details');
-    if (disclosure) disclosure.removeAttribute('open');
-    window.location.reload();
-  }, true);
+  persistEnglishLight();
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', removeObsoleteControls, { once: true });
+  } else {
+    removeObsoleteControls();
+  }
+
+  new MutationObserver(function () {
+    persistEnglishLight();
+    removeObsoleteControls();
+  }).observe(root, {
+    attributes: true,
+    attributeFilter: ['data-theme', 'data-language', 'lang'],
+    childList: true,
+    subtree: true
+  });
 })();`;
 
 export const metadata: Metadata = {
@@ -153,11 +158,38 @@ export const metadata: Metadata = {
   authors: [{ name: "Biloo", url: "https://www.hisabtech.com/about" }],
   creator: "Biloo",
   publisher: "Biloo",
-  alternates: { canonical: "/", languages: { "en-ET": "/", "am-ET": "/" } },
-  openGraph: { type: "website", locale: "en_ET", alternateLocale: ["am_ET"], siteName: "Biloo", title: "Biloo ERP — Business Operating System for Ethiopia", description: "One connected workspace for sales, finance, inventory, customers, suppliers and reporting.", url: "/", images: [{ url: "/hisab-logo.svg", width: 512, height: 512, alt: "Biloo" }] },
-  twitter: { card: "summary", title: "Biloo ERP", description: "Business operating system for growing Ethiopian organizations.", images: ["/hisab-logo.svg"] },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
-  icons: { icon: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }], shortcut: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }], apple: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }] },
+  alternates: { canonical: "/", languages: { "en-ET": "/" } },
+  openGraph: {
+    type: "website",
+    locale: "en_ET",
+    siteName: "Biloo",
+    title: "Biloo ERP — Business Operating System for Ethiopia",
+    description: "One connected workspace for sales, finance, inventory, customers, suppliers and reporting.",
+    url: "/",
+    images: [{ url: "/hisab-logo.svg", width: 512, height: 512, alt: "Biloo" }],
+  },
+  twitter: {
+    card: "summary",
+    title: "Biloo ERP",
+    description: "Business operating system for growing Ethiopian organizations.",
+    images: ["/hisab-logo.svg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  icons: {
+    icon: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }],
+    shortcut: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }],
+  },
 };
 
 export const viewport: Viewport = {
@@ -165,21 +197,20 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: "cover",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0d0b0a" },
-  ],
-  colorScheme: "light dark",
+  themeColor: "#ffffff",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html className={`${spaceGrotesk.variable} ${notoSansEthiopic.variable}`} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
-      <head><script src="/biloo-brand-bootstrap.js" /><script dangerouslySetInnerHTML={{ __html: mobileControlsBootstrap }} /></head>
+    <html className={spaceGrotesk.variable} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
+      <head>
+        <script src="/biloo-brand-bootstrap.js" />
+        <script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} />
+      </head>
       <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="biloo-standard-app-2026">
         <LanguageProvider initialLanguage="en">
           <AppExperienceProvider>
-            <ThemeToggle />
             <AuthPagePreferences />
             <WorkspaceShell>{children}</WorkspaceShell>
           </AppExperienceProvider>
