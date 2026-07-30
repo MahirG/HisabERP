@@ -46,12 +46,12 @@ export function HomeImacDashboardShowcase() {
                 <main className="home-imac-workspace">
                   <header className="home-imac-topbar">
                     <div><span>Executive dashboard</span><small>Thursday, 30 July 2026</small></div>
-                    <div className="home-imac-top-actions"><span className="synced"><i />Live data</span><b>MA</b></div>
+                    <div className="home-imac-top-actions"><span className="synced"><i />Live data</span><b>BA</b></div>
                   </header>
 
                   <div className="home-imac-title-row">
-                    <div><small>Good afternoon, Mahir</small><h3>Business overview</h3><p>Here is what requires attention across the organization today.</p></div>
-                    <button type="button" tabIndex={-1}>Create invoice <span aria-hidden="true">＋</span></button>
+                    <div><small>Good afternoon, team</small><h3>Business overview</h3><p>Here is what requires attention across the organization today.</p></div>
+                    <button type="button" tabIndex={-1} aria-hidden="true">Create invoice <span aria-hidden="true">＋</span></button>
                   </div>
 
                   <div className="home-imac-kpis">
