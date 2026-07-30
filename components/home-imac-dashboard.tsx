@@ -44,7 +44,7 @@ export function HomeImacDashboardShowcase() {
                 </div>
               </header>
 
-              <main className="home-zylo-dashboard">
+              <div className="home-zylo-dashboard">
                 <div className="home-zylo-dashboard-title">
                   <div>
                     <small>Executive workspace</small>
@@ -123,7 +123,7 @@ export function HomeImacDashboardShowcase() {
                     <div><i className="info" /><span><strong>6 supplier bills due</strong><small>Due within seven days</small></span></div>
                   </section>
                 </div>
-              </main>
+              </div>
             </div>
           </div>
         </div>
