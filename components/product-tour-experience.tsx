@@ -66,7 +66,7 @@ export function ProductTourExperience({ compact = false }: { compact?: boolean }
   const scene = useMemo(() => scenes.find((item) => item.id === activeId) ?? scenes[0], [activeId]);
 
   return (
-    <section className={compact ? "product-tour product-tour-compact" : "product-tour"} aria-label="Interactive HisabERP product tour">
+    <section className={compact ? "product-tour product-tour-compact" : "product-tour"} aria-label="Interactive Biloo ERP product tour">
       <div className="product-tour-tabs" role="tablist" aria-label="Product areas">
         {scenes.map((item, index) => (
           <button
@@ -98,7 +98,7 @@ export function ProductTourExperience({ compact = false }: { compact?: boolean }
         <div className="tour-app-window">
           <div className="tour-window-top">
             <div><i /><i /><i /></div>
-            <strong>HisabERP · {scene.label}</strong>
+            <strong>Biloo ERP · {scene.label}</strong>
             <span>Live workspace</span>
           </div>
           <div className="tour-window-layout">

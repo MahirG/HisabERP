@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import { LanguageSelector, useLanguage } from "./language-provider";
-import { ThemeToggle } from "./theme-toggle";
 
 export function AuthPagePreferences() {
   const pathname = usePathname();
@@ -13,13 +12,12 @@ export function AuthPagePreferences() {
   if (!isAuthRoute && !isStandaloneRoute) return null;
 
   const label = language === "am"
-    ? (isAuthRoute ? "የመግቢያ ገጽ ምርጫዎች" : "የገጽ ምርጫዎች")
-    : (isAuthRoute ? "Authentication page preferences" : "Page preferences");
+    ? (isAuthRoute ? "የመግቢያ ገጽ ቋንቋ" : "የገጽ ቋንቋ")
+    : (isAuthRoute ? "Authentication page language" : "Page language");
 
   return (
     <div className="auth-page-preferences global-preference-icons" aria-label={label}>
       <LanguageSelector compact />
-      <ThemeToggle />
     </div>
   );
 }
