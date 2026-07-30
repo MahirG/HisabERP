@@ -61,6 +61,6 @@ export function useLanguage() {
 }
 
 /** Language selection was removed; keep a null compatibility export. */
-export function LanguageSelector() {
+export function LanguageSelector(_props: { compact?: boolean } = {}) {
   return null;
 }
