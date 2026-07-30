@@ -7,7 +7,7 @@ import { ProductTourExperience } from "./product-tour-experience";
 
 const benefits = [
   { number: "01", title: "One source of truth", text: "Sales, expenses, inventory, receivables, payables, customers, suppliers and reports work from the same business records." },
-  { number: "02", title: "Built for Ethiopia", text: "Use Ethiopian birr, multilingual access, mobile-ready workflows and a product designed around local operating realities." },
+  { number: "02", title: "Built for Ethiopia", text: "Use Ethiopian birr, a clear English interface, mobile-ready workflows and a product designed around local operating realities." },
   { number: "03", title: "Faster decisions", text: "See cash, stock, overdue balances, performance and attention items without waiting for manually prepared spreadsheets." },
   { number: "04", title: "Controlled access", text: "Give owners, managers, cashiers and operational teams the access they require while protecting sensitive records." },
 ];
@@ -74,7 +74,7 @@ export function MarketingHome() {
           <div className="marketing-trust" aria-label="Biloo ERP product highlights">
             <span>Double-entry ledger</span>
             <span>ETB-first operations</span>
-            <span>English and Amharic</span>
+            <span>English interface</span>
             <span>Mobile-ready workflows</span>
           </div>
         </div>
@@ -90,7 +90,7 @@ export function MarketingHome() {
 
       <section className="marketing-tour-section"><div className="marketing-section-heading marketing-section-heading-centered"><span>Interactive product tour</span><h2>See how daily activity becomes management insight.</h2><p>Move through the main product areas and inspect the kind of information each workspace brings together.</p></div><ProductTourExperience compact /><div className="marketing-centered-action"><Link href="/product-tour" className="marketing-demo marketing-large">Open the complete product tour</Link></div></section>
 
-      <section className="home-local-section"><div><span className="marketing-eyebrow">ERP built for Ethiopia</span><h2>Local context is part of the product—not an afterthought.</h2><p>Biloo ERP brings Ethiopian birr, English and Amharic access, mobile-ready workflows, local implementation support and business structures into one operating experience.</p><div className="marketing-hero-actions"><Link href="/ethiopia" className="marketing-start marketing-large">Why Biloo ERP for Ethiopia</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a local demo</Link></div></div><div className="home-local-grid"><article><span>01</span><strong>ETB-first records</strong><small>Transactions, balances and reports centered on Ethiopian birr.</small></article><article><span>02</span><strong>Multilingual access</strong><small>English and Amharic across core product experiences.</small></article><article><span>03</span><strong>Mobile-ready workflows</strong><small>Responsive access for teams working beyond a single office desk.</small></article><article><span>04</span><strong>Addis Ababa support</strong><small>Local product evaluation, setup and implementation context.</small></article></div></section>
+      <section className="home-local-section"><div><span className="marketing-eyebrow">ERP built for Ethiopia</span><h2>Local context is part of the product—not an afterthought.</h2><p>Biloo ERP brings Ethiopian birr, a focused English interface, mobile-ready workflows, local implementation support and business structures into one operating experience.</p><div className="marketing-hero-actions"><Link href="/ethiopia" className="marketing-start marketing-large">Why Biloo ERP for Ethiopia</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a local demo</Link></div></div><div className="home-local-grid"><article><span>01</span><strong>ETB-first records</strong><small>Transactions, balances and reports centered on Ethiopian birr.</small></article><article><span>02</span><strong>English-first access</strong><small>A consistent English interface across core product experiences.</small></article><article><span>03</span><strong>Mobile-ready workflows</strong><small>Responsive access for teams working beyond a single office desk.</small></article><article><span>04</span><strong>Addis Ababa support</strong><small>Local product evaluation, setup and implementation context.</small></article></div></section>
 
       <section className="home-industry-section"><div className="marketing-section-heading marketing-section-heading-wide"><span>Industry solutions</span><h2>See the product through a workflow your team already understands.</h2><p>Explore focused operating models for different Ethiopian industries, with the modules, metrics and daily controls that matter most.</p></div><div className="home-industry-grid">{homepageIndustries.map((industry)=><Link href={`/industries/${industry.slug}`} key={industry.slug}><span>{industry.number}</span><strong>{industry.shortTitle}</strong><small>{industry.summary}</small><b>View solution →</b></Link>)}</div><div className="marketing-centered-action"><Link href="/industries" className="marketing-demo marketing-large">Explore all industries</Link></div></section>
 
