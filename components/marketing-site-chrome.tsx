@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { LanguageSelector, useLanguage } from "./language-provider";
-import { ThemeToggle } from "./theme-toggle";
 
 const websiteCopy = {
   en: {
@@ -46,7 +45,6 @@ const websiteCopy = {
     location: "Addis Ababa, Ethiopia",
     skip: "Skip to main content",
     language: "Language",
-    theme: "Toggle light or dark mode",
   },
   am: {
     subtitle: "የንግድ ማስኬጃ ስርዓት",
@@ -87,7 +85,6 @@ const websiteCopy = {
     location: "አዲስ አበባ፣ ኢትዮጵያ",
     skip: "ወደ ዋናው ይዘት ይሂዱ",
     language: "ቋንቋ",
-    theme: "የብርሃን ወይም የጨለማ ገጽታ ይቀይሩ",
   },
 } as const;
 
@@ -146,20 +143,6 @@ function MobileLanguageIcon() {
       <path d="M12 3a15 15 0 0 1 0 18" />
       <path d="M12 3a15 15 0 0 0 0 18" />
     </svg>
-  );
-}
-
-function MobileThemeIcons() {
-  return (
-    <>
-      <svg aria-hidden="true" className="app-icon mobile-theme-icon mobile-theme-icon-moon" fill="none" height="19" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" viewBox="0 0 24 24" width="19">
-        <path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 9 9 0 1 0 20.7 15.5Z" />
-      </svg>
-      <svg aria-hidden="true" className="app-icon mobile-theme-icon mobile-theme-icon-sun" fill="none" height="19" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" viewBox="0 0 24 24" width="19">
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42" />
-      </svg>
-    </>
   );
 }
 
@@ -240,7 +223,6 @@ export function MarketingHeader() {
               <button type="button" role="menuitemradio" aria-checked={language === "am"} className={language === "am" ? "active" : ""} data-mobile-language="am"><span>አማርኛ</span><b>አማ</b></button>
             </div>
           </details>
-          <button className="mobile-prehydration-theme-toggle preference-icon-button" type="button" aria-label={c.theme} title={c.theme} data-mobile-theme-toggle><MobileThemeIcons /></button>
           <button ref={toggleButtonRef} className={`marketing-menu-toggle premium-menu-toggle${menuOpen ? " open" : ""}`} type="button" aria-label={menuOpen ? c.close : c.menu} aria-expanded={menuOpen} aria-controls="hisab-public-menu" onClick={() => setMenuOpen((open) => !open)}><span /><span /><span /></button>
         </div>
 
@@ -248,7 +230,7 @@ export function MarketingHeader() {
           {navItems.map(([key, href]) => <Link href={href} aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined} key={href}>{c[key]}</Link>)}
         </nav>
         <div className="marketing-nav-actions marketing-desktop-actions">
-          <div className="marketing-preference-icons global-preference-icons"><LanguageSelector compact /><ThemeToggle /></div>
+          <div className="marketing-preference-icons global-preference-icons"><LanguageSelector compact /></div>
           <Link href="/auth/login" className="marketing-signin">{c.signIn}</Link>
           <Link href="/request-demo" className="marketing-demo">{c.demo}</Link>
           <Link href="/auth/email-sign-up" className="marketing-start">{c.start}</Link>
