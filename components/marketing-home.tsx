@@ -2,6 +2,7 @@ import Link from "next/link";
 import { marketingIndustries } from "../lib/marketing-industries";
 import { marketingModules } from "../lib/marketing-modules";
 import { pricingPlans } from "../lib/marketing-pricing";
+import { HomeImacDashboardShowcase } from "./home-imac-dashboard";
 import { MarketingPageShell } from "./marketing-site-chrome";
 import { ProductTourExperience } from "./product-tour-experience";
 
@@ -60,6 +61,7 @@ function FinancialOperatingSystemPreview() {
 export function MarketingHome() {
   const homepageIndustries = marketingIndustries.slice(0, 6);
   const homepagePlans = pricingPlans.slice(0, 3);
+
   return (
     <MarketingPageShell>
       <section className="marketing-hero hisab-fintech-hero" aria-labelledby="home-hero-title">
@@ -80,6 +82,8 @@ export function MarketingHome() {
         </div>
         <FinancialOperatingSystemPreview />
       </section>
+
+      <HomeImacDashboardShowcase />
 
       <section className="marketing-proof marketing-proof-v2"><p>Designed for ambitious businesses moving beyond notebooks and disconnected spreadsheets</p><div><span>Retail</span><span>Wholesale</span><span>Services</span><span>Hospitality</span><span>Cooperatives</span><span>Multi-branch teams</span></div></section>
 
