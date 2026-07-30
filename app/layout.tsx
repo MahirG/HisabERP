@@ -92,6 +92,7 @@ import "./dashboard-color-system.css";
 import "./hisab-premium-fintech.css";
 import "./apple-editorial-public-system.css";
 import "./public-pure-white-background.css";
+import "./application-polish.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -110,59 +111,31 @@ const notoSansEthiopic = Noto_Sans_Ethiopic({
 const mobileControlsBootstrap = `
 (function () {
   var root = document.documentElement;
-  function safeGet(key) {
-    try { return window.localStorage.getItem(key); } catch (_) { return null; }
-  }
+  root.dataset.theme = 'light';
+  root.style.colorScheme = 'light';
+  try { window.localStorage.setItem('hisab-theme', 'light'); } catch (_) {}
+  document.cookie = 'hisab_theme=light; Path=/; Max-Age=31536000; SameSite=Lax';
+
   function safeSet(key, value) {
     try { window.localStorage.setItem(key, value); } catch (_) {}
   }
-  function applyTheme(theme, persist) {
-    root.dataset.theme = theme;
-    root.style.colorScheme = theme;
-    if (persist) {
-      safeSet('hisab-theme', theme);
-      document.cookie = 'hisab_theme=' + theme + '; Path=/; Max-Age=31536000; SameSite=Lax';
-    }
-  }
-  function announceTheme(theme) {
-    try {
-      window.dispatchEvent(new CustomEvent('hisab:theme-change', { detail: { theme: theme } }));
-    } catch (_) {
-      window.dispatchEvent(new Event('hisab:theme-change'));
-    }
-  }
-  var savedTheme = safeGet('hisab-theme');
-  var initialTheme = savedTheme === 'dark' || savedTheme === 'light'
-    ? savedTheme
-    : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  applyTheme(initialTheme, false);
 
   document.addEventListener('click', function (event) {
     var target = event.target;
     if (!(target instanceof Element)) return;
-
-    var themeButton = target.closest('[data-mobile-theme-toggle]');
-    if (themeButton) {
-      event.preventDefault();
-      var nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-      applyTheme(nextTheme, true);
-      announceTheme(nextTheme);
-      return;
-    }
-
     var languageButton = target.closest('[data-mobile-language]');
-    if (languageButton) {
-      event.preventDefault();
-      var language = languageButton.getAttribute('data-mobile-language');
-      if (language !== 'en' && language !== 'am') return;
-      safeSet('hisab-erp-language', language);
-      document.cookie = 'hisab_locale=' + language + '; Path=/; Max-Age=31536000; SameSite=Lax';
-      root.dataset.language = language;
-      root.lang = language;
-      var disclosure = languageButton.closest('details');
-      if (disclosure) disclosure.removeAttribute('open');
-      window.location.reload();
-    }
+    if (!languageButton) return;
+
+    event.preventDefault();
+    var language = languageButton.getAttribute('data-mobile-language');
+    if (language !== 'en' && language !== 'am') return;
+    safeSet('hisab-erp-language', language);
+    document.cookie = 'hisab_locale=' + language + '; Path=/; Max-Age=31536000; SameSite=Lax';
+    root.dataset.language = language;
+    root.lang = language;
+    var disclosure = languageButton.closest('details');
+    if (disclosure) disclosure.removeAttribute('open');
+    window.location.reload();
   }, true);
 })();`;
 
@@ -187,18 +160,15 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: "cover",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#ffffff" },
-  ],
-  colorScheme: "dark light",
+  themeColor: "#ffffff",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html className={`${spaceGrotesk.variable} ${notoSansEthiopic.variable}`} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
       <head><script src="/biloo-brand-bootstrap.js" /><script dangerouslySetInnerHTML={{ __html: mobileControlsBootstrap }} /></head>
-      <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="biloo-brand-2026">
+      <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="biloo-standard-app-2026">
         <LanguageProvider initialLanguage="en">
           <AppExperienceProvider>
             <AuthPagePreferences />
