@@ -1,0 +1,818 @@
+/* Homepage product monitor inspired by enterprise SaaS device presentations. */
+
+.marketing-site-v2 .hisab-fintech-hero {
+  grid-template-columns: minmax(0, 1fr) !important;
+  min-height: auto !important;
+  padding-bottom: clamp(104px, 11vw, 160px) !important;
+}
+
+.marketing-site-v2 .hisab-fintech-hero > .hisab-fintech-preview {
+  display: none !important;
+}
+
+.marketing-site-v2 .hisab-fintech-hero .marketing-hero-copy {
+  width: min(100%, 980px) !important;
+  margin-inline: auto !important;
+  text-align: center !important;
+}
+
+.marketing-site-v2 .hisab-fintech-hero .marketing-hero-copy > p {
+  width: min(100%, 760px) !important;
+  margin-inline: auto !important;
+}
+
+.marketing-site-v2 .hisab-fintech-hero .marketing-hero-actions,
+.marketing-site-v2 .hisab-fintech-hero .marketing-trust {
+  justify-content: center !important;
+}
+
+.home-zylo-device-showcase {
+  position: relative;
+  z-index: 3;
+  isolation: isolate;
+  width: 100%;
+  margin-top: clamp(-118px, -8vw, -72px);
+  padding: 0 clamp(12px, 4vw, 58px) clamp(78px, 9vw, 132px);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(218, 119, 87, .13), transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 44%, #fff 100%);
+}
+
+.home-zylo-device-glow {
+  position: absolute;
+  z-index: -1;
+  top: 10%;
+  left: 50%;
+  width: min(1100px, 92vw);
+  height: 68%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(218, 119, 87, .14), rgba(218, 119, 87, .035) 48%, transparent 72%);
+  filter: blur(8px);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.home-zylo-monitor {
+  position: relative;
+  width: min(1180px, 100%);
+  margin-inline: auto;
+  padding-bottom: clamp(78px, 9vw, 112px);
+}
+
+.home-zylo-monitor-frame {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  padding: clamp(7px, .8vw, 11px);
+  border: 1px solid rgba(255, 255, 255, .42);
+  border-radius: clamp(15px, 1.7vw, 22px);
+  background: linear-gradient(145deg, #2b2b2c 0%, #080809 45%, #242425 100%);
+  box-shadow:
+    0 44px 90px rgba(29, 24, 22, .18),
+    0 16px 38px rgba(29, 24, 22, .11),
+    inset 0 1px rgba(255, 255, 255, .28);
+}
+
+.home-zylo-monitor-frame::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(112deg, rgba(255, 255, 255, .15), transparent 13%, transparent 78%, rgba(255, 255, 255, .04));
+  content: "";
+  pointer-events: none;
+}
+
+.home-zylo-monitor-camera {
+  position: absolute;
+  z-index: 8;
+  top: 3px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #1b1d21;
+  box-shadow: 0 0 0 1px #000, inset 0 0 2px rgba(93, 144, 255, .8);
+  transform: translateX(-50%);
+}
+
+.home-zylo-monitor-screen {
+  position: relative;
+  z-index: 2;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: clamp(9px, 1vw, 14px);
+  background: #f4f6f8;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .13);
+}
+
+.home-zylo-monitor-screen::after {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: linear-gradient(118deg, rgba(255, 255, 255, .11), transparent 18%, transparent 72%, rgba(255, 255, 255, .025));
+  content: "";
+  pointer-events: none;
+}
+
+.home-zylo-app {
+  --zylo-ink: #192027;
+  --zylo-muted: #77818c;
+  --zylo-border: #e3e8ed;
+  --zylo-soft: #f5f7f9;
+  --zylo-card: #ffffff;
+  --zylo-accent: #da7757;
+  --zylo-accent-soft: #fff0ea;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--zylo-ink);
+  background: #f5f7f9;
+  font-family: var(--font-space-grotesk), Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.home-zylo-app :is(header, main, section, article, nav, div, span, strong, small, b, i, em, p, h2) {
+  box-sizing: border-box;
+}
+
+.home-zylo-appbar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(10px, 1.3vw, 20px);
+  height: clamp(30px, 4.2vw, 54px);
+  padding-inline: clamp(10px, 1.6vw, 22px);
+  border-bottom: 1px solid var(--zylo-border);
+  background: rgba(255, 255, 255, .98);
+}
+
+.home-zylo-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(3px, .45vw, 6px);
+  color: #17191c;
+  font-size: clamp(7px, 1vw, 14px);
+  letter-spacing: -.04em;
+}
+
+.home-zylo-brand strong {
+  color: inherit !important;
+  font-size: inherit;
+  font-weight: 800;
+}
+
+.home-zylo-brand i {
+  display: block;
+  width: clamp(4px, .55vw, 7px);
+  height: clamp(4px, .55vw, 7px);
+  border-radius: 50%;
+  background: var(--zylo-accent);
+  box-shadow: 0 0 0 3px rgba(218, 119, 87, .12);
+}
+
+.home-zylo-appbar nav {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  height: 100%;
+  gap: clamp(5px, 1.2vw, 19px);
+  min-width: 0;
+}
+
+.home-zylo-appbar nav span {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  color: #78818b !important;
+  font-size: clamp(4px, .62vw, 8px);
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.home-zylo-appbar nav span.active {
+  color: #20262c !important;
+}
+
+.home-zylo-appbar nav span.active::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: var(--zylo-accent);
+  content: "";
+}
+
+.home-zylo-app-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(5px, .85vw, 11px);
+}
+
+.home-zylo-search {
+  display: inline-flex;
+  align-items: center;
+  width: clamp(42px, 8vw, 105px);
+  height: clamp(17px, 2.4vw, 30px);
+  padding-inline: clamp(5px, .8vw, 10px);
+  border: 1px solid #e4e8ec;
+  border-radius: 999px;
+  color: #9aa2aa !important;
+  background: #f8fafb;
+  font-size: clamp(4px, .55vw, 7px);
+}
+
+.home-zylo-search::before {
+  width: clamp(4px, .6vw, 8px);
+  height: clamp(4px, .6vw, 8px);
+  margin-right: clamp(3px, .4vw, 5px);
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  content: "";
+}
+
+.home-zylo-app-actions b {
+  display: grid;
+  width: clamp(17px, 2.5vw, 32px);
+  height: clamp(17px, 2.5vw, 32px);
+  place-items: center;
+  border-radius: 50%;
+  color: #9a442d !important;
+  background: #fff0ea;
+  font-size: clamp(4px, .58vw, 8px);
+  font-style: normal;
+}
+
+.home-zylo-dashboard {
+  height: calc(100% - clamp(30px, 4.2vw, 54px));
+  overflow: hidden;
+  padding: clamp(9px, 1.5vw, 20px) clamp(10px, 1.7vw, 23px) clamp(9px, 1.4vw, 18px);
+}
+
+.home-zylo-dashboard-title {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: clamp(7px, 1vw, 13px);
+}
+
+.home-zylo-dashboard-title > div {
+  min-width: 0;
+}
+
+.home-zylo-dashboard-title small {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--zylo-accent) !important;
+  font-size: clamp(4px, .55vw, 7px);
+  font-weight: 760;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.home-zylo-dashboard-title h2 {
+  margin: 0;
+  color: #1b2127 !important;
+  font-size: clamp(10px, 1.55vw, 20px);
+  line-height: 1.08;
+  letter-spacing: -.045em;
+}
+
+.home-zylo-dashboard-title p {
+  margin: clamp(2px, .3vw, 4px) 0 0;
+  color: #7b858f !important;
+  font-size: clamp(4px, .58vw, 8px);
+}
+
+.home-zylo-period {
+  display: inline-flex;
+  align-items: center;
+  min-height: clamp(18px, 2.5vw, 31px);
+  padding-inline: clamp(6px, .9vw, 12px);
+  border: 1px solid var(--zylo-border);
+  border-radius: clamp(4px, .6vw, 8px);
+  color: #59626b !important;
+  background: #fff;
+  font-size: clamp(4px, .55vw, 7px);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.home-zylo-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(5px, .75vw, 10px);
+  margin-bottom: clamp(6px, .9vw, 12px);
+}
+
+.home-zylo-kpis article {
+  min-width: 0;
+  padding: clamp(7px, 1vw, 13px);
+  border: 1px solid var(--zylo-border);
+  border-radius: clamp(5px, .75vw, 10px);
+  background: var(--zylo-card);
+  box-shadow: 0 2px 8px rgba(21, 31, 42, .025);
+}
+
+.home-zylo-kpis span,
+.home-zylo-kpis small {
+  display: block;
+  overflow: hidden;
+  color: #7a838c !important;
+  font-size: clamp(4px, .52vw, 7px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-zylo-kpis strong {
+  display: block;
+  margin-block: clamp(2px, .36vw, 5px);
+  overflow: hidden;
+  color: #1b2228 !important;
+  font-size: clamp(7px, 1.08vw, 14px);
+  letter-spacing: -.035em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-zylo-kpis small.positive {
+  color: #16845c !important;
+}
+
+.home-zylo-kpis small.warning {
+  color: #b36b20 !important;
+}
+
+.home-zylo-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.62fr) minmax(150px, .82fr);
+  gap: clamp(5px, .75vw, 10px);
+  margin-bottom: clamp(6px, .8vw, 10px);
+}
+
+.home-zylo-revenue-card,
+.home-zylo-categories-card,
+.home-zylo-transactions-card,
+.home-zylo-attention-card {
+  min-width: 0;
+  border: 1px solid var(--zylo-border);
+  border-radius: clamp(5px, .75vw, 10px);
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(21, 31, 42, .025);
+}
+
+.home-zylo-revenue-card,
+.home-zylo-categories-card {
+  padding: clamp(7px, 1vw, 13px);
+}
+
+.home-zylo-revenue-card > header,
+.home-zylo-categories-card > header,
+.home-zylo-transactions-card > header,
+.home-zylo-attention-card > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.home-zylo-revenue-card > header strong,
+.home-zylo-categories-card > header strong,
+.home-zylo-transactions-card > header strong,
+.home-zylo-attention-card > header strong {
+  display: block;
+  color: #20262c !important;
+  font-size: clamp(5px, .68vw, 9px);
+}
+
+.home-zylo-revenue-card > header small,
+.home-zylo-categories-card > header small,
+.home-zylo-transactions-card > header small {
+  display: block;
+  margin-top: 1px;
+  color: #8a939c !important;
+  font-size: clamp(3px, .48vw, 6px);
+}
+
+.home-zylo-revenue-card > header > span,
+.home-zylo-categories-card > header > span,
+.home-zylo-transactions-card > header > span,
+.home-zylo-attention-card > header > span {
+  color: #8a939c !important;
+  font-size: clamp(3px, .48vw, 6px);
+  white-space: nowrap;
+}
+
+.home-zylo-line-chart {
+  position: relative;
+  height: clamp(66px, 10.7vw, 138px);
+  margin-top: clamp(5px, .7vw, 9px);
+  padding: 3px 0 13px clamp(18px, 2.6vw, 33px);
+  background:
+    repeating-linear-gradient(to bottom, #edf0f3 0, #edf0f3 1px, transparent 1px, transparent 25%);
+}
+
+.home-zylo-line-chart svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.home-zylo-line-chart .area {
+  fill: url(#bilooRevenueArea);
+}
+
+.home-zylo-line-chart .primary-line,
+.home-zylo-line-chart .secondary-line {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.home-zylo-line-chart .primary-line {
+  stroke: #da7757;
+  stroke-width: 2.5;
+}
+
+.home-zylo-line-chart .secondary-line {
+  stroke: #31a9a2;
+  stroke-width: 1.8;
+}
+
+.home-zylo-axis-label {
+  position: absolute;
+  left: 0;
+  color: #a1a8af !important;
+  font-size: clamp(3px, .4vw, 5px);
+}
+
+.home-zylo-axis-label.top { top: 0; }
+.home-zylo-axis-label.middle { top: 45%; }
+.home-zylo-axis-label.bottom { bottom: 13px; }
+
+.home-zylo-chart-months {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: clamp(18px, 2.6vw, 33px);
+  display: flex;
+  justify-content: space-between;
+}
+
+.home-zylo-chart-months span {
+  color: #9aa2aa !important;
+  font-size: clamp(3px, .4vw, 5px);
+}
+
+.home-zylo-category-bars {
+  display: grid;
+  gap: clamp(5px, .72vw, 9px);
+  margin-top: clamp(8px, 1.15vw, 15px);
+}
+
+.home-zylo-category-bars > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(48px, 1.9fr) auto;
+  align-items: center;
+  gap: clamp(4px, .6vw, 8px);
+}
+
+.home-zylo-category-bars span,
+.home-zylo-category-bars strong {
+  overflow: hidden;
+  color: #6f7881 !important;
+  font-size: clamp(3px, .48vw, 6px);
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-zylo-category-bars > div > i {
+  display: block;
+  overflow: hidden;
+  height: clamp(4px, .65vw, 8px);
+  border-radius: 999px;
+  background: #edf0f2;
+}
+
+.home-zylo-category-bars > div > i b {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #31b4aa, #4c8fd8);
+}
+
+.home-zylo-lower-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.58fr) minmax(145px, .86fr);
+  gap: clamp(5px, .75vw, 10px);
+}
+
+.home-zylo-transactions-card,
+.home-zylo-attention-card {
+  overflow: hidden;
+}
+
+.home-zylo-transactions-card > header,
+.home-zylo-attention-card > header {
+  padding: clamp(6px, .8vw, 10px) clamp(7px, 1vw, 13px);
+  border-bottom: 1px solid var(--zylo-border);
+}
+
+.home-zylo-transaction {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: clamp(4px, .7vw, 9px);
+  min-height: clamp(19px, 2.9vw, 37px);
+  padding-inline: clamp(7px, 1vw, 13px);
+  border-bottom: 1px solid #edf0f3;
+}
+
+.home-zylo-transaction:last-child {
+  border-bottom: 0;
+}
+
+.home-zylo-transaction > i {
+  display: grid;
+  width: clamp(11px, 1.65vw, 21px);
+  height: clamp(11px, 1.65vw, 21px);
+  place-items: center;
+  border-radius: clamp(3px, .45vw, 6px);
+  color: #9a442d !important;
+  background: #fff0ea;
+  font-size: clamp(3px, .48vw, 6px);
+  font-style: normal;
+  font-weight: 800;
+}
+
+.home-zylo-transaction > span {
+  min-width: 0;
+}
+
+.home-zylo-transaction > span strong,
+.home-zylo-transaction > span small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-zylo-transaction > span strong {
+  color: #293038 !important;
+  font-size: clamp(3px, .5vw, 6px);
+}
+
+.home-zylo-transaction > span small {
+  margin-top: 1px;
+  color: #929aa2 !important;
+  font-size: clamp(3px, .42vw, 5px);
+}
+
+.home-zylo-transaction > b {
+  color: #343b42 !important;
+  font-size: clamp(3px, .5vw, 6px);
+  white-space: nowrap;
+}
+
+.home-zylo-transaction > em {
+  min-width: clamp(26px, 4.1vw, 52px);
+  padding: clamp(2px, .28vw, 4px) clamp(4px, .55vw, 7px);
+  border-radius: 999px;
+  font-size: clamp(3px, .42vw, 5px);
+  font-style: normal;
+  font-weight: 750;
+  text-align: center;
+}
+
+.home-zylo-transaction > em.paid,
+.home-zylo-transaction > em.posted {
+  color: #167553 !important;
+  background: #e8f7f1;
+}
+
+.home-zylo-transaction > em.pending {
+  color: #a4611d !important;
+  background: #fff4df;
+}
+
+.home-zylo-attention-card > div {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(4px, .65vw, 8px);
+  min-height: clamp(19px, 2.9vw, 37px);
+  padding-inline: clamp(7px, 1vw, 13px);
+  border-bottom: 1px solid #edf0f3;
+}
+
+.home-zylo-attention-card > div:last-child {
+  border-bottom: 0;
+}
+
+.home-zylo-attention-card > div > i {
+  width: clamp(4px, .62vw, 8px);
+  height: clamp(4px, .62vw, 8px);
+  border-radius: 50%;
+}
+
+.home-zylo-attention-card > div > i.warning { background: #e39a3b; }
+.home-zylo-attention-card > div > i.danger { background: #d85858; }
+.home-zylo-attention-card > div > i.info { background: #478fd8; }
+
+.home-zylo-attention-card > div span strong,
+.home-zylo-attention-card > div span small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-zylo-attention-card > div span strong {
+  color: #343b42 !important;
+  font-size: clamp(3px, .5vw, 6px);
+}
+
+.home-zylo-attention-card > div span small {
+  margin-top: 1px;
+  color: #929aa2 !important;
+  font-size: clamp(3px, .42vw, 5px);
+}
+
+.home-zylo-monitor-stand {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 9px;
+  left: 0;
+  display: grid;
+  justify-items: center;
+  pointer-events: none;
+}
+
+.home-zylo-monitor-neck {
+  display: block;
+  width: clamp(62px, 10vw, 126px);
+  height: clamp(48px, 6.8vw, 84px);
+  clip-path: polygon(25% 0, 75% 0, 92% 100%, 8% 100%);
+  background: linear-gradient(90deg, #aaa 0%, #f3f3f1 22%, #c8c8c6 52%, #f6f6f4 80%, #a8a8a6 100%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .07);
+}
+
+.home-zylo-monitor-base {
+  display: block;
+  width: clamp(170px, 28vw, 350px);
+  height: clamp(10px, 1.6vw, 20px);
+  margin-top: -2px;
+  border-radius: 50% 50% 30% 30% / 62% 62% 38% 38%;
+  background: linear-gradient(180deg, #e9e9e7 0%, #b7b7b5 58%, #979795 100%);
+  box-shadow: 0 9px 18px rgba(20, 20, 20, .14), inset 0 1px rgba(255, 255, 255, .8);
+}
+
+.home-zylo-floor-shadow {
+  width: min(720px, 68vw);
+  height: clamp(18px, 3vw, 36px);
+  margin: clamp(-22px, -2vw, -13px) auto 0;
+  border-radius: 50%;
+  background: rgba(37, 29, 25, .14);
+  filter: blur(17px);
+  transform: scaleX(.82);
+}
+
+@media (max-width: 860px) {
+  .marketing-site-v2 .hisab-fintech-hero {
+    padding-bottom: 92px !important;
+  }
+
+  .home-zylo-device-showcase {
+    margin-top: -72px;
+    padding-inline: 10px;
+  }
+
+  .home-zylo-monitor {
+    width: min(760px, 100%);
+  }
+
+  .home-zylo-appbar nav span:nth-child(n + 5) {
+    display: none;
+  }
+
+  .home-zylo-grid,
+  .home-zylo-lower-grid {
+    grid-template-columns: minmax(0, 1.55fr) minmax(92px, .72fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .marketing-site-v2 .hisab-fintech-hero .marketing-hero-copy {
+    text-align: left !important;
+  }
+
+  .marketing-site-v2 .hisab-fintech-hero .marketing-hero-copy > p {
+    margin-inline: 0 !important;
+  }
+
+  .marketing-site-v2 .hisab-fintech-hero .marketing-hero-actions {
+    justify-content: stretch !important;
+  }
+
+  .marketing-site-v2 .hisab-fintech-hero .marketing-trust {
+    justify-content: flex-start !important;
+  }
+
+  .home-zylo-device-showcase {
+    margin-top: -54px;
+    padding-bottom: 64px;
+  }
+
+  .home-zylo-monitor {
+    width: calc(100% + 8px);
+    margin-inline: -4px;
+    padding-bottom: 58px;
+  }
+
+  .home-zylo-monitor-frame {
+    padding: 4px;
+    border-radius: 10px;
+  }
+
+  .home-zylo-monitor-screen {
+    border-radius: 6px;
+  }
+
+  .home-zylo-appbar {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .home-zylo-appbar nav span:nth-child(n + 4),
+  .home-zylo-search,
+  .home-zylo-dashboard-title p,
+  .home-zylo-categories-card,
+  .home-zylo-attention-card {
+    display: none;
+  }
+
+  .home-zylo-grid,
+  .home-zylo-lower-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-zylo-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .home-zylo-kpis article:nth-child(4),
+  .home-zylo-transactions-card .home-zylo-transaction:nth-child(n + 4) {
+    display: none;
+  }
+
+  .home-zylo-monitor-neck {
+    width: 52px;
+    height: 36px;
+  }
+
+  .home-zylo-monitor-base {
+    width: 134px;
+    height: 10px;
+  }
+
+  .home-zylo-floor-shadow {
+    width: 72vw;
+    height: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-zylo-monitor {
+    animation: home-zylo-device-arrive .85s cubic-bezier(.22, 1, .36, 1) both;
+  }
+
+  .home-zylo-line-chart .primary-line,
+  .home-zylo-line-chart .secondary-line {
+    stroke-dasharray: 900;
+    stroke-dashoffset: 900;
+    animation: home-zylo-line-draw 1.35s .35s cubic-bezier(.22, 1, .36, 1) forwards;
+  }
+
+  @keyframes home-zylo-device-arrive {
+    from { opacity: 0; transform: translateY(24px) scale(.986); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes home-zylo-line-draw {
+    to { stroke-dashoffset: 0; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-zylo-monitor,
+  .home-zylo-line-chart path {
+    animation: none !important;
+  }
+}
