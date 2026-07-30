@@ -1,0 +1,133 @@
+/*
+ * Biloo English-only, permanent-light contract.
+ * Loaded last so legacy language and theme preferences cannot reappear or
+ * create a mixed light/dark interface.
+ */
+
+:root,
+html,
+html[data-theme],
+html[data-theme="light"],
+html[data-theme="dark"] {
+  color-scheme: light !important;
+
+  --bg: #f8f4f2;
+  --card: #ffffff;
+  --text: #211a18;
+  --muted: #76655f;
+  --border: #eadbd5;
+
+  --hisab-app: #f7f8fb;
+  --hisab-surface: #ffffff;
+  --hisab-surface-raised: #fcfcfd;
+  --hisab-surface-muted: #f1f3f7;
+  --hisab-surface-hover: #f6f7fa;
+  --hisab-glass: rgba(255, 255, 255, .86);
+  --hisab-text: #151922;
+  --hisab-text-2: #596273;
+  --hisab-text-3: #6f7888;
+  --hisab-border: rgba(15, 23, 42, .10);
+  --hisab-border-strong: rgba(15, 23, 42, .17);
+
+  --ui-canvas: #f8f4f2;
+  --ui-surface: #ffffff;
+  --ui-surface-muted: #fff8f5;
+  --ui-text: #211a18;
+  --ui-text-secondary: #5f504a;
+  --ui-text-muted: #76655f;
+  --ui-border: #dfcbc3;
+  --ui-border-strong: #c9ada2;
+
+  --apple-background: #ffffff;
+  --apple-surface: #ffffff;
+  --apple-text: #1d1d1f;
+  --apple-secondary: #5f6065;
+  --apple-tertiary: #76767c;
+  --apple-hairline: rgba(0, 0, 0, .10);
+}
+
+html,
+body {
+  background-color: #ffffff !important;
+  color: var(--hisab-text) !important;
+}
+
+/* Remove every language or appearance control, including pre-hydration menus. */
+:where(
+  .language-selector,
+  .language-icon-selector,
+  .mobile-language-control,
+  [data-mobile-language],
+  .theme-toggle,
+  .mobile-prehydration-theme-toggle,
+  [data-mobile-theme-toggle],
+  [data-theme-toggle],
+  [aria-label="Theme"],
+  [aria-label="Appearance"],
+  [aria-label="Language"]
+) {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Public website: one coherent white/light canvas regardless of device mode. */
+.marketing-site-v2,
+.marketing-site-v2 #public-main-content,
+.marketing-site-v2 .marketing-nav,
+.marketing-site-v2 .marketing-footer,
+.marketing-site-v2 .premium-mobile-menu,
+.marketing-site-v2 .premium-mobile-menu-panel {
+  color-scheme: light !important;
+}
+
+.marketing-site-v2 .marketing-nav {
+  background: rgba(255, 255, 255, .92) !important;
+}
+
+.marketing-site-v2 .marketing-brand-copy > strong,
+.marketing-site-v2 .marketing-footer-brand .marketing-brand-copy > strong {
+  background: linear-gradient(92deg, #1d1d1f 0 69%, #da7757 69% 100%) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Auth and ERP surfaces remain light even if an old dark cookie survives. */
+body[data-workspace-system="financial-os-v1"] {
+  --workspace-theme-canvas: #f8f4f2;
+  --workspace-theme-surface: #ffffff;
+  --workspace-theme-surface-muted: #fff8f5;
+  --workspace-theme-surface-hover: #fff1eb;
+  --workspace-theme-border: #dfcbc3;
+  --workspace-theme-text: #211a18;
+  --workspace-theme-text-secondary: #5f504a;
+  --workspace-theme-text-muted: #76655f;
+  --fin-canvas: #f8f4f2;
+  --fin-surface: #ffffff;
+  --fin-surface-subtle: #fff8f5;
+  --fin-surface-muted: #fff8f5;
+  --fin-border: #dfcbc3;
+  --fin-text: #211a18;
+  --fin-text-secondary: #5f504a;
+  --fin-text-muted: #76655f;
+  background: #f8f4f2 !important;
+  color: #211a18 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root,
+  html,
+  body {
+    color-scheme: light !important;
+  }
+}
