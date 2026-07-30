@@ -1,0 +1,488 @@
+/*
+ * Biloo / HisabERP final application polish layer.
+ * Loaded last so the same interaction, accessibility and responsive rules
+ * apply consistently across marketing, authentication and ERP workspaces.
+ */
+
+:root {
+  --app-ease-out: cubic-bezier(.16, 1, .3, 1);
+  --app-ease-standard: cubic-bezier(.2, .8, .2, 1);
+  --app-ease-spring: cubic-bezier(.2, 1.35, .35, 1);
+  --app-fast: 140ms;
+  --app-medium: 220ms;
+  --app-slow: 420ms;
+  --app-focus-ring: color-mix(in srgb, #da7757 42%, transparent);
+  --app-control-border: color-mix(in srgb, #1d1d1f 14%, transparent);
+  --app-control-border-hover: color-mix(in srgb, #1d1d1f 25%, transparent);
+  --app-control-shadow: 0 1px 2px rgba(0, 0, 0, .035), 0 7px 20px rgba(0, 0, 0, .035);
+  --app-control-shadow-hover: 0 2px 4px rgba(0, 0, 0, .045), 0 12px 28px rgba(0, 0, 0, .065);
+  --app-safe-bottom: max(14px, env(safe-area-inset-bottom));
+}
+
+html {
+  color-scheme: light !important;
+  background: #ffffff;
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html[data-theme],
+html[data-theme="dark"] {
+  color-scheme: light !important;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100dvh;
+  background: #ffffff;
+  overscroll-behavior-y: none;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, #1d1d1f 24%, transparent) transparent;
+}
+
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background: color-mix(in srgb, #1d1d1f 24%, transparent);
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover { background-color: color-mix(in srgb, #1d1d1f 38%, transparent); }
+
+::selection {
+  background: color-mix(in srgb, #da7757 24%, white);
+  color: #1d1d1f;
+}
+
+:where(a, button, input, select, textarea, summary, [role="button"], [tabindex]):focus-visible {
+  outline: 3px solid var(--app-focus-ring) !important;
+  outline-offset: 3px;
+}
+
+:where(a, button, summary, [role="button"]) {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+:where(button, [role="button"], summary) {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+summary,
+select {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed !important;
+  opacity: .56;
+  filter: saturate(.7);
+}
+
+:where(
+  button,
+  .primary,
+  .secondary,
+  .marketing-start,
+  .marketing-demo,
+  .marketing-signin,
+  .action-link,
+  .preference-icon-button,
+  [role="button"]
+) {
+  transition:
+    transform var(--app-fast) var(--app-ease-out),
+    box-shadow var(--app-medium) var(--app-ease-out),
+    background-color var(--app-medium) var(--app-ease-out),
+    border-color var(--app-medium) var(--app-ease-out),
+    color var(--app-medium) var(--app-ease-out),
+    opacity var(--app-fast) ease,
+    filter var(--app-medium) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :where(
+    button,
+    .primary,
+    .secondary,
+    .marketing-start,
+    .marketing-demo,
+    .action-link,
+    [role="button"]
+  ):not(:disabled):not([aria-disabled="true"]):hover {
+    transform: translateY(-1px);
+    filter: saturate(1.035);
+  }
+}
+
+:where(
+  button,
+  .primary,
+  .secondary,
+  .marketing-start,
+  .marketing-demo,
+  .action-link,
+  [role="button"]
+):not(:disabled):not([aria-disabled="true"]):active {
+  transform: translateY(1px) scale(.985);
+  transition-duration: 70ms;
+}
+
+:where(input, select, textarea) {
+  max-width: 100%;
+  border-color: var(--app-control-border);
+  caret-color: #da7757;
+  transition:
+    border-color var(--app-medium) var(--app-ease-out),
+    box-shadow var(--app-medium) var(--app-ease-out),
+    background-color var(--app-medium) var(--app-ease-out),
+    color var(--app-medium) var(--app-ease-out);
+}
+
+:where(input, select, textarea):not(:disabled):hover {
+  border-color: var(--app-control-border-hover);
+}
+
+:where(input, select, textarea):focus {
+  border-color: color-mix(in srgb, #da7757 64%, #1d1d1f 14%) !important;
+  box-shadow: 0 0 0 4px color-mix(in srgb, #da7757 14%, transparent) !important;
+}
+
+:where(input, textarea)::placeholder {
+  color: color-mix(in srgb, currentColor 44%, transparent);
+  opacity: 1;
+}
+
+:where(input, select, textarea)[aria-invalid="true"],
+:where(input, select, textarea):user-invalid {
+  border-color: #c93c3c !important;
+  box-shadow: 0 0 0 4px color-mix(in srgb, #c93c3c 12%, transparent) !important;
+}
+
+textarea {
+  min-height: 112px;
+  resize: vertical;
+}
+
+input[type="search"]::-webkit-search-cancel-button { cursor: pointer; }
+input[type="number"] { font-variant-numeric: tabular-nums; }
+
+:where(a) {
+  text-underline-offset: .18em;
+  text-decoration-thickness: .08em;
+}
+
+:where(
+  .workspace,
+  .workspace-content,
+  #workspace-content,
+  .marketing-site-v2,
+  .auth-page,
+  .erp-shell
+) {
+  min-width: 0;
+}
+
+:where(
+  .dashboard-card,
+  .metric-card,
+  .module-card,
+  .report-card,
+  .finance-card,
+  .sales-card,
+  .operations-card,
+  .auth-standard-card,
+  .pricing-card,
+  .customer-story-card,
+  .integration-card,
+  .resource-card,
+  .comparison-card,
+  .virtual-data-grid
+) {
+  isolation: isolate;
+  transition:
+    transform var(--app-medium) var(--app-ease-out),
+    box-shadow var(--app-slow) var(--app-ease-out),
+    border-color var(--app-medium) var(--app-ease-out),
+    background-color var(--app-medium) var(--app-ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :where(
+    .dashboard-card,
+    .metric-card,
+    .module-card,
+    .report-card,
+    .finance-card,
+    .sales-card,
+    .operations-card,
+    .pricing-card,
+    .customer-story-card,
+    .integration-card,
+    .resource-card,
+    .comparison-card
+  ):hover {
+    transform: translateY(-2px);
+    box-shadow: var(--app-control-shadow-hover);
+  }
+}
+
+:where(
+  .table-scroll,
+  .table-wrapper,
+  .data-table-wrapper,
+  .workspace-table-wrap,
+  .virtual-grid-viewport,
+  .finance-table-wrap,
+  .sales-table-wrap
+) {
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable both-edges;
+}
+
+:where(.workspace-data-table, .finance-table, .sales-table, .operations-table) {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+:where(.workspace-data-table, .finance-table, .sales-table, .operations-table) tbody tr {
+  transition: background-color var(--app-fast) ease, box-shadow var(--app-fast) ease;
+}
+
+@media (hover: hover) {
+  :where(.workspace-data-table, .finance-table, .sales-table, .operations-table) tbody tr:hover {
+    background: color-mix(in srgb, #da7757 4.5%, white);
+  }
+}
+
+:where(.workspace-data-table, .finance-table, .sales-table, .operations-table) th {
+  text-wrap: balance;
+}
+
+:where(dialog, [role="dialog"], .modal, .drawer, .premium-mobile-menu-panel) {
+  overscroll-behavior: contain;
+}
+
+:where(dialog[open], [role="dialog"], .modal.open, .drawer.open, .premium-mobile-menu.open .premium-mobile-menu-panel) {
+  animation: appDialogIn var(--app-slow) var(--app-ease-out) both;
+}
+
+:where(.marketing-nav, .mobile-workspace-header, .workspace-header-preferences) {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+:where(.marketing-nav, .mobile-workspace-header) {
+  padding-top: max(var(--existing-safe-top, 0px), env(safe-area-inset-top));
+}
+
+:where(.mobile-bottom-nav, .mobile-workspace-nav, .bottom-navigation) {
+  padding-bottom: var(--app-safe-bottom);
+}
+
+.experience-overlay,
+.experience-toast,
+.public-route-progress,
+.brand-route-loading {
+  will-change: opacity, transform;
+}
+
+.experience-overlay {
+  animation: appFadeIn var(--app-medium) ease both;
+  backdrop-filter: blur(10px) saturate(1.04);
+  -webkit-backdrop-filter: blur(10px) saturate(1.04);
+}
+
+.experience-toast {
+  max-width: min(420px, calc(100vw - 28px));
+  animation: appToastIn var(--app-slow) var(--app-ease-spring) both;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .14);
+}
+
+.experience-toast button {
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 999px;
+}
+
+:where([data-submitting="true"], [aria-busy="true"]) {
+  cursor: progress;
+}
+
+form[data-submitting="true"] :where(button[type="submit"], input[type="submit"]) {
+  pointer-events: none;
+  opacity: .76;
+  filter: saturate(.72);
+}
+
+form[data-submitting="true"] :where(button[type="submit"], input[type="submit"])::after {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-inline-start: 8px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 999px;
+  vertical-align: -.14em;
+  animation: appSpin .72s linear infinite;
+}
+
+:where(.skeleton, [data-skeleton="true"], .loading-skeleton) {
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in srgb, #1d1d1f 7%, white);
+}
+
+:where(.skeleton, [data-skeleton="true"], .loading-skeleton)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .72), transparent);
+  animation: appShimmer 1.35s ease-in-out infinite;
+}
+
+:where(.empty-state, .no-results, [data-empty-state="true"]) {
+  text-wrap: balance;
+}
+
+html[data-input-modality="keyboard"] :where(a, button, input, select, textarea, summary, [role="button"]):focus {
+  scroll-margin: 96px;
+}
+
+html[data-route-transition="active"] body {
+  cursor: progress;
+}
+
+html[data-connectivity="offline"] :where(button[type="submit"], .requires-network) {
+  filter: saturate(.65);
+}
+
+@keyframes appFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes appDialogIn {
+  from { opacity: 0; transform: translateY(12px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes appToastIn {
+  from { opacity: 0; transform: translateY(16px) scale(.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes appSpin { to { transform: rotate(360deg); } }
+
+@keyframes appShimmer {
+  55%, 100% { transform: translateX(100%); }
+}
+
+@media (max-width: 760px) {
+  :root {
+    --app-fast: 120ms;
+    --app-medium: 190ms;
+    --app-slow: 340ms;
+  }
+
+  body { overflow-x: hidden; }
+
+  :where(input, select, textarea) {
+    font-size: 16px !important;
+  }
+
+  :where(
+    button,
+    [role="button"],
+    summary,
+    .primary,
+    .secondary,
+    .action-link,
+    .marketing-start,
+    .marketing-demo,
+    .marketing-signin
+  ) {
+    min-height: 44px;
+  }
+
+  :where(.workspace, .workspace-content, #workspace-content, .marketing-section, .public-page-section) {
+    max-width: 100%;
+  }
+
+  :where(.experience-toast) {
+    right: 14px !important;
+    bottom: calc(14px + env(safe-area-inset-bottom)) !important;
+    left: 14px !important;
+    width: auto !important;
+  }
+
+  :where(.table-scroll, .table-wrapper, .data-table-wrapper, .workspace-table-wrap) {
+    margin-inline: -4px;
+    padding-inline: 4px;
+  }
+}
+
+@media (max-width: 420px) {
+  :where(.marketing-start, .marketing-demo, .primary, .secondary, .action-link) {
+    justify-content: center;
+    text-align: center;
+  }
+
+  :where(.form-actions, .page-actions, .marketing-hero-actions, .auth-actions) {
+    gap: 10px;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --app-control-border: rgba(0, 0, 0, .34);
+    --app-control-border-hover: rgba(0, 0, 0, .52);
+  }
+
+  :where(a, button, input, select, textarea, summary, [role="button"]):focus-visible {
+    outline-width: 4px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+@media print {
+  * { box-shadow: none !important; text-shadow: none !important; }
+  .marketing-nav,
+  .marketing-footer,
+  .sidebar,
+  .mobile-workspace-header,
+  .workspace-header-preferences,
+  .experience-toast,
+  .public-route-progress,
+  button,
+  [role="button"] { display: none !important; }
+  body { background: white !important; color: black !important; }
+}
