@@ -1,0 +1,413 @@
+/*
+ * Biloo English-only, permanent-light contract.
+ * Loaded last so legacy language and theme preferences cannot reappear or
+ * create a mixed light/dark interface.
+ */
+
+:root,
+html,
+html[data-theme],
+html[data-theme="light"],
+html[data-theme="dark"] {
+  color-scheme: light !important;
+
+  --bg: #f8f4f2;
+  --card: #ffffff;
+  --text: #211a18;
+  --muted: #6f5f59;
+  --border: #eadbd5;
+
+  --hisab-app: #f7f8fb;
+  --hisab-surface: #ffffff;
+  --hisab-surface-raised: #fcfcfd;
+  --hisab-surface-muted: #f1f3f7;
+  --hisab-surface-hover: #f6f7fa;
+  --hisab-glass: rgba(255, 255, 255, .86);
+  --hisab-text: #151922;
+  --hisab-text-2: #4f596a;
+  --hisab-text-3: #687284;
+  --hisab-border: rgba(15, 23, 42, .10);
+  --hisab-border-strong: rgba(15, 23, 42, .17);
+
+  --ui-canvas: #f8f4f2;
+  --ui-surface: #ffffff;
+  --ui-surface-muted: #fff8f5;
+  --ui-text: #211a18;
+  --ui-text-secondary: #594b46;
+  --ui-text-muted: #6f5f59;
+  --ui-border: #dfcbc3;
+  --ui-border-strong: #c9ada2;
+
+  --apple-background: #ffffff;
+  --apple-surface: #ffffff;
+  --apple-text: #1d1d1f;
+  --apple-secondary: #56575c;
+  --apple-tertiary: #6e6f75;
+  --apple-hairline: rgba(0, 0, 0, .10);
+}
+
+html,
+body {
+  background-color: #ffffff !important;
+  color: var(--hisab-text) !important;
+}
+
+/* Remove every language or appearance control, including pre-hydration menus. */
+:where(
+  .language-selector,
+  .language-icon-selector,
+  .mobile-language-control,
+  [data-mobile-language],
+  .theme-toggle,
+  .mobile-prehydration-theme-toggle,
+  [data-mobile-theme-toggle],
+  [data-theme-toggle],
+  [aria-label="Theme"],
+  [aria-label="Appearance"],
+  [aria-label="Language"],
+  .launch-header-preferences,
+  .launch-preference-divider
+) {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Public website: one coherent white/light canvas regardless of device mode. */
+.marketing-site-v2,
+.marketing-site-v2 #public-main-content,
+.marketing-site-v2 .marketing-nav,
+.marketing-site-v2 .marketing-footer,
+.marketing-site-v2 .premium-mobile-menu,
+.marketing-site-v2 .premium-mobile-menu-panel {
+  color-scheme: light !important;
+}
+
+.marketing-site-v2 .marketing-nav {
+  background: rgba(255, 255, 255, .92) !important;
+}
+
+.marketing-site-v2 .marketing-brand-copy > strong,
+.marketing-site-v2 .marketing-footer-brand .marketing-brand-copy > strong {
+  background: linear-gradient(92deg, #1d1d1f 0 69%, #da7757 69% 100%) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Auth and ERP surfaces remain light even if an old dark cookie survives. */
+body[data-workspace-system="financial-os-v1"] {
+  --workspace-theme-canvas: #f8f4f2;
+  --workspace-theme-surface: #ffffff;
+  --workspace-theme-surface-muted: #fff8f5;
+  --workspace-theme-surface-hover: #fff1eb;
+  --workspace-theme-border: #dfcbc3;
+  --workspace-theme-text: #211a18;
+  --workspace-theme-text-secondary: #594b46;
+  --workspace-theme-text-muted: #6f5f59;
+  --fin-canvas: #f8f4f2;
+  --fin-surface: #ffffff;
+  --fin-surface-subtle: #fff8f5;
+  --fin-surface-muted: #fff8f5;
+  --fin-border: #dfcbc3;
+  --fin-text: #211a18;
+  --fin-text-secondary: #594b46;
+  --fin-text-muted: #6f5f59;
+  --lc-canvas: #f8f4f2;
+  --lc-surface: #ffffff;
+  --lc-surface-subtle: #fff8f5;
+  --lc-surface-muted: #f4ece8;
+  --lc-border: #dfcbc3;
+  --lc-border-strong: #c9ada2;
+  --lc-text: #211a18;
+  --lc-text-secondary: #594b46;
+  --lc-text-muted: #6f5f59;
+  --lc-text-faint: #74655f;
+  background: #f8f4f2 !important;
+  color: #211a18 !important;
+}
+
+/*
+ * Final application contrast failsafe.
+ * Legacy modules contain hard-coded white labels. In permanent light mode all
+ * normal page typography is reset here, then true inverse surfaces are restored
+ * explicitly below.
+ */
+body[data-workspace-system="financial-os-v1"] :where(
+  .erp-shell > .workspace,
+  .guided-setup-page,
+  .mfa-required-page,
+  .route-loading,
+  .auth-official-page,
+  .auth-page,
+  .account-security-page,
+  .billing-page,
+  .checkout-page
+) {
+  color: #211a18 !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :where(
+  .erp-shell > .workspace,
+  .guided-setup-page,
+  .mfa-required-page,
+  .route-loading,
+  .auth-official-page,
+  .auth-page,
+  .account-security-page,
+  .billing-page,
+  .checkout-page
+) :is(
+  h1, h2, h3, h4, h5, h6,
+  legend, label, th, dt,
+  strong, b,
+  .page-title, .section-title, .panel-title, .card-title,
+  .workspace-page-title, .workspace-section-title,
+  .launch-field-label, .launch-create-title,
+  .empty-state-title, .dialog-title, .modal-title
+) {
+  color: #211a18 !important;
+  -webkit-text-fill-color: #211a18 !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :where(
+  .erp-shell > .workspace,
+  .guided-setup-page,
+  .mfa-required-page,
+  .route-loading,
+  .auth-official-page,
+  .auth-page,
+  .account-security-page,
+  .billing-page,
+  .checkout-page
+) :is(
+  p, small, dd, td, caption,
+  .muted, .subtitle, .description,
+  .help-text, .field-help, .form-help,
+  .panel-description, .card-description,
+  .workspace-page-description, .empty-state-description,
+  .dialog-description, .modal-description
+) {
+  color: #6f5f59 !important;
+  -webkit-text-fill-color: #6f5f59 !important;
+}
+
+/* Unclassed text spans frequently inherited white from old dark cards. */
+body[data-workspace-system="financial-os-v1"] :where(
+  .erp-shell > .workspace,
+  .guided-setup-page,
+  .mfa-required-page,
+  .auth-official-page,
+  .auth-page,
+  .account-security-page,
+  .billing-page,
+  .checkout-page
+) span:not([class]):not(button span):not(a span) {
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+/* Cards, data rows, dialogs, menus and empty states use readable foregrounds. */
+body[data-workspace-system="financial-os-v1"] :where(
+  .erp-shell > .workspace,
+  .guided-setup-page,
+  .mfa-required-page,
+  .auth-official-page,
+  .auth-page,
+  .account-security-page,
+  .billing-page,
+  .checkout-page
+) :is(
+  .panel, .card, .data-panel, .metric-card,
+  .workspace-section, .workspace-metric-tile,
+  .module-card, .detail-panel, .record-row, .transaction,
+  .empty-state, .empty-card, .notice-card,
+  .dialog, .modal, .popover, .dropdown-menu,
+  dialog, [role="dialog"], [role="menu"],
+  table, thead, tbody, tfoot, tr, th, td
+) {
+  color: #211a18 !important;
+}
+
+/* Native controls must not keep white text or dark autofill foregrounds. */
+body[data-workspace-system="financial-os-v1"] :where(
+  .erp-shell > .workspace,
+  .guided-setup-page,
+  .auth-official-page,
+  .auth-page,
+  .account-security-page,
+  .billing-page,
+  .checkout-page
+) :is(input, select, textarea, option) {
+  border-color: #d7c5be !important;
+  background-color: #ffffff !important;
+  color: #211a18 !important;
+  -webkit-text-fill-color: #211a18 !important;
+  caret-color: #211a18 !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :where(
+  .erp-shell > .workspace,
+  .guided-setup-page,
+  .auth-official-page,
+  .auth-page,
+  .account-security-page,
+  .billing-page,
+  .checkout-page
+) :is(input, textarea)::placeholder {
+  color: #81716b !important;
+  -webkit-text-fill-color: #81716b !important;
+  opacity: 1 !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :where(
+  .erp-shell > .workspace,
+  .guided-setup-page,
+  .auth-official-page,
+  .auth-page,
+  .account-security-page,
+  .billing-page,
+  .checkout-page
+) :is(input, select, textarea):-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #211a18 !important;
+}
+
+/* Neutral buttons and links use dark or brand foregrounds. */
+body[data-workspace-system="financial-os-v1"] :where(
+  .erp-shell > .workspace,
+  .guided-setup-page,
+  .mfa-required-page,
+  .auth-official-page,
+  .auth-page,
+  .account-security-page,
+  .billing-page,
+  .checkout-page
+) button {
+  color: #352b28;
+}
+
+body[data-workspace-system="financial-os-v1"] :where(
+  .erp-shell > .workspace,
+  .guided-setup-page,
+  .mfa-required-page,
+  .auth-official-page,
+  .auth-page,
+  .account-security-page,
+  .billing-page,
+  .checkout-page
+) a {
+  color: #8f452f;
+}
+
+/* Restore intentionally inverse controls after the normal-text reset. */
+body[data-workspace-system="financial-os-v1"] :is(
+  .primary,
+  .action-link.primary,
+  .ops-primary-link,
+  .finance-primary,
+  .sales-primary,
+  .core-primary,
+  .setup-primary,
+  .submit-button,
+  .save-button,
+  .create-button,
+  .launch-primary-action,
+  .launch-submit-button,
+  .auth-primary-button,
+  .social-auth-apple,
+  .danger,
+  .destructive,
+  .delete-button,
+  .remove-button,
+  button[data-variant="danger"]
+),
+body[data-workspace-system="financial-os-v1"] :is(
+  .primary,
+  .action-link.primary,
+  .ops-primary-link,
+  .finance-primary,
+  .sales-primary,
+  .core-primary,
+  .setup-primary,
+  .submit-button,
+  .save-button,
+  .create-button,
+  .launch-primary-action,
+  .launch-submit-button,
+  .auth-primary-button,
+  .social-auth-apple,
+  .danger,
+  .destructive,
+  .delete-button,
+  .remove-button,
+  button[data-variant="danger"]
+) :is(span, strong, small, b, i, svg) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Restore intentionally dark presentation surfaces. */
+body[data-workspace-system="financial-os-v1"] :is(
+  .auth-official-showcase,
+  .launch-create-intro,
+  .launch-create-intro .launch-blueprint,
+  [data-surface="dark"],
+  [data-tone="inverse"],
+  .inverse-surface,
+  .dark-surface
+),
+body[data-workspace-system="financial-os-v1"] :is(
+  .auth-official-showcase,
+  .launch-create-intro,
+  .launch-create-intro .launch-blueprint,
+  [data-surface="dark"],
+  [data-tone="inverse"],
+  .inverse-surface,
+  .dark-surface
+) :is(h1, h2, h3, h4, h5, h6, legend, label, strong, b) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+body[data-workspace-system="financial-os-v1"] :is(
+  .auth-official-showcase,
+  .launch-create-intro,
+  [data-surface="dark"],
+  [data-tone="inverse"],
+  .inverse-surface,
+  .dark-surface
+) :is(p, small, span, dd) {
+  color: rgba(255, 255, 255, .78) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, .78) !important;
+}
+
+/* Brand badges and icon chips may legitimately use white on saturated fills. */
+body[data-workspace-system="financial-os-v1"] :is(
+  .launch-brand > span,
+  .metric-icon,
+  .workspace-metric-icon,
+  .workspace-action-alert-icon,
+  .icon-chip,
+  .avatar,
+  .status-dot
+) {
+  -webkit-text-fill-color: currentColor !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root,
+  html,
+  body {
+    color-scheme: light !important;
+  }
+}
