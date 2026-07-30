@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AppExperienceProvider } from "../components/app-experience-provider";
 import { AuthPagePreferences } from "../components/auth-page-preferences";
 import { LanguageProvider } from "../components/language-provider";
+import { ThemeToggle } from "../components/theme-toggle";
 import { WorkspaceShell } from "../components/workspace-shell";
 import "./fonts.css";
 import "./globals.css";
@@ -93,6 +94,7 @@ import "./hisab-premium-fintech.css";
 import "./apple-editorial-public-system.css";
 import "./public-pure-white-background.css";
 import "./application-polish.css";
+import "./adaptive-theme-contrast.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -111,10 +113,12 @@ const notoSansEthiopic = Noto_Sans_Ethiopic({
 const mobileControlsBootstrap = `
 (function () {
   var root = document.documentElement;
-  root.dataset.theme = 'light';
-  root.style.colorScheme = 'light';
-  try { window.localStorage.setItem('hisab-theme', 'light'); } catch (_) {}
-  document.cookie = 'hisab_theme=light; Path=/; Max-Age=31536000; SameSite=Lax';
+  var themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  var theme = themeQuery.matches ? 'dark' : 'light';
+  root.dataset.theme = theme;
+  root.style.colorScheme = theme;
+  try { window.localStorage.setItem('hisab-theme', theme); } catch (_) {}
+  document.cookie = 'hisab_theme=' + theme + '; Path=/; Max-Age=31536000; SameSite=Lax';
 
   function safeSet(key, value) {
     try { window.localStorage.setItem(key, value); } catch (_) {}
@@ -160,8 +164,11 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: "cover",
-  themeColor: "#ffffff",
-  colorScheme: "light",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d0b0a" },
+  ],
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
@@ -171,6 +178,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="biloo-standard-app-2026">
         <LanguageProvider initialLanguage="en">
           <AppExperienceProvider>
+            <ThemeToggle />
             <AuthPagePreferences />
             <WorkspaceShell>{children}</WorkspaceShell>
           </AppExperienceProvider>
