@@ -51,7 +51,7 @@ function money(value: string | null) {
 
 function BrandLoader({ title, detail }: { title: string; detail: string }) {
   return (
-    <div className="experience-loader-card brand-loader-card">
+    <div className="experience-loader-card brand-loader-card" data-motion-enter>
       <div className="brand-loader-mark" aria-hidden="true">
         <span className="brand-loader-ring" />
         <span className="brand-loader-logo-shell">
@@ -73,16 +73,42 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const copy = experienceCopy[language];
   const [busy, setBusy] = useState(false);
   const [toast, setToast] = useState<ToastState>(null);
-  const busyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const busyVisible = useRef(false);
+  const busyShownAt = useRef(0);
+  const busyDelayTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const busySafetyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const busyHideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastToastKey = useRef("");
   const publicNavigation = isPublicRoute(pathname);
 
   useEffect(() => {
-    function start() {
+    const clearTimer = (timer: { current: ReturnType<typeof setTimeout> | null }) => {
+      if (!timer.current) return;
+      clearTimeout(timer.current);
+      timer.current = null;
+    };
+
+    const hideBusy = () => {
+      busyVisible.current = false;
+      busyShownAt.current = 0;
+      setBusy(false);
+    };
+
+    const revealBusy = () => {
+      busyDelayTimer.current = null;
+      busyVisible.current = true;
+      busyShownAt.current = performance.now();
       setBusy(true);
-      if (busyTimer.current) clearTimeout(busyTimer.current);
-      busyTimer.current = setTimeout(() => setBusy(false), 20_000);
+    };
+
+    function start() {
+      clearTimer(busyHideTimer);
+      clearTimer(busySafetyTimer);
+      if (!busyVisible.current && !busyDelayTimer.current) {
+        busyDelayTimer.current = setTimeout(revealBusy, 140);
+      }
+      busySafetyTimer.current = setTimeout(hideBusy, 20_000);
     }
 
     function showSuccess() {
@@ -102,14 +128,23 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
       if (successCode === "moneyRecorded") detail = `${record} · ${money(params.get("amount"))} ${copy.money}`;
 
       setToast({ title: copy.done, detail });
-      if (toastTimer.current) clearTimeout(toastTimer.current);
+      clearTimer(toastTimer);
       toastTimer.current = setTimeout(() => setToast(null), 5_500);
+      window.dispatchEvent(new CustomEvent("hisab:haptic", { detail: { pattern: "success" } }));
     }
 
     function complete() {
-      if (busyTimer.current) clearTimeout(busyTimer.current);
-      setBusy(false);
-      window.setTimeout(showSuccess, 60);
+      clearTimer(busyDelayTimer);
+      clearTimer(busySafetyTimer);
+      clearTimer(busyHideTimer);
+
+      const elapsed = busyVisible.current ? performance.now() - busyShownAt.current : 0;
+      const remaining = busyVisible.current ? Math.max(0, 280 - elapsed) : 0;
+      busyHideTimer.current = setTimeout(() => {
+        busyHideTimer.current = null;
+        hideBusy();
+        window.setTimeout(showSuccess, 40);
+      }, remaining);
     }
 
     function onClick(event: MouseEvent) {
@@ -140,6 +175,7 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
     document.addEventListener("click", onClick, true);
     document.addEventListener("submit", onSubmit, true);
     window.addEventListener("popstate", complete);
+    window.addEventListener("pageshow", complete);
     window.addEventListener("hisab:navigation-complete", complete);
     window.addEventListener("hisab:busy", start);
     window.addEventListener("hisab:done", complete);
@@ -149,13 +185,16 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
       document.removeEventListener("click", onClick, true);
       document.removeEventListener("submit", onSubmit, true);
       window.removeEventListener("popstate", complete);
+      window.removeEventListener("pageshow", complete);
       window.removeEventListener("hisab:navigation-complete", complete);
       window.removeEventListener("hisab:busy", start);
       window.removeEventListener("hisab:done", complete);
       window.history.pushState = originalPushState;
       window.history.replaceState = originalReplaceState;
-      if (busyTimer.current) clearTimeout(busyTimer.current);
-      if (toastTimer.current) clearTimeout(toastTimer.current);
+      clearTimer(busyDelayTimer);
+      clearTimer(busySafetyTimer);
+      clearTimer(busyHideTimer);
+      clearTimer(toastTimer);
     };
   }, [copy]);
 
@@ -179,7 +218,7 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
         </div>
       )}
       {toast && (
-        <div className="experience-toast" role="status" aria-live="polite">
+        <div className="experience-toast" role="status" aria-live="polite" data-motion-enter>
           <span className="experience-toast-check" aria-hidden="true">✓</span>
           <div><strong>{toast.title}</strong><p>{toast.detail}</p></div>
           <button type="button" onClick={() => setToast(null)} aria-label="Close">×</button>
