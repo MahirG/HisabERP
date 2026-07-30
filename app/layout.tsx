@@ -95,6 +95,7 @@ import "./apple-editorial-public-system.css";
 import "./public-pure-white-background.css";
 import "./application-polish.css";
 import "./adaptive-theme-contrast.css";
+import "./public-theme-coherence.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
