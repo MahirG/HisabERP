@@ -1,0 +1,10 @@
+/* Final browser-safe positioning for the homepage iMac stand. */
+.home-imac-stand {
+  bottom: clamp(-140px, -10vw, -96px);
+}
+
+@media (max-width: 620px) {
+  .home-imac-stand {
+    bottom: -66px;
+  }
+}
