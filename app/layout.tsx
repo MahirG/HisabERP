@@ -96,6 +96,7 @@ import "./application-polish.css";
 import "./adaptive-theme-contrast.css";
 import "./public-theme-coherence.css";
 import "./english-light-lock.css";
+import "./home-dashboard-imac.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
