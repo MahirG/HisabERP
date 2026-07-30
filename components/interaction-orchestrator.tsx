@@ -84,7 +84,7 @@ export function InteractionOrchestrator() {
   useEffect(() => {
     const root = document.documentElement;
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const formTimers = new Map<HTMLFormElement, ReturnType<typeof window.setTimeout>>();
+    const formTimers = new Map<HTMLFormElement, number>();
     const submittingForms = new Set<HTMLFormElement>();
 
     const announce = (message: string) => {
