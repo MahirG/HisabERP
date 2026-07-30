@@ -3,89 +3,45 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { LanguageSelector, useLanguage } from "./language-provider";
 
 const websiteCopy = {
-  en: {
-    subtitle: "Business operating system",
-    navLabel: "Main navigation",
-    product: "Product tour",
-    industries: "Industries",
-    pricing: "Pricing",
-    migration: "Migration",
-    resources: "Resources",
-    about: "About",
-    help: "Help Center",
-    signIn: "Sign in",
-    demo: "Request a demo",
-    start: "Start free",
-    menu: "Open website menu",
-    close: "Close website menu",
-    menuEyebrow: "Biloo ERP navigation",
-    menuTitle: "Move from product discovery to a working business system.",
-    menuDescription: "Explore the platform, understand implementation and choose the next commercial step.",
-    footerIntro: "One secure, multilingual business workspace for Ethiopian companies that want clearer operations and better decisions.",
-    productMarket: "Product and market",
-    modules: "Product modules",
-    ethiopia: "ERP built for Ethiopia",
-    industrySolutions: "Industry solutions",
-    pricingEtb: "Pricing in ETB",
-    learnImplement: "Learn and implement",
-    learningCenter: "Business Learning Center",
-    dataMigration: "Data migration and onboarding",
-    comparisons: "ERP comparisons",
-    helpCenter: "Help Center",
-    customerProof: "Customer proof",
-    companyTrust: "Company and trust",
-    aboutHisab: "About Biloo",
-    trustCenter: "Trust Center",
-    integrations: "Integrations",
-    securityContact: "Security contact",
-    rights: "All rights reserved.",
-    location: "Addis Ababa, Ethiopia",
-    skip: "Skip to main content",
-    language: "Language",
-  },
-  am: {
-    subtitle: "የንግድ ማስኬጃ ስርዓት",
-    navLabel: "ዋና የድር ጣቢያ ምናሌ",
-    product: "የምርት ማሳያ",
-    industries: "የኢንዱስትሪ መፍትሄዎች",
-    pricing: "ዋጋ",
-    migration: "የመረጃ ሽግግር",
-    resources: "የትምህርት ማዕከል",
-    about: "ስለ እኛ",
-    help: "የእገዛ ማዕከል",
-    signIn: "ይግቡ",
-    demo: "ማሳያ ይጠይቁ",
-    start: "በነፃ ይጀምሩ",
-    menu: "የድር ጣቢያ ምናሌን ይክፈቱ",
-    close: "የድር ጣቢያ ምናሌን ይዝጉ",
-    menuEyebrow: "የBiloo ERP ምናሌ",
-    menuTitle: "ከምርት ማወቅ ወደ ተግባራዊ የንግድ ስርዓት ይሂዱ።",
-    menuDescription: "መድረኩን ያስሱ፣ አተገባበሩን ይረዱ እና ቀጣዩን የንግድ እርምጃ ይምረጡ።",
-    footerIntro: "የበለጠ ግልጽ አሰራርና የተሻለ ውሳኔ ለሚፈልጉ የኢትዮጵያ ኩባንያዎች አንድ ደህንነቱ የተጠበቀ ብዙ ቋንቋ የንግድ የሥራ ቦታ።",
-    productMarket: "ምርት እና ገበያ",
-    modules: "የምርት ሞጁሎች",
-    ethiopia: "ለኢትዮጵያ የተገነባ ERP",
-    industrySolutions: "የኢንዱስትሪ መፍትሄዎች",
-    pricingEtb: "ዋጋ በኢትዮጵያ ብር",
-    learnImplement: "ይማሩ እና ይተግብሩ",
-    learningCenter: "የንግድ ትምህርት ማዕከል",
-    dataMigration: "የመረጃ ሽግግር እና ማስጀመር",
-    comparisons: "የERP ንጽጽሮች",
-    helpCenter: "የእገዛ ማዕከል",
-    customerProof: "የደንበኛ ማስረጃ",
-    companyTrust: "ኩባንያ እና እምነት",
-    aboutHisab: "ስለ Biloo",
-    trustCenter: "የእምነት ማዕከል",
-    integrations: "ውህዶች",
-    securityContact: "የደህነት ግንኙነት",
-    rights: "መብቶቹ ሁሉ የተጠበቁ ናቸው።",
-    location: "አዲስ አበባ፣ ኢትዮጵያ",
-    skip: "ወደ ዋናው ይዘት ይሂዱ",
-    language: "ቋንቋ",
-  },
+  subtitle: "Business operating system",
+  navLabel: "Main navigation",
+  product: "Product tour",
+  industries: "Industries",
+  pricing: "Pricing",
+  migration: "Migration",
+  resources: "Resources",
+  about: "About",
+  help: "Help Center",
+  signIn: "Sign in",
+  demo: "Request a demo",
+  start: "Start free",
+  menu: "Open website menu",
+  close: "Close website menu",
+  menuEyebrow: "Biloo ERP navigation",
+  menuTitle: "Move from product discovery to a working business system.",
+  menuDescription: "Explore the platform, understand implementation and choose the next commercial step.",
+  footerIntro: "One secure English business workspace for Ethiopian companies that want clearer operations and better decisions.",
+  productMarket: "Product and market",
+  modules: "Product modules",
+  ethiopia: "ERP built for Ethiopia",
+  industrySolutions: "Industry solutions",
+  pricingEtb: "Pricing in ETB",
+  learnImplement: "Learn and implement",
+  learningCenter: "Business Learning Center",
+  dataMigration: "Data migration and onboarding",
+  comparisons: "ERP comparisons",
+  helpCenter: "Help Center",
+  customerProof: "Customer proof",
+  companyTrust: "Company and trust",
+  aboutHisab: "About Biloo",
+  trustCenter: "Trust Center",
+  integrations: "Integrations",
+  securityContact: "Security contact",
+  rights: "All rights reserved.",
+  location: "Addis Ababa, Ethiopia",
+  skip: "Skip to main content",
 } as const;
 
 const navItems = [
@@ -127,29 +83,18 @@ function MarketingStructuredData() {
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web",
       url: "https://www.hisabtech.com",
-      description: "A multilingual business operating system for Ethiopian organizations.",
+      description: "An English business operating system for Ethiopian organizations.",
       offers: { "@type": "AggregateOffer", priceCurrency: "ETB", lowPrice: "1500", offerCount: "4" },
       provider: { "@type": "Organization", name: "Biloo" },
     },
   ];
+
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
 }
 
-function MobileLanguageIcon() {
-  return (
-    <svg aria-hidden="true" className="app-icon" fill="none" height="19" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" viewBox="0 0 24 24" width="19">
-      <circle cx="12" cy="12" r="9" />
-      <path d="M3 12h18" />
-      <path d="M12 3a15 15 0 0 1 0 18" />
-      <path d="M12 3a15 15 0 0 0 0 18" />
-    </svg>
-  );
-}
-
 export function MarketingHeader() {
-  const { language } = useLanguage();
   const pathname = usePathname();
-  const c = websiteCopy[language];
+  const c = websiteCopy;
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -188,6 +133,7 @@ export function MarketingHeader() {
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
       const active = document.activeElement;
+
       if (event.shiftKey && active === first) {
         event.preventDefault();
         last.focus();
@@ -215,22 +161,33 @@ export function MarketingHeader() {
           <span className="marketing-brand-copy"><strong>Biloo</strong><small>{c.subtitle}</small></span>
         </Link>
 
-        <div className="marketing-mobile-header-controls" data-i18n-skip>
-          <details className="mobile-language-control language-icon-selector">
-            <summary className="language-icon-trigger preference-icon-button" aria-label={c.language} title={c.language}><MobileLanguageIcon /></summary>
-            <div className="language-icon-menu" role="menu" aria-label={c.language}>
-              <button type="button" role="menuitemradio" aria-checked={language === "en"} className={language === "en" ? "active" : ""} data-mobile-language="en"><span>English</span><b>EN</b></button>
-              <button type="button" role="menuitemradio" aria-checked={language === "am"} className={language === "am" ? "active" : ""} data-mobile-language="am"><span>አማርኛ</span><b>አማ</b></button>
-            </div>
-          </details>
-          <button ref={toggleButtonRef} className={`marketing-menu-toggle premium-menu-toggle${menuOpen ? " open" : ""}`} type="button" aria-label={menuOpen ? c.close : c.menu} aria-expanded={menuOpen} aria-controls="hisab-public-menu" onClick={() => setMenuOpen((open) => !open)}><span /><span /><span /></button>
+        <div className="marketing-mobile-header-controls">
+          <button
+            ref={toggleButtonRef}
+            className={`marketing-menu-toggle premium-menu-toggle${menuOpen ? " open" : ""}`}
+            type="button"
+            aria-label={menuOpen ? c.close : c.menu}
+            aria-expanded={menuOpen}
+            aria-controls="hisab-public-menu"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span /><span /><span />
+          </button>
         </div>
 
         <nav className="marketing-desktop-nav" aria-label={c.navLabel}>
-          {navItems.map(([key, href]) => <Link href={href} aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined} key={href}>{c[key]}</Link>)}
+          {navItems.map(([key, href]) => (
+            <Link
+              href={href}
+              aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined}
+              key={href}
+            >
+              {c[key]}
+            </Link>
+          ))}
         </nav>
+
         <div className="marketing-nav-actions marketing-desktop-actions">
-          <div className="marketing-preference-icons global-preference-icons"><LanguageSelector compact /></div>
           <Link href="/auth/login" className="marketing-signin">{c.signIn}</Link>
           <Link href="/request-demo" className="marketing-demo">{c.demo}</Link>
           <Link href="/auth/email-sign-up" className="marketing-start">{c.start}</Link>
@@ -241,22 +198,35 @@ export function MarketingHeader() {
         <button className="premium-mobile-menu-backdrop" type="button" aria-label={c.close} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)} />
         <section ref={menuPanelRef} className="premium-mobile-menu-panel" role="dialog" aria-modal="true" aria-label={c.navLabel}>
           <header>
-            <Link href="/" className="marketing-brand" onClick={() => setMenuOpen(false)}><img src="/hisab-logo.svg" alt="" width="46" height="46" /><span className="marketing-brand-copy"><strong>Biloo</strong><small>{c.subtitle}</small></span></Link>
+            <Link href="/" className="marketing-brand" onClick={() => setMenuOpen(false)}>
+              <img src="/hisab-logo.svg" alt="" width="46" height="46" />
+              <span className="marketing-brand-copy"><strong>Biloo</strong><small>{c.subtitle}</small></span>
+            </Link>
             <button ref={closeButtonRef} type="button" aria-label={c.close} onClick={() => setMenuOpen(false)}><span /><span /></button>
           </header>
+
           <div className="premium-mobile-menu-intro"><span>{c.menuEyebrow}</span><h2>{c.menuTitle}</h2><p>{c.menuDescription}</p></div>
           <nav aria-label={c.navLabel}>
             {mobileNavItems.map(([key, href], index) => (
-              <Link href={href} aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined} data-mobile-nav-key={key} style={{ "--menu-index": index } as CSSProperties} onClick={() => setMenuOpen(false)} key={href}>
+              <Link
+                href={href}
+                aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined}
+                data-mobile-nav-key={key}
+                style={{ "--menu-index": index } as CSSProperties}
+                onClick={() => setMenuOpen(false)}
+                key={href}
+              >
                 <small>{String(index + 1).padStart(2, "0")}</small><strong>{c[key]}</strong><span aria-hidden="true">↗</span>
               </Link>
             ))}
           </nav>
+
           <div className="premium-mobile-menu-actions">
             <Link href="/auth/email-sign-up" className="marketing-start" onClick={() => setMenuOpen(false)}>{c.start}<span aria-hidden="true">→</span></Link>
             <Link href="/request-demo" className="marketing-demo" onClick={() => setMenuOpen(false)}>{c.demo}</Link>
             <Link href="/auth/login" className="marketing-signin" onClick={() => setMenuOpen(false)}>{c.signIn}</Link>
           </div>
+
           <footer><span>Addis Ababa · Ethiopia</span><a href="mailto:info@hisabtech.com">Email support</a></footer>
         </section>
       </div>
@@ -265,12 +235,20 @@ export function MarketingHeader() {
 }
 
 export function MarketingFooter() {
-  const { language } = useLanguage();
-  const c = websiteCopy[language];
+  const c = websiteCopy;
+
   return (
     <footer className="marketing-footer">
       <div className="marketing-footer-top">
-        <div><Link href="/" className="marketing-brand marketing-footer-brand"><img src="/hisab-logo.svg" alt="" width="44" height="44" className="hisab-logo" /><span className="marketing-brand-copy"><strong>Biloo</strong><small>Biloo ERP</small></span></Link><p>{c.footerIntro}</p><a href="mailto:info@hisabtech.com">Email support</a><a href="tel:+251924093037">+251 924 093 037</a></div>
+        <div>
+          <Link href="/" className="marketing-brand marketing-footer-brand">
+            <img src="/hisab-logo.svg" alt="" width="44" height="44" className="hisab-logo" />
+            <span className="marketing-brand-copy"><strong>Biloo</strong><small>Biloo ERP</small></span>
+          </Link>
+          <p>{c.footerIntro}</p>
+          <a href="mailto:info@hisabtech.com">Email support</a>
+          <a href="tel:+251924093037">+251 924 093 037</a>
+        </div>
         <div><strong>{c.productMarket}</strong><Link href="/product-tour">{c.product}</Link><Link href="/#modules">{c.modules}</Link><Link href="/ethiopia">{c.ethiopia}</Link><Link href="/industries">{c.industrySolutions}</Link><Link href="/pricing">{c.pricingEtb}</Link></div>
         <div><strong>{c.learnImplement}</strong><Link href="/resources">{c.learningCenter}</Link><Link href="/migration">{c.dataMigration}</Link><Link href="/compare">{c.comparisons}</Link><Link href="/help-center">{c.helpCenter}</Link><Link href="/customer-stories">{c.customerProof}</Link></div>
         <div><strong>{c.companyTrust}</strong><Link href="/about">{c.aboutHisab}</Link><Link href="/trust">{c.trustCenter}</Link><Link href="/integrations">{c.integrations}</Link><Link href="/auth/login">{c.signIn}</Link><a href="mailto:info@hisabtech.com?subject=Biloo%20ERP%20security%20question">{c.securityContact}</a></div>
