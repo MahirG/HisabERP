@@ -1,0 +1,413 @@
+/*
+ * Final adaptive contrast contract.
+ *
+ * This layer is loaded after every legacy visual file. It restores real light
+ * and dark color-scheme behavior and ensures that foreground colors follow the
+ * surface they are rendered on instead of inheriting a fixed black/white value.
+ */
+
+:root,
+html[data-theme="light"] {
+  --adaptive-canvas: #f8f4f2;
+  --adaptive-surface: #ffffff;
+  --adaptive-surface-muted: #fff8f5;
+  --adaptive-surface-hover: #fff1eb;
+  --adaptive-border: #dfcbc3;
+  --adaptive-text: #211a18;
+  --adaptive-text-secondary: #5f504a;
+  --adaptive-text-muted: #76655f;
+  --adaptive-inverse: #fff8f4;
+  --adaptive-inverse-muted: #dec9c0;
+  --adaptive-link: #8f412c;
+  --adaptive-selection: #f7d7cb;
+}
+
+html[data-theme="dark"] {
+  --adaptive-canvas: #0d0b0a;
+  --adaptive-surface: #171311;
+  --adaptive-surface-muted: #211916;
+  --adaptive-surface-hover: #30211c;
+  --adaptive-border: #4b352e;
+  --adaptive-text: #fff8f4;
+  --adaptive-text-secondary: #dec9c0;
+  --adaptive-text-muted: #bea9a0;
+  --adaptive-inverse: #171717;
+  --adaptive-inverse-muted: #5f504a;
+  --adaptive-link: #f0b29c;
+  --adaptive-selection: #633a2f;
+}
+
+html[data-theme="light"] {
+  color-scheme: light !important;
+  background: var(--adaptive-canvas) !important;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark !important;
+  background: var(--adaptive-canvas) !important;
+}
+
+html[data-theme] body {
+  background-color: var(--adaptive-canvas);
+  color: var(--adaptive-text);
+}
+
+html[data-theme] {
+  --ui-canvas: var(--adaptive-canvas);
+  --ui-surface: var(--adaptive-surface);
+  --ui-surface-muted: var(--adaptive-surface-muted);
+  --ui-text: var(--adaptive-text);
+  --ui-text-secondary: var(--adaptive-text-secondary);
+  --ui-text-muted: var(--adaptive-text-muted);
+  --ui-border: var(--adaptive-border);
+  --ui-border-strong: color-mix(in srgb, var(--adaptive-border) 72%, var(--adaptive-text));
+  --ui-brand: #da7757;
+  --ui-brand-hover: #b55a3f;
+  --ui-brand-strong: var(--adaptive-link);
+  --ui-brand-soft: color-mix(in srgb, #da7757 14%, var(--adaptive-surface));
+  --ui-brand-ring: color-mix(in srgb, #da7757 22%, transparent);
+}
+
+html[data-theme] ::selection {
+  background: var(--adaptive-selection) !important;
+  color: var(--adaptive-text) !important;
+}
+
+html[data-theme] :where(input, select, textarea) {
+  border-color: var(--adaptive-border);
+  background-color: var(--adaptive-surface);
+  color: var(--adaptive-text);
+}
+
+html[data-theme] :where(input, textarea)::placeholder {
+  color: var(--adaptive-text-muted) !important;
+  opacity: .88;
+}
+
+html[data-theme] :where(option, optgroup) {
+  background: var(--adaptive-surface);
+  color: var(--adaptive-text);
+}
+
+/* Authentication and standalone pages. */
+html[data-theme] :is(
+  .auth-standard-page,
+  .auth-standard-form-side,
+  .auth-page,
+  .onboarding-page,
+  .account-page,
+  .account-security-page
+) {
+  background-color: var(--adaptive-canvas) !important;
+  color: var(--adaptive-text) !important;
+}
+
+html[data-theme] :is(
+  .auth-standard-card,
+  .auth-card,
+  .onboarding-card,
+  .account-card,
+  .security-card
+) {
+  border-color: var(--adaptive-border) !important;
+  background-color: var(--adaptive-surface) !important;
+  color: var(--adaptive-text) !important;
+}
+
+html[data-theme] :is(
+  .auth-standard-form-side,
+  .auth-standard-card,
+  .auth-card,
+  .onboarding-card,
+  .account-card,
+  .security-card
+) :where(h1, h2, h3, h4, h5, h6, strong, b, legend, label) {
+  color: var(--adaptive-text) !important;
+}
+
+html[data-theme] :is(
+  .auth-standard-form-side,
+  .auth-standard-card,
+  .auth-card,
+  .onboarding-card,
+  .account-card,
+  .security-card
+) :where(p, small, time, .muted, .description, .help-text, .field-help) {
+  color: var(--adaptive-text-secondary) !important;
+}
+
+/* Explicit on-dark surfaces retain light foregrounds in either app theme. */
+html[data-theme] :is(
+  .sidebar,
+  .supabase-sidebar,
+  .auth-standard-showcase,
+  .dashboard-hero,
+  .dashboard-header,
+  .financial-dashboard-hero,
+  .overview-hero,
+  .workspace-hero,
+  .section-shell-hero,
+  .core-hero,
+  .finance-hero,
+  .sales-hero,
+  .ops-hero,
+  .controls-hero,
+  .setup-hero,
+  .module-hero,
+  .module-detail-header,
+  .einvoice-hero,
+  .recon-hero,
+  .marketing-insight-panel
+) {
+  color: var(--adaptive-inverse) !important;
+}
+
+html[data-theme] :is(
+  .sidebar,
+  .supabase-sidebar,
+  .auth-standard-showcase,
+  .dashboard-hero,
+  .dashboard-header,
+  .financial-dashboard-hero,
+  .overview-hero,
+  .workspace-hero,
+  .section-shell-hero,
+  .core-hero,
+  .finance-hero,
+  .sales-hero,
+  .ops-hero,
+  .controls-hero,
+  .setup-hero,
+  .module-hero,
+  .module-detail-header,
+  .einvoice-hero,
+  .recon-hero,
+  .marketing-insight-panel
+) :where(h1, h2, h3, h4, h5, h6, strong, b, label, dt) {
+  color: var(--adaptive-inverse) !important;
+}
+
+html[data-theme] :is(
+  .sidebar,
+  .supabase-sidebar,
+  .auth-standard-showcase,
+  .dashboard-hero,
+  .dashboard-header,
+  .financial-dashboard-hero,
+  .overview-hero,
+  .workspace-hero,
+  .section-shell-hero,
+  .core-hero,
+  .finance-hero,
+  .sales-hero,
+  .ops-hero,
+  .controls-hero,
+  .setup-hero,
+  .module-hero,
+  .module-detail-header,
+  .einvoice-hero,
+  .recon-hero,
+  .marketing-insight-panel
+) :where(p, small, time, li, dd, .muted, .description, .subtitle) {
+  color: var(--adaptive-inverse-muted) !important;
+}
+
+/* Public marketing pages intentionally remain white, so their editorial copy
+   stays dark even when the surrounding application follows dark mode. */
+html[data-theme] .marketing-site-v2 {
+  color: #1d1d1f !important;
+}
+
+html[data-theme] .marketing-site-v2 :where(
+  .marketing-hero-copy,
+  .marketing-section-heading,
+  .public-page-hero,
+  .public-page-section,
+  .marketing-footer,
+  .premium-mobile-menu-panel
+) :where(h1, h2, h3, h4, h5, h6, strong, b) {
+  color: #1d1d1f !important;
+}
+
+html[data-theme] .marketing-site-v2 :where(
+  .marketing-hero-copy,
+  .marketing-section-heading,
+  .public-page-hero,
+  .public-page-section,
+  .marketing-footer,
+  .premium-mobile-menu-panel
+) :where(p, small, li) {
+  color: #6e6e73 !important;
+}
+
+/* Current Biloo dashboard-preview marker. The older visibility stylesheet was
+   scoped to a retired marker, so these tokens restore its intended behavior. */
+html[data-theme="light"] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 {
+  --preview-frame: #ffffff;
+  --preview-topbar: #fff8f5;
+  --preview-canvas: #fbf5f2;
+  --preview-card: #ffffff;
+  --preview-card-muted: #fff5f0;
+  --preview-border: #dfcbc3;
+  --preview-text: #211a18;
+  --preview-text-secondary: #5f504a;
+  --preview-text-muted: #76655f;
+  --preview-sidebar: #171717;
+  --preview-sidebar-text: #dec9c0;
+  --preview-sidebar-active: #f0b29c;
+  --preview-accent-text: #8f412c;
+}
+
+html[data-theme="dark"] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 {
+  --preview-frame: #100d0c;
+  --preview-topbar: #171311;
+  --preview-canvas: #0d0b0a;
+  --preview-card: #171311;
+  --preview-card-muted: #211916;
+  --preview-border: #4b352e;
+  --preview-text: #fff8f4;
+  --preview-text-secondary: #dec9c0;
+  --preview-text-muted: #bea9a0;
+  --preview-sidebar: #090909;
+  --preview-sidebar-text: #dec9c0;
+  --preview-sidebar-active: #f0b29c;
+  --preview-accent-text: #f0b29c;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .hero-workspace,
+  .product-tour-stage,
+  .tour-app-window
+) {
+  border-color: var(--preview-border) !important;
+  background: var(--preview-frame) !important;
+  color: var(--preview-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .hero-workspace-bar,
+  .tour-window-top
+) {
+  border-color: var(--preview-border) !important;
+  background: var(--preview-topbar) !important;
+  color: var(--preview-text-secondary) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .hero-workspace-layout > section,
+  .tour-window-content
+) {
+  background: var(--preview-canvas) !important;
+  color: var(--preview-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .hero-workspace-layout > aside,
+  .tour-window-layout > aside
+) {
+  background: var(--preview-sidebar) !important;
+  color: var(--preview-sidebar-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .hero-workspace-layout > aside,
+  .tour-window-layout > aside
+) :where(span, small, strong) {
+  color: var(--preview-sidebar-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .hero-workspace-layout > aside,
+  .tour-window-layout > aside
+) .active {
+  color: var(--preview-sidebar-active) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .hero-kpis article,
+  .hero-performance-card,
+  .hero-attention-card,
+  .tour-metrics article,
+  .tour-chart,
+  .tour-activity
+) {
+  border-color: var(--preview-border) !important;
+  background: var(--preview-card) !important;
+  color: var(--preview-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .hero-workspace,
+  .product-tour-stage,
+  .tour-app-window,
+  .hisab-preview-window
+) :where(h1, h2, h3, h4, h5, h6, strong, b) {
+  color: var(--preview-text, var(--hisab-text)) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .hero-workspace,
+  .product-tour-stage,
+  .tour-app-window,
+  .hisab-preview-window
+) :where(p, small, time) {
+  color: var(--preview-text-muted, var(--hisab-text-3)) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .hero-kpis span,
+  .tour-metrics span,
+  .tour-activity article b,
+  .hero-attention-card p b
+) {
+  color: var(--preview-accent-text) !important;
+}
+
+html[data-theme] body[data-ui-polish="biloo-standard-app-2026"] .marketing-site-v2 :is(
+  .hero-attention-card p,
+  .tour-activity article
+) {
+  background: var(--preview-card-muted) !important;
+  color: var(--preview-text-secondary) !important;
+}
+
+/* The premium financial mock uses the root Hisab tokens. Reassert them after
+   the public white-background lock so dark-mode figures never become dark-on-dark. */
+html[data-theme] .marketing-site-v2 .hisab-preview-window {
+  border-color: var(--hisab-border) !important;
+  background: var(--hisab-surface) !important;
+  color: var(--hisab-text) !important;
+}
+
+html[data-theme] .marketing-site-v2 .hisab-preview-window :where(h1, h2, h3, h4, h5, h6, strong, b) {
+  color: var(--hisab-text) !important;
+}
+
+html[data-theme] .marketing-site-v2 .hisab-preview-window :where(p, small, time, .hisab-preview-status) {
+  color: var(--hisab-text-2) !important;
+}
+
+html[data-theme] .marketing-site-v2 .hisab-preview-kpi,
+html[data-theme] .marketing-site-v2 .hisab-preview-ledger-row {
+  border-color: var(--hisab-border) !important;
+  background: var(--hisab-surface-raised) !important;
+  color: var(--hisab-text) !important;
+}
+
+html[data-theme] .marketing-site-v2 .hisab-preview-ledger-head {
+  color: var(--hisab-text-3) !important;
+}
+
+/* Semantic colors remain readable against both palettes. */
+html[data-theme="dark"] :is(.tone-success, .status-badge.success, .status-badge.paid, .amount-income) { color: #75d7bd !important; }
+html[data-theme="dark"] :is(.tone-warning, .status-badge.warning, .status-badge.pending) { color: #f2c26b !important; }
+html[data-theme="dark"] :is(.tone-danger, .status-badge.danger, .status-badge.overdue, .amount-expense) { color: #ff9aaa !important; }
+html[data-theme="dark"] :is(.tone-info, .status-badge.info, .status-badge.draft) { color: #a9bfff !important; }
+
+@media (prefers-contrast: more) {
+  html[data-theme] {
+    --adaptive-text-secondary: var(--adaptive-text);
+    --adaptive-text-muted: var(--adaptive-text);
+    --adaptive-border: currentColor;
+  }
+}
