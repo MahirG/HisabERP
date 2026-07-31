@@ -31,7 +31,7 @@ function getOrganizationMark(name: string) {
     .map((part) => part.charAt(0))
     .join("")
     .toUpperCase();
-  return mark || "H";
+  return mark || "B";
 }
 
 function WorkspaceSessionLoading() {
@@ -42,7 +42,7 @@ function WorkspaceSessionLoading() {
           <span className="brand-loader-ring" />
           <span className="brand-loader-logo-shell"><img src="/hisab-logo.svg" alt="" width="48" height="48" /></span>
         </div>
-        <div className="brand-loader-copy"><strong>Preparing your workspace</strong><span>Loading your secure business session…</span></div>
+        <div className="brand-loader-copy"><strong>Preparing your Biloo workspace</strong><span>Loading your secure business session…</span></div>
         <div className="brand-loader-progress" aria-hidden="true"><span /></div>
       </div>
     </main>
@@ -184,7 +184,7 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
           <span className="mfa-required-icon" aria-hidden="true"><Icon name="lock" size={28} /></span>
           <p className="eyebrow">PRIVILEGED SESSION REQUIRED</p>
           <h1>Verify administrator access</h1>
-          <p>HisabTech now requires authenticator MFA before an owner or administrator can change financial, inventory, payroll, user or security data.</p>
+          <p>Biloo requires authenticator MFA before an owner or administrator can change financial, inventory, payroll, user or security data.</p>
           <div className="mfa-required-actions">
             <Link className="primary action-link button-with-icon" href="/account"><Icon name="shield-check" size={18} /><span>Set up or verify MFA</span></Link>
             <Link className="secondary action-link button-with-icon" href="/onboarding"><Icon name="building" size={18} /><span>Review setup progress</span></Link>
@@ -196,7 +196,7 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
     : children;
 
   return (
-    <div className="erp-shell" data-layout-version="supabase-sidebar-v2" data-mobile-nav-open={mobileNavOpen ? "true" : "false"}>
+    <div className="erp-shell" data-layout-version="biloo-home-product-v1" data-brand-experience="homepage-unified" data-mobile-nav-open={mobileNavOpen ? "true" : "false"}>
       <WorkspaceCommandCenter items={commandItems} activeLabel={activeItem?.label ?? d.nav.overview} pathname={pathname} user={user} />
       <WorkspaceHeaderPreferences />
 
@@ -204,8 +204,8 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
         <button type="button" className="mobile-menu-trigger" aria-label={menuLabel} aria-controls="primary-sidebar" aria-expanded={mobileNavOpen} onClick={() => setMobileNavOpen(true)}>
           <span aria-hidden="true"><i /><i /><i /></span>
         </button>
-        <Link href="/" className="mobile-workspace-brand" aria-label="HisabTech dashboard"><img src="/hisab-logo.svg" alt="" width="34" height="34" className="hisab-logo" /></Link>
-        <div className="mobile-workspace-title"><small>HisabTech</small><strong>{activeItem?.label ?? d.nav.overview}</strong></div>
+        <Link href="/" className="mobile-workspace-brand" aria-label="Biloo dashboard"><img src="/hisab-logo.svg" alt="" width="34" height="34" className="hisab-logo" /></Link>
+        <div className="mobile-workspace-title"><small>Biloo</small><strong>{activeItem?.label ?? d.nav.overview}</strong></div>
       </header>
 
       <UserMenu user={user} />
@@ -214,14 +214,14 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
 
       <aside className="sidebar supabase-sidebar" id="primary-sidebar" data-docked="hover" aria-label="Primary workspace navigation">
         <div className="mobile-sidebar-header">
-          <div className="brand"><img src="/hisab-logo.svg" alt="" width="34" height="34" className="hisab-logo" /><div><strong>Hisab</strong><small>{d.brandSubtitle}</small></div></div>
+          <div className="brand"><img src="/hisab-logo.svg" alt="" width="34" height="34" className="hisab-logo" /><div><strong>Biloo</strong><small>{d.brandSubtitle}</small></div></div>
           <button type="button" aria-label="Close navigation" onClick={() => setMobileNavOpen(false)}>×</button>
         </div>
 
         <div className="supabase-sidebar-header">
-          <Link href="/" className="desktop-sidebar-brand brand" aria-label="HisabTech dashboard">
+          <Link href="/" className="desktop-sidebar-brand brand" aria-label="Biloo dashboard">
             <img src="/hisab-logo.svg" alt="" width="28" height="28" className="hisab-logo" />
-            <div><strong>HisabTech</strong><small>{d.brandSubtitle}</small></div>
+            <div><strong>Biloo</strong><small>{d.brandSubtitle}</small></div>
           </Link>
           <span className="supabase-rail-indicator" aria-hidden="true"><Icon name="chevron-right" size={14} /></span>
         </div>
@@ -263,7 +263,7 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
         </nav>
 
         <div className="sidebar-dock-status" aria-label="Navigation expands on hover"><Icon name="chevron-right" size={14} /><strong>{language === "am" ? "ለማስፋት ያንዣብቡ" : "Hover to expand"}</strong></div>
-        <footer className="sidebar-footer"><p className="powered-by">Powered by <a href="https://www.hisabtechnologies.com" target="_blank" rel="noopener noreferrer">HisabTech</a></p><p>{user.organizationName}<br />Addis Ababa, Ethiopia</p></footer>
+        <footer className="sidebar-footer"><p className="powered-by">Biloo by <a href="https://www.hisabtechnologies.com" target="_blank" rel="noopener noreferrer">Hisab Technologies</a></p><p>{user.organizationName}<br />Addis Ababa, Ethiopia</p></footer>
       </aside>
 
       <div className="workspace" id="workspace-content" ref={workspaceRef}>{gated}</div>
