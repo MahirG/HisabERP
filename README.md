@@ -143,3 +143,5 @@ npm run build
 ```
 
 Read `SECURITY.md`, `docs/IMPLEMENTATION_STATUS.md` and `docs/BACKUP_AND_RECOVERY.md` before production use.
+
+<!-- Production deployment trigger: 2026-07-31 -->
