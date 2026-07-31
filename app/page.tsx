@@ -21,5 +21,6 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  // Keep the production homepage pinned to the polished marketing experience.
   return <WishpondMarketingHome />;
 }
