@@ -98,6 +98,7 @@ import "./public-theme-coherence.css";
 import "./english-light-lock.css";
 import "./home-dashboard-imac.css";
 import "./zylo-typography-system.css";
+import "./biloo-black-gold-brand-system.css";
 
 const bilooManrope = Manrope({
   subsets: ["latin"],
@@ -201,7 +202,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: "cover",
-  themeColor: "#ffffff",
+  themeColor: "#14213D",
   colorScheme: "light",
 };
 
