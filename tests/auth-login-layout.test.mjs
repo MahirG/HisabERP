@@ -7,36 +7,43 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (file) => readFile(path.join(root, file), "utf8");
 
-test("uses a focused sign-in hierarchy with HisabTech branding", async () => {
+test("uses the premium Biloo sign-in hierarchy without changing authentication behavior", async () => {
   const login = await read("app/auth/login/page.tsx");
 
-  assert.match(login, /auth-slack-page/);
-  assert.match(login, /auth-slack-new-account/);
-  assert.match(login, /auth-slack-passwordless/);
-  assert.match(login, /auth-hisab-mark/);
-  assert.match(login, />H<\/span>/);
-  assert.doesNotMatch(login, /auth-slack-mark/);
+  assert.match(login, /biloo-login-page/);
+  assert.match(login, /biloo-login-dashboard/);
+  assert.match(login, /biloo-login-form-pane/);
+  assert.match(login, /LoginPasswordField/);
   assert.match(login, /SocialAuthButtons/);
-  assert.match(login, /autoComplete="current-password"/);
+  assert.match(login, /action=\{signInWithEmail\}/);
   assert.match(login, /inputMode="email"/);
-  assert.doesNotMatch(login, /auth-official-showcase/);
+  assert.match(login, /safeNextPath/);
+  assert.match(login, /auth\/magic-link/);
+  assert.match(login, /auth\/phone-login/);
+  assert.doesNotMatch(login, /auth-slack-page/);
   assert.doesNotMatch(login, /LanguageSelector/);
 });
 
-test("keeps the redesigned login responsive and dark-mode complete", async () => {
-  const [styles, brandStyles, layout] = await Promise.all([
-    read("app/auth-login-slack.css"),
-    read("app/auth-hisab-brand.css"),
+test("keeps the redesigned login responsive, accessible and brand-authoritative", async () => {
+  const [styles, passwordField, layout] = await Promise.all([
+    read("app/auth-login-award.css"),
+    read("components/login-password-field.tsx"),
     read("app/layout.tsx"),
   ]);
 
-  assert.match(layout, /import "\.\/auth-login-slack\.css"/);
-  assert.match(layout, /import "\.\/auth-hisab-brand\.css"/);
-  assert.match(styles, /html\[data-theme="dark"\] \.auth-slack-page/);
-  assert.match(styles, /@media \(max-width: 640px\)/);
-  assert.match(styles, /\.auth-slack-page \.social-auth-grid/);
-  assert.match(styles, /\.auth-slack-page \.field-control:focus-within/);
-  assert.match(brandStyles, /\.auth-hisab-mark/);
-  assert.match(brandStyles, /linear-gradient\(145deg, #0f4c81 0%, #146b70 100%\)/);
-  assert.doesNotMatch(brandStyles, /#36c5f0|#2eb67d|#e01e5a/);
+  assert.match(layout, /import "\.\/auth-login-award\.css"/);
+  assert.ok(
+    layout.indexOf('import "./auth-login-award.css";') > layout.indexOf('import "./biloo-black-gold-brand-system.css";'),
+    "login design must load after the global brand layer",
+  );
+  assert.match(styles, /@media \(max-width:960px\)/);
+  assert.match(styles, /@media \(max-width:620px\)/);
+  assert.match(styles, /:focus-visible/);
+  assert.match(styles, /prefers-reduced-motion:reduce/);
+  assert.match(styles, /prefers-contrast:more/);
+  assert.match(styles, /--biloo-login-gold:#fca311/i);
+  assert.match(styles, /--biloo-login-navy:#14213d/i);
+  assert.match(passwordField, /autoComplete="current-password"/);
+  assert.match(passwordField, /aria-pressed=\{visible\}/);
+  assert.match(passwordField, /type="button"/);
 });
