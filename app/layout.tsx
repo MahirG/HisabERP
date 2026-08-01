@@ -101,6 +101,7 @@ import "./zylo-typography-system.css";
 import "./biloo-black-gold-brand-system.css";
 import "./auth-login-award.css";
 import "./public-navigation-home-coherence.css";
+import "./public-navigation-home-parity.css";
 
 const bilooManrope = Manrope({
   subsets: ["latin"],
