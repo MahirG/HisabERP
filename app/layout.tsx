@@ -120,6 +120,8 @@ const preferenceBootstrap = `
 (function () {
   var root = document.documentElement;
   var obsoleteControls = '.language-selector,.language-icon-selector,.mobile-language-control,[data-mobile-language],.theme-toggle,.mobile-prehydration-theme-toggle,[data-mobile-theme-toggle],[data-theme-toggle],[aria-label="Theme"],[aria-label="Appearance"],[aria-label="Language"]';
+  var queuedNodes = [];
+  var frame = 0;
 
   function persistEnglishLight() {
     if (root.dataset.theme !== 'light') root.dataset.theme = 'light';
@@ -136,29 +138,56 @@ const preferenceBootstrap = `
     document.cookie = 'hisab_locale=en; Path=/; Max-Age=31536000; SameSite=Lax';
   }
 
-  function removeObsoleteControls() {
-    document.querySelectorAll(obsoleteControls).forEach(function (control) {
+  function removeWithin(node) {
+    if (!node || (node.nodeType !== Node.ELEMENT_NODE && node.nodeType !== Node.DOCUMENT_NODE)) return;
+    if (node.nodeType === Node.ELEMENT_NODE && node.matches(obsoleteControls)) {
+      node.remove();
+      return;
+    }
+    if (!node.querySelectorAll) return;
+    node.querySelectorAll(obsoleteControls).forEach(function (control) {
       control.remove();
     });
   }
 
-  persistEnglishLight();
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', removeObsoleteControls, { once: true });
-  } else {
-    removeObsoleteControls();
+  function flushNodes() {
+    frame = 0;
+    var nodes = queuedNodes.splice(0, queuedNodes.length);
+    nodes.forEach(removeWithin);
   }
 
-  new MutationObserver(function () {
+  function queueNode(node) {
+    queuedNodes.push(node);
+    if (frame) return;
+    frame = window.requestAnimationFrame(flushNodes);
+  }
+
+  function initialize() {
     persistEnglishLight();
-    removeObsoleteControls();
-  }).observe(root, {
-    attributes: true,
-    attributeFilter: ['data-theme', 'data-language', 'lang'],
-    childList: true,
-    subtree: true
-  });
+    removeWithin(document);
+
+    new MutationObserver(persistEnglishLight).observe(root, {
+      attributes: true,
+      attributeFilter: ['data-theme', 'data-language', 'lang']
+    });
+
+    if (!document.body) return;
+    new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        mutation.addedNodes.forEach(queueNode);
+      });
+    }).observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  persistEnglishLight();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialize, { once: true });
+  } else {
+    initialize();
+  }
 })();`;
 
 const mobileNavigationBootstrap = `
@@ -253,9 +282,9 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html className={bilooManrope.variable} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
       <head>
         <link id="biloo-workspace-utility-header" rel="stylesheet" href="/biloo-workspace-utility-header.css?v=20260802-3" />
-        <link id="biloo-mobile-navigation-v4" rel="stylesheet" href="/biloo-mobile-navigation-v4.css?v=20260802-2" />
-        <link id="biloo-mobile-glass-footer" rel="stylesheet" href="/biloo-mobile-glass-footer.css?v=20260802-1" />
-        <script src="/biloo-brand-bootstrap.js?v=20260802-3" />
+        <link id="biloo-mobile-navigation-v4" rel="stylesheet" href="/biloo-mobile-navigation-v4.css?v=20260802-2" media="(max-width: 960px)" />
+        <link id="biloo-mobile-glass-footer" rel="stylesheet" href="/biloo-mobile-glass-footer.css?v=20260802-1" media="(max-width: 760px)" />
+        <script src="/biloo-brand-bootstrap.js?v=20260802-3" defer />
         <script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} />
         <script dangerouslySetInnerHTML={{ __html: mobileNavigationBootstrap }} />
       </head>
