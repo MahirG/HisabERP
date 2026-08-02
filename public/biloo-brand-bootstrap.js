@@ -5,9 +5,23 @@
   try { window.localStorage.setItem("hisab-theme", "light"); } catch (_) {}
   document.cookie = "hisab_theme=light; Path=/; Max-Age=31536000; SameSite=Lax";
 
+  function ensureWorkspaceUtilityHeaderStyles() {
+    var styleId = "biloo-workspace-utility-header";
+    if (document.getElementById(styleId)) return;
+    var link = document.createElement("link");
+    link.id = styleId;
+    link.rel = "stylesheet";
+    link.href = "/biloo-workspace-utility-header.css?v=20260802-1";
+    document.head.appendChild(link);
+  }
+
+  ensureWorkspaceUtilityHeaderStyles();
+
   var NAME_REPLACEMENTS = [
     [/Hisab Technologies/g, "Biloo"],
     [/HisabTech/g, "Biloo"],
+    [/Hisab AI/g, "Biloo AI"],
+    [/HISAB AI/g, "BILOO AI"],
     [/HisabERP/g, "Biloo ERP"],
     [/Hisab ERP/g, "Biloo ERP"],
     [/HISAB ERP/g, "BILOO ERP"],
@@ -90,11 +104,13 @@
   }
 
   function startMigration() {
+    ensureWorkspaceUtilityHeaderStyles();
     updateSubtree(document.documentElement);
     updateHead();
     document.documentElement.dataset.brand = "biloo";
 
     var observer = new MutationObserver(function (mutations) {
+      ensureWorkspaceUtilityHeaderStyles();
       for (var index = 0; index < mutations.length; index += 1) {
         var mutation = mutations[index];
         if (mutation.type === "characterData") updateTextNode(mutation.target);
