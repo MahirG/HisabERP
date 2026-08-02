@@ -11,13 +11,13 @@ body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 {
   left: 0 !important;
   width: 100% !important;
   max-width: 100vw !important;
-  min-height: 72px !important;
+  min-height: 76px !important;
   display: grid !important;
-  grid-template-columns: minmax(190px, 0.9fr) minmax(0, 1.7fr) auto !important;
+  grid-template-columns: minmax(200px, 0.9fr) minmax(0, 1.7fr) auto !important;
   align-items: center !important;
-  gap: clamp(18px, 2.6vw, 38px) !important;
+  gap: clamp(16px, 2.2vw, 32px) !important;
   margin: 0 !important;
-  padding: 10px clamp(20px, 4vw, 64px) !important;
+  padding: 11px clamp(20px, 3.5vw, 56px) !important;
   border: 0 !important;
   border-bottom: 1px solid rgba(20, 33, 61, 0.1) !important;
   border-radius: 0 !important;
@@ -42,7 +42,7 @@ body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketi
   min-width: 0 !important;
   display: inline-flex !important;
   align-items: center !important;
-  gap: 10px !important;
+  gap: 11px !important;
   justify-self: start !important;
 }
 
@@ -55,23 +55,24 @@ body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketi
   min-width: 0 !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 2px !important;
+  gap: 4px !important;
 }
 
 body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-desktop-nav a {
-  min-height: 40px !important;
+  min-height: 44px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 0 10px !important;
+  padding: 0 12px !important;
   border: 0 !important;
-  border-radius: 10px !important;
+  border-radius: 11px !important;
   color: #4c586a !important;
   -webkit-text-fill-color: #4c586a !important;
   background: transparent !important;
-  font-size: 12.5px !important;
-  font-weight: 680 !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
   letter-spacing: -0.012em !important;
+  line-height: 1 !important;
   white-space: nowrap !important;
   transition: color 160ms ease, background 160ms ease !important;
 }
@@ -88,7 +89,7 @@ body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketi
   display: flex !important;
   align-items: center !important;
   justify-content: flex-end !important;
-  gap: 8px !important;
+  gap: 9px !important;
   justify-self: end !important;
 }
 
@@ -97,14 +98,14 @@ body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 :is(
   .marketing-demo,
   .marketing-start
 ) {
-  min-height: 42px !important;
+  min-height: 44px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   margin: 0 !important;
-  padding: 0 15px !important;
+  padding: 0 17px !important;
   border-radius: 999px !important;
-  font-size: 12px !important;
+  font-size: 13.5px !important;
   font-weight: 780 !important;
   letter-spacing: -0.01em !important;
   line-height: 1 !important;
@@ -128,7 +129,7 @@ body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketi
 }
 
 body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-demo {
-  min-width: 118px !important;
+  min-width: 124px !important;
   border: 1px solid #14213d !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
@@ -161,14 +162,19 @@ body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-demo {
 
 @media (max-width: 1180px) and (min-width: 961px) {
   body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 {
+    min-height: 72px !important;
     grid-template-columns: minmax(175px, 0.8fr) minmax(0, 1.45fr) auto !important;
-    gap: 14px !important;
-    padding-inline: 20px !important;
+    gap: 12px !important;
+    padding-inline: 18px !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-desktop-nav {
+    gap: 1px !important;
   }
 
   body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-desktop-nav a {
     padding-inline: 7px !important;
-    font-size: 11.5px !important;
+    font-size: 12.75px !important;
   }
 
   body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 :is(
@@ -176,16 +182,16 @@ body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-demo {
     .marketing-demo,
     .marketing-start
   ) {
-    padding-inline: 12px !important;
-    font-size: 11.5px !important;
+    padding-inline: 11px !important;
+    font-size: 12.5px !important;
   }
 }
 
 @media (max-width: 960px) {
   body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 {
-    min-height: calc(68px + env(safe-area-inset-top)) !important;
+    min-height: calc(70px + env(safe-area-inset-top)) !important;
     grid-template-columns: minmax(0, 1fr) auto !important;
-    grid-template-rows: 68px !important;
+    grid-template-rows: 70px !important;
     grid-auto-flow: column !important;
     gap: 10px !important;
     padding: env(safe-area-inset-top) 12px 0 !important;
@@ -205,7 +211,7 @@ body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-demo {
     grid-column: 1 !important;
     grid-row: 1 !important;
     width: fit-content !important;
-    max-width: 92px !important;
+    max-width: 100px !important;
     gap: 0 !important;
     overflow: hidden !important;
   }
@@ -215,9 +221,9 @@ body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-demo {
   }
 
   body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .hisab-logo {
-    width: 78px !important;
-    height: 46px !important;
-    min-width: 78px !important;
+    width: 84px !important;
+    height: 44px !important;
+    min-width: 84px !important;
     display: block !important;
     object-fit: contain !important;
     margin: 0 !important;
@@ -239,18 +245,18 @@ body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-demo {
   }
 
   body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-demo {
-    min-height: 40px !important;
+    min-height: 42px !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 0 14px !important;
+    padding: 0 15px !important;
     border: 1px solid #14213d !important;
     border-radius: 999px !important;
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
     background: #14213d !important;
     box-shadow: 0 8px 20px rgba(20, 33, 61, 0.16) !important;
-    font-size: 11.5px !important;
+    font-size: 12.25px !important;
     font-weight: 800 !important;
     letter-spacing: -0.01em !important;
     line-height: 1 !important;
@@ -280,16 +286,16 @@ body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-demo {
   }
 
   body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .hisab-logo {
-    width: 68px !important;
-    min-width: 68px !important;
-    height: 42px !important;
+    width: 74px !important;
+    min-width: 74px !important;
+    height: 40px !important;
   }
 
   body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-demo {
     min-width: 0 !important;
-    min-height: 38px !important;
-    padding-inline: 11px !important;
-    font-size: 10.5px !important;
+    min-height: 40px !important;
+    padding-inline: 12px !important;
+    font-size: 11px !important;
   }
 
   body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-menu-toggle {

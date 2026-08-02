@@ -154,7 +154,7 @@ export function MarketingHeader() {
 
   return (
     <>
-      <link rel="stylesheet" href="/biloo-marketing-sticky-header.css?v=20260802-1" />
+      <link rel="stylesheet" href="/biloo-marketing-sticky-header.css?v=20260802-2" />
       <a href="#public-main-content" className="public-skip-link">{c.skip}</a>
       <header className="marketing-nav marketing-nav-v2">
         <Link href="/" className="marketing-brand" aria-label="Biloo home">
@@ -238,7 +238,6 @@ export function MarketingHeader() {
 
 export function MarketingFooter() {
   const c = websiteCopy;
-
   return (
     <footer className="marketing-footer">
       <div className="marketing-footer-top">
