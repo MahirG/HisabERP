@@ -202,3 +202,55 @@
     width: calc(100vw - 18px) !important;
   }
 }
+
+/*
+ * Mobile/tablet scrolling authority.
+ * The shell is intentionally viewport-locked; this makes the workspace the
+ * single reliable vertical scroller on every authenticated route up to 960px.
+ */
+@media (max-width: 960px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell {
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 0 !important;
+    margin-left: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-x: none !important;
+    overscroll-behavior-y: contain !important;
+    touch-action: pan-y !important;
+    scrollbar-gutter: auto !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace > :is(
+    .dashboard-content,
+    .section-page,
+    .section-page-modern,
+    .finance-page,
+    .sales-page,
+    .einvoice-page,
+    .recon-page,
+    .core-page,
+    .guided-setup-page,
+    .controls-page,
+    .security-account-page,
+    .security-account-modern,
+    .mfa-required-page,
+    .billing-page,
+    .checkout-page,
+    .ops-page
+  ) {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow: visible !important;
+  }
+}
