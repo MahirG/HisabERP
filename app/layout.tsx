@@ -104,6 +104,7 @@ import "./public-navigation-home-coherence.css";
 import "./public-navigation-home-parity.css";
 import "./biloo-workspace-final-lock.css";
 import "./biloo-all-workspace-routes-contrast-lock.css";
+import "./biloo-workspace-utility-visibility-lock.css";
 
 const bilooManrope = Manrope({
   subsets: ["latin"],
@@ -250,8 +251,9 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html className={bilooManrope.variable} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
       <head>
+        <link id="biloo-workspace-utility-header" rel="stylesheet" href="/biloo-workspace-utility-header.css?v=20260802-3" />
         <link id="biloo-mobile-navigation-v4" rel="stylesheet" href="/biloo-mobile-navigation-v4.css?v=20260802-2" />
-        <script src="/biloo-brand-bootstrap.js?v=20260802-2" />
+        <script src="/biloo-brand-bootstrap.js?v=20260802-3" />
         <script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} />
         <script dangerouslySetInnerHTML={{ __html: mobileNavigationBootstrap }} />
       </head>
