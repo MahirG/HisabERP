@@ -114,9 +114,20 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
     };
   }, [mobileNavOpen]);
 
+  useEffect(() => {
+    if (!activeUser || isExcluded || pathname === "/account") return;
+    if (!activeUser.mfaRequired || activeUser.aal === "aal2") return;
+
+    const destination = `${pathname}${window.location.search}${window.location.hash}`;
+    const query = new URLSearchParams({ verify: "mfa", next: destination });
+    window.location.replace(`/account?${query.toString()}`);
+  }, [activeUser, isExcluded, pathname]);
+
   if (!sessionResolved && !isExcluded) return <WorkspaceSessionLoading />;
   if (!show || !activeUser) return <>{children}</>;
   const user = activeUser;
+  const requiresMfaConfirmation = user.mfaRequired && user.aal !== "aal2" && pathname !== "/account";
+  if (requiresMfaConfirmation) return <WorkspaceSessionLoading />;
 
   const d = dictionary.dashboard;
   const sections = language === "am"
@@ -176,24 +187,6 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
     { label: d.nav.finance, href: "/finance", icon: "landmark" },
     { label: dictionary.moduleItems["inventory-warehouse"].shortTitle, href: "/inventory", icon: "boxes" },
   ];
-
-  const gated = user.mfaRequired && user.aal !== "aal2" && pathname !== "/account"
-    ? (
-      <main className="mfa-required-page">
-        <section className="mfa-required-card">
-          <span className="mfa-required-icon" aria-hidden="true"><Icon name="lock" size={28} /></span>
-          <p className="eyebrow">PRIVILEGED SESSION REQUIRED</p>
-          <h1>Verify administrator access</h1>
-          <p>Biloo requires authenticator MFA before an owner or administrator can change financial, inventory, payroll, user, or security data.</p>
-          <div className="mfa-required-actions">
-            <Link className="primary action-link button-with-icon" href="/account"><Icon name="shield-check" size={18} /><span>Set up or verify MFA</span></Link>
-            <Link className="secondary action-link button-with-icon" href="/onboarding"><Icon name="building" size={18} /><span>Review setup progress</span></Link>
-          </div>
-          <small>Your organization data remains readable. Write operations are blocked at both the application and database layers until the session reaches AAL2.</small>
-        </section>
-      </main>
-    )
-    : children;
 
   return (
     <div className="erp-shell" data-layout-version="biloo-sidebar-v3" data-workspace-brand="biloo" data-mobile-nav-open={mobileNavOpen ? "true" : "false"}>
@@ -266,7 +259,7 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
         <footer className="sidebar-footer"><p className="powered-by">Powered by <a href="https://www.hisabtech.com" target="_blank" rel="noopener noreferrer">Biloo</a></p><p>{user.organizationName}<br />Addis Ababa, Ethiopia</p></footer>
       </aside>
 
-      <div className="workspace" id="workspace-content" ref={workspaceRef}>{gated}</div>
+      <div className="workspace" id="workspace-content" ref={workspaceRef}>{children}</div>
 
       <nav className="mobile-bottom-nav" aria-label="Mobile workspace shortcuts">
         {mobileShortcuts.map((item) => {
