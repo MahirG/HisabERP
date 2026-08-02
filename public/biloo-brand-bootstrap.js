@@ -36,6 +36,10 @@
     {
       id: "biloo-mobile-navigation-v4",
       href: "/biloo-mobile-navigation-v4.css?v=20260802-2"
+    },
+    {
+      id: "biloo-marketing-navigation-v5",
+      href: "/biloo-marketing-navigation-v5.css?v=20260802-1"
     }
   ];
 
