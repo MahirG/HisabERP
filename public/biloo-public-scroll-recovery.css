@@ -4,7 +4,8 @@
  * every public route retains a real vertical document scroll chain.
  */
 
-html:has(body [data-public-marketing-root]),
+html:has(body :is(.marketing-site, .marketing-site-v2, .marketing-home-unified, .wp-site, [data-public-marketing-root])),
+body:has(:is(.marketing-site, .marketing-site-v2, .marketing-home-unified, .wp-site, [data-public-marketing-root])),
 body[data-public-marketing="true"] {
   width: 100% !important;
   height: auto !important;
@@ -18,10 +19,19 @@ body[data-public-marketing="true"] {
   position: static !important;
 }
 
+body:has(:is(.marketing-site, .marketing-site-v2, .marketing-home-unified, .wp-site, [data-public-marketing-root])),
 body[data-public-marketing="true"] {
   -webkit-overflow-scrolling: touch !important;
 }
 
+body:has(:is(.marketing-site, .marketing-site-v2, .marketing-home-unified, .wp-site, [data-public-marketing-root])) :is(
+  .marketing-site,
+  .marketing-site-v2,
+  .marketing-home-unified,
+  [data-public-marketing-root],
+  #public-main-content,
+  .wp-site
+),
 body[data-public-marketing="true"] :is(
   .marketing-site,
   .marketing-site-v2,
@@ -33,40 +43,42 @@ body[data-public-marketing="true"] :is(
   height: auto !important;
   min-height: 100dvh !important;
   max-height: none !important;
+  overflow-x: clip !important;
   overflow-y: visible !important;
   touch-action: pan-y pinch-zoom !important;
 }
 
-body[data-public-marketing="true"] :is(
-  .marketing-site,
-  .marketing-site-v2,
-  .marketing-home-unified,
-  [data-public-marketing-root],
-  #public-main-content,
-  .wp-site
-) {
-  overflow-x: clip !important;
-}
-
+body:has(:is(.marketing-site, .marketing-site-v2, .marketing-home-unified, .wp-site, [data-public-marketing-root])) #public-main-content,
 body[data-public-marketing="true"] #public-main-content {
   display: block !important;
   position: relative !important;
   inset: auto !important;
 }
 
+body:has(:is(.marketing-site, .marketing-site-v2, .marketing-home-unified, .wp-site, [data-public-marketing-root])) .wp-site,
 body[data-public-marketing="true"] .wp-site {
   isolation: isolate !important;
 }
 
 /* Public mobile drawers may lock interaction only while actually open. */
+body:has(:is(.marketing-site, .marketing-site-v2, .marketing-home-unified, .wp-site, [data-public-marketing-root])):not([data-public-menu-open="true"]),
 body[data-public-marketing="true"]:not([data-public-menu-open="true"]) {
   overflow-y: auto !important;
   touch-action: pan-y pinch-zoom !important;
 }
 
 @supports not (overflow: clip) {
-  html:has(body [data-public-marketing-root]),
+  html:has(body :is(.marketing-site, .marketing-site-v2, .marketing-home-unified, .wp-site, [data-public-marketing-root])),
+  body:has(:is(.marketing-site, .marketing-site-v2, .marketing-home-unified, .wp-site, [data-public-marketing-root])),
   body[data-public-marketing="true"],
+  body:has(:is(.marketing-site, .marketing-site-v2, .marketing-home-unified, .wp-site, [data-public-marketing-root])) :is(
+    .marketing-site,
+    .marketing-site-v2,
+    .marketing-home-unified,
+    [data-public-marketing-root],
+    #public-main-content,
+    .wp-site
+  ),
   body[data-public-marketing="true"] :is(
     .marketing-site,
     .marketing-site-v2,
@@ -80,12 +92,21 @@ body[data-public-marketing="true"]:not([data-public-menu-open="true"]) {
 }
 
 @media (max-width: 960px) {
+  body:has(:is(.marketing-site, .marketing-site-v2, .marketing-home-unified, .wp-site, [data-public-marketing-root])),
   body[data-public-marketing="true"] {
     min-height: 100dvh !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
   }
 
+  body:has(:is(.marketing-site, .marketing-site-v2, .marketing-home-unified, .wp-site, [data-public-marketing-root])) :is(
+    .marketing-site,
+    .marketing-site-v2,
+    .marketing-home-unified,
+    [data-public-marketing-root],
+    #public-main-content,
+    .wp-site
+  ),
   body[data-public-marketing="true"] :is(
     .marketing-site,
     .marketing-site-v2,
