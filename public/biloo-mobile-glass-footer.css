@@ -20,6 +20,21 @@
     overflow-x: hidden !important;
   }
 
+  /* Remove the standalone logo tile from every authenticated mobile route. */
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-workspace-header {
+    grid-template-columns: 46px minmax(0, 1fr) 50px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-workspace-header .mobile-workspace-brand {
+    display: none !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-workspace-header .mobile-workspace-title {
+    grid-column: 2 !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+
   body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-bottom-nav {
     position: fixed !important;
     inset: auto 0 0 0 !important;
