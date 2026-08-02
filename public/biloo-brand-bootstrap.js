@@ -48,6 +48,10 @@
     {
       id: "biloo-account-security-v3",
       href: "/biloo-account-security-v3.css?v=20260802-1"
+    },
+    {
+      id: "biloo-mobile-compact-drawer",
+      href: "/biloo-mobile-compact-drawer.css?v=20260802-1"
     }
   ];
 
@@ -60,6 +64,34 @@
       link.rel = "stylesheet";
       link.href = stylesheet.href;
       document.head.appendChild(link);
+    }
+  }
+
+  function updateWorkspaceCredit() {
+    var credits = document.querySelectorAll(".erp-shell > #primary-sidebar .sidebar-footer .powered-by");
+    for (var index = 0; index < credits.length; index += 1) {
+      var credit = credits[index];
+      credit.setAttribute("data-brand-legacy", "true");
+
+      var link = credit.querySelector("a");
+      if (!link) {
+        link = document.createElement("a");
+        credit.appendChild(link);
+      }
+
+      var firstNode = credit.firstChild;
+      if (!firstNode || firstNode.nodeType !== Node.TEXT_NODE) {
+        firstNode = document.createTextNode("Powered by ");
+        credit.insertBefore(firstNode, link);
+      } else if (firstNode.nodeValue !== "Powered by ") {
+        firstNode.nodeValue = "Powered by ";
+      }
+
+      link.textContent = "Hisab Technologies";
+      link.setAttribute("href", "https://www.hisabtechnologies.com");
+      link.setAttribute("target", "_blank");
+      link.setAttribute("rel", "noopener noreferrer");
+      link.setAttribute("aria-label", "Hisab Technologies website");
     }
   }
 
@@ -168,8 +200,10 @@
 
   function flushQueuedRoots() {
     queued = false;
+    updateWorkspaceCredit();
     var roots = queuedRoots.splice(0, queuedRoots.length);
     for (var index = 0; index < roots.length; index += 1) updateSubtree(roots[index]);
+    updateWorkspaceCredit();
     updateHead();
   }
 
@@ -185,6 +219,7 @@
     lockViewport();
     ensureWorkspaceStyles();
     root.dataset.brand = "biloo";
+    updateWorkspaceCredit();
     queueRoot(document.body);
 
     var observer = new MutationObserver(function (mutations) {
