@@ -1,0 +1,287 @@
+/*
+ * Biloo public mobile drawer recovery.
+ * Final authority loaded after all legacy marketing contrast rules.
+ */
+
+@media (max-width: 960px) {
+  html[data-public-menu-open="true"],
+  html[data-public-menu-open="true"] body {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+    color: #101828 !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel {
+    position: absolute !important;
+    inset: 0 0 0 auto !important;
+    display: grid !important;
+    width: min(92vw, 420px) !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    grid-template-rows: auto auto minmax(0, 1fr) auto auto !important;
+    overflow: hidden !important;
+    color: #101828 !important;
+    background: #ffffff !important;
+    border-left: 1px solid #e4e7ec !important;
+    border-radius: 24px 0 0 24px !important;
+    box-shadow: -28px 0 80px rgba(11, 20, 40, 0.24) !important;
+    isolation: isolate !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel,
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel * {
+    box-sizing: border-box !important;
+  }
+
+  /* One official horizontal Biloo logo. The previous CSS squeezed it into a square
+     and rendered a second text label beside it. */
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel > header {
+    min-height: calc(72px + env(safe-area-inset-top)) !important;
+    padding: calc(12px + env(safe-area-inset-top)) 18px 12px !important;
+    color: #101828 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    border-bottom: 1px solid #e4e7ec !important;
+    -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+    backdrop-filter: blur(18px) saturate(150%) !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel > header .marketing-brand {
+    display: inline-flex !important;
+    width: auto !important;
+    min-width: 0 !important;
+    align-items: center !important;
+    gap: 0 !important;
+    color: #101828 !important;
+    background: transparent !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel > header .marketing-brand > img {
+    display: block !important;
+    width: 96px !important;
+    height: 40px !important;
+    max-width: 96px !important;
+    flex: 0 0 96px !important;
+    padding: 0 !important;
+    object-fit: contain !important;
+    object-position: left center !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel > header .marketing-brand-copy {
+    display: none !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel > header > button {
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    border: 1px solid #dfe3e8 !important;
+    border-radius: 13px !important;
+    color: #14213d !important;
+    -webkit-text-fill-color: #14213d !important;
+    background: #f7f8fa !important;
+    box-shadow: none !important;
+  }
+
+  /* Explicit light-surface contract for the drawer intro. */
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-intro {
+    display: block !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 20px 20px 18px !important;
+    overflow: visible !important;
+    color: #101828 !important;
+    -webkit-text-fill-color: #101828 !important;
+    background: linear-gradient(135deg, #f7f9fc 0%, #eef3f8 100%) !important;
+    border: 0 !important;
+    border-bottom: 1px solid #dfe5ec !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-intro::before,
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-intro::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-intro > span {
+    display: block !important;
+    margin: 0 0 8px !important;
+    color: #667085 !important;
+    -webkit-text-fill-color: #667085 !important;
+    background: none !important;
+    -webkit-background-clip: border-box !important;
+    background-clip: border-box !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.13em !important;
+    line-height: 1.25 !important;
+    text-transform: uppercase !important;
+    text-shadow: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-intro h2 {
+    max-width: 29ch !important;
+    margin: 0 !important;
+    color: #101828 !important;
+    -webkit-text-fill-color: #101828 !important;
+    background: none !important;
+    -webkit-background-clip: border-box !important;
+    background-clip: border-box !important;
+    font-size: 20px !important;
+    font-weight: 780 !important;
+    letter-spacing: -0.035em !important;
+    line-height: 1.2 !important;
+    text-shadow: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-intro p {
+    max-width: 40ch !important;
+    margin: 9px 0 0 !important;
+    color: #556171 !important;
+    -webkit-text-fill-color: #556171 !important;
+    background: none !important;
+    -webkit-background-clip: border-box !important;
+    background-clip: border-box !important;
+    font-size: 12px !important;
+    font-weight: 520 !important;
+    letter-spacing: -0.01em !important;
+    line-height: 1.55 !important;
+    text-shadow: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Navigation stays readable regardless of the global dark-section contract. */
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel > nav {
+    min-height: 0 !important;
+    padding: 10px 12px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    color: #101828 !important;
+    background: #ffffff !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel > nav a {
+    min-height: 50px !important;
+    padding: 0 12px !important;
+    color: #101828 !important;
+    -webkit-text-fill-color: #101828 !important;
+    background: transparent !important;
+    border-radius: 12px !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel > nav a strong {
+    color: #101828 !important;
+    -webkit-text-fill-color: #101828 !important;
+    background: none !important;
+    -webkit-background-clip: border-box !important;
+    background-clip: border-box !important;
+    font-size: 14px !important;
+    font-weight: 720 !important;
+    text-shadow: none !important;
+    opacity: 1 !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel > nav a small,
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel > nav a > span {
+    color: #98a2b3 !important;
+    -webkit-text-fill-color: #98a2b3 !important;
+    background: none !important;
+    opacity: 1 !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-actions {
+    padding: 14px 14px 12px !important;
+    color: #101828 !important;
+    background: rgba(255, 255, 255, 0.99) !important;
+    border-top: 1px solid #e4e7ec !important;
+    box-shadow: 0 -12px 30px rgba(16, 24, 40, 0.05) !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-actions .marketing-start {
+    min-height: 48px !important;
+    color: #101828 !important;
+    -webkit-text-fill-color: #101828 !important;
+    background: #e17954 !important;
+    border-color: #e17954 !important;
+    border-radius: 14px !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    box-shadow: none !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-actions :is(.marketing-demo, .marketing-signin) {
+    min-height: 44px !important;
+    color: #14213d !important;
+    -webkit-text-fill-color: #14213d !important;
+    background: #f8f9fb !important;
+    border: 1px solid #dfe3e8 !important;
+    border-radius: 13px !important;
+    font-size: 11px !important;
+    font-weight: 760 !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel > footer {
+    min-height: calc(42px + env(safe-area-inset-bottom)) !important;
+    padding: 11px 18px calc(11px + env(safe-area-inset-bottom)) !important;
+    align-items: center !important;
+    color: #7a8494 !important;
+    -webkit-text-fill-color: #7a8494 !important;
+    background: #f7f8fa !important;
+    border-top: 1px solid #e4e7ec !important;
+    font-size: 9px !important;
+    font-weight: 650 !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel > footer :is(span, a, small) {
+    color: #7a8494 !important;
+    -webkit-text-fill-color: #7a8494 !important;
+    background: none !important;
+    font-size: inherit !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 380px) {
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-panel {
+    width: 100vw !important;
+    border-left: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-intro {
+    padding: 17px 16px 15px !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .premium-mobile-menu-intro h2 {
+    font-size: 18px !important;
+  }
+}
