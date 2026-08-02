@@ -60,6 +60,10 @@
     {
       id: "biloo-marketing-contrast-logo-authority",
       href: "/biloo-marketing-contrast-logo-authority.css?v=20260802-1"
+    },
+    {
+      id: "biloo-marketing-drawer-recovery",
+      href: "/biloo-marketing-drawer-recovery.css?v=20260802-1"
     }
   ];
 
