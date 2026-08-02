@@ -284,7 +284,8 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <link id="biloo-workspace-utility-header" rel="stylesheet" href="/biloo-workspace-utility-header.css?v=20260802-3" />
         <link id="biloo-mobile-navigation-v4" rel="stylesheet" href="/biloo-mobile-navigation-v4.css?v=20260802-2" media="(max-width: 960px)" />
         <link id="biloo-mobile-glass-footer" rel="stylesheet" href="/biloo-mobile-glass-footer.css?v=20260802-1" media="(max-width: 760px)" />
-        <script src="/biloo-brand-bootstrap.js?v=20260802-3" defer />
+        <link id="biloo-public-scroll-recovery" rel="stylesheet" href="/biloo-public-scroll-recovery.css?v=20260802-1" />
+        <script src="/biloo-brand-bootstrap.js?v=20260802-4" defer />
         <script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} />
         <script dangerouslySetInnerHTML={{ __html: mobileNavigationBootstrap }} />
       </head>
