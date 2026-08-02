@@ -5,17 +5,30 @@
   try { window.localStorage.setItem("hisab-theme", "light"); } catch (_) {}
   document.cookie = "hisab_theme=light; Path=/; Max-Age=31536000; SameSite=Lax";
 
-  function ensureWorkspaceUtilityHeaderStyles() {
-    var styleId = "biloo-workspace-utility-header";
-    if (document.getElementById(styleId)) return;
-    var link = document.createElement("link");
-    link.id = styleId;
-    link.rel = "stylesheet";
-    link.href = "/biloo-workspace-utility-header.css?v=20260802-1";
-    document.head.appendChild(link);
+  var WORKSPACE_STYLES = [
+    {
+      id: "biloo-workspace-utility-header",
+      href: "/biloo-workspace-utility-header.css?v=20260802-1"
+    },
+    {
+      id: "biloo-mobile-navigation-v4",
+      href: "/biloo-mobile-navigation-v4.css?v=20260802-1"
+    }
+  ];
+
+  function ensureWorkspaceStyles() {
+    for (var index = 0; index < WORKSPACE_STYLES.length; index += 1) {
+      var stylesheet = WORKSPACE_STYLES[index];
+      if (document.getElementById(stylesheet.id)) continue;
+      var link = document.createElement("link");
+      link.id = stylesheet.id;
+      link.rel = "stylesheet";
+      link.href = stylesheet.href;
+      document.head.appendChild(link);
+    }
   }
 
-  ensureWorkspaceUtilityHeaderStyles();
+  ensureWorkspaceStyles();
 
   var NAME_REPLACEMENTS = [
     [/Hisab Technologies/g, "Biloo"],
@@ -104,13 +117,13 @@
   }
 
   function startMigration() {
-    ensureWorkspaceUtilityHeaderStyles();
+    ensureWorkspaceStyles();
     updateSubtree(document.documentElement);
     updateHead();
     document.documentElement.dataset.brand = "biloo";
 
     var observer = new MutationObserver(function (mutations) {
-      ensureWorkspaceUtilityHeaderStyles();
+      ensureWorkspaceStyles();
       for (var index = 0; index < mutations.length; index += 1) {
         var mutation = mutations[index];
         if (mutation.type === "characterData") updateTextNode(mutation.target);
