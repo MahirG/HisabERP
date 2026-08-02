@@ -5,6 +5,29 @@
   try { window.localStorage.setItem("hisab-theme", "light"); } catch (_) {}
   document.cookie = "hisab_theme=light; Path=/; Max-Age=31536000; SameSite=Lax";
 
+  var VIEWPORT_CONTENT = "width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover";
+
+  function lockViewport() {
+    var viewport = document.querySelector("meta[name='viewport']");
+    if (!viewport) {
+      viewport = document.createElement("meta");
+      viewport.setAttribute("name", "viewport");
+      document.head.appendChild(viewport);
+    }
+    if (viewport.getAttribute("content") !== VIEWPORT_CONTENT) {
+      viewport.setAttribute("content", VIEWPORT_CONTENT);
+    }
+  }
+
+  lockViewport();
+  if (document.head) {
+    new MutationObserver(lockViewport).observe(document.head, {
+      childList: true,
+      subtree: true
+    });
+  }
+  window.addEventListener("pageshow", lockViewport);
+
   var WORKSPACE_STYLES = [
     {
       id: "biloo-workspace-utility-header",
@@ -112,6 +135,7 @@
   }
 
   function updateHead() {
+    lockViewport();
     if (document.title && /Hisab|HISAB|ሂሳብ/.test(document.title)) document.title = renameBrand(document.title);
     var metadata = document.querySelectorAll("meta[name='description'],meta[property='og:title'],meta[property='og:description'],meta[name='twitter:title'],meta[name='twitter:description'],meta[name='application-name']");
     for (var index = 0; index < metadata.length; index += 1) {
@@ -146,6 +170,7 @@
   }
 
   function startMigration() {
+    lockViewport();
     ensureWorkspaceStyles();
     root.dataset.brand = "biloo";
     queueRoot(document.body);
