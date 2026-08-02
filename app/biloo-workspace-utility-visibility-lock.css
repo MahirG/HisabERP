@@ -1,0 +1,67 @@
+/*
+ * Final compiled authority for the authenticated workspace utility header.
+ * This file intentionally loads after every legacy application stylesheet.
+ */
+
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header {
+  display: grid !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger {
+  display: none !important;
+}
+
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-search-trigger,
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-header-actions,
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-header-actions > button,
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-header-actions > button > span {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+@media (max-width: 960px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header {
+    position: fixed !important;
+    inset: calc(env(safe-area-inset-top) + 64px) 0 auto 0 !important;
+    z-index: 210 !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    min-height: 58px !important;
+    align-items: center !important;
+    gap: 7px !important;
+    padding: 7px 9px !important;
+    overflow: visible !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header::before {
+    display: none !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-search-trigger {
+    display: grid !important;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-header-actions {
+    display: flex !important;
+    min-width: max-content !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-header-actions > button {
+    display: grid !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace {
+    padding-top: calc(122px + env(safe-area-inset-top)) !important;
+  }
+}
+
+@media (max-width: 370px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-header-actions > button:nth-child(2) {
+    display: none !important;
+  }
+}
