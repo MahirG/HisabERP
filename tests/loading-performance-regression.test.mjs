@@ -6,6 +6,7 @@ const providerPath = new URL("../components/app-experience-provider.tsx", import
 const loaderCssPath = new URL("../app/brand-loading.css", import.meta.url);
 const progressCssPath = new URL("../app/public-route-progress.css", import.meta.url);
 const bootstrapPath = new URL("../public/biloo-brand-bootstrap.js", import.meta.url);
+const layoutPath = new URL("../app/layout.tsx", import.meta.url);
 
 test("navigation loading cannot monkey-patch browser history or block for 20 seconds", async () => {
   const source = await readFile(providerPath, "utf8");
@@ -46,4 +47,14 @@ test("runtime brand migration is deferred and batched", async () => {
   assert.match(source, /observer\.observe\(document\.body/);
   assert.doesNotMatch(source, /characterData:\s*true/);
   assert.doesNotMatch(source, /attributes:\s*true/);
+});
+
+test("root layout does not render-block desktop with mobile-only assets", async () => {
+  const source = await readFile(layoutPath, "utf8");
+
+  assert.match(source, /biloo-mobile-navigation-v4[^>]+media="\(max-width: 960px\)"/);
+  assert.match(source, /biloo-mobile-glass-footer[^>]+media="\(max-width: 760px\)"/);
+  assert.match(source, /biloo-brand-bootstrap\.js[^>]+defer/);
+  assert.match(source, /requestAnimationFrame\(flushNodes\)/);
+  assert.doesNotMatch(source, /new MutationObserver\(function \(\) \{\s*persistEnglishLight\(\);\s*removeObsoleteControls\(\);/);
 });
