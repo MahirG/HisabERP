@@ -1,0 +1,303 @@
+/*
+ * Biloo homepage footer v2
+ * Compact editorial footer for the Wishpond marketing homepage.
+ */
+
+.marketing-site-v2 .wp-footer {
+  position: relative !important;
+  margin: 0 !important;
+  padding: clamp(48px, 6vw, 76px) 0 22px !important;
+  border: 0 !important;
+  border-top: 1px solid rgba(20, 33, 61, 0.1) !important;
+  color: #101828 !important;
+  background:
+    radial-gradient(circle at 88% 0, rgba(252, 163, 17, 0.075), transparent 24rem),
+    linear-gradient(180deg, #fbfcfd 0%, #f5f6f8 100%) !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 .wp-footer::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: max(20px, calc((100vw - 1180px) / 2));
+  width: 44px;
+  height: 2px;
+  border-radius: 999px;
+  background: #fca311;
+}
+
+.marketing-site-v2 .wp-footer .wp-container {
+  width: min(1180px, calc(100% - 40px)) !important;
+  margin-inline: auto !important;
+  padding: 0 !important;
+}
+
+.marketing-site-v2 .wp-footer-main {
+  display: grid !important;
+  grid-template-columns: minmax(250px, 1.35fr) minmax(0, 1.65fr) !important;
+  align-items: start !important;
+  gap: clamp(42px, 7vw, 96px) !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.marketing-site-v2 .wp-footer-brand {
+  display: flex !important;
+  max-width: 350px !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0 !important;
+}
+
+.marketing-site-v2 .wp-footer .wp-brand-footer {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  margin: 0 0 14px !important;
+  padding: 0 !important;
+  color: #101828 !important;
+  text-decoration: none !important;
+}
+
+.marketing-site-v2 .wp-footer .wp-brand-mark {
+  display: grid !important;
+  width: 36px !important;
+  height: 36px !important;
+  flex: 0 0 36px !important;
+  place-items: center !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(20, 33, 61, 0.1) !important;
+  border-radius: 11px !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 22px rgba(20, 33, 61, 0.08) !important;
+}
+
+.marketing-site-v2 .wp-footer .wp-brand-mark img {
+  width: 32px !important;
+  height: 32px !important;
+  object-fit: contain !important;
+}
+
+.marketing-site-v2 .wp-footer .wp-brand-copy {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+.marketing-site-v2 .wp-footer .wp-brand-copy strong {
+  color: #101828 !important;
+  -webkit-text-fill-color: #101828 !important;
+  background: none !important;
+  font-size: 15px !important;
+  font-weight: 820 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1 !important;
+}
+
+.marketing-site-v2 .wp-footer .wp-brand-copy small {
+  color: #98a2b3 !important;
+  -webkit-text-fill-color: #98a2b3 !important;
+  font-size: 7px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.14em !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase !important;
+}
+
+.marketing-site-v2 .wp-footer-brand > p {
+  max-width: 34ch !important;
+  margin: 0 !important;
+  color: #667085 !important;
+  -webkit-text-fill-color: #667085 !important;
+  font-size: 11px !important;
+  font-weight: 520 !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.65 !important;
+}
+
+.marketing-site-v2 .wp-footer-cta {
+  display: inline-flex !important;
+  min-height: 34px !important;
+  align-items: center !important;
+  gap: 7px !important;
+  margin-top: 18px !important;
+  padding: 0 12px !important;
+  border: 1px solid rgba(20, 33, 61, 0.12) !important;
+  border-radius: 10px !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  background: #ffffff !important;
+  box-shadow: 0 7px 20px rgba(20, 33, 61, 0.06) !important;
+  font-size: 9.5px !important;
+  font-weight: 760 !important;
+  letter-spacing: -0.005em !important;
+  line-height: 1 !important;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease !important;
+}
+
+.marketing-site-v2 .wp-footer-cta:hover,
+.marketing-site-v2 .wp-footer-cta:focus-visible {
+  border-color: rgba(252, 163, 17, 0.55) !important;
+  background: rgba(252, 163, 17, 0.1) !important;
+  transform: translateY(-1px) !important;
+}
+
+.marketing-site-v2 .wp-footer-cta svg {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.marketing-site-v2 .wp-footer-links {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(110px, 1fr)) !important;
+  gap: clamp(24px, 4vw, 56px) !important;
+  align-items: start !important;
+}
+
+.marketing-site-v2 .wp-footer-links > div {
+  display: flex !important;
+  min-width: 0 !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
+}
+
+.marketing-site-v2 .wp-footer-links > div > strong {
+  margin: 0 0 5px !important;
+  color: #101828 !important;
+  -webkit-text-fill-color: #101828 !important;
+  font-size: 7.5px !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.14em !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase !important;
+}
+
+.marketing-site-v2 .wp-footer-links a {
+  position: relative !important;
+  width: fit-content !important;
+  padding: 1px 0 !important;
+  color: #596273 !important;
+  -webkit-text-fill-color: #596273 !important;
+  background: transparent !important;
+  font-size: 10px !important;
+  font-weight: 590 !important;
+  letter-spacing: -0.006em !important;
+  line-height: 1.45 !important;
+  text-decoration: none !important;
+  transition: color 150ms ease, transform 150ms ease !important;
+}
+
+.marketing-site-v2 .wp-footer-links a:hover,
+.marketing-site-v2 .wp-footer-links a:focus-visible {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  transform: translateX(2px) !important;
+}
+
+.marketing-site-v2 .wp-footer-bottom {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 18px !important;
+  margin-top: clamp(36px, 5vw, 58px) !important;
+  padding: 17px 0 0 !important;
+  border: 0 !important;
+  border-top: 1px solid rgba(20, 33, 61, 0.1) !important;
+  color: #8992a0 !important;
+  background: transparent !important;
+  font-size: 8px !important;
+  font-weight: 620 !important;
+  letter-spacing: 0.025em !important;
+  line-height: 1.4 !important;
+}
+
+.marketing-site-v2 .wp-footer-bottom > span,
+.marketing-site-v2 .wp-footer-bottom > div > span {
+  color: #8992a0 !important;
+  -webkit-text-fill-color: #8992a0 !important;
+}
+
+.marketing-site-v2 .wp-footer-bottom > div {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 6px 15px !important;
+}
+
+.marketing-site-v2 .wp-footer-bottom a {
+  color: #687386 !important;
+  -webkit-text-fill-color: #687386 !important;
+  font-size: inherit !important;
+  font-weight: 680 !important;
+  text-decoration: none !important;
+}
+
+.marketing-site-v2 .wp-footer-bottom a:hover,
+.marketing-site-v2 .wp-footer-bottom a:focus-visible {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+}
+
+@media (max-width: 760px) {
+  .marketing-site-v2 .wp-footer {
+    padding: 38px 0 calc(18px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .marketing-site-v2 .wp-footer::before {
+    left: 16px !important;
+  }
+
+  .marketing-site-v2 .wp-footer .wp-container {
+    width: calc(100% - 32px) !important;
+  }
+
+  .marketing-site-v2 .wp-footer-main {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
+  .marketing-site-v2 .wp-footer-brand {
+    max-width: none !important;
+    padding-bottom: 2px !important;
+  }
+
+  .marketing-site-v2 .wp-footer-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 25px 18px !important;
+  }
+
+  .marketing-site-v2 .wp-footer-links > div:last-child {
+    grid-column: 1 / -1 !important;
+  }
+
+  .marketing-site-v2 .wp-footer-bottom {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 7px !important;
+    margin-top: 34px !important;
+    font-size: 7.5px !important;
+  }
+
+  .marketing-site-v2 .wp-footer-bottom > div {
+    justify-content: flex-start !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .marketing-site-v2 .wp-footer-links {
+    grid-template-columns: 1fr !important;
+  }
+
+  .marketing-site-v2 .wp-footer-links > div:last-child {
+    grid-column: auto !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-site-v2 .wp-footer :is(a, button) {
+    transition: none !important;
+  }
+}
