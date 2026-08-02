@@ -15,7 +15,7 @@ const websiteCopy = {
   about: "About",
   help: "Help Center",
   signIn: "Sign in",
-  demo: "Request a demo",
+  demo: "Book a demo",
   start: "Start free",
   menu: "Open website menu",
   close: "Close website menu",
@@ -154,6 +154,7 @@ export function MarketingHeader() {
 
   return (
     <>
+      <link rel="stylesheet" href="/biloo-marketing-sticky-header.css?v=20260802-1" />
       <a href="#public-main-content" className="public-skip-link">{c.skip}</a>
       <header className="marketing-nav marketing-nav-v2">
         <Link href="/" className="marketing-brand" aria-label="Biloo home">
@@ -162,6 +163,7 @@ export function MarketingHeader() {
         </Link>
 
         <div className="marketing-mobile-header-controls">
+          <Link href="/request-demo" className="marketing-mobile-demo">{c.demo}</Link>
           <button
             ref={toggleButtonRef}
             className={`marketing-menu-toggle premium-menu-toggle${menuOpen ? " open" : ""}`}
@@ -189,8 +191,8 @@ export function MarketingHeader() {
 
         <div className="marketing-nav-actions marketing-desktop-actions">
           <Link href="/auth/login" className="marketing-signin">{c.signIn}</Link>
-          <Link href="/request-demo" className="marketing-demo">{c.demo}</Link>
           <Link href="/auth/email-sign-up" className="marketing-start">{c.start}</Link>
+          <Link href="/request-demo" className="marketing-demo">{c.demo}</Link>
         </div>
       </header>
 
