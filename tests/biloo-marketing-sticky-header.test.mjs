@@ -25,7 +25,7 @@ test("marketing header stays sticky and exposes Book a demo on desktop and mobil
   assert.match(styles, /backdrop-filter: blur\(20px\) saturate\(165%\)/);
   assert.match(styles, /min-height: 76px !important/);
   assert.match(styles, /\.marketing-desktop-nav a \{[\s\S]*min-height: 44px !important[\s\S]*font-size: 14px !important/);
-  assert.match(styles, /\.marketing-signin,[\s\S]*\.marketing-demo,[\s\S]*\.marketing-start[\s\S]*min-height: 44px !important[\s\S]*font-size: 13\.5px !important/);
+  assert.match(styles, /\.marketing-nav-v2 :is\([\s\S]*\.marketing-signin,[\s\S]*\.marketing-demo,[\s\S]*\.marketing-start[\s\S]*\) \{[\s\S]*min-height: 44px !important[\s\S]*font-size: 13\.5px !important/);
   assert.match(styles, /@media \(max-width: 960px\)/);
   assert.match(styles, /\.marketing-desktop-nav,[\s\S]*\.marketing-desktop-actions \{[\s\S]*display: none !important/);
   assert.match(styles, /\.marketing-brand-copy \{[\s\S]*display: none !important/);
