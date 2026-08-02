@@ -1,0 +1,11 @@
+/* Homepage hero copy cleanup.
+ * The founder requested the connected-system eyebrow be removed entirely.
+ */
+
+.marketing-home-unified .wp-hero-copy > .wp-kicker:first-child {
+  display: none !important;
+}
+
+.marketing-home-unified .wp-hero-copy > h1 {
+  margin-top: 0 !important;
+}
