@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import "./account.css";
+import "./account-v2.css";
 
 export default function AccountLayout({ children }: { children: ReactNode }) {
   return children;
