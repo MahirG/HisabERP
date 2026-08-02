@@ -1,0 +1,100 @@
+/*
+ * Biloo public marketing scroll recovery.
+ * Keeps decorative horizontal overflow clipped while guaranteeing that
+ * every public route retains a real vertical document scroll chain.
+ */
+
+html:has(body [data-public-marketing-root]),
+body[data-public-marketing="true"] {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 100% !important;
+  max-height: none !important;
+  overflow-x: clip !important;
+  overflow-y: auto !important;
+  overscroll-behavior-x: none !important;
+  overscroll-behavior-y: auto !important;
+  touch-action: pan-y pinch-zoom !important;
+  position: static !important;
+}
+
+body[data-public-marketing="true"] {
+  -webkit-overflow-scrolling: touch !important;
+}
+
+body[data-public-marketing="true"] :is(
+  .marketing-site,
+  .marketing-site-v2,
+  .marketing-home-unified,
+  [data-public-marketing-root],
+  #public-main-content,
+  .wp-site
+) {
+  height: auto !important;
+  min-height: 100dvh !important;
+  max-height: none !important;
+  overflow-y: visible !important;
+  touch-action: pan-y pinch-zoom !important;
+}
+
+body[data-public-marketing="true"] :is(
+  .marketing-site,
+  .marketing-site-v2,
+  .marketing-home-unified,
+  [data-public-marketing-root],
+  #public-main-content,
+  .wp-site
+) {
+  overflow-x: clip !important;
+}
+
+body[data-public-marketing="true"] #public-main-content {
+  display: block !important;
+  position: relative !important;
+  inset: auto !important;
+}
+
+body[data-public-marketing="true"] .wp-site {
+  isolation: isolate !important;
+}
+
+/* Public mobile drawers may lock interaction only while actually open. */
+body[data-public-marketing="true"]:not([data-public-menu-open="true"]) {
+  overflow-y: auto !important;
+  touch-action: pan-y pinch-zoom !important;
+}
+
+@supports not (overflow: clip) {
+  html:has(body [data-public-marketing-root]),
+  body[data-public-marketing="true"],
+  body[data-public-marketing="true"] :is(
+    .marketing-site,
+    .marketing-site-v2,
+    .marketing-home-unified,
+    [data-public-marketing-root],
+    #public-main-content,
+    .wp-site
+  ) {
+    overflow-x: hidden !important;
+  }
+}
+
+@media (max-width: 960px) {
+  body[data-public-marketing="true"] {
+    min-height: 100dvh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  body[data-public-marketing="true"] :is(
+    .marketing-site,
+    .marketing-site-v2,
+    .marketing-home-unified,
+    [data-public-marketing-root],
+    #public-main-content,
+    .wp-site
+  ) {
+    min-height: 100dvh !important;
+    overflow-y: visible !important;
+  }
+}
