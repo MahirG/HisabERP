@@ -44,6 +44,10 @@
     {
       id: "biloo-home-footer-v2",
       href: "/biloo-home-footer-v2.css?v=20260802-1"
+    },
+    {
+      id: "biloo-account-security-v3",
+      href: "/biloo-account-security-v3.css?v=20260802-1"
     }
   ];
 
