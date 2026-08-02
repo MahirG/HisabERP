@@ -51,7 +51,11 @@
     },
     {
       id: "biloo-mobile-compact-drawer",
-      href: "/biloo-mobile-compact-drawer.css?v=20260802-1"
+      href: "/biloo-mobile-compact-drawer.css?v=20260802-2"
+    },
+    {
+      id: "biloo-public-scroll-recovery",
+      href: "/biloo-public-scroll-recovery.css?v=20260802-1"
     }
   ];
 
@@ -65,6 +69,27 @@
       link.href = stylesheet.href;
       document.head.appendChild(link);
     }
+  }
+
+  function syncPublicMarketingMode() {
+    if (!document.body) return;
+
+    var previousRoot = document.querySelector("[data-public-marketing-root]");
+    var marketingRoot = document.querySelector(
+      ".marketing-site, .marketing-site-v2, .marketing-home-unified, .wp-site"
+    );
+
+    if (previousRoot && previousRoot !== marketingRoot) {
+      previousRoot.removeAttribute("data-public-marketing-root");
+    }
+
+    if (marketingRoot) {
+      marketingRoot.setAttribute("data-public-marketing-root", "true");
+      document.body.dataset.publicMarketing = "true";
+      return;
+    }
+
+    document.body.removeAttribute("data-public-marketing");
   }
 
   function updateWorkspaceCredit() {
@@ -200,9 +225,11 @@
 
   function flushQueuedRoots() {
     queued = false;
+    syncPublicMarketingMode();
     updateWorkspaceCredit();
     var roots = queuedRoots.splice(0, queuedRoots.length);
     for (var index = 0; index < roots.length; index += 1) updateSubtree(roots[index]);
+    syncPublicMarketingMode();
     updateWorkspaceCredit();
     updateHead();
   }
@@ -219,10 +246,12 @@
     lockViewport();
     ensureWorkspaceStyles();
     root.dataset.brand = "biloo";
+    syncPublicMarketingMode();
     updateWorkspaceCredit();
     queueRoot(document.body);
 
     var observer = new MutationObserver(function (mutations) {
+      syncPublicMarketingMode();
       for (var index = 0; index < mutations.length; index += 1) {
         var mutation = mutations[index];
         if (mutation.type !== "childList") continue;
