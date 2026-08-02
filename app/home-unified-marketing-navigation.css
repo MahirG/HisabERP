@@ -1,0 +1,56 @@
+/* Homepage navigation authority: use the same shared marketing header as every public page. */
+.marketing-home-unified {
+  min-height: 100vh;
+  color: #080a0d;
+  background: #ffffff;
+}
+
+.marketing-home-unified > .marketing-nav {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 260 !important;
+}
+
+.marketing-home-unified > #public-main-content {
+  min-width: 0;
+}
+
+/* The Wishpond homepage previously shipped a separate logo, link order and mobile menu. */
+.marketing-home-unified #public-main-content > .wp-site > .wp-skip,
+.marketing-home-unified #public-main-content > .wp-site > .wp-header,
+.marketing-home-unified #public-main-content > .wp-site > .wp-mobile-nav {
+  display: none !important;
+}
+
+.marketing-home-unified #public-main-content > .wp-site > .wp-announcement {
+  z-index: 30 !important;
+}
+
+/* Keep the official mark crisp and identical in the header and mobile drawer. */
+.marketing-home-unified .marketing-brand > img,
+.marketing-home-unified .premium-mobile-menu-panel .marketing-brand > img {
+  display: block !important;
+  flex: 0 0 auto !important;
+  width: 44px !important;
+  height: 44px !important;
+  object-fit: contain !important;
+  background: #ffffff !important;
+  border-radius: 12px !important;
+}
+
+.marketing-home-unified .premium-mobile-menu-panel .marketing-brand > img {
+  width: 46px !important;
+  height: 46px !important;
+}
+
+@media (max-width: 760px) {
+  .marketing-home-unified > .marketing-nav {
+    top: 0 !important;
+  }
+
+  .marketing-home-unified #public-main-content > .wp-site > .wp-announcement {
+    min-height: 34px;
+    padding-inline: 12px;
+    text-align: center;
+  }
+}
