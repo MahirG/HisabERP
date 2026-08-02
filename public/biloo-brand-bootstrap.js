@@ -40,6 +40,10 @@
     {
       id: "biloo-marketing-navigation-v5",
       href: "/biloo-marketing-navigation-v5.css?v=20260802-1"
+    },
+    {
+      id: "biloo-home-footer-v2",
+      href: "/biloo-home-footer-v2.css?v=20260802-1"
     }
   ];
 
