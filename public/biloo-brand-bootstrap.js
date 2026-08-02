@@ -56,6 +56,10 @@
     {
       id: "biloo-public-scroll-recovery",
       href: "/biloo-public-scroll-recovery.css?v=20260802-1"
+    },
+    {
+      id: "biloo-marketing-contrast-logo-authority",
+      href: "/biloo-marketing-contrast-logo-authority.css?v=20260802-1"
     }
   ];
 
