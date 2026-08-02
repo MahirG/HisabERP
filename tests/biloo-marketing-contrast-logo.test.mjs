@@ -16,7 +16,7 @@ test("marketing pages keep readable contrast and one visible official logo", asy
   ]);
 
   assert.match(bootstrap, /biloo-marketing-contrast-logo-authority\.css\?v=20260802-1/);
-  assert.match(styles, /--biloo-public-on-dark-muted: rgba\(255, 255, 255, 0\.82\)/);
+  assert.match(styles, /--biloo-public-on-dark-muted: rgba\(255, 255, 255, 0\.84\)/);
   assert.match(styles, /\.wp-local-row small/);
   assert.match(styles, /\.wp-security-center small/);
   assert.match(styles, /\.wp-security-badge\.badge-two/);
@@ -30,6 +30,21 @@ test("marketing pages keep readable contrast and one visible official logo", asy
   assert.match(styles, /\.wp-map-center > span/);
   assert.match(styles, /\.wp-footer \.wp-brand-mark/);
 
+  assert.match(styles, /Neutralize generic card rules on structural marketing copy wrappers/);
+  assert.match(styles, /\.wp-product-explorer \.wp-section-heading/);
+  assert.match(styles, /\.wp-product-explorer \.wp-heading-split/);
+  assert.match(styles, /background: transparent !important/);
+  assert.match(styles, /\.wp-product-explorer \.wp-heading-split h2[\s\S]*color: #ffffff !important/);
+  assert.match(styles, /\.wp-product-explorer \.wp-heading-split > p[\s\S]*rgba\(255, 255, 255, 0\.84\)/);
+  assert.match(styles, /\.wp-product-explorer \.wp-kicker-light/);
+  assert.match(styles, /Explicit light-section contract/);
+  assert.match(styles, /Explicit dark-section contract/);
+  assert.match(styles, /@media \(max-width: 720px\)/);
+  assert.match(styles, /\.wp-product-explorer \.wp-heading-split \{[\s\S]*display: block !important/);
+  assert.match(styles, /grid-template-columns: minmax\(0, 1fr\) !important/);
+
+  assert.match(home, /className="wp-product-explorer"/);
+  assert.match(home, /className="wp-heading-split"/);
   assert.match(home, /className="wp-security-center"/);
   assert.match(home, /className="wp-local-row"/);
   assert.match(chrome, /className="marketing-nav marketing-nav-v2"/);
