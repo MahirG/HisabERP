@@ -15,7 +15,7 @@ test("marketing header stays sticky and exposes Book a demo on desktop and mobil
   ]);
 
   assert.match(chrome, /demo: "Book a demo"/);
-  assert.match(chrome, /biloo-marketing-sticky-header\.css\?v=20260802-1/);
+  assert.match(chrome, /biloo-marketing-sticky-header\.css\?v=20260802-2/);
   assert.match(chrome, /className="marketing-mobile-demo"/);
   assert.match(chrome, /className="marketing-demo">\{c\.demo\}<\/Link>/);
 
