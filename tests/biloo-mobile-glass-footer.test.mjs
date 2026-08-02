@@ -22,6 +22,9 @@ test("mobile workspace exposes a compact interactive X-style icon and text foote
   assert.match(shell, /<span>\{moreLabel\}<\/span>/);
 
   assert.match(styles, /@media \(max-width: 760px\)/);
+  assert.match(styles, /grid-template-columns: 46px minmax\(0, 1fr\) 50px !important/);
+  assert.match(styles, /\.mobile-workspace-brand \{\s*display: none !important/);
+  assert.match(styles, /\.mobile-workspace-title \{\s*grid-column: 2 !important/);
   assert.match(styles, /grid-template-columns: repeat\(5, minmax\(0, 1fr\)\)/);
   assert.match(styles, /grid-template-rows: 27px 12px !important/);
   assert.match(styles, /inset: auto 0 0 0 !important/);
