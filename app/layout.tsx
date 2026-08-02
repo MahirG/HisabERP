@@ -253,6 +253,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <head>
         <link id="biloo-workspace-utility-header" rel="stylesheet" href="/biloo-workspace-utility-header.css?v=20260802-3" />
         <link id="biloo-mobile-navigation-v4" rel="stylesheet" href="/biloo-mobile-navigation-v4.css?v=20260802-2" />
+        <link id="biloo-mobile-glass-footer" rel="stylesheet" href="/biloo-mobile-glass-footer.css?v=20260802-1" />
         <script src="/biloo-brand-bootstrap.js?v=20260802-3" />
         <script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} />
         <script dangerouslySetInnerHTML={{ __html: mobileNavigationBootstrap }} />
