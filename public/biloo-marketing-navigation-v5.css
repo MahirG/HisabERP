@@ -1,0 +1,725 @@
+/*
+ * Biloo marketing navigation v5
+ * Final public-site authority for the compact mobile drawer and editorial footer.
+ */
+
+.marketing-site-v2 {
+  --biloo-menu-ink: #101828;
+  --biloo-menu-navy: #14213d;
+  --biloo-menu-gold: #fca311;
+  --biloo-menu-muted: #667085;
+  --biloo-menu-faint: #98a2b3;
+  --biloo-menu-line: rgba(20, 33, 61, 0.1);
+  --biloo-menu-line-strong: rgba(20, 33, 61, 0.18);
+  --biloo-menu-soft: #f7f8fa;
+  --biloo-menu-gold-soft: rgba(252, 163, 17, 0.12);
+  --biloo-menu-white: #ffffff;
+}
+
+.marketing-site-v2 .marketing-mobile-header-controls {
+  display: none !important;
+}
+
+/* Compact editorial footer — calm contrast, tiny type and clear grouping. */
+.marketing-site-v2 .marketing-footer {
+  position: relative !important;
+  padding: clamp(44px, 6vw, 72px) max(20px, calc((100vw - 1180px) / 2)) 24px !important;
+  border: 0 !important;
+  border-top: 1px solid var(--biloo-menu-line) !important;
+  border-radius: 0 !important;
+  color: var(--biloo-menu-ink) !important;
+  background: linear-gradient(180deg, #fbfcfd 0%, #f5f6f8 100%) !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 .marketing-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto max(20px, calc((100vw - 1180px) / 2));
+  width: 42px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--biloo-menu-gold);
+}
+
+.marketing-site-v2 .marketing-footer-top {
+  display: grid !important;
+  grid-template-columns: minmax(240px, 1.45fr) repeat(3, minmax(130px, 0.8fr)) !important;
+  gap: clamp(28px, 4vw, 64px) !important;
+  align-items: start !important;
+}
+
+.marketing-site-v2 .marketing-footer-top > div {
+  display: flex !important;
+  min-width: 0 !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 9px !important;
+}
+
+.marketing-site-v2 .marketing-footer-top > div:first-child {
+  gap: 8px !important;
+}
+
+.marketing-site-v2 .marketing-footer-brand {
+  margin-bottom: 9px !important;
+  color: var(--biloo-menu-ink) !important;
+}
+
+.marketing-site-v2 .marketing-footer-brand > img {
+  width: 36px !important;
+  height: 36px !important;
+  flex: 0 0 36px !important;
+  border: 1px solid var(--biloo-menu-line) !important;
+  border-radius: 11px !important;
+  padding: 2px !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 22px rgba(20, 33, 61, 0.08) !important;
+}
+
+.marketing-site-v2 .marketing-footer-brand .marketing-brand-copy strong {
+  color: var(--biloo-menu-ink) !important;
+  -webkit-text-fill-color: var(--biloo-menu-ink) !important;
+  background: none !important;
+  font-size: 15px !important;
+  font-weight: 820 !important;
+  letter-spacing: -0.035em !important;
+}
+
+.marketing-site-v2 .marketing-footer-brand .marketing-brand-copy small {
+  color: var(--biloo-menu-faint) !important;
+  -webkit-text-fill-color: var(--biloo-menu-faint) !important;
+  font-size: 7px !important;
+  font-weight: 780 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+}
+
+.marketing-site-v2 .marketing-footer-top p {
+  max-width: 330px !important;
+  margin: 0 0 5px !important;
+  color: var(--biloo-menu-muted) !important;
+  font-size: 11px !important;
+  font-weight: 520 !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.65 !important;
+}
+
+.marketing-site-v2 .marketing-footer-top > div > strong {
+  margin-bottom: 5px !important;
+  color: var(--biloo-menu-ink) !important;
+  -webkit-text-fill-color: var(--biloo-menu-ink) !important;
+  font-size: 8px !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.13em !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase !important;
+}
+
+.marketing-site-v2 .marketing-footer-top a {
+  position: relative !important;
+  width: fit-content !important;
+  padding: 2px 0 !important;
+  color: #596273 !important;
+  -webkit-text-fill-color: #596273 !important;
+  background: transparent !important;
+  font-size: 10.5px !important;
+  font-weight: 590 !important;
+  letter-spacing: -0.006em !important;
+  line-height: 1.45 !important;
+  transition: color 160ms ease, transform 160ms ease !important;
+}
+
+.marketing-site-v2 .marketing-footer-top a:hover,
+.marketing-site-v2 .marketing-footer-top a:focus-visible {
+  color: var(--biloo-menu-navy) !important;
+  -webkit-text-fill-color: var(--biloo-menu-navy) !important;
+  transform: translateX(2px) !important;
+}
+
+.marketing-site-v2 .marketing-footer-bottom {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  margin-top: clamp(34px, 5vw, 54px) !important;
+  padding-top: 18px !important;
+  border-top: 1px solid var(--biloo-menu-line) !important;
+  color: #858e9d !important;
+  font-size: 8.5px !important;
+  font-weight: 620 !important;
+  letter-spacing: 0.025em !important;
+  line-height: 1.4 !important;
+}
+
+.marketing-site-v2 .marketing-footer-bottom span {
+  color: #858e9d !important;
+  -webkit-text-fill-color: #858e9d !important;
+}
+
+@media (max-width: 960px) {
+  html[data-public-menu-open="true"],
+  html[data-public-menu-open="true"] body {
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+  }
+
+  .marketing-site-v2 .marketing-nav-v2 {
+    min-height: 64px !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 12px !important;
+    padding: 0 14px !important;
+  }
+
+  .marketing-site-v2 .marketing-desktop-nav,
+  .marketing-site-v2 .marketing-desktop-actions {
+    display: none !important;
+  }
+
+  .marketing-site-v2 .marketing-mobile-header-controls {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+  }
+
+  .marketing-site-v2 .marketing-brand > img {
+    width: 36px !important;
+    height: 36px !important;
+    flex: 0 0 36px !important;
+    border-radius: 11px !important;
+  }
+
+  .marketing-site-v2 .marketing-brand-copy strong {
+    color: var(--biloo-menu-ink) !important;
+    -webkit-text-fill-color: var(--biloo-menu-ink) !important;
+    background: none !important;
+    font-size: 15px !important;
+  }
+
+  .marketing-site-v2 .marketing-brand-copy small {
+    color: var(--biloo-menu-faint) !important;
+    -webkit-text-fill-color: var(--biloo-menu-faint) !important;
+    font-size: 7px !important;
+    letter-spacing: 0.13em !important;
+  }
+
+  /* Tactile, minimal hamburger trigger. */
+  .marketing-site-v2 .premium-menu-toggle,
+  .marketing-site-v2 .marketing-menu-toggle {
+    position: relative !important;
+    display: grid !important;
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    place-items: center !important;
+    padding: 0 !important;
+    border: 1px solid var(--biloo-menu-line) !important;
+    border-radius: 13px !important;
+    color: var(--biloo-menu-navy) !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    box-shadow: 0 8px 24px rgba(20, 33, 61, 0.08) !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease !important;
+  }
+
+  .marketing-site-v2 .premium-menu-toggle:hover,
+  .marketing-site-v2 .premium-menu-toggle:active,
+  .marketing-site-v2 .premium-menu-toggle:focus-visible {
+    border-color: rgba(252, 163, 17, 0.62) !important;
+    color: var(--biloo-menu-navy) !important;
+    background: #ffffff !important;
+    box-shadow: 0 0 0 4px var(--biloo-menu-gold-soft), 0 10px 26px rgba(20, 33, 61, 0.1) !important;
+  }
+
+  .marketing-site-v2 .premium-menu-toggle:active {
+    transform: scale(0.95) !important;
+  }
+
+  .marketing-site-v2 .premium-menu-toggle span {
+    position: absolute !important;
+    left: 10px !important;
+    display: block !important;
+    width: 20px !important;
+    height: 1.5px !important;
+    margin: 0 !important;
+    border-radius: 999px !important;
+    background: currentColor !important;
+    transform-origin: center !important;
+    transition: top 200ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 140ms ease !important;
+  }
+
+  .marketing-site-v2 .premium-menu-toggle span:nth-child(1) { top: 13px !important; }
+  .marketing-site-v2 .premium-menu-toggle span:nth-child(2) { top: 20px !important; width: 14px !important; left: 16px !important; }
+  .marketing-site-v2 .premium-menu-toggle span:nth-child(3) { top: 27px !important; }
+
+  .marketing-site-v2 .premium-menu-toggle.open span:nth-child(1) {
+    top: 20px !important;
+    transform: rotate(45deg) !important;
+  }
+
+  .marketing-site-v2 .premium-menu-toggle.open span:nth-child(2) {
+    opacity: 0 !important;
+    transform: scaleX(0.2) !important;
+  }
+
+  .marketing-site-v2 .premium-menu-toggle.open span:nth-child(3) {
+    top: 20px !important;
+    transform: rotate(-45deg) !important;
+  }
+
+  /* Full-height right-side navigation sheet. */
+  .marketing-site-v2 .premium-mobile-menu {
+    position: fixed !important;
+    z-index: 1200 !important;
+    inset: 0 !important;
+    display: block !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    transition: opacity 180ms ease, visibility 180ms ease !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu.open {
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-backdrop {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: rgba(8, 15, 28, 0.42) !important;
+    box-shadow: none !important;
+    opacity: 0 !important;
+    backdrop-filter: blur(3px) !important;
+    -webkit-backdrop-filter: blur(3px) !important;
+    transition: opacity 240ms ease !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu.open .premium-mobile-menu-backdrop {
+    opacity: 1 !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel {
+    position: absolute !important;
+    inset: 0 0 0 auto !important;
+    display: grid !important;
+    width: min(92vw, 410px) !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    grid-template-rows: auto auto minmax(0, 1fr) auto auto !important;
+    gap: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-left: 1px solid rgba(20, 33, 61, 0.08) !important;
+    border-radius: 22px 0 0 22px !important;
+    color: var(--biloo-menu-ink) !important;
+    background: #ffffff !important;
+    box-shadow: -32px 0 90px rgba(8, 15, 28, 0.24) !important;
+    transform: translate3d(104%, 0, 0) !important;
+    transition: transform 330ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+    will-change: transform !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu.open .premium-mobile-menu-panel {
+    transform: translate3d(0, 0, 0) !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > header {
+    display: flex !important;
+    min-height: calc(68px + env(safe-area-inset-top)) !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    padding: calc(12px + env(safe-area-inset-top)) 14px 12px !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--biloo-menu-line) !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    box-shadow: none !important;
+    backdrop-filter: blur(18px) saturate(150%) !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > header .marketing-brand {
+    gap: 9px !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > header .marketing-brand > img {
+    width: 34px !important;
+    height: 34px !important;
+    flex: 0 0 34px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 7px 18px rgba(20, 33, 61, 0.08) !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > header .marketing-brand-copy strong {
+    font-size: 14px !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > header .marketing-brand-copy small {
+    font-size: 6.5px !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > header > button {
+    position: relative !important;
+    display: grid !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    place-items: center !important;
+    padding: 0 !important;
+    border: 1px solid var(--biloo-menu-line) !important;
+    border-radius: 12px !important;
+    color: var(--biloo-menu-navy) !important;
+    background: var(--biloo-menu-soft) !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > header > button:hover,
+  .marketing-site-v2 .premium-mobile-menu-panel > header > button:focus-visible {
+    border-color: rgba(252, 163, 17, 0.58) !important;
+    background: var(--biloo-menu-gold-soft) !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > header > button span {
+    position: absolute !important;
+    width: 16px !important;
+    height: 1.5px !important;
+    border-radius: 999px !important;
+    background: currentColor !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > header > button span:first-child { transform: rotate(45deg) !important; }
+  .marketing-site-v2 .premium-mobile-menu-panel > header > button span:last-child { transform: rotate(-45deg) !important; }
+
+  .marketing-site-v2 .premium-mobile-menu-intro {
+    display: block !important;
+    margin: 0 !important;
+    padding: 14px 16px 13px !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--biloo-menu-line) !important;
+    border-radius: 0 !important;
+    color: var(--biloo-menu-ink) !important;
+    background: linear-gradient(135deg, #fbfcfd 0%, #f5f6f8 100%) !important;
+    box-shadow: none !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-intro > span {
+    display: block !important;
+    margin: 0 0 5px !important;
+    color: #8b95a5 !important;
+    -webkit-text-fill-color: #8b95a5 !important;
+    font-size: 7px !important;
+    font-weight: 850 !important;
+    letter-spacing: 0.14em !important;
+    line-height: 1.2 !important;
+    text-transform: uppercase !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-intro h2 {
+    max-width: 32ch !important;
+    margin: 0 !important;
+    color: var(--biloo-menu-ink) !important;
+    -webkit-text-fill-color: var(--biloo-menu-ink) !important;
+    font-size: 14px !important;
+    font-weight: 780 !important;
+    letter-spacing: -0.025em !important;
+    line-height: 1.3 !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-intro p {
+    max-width: 42ch !important;
+    margin: 6px 0 0 !important;
+    color: var(--biloo-menu-muted) !important;
+    -webkit-text-fill-color: var(--biloo-menu-muted) !important;
+    font-size: 9px !important;
+    font-weight: 520 !important;
+    letter-spacing: -0.005em !important;
+    line-height: 1.5 !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > nav {
+    display: grid !important;
+    min-height: 0 !important;
+    align-content: start !important;
+    gap: 2px !important;
+    padding: 8px 10px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    background: #ffffff !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(20, 33, 61, 0.2) transparent !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > nav a {
+    display: grid !important;
+    grid-template-columns: 25px minmax(0, 1fr) 18px !important;
+    min-height: 44px !important;
+    align-items: center !important;
+    gap: 7px !important;
+    padding: 0 10px !important;
+    border: 1px solid transparent !important;
+    border-radius: 11px !important;
+    color: var(--biloo-menu-ink) !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: color 150ms ease, background 150ms ease, border-color 150ms ease, transform 150ms ease !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu.open .premium-mobile-menu-panel > nav a {
+    animation: biloo-menu-row-in 320ms both !important;
+    animation-delay: calc(var(--menu-index, 0) * 28ms + 70ms) !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > nav a small {
+    color: #a0a8b5 !important;
+    -webkit-text-fill-color: #a0a8b5 !important;
+    font-size: 7.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.08em !important;
+    line-height: 1 !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > nav a strong {
+    overflow: hidden !important;
+    color: var(--biloo-menu-ink) !important;
+    -webkit-text-fill-color: var(--biloo-menu-ink) !important;
+    font-size: 12.5px !important;
+    font-weight: 690 !important;
+    letter-spacing: -0.018em !important;
+    line-height: 1.2 !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > nav a > span {
+    color: #a0a8b5 !important;
+    -webkit-text-fill-color: #a0a8b5 !important;
+    font-size: 10px !important;
+    line-height: 1 !important;
+    transform: rotate(0deg) !important;
+    transition: transform 150ms ease, color 150ms ease !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > nav a:hover,
+  .marketing-site-v2 .premium-mobile-menu-panel > nav a:focus-visible {
+    border-color: var(--biloo-menu-line) !important;
+    color: var(--biloo-menu-navy) !important;
+    background: var(--biloo-menu-soft) !important;
+    transform: translateX(-2px) !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > nav a:hover > span,
+  .marketing-site-v2 .premium-mobile-menu-panel > nav a:focus-visible > span {
+    color: var(--biloo-menu-navy) !important;
+    -webkit-text-fill-color: var(--biloo-menu-navy) !important;
+    transform: translate(1px, -1px) !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > nav a[aria-current="page"] {
+    border-color: rgba(252, 163, 17, 0.26) !important;
+    color: var(--biloo-menu-navy) !important;
+    background: var(--biloo-menu-gold-soft) !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > nav a[aria-current="page"] small,
+  .marketing-site-v2 .premium-mobile-menu-panel > nav a[aria-current="page"] > span {
+    color: #b66f00 !important;
+    -webkit-text-fill-color: #b66f00 !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-actions {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    padding: 12px 12px 10px !important;
+    border: 0 !important;
+    border-top: 1px solid var(--biloo-menu-line) !important;
+    background: rgba(255, 255, 255, 0.97) !important;
+    box-shadow: 0 -14px 36px rgba(20, 33, 61, 0.055) !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-actions .marketing-start {
+    grid-column: 1 / -1 !important;
+    min-height: 43px !important;
+    border: 1px solid var(--biloo-menu-gold) !important;
+    border-radius: 12px !important;
+    padding: 0 14px !important;
+    color: #111827 !important;
+    -webkit-text-fill-color: #111827 !important;
+    background: var(--biloo-menu-gold) !important;
+    box-shadow: 0 10px 24px rgba(252, 163, 17, 0.22) !important;
+    font-size: 11px !important;
+    font-weight: 820 !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-actions .marketing-start:hover,
+  .marketing-site-v2 .premium-mobile-menu-actions .marketing-start:focus-visible {
+    border-color: #ed9505 !important;
+    background: #ffae24 !important;
+    transform: translateY(-1px) !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-actions :is(.marketing-demo, .marketing-signin) {
+    display: inline-flex !important;
+    min-height: 39px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 1px solid var(--biloo-menu-line) !important;
+    border-radius: 11px !important;
+    padding: 0 10px !important;
+    color: var(--biloo-menu-navy) !important;
+    -webkit-text-fill-color: var(--biloo-menu-navy) !important;
+    background: var(--biloo-menu-soft) !important;
+    box-shadow: none !important;
+    font-size: 9.5px !important;
+    font-weight: 760 !important;
+    line-height: 1 !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-actions :is(.marketing-demo, .marketing-signin):hover,
+  .marketing-site-v2 .premium-mobile-menu-actions :is(.marketing-demo, .marketing-signin):focus-visible {
+    border-color: rgba(252, 163, 17, 0.45) !important;
+    background: var(--biloo-menu-gold-soft) !important;
+    transform: translateY(-1px) !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > footer {
+    display: flex !important;
+    min-height: calc(36px + env(safe-area-inset-bottom)) !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom)) !important;
+    border: 0 !important;
+    border-top: 1px solid var(--biloo-menu-line) !important;
+    color: #8c95a3 !important;
+    background: #f8f9fb !important;
+    font-size: 7.5px !important;
+    font-weight: 650 !important;
+    letter-spacing: 0.025em !important;
+    line-height: 1.3 !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > footer span,
+  .marketing-site-v2 .premium-mobile-menu-panel > footer a {
+    color: #8c95a3 !important;
+    -webkit-text-fill-color: #8c95a3 !important;
+    font-size: inherit !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > footer a:hover,
+  .marketing-site-v2 .premium-mobile-menu-panel > footer a:focus-visible {
+    color: var(--biloo-menu-navy) !important;
+    -webkit-text-fill-color: var(--biloo-menu-navy) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .marketing-site-v2 .marketing-footer {
+    padding: 38px 16px 20px !important;
+  }
+
+  .marketing-site-v2 .marketing-footer::before {
+    left: 16px !important;
+  }
+
+  .marketing-site-v2 .marketing-footer-top {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 28px 18px !important;
+  }
+
+  .marketing-site-v2 .marketing-footer-top > div {
+    display: flex !important;
+  }
+
+  .marketing-site-v2 .marketing-footer-top > div:first-child {
+    grid-column: 1 / -1 !important;
+    padding-bottom: 7px !important;
+  }
+
+  .marketing-site-v2 .marketing-footer-top > div:last-child {
+    display: flex !important;
+  }
+
+  .marketing-site-v2 .marketing-footer-top p {
+    max-width: 38ch !important;
+    font-size: 10.5px !important;
+  }
+
+  .marketing-site-v2 .marketing-footer-top > div > strong {
+    font-size: 7.5px !important;
+  }
+
+  .marketing-site-v2 .marketing-footer-top a {
+    font-size: 10px !important;
+  }
+
+  .marketing-site-v2 .marketing-footer-bottom {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+    margin-top: 34px !important;
+    font-size: 8px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .marketing-site-v2 .premium-mobile-menu-panel {
+    width: 100vw !important;
+    border-left: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-intro {
+    padding-inline: 14px !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > nav {
+    padding-inline: 8px !important;
+  }
+
+  .marketing-site-v2 .premium-mobile-menu-panel > nav a {
+    min-height: 42px !important;
+  }
+
+  .marketing-site-v2 .marketing-footer-top {
+    grid-template-columns: 1fr !important;
+  }
+
+  .marketing-site-v2 .marketing-footer-top > div:first-child {
+    grid-column: auto !important;
+  }
+}
+
+@keyframes biloo-menu-row-in {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-site-v2 .premium-mobile-menu,
+  .marketing-site-v2 .premium-mobile-menu-backdrop,
+  .marketing-site-v2 .premium-mobile-menu-panel,
+  .marketing-site-v2 .premium-menu-toggle span,
+  .marketing-site-v2 .premium-mobile-menu-panel > nav a {
+    animation: none !important;
+    transition: none !important;
+  }
+}
