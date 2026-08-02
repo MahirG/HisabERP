@@ -12,8 +12,8 @@ body[data-public-marketing="true"] {
   --biloo-public-muted: #556171;
   --biloo-public-muted-strong: #3f4b5b;
   --biloo-public-on-dark: #ffffff;
-  --biloo-public-on-dark-muted: rgba(255, 255, 255, 0.82);
-  --biloo-public-on-dark-soft: rgba(255, 255, 255, 0.7);
+  --biloo-public-on-dark-muted: rgba(255, 255, 255, 0.84);
+  --biloo-public-on-dark-soft: rgba(255, 255, 255, 0.72);
 }
 
 /* The shared site header is the single visible logo location. */
@@ -55,12 +55,119 @@ body[data-public-marketing="true"] :is(
   gap: 0 !important;
 }
 
-/* High-confidence contrast on every dark marketing surface. */
-body[data-public-marketing="true"] :is(
-  .wp-audience-panel,
+/* Neutralize generic card rules on structural marketing copy wrappers. */
+body[data-public-marketing="true"] .marketing-home-unified .wp-site :is(
+  .wp-section-heading,
+  .wp-heading-split,
+  .wp-heading-split > div,
+  .wp-story-copy,
+  .wp-audience-heading,
+  .wp-security-copy,
+  .wp-faq-heading,
+  .wp-final-inner
+) {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  opacity: 1 !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site :is(
+  .wp-section-heading,
+  .wp-heading-split,
+  .wp-heading-split > div,
+  .wp-story-copy,
+  .wp-audience-heading,
+  .wp-security-copy,
+  .wp-faq-heading,
+  .wp-final-inner
+)::before,
+body[data-public-marketing="true"] .marketing-home-unified .wp-site :is(
+  .wp-section-heading,
+  .wp-heading-split,
+  .wp-heading-split > div,
+  .wp-story-copy,
+  .wp-audience-heading,
+  .wp-security-copy,
+  .wp-faq-heading,
+  .wp-final-inner
+)::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Explicit light-section contract. */
+body[data-public-marketing="true"] .marketing-home-unified .wp-site :is(
+  .wp-hero,
+  .wp-intro,
+  .wp-story-section,
+  .wp-journey-section,
+  .wp-security-section,
+  .wp-faq-section
+) {
+  color: var(--biloo-public-ink) !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site :is(
+  .wp-hero,
+  .wp-intro,
+  .wp-story-section,
+  .wp-journey-section,
+  .wp-security-section,
+  .wp-faq-section
+) :is(h1, h2, h3, h4, strong, b) {
+  color: var(--biloo-public-ink) !important;
+  -webkit-text-fill-color: var(--biloo-public-ink) !important;
+  opacity: 1 !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site :is(
+  .wp-hero-copy > p,
+  .wp-section-heading > p,
+  .wp-story-copy > p,
+  .wp-story-copy li small,
+  .wp-journey-grid p,
+  .wp-security-copy > p,
+  .wp-security-list small,
+  .wp-faq-heading > p,
+  .wp-faq-answer > p,
+  .wp-map-center small,
+  .wp-map-node small
+) {
+  color: var(--biloo-public-muted) !important;
+  -webkit-text-fill-color: var(--biloo-public-muted) !important;
+  opacity: 1 !important;
+}
+
+/* Explicit dark-section contract. */
+body[data-public-marketing="true"] .marketing-home-unified .wp-site :is(
   .wp-product-explorer,
+  .wp-audience-panel,
   .wp-final-cta,
-  .wp-footer,
+  .wp-footer
+),
+body[data-public-marketing="true"] :is(
+  .marketing-footer,
+  .premium-mobile-menu-panel
+) {
+  color: var(--biloo-public-on-dark) !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site :is(
+  .wp-product-explorer,
+  .wp-audience-panel,
+  .wp-final-cta,
+  .wp-footer
+) :is(h1, h2, h3, h4, strong, b),
+body[data-public-marketing="true"] :is(
   .marketing-footer,
   .premium-mobile-menu-panel
 ) :is(h1, h2, h3, h4, strong, b) {
@@ -69,14 +176,16 @@ body[data-public-marketing="true"] :is(
   opacity: 1 !important;
 }
 
-body[data-public-marketing="true"] :is(
+body[data-public-marketing="true"] .marketing-home-unified .wp-site :is(
   .wp-audience-heading > p,
   .wp-audience-grid p,
   .wp-local-row small,
   .wp-final-inner > p,
   .wp-final-note,
   .wp-footer p,
-  .wp-footer small,
+  .wp-footer small
+),
+body[data-public-marketing="true"] :is(
   .marketing-footer p,
   .marketing-footer small,
   .marketing-footer a,
@@ -86,6 +195,84 @@ body[data-public-marketing="true"] :is(
   color: var(--biloo-public-on-dark-muted) !important;
   -webkit-text-fill-color: var(--biloo-public-on-dark-muted) !important;
   opacity: 1 !important;
+}
+
+/* Product explorer: force the whole heading region to stay on the navy canvas. */
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer {
+  overflow: hidden !important;
+  color: #ffffff !important;
+  background:
+    radial-gradient(circle at 50% -22%, rgba(252, 163, 17, 0.16), transparent 35rem),
+    var(--biloo-public-navy-deep) !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer > .wp-container,
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer .wp-section-heading,
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer .wp-heading-split,
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer .wp-heading-split > div {
+  width: 100% !important;
+  max-width: none !important;
+  padding: 0 !important;
+  color: #ffffff !important;
+  background: transparent !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer .wp-heading-split h2 {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.08) !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer .wp-heading-split > p {
+  color: rgba(255, 255, 255, 0.84) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.84) !important;
+  opacity: 1 !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer .wp-kicker-light {
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  color: var(--biloo-public-gold) !important;
+  -webkit-text-fill-color: var(--biloo-public-gold) !important;
+  background: rgba(255, 255, 255, 0.065) !important;
+  box-shadow: none !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer .wp-kicker-light svg {
+  color: var(--biloo-public-gold) !important;
+  stroke: currentColor !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer {
+  border-color: rgba(255, 255, 255, 0.13) !important;
+  background: rgba(255, 255, 255, 0.055) !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer-copy h3,
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer-copy a,
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer-tabs button.active {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer-copy p {
+  color: rgba(255, 255, 255, 0.82) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.82) !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer-tabs button {
+  color: rgba(255, 255, 255, 0.76) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.76) !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer-preview,
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer-preview :is(strong, b) {
+  color: var(--biloo-public-ink) !important;
+  -webkit-text-fill-color: var(--biloo-public-ink) !important;
+}
+
+body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer-preview :is(small, span) {
+  color: #526070 !important;
+  -webkit-text-fill-color: #526070 !important;
 }
 
 body[data-public-marketing="true"] .wp-local-row strong,
@@ -104,22 +291,6 @@ body[data-public-marketing="true"] .wp-local-row small {
 body[data-public-marketing="true"] .wp-audience-heading > p,
 body[data-public-marketing="true"] .wp-audience-grid p {
   font-weight: 500 !important;
-}
-
-/* Light-surface secondary text must remain readable on mobile displays. */
-body[data-public-marketing="true"] :is(
-  .wp-security-copy > p,
-  .wp-security-list small,
-  .wp-security-center small,
-  .wp-story-copy li small,
-  .wp-journey-grid p,
-  .wp-map-center small,
-  .wp-map-node small,
-  .wp-faq-answer > p
-) {
-  color: var(--biloo-public-muted) !important;
-  -webkit-text-fill-color: var(--biloo-public-muted) !important;
-  opacity: 1 !important;
 }
 
 body[data-public-marketing="true"] :is(
@@ -176,8 +347,80 @@ body[data-public-marketing="true"] .wp-security-badge svg {
   color: var(--biloo-public-gold) !important;
 }
 
-/* Make the security illustration legible and contained on narrow screens. */
+/* Keep generic reveal effects from lowering final text contrast. */
+body[data-public-marketing="true"] .wp-site [data-reveal].is-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Make major mobile sections readable, contained and free of accidental cards. */
 @media (max-width: 720px) {
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-section {
+    padding-top: 78px !important;
+    padding-bottom: 78px !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer > .wp-container {
+    width: calc(100% - 32px) !important;
+    margin-inline: auto !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer .wp-heading-split {
+    display: block !important;
+    margin: 0 !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer .wp-heading-split > div,
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer .wp-heading-split > p {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer .wp-heading-split h2 {
+    margin-top: 22px !important;
+    font-size: clamp(38px, 11.5vw, 54px) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.055em !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer .wp-heading-split > p {
+    margin: 24px 0 0 !important;
+    font-size: 15px !important;
+    line-height: 1.7 !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 22px !important;
+    margin-top: 46px !important;
+    padding: 16px !important;
+    border-radius: 22px !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer-copy {
+    grid-column: auto !important;
+    order: 0 !important;
+    padding: 10px 4px !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer-copy h3 {
+    font-size: clamp(34px, 10vw, 46px) !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer-tabs button {
+    grid-template-columns: 34px minmax(0, 1fr) !important;
+    min-height: 54px !important;
+    padding: 8px !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer-tabs button > svg {
+    display: none !important;
+  }
+
   body[data-public-marketing="true"] .wp-security-layout {
     grid-template-columns: minmax(0, 1fr) !important;
     gap: 38px !important;
@@ -222,6 +465,18 @@ body[data-public-marketing="true"] .wp-security-badge svg {
 
   body[data-public-marketing="true"] .wp-local-row > div {
     min-height: 96px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-explorer-tabs {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-home-unified .wp-site .wp-product-explorer .wp-kicker-light {
+    max-width: 100% !important;
+    white-space: normal !important;
+    line-height: 1.35 !important;
   }
 }
 
