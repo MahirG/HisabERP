@@ -3,6 +3,7 @@ import { MarketingHeader } from "../components/marketing-site-chrome";
 import { WishpondMarketingHome } from "../components/wishpond-marketing-home";
 import "./home-wishpond-redesign.css";
 import "./home-unified-marketing-navigation.css";
+import "./home-hero-copy-cleanup.css";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
