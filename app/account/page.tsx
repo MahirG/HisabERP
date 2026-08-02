@@ -11,6 +11,7 @@ export const dynamic = "force-dynamic";
 
 type AccountSearchParams = {
   setup?: string;
+  verify?: string;
   next?: string;
 };
 
@@ -60,10 +61,59 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
   const strongSession = user.aal === "aal2";
   const continueHref = safeNextPath(query.next || "/");
   const setupMode = query.setup === "mfa";
+  const verificationMode = query.verify === "mfa";
   const postureScore = Math.min(100, 45 + (user.provider ? 15 : 0) + (hasAuthenticator ? 22 : 0) + (strongSession ? 18 : 0));
   const resetQuery = new URLSearchParams({ next: "/account" });
   if (user.email) resetQuery.set("email", user.email);
   const resetHref = `/auth/forgot-password?${resetQuery.toString()}`;
+
+  if (verificationMode) {
+    return (
+      <main className="acct2-page">
+        <nav className="acct2-breadcrumb" aria-label="Breadcrumb">
+          <Link href={continueHref}><Icon name="chevron-right" size={13} style={{ transform: "rotate(180deg)" }} /> Return to workspace</Link>
+          <span aria-current="page">Administrator verification</span>
+        </nav>
+
+        <header className="acct2-heading">
+          <div>
+            <span className="acct2-eyebrow"><Icon name="shield-check" size={15} /> Existing member authentication</span>
+            <h1>{strongSession ? "Administrator access confirmed" : hasAuthenticator ? "Confirm administrator access" : "Secure administrator access"}</h1>
+            <p>
+              {strongSession
+                ? "This browser already has the strong authentication required for protected workspace operations."
+                : hasAuthenticator
+                  ? "Enter the current code from your authenticator app. No company registration or setup form is required for your existing membership."
+                  : "This is an existing workspace membership, so only authenticator security must be completed. Company registration will not be shown again."}
+            </p>
+          </div>
+          <div className="acct2-heading-actions">
+            <Link href={continueHref} className="acct2-button"><Icon name="arrow-right" size={15} style={{ transform: "rotate(180deg)" }} /> Cancel</Link>
+          </div>
+        </header>
+
+        <section className="acct2-security-strip" aria-label="Authentication requirement">
+          <div className="acct2-security-summary">
+            <span className="acct2-security-icon"><Icon name={strongSession ? "check-circle" : "lock"} size={21} /></span>
+            <div>
+              <small>{user.organizationName}</small>
+              <strong>{strongSession ? "AAL2 session active" : hasAuthenticator ? "Authenticator confirmation required" : "Authenticator enrollment required"}</strong>
+              <p>{roleLabel(user.role)} · {providerLabel(user.provider)} sign-in · {user.aal.toUpperCase()} assurance</p>
+            </div>
+          </div>
+        </section>
+
+        <div className="acct2-auth" id="authenticator">
+          <MfaSecurityPanel
+            organizationId={user.organizationId}
+            required={user.mfaRequired}
+            initialAal={user.aal}
+            continueHref={continueHref}
+          />
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="acct2-page">
@@ -78,10 +128,10 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
           <span className="acct2-setup-icon"><Icon name="shield-check" size={21} /></span>
           <div>
             <small>ADMINISTRATOR SECURITY</small>
-            <strong id="secure-account-heading">Finish authenticator setup</strong>
-            <p>Connect Google Authenticator or another TOTP app, verify one code, then continue to your workspace.</p>
+            <strong id="secure-account-heading">{hasAuthenticator ? "Confirm your authenticator" : "Finish authenticator setup"}</strong>
+            <p>{hasAuthenticator ? "Enter a current code to confirm this browser session, then continue to your workspace." : "Connect Google Authenticator or another TOTP app, verify one code, then continue to your workspace."}</p>
           </div>
-          <a href="#authenticator">Set up now <Icon name="arrow-right" size={15} /></a>
+          <a href="#authenticator">{hasAuthenticator ? "Verify now" : "Set up now"} <Icon name="arrow-right" size={15} /></a>
         </section>
       ) : null}
 
