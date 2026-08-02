@@ -1,0 +1,204 @@
+/*
+ * Biloo compact mobile workspace drawer.
+ * Final authority for a tighter, highly legible hamburger navigation.
+ */
+
+@media (max-width: 760px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar.sidebar.supabase-sidebar {
+    width: min(86vw, 330px) !important;
+    border-radius: 0 22px 22px 0 !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .mobile-sidebar-header {
+    min-height: calc(72px + env(safe-area-inset-top)) !important;
+    padding: calc(12px + env(safe-area-inset-top)) 13px 11px !important;
+    gap: 10px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .mobile-sidebar-header::after {
+    right: 58px !important;
+    bottom: 7px !important;
+    font-size: 6px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .mobile-sidebar-header .brand {
+    gap: 9px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .mobile-sidebar-header .brand .hisab-logo {
+    width: 38px !important;
+    height: 38px !important;
+    flex-basis: 38px !important;
+    border-radius: 11px !important;
+    padding: 2px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .mobile-sidebar-header .brand strong {
+    font-size: 16px !important;
+    line-height: 1 !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .mobile-sidebar-header .brand small {
+    margin-top: 3px !important;
+    font-size: 7px !important;
+    letter-spacing: 0.055em !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .mobile-sidebar-header > button {
+    width: 36px !important;
+    height: 36px !important;
+    flex-basis: 36px !important;
+    border-radius: 11px !important;
+    font-size: 22px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-workspace-switcher {
+    grid-template-columns: 36px minmax(0, 1fr) 16px !important;
+    min-height: 56px !important;
+    gap: 8px !important;
+    margin: 9px 10px 5px !important;
+    padding: 8px !important;
+    border-radius: 14px !important;
+    box-shadow: 0 8px 22px rgba(20, 33, 61, 0.065) !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-workspace-switcher::before {
+    top: 6px !important;
+    right: 9px !important;
+    font-size: 6px !important;
+    letter-spacing: 0.09em !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-workspace-mark {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 10px !important;
+    font-size: 11px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-workspace-copy {
+    padding-top: 6px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-workspace-copy strong {
+    font-size: 11px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-workspace-copy small {
+    margin-top: 2px !important;
+    font-size: 8px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar > nav {
+    padding: 2px 9px 10px !important;
+    scrollbar-width: none !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar > nav::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-nav-group {
+    gap: 2px !important;
+    padding: 7px 2px 6px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-section-label {
+    min-height: 18px !important;
+    gap: 6px !important;
+    padding: 0 7px !important;
+    font-size: 7px !important;
+    letter-spacing: 0.105em !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-section-label::before {
+    width: 10px !important;
+    height: 1.5px !important;
+    flex-basis: 10px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-group-items {
+    gap: 2px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-group-items > a {
+    grid-template-columns: 30px minmax(0, 1fr) !important;
+    min-height: 44px !important;
+    gap: 8px !important;
+    padding: 4px 8px 4px 6px !important;
+    border-radius: 11px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-group-items > a::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-group-items > a:hover,
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-group-items > a:focus-visible {
+    box-shadow: 0 7px 18px rgba(20, 33, 61, 0.07) !important;
+    transform: translateX(1px) !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-nav-icon {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 5px !important;
+    border-radius: 9px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-group-items > a > span:not(.sidebar-nav-icon) {
+    font-size: 10px !important;
+    font-weight: 720 !important;
+    line-height: 1.2 !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-group-items > a[aria-current="page"],
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-group-items > a.active {
+    box-shadow: 0 8px 20px rgba(20, 33, 61, 0.16) !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-group-items > a[aria-current="page"]::before,
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-group-items > a.active::before {
+    inset: 8px auto 8px 0 !important;
+    width: 2px !important;
+    box-shadow: 0 0 0 3px rgba(252, 163, 17, 0.08) !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-dock-status {
+    min-height: 34px !important;
+    gap: 7px !important;
+    margin: 0 10px 6px !important;
+    padding: 7px 9px !important;
+    border-radius: 11px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-dock-status strong {
+    font-size: 8px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer {
+    padding: 8px 12px calc(11px + env(safe-area-inset-bottom)) !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer p {
+    font-size: 7.5px !important;
+    line-height: 1.4 !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer .powered-by {
+    margin-bottom: 2px !important;
+  }
+
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer a {
+    font-size: 8px !important;
+    text-decoration-thickness: 1px !important;
+    text-underline-offset: 2px !important;
+  }
+}
+
+@media (max-width: 370px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar.sidebar.supabase-sidebar {
+    width: calc(100vw - 18px) !important;
+  }
+}
