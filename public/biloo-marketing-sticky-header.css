@@ -1,33 +1,28 @@
 /*
- * Biloo standard sticky marketing header.
- * Shared public navigation with an explicit one-row mobile contract.
+ * Biloo premium marketing navigation.
+ * Compact editorial header, focused mega menus and a calm mobile drawer.
  */
 
 body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 {
   position: sticky !important;
   position: -webkit-sticky !important;
-  z-index: 1000 !important;
+  z-index: 1200 !important;
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
   max-width: 100vw !important;
-  min-height: 76px !important;
-  display: grid !important;
-  grid-template-columns: minmax(200px, 0.9fr) minmax(0, 1.7fr) auto !important;
-  align-items: center !important;
-  gap: clamp(16px, 2.2vw, 32px) !important;
+  min-height: 72px !important;
   margin: 0 !important;
-  padding: 11px clamp(20px, 3.5vw, 56px) !important;
+  padding: 0 !important;
   border: 0 !important;
-  border-bottom: 1px solid rgba(20, 33, 61, 0.1) !important;
+  border-bottom: 1px solid rgba(20, 33, 61, 0.085) !important;
   border-radius: 0 !important;
-  box-sizing: border-box !important;
   overflow: visible !important;
   color: #14213d !important;
-  background: rgba(255, 255, 255, 0.93) !important;
-  box-shadow: 0 8px 28px rgba(20, 33, 61, 0.055) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(165%) !important;
-  backdrop-filter: blur(20px) saturate(165%) !important;
+  background: rgba(255, 255, 255, 0.86) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.82), 0 14px 42px rgba(20, 33, 61, 0.045) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(180%) !important;
+  backdrop-filter: blur(26px) saturate(180%) !important;
   isolation: isolate !important;
   transform: translateZ(0) !important;
 }
@@ -38,280 +33,954 @@ body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2::after {
   display: none !important;
 }
 
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-brand {
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-inner {
+  position: relative !important;
+  width: min(100%, 1440px) !important;
+  min-height: 72px !important;
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: clamp(24px, 3vw, 56px) !important;
+  margin: 0 auto !important;
+  padding: 0 clamp(22px, 4vw, 64px) !important;
+  box-sizing: border-box !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-header-brand {
   min-width: 0 !important;
   display: inline-flex !important;
   align-items: center !important;
-  gap: 11px !important;
   justify-self: start !important;
+  gap: 9px !important;
+  padding: 2px 0 !important;
+  text-decoration: none !important;
 }
 
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-brand-copy {
-  min-width: 0 !important;
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-header-brand .hisab-logo {
+  width: 92px !important;
+  min-width: 92px !important;
+  height: 46px !important;
+  display: block !important;
+  object-fit: contain !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-desktop-nav {
-  display: flex !important;
-  min-width: 0 !important;
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-brand-product {
+  min-width: 34px !important;
+  min-height: 22px !important;
+  display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 4px !important;
+  padding: 0 7px !important;
+  border: 1px solid rgba(199, 150, 47, 0.24) !important;
+  border-radius: 999px !important;
+  color: #7a5b17 !important;
+  -webkit-text-fill-color: #7a5b17 !important;
+  background: rgba(246, 231, 196, 0.54) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 9.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  line-height: 1 !important;
+  text-transform: uppercase !important;
 }
 
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-desktop-nav a {
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-desktop-nav {
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-item {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-item > button,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-direct {
+  position: relative !important;
+  min-height: 42px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  margin: 0 !important;
+  padding: 0 13px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  color: #465267 !important;
+  -webkit-text-fill-color: #465267 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 680 !important;
+  letter-spacing: -0.015em !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  transition: color 180ms ease, background 180ms ease, transform 180ms ease !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-item > button i {
+  width: 6px !important;
+  height: 6px !important;
+  display: block !important;
+  margin-top: -3px !important;
+  border-right: 1.5px solid currentColor !important;
+  border-bottom: 1.5px solid currentColor !important;
+  transform: rotate(45deg) !important;
+  transform-origin: center !important;
+  transition: transform 180ms ease, margin 180ms ease !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-item.open > button i {
+  margin-top: 3px !important;
+  transform: rotate(225deg) !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-item > button:hover,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-item > button:focus-visible,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-item.open > button,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-item > button[aria-current="page"],
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-direct:hover,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-direct:focus-visible,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-direct[aria-current="page"] {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  background: rgba(20, 33, 61, 0.058) !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-item > button:focus-visible,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-direct:focus-visible,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-actions a:focus-visible,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-menu-toggle:focus-visible {
+  outline: 3px solid rgba(199, 150, 47, 0.28) !important;
+  outline-offset: 2px !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-menu {
+  position: absolute !important;
+  z-index: 1300 !important;
+  top: calc(100% + 14px) !important;
+  left: 50% !important;
+  width: min(700px, calc(100vw - 48px)) !important;
+  display: grid !important;
+  grid-template-columns: minmax(250px, 0.82fr) minmax(320px, 1.18fr) !important;
+  gap: 0 !important;
+  padding: 8px !important;
+  border: 1px solid rgba(20, 33, 61, 0.095) !important;
+  border-radius: 26px !important;
+  background: rgba(255, 255, 255, 0.97) !important;
+  box-shadow: 0 28px 80px rgba(20, 33, 61, 0.17), 0 4px 16px rgba(20, 33, 61, 0.06) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(175%) !important;
+  backdrop-filter: blur(30px) saturate(175%) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translate(-50%, -9px) scale(0.985) !important;
+  transform-origin: 50% 0 !important;
+  transition: opacity 170ms ease, visibility 170ms ease, transform 210ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-item.open .marketing-mega-menu {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translate(-50%, 0) scale(1) !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-item:nth-child(4) .marketing-mega-menu {
+  left: auto !important;
+  right: -74px !important;
+  transform: translateY(-9px) scale(0.985) !important;
+  transform-origin: 82% 0 !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-item:nth-child(4).open .marketing-mega-menu {
+  transform: translateY(0) scale(1) !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-intro {
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 26px !important;
+  border-radius: 20px !important;
+  color: #ffffff !important;
+  background:
+    radial-gradient(circle at 82% 6%, rgba(225, 177, 77, 0.27), transparent 35%),
+    linear-gradient(145deg, #101c35 0%, #14213d 58%, #192b50 100%) !important;
+  overflow: hidden !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-intro > small {
+  color: #efcc7d !important;
+  -webkit-text-fill-color: #efcc7d !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.13em !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-intro > strong {
+  display: block !important;
+  margin-top: 18px !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 23px !important;
+  font-weight: 720 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1.13 !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-intro > p {
+  margin: 13px 0 0 !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 12.5px !important;
+  font-weight: 480 !important;
+  letter-spacing: -0.012em !important;
+  line-height: 1.58 !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-featured {
+  min-height: 66px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  margin-top: auto !important;
+  padding: 15px 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 16px !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.075) !important;
+  text-decoration: none !important;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-featured:hover,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-featured:focus-visible {
+  border-color: rgba(239, 204, 125, 0.38) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  transform: translateY(-1px) !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-featured span {
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 5px !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-featured b {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-size: 12.5px !important;
+  font-weight: 720 !important;
+  letter-spacing: -0.015em !important;
+  line-height: 1.2 !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-featured small {
+  color: rgba(255, 255, 255, 0.55) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.55) !important;
+  font-size: 10.5px !important;
+  line-height: 1.3 !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-featured > i {
+  color: #efcc7d !important;
+  font-size: 17px !important;
+  font-style: normal !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-links {
+  min-width: 0 !important;
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  align-content: center !important;
+  gap: 3px !important;
+  padding: 12px !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-links > a {
+  min-width: 0 !important;
+  min-height: 72px !important;
+  display: grid !important;
+  grid-template-columns: 30px minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 13px !important;
+  padding: 11px 13px !important;
+  border: 1px solid transparent !important;
+  border-radius: 15px !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  background: transparent !important;
+  text-decoration: none !important;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-links > a:hover,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-links > a:focus-visible,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-links > a[aria-current="page"] {
+  border-color: rgba(20, 33, 61, 0.07) !important;
+  background: #f7f8fa !important;
+  transform: translateX(2px) !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-index {
+  width: 30px !important;
+  height: 30px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid rgba(20, 33, 61, 0.08) !important;
+  border-radius: 10px !important;
+  color: #8b6a22 !important;
+  -webkit-text-fill-color: #8b6a22 !important;
+  background: #fbf6ea !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.05em !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-links > a > span:nth-child(2) {
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 5px !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-links b {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  font-size: 13px !important;
+  font-weight: 720 !important;
+  letter-spacing: -0.016em !important;
+  line-height: 1.2 !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-links small {
+  color: #778194 !important;
+  -webkit-text-fill-color: #778194 !important;
+  font-size: 10.5px !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-links > a > i {
+  color: #a1a8b4 !important;
+  font-size: 14px !important;
+  font-style: normal !important;
+  transition: color 160ms ease, transform 160ms ease !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-links > a:hover > i,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mega-links > a:focus-visible > i {
+  color: #14213d !important;
+  transform: translateX(2px) !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  justify-self: end !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-actions :is(.marketing-signin, .marketing-demo) {
   min-height: 44px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 0 12px !important;
-  border: 0 !important;
-  border-radius: 11px !important;
-  color: #4c586a !important;
-  -webkit-text-fill-color: #4c586a !important;
-  background: transparent !important;
-  font-size: 14px !important;
-  font-weight: 700 !important;
+  gap: 10px !important;
+  margin: 0 !important;
+  padding: 0 17px !important;
+  border-radius: 999px !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 720 !important;
   letter-spacing: -0.012em !important;
   line-height: 1 !important;
+  text-decoration: none !important;
   white-space: nowrap !important;
-  transition: color 160ms ease, background 160ms ease !important;
+  transition: transform 180ms ease, box-shadow 180ms ease, color 180ms ease, background 180ms ease !important;
 }
 
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-desktop-nav a:hover,
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-desktop-nav a:focus-visible,
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-desktop-nav a[aria-current="page"] {
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-actions .marketing-signin {
+  border: 1px solid transparent !important;
+  color: #4b5668 !important;
+  -webkit-text-fill-color: #4b5668 !important;
+  background: transparent !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-actions .marketing-signin:hover,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-actions .marketing-signin:focus-visible {
   color: #14213d !important;
   -webkit-text-fill-color: #14213d !important;
   background: rgba(20, 33, 61, 0.055) !important;
 }
 
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-nav-actions {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: flex-end !important;
-  gap: 9px !important;
-  justify-self: end !important;
-}
-
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 :is(
-  .marketing-signin,
-  .marketing-demo,
-  .marketing-start
-) {
-  min-height: 44px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  margin: 0 !important;
-  padding: 0 17px !important;
-  border-radius: 999px !important;
-  font-size: 13.5px !important;
-  font-weight: 780 !important;
-  letter-spacing: -0.01em !important;
-  line-height: 1 !important;
-  white-space: nowrap !important;
-  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background 160ms ease !important;
-}
-
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-signin {
-  border: 1px solid transparent !important;
-  color: #3d4858 !important;
-  -webkit-text-fill-color: #3d4858 !important;
-  background: transparent !important;
-}
-
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-start {
-  border: 1px solid rgba(20, 33, 61, 0.16) !important;
-  color: #14213d !important;
-  -webkit-text-fill-color: #14213d !important;
-  background: #ffffff !important;
-  box-shadow: none !important;
-}
-
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-demo {
-  min-width: 124px !important;
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-actions .marketing-demo {
+  min-width: 136px !important;
   border: 1px solid #14213d !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
   background: #14213d !important;
-  box-shadow: 0 10px 24px rgba(20, 33, 61, 0.18) !important;
+  box-shadow: 0 10px 24px rgba(20, 33, 61, 0.16) !important;
 }
 
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 :is(
-  .marketing-demo,
-  .marketing-start
-):hover,
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 :is(
-  .marketing-demo,
-  .marketing-start
-):focus-visible {
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-actions .marketing-demo i {
+  color: #efcc7d !important;
+  font-size: 14px !important;
+  font-style: normal !important;
+  transition: transform 180ms ease !important;
+}
+
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-actions .marketing-demo:hover,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-actions .marketing-demo:focus-visible {
+  background: #0d172c !important;
+  box-shadow: 0 14px 32px rgba(20, 33, 61, 0.23) !important;
   transform: translateY(-1px) !important;
 }
 
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-demo:hover,
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-demo:focus-visible {
-  border-color: #0b1428 !important;
-  background: #0b1428 !important;
-  box-shadow: 0 14px 30px rgba(20, 33, 61, 0.23) !important;
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-actions .marketing-demo:hover i,
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-actions .marketing-demo:focus-visible i {
+  transform: translate(2px, -2px) !important;
 }
 
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-header-controls,
-body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-demo {
+body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-header-controls {
   display: none !important;
 }
 
-@media (max-width: 1180px) and (min-width: 961px) {
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 {
-    min-height: 72px !important;
-    grid-template-columns: minmax(175px, 0.8fr) minmax(0, 1.45fr) auto !important;
-    gap: 12px !important;
-    padding-inline: 18px !important;
+/* Premium mobile navigation drawer */
+body[data-public-marketing="true"] .premium-mobile-menu {
+  position: fixed !important;
+  z-index: 3000 !important;
+  inset: 0 !important;
+  display: block !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity 220ms ease, visibility 220ms ease !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu.open {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-backdrop {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: rgba(8, 16, 31, 0.44) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  backdrop-filter: blur(8px) !important;
+  opacity: 0 !important;
+  transition: opacity 240ms ease !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu.open .premium-mobile-menu-backdrop {
+  opacity: 1 !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-panel {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: min(92vw, 440px) !important;
+  height: 100dvh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  margin: 0 !important;
+  padding: max(18px, env(safe-area-inset-top)) 20px max(18px, env(safe-area-inset-bottom)) !important;
+  border: 0 !important;
+  border-left: 1px solid rgba(20, 33, 61, 0.08) !important;
+  border-radius: 0 !important;
+  color: #14213d !important;
+  background: rgba(255, 255, 255, 0.985) !important;
+  box-shadow: -24px 0 80px rgba(9, 18, 36, 0.19) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  transform: translateX(104%) !important;
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu.open .premium-mobile-menu-panel {
+  transform: translateX(0) !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-panel > header {
+  min-height: 48px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 20px !important;
+  margin: 0 0 20px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+body[data-public-marketing="true"] .marketing-drawer-brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-decoration: none !important;
+}
+
+body[data-public-marketing="true"] .marketing-drawer-brand img {
+  width: 88px !important;
+  height: 44px !important;
+  object-fit: contain !important;
+}
+
+body[data-public-marketing="true"] .marketing-drawer-brand > span {
+  min-height: 21px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 0 7px !important;
+  border: 1px solid rgba(199, 150, 47, 0.24) !important;
+  border-radius: 999px !important;
+  color: #7a5b17 !important;
+  -webkit-text-fill-color: #7a5b17 !important;
+  background: #fbf4e4 !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.11em !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-panel > header > button {
+  position: relative !important;
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  display: grid !important;
+  place-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid rgba(20, 33, 61, 0.1) !important;
+  border-radius: 50% !important;
+  background: #f7f8fa !important;
+  box-shadow: none !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-panel > header > button span {
+  position: absolute !important;
+  width: 16px !important;
+  height: 1.5px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #14213d !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-panel > header > button span:first-child {
+  transform: rotate(45deg) !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-panel > header > button span:last-child {
+  transform: rotate(-45deg) !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-intro {
+  display: block !important;
+  margin: 0 0 24px !important;
+  padding: 24px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 24px !important;
+  color: #ffffff !important;
+  background:
+    radial-gradient(circle at 85% 5%, rgba(225, 177, 77, 0.3), transparent 38%),
+    linear-gradient(145deg, #0f1b34, #14213d 62%, #1c315b) !important;
+  box-shadow: 0 18px 42px rgba(20, 33, 61, 0.17) !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-intro > span {
+  display: block !important;
+  color: #efcc7d !important;
+  -webkit-text-fill-color: #efcc7d !important;
+  font-size: 9.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.13em !important;
+  line-height: 1.25 !important;
+  text-transform: uppercase !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-intro h2 {
+  margin: 17px 0 0 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif !important;
+  font-size: clamp(25px, 7vw, 32px) !important;
+  font-weight: 730 !important;
+  letter-spacing: -0.045em !important;
+  line-height: 1.06 !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-intro p {
+  margin: 14px 0 0 !important;
+  color: rgba(255, 255, 255, 0.67) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.67) !important;
+  font-size: 12px !important;
+  font-weight: 480 !important;
+  line-height: 1.55 !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-sections {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 22px !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-sections > section {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-sections > section > small {
+  display: block !important;
+  margin: 0 0 8px !important;
+  padding: 0 6px !important;
+  color: #969eaa !important;
+  -webkit-text-fill-color: #969eaa !important;
+  font-size: 9.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.13em !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-sections nav {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-sections nav > a {
+  min-height: 52px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  margin: 0 !important;
+  padding: 0 8px !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(20, 33, 61, 0.065) !important;
+  border-radius: 0 !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  background: transparent !important;
+  text-decoration: none !important;
+  opacity: 0 !important;
+  transform: translateX(18px) !important;
+  transition: color 160ms ease, padding 160ms ease, opacity 280ms ease, transform 320ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+  transition-delay: calc(var(--menu-index, 0) * 24ms + 90ms) !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu.open .premium-mobile-menu-sections nav > a {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-sections nav > a:hover,
+body[data-public-marketing="true"] .premium-mobile-menu-sections nav > a:focus-visible,
+body[data-public-marketing="true"] .premium-mobile-menu-sections nav > a[aria-current="page"] {
+  padding-left: 13px !important;
+  color: #8b6a22 !important;
+  -webkit-text-fill-color: #8b6a22 !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-sections nav strong {
+  color: inherit !important;
+  -webkit-text-fill-color: inherit !important;
+  font-size: 15px !important;
+  font-weight: 680 !important;
+  letter-spacing: -0.018em !important;
+  line-height: 1.2 !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-sections nav span {
+  color: #a2a9b5 !important;
+  -webkit-text-fill-color: #a2a9b5 !important;
+  font-size: 14px !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-actions {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 9px !important;
+  margin: 28px 0 0 !important;
+  padding: 0 !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-actions :is(.marketing-start, .marketing-mobile-demo, .marketing-signin) {
+  min-height: 48px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 14px !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+  font-weight: 760 !important;
+  letter-spacing: -0.012em !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-actions .marketing-start {
+  grid-column: 1 / -1 !important;
+  border: 1px solid #14213d !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: #14213d !important;
+  box-shadow: 0 12px 28px rgba(20, 33, 61, 0.2) !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-actions .marketing-start span {
+  color: #efcc7d !important;
+  -webkit-text-fill-color: #efcc7d !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-actions .marketing-mobile-demo {
+  border: 1px solid rgba(20, 33, 61, 0.13) !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  background: #ffffff !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-actions .marketing-signin {
+  border: 1px solid transparent !important;
+  color: #5c6676 !important;
+  -webkit-text-fill-color: #5c6676 !important;
+  background: #f5f6f8 !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-panel > footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 18px !important;
+  margin-top: auto !important;
+  padding: 24px 2px 0 !important;
+  border: 0 !important;
+  color: #9199a7 !important;
+  background: transparent !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+}
+
+body[data-public-marketing="true"] .premium-mobile-menu-panel > footer a {
+  color: #5e6878 !important;
+  -webkit-text-fill-color: #5e6878 !important;
+  text-decoration: none !important;
+}
+
+@media (max-width: 1180px) and (min-width: 1081px) {
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-inner {
+    gap: 20px !important;
+    padding-inline: 24px !important;
   }
 
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-desktop-nav {
-    gap: 1px !important;
-  }
-
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-desktop-nav a {
-    padding-inline: 7px !important;
-    font-size: 12.75px !important;
-  }
-
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 :is(
-    .marketing-signin,
-    .marketing-demo,
-    .marketing-start
-  ) {
-    padding-inline: 11px !important;
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-item > button,
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-direct {
+    padding-inline: 10px !important;
     font-size: 12.5px !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-actions :is(.marketing-signin, .marketing-demo) {
+    padding-inline: 13px !important;
+    font-size: 12px !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-actions .marketing-demo {
+    min-width: 124px !important;
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1080px) {
   body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 {
-    min-height: calc(70px + env(safe-area-inset-top)) !important;
-    grid-template-columns: minmax(0, 1fr) auto !important;
-    grid-template-rows: 70px !important;
-    grid-auto-flow: column !important;
-    gap: 10px !important;
-    padding: env(safe-area-inset-top) 12px 0 !important;
-    overflow: hidden !important;
-    background: rgba(255, 255, 255, 0.97) !important;
-    box-shadow: 0 5px 20px rgba(20, 33, 61, 0.06) !important;
+    min-height: calc(66px + env(safe-area-inset-top)) !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    box-shadow: 0 8px 28px rgba(20, 33, 61, 0.055) !important;
   }
 
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-desktop-nav,
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-desktop-actions {
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-inner {
+    min-height: calc(66px + env(safe-area-inset-top)) !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 16px !important;
+    padding: env(safe-area-inset-top) 14px 0 !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-desktop-nav,
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-desktop-actions {
     display: none !important;
     visibility: hidden !important;
     pointer-events: none !important;
   }
 
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-brand {
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-header-brand {
     grid-column: 1 !important;
-    grid-row: 1 !important;
     width: fit-content !important;
-    max-width: 100px !important;
-    gap: 0 !important;
-    overflow: hidden !important;
+    gap: 7px !important;
   }
 
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-brand-copy {
-    display: none !important;
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-header-brand .hisab-logo {
+    width: 82px !important;
+    min-width: 82px !important;
+    height: 42px !important;
   }
 
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .hisab-logo {
-    width: 84px !important;
-    height: 44px !important;
-    min-width: 84px !important;
-    display: block !important;
-    object-fit: contain !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-brand-product {
+    min-width: 30px !important;
+    min-height: 20px !important;
+    padding-inline: 6px !important;
+    font-size: 8.5px !important;
   }
 
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-mobile-header-controls {
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-header-controls {
     grid-column: 2 !important;
-    grid-row: 1 !important;
-    min-width: 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: flex-end !important;
-    gap: 8px !important;
   }
 
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-demo {
-    min-height: 42px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 0 15px !important;
-    border: 1px solid #14213d !important;
-    border-radius: 999px !important;
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
-    background: #14213d !important;
-    box-shadow: 0 8px 20px rgba(20, 33, 61, 0.16) !important;
-    font-size: 12.25px !important;
-    font-weight: 800 !important;
-    letter-spacing: -0.01em !important;
-    line-height: 1 !important;
-    white-space: nowrap !important;
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-menu-toggle {
+    position: relative !important;
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    display: grid !important;
+    place-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1px solid rgba(20, 33, 61, 0.1) !important;
+    border-radius: 50% !important;
+    color: #14213d !important;
+    background: rgba(247, 248, 250, 0.92) !important;
+    box-shadow: none !important;
     touch-action: manipulation !important;
   }
 
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-menu-toggle {
-    width: 46px !important;
-    min-width: 46px !important;
-    height: 46px !important;
-    min-height: 46px !important;
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-menu-toggle > span {
+    position: absolute !important;
+    width: 17px !important;
+    height: 1.5px !important;
     margin: 0 !important;
-    flex: 0 0 46px !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: #14213d !important;
+    transition: transform 190ms ease, width 190ms ease !important;
   }
 
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-demo:active {
-    transform: scale(0.97) !important;
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-menu-toggle > span:first-child {
+    transform: translateY(-3.5px) !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-menu-toggle > span:last-child {
+    width: 12px !important;
+    transform: translate(2.5px, 3.5px) !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-menu-toggle.open > span:first-child {
+    width: 17px !important;
+    transform: rotate(45deg) !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-menu-toggle.open > span:last-child {
+    width: 17px !important;
+    transform: rotate(-45deg) !important;
+  }
+}
+
+@media (max-width: 520px) {
+  body[data-public-marketing="true"] .premium-mobile-menu-panel {
+    width: 100% !important;
+    padding-inline: 16px !important;
+  }
+
+  body[data-public-marketing="true"] .premium-mobile-menu-intro {
+    padding: 22px !important;
+    border-radius: 22px !important;
   }
 }
 
 @media (max-width: 390px) {
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 {
-    grid-template-rows: 64px !important;
-    min-height: calc(64px + env(safe-area-inset-top)) !important;
-    padding-inline: 10px !important;
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2,
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-inner {
+    min-height: calc(62px + env(safe-area-inset-top)) !important;
   }
 
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .hisab-logo {
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-inner {
+    padding-inline: 11px !important;
+  }
+
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-header-brand .hisab-logo {
     width: 74px !important;
     min-width: 74px !important;
-    height: 40px !important;
+    height: 38px !important;
   }
 
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-mobile-demo {
-    min-width: 0 !important;
-    min-height: 40px !important;
-    padding-inline: 12px !important;
-    font-size: 11px !important;
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-brand-product {
+    display: none !important;
   }
 
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 .marketing-menu-toggle {
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-menu-toggle {
     width: 42px !important;
     min-width: 42px !important;
     height: 42px !important;
     min-height: 42px !important;
-    flex-basis: 42px !important;
+  }
+
+  body[data-public-marketing="true"] .premium-mobile-menu-actions {
+    grid-template-columns: 1fr !important;
+  }
+
+  body[data-public-marketing="true"] .premium-mobile-menu-actions .marketing-start {
+    grid-column: auto !important;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 *,
   body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 *::before,
-  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 *::after {
+  body[data-public-marketing="true"] .marketing-site-v2 .marketing-nav-v2 *::after,
+  body[data-public-marketing="true"] .premium-mobile-menu *,
+  body[data-public-marketing="true"] .premium-mobile-menu *::before,
+  body[data-public-marketing="true"] .premium-mobile-menu *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
   }
 }
