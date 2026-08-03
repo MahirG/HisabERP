@@ -7,21 +7,19 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 const websiteCopy = {
   subtitle: "Business operating system",
   navLabel: "Main navigation",
-  product: "Product tour",
-  industries: "Industries",
-  pricing: "Pricing",
-  migration: "Migration",
+  product: "Product",
+  solutions: "Solutions",
   resources: "Resources",
-  about: "About",
-  help: "Help Center",
+  company: "Company",
+  pricing: "Pricing",
   signIn: "Sign in",
   demo: "Book a demo",
   start: "Start free",
   menu: "Open website menu",
   close: "Close website menu",
-  menuEyebrow: "Biloo ERP navigation",
-  menuTitle: "Move from product discovery to a working business system.",
-  menuDescription: "Explore the platform, understand implementation and choose the next commercial step.",
+  menuEyebrow: "Biloo business operating system",
+  menuTitle: "One clear system for running a growing business.",
+  menuDescription: "Explore the product, implementation options and the workflows Biloo brings together.",
   footerIntro: "One secure English business workspace for Ethiopian companies that want clearer operations and better decisions.",
   productMarket: "Product and market",
   modules: "Product modules",
@@ -44,25 +42,108 @@ const websiteCopy = {
   skip: "Skip to main content",
 } as const;
 
-const navItems = [
-  ["product", "/product-tour"],
-  ["industries", "/industries"],
-  ["pricing", "/pricing"],
-  ["migration", "/migration"],
-  ["resources", "/resources"],
-  ["about", "/about"],
-  ["help", "/help-center"],
+type MegaMenu = {
+  id: "product" | "solutions" | "resources" | "company";
+  label: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  featured: { label: string; note: string; href: string };
+  items: ReadonlyArray<{ label: string; note: string; href: string }>;
+};
+
+const megaMenus: ReadonlyArray<MegaMenu> = [
+  {
+    id: "product",
+    label: "Product",
+    eyebrow: "Connected platform",
+    title: "Run the company from one reliable operating picture.",
+    description: "Biloo connects the records, workflows and decisions that normally live across separate tools.",
+    featured: { label: "Take the interactive product tour", note: "Explore the complete Biloo workflow", href: "/product-tour" },
+    items: [
+      { label: "Sales & invoicing", note: "Quote, invoice and collect", href: "/product/sales-invoicing" },
+      { label: "Finance & cash flow", note: "Know the financial position now", href: "/product/finance-cashflow" },
+      { label: "Inventory control", note: "Track stock, movement and risk", href: "/product/inventory" },
+      { label: "Reports & analytics", note: "Turn records into decisions", href: "/product/reports-analytics" },
+    ],
+  },
+  {
+    id: "solutions",
+    label: "Solutions",
+    eyebrow: "Built for real operations",
+    title: "A business system shaped around how Ethiopian teams work.",
+    description: "Choose a path based on your sector, operating model and current implementation stage.",
+    featured: { label: "ERP built for Ethiopia", note: "Local workflows, ETB and business context", href: "/ethiopia" },
+    items: [
+      { label: "Industry solutions", note: "Workflows for different sectors", href: "/industries" },
+      { label: "Data migration", note: "Move from spreadsheets safely", href: "/migration" },
+      { label: "Integrations", note: "Connect the systems you already use", href: "/integrations" },
+      { label: "Customer stories", note: "See the operating change", href: "/customer-stories" },
+    ],
+  },
+  {
+    id: "resources",
+    label: "Resources",
+    eyebrow: "Learn and implement",
+    title: "Make a confident ERP decision before changing the business.",
+    description: "Use practical guidance, comparisons and support resources to plan the right implementation.",
+    featured: { label: "Business learning center", note: "Guides for better operating discipline", href: "/resources" },
+    items: [
+      { label: "Help Center", note: "Product and account guidance", href: "/help-center" },
+      { label: "ERP comparisons", note: "Evaluate the available approaches", href: "/compare" },
+      { label: "Trust Center", note: "Security, privacy and reliability", href: "/trust" },
+      { label: "Request a guided demo", note: "Discuss your current workflow", href: "/request-demo" },
+    ],
+  },
+  {
+    id: "company",
+    label: "Company",
+    eyebrow: "Hisab Technologies",
+    title: "Building clearer business infrastructure from Addis Ababa.",
+    description: "Meet the company behind Biloo and understand the principles guiding the product.",
+    featured: { label: "About Biloo", note: "Our company, purpose and product direction", href: "/about" },
+    items: [
+      { label: "Trust & security", note: "How Biloo protects business data", href: "/trust" },
+      { label: "Contact the team", note: "Talk with Hisab Technologies", href: "/request-demo" },
+      { label: "Sign in", note: "Open your existing workspace", href: "/auth/login" },
+      { label: "Create a workspace", note: "Start using Biloo", href: "/auth/email-sign-up" },
+    ],
+  },
+];
+
+const mobileSections = [
+  {
+    label: "Explore",
+    items: [
+      ["Product tour", "/product-tour"],
+      ["Solutions", "/industries"],
+      ["Pricing", "/pricing"],
+      ["ERP for Ethiopia", "/ethiopia"],
+    ],
+  },
+  {
+    label: "Plan",
+    items: [
+      ["Migration", "/migration"],
+      ["Resources", "/resources"],
+      ["Help Center", "/help-center"],
+      ["Compare ERP options", "/compare"],
+    ],
+  },
+  {
+    label: "Company",
+    items: [
+      ["About Biloo", "/about"],
+      ["Trust Center", "/trust"],
+      ["Integrations", "/integrations"],
+    ],
+  },
 ] as const;
 
-const mobileNavItems = [
-  ["product", "/product-tour"],
-  ["pricing", "/pricing"],
-  ["industries", "/industries"],
-  ["migration", "/migration"],
-  ["resources", "/resources"],
-  ["about", "/about"],
-  ["help", "/help-center"],
-] as const;
+function routeMatches(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 function MarketingStructuredData() {
   const data = [
@@ -96,11 +177,32 @@ export function MarketingHeader() {
   const pathname = usePathname();
   const c = websiteCopy;
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeDesktopMenu, setActiveDesktopMenu] = useState<MegaMenu["id"] | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const toggleButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const menuPanelRef = useRef<HTMLElement>(null);
 
-  useEffect(() => setMenuOpen(false), [pathname]);
+  useEffect(() => {
+    setMenuOpen(false);
+    setActiveDesktopMenu(null);
+  }, [pathname]);
+
+  useEffect(() => {
+    const closeDesktopMenu = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) setActiveDesktopMenu(null);
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setActiveDesktopMenu(null);
+    };
+
+    document.addEventListener("pointerdown", closeDesktopMenu);
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeDesktopMenu);
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -154,45 +256,84 @@ export function MarketingHeader() {
 
   return (
     <>
-      <link rel="stylesheet" href="/biloo-marketing-sticky-header.css?v=20260802-2" />
+      <link rel="stylesheet" href="/biloo-marketing-sticky-header.css?v=20260803-1" />
       <a href="#public-main-content" className="public-skip-link">{c.skip}</a>
-      <header className="marketing-nav marketing-nav-v2">
-        <Link href="/" className="marketing-brand" aria-label="Biloo home">
-          <img src="/hisab-logo.svg" alt="" width="44" height="44" className="hisab-logo" />
-          <span className="marketing-brand-copy"><strong>Biloo</strong><small>{c.subtitle}</small></span>
-        </Link>
+      <header ref={headerRef} className="marketing-nav marketing-nav-v2">
+        <div className="marketing-nav-inner">
+          <Link href="/" className="marketing-brand marketing-header-brand" aria-label="Biloo home">
+            <img src="/hisab-logo.svg" alt="Biloo" width="92" height="46" className="hisab-logo" />
+            <span className="marketing-brand-product">ERP</span>
+          </Link>
 
-        <div className="marketing-mobile-header-controls">
-          <Link href="/request-demo" className="marketing-mobile-demo">{c.demo}</Link>
-          <button
-            ref={toggleButtonRef}
-            className={`marketing-menu-toggle premium-menu-toggle${menuOpen ? " open" : ""}`}
-            type="button"
-            aria-label={menuOpen ? c.close : c.menu}
-            aria-expanded={menuOpen}
-            aria-controls="hisab-public-menu"
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            <span /><span /><span />
-          </button>
-        </div>
+          <nav className="marketing-desktop-nav" aria-label={c.navLabel} onMouseLeave={() => setActiveDesktopMenu(null)}>
+            {megaMenus.map((menu) => {
+              const open = activeDesktopMenu === menu.id;
+              const current = menu.items.some((item) => routeMatches(pathname, item.href)) || routeMatches(pathname, menu.featured.href);
+              return (
+                <div
+                  className={`marketing-nav-item${open ? " open" : ""}`}
+                  key={menu.id}
+                  onMouseEnter={() => setActiveDesktopMenu(menu.id)}
+                  onBlur={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setActiveDesktopMenu(null);
+                  }}
+                >
+                  <button
+                    type="button"
+                    aria-expanded={open}
+                    aria-haspopup="true"
+                    aria-controls={`marketing-mega-${menu.id}`}
+                    aria-current={current ? "page" : undefined}
+                    onClick={() => setActiveDesktopMenu((value) => value === menu.id ? null : menu.id)}
+                    onFocus={() => setActiveDesktopMenu(menu.id)}
+                  >
+                    <span>{menu.label}</span><i aria-hidden="true" />
+                  </button>
 
-        <nav className="marketing-desktop-nav" aria-label={c.navLabel}>
-          {navItems.map(([key, href]) => (
-            <Link
-              href={href}
-              aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined}
-              key={href}
+                  <div id={`marketing-mega-${menu.id}`} className="marketing-mega-menu" aria-hidden={!open}>
+                    <div className="marketing-mega-intro">
+                      <small>{menu.eyebrow}</small>
+                      <strong>{menu.title}</strong>
+                      <p>{menu.description}</p>
+                      <Link href={menu.featured.href} className="marketing-mega-featured">
+                        <span><b>{menu.featured.label}</b><small>{menu.featured.note}</small></span>
+                        <i aria-hidden="true">↗</i>
+                      </Link>
+                    </div>
+                    <div className="marketing-mega-links">
+                      {menu.items.map((item, index) => (
+                        <Link href={item.href} aria-current={routeMatches(pathname, item.href) ? "page" : undefined} key={item.href}>
+                          <span className="marketing-mega-index">{String(index + 1).padStart(2, "0")}</span>
+                          <span><b>{item.label}</b><small>{item.note}</small></span>
+                          <i aria-hidden="true">→</i>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <Link href="/pricing" className="marketing-nav-direct" aria-current={routeMatches(pathname, "/pricing") ? "page" : undefined}>{c.pricing}</Link>
+          </nav>
+
+          <div className="marketing-nav-actions marketing-desktop-actions">
+            <Link href="/auth/login" className="marketing-signin">{c.signIn}</Link>
+            <Link href="/request-demo" className="marketing-demo"><span>{c.demo}</span><i aria-hidden="true">↗</i></Link>
+          </div>
+
+          <div className="marketing-mobile-header-controls">
+            <button
+              ref={toggleButtonRef}
+              className={`marketing-menu-toggle premium-menu-toggle${menuOpen ? " open" : ""}`}
+              type="button"
+              aria-label={menuOpen ? c.close : c.menu}
+              aria-expanded={menuOpen}
+              aria-controls="hisab-public-menu"
+              onClick={() => setMenuOpen((open) => !open)}
             >
-              {c[key]}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="marketing-nav-actions marketing-desktop-actions">
-          <Link href="/auth/login" className="marketing-signin">{c.signIn}</Link>
-          <Link href="/auth/email-sign-up" className="marketing-start">{c.start}</Link>
-          <Link href="/request-demo" className="marketing-demo">{c.demo}</Link>
+              <span /><span />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -200,32 +341,43 @@ export function MarketingHeader() {
         <button className="premium-mobile-menu-backdrop" type="button" aria-label={c.close} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)} />
         <section ref={menuPanelRef} className="premium-mobile-menu-panel" role="dialog" aria-modal="true" aria-label={c.navLabel}>
           <header>
-            <Link href="/" className="marketing-brand" onClick={() => setMenuOpen(false)}>
-              <img src="/hisab-logo.svg" alt="" width="46" height="46" />
-              <span className="marketing-brand-copy"><strong>Biloo</strong><small>{c.subtitle}</small></span>
+            <Link href="/" className="marketing-brand marketing-drawer-brand" onClick={() => setMenuOpen(false)}>
+              <img src="/hisab-logo.svg" alt="Biloo" width="88" height="44" />
+              <span>ERP</span>
             </Link>
             <button ref={closeButtonRef} type="button" aria-label={c.close} onClick={() => setMenuOpen(false)}><span /><span /></button>
           </header>
 
-          <div className="premium-mobile-menu-intro"><span>{c.menuEyebrow}</span><h2>{c.menuTitle}</h2><p>{c.menuDescription}</p></div>
-          <nav aria-label={c.navLabel}>
-            {mobileNavItems.map(([key, href], index) => (
-              <Link
-                href={href}
-                aria-current={pathname === href || pathname.startsWith(`${href}/`) ? "page" : undefined}
-                data-mobile-nav-key={key}
-                style={{ "--menu-index": index } as CSSProperties}
-                onClick={() => setMenuOpen(false)}
-                key={href}
-              >
-                <small>{String(index + 1).padStart(2, "0")}</small><strong>{c[key]}</strong><span aria-hidden="true">↗</span>
-              </Link>
+          <div className="premium-mobile-menu-intro">
+            <span>{c.menuEyebrow}</span>
+            <h2>{c.menuTitle}</h2>
+            <p>{c.menuDescription}</p>
+          </div>
+
+          <div className="premium-mobile-menu-sections">
+            {mobileSections.map((section, sectionIndex) => (
+              <section key={section.label}>
+                <small>{section.label}</small>
+                <nav aria-label={`${section.label} navigation`}>
+                  {section.items.map(([label, href], itemIndex) => (
+                    <Link
+                      href={href}
+                      aria-current={routeMatches(pathname, href) ? "page" : undefined}
+                      style={{ "--menu-index": sectionIndex * 4 + itemIndex } as CSSProperties}
+                      onClick={() => setMenuOpen(false)}
+                      key={href}
+                    >
+                      <strong>{label}</strong><span aria-hidden="true">↗</span>
+                    </Link>
+                  ))}
+                </nav>
+              </section>
             ))}
-          </nav>
+          </div>
 
           <div className="premium-mobile-menu-actions">
             <Link href="/auth/email-sign-up" className="marketing-start" onClick={() => setMenuOpen(false)}>{c.start}<span aria-hidden="true">→</span></Link>
-            <Link href="/request-demo" className="marketing-demo" onClick={() => setMenuOpen(false)}>{c.demo}</Link>
+            <Link href="/request-demo" className="marketing-mobile-demo" onClick={() => setMenuOpen(false)}>{c.demo}</Link>
             <Link href="/auth/login" className="marketing-signin" onClick={() => setMenuOpen(false)}>{c.signIn}</Link>
           </div>
 
@@ -250,7 +402,7 @@ export function MarketingFooter() {
           <a href="mailto:info@hisabtech.com">Email support</a>
           <a href="tel:+251924093037">+251 924 093 037</a>
         </div>
-        <div><strong>{c.productMarket}</strong><Link href="/product-tour">{c.product}</Link><Link href="/#modules">{c.modules}</Link><Link href="/ethiopia">{c.ethiopia}</Link><Link href="/industries">{c.industrySolutions}</Link><Link href="/pricing">{c.pricingEtb}</Link></div>
+        <div><strong>{c.productMarket}</strong><Link href="/product-tour">Product tour</Link><Link href="/#modules">{c.modules}</Link><Link href="/ethiopia">{c.ethiopia}</Link><Link href="/industries">{c.industrySolutions}</Link><Link href="/pricing">{c.pricingEtb}</Link></div>
         <div><strong>{c.learnImplement}</strong><Link href="/resources">{c.learningCenter}</Link><Link href="/migration">{c.dataMigration}</Link><Link href="/compare">{c.comparisons}</Link><Link href="/help-center">{c.helpCenter}</Link><Link href="/customer-stories">{c.customerProof}</Link></div>
         <div><strong>{c.companyTrust}</strong><Link href="/about">{c.aboutHisab}</Link><Link href="/trust">{c.trustCenter}</Link><Link href="/integrations">{c.integrations}</Link><Link href="/auth/login">{c.signIn}</Link><a href="mailto:info@hisabtech.com?subject=Biloo%20ERP%20security%20question">{c.securityContact}</a></div>
       </div>
