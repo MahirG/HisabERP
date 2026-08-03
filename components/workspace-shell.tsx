@@ -189,7 +189,14 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
   ];
 
   return (
-    <div className="erp-shell" data-layout-version="biloo-sidebar-v3" data-workspace-brand="biloo" data-mobile-nav-open={mobileNavOpen ? "true" : "false"}>
+    <div
+      className="erp-shell"
+      data-layout-version="biloo-sidebar-v3"
+      data-workspace-brand="biloo"
+      data-workspace-phase="2.5"
+      data-workspace-route={pathname}
+      data-mobile-nav-open={mobileNavOpen ? "true" : "false"}
+    >
       <WorkspaceCommandCenter items={commandItems} activeLabel={activeItem?.label ?? d.nav.overview} pathname={pathname} user={user} />
       <WorkspaceHeaderPreferences />
 
