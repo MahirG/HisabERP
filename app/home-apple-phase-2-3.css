@@ -1,0 +1,546 @@
+/* Phase 2.3 — Apple-style product presentation
+ * This file deliberately uses only CSS and the existing live Biloo UI.
+ * No generated product screenshot or device image is used.
+ */
+
+.marketing-home-unified .wp-site {
+  --wp-apple-ease: cubic-bezier(.22, 1, .36, 1);
+  --wp-apple-spring: cubic-bezier(.16, 1, .3, 1);
+  --wp-apple-shadow: 0 40px 90px rgba(15, 23, 42, .16);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.marketing-home-unified .wp-site :is(a, button, input, select, textarea) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.marketing-home-unified .wp-site :focus-visible {
+  outline: 3px solid rgba(0, 113, 227, .32) !important;
+  outline-offset: 3px;
+}
+
+.marketing-home-unified .wp-site ::selection {
+  color: #0b1428;
+  background: rgba(252, 163, 17, .28);
+}
+
+.marketing-home-unified .wp-hero {
+  min-height: 820px;
+  padding-top: 108px;
+  padding-bottom: 112px;
+  background:
+    radial-gradient(circle at 76% 19%, rgba(86, 146, 255, .11), transparent 29%),
+    radial-gradient(circle at 21% 10%, rgba(252, 163, 17, .12), transparent 25%),
+    linear-gradient(180deg, #ffffff 0%, #fbfcfe 56%, #f2f4f7 100%) !important;
+}
+
+.marketing-home-unified .wp-hero-grid {
+  opacity: .18;
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.72) 46%, transparent 92%);
+}
+
+.marketing-home-unified .wp-hero-layout {
+  grid-template-columns: minmax(0, .8fr) minmax(570px, 1.2fr);
+  gap: clamp(56px, 6vw, 92px);
+}
+
+.marketing-home-unified .wp-hero-copy {
+  position: relative;
+  z-index: 8;
+}
+
+.marketing-home-unified .wp-hero-copy h1 {
+  max-width: 720px !important;
+  margin-top: 0 !important;
+  font-size: clamp(50px, 5.75vw, 76px) !important;
+  font-weight: 720 !important;
+  letter-spacing: -.061em !important;
+  line-height: 1.005 !important;
+  text-wrap: balance;
+}
+
+.marketing-home-unified .wp-hero-copy h1 em {
+  color: #14213d !important;
+  background: linear-gradient(110deg, #14213d 0%, #315d9f 55%, #14213d 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.marketing-home-unified .wp-hero-copy > p {
+  max-width: 620px !important;
+  margin-top: 28px !important;
+  color: #626b78 !important;
+  font-size: clamp(18px, 1.55vw, 21px) !important;
+  font-weight: 430;
+  letter-spacing: -.018em;
+  line-height: 1.58 !important;
+  text-wrap: pretty;
+}
+
+.marketing-home-unified .wp-button,
+.marketing-home-unified .wp-nav-cta,
+.marketing-home-unified .wp-footer-cta {
+  transform: translateZ(0);
+  transition:
+    transform .42s var(--wp-apple-spring),
+    box-shadow .42s var(--wp-apple-ease),
+    background-color .32s ease,
+    border-color .32s ease,
+    color .32s ease !important;
+}
+
+.marketing-home-unified .wp-button {
+  min-height: 54px;
+  padding-inline: 24px;
+  font-size: 15px;
+  font-weight: 690;
+  letter-spacing: -.015em;
+}
+
+.marketing-home-unified .wp-button:hover,
+.marketing-home-unified .wp-nav-cta:hover,
+.marketing-home-unified .wp-footer-cta:hover {
+  transform: translate3d(0, -3px, 0) scale(1.012);
+}
+
+.marketing-home-unified .wp-button:active,
+.marketing-home-unified .wp-nav-cta:active,
+.marketing-home-unified .wp-footer-cta:active {
+  transform: translate3d(0, 0, 0) scale(.975);
+  transition-duration: .1s !important;
+}
+
+/* Product showroom */
+.marketing-home-unified .wp-hero-visual {
+  isolation: isolate;
+  min-height: 610px;
+  padding: 44px 0 74px;
+  perspective: 1800px;
+  transform-style: preserve-3d;
+}
+
+/* MacBook aluminium base */
+.marketing-home-unified .wp-hero-visual::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  right: -2.5%;
+  bottom: 43px;
+  left: -2.5%;
+  height: 22px;
+  border: 1px solid rgba(91, 99, 112, .22);
+  border-radius: 3px 3px 18px 18px;
+  background:
+    linear-gradient(180deg, #f8f9fa 0%, #d9dce0 40%, #b9bec5 72%, #e8eaed 100%) !important;
+  box-shadow:
+    0 8px 15px rgba(15, 23, 42, .17),
+    0 35px 55px -30px rgba(15, 23, 42, .48);
+  transform: rotateY(-2.4deg) rotateX(1deg);
+  transform-origin: center top;
+}
+
+.marketing-home-unified .wp-hero-visual::after {
+  content: "";
+  position: absolute;
+  z-index: 7;
+  right: -32px;
+  bottom: 4px;
+  width: 164px;
+  aspect-ratio: 9 / 19.5;
+  border: 7px solid #151619;
+  border-radius: 38px;
+  background:
+    radial-gradient(ellipse 27px 8px at 50% 3.7%, #090a0c 0 96%, transparent 100%),
+    linear-gradient(90deg, #14213d 0 16%, transparent 16% 100%) 18px 90px / 128px 50px no-repeat,
+    linear-gradient(90deg, #fca311 0 62%, #e8ecf2 62% 100%) 30px 158px / 104px 6px no-repeat,
+    linear-gradient(90deg, #fca311 0 82%, #e8ecf2 82% 100%) 30px 171px / 104px 6px no-repeat,
+    linear-gradient(90deg, #fca311 0 47%, #e8ecf2 47% 100%) 30px 184px / 104px 6px no-repeat,
+    linear-gradient(#ffffff, #ffffff) 18px 218px / 128px 62px no-repeat,
+    linear-gradient(#ffffff, #ffffff) 18px 292px / 128px 38px no-repeat,
+    radial-gradient(circle at 72% 27%, rgba(86, 146, 255, .24), transparent 31%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.22),
+    0 36px 60px -24px rgba(15, 23, 42, .55),
+    0 12px 26px rgba(15, 23, 42, .2);
+  transform: translate3d(0, 0, 58px) rotate(4deg);
+  animation: wp-apple-phone-float 7s var(--wp-apple-ease) infinite;
+  pointer-events: none;
+}
+
+.marketing-home-unified .wp-app-window {
+  z-index: 3;
+  overflow: hidden;
+  border: 9px solid #151619;
+  border-bottom-width: 12px;
+  border-radius: 24px 24px 16px 16px;
+  background: #f7f7f5 !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.16),
+    0 72px 110px -48px rgba(15, 23, 42, .56),
+    0 24px 52px rgba(15, 23, 42, .18);
+  transform: rotateY(-2.4deg) rotateX(1deg) translateZ(0);
+  transform-origin: 50% 70%;
+  transition:
+    transform .9s var(--wp-apple-spring),
+    box-shadow .9s var(--wp-apple-ease);
+  will-change: transform;
+}
+
+.marketing-home-unified .wp-app-window::before {
+  content: "";
+  position: absolute;
+  z-index: 20;
+  top: -6px;
+  left: 50%;
+  width: 54px;
+  height: 8px;
+  border-radius: 0 0 8px 8px;
+  background: #0a0b0d;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.marketing-home-unified .wp-hero-visual:hover .wp-app-window {
+  transform: rotateY(-.45deg) rotateX(.25deg) translate3d(-4px, -7px, 18px);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.16),
+    0 82px 125px -48px rgba(15, 23, 42, .62),
+    0 32px 64px rgba(15, 23, 42, .21);
+}
+
+.marketing-home-unified .wp-app-topbar {
+  height: 52px;
+  padding-inline: 18px;
+  font-size: 11px;
+  letter-spacing: -.01em;
+}
+
+.marketing-home-unified .wp-window-dots span {
+  width: 8px;
+  height: 8px;
+}
+
+.marketing-home-unified .wp-app-body {
+  min-height: 488px;
+}
+
+.marketing-home-unified .wp-app-content {
+  padding: 27px;
+}
+
+.marketing-home-unified .wp-app-heading small {
+  font-size: 10px;
+}
+
+.marketing-home-unified .wp-app-heading strong {
+  font-size: 15px;
+  font-weight: 720;
+}
+
+.marketing-home-unified .wp-app-heading button {
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 9px;
+  font-weight: 700;
+  transition: transform .3s var(--wp-apple-spring), box-shadow .3s ease;
+}
+
+.marketing-home-unified .wp-app-heading button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(20,33,61,.18);
+}
+
+.marketing-home-unified .wp-app-metrics article,
+.marketing-home-unified .wp-app-chart-card,
+.marketing-home-unified .wp-app-attention {
+  border-color: rgba(15, 23, 42, .08);
+  box-shadow: 0 10px 26px rgba(15, 23, 42, .045);
+  transition:
+    transform .45s var(--wp-apple-spring),
+    box-shadow .45s var(--wp-apple-ease),
+    border-color .3s ease;
+}
+
+.marketing-home-unified .wp-app-metrics article:hover,
+.marketing-home-unified .wp-app-chart-card:hover,
+.marketing-home-unified .wp-app-attention:hover {
+  transform: translate3d(0, -4px, 0);
+  border-color: rgba(49, 93, 159, .16);
+  box-shadow: 0 18px 34px rgba(15, 23, 42, .075);
+}
+
+.marketing-home-unified .wp-app-metrics span {
+  font-size: 9px;
+}
+
+.marketing-home-unified .wp-app-metrics strong {
+  font-size: 17px;
+  font-weight: 720;
+}
+
+.marketing-home-unified .wp-app-metrics em {
+  font-size: 9px;
+}
+
+.marketing-home-unified .wp-card-heading small,
+.marketing-home-unified .wp-app-attention li strong {
+  font-size: 9px;
+}
+
+.marketing-home-unified .wp-card-heading strong {
+  font-size: 11px;
+}
+
+.marketing-home-unified .wp-app-attention li small {
+  font-size: 8px;
+}
+
+.marketing-home-unified .wp-float-card {
+  border-color: rgba(15, 23, 42, .085);
+  border-radius: 18px;
+  padding: 13px 14px;
+  box-shadow: 0 24px 55px rgba(15, 23, 42, .14);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  animation: wp-apple-card-float 6.8s var(--wp-apple-ease) infinite;
+}
+
+.marketing-home-unified .wp-float-card-sales {
+  top: 2px;
+  right: -10px;
+}
+
+.marketing-home-unified .wp-float-card-stock {
+  z-index: 8;
+  bottom: 40px;
+  left: -36px;
+  animation-delay: -3.2s;
+}
+
+.marketing-home-unified [data-reveal] {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translate3d(0, 30px, 0) scale(.985);
+  transition:
+    opacity .9s var(--wp-apple-ease) var(--delay, 0ms),
+    transform 1s var(--wp-apple-spring) var(--delay, 0ms),
+    filter .9s var(--wp-apple-ease) var(--delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.marketing-home-unified [data-reveal].is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.marketing-home-unified .wp-pillar-card,
+.marketing-home-unified .wp-explorer-tabs button,
+.marketing-home-unified .wp-faq-list article,
+.marketing-home-unified .wp-map-node,
+.marketing-home-unified .wp-security-list > div {
+  transition-timing-function: var(--wp-apple-spring) !important;
+  transition-duration: .48s !important;
+}
+
+@keyframes wp-apple-card-float {
+  0%, 100% { transform: translate3d(0, 0, 34px) rotate(-.25deg); }
+  50% { transform: translate3d(0, -10px, 42px) rotate(.35deg); }
+}
+
+@keyframes wp-apple-phone-float {
+  0%, 100% { transform: translate3d(0, 0, 58px) rotate(4deg); }
+  50% { transform: translate3d(-2px, -10px, 68px) rotate(2.8deg); }
+}
+
+@media (max-width: 1180px) {
+  .marketing-home-unified .wp-hero-layout {
+    grid-template-columns: minmax(0, .82fr) minmax(520px, 1.18fr);
+    gap: 42px;
+  }
+
+  .marketing-home-unified .wp-hero-visual::after {
+    right: -16px;
+    width: 148px;
+  }
+}
+
+@media (max-width: 980px) {
+  .marketing-home-unified .wp-hero {
+    min-height: auto;
+    padding-top: 84px;
+  }
+
+  .marketing-home-unified .wp-hero-layout {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .marketing-home-unified .wp-hero-copy {
+    max-width: 760px;
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .marketing-home-unified .wp-hero-copy > p {
+    margin-inline: auto !important;
+  }
+
+  .marketing-home-unified .wp-hero-actions,
+  .marketing-home-unified .wp-hero-assurance {
+    justify-content: center;
+  }
+
+  .marketing-home-unified .wp-hero-visual {
+    width: min(760px, 100%);
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .marketing-home-unified .wp-hero {
+    padding: 66px 0 88px;
+  }
+
+  .marketing-home-unified .wp-hero-copy h1 {
+    font-size: clamp(43px, 13vw, 61px) !important;
+    letter-spacing: -.055em !important;
+    line-height: 1.01 !important;
+  }
+
+  .marketing-home-unified .wp-hero-copy > p {
+    font-size: 17px !important;
+    line-height: 1.56 !important;
+  }
+
+  .marketing-home-unified .wp-hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .marketing-home-unified .wp-button {
+    width: 100%;
+    min-height: 56px;
+  }
+
+  .marketing-home-unified .wp-hero-visual {
+    min-height: 465px;
+    padding: 28px 0 58px;
+  }
+
+  .marketing-home-unified .wp-app-window {
+    border-width: 6px;
+    border-bottom-width: 9px;
+    border-radius: 18px 18px 12px 12px;
+    transform: none;
+  }
+
+  .marketing-home-unified .wp-hero-visual::before {
+    right: -1.5%;
+    bottom: 37px;
+    left: -1.5%;
+    height: 15px;
+    transform: none;
+  }
+
+  .marketing-home-unified .wp-hero-visual::after {
+    right: -4px;
+    bottom: 0;
+    width: 104px;
+    border-width: 5px;
+    border-radius: 26px;
+    opacity: .98;
+  }
+
+  .marketing-home-unified .wp-float-card-sales {
+    top: 0;
+    right: 2px;
+  }
+
+  .marketing-home-unified .wp-float-card-stock {
+    bottom: 18px;
+    left: -4px;
+  }
+
+  .marketing-home-unified .wp-float-card {
+    scale: .82;
+  }
+
+  .marketing-home-unified .wp-app-body {
+    min-height: 350px;
+  }
+
+  .marketing-home-unified .wp-app-content {
+    padding: 16px;
+  }
+
+  .marketing-home-unified .wp-app-analytics {
+    grid-template-columns: 1fr;
+  }
+
+  .marketing-home-unified .wp-app-attention {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .marketing-home-unified .wp-hero-visual {
+    min-height: 405px;
+  }
+
+  .marketing-home-unified .wp-hero-visual::after {
+    width: 88px;
+  }
+
+  .marketing-home-unified .wp-float-card-stock {
+    display: none;
+  }
+
+  .marketing-home-unified .wp-app-topbar {
+    height: 42px;
+  }
+
+  .marketing-home-unified .wp-app-sidebar {
+    display: none;
+  }
+
+  .marketing-home-unified .wp-app-body {
+    grid-template-columns: 1fr;
+  }
+
+  .marketing-home-unified .wp-app-heading button {
+    display: none;
+  }
+
+  .marketing-home-unified .wp-app-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .marketing-home-unified .wp-app-metrics article:last-child {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-home-unified .wp-site *,
+  .marketing-home-unified .wp-site *::before,
+  .marketing-home-unified .wp-site *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+
+  .marketing-home-unified [data-reveal] {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
