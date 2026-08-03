@@ -6,6 +6,7 @@ import "./home-unified-marketing-navigation.css";
 import "./home-hero-copy-cleanup.css";
 import "./home-apple-phase-2-3.css";
 
+// Production redeploy marker: Phase 2.3 Apple-style product presentation.
 export const dynamic = "force-static";
 export const revalidate = 3600;
 
