@@ -4,6 +4,7 @@ import { WishpondMarketingHome } from "../components/wishpond-marketing-home";
 import "./home-wishpond-redesign.css";
 import "./home-unified-marketing-navigation.css";
 import "./home-hero-copy-cleanup.css";
+import "./home-apple-phase-2-3.css";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
