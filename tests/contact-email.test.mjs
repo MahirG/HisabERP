@@ -1,41 +1,33 @@
 import assert from "node:assert/strict";
-import { readdir, readFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const sourceRoots = ["app", "components", "lib"];
-const extensions = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".json", ".md", ".css", ".html"]);
+const adminEmail = "mahir@hisabtech.com";
 
-async function collectFiles(directory) {
-  const entries = await readdir(directory, { withFileTypes: true });
-  const files = [];
-
-  for (const entry of entries) {
-    const absolute = path.join(directory, entry.name);
-    if (entry.isDirectory()) files.push(...await collectFiles(absolute));
-    else if (extensions.has(path.extname(entry.name))) files.push(absolute);
-  }
-
-  return files;
+async function source(relativePath) {
+  return readFile(path.join(root, relativePath), "utf8");
 }
 
-test("public website uses the shared info inbox", async () => {
-  const legacy = ["mahir", "hisabtech.com"].join("@");
-  const files = (await Promise.all(sourceRoots.map((directory) => collectFiles(path.join(root, directory))))).flat();
-  const matches = [];
+test("demo requests are emailed directly to the admin inbox", async () => {
+  const emailDelivery = await source("lib/email/demo-request-email.ts");
+  const action = await source("lib/actions/demo-request.ts");
+  const requestPage = await source("app/request-demo/page.tsx");
 
-  for (const file of files) {
-    const content = await readFile(file, "utf8");
-    if (content.includes(legacy)) matches.push(path.relative(root, file));
-  }
+  assert.match(emailDelivery, new RegExp(`ADMIN_CONTACT_EMAIL = ["']${adminEmail.replace(".", "\\.")}["']`));
+  assert.match(emailDelivery, /https:\/\/api\.resend\.com\/emails/);
+  assert.match(emailDelivery, /reply_to:\s*request\.email/);
+  assert.match(action, /sendDemoRequestEmail\(request\)/);
+  assert.match(action, /submitted=1&delivered=1/);
+  assert.match(requestPage, /mailto:mahir@hisabtech\.com/);
+});
 
-  assert.deepEqual(matches, []);
+test("all public admin mail links are normalized to Mahir", async () => {
+  const controller = await source("components/marketing-experience-controller.tsx");
 
-  const about = await readFile(path.join(root, "app/about/page.tsx"), "utf8");
-  const chrome = await readFile(path.join(root, "components/marketing-site-chrome.tsx"), "utf8");
-
-  assert.match(about, /info@hisabtech\.com/);
-  assert.match(chrome, /info@hisabtech\.com/);
+  assert.match(controller, /const ADMIN_CONTACT_EMAIL = "mahir@hisabtech\.com"/);
+  assert.match(controller, /address !== "info@hisabtech\.com"/);
+  assert.match(controller, /anchor\.href = `mailto:\$\{ADMIN_CONTACT_EMAIL\}/);
 });
