@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
+const ADMIN_CONTACT_EMAIL = "mahir@hisabtech.com";
 const revealSelector = [
   "#public-main-content > *",
   "#public-main-content > div > *",
@@ -13,6 +14,26 @@ const revealSelector = [
 function isVisible(element: HTMLElement) {
   const rect = element.getBoundingClientRect();
   return rect.bottom > 0 && rect.top < window.innerHeight * 0.94;
+}
+
+function normalizeAdminContactLinks(scope: ParentNode) {
+  const anchors: HTMLAnchorElement[] = [];
+  if (scope instanceof HTMLAnchorElement) anchors.push(scope);
+  anchors.push(...Array.from(scope.querySelectorAll<HTMLAnchorElement>('a[href^="mailto:"]')));
+
+  anchors.forEach((anchor) => {
+    const mailto = anchor.getAttribute("href");
+    if (!mailto) return;
+
+    const [addressPart, queryPart] = mailto.slice("mailto:".length).split("?", 2);
+    const address = decodeURIComponent(addressPart).trim().toLowerCase();
+    if (address !== "info@hisabtech.com" && address !== ADMIN_CONTACT_EMAIL) return;
+
+    anchor.href = `mailto:${ADMIN_CONTACT_EMAIL}${queryPart ? `?${queryPart}` : ""}`;
+    if (anchor.textContent?.trim().toLowerCase() === "info@hisabtech.com") {
+      anchor.textContent = ADMIN_CONTACT_EMAIL;
+    }
+  });
 }
 
 export function MarketingExperienceController() {
@@ -98,13 +119,16 @@ export function MarketingExperienceController() {
         );
       }
 
+      normalizeAdminContactLinks(marketingRoot);
       registerRevealElements(marketingRoot);
       updateScrollState();
 
       mutationObserver = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
           mutation.addedNodes.forEach((node) => {
-            if (node instanceof HTMLElement) registerRevealElements(node);
+            if (!(node instanceof HTMLElement)) return;
+            normalizeAdminContactLinks(node);
+            registerRevealElements(node);
           });
         });
       });
