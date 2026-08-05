@@ -35,6 +35,7 @@ export function MarketingExperienceController() {
       const progress = Math.min(Math.max(window.scrollY / scrollable, 0), 1);
       documentRoot.style.setProperty("--marketing-scroll-progress", progress.toFixed(4));
       body.dataset.marketingScrolled = window.scrollY > 10 ? "true" : "false";
+      body.dataset.marketingDeepScrolled = window.scrollY > Math.max(window.innerHeight * 0.72, 560) ? "true" : "false";
     };
 
     const scheduleScrollUpdate = () => {
@@ -73,6 +74,7 @@ export function MarketingExperienceController() {
       if (!marketingRoot) {
         delete body.dataset.awardMarketing;
         delete body.dataset.marketingScrolled;
+        delete body.dataset.marketingDeepScrolled;
         documentRoot.style.removeProperty("--marketing-scroll-progress");
         return;
       }
@@ -128,15 +130,24 @@ export function MarketingExperienceController() {
       window.removeEventListener("resize", scheduleScrollUpdate);
       delete body.dataset.awardMarketing;
       delete body.dataset.marketingScrolled;
+      delete body.dataset.marketingDeepScrolled;
       documentRoot.style.removeProperty("--marketing-scroll-progress");
     };
   }, [pathname]);
 
+  const returnToTop = () => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+  };
+
   return (
-    <div className="marketing-motion-layer" aria-hidden="true">
-      <span className="marketing-motion-orb marketing-motion-orb-one" />
-      <span className="marketing-motion-orb marketing-motion-orb-two" />
-      <span className="marketing-scroll-progress" />
+    <div className="marketing-motion-layer">
+      <span className="marketing-motion-orb marketing-motion-orb-one" aria-hidden="true" />
+      <span className="marketing-motion-orb marketing-motion-orb-two" aria-hidden="true" />
+      <span className="marketing-scroll-progress" aria-hidden="true" />
+      <button className="marketing-back-to-top" type="button" aria-label="Back to top" onClick={returnToTop}>
+        <span aria-hidden="true">↑</span>
+      </button>
     </div>
   );
 }
