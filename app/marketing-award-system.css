@@ -1,0 +1,721 @@
+/*
+ * Biloo unified public marketing experience.
+ * This file is intentionally imported last so every public route shares one
+ * authoritative responsive, interaction and motion language.
+ */
+
+:root {
+  --biloo-public-navy: #14213d;
+  --biloo-public-navy-strong: #0b1529;
+  --biloo-public-navy-soft: #22365f;
+  --biloo-public-gold: #fca311;
+  --biloo-public-gold-soft: #ffd98a;
+  --biloo-public-ink: #17233a;
+  --biloo-public-muted: #647087;
+  --biloo-public-mist: #f4f7fb;
+  --biloo-public-line: rgba(20, 33, 61, 0.1);
+  --biloo-public-line-strong: rgba(20, 33, 61, 0.16);
+  --biloo-public-white: #ffffff;
+  --biloo-public-radius-sm: 14px;
+  --biloo-public-radius-md: 20px;
+  --biloo-public-radius-lg: 28px;
+  --biloo-public-radius-xl: 38px;
+  --biloo-public-shadow-sm: 0 10px 30px rgba(20, 33, 61, 0.07);
+  --biloo-public-shadow-md: 0 22px 60px rgba(20, 33, 61, 0.11);
+  --biloo-public-shadow-lg: 0 36px 100px rgba(20, 33, 61, 0.16);
+  --biloo-public-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --marketing-scroll-progress: 0;
+}
+
+html:has(body[data-award-marketing="true"]) {
+  scroll-behavior: smooth;
+  scroll-padding-top: 92px;
+  background: var(--biloo-public-white);
+}
+
+body[data-award-marketing="true"] {
+  color: var(--biloo-public-ink);
+  background: var(--biloo-public-white);
+  font-family: var(--font-biloo-manrope), Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body[data-award-marketing="true"] ::selection {
+  color: #ffffff;
+  background: var(--biloo-public-navy);
+}
+
+body[data-award-marketing="true"] :focus-visible {
+  outline: 3px solid rgba(252, 163, 17, 0.34) !important;
+  outline-offset: 3px !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 {
+  position: relative;
+  min-height: 100dvh;
+  color: var(--biloo-public-ink);
+  background:
+    radial-gradient(circle at 8% 4%, rgba(252, 163, 17, 0.08), transparent 28rem),
+    radial-gradient(circle at 92% 12%, rgba(64, 112, 190, 0.09), transparent 31rem),
+    linear-gradient(180deg, #ffffff 0%, #fbfcff 45%, #ffffff 100%);
+  isolation: isolate;
+  overflow-x: clip;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2::before {
+  content: "";
+  position: fixed;
+  z-index: -2;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(20, 33, 61, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 33, 61, 0.022) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.62), transparent 58%);
+}
+
+body[data-award-marketing="true"] .marketing-site-v2::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 50%;
+  width: min(92vw, 1320px);
+  height: 560px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(20, 33, 61, 0.055), transparent 68%);
+  filter: blur(40px);
+  transform: translate(-50%, -55%);
+}
+
+body[data-award-marketing="true"] #public-main-content {
+  position: relative;
+  z-index: 2;
+  min-height: 40vh;
+}
+
+/* Editorial typography */
+body[data-award-marketing="true"] .marketing-site-v2 :is(h1, h2, h3, h4) {
+  margin-top: 0;
+  color: var(--biloo-public-navy);
+  font-family: var(--font-biloo-display), var(--font-biloo-manrope), Manrope, sans-serif !important;
+  font-variation-settings: "wght" 650;
+  text-wrap: balance;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 h1 {
+  font-size: clamp(2.75rem, 7vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 h2 {
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-weight: 680;
+  letter-spacing: -0.052em;
+  line-height: 1.02;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 h3 {
+  font-size: clamp(1.25rem, 2.2vw, 1.8rem);
+  font-weight: 670;
+  letter-spacing: -0.035em;
+  line-height: 1.13;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(p, li) {
+  color: var(--biloo-public-muted);
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  line-height: 1.72;
+  text-wrap: pretty;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(small, .eyebrow, [class*="eyebrow"], [class*="kicker"]) {
+  font-weight: 760;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+body[data-award-marketing="true"] #public-main-content > :is(section, div, main),
+body[data-award-marketing="true"] #public-main-content > div > section,
+body[data-award-marketing="true"] #public-main-content > main > section {
+  position: relative;
+}
+
+body[data-award-marketing="true"] #public-main-content > section,
+body[data-award-marketing="true"] #public-main-content > div > section,
+body[data-award-marketing="true"] #public-main-content > main > section {
+  padding-block: clamp(64px, 9vw, 128px);
+}
+
+body[data-award-marketing="true"] #public-main-content > :first-child {
+  padding-top: clamp(44px, 7vw, 92px);
+}
+
+/* Consistent content width without flattening intentional full-bleed visuals. */
+body[data-award-marketing="true"] #public-main-content :is(
+  [class*="container"],
+  [class*="-inner"],
+  [class*="-content"],
+  [class*="-shell"]
+) {
+  box-sizing: border-box;
+}
+
+body[data-award-marketing="true"] #public-main-content :is(
+  [class*="container"],
+  [class*="section-inner"],
+  [class*="content-inner"],
+  [class*="page-inner"]
+) {
+  width: min(100% - 40px, 1240px);
+  margin-inline: auto;
+}
+
+/* Hero polish across all public routes. */
+body[data-award-marketing="true"] #public-main-content :is([class*="hero"], [class*="masthead"]) {
+  position: relative;
+  isolation: isolate;
+}
+
+body[data-award-marketing="true"] #public-main-content :is([class*="hero"], [class*="masthead"])::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 8% 4% auto;
+  height: min(50vw, 520px);
+  border-radius: 46% 54% 62% 38% / 45% 38% 62% 55%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 25% 30%, rgba(252, 163, 17, 0.12), transparent 34%),
+    radial-gradient(circle at 76% 45%, rgba(66, 114, 190, 0.12), transparent 38%);
+  filter: blur(34px);
+  opacity: 0.82;
+}
+
+body[data-award-marketing="true"] #public-main-content :is([class*="hero"], [class*="masthead"]) :is(img, video) {
+  border-radius: clamp(20px, 3vw, 34px);
+  filter: saturate(1.03) contrast(1.015);
+}
+
+/* Premium surface language. */
+body[data-award-marketing="true"] #public-main-content :is(
+  [class*="-card"],
+  [class$="card"],
+  [class*="-panel"],
+  [class*="-tile"],
+  [class*="-module"],
+  [class*="-feature"],
+  [class*="-benefit"],
+  [class*="-story"],
+  [class*="-resource"],
+  [class*="-integration"],
+  [class*="-metric"],
+  [class*="-step"]
+) {
+  border-radius: var(--biloo-public-radius-lg) !important;
+  transition:
+    transform 360ms var(--biloo-public-ease),
+    box-shadow 360ms var(--biloo-public-ease),
+    border-color 260ms ease,
+    background-color 260ms ease,
+    filter 260ms ease !important;
+  will-change: transform;
+}
+
+body[data-award-marketing="true"] #public-main-content :is(
+  [class*="-grid"],
+  [class*="-list"],
+  [class*="-cards"]
+) {
+  align-items: stretch;
+}
+
+body[data-award-marketing="true"] #public-main-content :is(
+  [class*="-card"],
+  [class$="card"],
+  [class*="-panel"],
+  [class*="-tile"]
+) :is(img, video, iframe) {
+  max-width: 100%;
+  border-radius: max(14px, calc(var(--biloo-public-radius-lg) - 8px));
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body[data-award-marketing="true"] #public-main-content :is(
+    a[class*="-card"],
+    article[class*="-card"],
+    [class*="-feature"],
+    [class*="-benefit"],
+    [class*="-story"],
+    [class*="-resource"],
+    [class*="-integration"],
+    [class*="-module"],
+    [class*="-step"]
+  ):hover {
+    transform: translateY(-7px) scale(1.008);
+    filter: saturate(1.025);
+  }
+
+  body[data-award-marketing="true"] #public-main-content :is(
+    a[class*="-card"],
+    article[class*="-card"],
+    [class*="-panel"],
+    [class*="-tile"]
+  ):hover {
+    border-color: rgba(252, 163, 17, 0.28) !important;
+    box-shadow: var(--biloo-public-shadow-md) !important;
+  }
+}
+
+/* Buttons and conversion actions */
+body[data-award-marketing="true"] .marketing-site-v2 :is(a, button) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body[data-award-marketing="true"] #public-main-content :is(
+  a[href="/request-demo"],
+  a[href="/auth/email-sign-up"],
+  a[href="/product-tour"],
+  button[type="submit"],
+  [class*="primary-cta"],
+  [class*="cta-primary"]
+) {
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 22px;
+  border: 1px solid var(--biloo-public-navy) !important;
+  border-radius: 999px !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: linear-gradient(135deg, var(--biloo-public-navy), var(--biloo-public-navy-soft)) !important;
+  box-shadow: 0 14px 34px rgba(20, 33, 61, 0.2) !important;
+  font-size: 0.92rem;
+  font-weight: 760;
+  letter-spacing: -0.015em;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform 220ms var(--biloo-public-ease), box-shadow 220ms ease, background 220ms ease !important;
+}
+
+body[data-award-marketing="true"] #public-main-content :is(
+  a[href="/request-demo"],
+  a[href="/auth/email-sign-up"],
+  a[href="/product-tour"],
+  button[type="submit"],
+  [class*="primary-cta"],
+  [class*="cta-primary"]
+):hover {
+  background: linear-gradient(135deg, #0b1529, #1d3157) !important;
+  box-shadow: 0 18px 42px rgba(20, 33, 61, 0.27) !important;
+  transform: translateY(-2px);
+}
+
+body[data-award-marketing="true"] #public-main-content :is(
+  [class*="secondary-cta"],
+  [class*="cta-secondary"],
+  a[href="/pricing"]
+) {
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 21px;
+  border: 1px solid var(--biloo-public-line-strong) !important;
+  border-radius: 999px !important;
+  color: var(--biloo-public-navy) !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+  box-shadow: var(--biloo-public-shadow-sm);
+  font-weight: 720;
+  text-decoration: none;
+  transition: transform 220ms var(--biloo-public-ease), border-color 220ms ease, box-shadow 220ms ease !important;
+}
+
+body[data-award-marketing="true"] #public-main-content :is(
+  [class*="secondary-cta"],
+  [class*="cta-secondary"],
+  a[href="/pricing"]
+):hover {
+  border-color: rgba(252, 163, 17, 0.4) !important;
+  box-shadow: var(--biloo-public-shadow-md);
+  transform: translateY(-2px);
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 a:not([class]) {
+  color: var(--biloo-public-navy);
+  text-decoration-color: rgba(252, 163, 17, 0.58);
+  text-underline-offset: 0.2em;
+}
+
+/* Forms */
+body[data-award-marketing="true"] #public-main-content :is(input, textarea, select) {
+  min-height: 50px;
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--biloo-public-line-strong) !important;
+  border-radius: var(--biloo-public-radius-sm) !important;
+  color: var(--biloo-public-ink) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 1px 2px rgba(20, 33, 61, 0.025);
+  font: inherit;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease !important;
+}
+
+body[data-award-marketing="true"] #public-main-content textarea {
+  min-height: 132px;
+  resize: vertical;
+}
+
+body[data-award-marketing="true"] #public-main-content :is(input, textarea, select):focus {
+  border-color: rgba(252, 163, 17, 0.62) !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 4px rgba(252, 163, 17, 0.12) !important;
+  outline: none !important;
+}
+
+body[data-award-marketing="true"] #public-main-content label {
+  color: var(--biloo-public-navy);
+  font-size: 0.86rem;
+  font-weight: 720;
+}
+
+/* Tables and comparisons */
+body[data-award-marketing="true"] #public-main-content table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--biloo-public-line);
+  border-radius: var(--biloo-public-radius-md);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--biloo-public-shadow-sm);
+  overflow: hidden;
+}
+
+body[data-award-marketing="true"] #public-main-content :is(th, td) {
+  padding: 15px 17px;
+  border-bottom: 1px solid var(--biloo-public-line);
+  text-align: left;
+}
+
+body[data-award-marketing="true"] #public-main-content th {
+  color: var(--biloo-public-navy);
+  background: var(--biloo-public-mist);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+body[data-award-marketing="true"] #public-main-content tr:last-child td {
+  border-bottom: 0;
+}
+
+/* FAQ and disclosure components */
+body[data-award-marketing="true"] #public-main-content details {
+  border: 1px solid var(--biloo-public-line);
+  border-radius: var(--biloo-public-radius-md);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 24px rgba(20, 33, 61, 0.045);
+  overflow: clip;
+  transition: border-color 200ms ease, box-shadow 240ms ease, transform 240ms var(--biloo-public-ease);
+}
+
+body[data-award-marketing="true"] #public-main-content details[open] {
+  border-color: rgba(252, 163, 17, 0.28);
+  box-shadow: var(--biloo-public-shadow-sm);
+}
+
+body[data-award-marketing="true"] #public-main-content summary {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  color: var(--biloo-public-navy);
+  font-weight: 720;
+  cursor: pointer;
+}
+
+body[data-award-marketing="true"] #public-main-content details > :not(summary) {
+  padding-inline: 20px;
+}
+
+body[data-award-marketing="true"] #public-main-content details > :last-child {
+  padding-bottom: 20px;
+}
+
+/* Shared footer */
+body[data-award-marketing="true"] .marketing-footer {
+  position: relative;
+  z-index: 2;
+  margin-top: clamp(70px, 9vw, 130px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.76) !important;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(252, 163, 17, 0.17), transparent 28rem),
+    linear-gradient(150deg, #0b1529 0%, #14213d 58%, #1b3159 100%) !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+body[data-award-marketing="true"] .marketing-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent);
+}
+
+body[data-award-marketing="true"] .marketing-footer :is(strong, a) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+body[data-award-marketing="true"] .marketing-footer a {
+  text-decoration: none;
+  transition: color 170ms ease, transform 170ms ease, opacity 170ms ease;
+}
+
+body[data-award-marketing="true"] .marketing-footer a:hover {
+  color: var(--biloo-public-gold-soft) !important;
+  -webkit-text-fill-color: var(--biloo-public-gold-soft) !important;
+  transform: translateX(2px);
+}
+
+body[data-award-marketing="true"] .marketing-footer :is(.marketing-footer-top, .marketing-footer-bottom) {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 40px, 1240px);
+  margin-inline: auto;
+}
+
+/* Global motion layer */
+.marketing-motion-layer {
+  position: fixed;
+  z-index: 1190;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+body:not([data-award-marketing="true"]) .marketing-motion-layer {
+  display: none;
+}
+
+.marketing-scroll-progress {
+  position: fixed;
+  z-index: 4000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--biloo-public-gold), #ffd57a, var(--biloo-public-navy));
+  box-shadow: 0 1px 8px rgba(252, 163, 17, 0.32);
+  transform: scaleX(var(--marketing-scroll-progress));
+  transform-origin: left center;
+  transition: transform 80ms linear;
+}
+
+.marketing-motion-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.14;
+  animation: biloo-orb-drift 16s ease-in-out infinite alternate;
+}
+
+.marketing-motion-orb-one {
+  top: 12%;
+  left: -11rem;
+  width: 25rem;
+  height: 25rem;
+  background: rgba(252, 163, 17, 0.58);
+}
+
+.marketing-motion-orb-two {
+  right: -13rem;
+  bottom: 8%;
+  width: 31rem;
+  height: 31rem;
+  background: rgba(43, 83, 151, 0.48);
+  animation-delay: -7s;
+}
+
+@keyframes biloo-orb-drift {
+  from { transform: translate3d(-2%, -2%, 0) scale(0.94); }
+  to { transform: translate3d(9%, 7%, 0) scale(1.08); }
+}
+
+/* Route and scroll reveal motion. Content remains visible when JavaScript is unavailable. */
+body[data-award-marketing="true"] .marketing-site-v2[data-marketing-entering="true"] #public-main-content {
+  animation: biloo-route-enter 520ms var(--biloo-public-ease) both;
+}
+
+@keyframes biloo-route-enter {
+  from { opacity: 0.35; transform: translateY(8px); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+body[data-award-marketing="true"] [data-marketing-reveal="true"] {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateY(24px) scale(0.992);
+  transition:
+    opacity 700ms var(--biloo-public-ease),
+    transform 760ms var(--biloo-public-ease),
+    filter 620ms ease;
+  transition-delay: calc(var(--marketing-reveal-order, 0) * 36ms);
+}
+
+body[data-award-marketing="true"] [data-marketing-reveal="true"][data-marketing-revealed="true"] {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+body[data-award-marketing="true"][data-marketing-scrolled="true"] .marketing-nav-v2 {
+  border-bottom-color: rgba(20, 33, 61, 0.14) !important;
+  background: rgba(255, 255, 255, 0.94) !important;
+  box-shadow: 0 14px 42px rgba(20, 33, 61, 0.09) !important;
+}
+
+/* Mobile and tablet coherence */
+@media (max-width: 1080px) {
+  html:has(body[data-award-marketing="true"]) {
+    scroll-padding-top: 76px;
+  }
+
+  body[data-award-marketing="true"] #public-main-content > section,
+  body[data-award-marketing="true"] #public-main-content > div > section,
+  body[data-award-marketing="true"] #public-main-content > main > section {
+    padding-block: clamp(54px, 9vw, 90px);
+  }
+
+  body[data-award-marketing="true"] #public-main-content :is(
+    [class*="container"],
+    [class*="section-inner"],
+    [class*="content-inner"],
+    [class*="page-inner"]
+  ) {
+    width: min(100% - 30px, 1240px);
+  }
+
+  .marketing-motion-orb {
+    opacity: 0.09;
+  }
+}
+
+@media (max-width: 720px) {
+  body[data-award-marketing="true"] .marketing-site-v2 h1 {
+    font-size: clamp(2.55rem, 13.2vw, 4.2rem);
+    letter-spacing: -0.058em;
+  }
+
+  body[data-award-marketing="true"] .marketing-site-v2 h2 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  body[data-award-marketing="true"] .marketing-site-v2 :is(p, li) {
+    font-size: 0.98rem;
+    line-height: 1.66;
+  }
+
+  body[data-award-marketing="true"] #public-main-content > section,
+  body[data-award-marketing="true"] #public-main-content > div > section,
+  body[data-award-marketing="true"] #public-main-content > main > section {
+    padding-block: 54px;
+  }
+
+  body[data-award-marketing="true"] #public-main-content :is(
+    [class*="-card"],
+    [class$="card"],
+    [class*="-panel"],
+    [class*="-tile"],
+    [class*="-module"],
+    [class*="-feature"],
+    [class*="-benefit"]
+  ) {
+    border-radius: 22px !important;
+  }
+
+  body[data-award-marketing="true"] #public-main-content :is(
+    a[href="/request-demo"],
+    a[href="/auth/email-sign-up"],
+    a[href="/product-tour"],
+    button[type="submit"],
+    [class*="primary-cta"],
+    [class*="cta-primary"],
+    [class*="secondary-cta"],
+    [class*="cta-secondary"]
+  ) {
+    min-height: 52px;
+    padding-inline: 19px;
+  }
+
+  body[data-award-marketing="true"] #public-main-content table {
+    display: block;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body[data-award-marketing="true"] .marketing-footer :is(.marketing-footer-top, .marketing-footer-bottom) {
+    width: min(100% - 30px, 1240px);
+  }
+
+  .marketing-scroll-progress {
+    height: 2px;
+  }
+}
+
+@media (max-width: 420px) {
+  body[data-award-marketing="true"] #public-main-content :is(
+    [class*="container"],
+    [class*="section-inner"],
+    [class*="content-inner"],
+    [class*="page-inner"]
+  ) {
+    width: min(100% - 24px, 1240px);
+  }
+
+  body[data-award-marketing="true"] #public-main-content :is(input, textarea, select) {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:has(body[data-award-marketing="true"]) {
+    scroll-behavior: auto;
+  }
+
+  body[data-award-marketing="true"] *,
+  body[data-award-marketing="true"] *::before,
+  body[data-award-marketing="true"] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  body[data-award-marketing="true"] [data-marketing-reveal="true"] {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+
+  .marketing-motion-orb {
+    display: none;
+  }
+}
