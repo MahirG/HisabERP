@@ -67,6 +67,7 @@ export function MarketingExperienceController() {
 
     const revealImmediately = (element: HTMLElement) => {
       element.dataset.marketingRevealed = "true";
+      element.classList.add("is-visible");
     };
 
     const registerRevealElements = (scope: ParentNode) => {
@@ -168,11 +169,13 @@ export function MarketingExperienceController() {
   return (
     <>
       <link rel="stylesheet" href="/biloo-marketing-interactions.css?v=20260805-1" />
-      <link rel="stylesheet" href="/biloo-executive-marketing.css?v=20260806-1" />
+      {pathname !== "/" ? (
+        <link rel="stylesheet" href="/biloo-executive-marketing.css?v=20260806-1" />
+      ) : null}
       <link rel="stylesheet" href="/biloo-legal-suite.css?v=20260806-1" />
       <link rel="stylesheet" href="/biloo-legal-pages.css?v=20260806-1" />
       <link rel="stylesheet" href="/biloo-production-css-update.css?v=20260806-1" />
-      <link rel="stylesheet" href="/biloo-css-stability-fix.css?v=20260806-2" />
+      <link rel="stylesheet" href="/biloo-css-stability-fix.css?v=20260806-3" />
       <MarketingLegalSuite />
       <div className="marketing-motion-layer">
         <span className="marketing-motion-orb marketing-motion-orb-one" aria-hidden="true" />
