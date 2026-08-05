@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import { Manrope, Space_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AppExperienceProvider } from "../components/app-experience-provider";
 import { AuthPagePreferences } from "../components/auth-page-preferences";
 import { LanguageProvider } from "../components/language-provider";
+import { MarketingExperienceController } from "../components/marketing-experience-controller";
 import { WorkspaceShell } from "../components/workspace-shell";
 import "./fonts.css";
 import "./globals.css";
@@ -106,6 +107,7 @@ import "./biloo-workspace-final-lock.css";
 import "./biloo-all-workspace-routes-contrast-lock.css";
 import "./biloo-workspace-utility-visibility-lock.css";
 import "./biloo-pure-white-workspace-lock.css";
+import "./marketing-award-system.css";
 
 const bilooManrope = Manrope({
   subsets: ["latin"],
@@ -114,6 +116,15 @@ const bilooManrope = Manrope({
   variable: "--font-biloo-manrope",
   preload: true,
   fallback: ["Segoe UI", "Arial", "sans-serif"],
+});
+
+const bilooDisplay = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+  variable: "--font-biloo-display",
+  preload: true,
+  fallback: ["Manrope", "Segoe UI", "Arial", "sans-serif"],
 });
 
 const preferenceBootstrap = `
@@ -279,7 +290,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html className={bilooManrope.variable} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
+    <html className={`${bilooManrope.variable} ${bilooDisplay.variable}`} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
       <head>
         <link id="biloo-workspace-utility-header" rel="stylesheet" href="/biloo-workspace-utility-header.css?v=20260802-3" />
         <link id="biloo-mobile-navigation-v4" rel="stylesheet" href="/biloo-mobile-navigation-v4.css?v=20260802-2" media="(max-width: 960px)" />
@@ -289,11 +300,12 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} />
         <script dangerouslySetInnerHTML={{ __html: mobileNavigationBootstrap }} />
       </head>
-      <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="biloo-standard-app-2026">
+      <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="biloo-award-marketing-2026">
         <LanguageProvider initialLanguage="en">
           <AppExperienceProvider>
             <AuthPagePreferences />
             <WorkspaceShell>{children}</WorkspaceShell>
+            <MarketingExperienceController />
           </AppExperienceProvider>
         </LanguageProvider>
         <SpeedInsights />
