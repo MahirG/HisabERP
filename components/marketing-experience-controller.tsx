@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { MarketingLegalSuite } from "./marketing-legal-suite";
 
 const ADMIN_CONTACT_EMAIL = "mahir@hisabtech.com";
 const revealSelector = [
@@ -167,6 +168,7 @@ export function MarketingExperienceController() {
   return (
     <>
       <link rel="stylesheet" href="/biloo-marketing-interactions.css?v=20260805-1" />
+      <MarketingLegalSuite />
       <div className="marketing-motion-layer">
         <span className="marketing-motion-orb marketing-motion-orb-one" aria-hidden="true" />
         <span className="marketing-motion-orb marketing-motion-orb-two" aria-hidden="true" />
