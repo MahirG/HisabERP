@@ -1,0 +1,179 @@
+/*
+ * Final public-header docking and mobile-menu contrast fix.
+ * Loaded after the other marketing styles so light/dark page rules cannot
+ * hide the navigation drawer labels.
+ */
+
+:root {
+  scroll-padding-top: calc(var(--wb-header-height, 62px) + 18px);
+}
+
+body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2 {
+  padding-top: var(--wb-header-height, 62px) !important;
+}
+
+body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2 > .wb-header {
+  position: fixed !important;
+  z-index: 4800 !important;
+  inset: 0 0 auto 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  transform: translateZ(0);
+}
+
+.wb-search-overlay,
+.wb-mobile-drawer {
+  z-index: 7000 !important;
+}
+
+/* Keep the hamburger drawer intentionally dark in both page themes. */
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-panel {
+  color: #ffffff !important;
+  background: #0d0f13 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color-scheme: dark;
+}
+
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-panel
+  :is(h1, h2, h3, h4, p, span, strong, small, a, button, summary) {
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-panel
+  > header
+  > button {
+  color: #ffffff !important;
+  background: #171a20 !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-search {
+  color: #d5dae2 !important;
+  background: #15171c !important;
+  border-color: rgba(255, 255, 255, 0.13) !important;
+}
+
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-search
+  span {
+  color: #d5dae2 !important;
+}
+
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-intro {
+  color: #ffffff !important;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(252, 163, 17, 0.22), transparent 34%),
+    linear-gradient(145deg, #1b1e25, #101217) !important;
+  border-color: rgba(252, 163, 17, 0.2) !important;
+}
+
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-intro
+  h2 {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-intro
+  p {
+  color: #c0c6d0 !important;
+  -webkit-text-fill-color: #c0c6d0 !important;
+}
+
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-navigation
+  :is(details, a) {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-navigation
+  summary,
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-navigation
+  a {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-navigation
+  strong {
+  color: #f8fafc !important;
+  -webkit-text-fill-color: #f8fafc !important;
+}
+
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-navigation
+  small {
+  color: #aeb5c0 !important;
+  -webkit-text-fill-color: #aeb5c0 !important;
+}
+
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-utilities
+  > :is(a, button),
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  .wb-mobile-actions
+  a {
+  color: #f8fafc !important;
+  -webkit-text-fill-color: #f8fafc !important;
+  background: #171a20 !important;
+  border-color: rgba(255, 255, 255, 0.13) !important;
+}
+
+html[data-public-theme]
+  body:is([data-public-marketing="true"], [data-award-marketing="true"])
+  .marketing-site-v2
+  :is(.wb-mobile-dashboard, .wb-mobile-actions a:first-child) {
+  color: #111216 !important;
+  -webkit-text-fill-color: #111216 !important;
+  background: linear-gradient(135deg, var(--wb-gold-bright), var(--wb-gold)) !important;
+  border-color: var(--wb-gold) !important;
+}
+
+@media (max-width: 760px) {
+  :root {
+    scroll-padding-top: calc(var(--wb-header-height, 58px) + 14px);
+  }
+}
