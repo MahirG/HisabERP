@@ -1,0 +1,231 @@
+/*
+ * Biloo production CSS stability patch.
+ * Final authority for the public homepage after the global marketing header was introduced.
+ * Prevents duplicate navigation chrome and restores predictable desktop/mobile flow.
+ */
+
+/* The page already renders the global Whitebit-style marketing header. */
+.marketing-home-unified .wp-site > .wp-skip,
+.marketing-home-unified .wp-site > .wp-announcement,
+.marketing-home-unified .wp-site > .wp-header,
+.marketing-home-unified .wp-site > .wp-mobile-nav {
+  display: none !important;
+}
+
+/* Remove layout instability caused by nested legacy marketing shells. */
+.marketing-home-unified,
+.marketing-home-unified #public-main-content,
+.marketing-home-unified .wp-site,
+.marketing-home-unified #wp-main {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+}
+
+.marketing-home-unified .wp-site {
+  overflow-x: clip !important;
+}
+
+.marketing-home-unified #wp-main {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* The global header is sticky, so the hero no longer needs space for a second header. */
+.marketing-home-unified .wp-hero {
+  min-height: min(820px, calc(100svh - 72px));
+  margin-top: 0 !important;
+  padding-top: clamp(68px, 7vw, 100px) !important;
+}
+
+.marketing-home-unified .wp-hero-layout {
+  width: min(1240px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.marketing-home-unified :is(#platform, #solutions) {
+  scroll-margin-top: 96px;
+}
+
+/* Keep the dashboard mockup within its column instead of forcing horizontal overflow. */
+.marketing-home-unified .wp-hero-visual,
+.marketing-home-unified .wp-app-window,
+.marketing-home-unified .wp-app-body,
+.marketing-home-unified .wp-app-content,
+.marketing-home-unified .wp-app-analytics {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.marketing-home-unified .wp-app-window {
+  transform-origin: center center;
+}
+
+/* Stabilize card and grid sizing across the old and new marketing layers. */
+.marketing-home-unified :is(
+  .wp-pillar-grid,
+  .wp-journey-grid,
+  .wp-audience-grid,
+  .wp-proof-grid,
+  .wp-footer-main,
+  .wp-footer-links
+) > * {
+  min-width: 0;
+}
+
+.marketing-home-unified :is(.wp-pillar-card, .wp-audience-grid article, .wp-journey-grid article) {
+  height: 100%;
+}
+
+/* Avoid invisible content when reveal JavaScript is delayed or unavailable. */
+@media (prefers-reduced-motion: reduce) {
+  .marketing-home-unified [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (max-width: 1120px) {
+  .marketing-home-unified .wp-hero {
+    min-height: auto;
+  }
+
+  .marketing-home-unified .wp-hero-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 54px !important;
+  }
+
+  .marketing-home-unified .wp-hero-copy {
+    width: min(100%, 760px);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .marketing-home-unified .wp-hero-copy h1,
+  .marketing-home-unified .wp-hero-copy > p {
+    margin-inline: auto !important;
+  }
+
+  .marketing-home-unified .wp-hero-actions,
+  .marketing-home-unified .wp-hero-assurance {
+    justify-content: center;
+  }
+
+  .marketing-home-unified .wp-hero-visual {
+    width: min(100%, 820px);
+    margin-inline: auto;
+  }
+
+  .marketing-home-unified .wp-app-window {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .marketing-home-unified .wp-container,
+  .marketing-home-unified .wp-hero-layout {
+    width: min(100% - 28px, 1240px) !important;
+  }
+
+  .marketing-home-unified .wp-hero {
+    padding-top: 52px !important;
+    padding-bottom: 72px !important;
+  }
+
+  .marketing-home-unified .wp-hero-copy {
+    text-align: left;
+  }
+
+  .marketing-home-unified .wp-hero-copy h1 {
+    max-width: 12ch !important;
+    margin-inline: 0 !important;
+    font-size: clamp(2.55rem, 12vw, 4.2rem) !important;
+    line-height: 0.98 !important;
+  }
+
+  .marketing-home-unified .wp-hero-copy > p {
+    margin-inline: 0 !important;
+    font-size: 1.04rem !important;
+    line-height: 1.65 !important;
+  }
+
+  .marketing-home-unified .wp-hero-actions {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    justify-content: stretch;
+  }
+
+  .marketing-home-unified .wp-hero-actions .wp-button {
+    width: 100%;
+  }
+
+  .marketing-home-unified .wp-hero-assurance {
+    justify-content: flex-start;
+    gap: 10px 16px;
+  }
+
+  .marketing-home-unified .wp-hero-visual {
+    padding-block: 16px 0 !important;
+  }
+
+  .marketing-home-unified :is(.wp-float-card-sales, .wp-float-card-stock) {
+    display: none !important;
+  }
+
+  .marketing-home-unified .wp-app-body {
+    grid-template-columns: 44px minmax(0, 1fr) !important;
+  }
+
+  .marketing-home-unified .wp-app-content {
+    padding: 14px !important;
+  }
+
+  .marketing-home-unified .wp-app-metrics {
+    grid-template-columns: 1fr !important;
+  }
+
+  .marketing-home-unified .wp-app-analytics {
+    grid-template-columns: 1fr !important;
+  }
+
+  .marketing-home-unified .wp-app-attention {
+    display: none !important;
+  }
+
+  .marketing-home-unified .wp-proof-grid,
+  .marketing-home-unified .wp-pillar-grid,
+  .marketing-home-unified .wp-journey-grid,
+  .marketing-home-unified .wp-audience-grid,
+  .marketing-home-unified .wp-footer-main,
+  .marketing-home-unified .wp-footer-links {
+    grid-template-columns: 1fr !important;
+  }
+
+  .marketing-home-unified :is(#platform, #solutions) {
+    scroll-margin-top: 76px;
+  }
+}
+
+@media (max-width: 430px) {
+  .marketing-home-unified .wp-hero-copy h1 {
+    font-size: clamp(2.3rem, 11.5vw, 3.25rem) !important;
+  }
+
+  .marketing-home-unified .wp-kicker {
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.4;
+  }
+
+  .marketing-home-unified .wp-app-window {
+    border-radius: 20px !important;
+  }
+
+  .marketing-home-unified .wp-app-topbar > strong,
+  .marketing-home-unified .wp-app-user > span {
+    display: none;
+  }
+}
