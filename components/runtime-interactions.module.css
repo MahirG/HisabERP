@@ -222,6 +222,195 @@
   animation: liveRowFlash 820ms var(--hisab-ease-out) both;
 }
 
+/*
+ * Authenticated HisabERP interaction system.
+ * Scope is intentionally limited to .erp-shell so public marketing pages and
+ * separate Biloo applications are not affected.
+ */
+:global(.erp-shell) {
+  --erp-motion-fast: 120ms;
+  --erp-motion-standard: 190ms;
+  --erp-motion-slow: 320ms;
+  --erp-motion-ease: cubic-bezier(.22, 1, .36, 1);
+  --erp-motion-ease-soft: cubic-bezier(.2, .75, .25, 1);
+  --erp-interaction-ring: color-mix(in srgb, var(--hisab-brand-500) 32%, transparent);
+}
+
+:global(.erp-shell .workspace) {
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+}
+
+:global(.erp-shell :where(button, a[href], summary, [role="button"], input, select, textarea)) {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+:global(.erp-shell :where(button, a[href], summary, [role="button"]):not([aria-disabled="true"]):not(:disabled)) {
+  transition:
+    color var(--erp-motion-fast) ease,
+    background-color var(--erp-motion-fast) ease,
+    border-color var(--erp-motion-fast) ease,
+    box-shadow var(--erp-motion-standard) ease,
+    opacity var(--erp-motion-fast) ease,
+    transform var(--erp-motion-standard) var(--erp-motion-ease);
+}
+
+:global(.erp-shell :where(input, select, textarea)) {
+  transition:
+    border-color var(--erp-motion-fast) ease,
+    box-shadow var(--erp-motion-standard) ease,
+    background-color var(--erp-motion-fast) ease;
+}
+
+:global(.erp-shell :where(input, select, textarea):focus) {
+  outline: none;
+}
+
+:global(.erp-shell :where(input, select, textarea):focus-visible) {
+  border-color: color-mix(in srgb, var(--hisab-brand-500) 58%, var(--hisab-border-strong)) !important;
+  box-shadow: 0 0 0 4px var(--erp-interaction-ring) !important;
+}
+
+:global(.erp-shell :where(button, a[href], summary, [role="button"]):focus-visible) {
+  outline: 3px solid var(--erp-interaction-ring);
+  outline-offset: 2px;
+}
+
+:global(.erp-shell .sidebar nav a),
+:global(.erp-shell .sidebar-workspace-switcher),
+:global(.erp-shell .mobile-bottom-nav :where(a, button)) {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+:global(.erp-shell .sidebar nav a:hover),
+:global(.erp-shell .sidebar-workspace-switcher:hover) {
+  transform: translate3d(2px, 0, 0);
+}
+
+:global(.erp-shell .sidebar nav a:active),
+:global(.erp-shell .sidebar-workspace-switcher:active),
+:global(.erp-shell .mobile-bottom-nav :where(a, button):active) {
+  transform: translate3d(0, 1px, 0) scale(.985);
+}
+
+:global(.erp-shell :where(
+  .dashboard-card,
+  .dashboard-kpi-card,
+  .finance-kpi-card,
+  .financial-card,
+  .summary-card,
+  .metric-card,
+  .module-card,
+  .workspace-card,
+  .chart-card,
+  .report-card,
+  .data-table-shell,
+  .workspace-panel,
+  .finance-panel,
+  .sales-panel,
+  .operations-panel
+)) {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  transition:
+    border-color var(--erp-motion-standard) ease,
+    box-shadow var(--erp-motion-slow) var(--erp-motion-ease-soft),
+    transform var(--erp-motion-slow) var(--erp-motion-ease);
+}
+
+:global(.erp-shell :where(
+  .workspace-data-table,
+  .finance-table,
+  .sales-table,
+  .operations-table,
+  .virtual-data-grid
+)) {
+  contain: layout paint;
+}
+
+:global(.erp-shell :where(
+  .workspace-data-table,
+  .finance-table,
+  .sales-table,
+  .operations-table
+) tbody tr) {
+  transition:
+    background-color var(--erp-motion-fast) ease,
+    box-shadow var(--erp-motion-fast) ease,
+    opacity var(--erp-motion-fast) ease;
+}
+
+:global(.erp-shell :where(
+  .workspace-data-table,
+  .finance-table,
+  .sales-table,
+  .operations-table
+) tbody tr:hover) {
+  background-color: color-mix(in srgb, var(--hisab-brand-500) 4.5%, var(--hisab-surface)) !important;
+}
+
+:global(.erp-shell :where(dialog[open], [role="dialog"][data-state="open"], .user-menu-panel, .workspace-command-panel)) {
+  transform-origin: top right;
+  animation: erpOverlayEnter var(--erp-motion-slow) var(--erp-motion-ease) both;
+}
+
+:global(.erp-shell :where(.experience-toast, .experience-loader-card, [data-motion-enter])) {
+  will-change: transform, opacity;
+}
+
+:global(.erp-shell form[data-submitting="true"] :where(button[type="submit"], input[type="submit"])) {
+  cursor: progress;
+  pointer-events: none;
+  opacity: .82;
+}
+
+:global(.erp-shell [aria-busy="true"]) {
+  cursor: progress;
+}
+
+:global(html[data-route-transition="active"] .erp-shell .workspace) {
+  cursor: progress;
+}
+
+:global(html[data-input-modality="touch"] .erp-shell .sidebar nav a:hover),
+:global(html[data-input-modality="touch"] .erp-shell .sidebar-workspace-switcher:hover) {
+  transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :global(.erp-shell :where(
+    .dashboard-card,
+    .dashboard-kpi-card,
+    .finance-kpi-card,
+    .financial-card,
+    .summary-card,
+    .metric-card,
+    .module-card,
+    .workspace-card,
+    .chart-card,
+    .report-card
+  ):hover) {
+    transform: translate3d(0, -2px, 0);
+    border-color: color-mix(in srgb, var(--hisab-brand-500) 18%, var(--hisab-border)) !important;
+    box-shadow: 0 14px 32px rgba(15, 23, 42, .075);
+  }
+}
+
+@media (pointer: coarse) {
+  :global(.erp-shell :where(button, a[href], summary, [role="button"])) {
+    min-height: 44px;
+  }
+
+  :global(.erp-shell .sidebar nav a:hover),
+  :global(.erp-shell .sidebar-workspace-switcher:hover) {
+    transform: none;
+  }
+}
+
 @keyframes actionSpin { to { transform: rotate(360deg); } }
 
 @keyframes liveRowFlash {
@@ -232,6 +421,17 @@
   100% {
     background: var(--hisab-surface);
     box-shadow: inset 3px 0 transparent;
+  }
+}
+
+@keyframes erpOverlayEnter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -7px, 0) scale(.985);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -246,9 +446,31 @@
     flex: 1 1 auto;
     min-height: 44px;
   }
+
+  :global(.erp-shell .workspace) {
+    scroll-padding-bottom: calc(88px + env(safe-area-inset-bottom));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   :global(.financial-action-spinner) { animation-duration: 1.25s; }
   :global([data-live-row="true"]) { animation: none; }
+
+  :global(.erp-shell .workspace) {
+    scroll-behavior: auto;
+  }
+
+  :global(.erp-shell *),
+  :global(.erp-shell *::before),
+  :global(.erp-shell *::after) {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
+
+:global(html[data-motion="reduced"] .erp-shell .workspace) {
+  scroll-behavior: auto;
 }
