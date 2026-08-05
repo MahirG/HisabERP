@@ -141,13 +141,16 @@ export function MarketingExperienceController() {
   };
 
   return (
-    <div className="marketing-motion-layer">
-      <span className="marketing-motion-orb marketing-motion-orb-one" aria-hidden="true" />
-      <span className="marketing-motion-orb marketing-motion-orb-two" aria-hidden="true" />
-      <span className="marketing-scroll-progress" aria-hidden="true" />
-      <button className="marketing-back-to-top" type="button" aria-label="Back to top" onClick={returnToTop}>
-        <span aria-hidden="true">↑</span>
-      </button>
-    </div>
+    <>
+      <link rel="stylesheet" href="/biloo-marketing-interactions.css?v=20260805-1" />
+      <div className="marketing-motion-layer">
+        <span className="marketing-motion-orb marketing-motion-orb-one" aria-hidden="true" />
+        <span className="marketing-motion-orb marketing-motion-orb-two" aria-hidden="true" />
+        <span className="marketing-scroll-progress" aria-hidden="true" />
+        <button className="marketing-back-to-top" type="button" aria-label="Back to top" onClick={returnToTop}>
+          <span aria-hidden="true">↑</span>
+        </button>
+      </div>
+    </>
   );
 }
