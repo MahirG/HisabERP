@@ -172,6 +172,7 @@ export function MarketingExperienceController() {
       <link rel="stylesheet" href="/biloo-legal-suite.css?v=20260806-1" />
       <link rel="stylesheet" href="/biloo-legal-pages.css?v=20260806-1" />
       <link rel="stylesheet" href="/biloo-production-css-update.css?v=20260806-1" />
+      <link rel="stylesheet" href="/biloo-css-stability-fix.css?v=20260806-2" />
       <MarketingLegalSuite />
       <div className="marketing-motion-layer">
         <span className="marketing-motion-orb marketing-motion-orb-one" aria-hidden="true" />
