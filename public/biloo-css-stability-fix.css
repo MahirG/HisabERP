@@ -229,3 +229,42 @@
     display: none;
   }
 }
+
+/* Homepage hero visibility fail-safe — 2026-08-06 */
+.marketing-home-unified [data-reveal],
+.marketing-home-unified [data-marketing-reveal="true"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+.marketing-home-unified #public-main-content,
+.marketing-home-unified #public-main-content > :first-child {
+  padding-top: 0 !important;
+}
+
+.marketing-home-unified #public-main-content {
+  padding-bottom: 0 !important;
+}
+
+/*
+ * The homepage has its own component-specific visual system.
+ * Keep broad public-page card selectors from flattening the hero and dashboard
+ * if an older cached document still references the executive stylesheet.
+ */
+.marketing-home-unified .wp-hero :is(
+  .wp-app-window,
+  .wp-app-chart-card,
+  .wp-app-attention,
+  .wp-float-card
+) {
+  min-height: initial;
+}
+
+.marketing-home-unified .wp-hero-copy,
+.marketing-home-unified .wp-hero-visual {
+  display: block;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
