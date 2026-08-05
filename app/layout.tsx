@@ -107,7 +107,6 @@ import "./biloo-workspace-final-lock.css";
 import "./biloo-all-workspace-routes-contrast-lock.css";
 import "./biloo-workspace-utility-visibility-lock.css";
 import "./biloo-pure-white-workspace-lock.css";
-import "./marketing-award-system.css";
 
 const bilooManrope = Manrope({
   subsets: ["latin"],
@@ -130,74 +129,38 @@ const bilooDisplay = Space_Grotesk({
 const preferenceBootstrap = `
 (function () {
   var root = document.documentElement;
-  var obsoleteControls = '.language-selector,.language-icon-selector,.mobile-language-control,[data-mobile-language],.theme-toggle,.mobile-prehydration-theme-toggle,[data-mobile-theme-toggle],[data-theme-toggle],[aria-label="Theme"],[aria-label="Appearance"],[aria-label="Language"]';
-  var queuedNodes = [];
-  var frame = 0;
 
-  function persistEnglishLight() {
-    if (root.dataset.theme !== 'light') root.dataset.theme = 'light';
-    if (root.dataset.language !== 'en') root.dataset.language = 'en';
-    if (root.lang !== 'en') root.lang = 'en';
-    if (root.style.colorScheme !== 'light') root.style.colorScheme = 'light';
-
-    try {
-      window.localStorage.setItem('hisab-theme', 'light');
-      window.localStorage.setItem('hisab-erp-language', 'en');
-    } catch (_) {}
-
-    document.cookie = 'hisab_theme=light; Path=/; Max-Age=31536000; SameSite=Lax';
-    document.cookie = 'hisab_locale=en; Path=/; Max-Age=31536000; SameSite=Lax';
+  function readCookie(name) {
+    var prefix = name + '=';
+    var match = document.cookie.split(';').map(function (value) { return value.trim(); }).find(function (value) { return value.indexOf(prefix) === 0; });
+    return match ? decodeURIComponent(match.slice(prefix.length)) : '';
   }
 
-  function removeWithin(node) {
-    if (!node || (node.nodeType !== Node.ELEMENT_NODE && node.nodeType !== Node.DOCUMENT_NODE)) return;
-    if (node.nodeType === Node.ELEMENT_NODE && node.matches(obsoleteControls)) {
-      node.remove();
-      return;
+  try {
+    var storedTheme = window.localStorage.getItem('hisab-theme') || readCookie('hisab_theme');
+    var storedLanguage = window.localStorage.getItem('hisab-erp-language') || readCookie('hisab_locale');
+    var publicTheme = window.localStorage.getItem('biloo-public-theme');
+    var publicLanguage = window.localStorage.getItem('biloo-public-language');
+
+    var theme = storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : 'light';
+    var language = storedLanguage === 'am' ? 'am' : 'en';
+
+    root.dataset.theme = theme;
+    root.dataset.language = language;
+    root.lang = language;
+    root.style.colorScheme = theme;
+
+    if (publicTheme === 'dark' || publicTheme === 'light') {
+      root.dataset.publicTheme = publicTheme;
     }
-    if (!node.querySelectorAll) return;
-    node.querySelectorAll(obsoleteControls).forEach(function (control) {
-      control.remove();
-    });
-  }
-
-  function flushNodes() {
-    frame = 0;
-    var nodes = queuedNodes.splice(0, queuedNodes.length);
-    nodes.forEach(removeWithin);
-  }
-
-  function queueNode(node) {
-    queuedNodes.push(node);
-    if (frame) return;
-    frame = window.requestAnimationFrame(flushNodes);
-  }
-
-  function initialize() {
-    persistEnglishLight();
-    removeWithin(document);
-
-    new MutationObserver(persistEnglishLight).observe(root, {
-      attributes: true,
-      attributeFilter: ['data-theme', 'data-language', 'lang']
-    });
-
-    if (!document.body) return;
-    new MutationObserver(function (mutations) {
-      mutations.forEach(function (mutation) {
-        mutation.addedNodes.forEach(queueNode);
-      });
-    }).observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-  }
-
-  persistEnglishLight();
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initialize, { once: true });
-  } else {
-    initialize();
+    if (publicLanguage === 'am' || publicLanguage === 'en') {
+      root.dataset.publicLanguage = publicLanguage;
+    }
+  } catch (_) {
+    root.dataset.theme = 'light';
+    root.dataset.language = 'en';
+    root.lang = 'en';
+    root.style.colorScheme = 'light';
   }
 })();`;
 
@@ -285,7 +248,7 @@ export const viewport: Viewport = {
   maximumScale: 5,
   viewportFit: "cover",
   themeColor: "#14213D",
-  colorScheme: "light",
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
