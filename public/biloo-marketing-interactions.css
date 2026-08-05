@@ -65,6 +65,307 @@ body[data-award-marketing="true"] .marketing-site-v2 :is(a, button, summary) {
   touch-action: manipulation;
 }
 
+/* --------------------------------------------------------------------------
+   Biloo marketing contrast authority — 2026-08-06
+   This stylesheet is present only on public marketing routes. These rules do
+   not depend on the client-added body attribute, so the page is readable on
+   the first paint and remains readable if older CSS is cached.
+   -------------------------------------------------------------------------- */
+
+.marketing-motion-layer .marketing-motion-orb {
+  display: none !important;
+}
+
+.marketing-site.marketing-site-v2 {
+  color: #111827 !important;
+  background-color: #f6f8fc !important;
+  background-image: none !important;
+}
+
+.marketing-site.marketing-site-v2 #public-main-content {
+  color: #111827 !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Remove transparent text fills and delayed-opacity failures without changing
+   component-specific accent colors. */
+.marketing-site.marketing-site-v2 #public-main-content :is(
+  h1, h2, h3, h4, h5, h6,
+  p, li, span, small, strong, b, em,
+  label, a, button, summary, th, td, blockquote
+) {
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-shadow: none;
+}
+
+.marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(h1, h2, h3, h4, h5, h6, strong) {
+  color: #111827 !important;
+}
+
+.marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(p, li, small, blockquote) {
+  color: #465469 !important;
+}
+
+.marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content > section,
+.marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content > div > section,
+.marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content > main > section {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+.marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(
+  [class$="-grid"],
+  [class*="-grid "]
+) > article,
+.marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(
+  .pricing-principles,
+  .trust-summary-card,
+  .product-tour-hero-summary,
+  [class$="-hero-summary"]
+) {
+  color: #111827 !important;
+  border-color: #dbe2ec !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  box-shadow: 0 14px 42px rgba(15, 23, 42, 0.08) !important;
+}
+
+.marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(
+  [class$="-grid"],
+  [class*="-grid "]
+) > article :is(h2, h3, h4, strong) {
+  color: #111827 !important;
+}
+
+.marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(
+  [class$="-grid"],
+  [class*="-grid "]
+) > article :is(p, li, small) {
+  color: #536176 !important;
+}
+
+/* Featured pricing is intentionally dark, with explicit readable text. */
+.marketing-site.marketing-site-v2 #public-main-content .pricing-plan-grid > article.featured {
+  color: #ffffff !important;
+  border-color: #fca311 !important;
+  background-color: #14213d !important;
+  background-image: none !important;
+  box-shadow: 0 24px 64px rgba(20, 33, 61, 0.24) !important;
+}
+
+.marketing-site.marketing-site-v2 #public-main-content .pricing-plan-grid > article.featured :is(h2, h3, strong, span, b) {
+  color: #ffffff !important;
+}
+
+.marketing-site.marketing-site-v2 #public-main-content .pricing-plan-grid > article.featured :is(p, li, small) {
+  color: #d7deea !important;
+}
+
+.marketing-site.marketing-site-v2 #public-main-content .marketing-cta {
+  color: #ffffff !important;
+  background-color: #101a31 !important;
+  background-image: none !important;
+}
+
+.marketing-site.marketing-site-v2 #public-main-content .marketing-cta :is(h2, h3, strong, span) {
+  color: #ffffff !important;
+}
+
+.marketing-site.marketing-site-v2 #public-main-content .marketing-cta :is(p, small) {
+  color: #d2dbea !important;
+}
+
+/* Header: icons and labels must always be visible against the black chrome. */
+.marketing-site.marketing-site-v2 .wb-header.wb-header {
+  color: #f8fafc !important;
+  background: #080b11 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.28) !important;
+}
+
+.marketing-site.marketing-site-v2 .wb-header :is(
+  .wb-primary-nav > a,
+  .wb-nav-group > button,
+  .wb-action-button,
+  .wb-icon-button,
+  .wb-mobile-toggle
+) {
+  color: #f4f7fb !important;
+  -webkit-text-fill-color: #f4f7fb !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.marketing-site.marketing-site-v2 .wb-header :is(.wb-action-button, .wb-icon-button, .wb-mobile-toggle) {
+  border-color: rgba(255, 255, 255, 0.13) !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+}
+
+.marketing-site.marketing-site-v2 .wb-header :is(
+  .wb-action-button,
+  .wb-icon-button,
+  .wb-mobile-toggle,
+  .wb-nav-group > button,
+  .wb-primary-nav > a
+) :is(span, strong, small) {
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.marketing-site.marketing-site-v2 .wb-header :is(
+  .wb-action-button,
+  .wb-icon-button,
+  .wb-mobile-toggle,
+  .wb-dashboard-button,
+  .wb-nav-group > button,
+  .wb-primary-nav > a
+) > svg {
+  display: block !important;
+  flex: 0 0 auto !important;
+  color: #f4f7fb !important;
+  stroke: currentColor !important;
+  fill: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.marketing-site.marketing-site-v2 .wb-header :is(
+  .wb-action-button,
+  .wb-icon-button,
+  .wb-mobile-toggle,
+  .wb-dashboard-button,
+  .wb-nav-group > button,
+  .wb-primary-nav > a
+) > svg :is(path, circle, rect, line, polyline, polygon) {
+  stroke: currentColor !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.marketing-site.marketing-site-v2 .wb-header .wb-dashboard-button {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  border-color: #fca311 !important;
+  background: #fca311 !important;
+}
+
+.marketing-site.marketing-site-v2 .wb-header .wb-dashboard-button > svg,
+.marketing-site.marketing-site-v2 .wb-header .wb-dashboard-button > span {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+
+.marketing-site.marketing-site-v2 .wb-header .wb-nav-group > button > svg {
+  color: #d6dce6 !important;
+}
+
+.marketing-site.marketing-site-v2 .wb-header :is(.wb-action-button, .wb-icon-button, .wb-mobile-toggle):hover,
+.marketing-site.marketing-site-v2 .wb-header :is(.wb-action-button, .wb-icon-button, .wb-mobile-toggle):focus-visible,
+.marketing-site.marketing-site-v2 .wb-header .wb-utility-menu.is-open > button {
+  color: #ffffff !important;
+  border-color: rgba(252, 163, 17, 0.55) !important;
+  background: rgba(252, 163, 17, 0.14) !important;
+}
+
+/* Header menus, search and mobile drawer retain high contrast. Hidden menu
+   containers remain hidden; only their text and icon colors are corrected. */
+.marketing-site.marketing-site-v2 :is(.wb-mega-menu, .wb-utility-popover, .wb-search-panel, .wb-mobile-panel) {
+  color: #f8fafc !important;
+  background-color: #10141d !important;
+  background-image: none !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+.marketing-site.marketing-site-v2 :is(.wb-mega-menu, .wb-utility-popover, .wb-search-panel, .wb-mobile-panel) :is(h2, h3, strong, summary, a, button) {
+  color: #f8fafc !important;
+  -webkit-text-fill-color: #f8fafc !important;
+}
+
+.marketing-site.marketing-site-v2 :is(.wb-mega-menu, .wb-utility-popover, .wb-search-panel, .wb-mobile-panel) :is(p, small) {
+  color: #c2cbd8 !important;
+  -webkit-text-fill-color: #c2cbd8 !important;
+}
+
+.marketing-site.marketing-site-v2 :is(.wb-mega-menu, .wb-utility-popover, .wb-search-panel, .wb-mobile-panel) svg {
+  color: #fca311 !important;
+  stroke: currentColor !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.marketing-site.marketing-site-v2 .wb-search-field {
+  color: #e8edf5 !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  background: #171d28 !important;
+}
+
+.marketing-site.marketing-site-v2 .wb-search-field input {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.marketing-site.marketing-site-v2 .wb-search-field input::placeholder {
+  color: #aeb9c8 !important;
+  -webkit-text-fill-color: #aeb9c8 !important;
+  opacity: 1 !important;
+}
+
+/* Dark public theme */
+html:is([data-public-theme="dark"], [data-theme="dark"]) .marketing-site.marketing-site-v2 {
+  color: #f8fafc !important;
+  background-color: #0b0f16 !important;
+  background-image: none !important;
+}
+
+html:is([data-public-theme="dark"], [data-theme="dark"]) .marketing-site.marketing-site-v2 #public-main-content {
+  color: #f8fafc !important;
+  background-color: #0b0f16 !important;
+}
+
+html:is([data-public-theme="dark"], [data-theme="dark"]) .marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(h1, h2, h3, h4, h5, h6, strong) {
+  color: #f8fafc !important;
+}
+
+html:is([data-public-theme="dark"], [data-theme="dark"]) .marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(p, li, small, blockquote) {
+  color: #c4cedd !important;
+}
+
+html:is([data-public-theme="dark"], [data-theme="dark"]) .marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(
+  [class$="-grid"],
+  [class*="-grid "]
+) > article,
+html:is([data-public-theme="dark"], [data-theme="dark"]) .marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(
+  .pricing-principles,
+  .trust-summary-card,
+  .product-tour-hero-summary,
+  [class$="-hero-summary"]
+) {
+  color: #f8fafc !important;
+  border-color: #2b3544 !important;
+  background-color: #151b25 !important;
+  background-image: none !important;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.24) !important;
+}
+
+html:is([data-public-theme="dark"], [data-theme="dark"]) .marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(
+  [class$="-grid"],
+  [class*="-grid "]
+) > article :is(h2, h3, h4, strong) {
+  color: #f8fafc !important;
+}
+
+html:is([data-public-theme="dark"], [data-theme="dark"]) .marketing-site.marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(
+  [class$="-grid"],
+  [class*="-grid "]
+) > article :is(p, li, small) {
+  color: #c4cedd !important;
+}
+
 @media (max-width: 720px) {
   .marketing-back-to-top {
     right: max(14px, env(safe-area-inset-right)) !important;
@@ -73,6 +374,13 @@ body[data-award-marketing="true"] .marketing-site-v2 :is(a, button, summary) {
     min-width: 46px !important;
     height: 46px !important;
     min-height: 46px !important;
+  }
+
+  .marketing-site.marketing-site-v2 .wb-header :is(.wb-icon-button, .wb-mobile-toggle) {
+    width: 42px !important;
+    min-width: 42px !important;
+    height: 42px !important;
+    min-height: 42px !important;
   }
 }
 
