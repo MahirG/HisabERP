@@ -31,13 +31,13 @@ export default async function RequestDemoPage({
             <li>telebirr, M-Pesa, banking and integration-readiness discussion</li>
             <li>Implementation, onboarding and government-program guidance</li>
           </ul>
-          <div><strong>Prefer direct contact?</strong><a href="tel:+251924093037">+251 924 093 037</a><a href="mailto:info@hisabtech.com">info@hisabtech.com</a><a href="https://wa.me/251924093037" target="_blank" rel="noopener noreferrer">WhatsApp HisabTech</a></div>
+          <div><strong>Prefer direct contact?</strong><a href="tel:+251924093037">+251 924 093 037</a><a href="mailto:mahir@hisabtech.com?subject=Biloo%20demo%20request">mahir@hisabtech.com</a><a href="https://wa.me/251924093037" target="_blank" rel="noopener noreferrer">WhatsApp HisabTech</a></div>
         </div>
 
         {submitted ? (
           <section className="demo-request-form demo-request-success" role="status" aria-labelledby="demo-success-title">
             <span className="demo-success-mark" aria-hidden="true">✓</span>
-            <div><span>Request received</span><h2 id="demo-success-title">Thank you. We will contact you shortly.</h2><p>Your demo request has been securely recorded. The HisabTech team will contact you using your preferred method to arrange the product walkthrough.</p></div>
+            <div><span>Request delivered</span><h2 id="demo-success-title">Thank you. Your request was sent successfully.</h2><p>Your demo request has been emailed directly to Mahir at Hisab Technologies. You will be contacted using your preferred method to arrange the product walkthrough.</p></div>
             <div className="demo-success-actions"><Link className="demo-request-primary-link" href="/">Return to website</Link><Link href="/auth/email-sign-up">Create an account instead</Link></div>
           </section>
         ) : (
@@ -72,8 +72,8 @@ export default async function RequestDemoPage({
 
             <label>What would you like to improve?<textarea name="message" rows={5} maxLength={2000} defaultValue={context ? `I am interested in: ${context}. ` : undefined} placeholder="Tell us about your current process, challenges, required modules or integration needs."/></label>
             <label className="demo-request-consent"><input type="checkbox" required/><span>I agree that Hisab Technologies may contact me about this demo request.</span></label>
-            <button type="submit">Submit demo request</button>
-            <small>Your request is stored securely and cannot be viewed by other website visitors.</small>
+            <button type="submit">Send demo request</button>
+            <small>Your request is emailed securely to mahir@hisabtech.com and is not visible to other website visitors.</small>
           </form>
         )}
       </section>
