@@ -19,6 +19,8 @@ const HAPTIC_PATTERNS: Record<HapticPattern, number | number[]> = {
   error: [26, 70, 26],
 };
 
+const activeAnimations = new WeakMap<HTMLElement, Animation>();
+
 function reducedMotionPreferred() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
@@ -37,29 +39,46 @@ function vibrate(pattern: HapticPattern) {
   navigator.vibrate(HAPTIC_PATTERNS[pattern]);
 }
 
-function animatePress(element: HTMLElement) {
+function playAnimation(element: HTMLElement, keyframes: Keyframe[], options: KeyframeAnimationOptions) {
   if (reducedMotionPreferred() || typeof element.animate !== "function") return;
-  element.animate(
+
+  activeAnimations.get(element)?.cancel();
+  const animation = element.animate(keyframes, options);
+  activeAnimations.set(element, animation);
+
+  const release = () => {
+    if (activeAnimations.get(element) === animation) activeAnimations.delete(element);
+  };
+  animation.addEventListener("finish", release, { once: true });
+  animation.addEventListener("cancel", release, { once: true });
+}
+
+function animatePress(element: HTMLElement) {
+  playAnimation(
+    element,
     [
-      { transform: "translateY(0) scale(1)" },
-      { transform: "translateY(1px) scale(.985)", offset: 0.38 },
-      { transform: "translateY(-.5px) scale(1.004)", offset: 0.7 },
-      { transform: "translateY(0) scale(1)" },
+      { transform: "translate3d(0, 0, 0) scale(1)" },
+      { transform: "translate3d(0, 1px, 0) scale(.985)", offset: 0.42 },
+      { transform: "translate3d(0, 0, 0) scale(1)" },
     ],
-    { duration: 240, easing: "cubic-bezier(.16, 1, .3, 1)" },
+    { duration: 180, easing: "cubic-bezier(.22, 1, .36, 1)" },
   );
 }
 
 function animateSpring(element: HTMLElement, delay = 0) {
-  if (reducedMotionPreferred() || typeof element.animate !== "function") return;
-  element.animate(
+  playAnimation(
+    element,
     [
-      { opacity: 0, transform: "translateY(10px) scale(.985)" },
-      { opacity: 1, transform: "translateY(-1.5px) scale(1.003)", offset: 0.58 },
-      { opacity: 1, transform: "translateY(.5px) scale(.999)", offset: 0.8 },
-      { opacity: 1, transform: "translateY(0) scale(1)" },
+      { opacity: 0, transform: "translate3d(0, 8px, 0) scale(.992)" },
+      { opacity: 1, transform: "translate3d(0, -1px, 0) scale(1.001)", offset: 0.72 },
+      { opacity: 1, transform: "translate3d(0, 0, 0) scale(1)" },
     ],
-    { duration: 460, delay, easing: "cubic-bezier(.16, 1, .3, 1)", fill: "both" },
+    {
+      duration: 360,
+      delay,
+      easing: "cubic-bezier(.22, 1, .36, 1)",
+      fill: "backwards",
+    },
   );
 }
 
@@ -191,7 +210,7 @@ export function InteractionOrchestrator() {
             ...node.querySelectorAll<HTMLElement>('[data-live-row="true"], [data-motion-enter]'),
           ];
           for (const candidate of candidates.slice(0, 24)) {
-            animateSpring(candidate, Math.min(animationIndex * 16, 160));
+            animateSpring(candidate, Math.min(animationIndex * 12, 120));
             animationIndex += 1;
           }
         }
@@ -235,16 +254,22 @@ export function InteractionOrchestrator() {
     previousPathname.current = pathname;
 
     const root = document.documentElement;
+    let transitionTimer = 0;
     root.dataset.routeTransition = "active";
+
     const frame = window.requestAnimationFrame(() => {
       const target = document.querySelector<HTMLElement>("#workspace-content > :first-child, #public-main-content > :first-child, main");
       if (target) animateSpring(target);
-      window.setTimeout(() => {
+      transitionTimer = window.setTimeout(() => {
         delete root.dataset.routeTransition;
-      }, 500);
+      }, 380);
     });
 
-    return () => window.cancelAnimationFrame(frame);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      if (transitionTimer) window.clearTimeout(transitionTimer);
+      delete root.dataset.routeTransition;
+    };
   }, [pathname]);
 
   return (
