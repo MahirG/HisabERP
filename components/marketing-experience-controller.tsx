@@ -5,12 +5,50 @@ import { useEffect } from "react";
 import { MarketingLegalSuite } from "./marketing-legal-suite";
 
 const ADMIN_CONTACT_EMAIL = "mahir@hisabtech.com";
+const MARKETING_ROUTE_PREFIXES = [
+  "/product",
+  "/product-tour",
+  "/pricing",
+  "/ethiopia",
+  "/industries",
+  "/migration",
+  "/integrations",
+  "/customer-stories",
+  "/resources",
+  "/help-center",
+  "/compare",
+  "/trust",
+  "/about",
+  "/request-demo",
+  "/privacy",
+  "/terms",
+  "/cookies",
+  "/legal",
+  "/support",
+  "/contact",
+  "/security",
+  "/accessibility",
+] as const;
+
 const revealSelector = [
   "#public-main-content > *",
   "#public-main-content > div > *",
   "#public-main-content section",
   "#public-main-content article",
 ].join(",");
+
+function isMarketingPath(pathname: string) {
+  if (pathname === "/") return true;
+  return MARKETING_ROUTE_PREFIXES.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  );
+}
+
+function isLegalPath(pathname: string) {
+  return ["/privacy", "/terms", "/cookies", "/legal"].some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  );
+}
 
 function isVisible(element: HTMLElement) {
   const rect = element.getBoundingClientRect();
@@ -39,17 +77,28 @@ function normalizeAdminContactLinks(scope: ParentNode) {
 
 export function MarketingExperienceController() {
   const pathname = usePathname();
+  const marketingPath = isMarketingPath(pathname);
+  const homePath = pathname === "/";
+  const legalPath = isLegalPath(pathname);
 
   useEffect(() => {
+    const documentRoot = document.documentElement;
+    const body = document.body;
+
+    if (!marketingPath) {
+      delete body.dataset.awardMarketing;
+      delete body.dataset.marketingScrolled;
+      delete body.dataset.marketingDeepScrolled;
+      documentRoot.style.removeProperty("--marketing-scroll-progress");
+      return;
+    }
+
     let frame = 0;
     let routeTimer = 0;
     let observer: IntersectionObserver | null = null;
     let mutationObserver: MutationObserver | null = null;
     let marketingRoot: HTMLElement | null = null;
     let reducedMotionQuery: MediaQueryList | null = null;
-
-    const documentRoot = document.documentElement;
-    const body = document.body;
 
     const updateScrollState = () => {
       frame = 0;
@@ -77,7 +126,7 @@ export function MarketingExperienceController() {
 
       candidates.forEach((element, index) => {
         if (!marketingRoot?.contains(element)) return;
-        if (element.closest(".marketing-nav, .premium-mobile-menu, .marketing-footer")) return;
+        if (element.closest(".wb-header, .wb-mobile-drawer, .wb-search-overlay, .marketing-footer")) return;
         if (element.dataset.marketingReveal === "true") return;
 
         element.dataset.marketingReveal = "true";
@@ -159,7 +208,9 @@ export function MarketingExperienceController() {
       delete body.dataset.marketingDeepScrolled;
       documentRoot.style.removeProperty("--marketing-scroll-progress");
     };
-  }, [pathname]);
+  }, [marketingPath, pathname]);
+
+  if (!marketingPath) return null;
 
   const returnToTop = () => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -169,14 +220,15 @@ export function MarketingExperienceController() {
   return (
     <>
       <link rel="stylesheet" href="/biloo-marketing-interactions.css?v=20260805-1" />
-      {pathname !== "/" ? (
-        <link rel="stylesheet" href="/biloo-executive-marketing.css?v=20260806-1" />
-      ) : null}
       <link rel="stylesheet" href="/biloo-legal-suite.css?v=20260806-1" />
-      <link rel="stylesheet" href="/biloo-legal-pages.css?v=20260806-1" />
-      <link rel="stylesheet" href="/biloo-production-css-update.css?v=20260806-1" />
-      <link rel="stylesheet" href="/biloo-css-stability-fix.css?v=20260806-3" />
-      <link rel="stylesheet" href="/biloo-docked-header-fix.css?v=20260806-1" />
+      {legalPath ? <link rel="stylesheet" href="/biloo-legal-pages.css?v=20260806-1" /> : null}
+      {homePath ? (
+        <>
+          <link rel="stylesheet" href="/biloo-production-css-update.css?v=20260806-1" />
+          <link rel="stylesheet" href="/biloo-css-stability-fix.css?v=20260806-3" />
+        </>
+      ) : null}
+      <link rel="stylesheet" href="/biloo-marketing-foundation-v2.css?v=20260806-1" />
       <MarketingLegalSuite />
       <div className="marketing-motion-layer">
         <span className="marketing-motion-orb marketing-motion-orb-one" aria-hidden="true" />
