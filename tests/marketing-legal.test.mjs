@@ -35,7 +35,7 @@ test("privacy and terms pages use the shared premium legal layout", async () => 
   assert.match(privacy, /Your choices and rights/);
   assert.match(terms, /LegalDocumentPage/);
   assert.match(terms, /Acceptable use/);
-  assert.match(terms, /Governing law/);
+  assert.match(terms, /governing law/i);
   assert.match(layout, /legal-document-shell/);
   assert.match(layout, /mahir@hisabtech\.com/);
   assert.match(sitemap, /path: "\/privacy"/);
