@@ -142,6 +142,7 @@ export function MarketingLegalSuite() {
     <>
       <link rel="stylesheet" href="/biloo-executive-marketing.css?v=20260806-1" />
       <link rel="stylesheet" href="/biloo-legal-suite.css?v=20260806-1" />
+      <link rel="stylesheet" href="/biloo-legal-pages.css?v=20260806-1" />
       {legalFooter}
 
       {bannerOpen ? (
