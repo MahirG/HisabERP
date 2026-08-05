@@ -72,7 +72,7 @@ export function MarketingExperienceController() {
     const registerRevealElements = (scope: ParentNode) => {
       if (!marketingRoot) return;
       const reducedMotion = reducedMotionQuery?.matches ?? false;
-      const candidates = Array.from(scope.querySelectorAll<HTMLElement>>(revealSelector));
+      const candidates = Array.from(scope.querySelectorAll<HTMLElement>(revealSelector));
 
       candidates.forEach((element, index) => {
         if (!marketingRoot?.contains(element)) return;
