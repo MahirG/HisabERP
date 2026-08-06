@@ -1,46 +1,34 @@
 /*
- * Biloo marketing foundation v2
- * Final, route-scoped CSS authority for public pages.
- * Keeps component-specific artwork intact while repairing layout, contrast,
- * responsive behavior, theme visibility and legacy global-style collisions.
+ * Biloo marketing foundation v3
+ * One neutral canvas, one blue accent and a restrained editorial type scale.
  */
 
 :root {
   --biloo-public-header-height: 62px;
-  --biloo-public-page-width: 1280px;
-  --biloo-public-copy-width: 720px;
-  --biloo-public-section-space: clamp(72px, 8vw, 116px);
-  --biloo-public-ink: #10192b;
-  --biloo-public-body: #5f6c82;
-  --biloo-public-navy: #14213d;
-  --biloo-public-navy-deep: #0a1325;
-  --biloo-public-gold: #fca311;
-  --biloo-public-line: rgba(20, 33, 61, 0.11);
+  --biloo-public-page-width: 1240px;
+  --biloo-public-copy-width: 690px;
+  --biloo-public-section-space: clamp(68px, 7vw, 104px);
+  --biloo-public-canvas: #f4f6fa;
   --biloo-public-surface: #ffffff;
-  --biloo-public-surface-soft: #f5f7fb;
-  --biloo-public-radius: 24px;
-  --biloo-public-shadow: 0 20px 60px rgba(20, 33, 61, 0.1);
+  --biloo-public-ink: #14213d;
+  --biloo-public-body: #5f6d82;
+  --biloo-public-soft: #7f8b9d;
+  --biloo-public-accent: #315efb;
+  --biloo-public-accent-dark: #1739b9;
+  --biloo-public-line: #dce3ed;
+  --biloo-public-radius: 22px;
+  --biloo-public-shadow: 0 18px 48px rgba(20, 33, 61, 0.09);
   --biloo-public-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-html[data-public-theme="light"] {
-  color-scheme: light !important;
-}
-
-html[data-public-theme="dark"] {
-  color-scheme: dark !important;
-  background: #0d1119 !important;
-}
-
-html[data-public-theme="dark"] body[data-award-marketing="true"] {
-  background: #0d1119 !important;
-}
+html[data-public-theme="light"] { color-scheme: light !important; }
+html[data-public-theme="dark"] { color-scheme: dark !important; }
 
 body[data-award-marketing="true"] {
   overflow-x: clip;
   color: var(--biloo-public-ink);
-  background: #ffffff;
-  font-family: var(--font-biloo-manrope), Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--biloo-public-canvas) !important;
+  font-family: var(--font-biloo-manrope), Manrope, "Segoe UI", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -57,14 +45,19 @@ body[data-award-marketing="true"] .marketing-site-v2 {
   width: 100%;
   min-width: 0;
   min-height: 100dvh;
-  padding-top: var(--biloo-public-header-height);
   overflow-x: clip;
+  color: var(--biloo-public-ink) !important;
+  background: var(--biloo-public-canvas) !important;
+  background-image: none !important;
 }
 
 body[data-award-marketing="true"] #public-main-content {
   width: 100%;
   min-width: 0;
   overflow: clip visible;
+  color: var(--biloo-public-ink) !important;
+  background: var(--biloo-public-canvas) !important;
+  background-image: none !important;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2 :is(img, video, svg, canvas, iframe) {
@@ -76,7 +69,7 @@ body[data-award-marketing="true"] .marketing-site-v2 :is(p, li, small, strong, s
 }
 
 body[data-award-marketing="true"] .marketing-site-v2 :focus-visible {
-  outline: 3px solid rgba(252, 163, 17, 0.48) !important;
+  outline: 3px solid rgba(49, 94, 251, 0.34) !important;
   outline-offset: 3px !important;
 }
 
@@ -85,84 +78,67 @@ body[data-award-marketing="true"] .marketing-site-v2 :is(a, button, summary) {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* --------------------------------------------------------------------------
-   Header, search and mobile navigation
-   -------------------------------------------------------------------------- */
-
+/* Docked header and navigation overlays. */
 body[data-award-marketing="true"] .wb-header {
-  position: fixed !important;
+  position: sticky !important;
   z-index: 6000 !important;
   inset: 0 0 auto !important;
+  top: 0 !important;
   width: 100% !important;
   min-height: var(--biloo-public-header-height) !important;
+  color: var(--biloo-public-ink) !important;
+  background: rgba(244, 246, 250, 0.96) !important;
+  background-image: none !important;
+  border-bottom: 1px solid var(--biloo-public-line) !important;
+  box-shadow: 0 8px 24px rgba(20, 33, 61, 0.07) !important;
+  backdrop-filter: blur(18px) saturate(125%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(125%) !important;
   transform: translateZ(0);
-  contain: layout paint;
 }
 
-body[data-award-marketing="true"] .wb-header-inner {
-  min-width: 0;
-}
-
+body[data-award-marketing="true"] .wb-header-inner { min-width: 0; }
 body[data-award-marketing="true"] .wb-search-overlay,
-body[data-award-marketing="true"] .wb-mobile-drawer {
-  z-index: 7200 !important;
-}
+body[data-award-marketing="true"] .wb-mobile-drawer { z-index: 7200 !important; }
 
-body[data-award-marketing="true"] .wb-search-panel,
-body[data-award-marketing="true"] .wb-mobile-panel {
+body[data-award-marketing="true"] :is(.wb-mobile-panel, .wb-search-panel, .wb-mega-menu, .wb-utility-popover) {
   isolation: isolate;
+  color: var(--biloo-public-ink) !important;
+  background: var(--biloo-public-surface) !important;
+  background-image: none !important;
+  border-color: var(--biloo-public-line) !important;
 }
 
-body[data-award-marketing="true"] .wb-mobile-panel,
-body[data-award-marketing="true"] .wb-mobile-panel :is(nav, details, summary, a, button, div, span, strong, small, p, h2) {
-  visibility: visible !important;
-  opacity: 1 !important;
-  -webkit-text-fill-color: currentColor !important;
+body[data-award-marketing="true"] :is(.wb-mobile-panel, .wb-search-panel, .wb-mega-menu, .wb-utility-popover) :is(h2, h3, summary, a, button, strong) {
+  color: var(--biloo-public-ink) !important;
+  -webkit-text-fill-color: var(--biloo-public-ink) !important;
 }
 
-body[data-award-marketing="true"] .wb-mobile-panel {
-  color: #f7f8fb !important;
-  background: #0d0f13 !important;
+body[data-award-marketing="true"] :is(.wb-mobile-panel, .wb-search-panel, .wb-mega-menu, .wb-utility-popover) :is(p, small) {
+  color: var(--biloo-public-body) !important;
+  -webkit-text-fill-color: var(--biloo-public-body) !important;
 }
 
-body[data-award-marketing="true"] .wb-mobile-panel :is(h2, summary, a, strong) {
-  color: #f7f8fb !important;
+body[data-award-marketing="true"] :is(.wb-mobile-search, .wb-mobile-utilities > a, .wb-mobile-utilities > button, .wb-mobile-actions a) {
+  color: var(--biloo-public-ink) !important;
+  background: var(--biloo-public-surface) !important;
+  background-image: none !important;
+  border-color: var(--biloo-public-line) !important;
 }
 
-body[data-award-marketing="true"] .wb-mobile-panel :is(p, small) {
-  color: #aab0bb !important;
-}
-
-body[data-award-marketing="true"] .wb-mobile-search,
-body[data-award-marketing="true"] .wb-mobile-utilities > :is(a, button),
-body[data-award-marketing="true"] .wb-mobile-actions a {
-  color: #f1f3f7 !important;
-  background: #171a20 !important;
-  border-color: rgba(255, 255, 255, 0.13) !important;
-}
-
-body[data-award-marketing="true"] .wb-mobile-search span,
-body[data-award-marketing="true"] .wb-mobile-utilities span,
-body[data-award-marketing="true"] .wb-mobile-actions span {
-  color: inherit !important;
-  -webkit-text-fill-color: currentColor !important;
-}
-
-body[data-award-marketing="true"] .wb-mobile-dashboard,
-body[data-award-marketing="true"] .wb-mobile-actions a:first-child {
-  color: #111216 !important;
-  -webkit-text-fill-color: #111216 !important;
-  background: linear-gradient(135deg, #ffc13b, #fca311) !important;
-  border-color: #fca311 !important;
+body[data-award-marketing="true"] :is(.wb-mobile-dashboard, .wb-mobile-actions a:first-child) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: var(--biloo-public-accent) !important;
+  background-image: none !important;
+  border-color: var(--biloo-public-accent) !important;
 }
 
 body[data-award-marketing="true"] .wb-mobile-panel > header > button {
-  color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.07) !important;
-  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: var(--biloo-public-ink) !important;
+  background: var(--biloo-public-surface) !important;
+  border-color: var(--biloo-public-line) !important;
 }
 
-/* Restore the current header controls after the old English/light lock. */
 @media (min-width: 761px) {
   body[data-award-marketing="true"] .wb-language-button {
     display: inline-flex !important;
@@ -178,10 +154,7 @@ body[data-award-marketing="true"] .wb-mobile-panel > header > button {
   }
 }
 
-/* --------------------------------------------------------------------------
-   Homepage isolation
-   -------------------------------------------------------------------------- */
-
+/* Homepage isolation. */
 body[data-award-marketing="true"] .marketing-home-unified .wp-site > :is(.wp-skip, .wp-announcement, .wp-header, .wp-mobile-nav) {
   display: none !important;
 }
@@ -196,25 +169,13 @@ body[data-award-marketing="true"] .marketing-home-unified #public-main-content {
   margin: 0;
 }
 
-body[data-award-marketing="true"] .marketing-home-unified #wp-main {
-  padding: 0;
-}
-
-body[data-award-marketing="true"] .marketing-home-unified .wp-hero {
-  margin-top: 0 !important;
-}
+body[data-award-marketing="true"] .marketing-home-unified #wp-main { padding: 0; }
+body[data-award-marketing="true"] .marketing-home-unified .wp-hero { margin-top: 0 !important; }
 
 body[data-award-marketing="true"] .marketing-home-unified :is(
-  .wp-hero-layout,
-  .wp-app-window,
-  .wp-app-body,
-  .wp-app-content,
-  .wp-app-analytics,
-  .wp-pillar-grid,
-  .wp-journey-grid,
-  .wp-audience-grid,
-  .wp-footer-main,
-  .wp-footer-links
+  .wp-hero-layout, .wp-app-window, .wp-app-body, .wp-app-content,
+  .wp-app-analytics, .wp-pillar-grid, .wp-journey-grid,
+  .wp-audience-grid, .wp-footer-main, .wp-footer-links
 ) {
   min-width: 0;
   max-width: 100%;
@@ -225,20 +186,18 @@ body[data-award-marketing="true"] .marketing-home-unified [data-marketing-reveal
   visibility: visible !important;
 }
 
-/* --------------------------------------------------------------------------
-   Shared non-home marketing layout
-   -------------------------------------------------------------------------- */
-
-body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) {
-  color: var(--biloo-public-ink);
-  background:
-    radial-gradient(circle at 8% 4%, rgba(252, 163, 17, 0.08), transparent 28rem),
-    radial-gradient(circle at 94% 9%, rgba(67, 104, 168, 0.1), transparent 32rem),
-    linear-gradient(180deg, #ffffff 0%, #f8faff 42%, #ffffff 100%);
+/* One canvas across all non-home marketing pages. */
+body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified),
+body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content,
+body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content > section,
+body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content > div > section,
+body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content > main > section {
+  background: var(--biloo-public-canvas) !important;
+  background-image: none !important;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content {
-  padding: 0 0 clamp(44px, 6vw, 76px);
+  padding: 0 0 clamp(42px, 5vw, 68px);
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content > section,
@@ -251,7 +210,7 @@ body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content > :first-child,
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content > div > :first-child {
-  padding-top: clamp(64px, 8vw, 108px);
+  padding-top: clamp(54px, 6vw, 82px);
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content > section + section,
@@ -259,86 +218,86 @@ body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified
   border-top: 1px solid var(--biloo-public-line);
 }
 
+/* Restrained editorial typography. */
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(h1, h2, h3, h4) {
   margin-top: 0;
   color: var(--biloo-public-ink) !important;
-  font-family: var(--font-biloo-display), var(--font-biloo-manrope), Manrope, sans-serif !important;
+  font-family: var(--font-biloo-manrope), Manrope, "Segoe UI", Arial, sans-serif !important;
+  font-style: normal !important;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
   text-wrap: balance;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content h1 {
-  max-width: 14ch;
-  margin-bottom: 24px;
-  font-size: clamp(2.8rem, 6.5vw, 5.9rem);
-  font-weight: 700;
-  letter-spacing: -0.064em;
-  line-height: 0.97;
+  max-width: 15ch;
+  margin-bottom: 22px;
+  font-size: clamp(2.55rem, 4.6vw, 4.35rem) !important;
+  font-weight: 720 !important;
+  letter-spacing: -0.048em !important;
+  line-height: 1.03 !important;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content h2 {
-  max-width: 20ch;
-  margin-bottom: 20px;
-  font-size: clamp(2.1rem, 4.4vw, 4rem);
-  font-weight: 680;
-  letter-spacing: -0.052em;
-  line-height: 1.02;
+  max-width: 22ch;
+  margin-bottom: 18px;
+  font-size: clamp(2rem, 3.5vw, 3.15rem) !important;
+  font-weight: 710 !important;
+  letter-spacing: -0.042em !important;
+  line-height: 1.07 !important;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content h3 {
   margin-bottom: 10px;
-  font-size: clamp(1.25rem, 2vw, 1.72rem);
-  letter-spacing: -0.035em;
-  line-height: 1.14;
+  font-size: clamp(1.2rem, 1.8vw, 1.58rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.026em !important;
+  line-height: 1.18 !important;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(p, li) {
   color: var(--biloo-public-body) !important;
-  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
-  line-height: 1.72;
+  font-size: clamp(0.97rem, 1.1vw, 1.06rem);
+  line-height: 1.7;
   text-wrap: pretty;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(h1, h2) + p {
   max-width: var(--biloo-public-copy-width);
-  font-size: clamp(1.04rem, 1.45vw, 1.2rem) !important;
+  font-size: clamp(1.02rem, 1.3vw, 1.15rem) !important;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) :is(
-  .marketing-eyebrow,
-  .marketing-section-heading > span,
-  [class$="-eyebrow"]
+  .marketing-eyebrow, .marketing-section-heading > span, [class$="-eyebrow"]
 ) {
   width: fit-content;
   display: inline-flex;
   align-items: center;
   gap: 9px;
   margin-bottom: 14px;
-  color: #9a5d00 !important;
-  font-size: 0.72rem !important;
-  font-weight: 850 !important;
-  letter-spacing: 0.12em !important;
-  line-height: 1.25;
-  text-transform: uppercase;
+  color: var(--biloo-public-accent-dark) !important;
+  font-size: 0.76rem !important;
+  font-weight: 750 !important;
+  letter-spacing: 0.045em !important;
+  line-height: 1.3;
+  text-transform: none !important;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) :is(
-  .marketing-eyebrow,
-  .marketing-section-heading > span,
-  [class$="-eyebrow"]
+  .marketing-eyebrow, .marketing-section-heading > span, [class$="-eyebrow"]
 )::before {
   content: "";
-  width: 22px;
+  width: 24px;
   height: 2px;
   flex: 0 0 auto;
   border-radius: 999px;
-  background: var(--biloo-public-gold);
+  background: var(--biloo-public-accent) !important;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) .marketing-section-heading {
   display: grid;
   gap: 8px;
-  max-width: 820px;
-  margin-bottom: clamp(34px, 5vw, 58px);
+  max-width: 800px;
+  margin-bottom: clamp(32px, 4vw, 52px);
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) .marketing-section-heading-centered {
@@ -347,51 +306,45 @@ body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified
   justify-items: center;
 }
 
-body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) .marketing-section-heading-wide {
-  max-width: 960px;
-}
+body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) .marketing-section-heading-wide { max-width: 930px; }
 
-/* Hero layouts: only named page heroes, never every class containing “hero”. */
+/* Named hero layouts. */
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) :is(
-  .marketing-page-hero,
-  .pricing-hero,
-  .trust-page-hero,
-  .about-page-hero,
-  .migration-page-hero,
-  .compare-page-hero,
-  .resources-page-hero,
-  .integrations-page-hero,
-  .industries-page-hero,
-  .customer-stories-page-hero,
-  .request-demo-page-hero
+  .marketing-page-hero, .pricing-hero, .trust-page-hero, .about-page-hero,
+  .migration-page-hero, .compare-page-hero, .resources-page-hero,
+  .integrations-page-hero, .industries-page-hero,
+  .customer-stories-page-hero, .request-demo-page-hero
 ) {
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.88fr);
+  grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
   align-items: center;
-  gap: clamp(36px, 6vw, 84px);
+  gap: clamp(34px, 5vw, 72px);
 }
 
+/* White surfaces only for cards and summaries. */
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) :is(
-  .pricing-principles,
-  .trust-summary-card,
-  .product-tour-hero-summary,
+  .pricing-principles, .trust-summary-card, .product-tour-hero-summary,
   [class$="-hero-summary"]
-) {
+),
+body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(
+  .pricing-faq-grid, .trust-control-grid, .trust-responsibility-grid,
+  .trust-process-grid, .marketing-tour-principles > div:last-child,
+  .pricing-included-section > div:last-child, .about-principles-grid,
+  .resources-grid, .integration-grid, .industry-grid, .customer-story-grid
+) > article {
   min-width: 0;
-  padding: clamp(24px, 3vw, 36px) !important;
+  min-height: 100%;
+  padding: clamp(22px, 3vw, 32px) !important;
+  color: var(--biloo-public-ink) !important;
   border: 1px solid var(--biloo-public-line) !important;
   border-radius: var(--biloo-public-radius) !important;
-  color: var(--biloo-public-ink) !important;
-  background: rgba(255, 255, 255, 0.94) !important;
+  background: var(--biloo-public-surface) !important;
+  background-image: none !important;
   box-shadow: var(--biloo-public-shadow) !important;
 }
 
-/* Preserve component layouts; only repair sizing and consistency. */
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(
-  [class$="-grid"],
-  [class*="-grid "],
-  [class$="-list"],
-  [class*="-list "]
+  [class$="-grid"], [class*="-grid "], [class$="-list"], [class*="-list "]
 ) {
   min-width: 0;
   align-items: stretch;
@@ -399,90 +352,69 @@ body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(
-  [class$="-grid"],
-  [class*="-grid "]
-) > * {
-  min-width: 0;
-}
+  [class$="-grid"], [class*="-grid "]
+) > * { min-width: 0; }
 
-body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(
-  .pricing-faq-grid,
-  .trust-control-grid,
-  .trust-responsibility-grid,
-  .trust-process-grid,
-  .marketing-tour-principles > div:last-child,
-  .pricing-included-section > div:last-child,
-  .about-principles-grid,
-  .resources-grid,
-  .integration-grid,
-  .industry-grid,
-  .customer-story-grid
-) > article {
-  min-height: 100%;
-  padding: clamp(22px, 3vw, 32px);
-  border: 1px solid var(--biloo-public-line);
-  border-radius: var(--biloo-public-radius);
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 12px 38px rgba(20, 33, 61, 0.075);
-}
-
-/* Conversion actions */
+/* Conversion actions. */
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) :is(.marketing-hero-actions, .marketing-cta > div:last-child) {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 28px;
+  margin-top: 26px;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) :is(.marketing-start, .marketing-demo) {
-  min-height: 50px !important;
+  min-height: 48px !important;
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
   gap: 9px;
-  padding: 0 22px !important;
+  padding: 0 21px !important;
   border-radius: 999px !important;
-  font-size: 0.92rem !important;
-  font-weight: 800 !important;
+  font-size: 0.91rem !important;
+  font-weight: 750 !important;
   line-height: 1;
   text-decoration: none !important;
   transition: transform 220ms var(--biloo-public-ease), box-shadow 220ms ease, border-color 220ms ease !important;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) .marketing-start {
-  border: 1px solid var(--biloo-public-navy) !important;
+  border: 1px solid var(--biloo-public-accent) !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
-  background: linear-gradient(135deg, var(--biloo-public-navy-deep), #22365f) !important;
-  box-shadow: 0 15px 38px rgba(20, 33, 61, 0.22) !important;
+  background: var(--biloo-public-accent) !important;
+  background-image: none !important;
+  box-shadow: 0 13px 30px rgba(49, 94, 251, 0.2) !important;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) .marketing-demo {
-  border: 1px solid rgba(20, 33, 61, 0.17) !important;
-  color: var(--biloo-public-navy) !important;
-  -webkit-text-fill-color: var(--biloo-public-navy) !important;
-  background: rgba(255, 255, 255, 0.92) !important;
-  box-shadow: 0 10px 28px rgba(20, 33, 61, 0.07) !important;
+  border: 1px solid var(--biloo-public-line) !important;
+  color: var(--biloo-public-ink) !important;
+  -webkit-text-fill-color: var(--biloo-public-ink) !important;
+  background: var(--biloo-public-surface) !important;
+  background-image: none !important;
+  box-shadow: none !important;
 }
 
 @media (hover: hover) and (pointer: fine) {
   body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) :is(.marketing-start, .marketing-demo):hover {
-    transform: translateY(-3px) !important;
-    box-shadow: 0 20px 48px rgba(20, 33, 61, 0.24) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 16px 36px rgba(20, 33, 61, 0.15) !important;
   }
 }
 
-/* Forms, tables and disclosure content */
+/* Forms and tables. */
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(input, select, textarea) {
   width: 100%;
   min-height: 50px;
-  border: 1px solid rgba(20, 33, 61, 0.17) !important;
+  border: 1px solid var(--biloo-public-line) !important;
   border-radius: 13px !important;
   color: var(--biloo-public-ink) !important;
   -webkit-text-fill-color: var(--biloo-public-ink) !important;
-  background: #ffffff !important;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9), 0 8px 24px rgba(20, 33, 61, 0.05) !important;
+  background: var(--biloo-public-surface) !important;
+  background-image: none !important;
+  box-shadow: none !important;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content textarea {
@@ -491,14 +423,9 @@ body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(input, textarea)::placeholder {
-  color: #8791a3 !important;
-  -webkit-text-fill-color: #8791a3 !important;
+  color: var(--biloo-public-soft) !important;
+  -webkit-text-fill-color: var(--biloo-public-soft) !important;
   opacity: 1;
-}
-
-body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(table, details) {
-  max-width: 100%;
-  border-color: var(--biloo-public-line);
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content table {
@@ -512,186 +439,102 @@ body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified
   text-align: left;
 }
 
-/* CTA and footer */
+/* CTA and footer remain on the same neutral canvas. */
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) .marketing-cta {
   width: min(calc(100% - 40px), var(--biloo-public-page-width)) !important;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(28px, 5vw, 64px);
-  margin: clamp(20px, 5vw, 60px) auto 0 !important;
-  padding: clamp(38px, 6vw, 70px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  border-radius: clamp(26px, 4vw, 40px) !important;
-  color: #ffffff !important;
-  background:
-    radial-gradient(circle at 12% 16%, rgba(252, 163, 17, 0.24), transparent 30rem),
-    linear-gradient(135deg, #0a1325, #1b3159) !important;
-  box-shadow: 0 30px 90px rgba(20, 33, 61, 0.24) !important;
+  gap: clamp(26px, 4vw, 56px);
+  margin: clamp(18px, 4vw, 52px) auto 0 !important;
+  padding: clamp(34px, 5vw, 58px) !important;
+  color: var(--biloo-public-ink) !important;
+  border: 1px solid var(--biloo-public-line) !important;
+  border-radius: clamp(24px, 3vw, 34px) !important;
+  background: var(--biloo-public-surface) !important;
+  background-image: none !important;
+  box-shadow: var(--biloo-public-shadow) !important;
 }
 
-body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) .marketing-cta :is(h2, p, span) {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) .marketing-cta :is(h2, h3, strong, span) {
+  color: var(--biloo-public-ink) !important;
+  -webkit-text-fill-color: var(--biloo-public-ink) !important;
 }
 
 body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) .marketing-cta p {
-  color: #c8d1df !important;
-  -webkit-text-fill-color: #c8d1df !important;
+  color: var(--biloo-public-body) !important;
+  -webkit-text-fill-color: var(--biloo-public-body) !important;
 }
 
 body[data-award-marketing="true"] .marketing-footer {
   position: relative;
   z-index: 3;
-  color: #dbe1e9 !important;
-  background: #080b11 !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--biloo-public-body) !important;
+  background: var(--biloo-public-canvas) !important;
+  background-image: none !important;
+  border-top: 1px solid var(--biloo-public-line) !important;
 }
 
 body[data-award-marketing="true"] .marketing-footer :is(strong, h2, h3) {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+  color: var(--biloo-public-ink) !important;
+  -webkit-text-fill-color: var(--biloo-public-ink) !important;
 }
 
 body[data-award-marketing="true"] .marketing-footer :is(p, small, span, a) {
-  color: #aeb7c4 !important;
-  -webkit-text-fill-color: #aeb7c4 !important;
+  color: var(--biloo-public-body) !important;
+  -webkit-text-fill-color: var(--biloo-public-body) !important;
 }
 
 body[data-award-marketing="true"] .marketing-footer a:hover {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+  color: var(--biloo-public-accent) !important;
+  -webkit-text-fill-color: var(--biloo-public-accent) !important;
 }
 
-/* --------------------------------------------------------------------------
-   Dark public theme
-   -------------------------------------------------------------------------- */
-
-html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) {
+/* Dark mode uses the same one-canvas rule without colored glows. */
+html[data-public-theme="dark"] body[data-award-marketing="true"] {
+  --biloo-public-canvas: #0d1119;
+  --biloo-public-surface: #151a23;
   --biloo-public-ink: #f3f5f8;
   --biloo-public-body: #aeb7c6;
-  --biloo-public-line: rgba(255, 255, 255, 0.1);
-  --biloo-public-surface: #151a23;
-  --biloo-public-surface-soft: #111620;
-  color: #f3f5f8 !important;
-  background:
-    radial-gradient(circle at 8% 5%, rgba(252, 163, 17, 0.09), transparent 28rem),
-    radial-gradient(circle at 94% 10%, rgba(75, 108, 170, 0.16), transparent 34rem),
-    #0d1119 !important;
+  --biloo-public-soft: #8f9bad;
+  --biloo-public-line: #2a3341;
+  background: var(--biloo-public-canvas) !important;
 }
 
-html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(h1, h2, h3, h4) {
-  color: #f5f7fa !important;
-  -webkit-text-fill-color: #f5f7fa !important;
+html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-site-v2,
+html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-site-v2 #public-main-content,
+html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > section,
+html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > div > section,
+html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > main > section {
+  color: var(--biloo-public-ink) !important;
+  background: var(--biloo-public-canvas) !important;
+  background-image: none !important;
 }
 
-html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(p, li, small) {
-  color: #aeb7c6 !important;
-  -webkit-text-fill-color: #aeb7c6 !important;
+html[data-public-theme="dark"] body[data-award-marketing="true"] :is(.wb-header, .marketing-footer) {
+  color: var(--biloo-public-ink) !important;
+  background: rgba(13, 17, 25, 0.96) !important;
+  border-color: var(--biloo-public-line) !important;
 }
 
-html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) :is(
-  .pricing-principles,
-  .trust-summary-card,
-  .product-tour-hero-summary,
-  [class$="-hero-summary"]
-),
-html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(
-  .pricing-faq-grid,
-  .trust-control-grid,
-  .trust-responsibility-grid,
-  .trust-process-grid,
-  .marketing-tour-principles > div:last-child,
-  .pricing-included-section > div:last-child,
-  .about-principles-grid,
-  .resources-grid,
-  .integration-grid,
-  .industry-grid,
-  .customer-story-grid
-) > article {
-  color: #f3f5f8 !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
-  background: #151a23 !important;
-  box-shadow: 0 18px 56px rgba(0, 0, 0, 0.23) !important;
-}
-
-html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content :is(input, select, textarea) {
-  color: #f5f7fa !important;
-  -webkit-text-fill-color: #f5f7fa !important;
-  border-color: rgba(255, 255, 255, 0.13) !important;
-  background: #111620 !important;
-  box-shadow: none !important;
-}
-
-html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) .marketing-demo {
-  color: #f5f7fa !important;
-  -webkit-text-fill-color: #f5f7fa !important;
-  border-color: rgba(255, 255, 255, 0.17) !important;
-  background: #171d28 !important;
-}
-
-/* Homepage dark mode keeps the component-specific design but fixes unreadable surfaces. */
-html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-home-unified .wp-site,
-html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-home-unified #wp-main {
-  color: #edf1f6 !important;
-  background: #0d1119 !important;
-}
-
-html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-home-unified :is(
-  .wp-hero,
-  .wp-intro,
-  .wp-story-section,
-  .wp-journey-section,
-  .wp-security-section,
-  .wp-faq-section
+html[data-public-theme="dark"] body[data-award-marketing="true"] :is(
+  .wb-mobile-panel, .wb-search-panel, .wb-mega-menu, .wb-utility-popover,
+  .marketing-cta, [class$="-hero-summary"]
 ) {
-  color: #edf1f6 !important;
-  background: #0d1119 !important;
+  color: var(--biloo-public-ink) !important;
+  background: var(--biloo-public-surface) !important;
+  background-image: none !important;
+  border-color: var(--biloo-public-line) !important;
 }
-
-html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-home-unified :is(
-  .wp-pillar-card,
-  .wp-app-window,
-  .wp-app-metrics article,
-  .wp-app-chart-card,
-  .wp-app-attention,
-  .wp-faq-list article
-) {
-  border-color: rgba(255, 255, 255, 0.1) !important;
-  background: #151a23 !important;
-}
-
-html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-home-unified :is(h1, h2, h3, h4, strong) {
-  color: #f5f7fa !important;
-  -webkit-text-fill-color: #f5f7fa !important;
-}
-
-html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-home-unified :is(p, li, small) {
-  color: #aeb7c6 !important;
-  -webkit-text-fill-color: #aeb7c6 !important;
-}
-
-/* --------------------------------------------------------------------------
-   Responsive repair
-   -------------------------------------------------------------------------- */
 
 @media (max-width: 1120px) {
-  :root {
-    --biloo-public-section-space: 68px;
-  }
+  :root { --biloo-public-section-space: 64px; }
 
   body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) :is(
-    .marketing-page-hero,
-    .pricing-hero,
-    .trust-page-hero,
-    .about-page-hero,
-    .migration-page-hero,
-    .compare-page-hero,
-    .resources-page-hero,
-    .integrations-page-hero,
-    .industries-page-hero,
-    .customer-stories-page-hero,
-    .request-demo-page-hero
+    .marketing-page-hero, .pricing-hero, .trust-page-hero, .about-page-hero,
+    .migration-page-hero, .compare-page-hero, .resources-page-hero,
+    .integrations-page-hero, .industries-page-hero,
+    .customer-stories-page-hero, .request-demo-page-hero
   ) {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -700,7 +543,7 @@ html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-home
 @media (max-width: 760px) {
   :root {
     --biloo-public-header-height: 58px;
-    --biloo-public-section-space: 56px;
+    --biloo-public-section-space: 52px;
   }
 
   body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content > section,
@@ -710,13 +553,13 @@ html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-home
   }
 
   body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content h1 {
-    max-width: 13ch;
-    font-size: clamp(2.45rem, 11vw, 4.1rem);
-    line-height: 0.99;
+    max-width: 14ch;
+    font-size: clamp(2.25rem, 9.5vw, 3.35rem) !important;
+    line-height: 1.05 !important;
   }
 
   body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) #public-main-content h2 {
-    font-size: clamp(1.9rem, 8vw, 3rem);
+    font-size: clamp(1.8rem, 7vw, 2.6rem) !important;
   }
 
   body[data-award-marketing="true"] .marketing-site-v2:not(.marketing-home-unified) :is(.marketing-hero-actions, .marketing-cta > div:last-child) {
@@ -733,7 +576,7 @@ html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-home
     width: calc(100% - 28px) !important;
     flex-direction: column;
     align-items: stretch;
-    padding: 34px 24px !important;
+    padding: 30px 22px !important;
   }
 
   body[data-award-marketing="true"] .marketing-footer-top {
@@ -753,24 +596,13 @@ html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-home
 }
 
 @media (max-width: 480px) {
-  body[data-award-marketing="true"] .marketing-footer-top {
-    grid-template-columns: 1fr !important;
-  }
-
-  body[data-award-marketing="true"] .marketing-footer-top > div:first-child {
-    grid-column: auto;
-  }
-
-  body[data-award-marketing="true"] .wb-mobile-panel {
-    width: 100% !important;
-  }
+  body[data-award-marketing="true"] .marketing-footer-top { grid-template-columns: 1fr !important; }
+  body[data-award-marketing="true"] .marketing-footer-top > div:first-child { grid-column: auto; }
+  body[data-award-marketing="true"] .wb-mobile-panel { width: 100% !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html:has(body[data-award-marketing="true"]) {
-    scroll-behavior: auto !important;
-  }
-
+  html:has(body[data-award-marketing="true"]) { scroll-behavior: auto !important; }
   body[data-award-marketing="true"] .marketing-site-v2 *,
   body[data-award-marketing="true"] .marketing-site-v2 *::before,
   body[data-award-marketing="true"] .marketing-site-v2 *::after,
