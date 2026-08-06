@@ -108,37 +108,18 @@ export function MarketingExperienceController() {
   const legalPath = isLegalPath(pathname);
 
   useEffect(() => {
-    const documentRoot = document.documentElement;
     const body = document.body;
 
     if (!marketingPath) {
       delete body.dataset.awardMarketing;
-      delete body.dataset.marketingScrolled;
-      delete body.dataset.marketingDeepScrolled;
-      documentRoot.style.removeProperty("--marketing-scroll-progress");
       return;
     }
 
-    let frame = 0;
     let routeTimer = 0;
     let observer: IntersectionObserver | null = null;
     let mutationObserver: MutationObserver | null = null;
     let marketingRoot: HTMLElement | null = null;
     let reducedMotionQuery: MediaQueryList | null = null;
-
-    const updateScrollState = () => {
-      frame = 0;
-      const scrollable = Math.max(documentRoot.scrollHeight - window.innerHeight, 1);
-      const progress = Math.min(Math.max(window.scrollY / scrollable, 0), 1);
-      documentRoot.style.setProperty("--marketing-scroll-progress", progress.toFixed(4));
-      body.dataset.marketingScrolled = window.scrollY > 10 ? "true" : "false";
-      body.dataset.marketingDeepScrolled = window.scrollY > Math.max(window.innerHeight * 0.72, 560) ? "true" : "false";
-    };
-
-    const scheduleScrollUpdate = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(updateScrollState);
-    };
 
     const revealImmediately = (element: HTMLElement) => {
       element.dataset.marketingRevealed = "true";
@@ -171,9 +152,6 @@ export function MarketingExperienceController() {
 
       if (!marketingRoot) {
         delete body.dataset.awardMarketing;
-        delete body.dataset.marketingScrolled;
-        delete body.dataset.marketingDeepScrolled;
-        documentRoot.style.removeProperty("--marketing-scroll-progress");
         return;
       }
 
@@ -199,7 +177,6 @@ export function MarketingExperienceController() {
       normalizeAdminContactLinks(marketingRoot);
       ensurePoweredByFooter(marketingRoot);
       registerRevealElements(marketingRoot);
-      updateScrollState();
 
       mutationObserver = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
@@ -213,28 +190,19 @@ export function MarketingExperienceController() {
       });
       mutationObserver.observe(marketingRoot, { childList: true, subtree: true });
 
-      window.addEventListener("scroll", scheduleScrollUpdate, { passive: true });
-      window.addEventListener("resize", scheduleScrollUpdate, { passive: true });
-
       routeTimer = window.setTimeout(() => {
         if (marketingRoot) delete marketingRoot.dataset.marketingEntering;
-      }, reducedMotionQuery.matches ? 0 : 520);
+      }, reducedMotionQuery.matches ? 0 : 360);
     };
 
     const startFrame = window.requestAnimationFrame(initialize);
 
     return () => {
       window.cancelAnimationFrame(startFrame);
-      if (frame) window.cancelAnimationFrame(frame);
       window.clearTimeout(routeTimer);
       observer?.disconnect();
       mutationObserver?.disconnect();
-      window.removeEventListener("scroll", scheduleScrollUpdate);
-      window.removeEventListener("resize", scheduleScrollUpdate);
       delete body.dataset.awardMarketing;
-      delete body.dataset.marketingScrolled;
-      delete body.dataset.marketingDeepScrolled;
-      documentRoot.style.removeProperty("--marketing-scroll-progress");
     };
   }, [marketingPath, pathname]);
 
@@ -242,19 +210,12 @@ export function MarketingExperienceController() {
 
   return (
     <>
-      <link rel="stylesheet" href="/biloo-marketing-interactions.css?v=20260806-3" />
+      <link rel="stylesheet" href="/biloo-marketing-interactions.css?v=20260806-4" />
       <link rel="stylesheet" href="/biloo-legal-suite.css?v=20260806-1" />
       {legalPath ? <link rel="stylesheet" href="/biloo-legal-pages.css?v=20260806-1" /> : null}
-      {!homePath ? <link rel="stylesheet" href="/biloo-marketing-foundation-v2.css?v=20260806-2" /> : null}
-      {homePath ? <link rel="stylesheet" href="/biloo-home-latest.css?v=20260806-2" /> : null}
+      {!homePath ? <link rel="stylesheet" href="/biloo-marketing-foundation-v2.css?v=20260806-4" /> : null}
+      {homePath ? <link rel="stylesheet" href="/biloo-home-latest.css?v=20260806-4" /> : null}
       <MarketingLegalSuite />
-      {!homePath ? (
-        <div className="marketing-motion-layer">
-          <span className="marketing-motion-orb marketing-motion-orb-one" aria-hidden="true" />
-          <span className="marketing-motion-orb marketing-motion-orb-two" aria-hidden="true" />
-          <span className="marketing-scroll-progress" aria-hidden="true" />
-        </div>
-      ) : null}
     </>
   );
 }
