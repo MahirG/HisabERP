@@ -224,7 +224,12 @@ export function MarketingExperienceController() {
         </>
       ) : null}
       <link rel="stylesheet" href="/biloo-marketing-foundation-v2.css?v=20260806-1" />
-      {homePath ? <link rel="stylesheet" href="/biloo-home-graphics-v4.css?v=20260806-1" /> : null}
+      {homePath ? (
+        <>
+          <link rel="stylesheet" href="/biloo-home-graphics-v4.css?v=20260806-1" />
+          <link rel="stylesheet" href="/biloo-home-footer-v4.css?v=20260806-1" />
+        </>
+      ) : null}
       <MarketingLegalSuite />
       <div className="marketing-motion-layer">
         <span className="marketing-motion-orb marketing-motion-orb-one" aria-hidden="true" />
