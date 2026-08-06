@@ -1,0 +1,308 @@
+/*
+ * Biloo marketing tricolor authority.
+ * Exactly three base colors across every public marketing route:
+ * canvas #F7F8FC, ink #14213D, accent #315EFB.
+ */
+
+:root {
+  --biloo-brand-canvas: #F7F8FC;
+  --biloo-brand-ink: #14213D;
+  --biloo-brand-accent: #315EFB;
+  --biloo-brand-ink-88: rgba(20, 33, 61, 0.88);
+  --biloo-brand-ink-72: rgba(20, 33, 61, 0.72);
+  --biloo-brand-ink-58: rgba(20, 33, 61, 0.58);
+  --biloo-brand-ink-18: rgba(20, 33, 61, 0.18);
+  --biloo-brand-ink-10: rgba(20, 33, 61, 0.10);
+  --biloo-brand-accent-16: rgba(49, 94, 251, 0.16);
+  --biloo-brand-accent-10: rgba(49, 94, 251, 0.10);
+}
+
+html:has(body[data-award-marketing="true"]),
+html[data-public-theme="dark"]:has(body[data-award-marketing="true"]),
+html[data-public-theme="light"]:has(body[data-award-marketing="true"]) {
+  color-scheme: light !important;
+  background: var(--biloo-brand-canvas) !important;
+}
+
+body[data-award-marketing="true"],
+body[data-award-marketing="true"] .marketing-site-v2,
+body[data-award-marketing="true"] #public-main-content,
+body[data-award-marketing="true"] .wp-site,
+body[data-award-marketing="true"] .marketing-footer,
+body[data-award-marketing="true"] .wp-footer {
+  color: var(--biloo-brand-ink) !important;
+  background: var(--biloo-brand-canvas) !important;
+  background-color: var(--biloo-brand-canvas) !important;
+  background-image: none !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(
+  section, main, article, aside, nav, header, footer, div, form, details, summary,
+  ul, ol, li, table, thead, tbody, tr, th, td
+)::before,
+body[data-award-marketing="true"] .marketing-site-v2 :is(
+  section, main, article, aside, nav, header, footer, div, form, details, summary,
+  ul, ol, li, table, thead, tbody, tr, th, td
+)::after {
+  border-color: var(--biloo-brand-ink-18) !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(h1, h2, h3, h4, h5, h6, strong, b, label, summary) {
+  color: var(--biloo-brand-ink) !important;
+  -webkit-text-fill-color: var(--biloo-brand-ink) !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(p, li, small, figcaption, blockquote, dd, dt) {
+  color: var(--biloo-brand-ink-72) !important;
+  -webkit-text-fill-color: var(--biloo-brand-ink-72) !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(a, button, input, textarea, select, option, kbd) {
+  font-family: inherit !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(a, button) {
+  color: var(--biloo-brand-ink) !important;
+  -webkit-text-fill-color: var(--biloo-brand-ink) !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(
+  .wp-kicker, .marketing-eyebrow, [class$="-eyebrow"],
+  .wp-text-link, .marketing-powered-by,
+  [class*="accent"], [class*="active"] > svg
+) {
+  color: var(--biloo-brand-accent) !important;
+  -webkit-text-fill-color: var(--biloo-brand-accent) !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(
+  .wp-button-primary, .wp-button-gold, .wp-nav-cta,
+  .marketing-start, .wb-dashboard-button, .wb-mobile-dashboard,
+  .wb-mobile-actions a:first-child, button[type="submit"], input[type="submit"]
+) {
+  color: var(--biloo-brand-canvas) !important;
+  -webkit-text-fill-color: var(--biloo-brand-canvas) !important;
+  background: var(--biloo-brand-accent) !important;
+  background-color: var(--biloo-brand-accent) !important;
+  background-image: none !important;
+  border-color: var(--biloo-brand-accent) !important;
+  box-shadow: 0 12px 28px var(--biloo-brand-accent-16) !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(
+  .wp-button-secondary, .wp-button-dark-ghost, .marketing-demo,
+  .wp-login, .wp-footer-cta
+) {
+  color: var(--biloo-brand-ink) !important;
+  -webkit-text-fill-color: var(--biloo-brand-ink) !important;
+  background: transparent !important;
+  background-image: none !important;
+  border-color: var(--biloo-brand-ink-18) !important;
+  box-shadow: none !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(
+  .wp-button-secondary, .wp-button-dark-ghost, .marketing-demo,
+  .wp-login, .wp-footer-cta, .wb-primary-nav > a,
+  .wb-nav-group > button, .wb-action-button, .wb-icon-button
+):hover,
+body[data-award-marketing="true"] .marketing-site-v2 :is(
+  .wp-button-secondary, .wp-button-dark-ghost, .marketing-demo,
+  .wp-login, .wp-footer-cta, .wb-primary-nav > a,
+  .wb-nav-group > button, .wb-action-button, .wb-icon-button
+):focus-visible {
+  color: var(--biloo-brand-accent) !important;
+  -webkit-text-fill-color: var(--biloo-brand-accent) !important;
+  background: var(--biloo-brand-accent-10) !important;
+  border-color: var(--biloo-brand-accent) !important;
+}
+
+/* Docked navigation uses the same canvas, ink and accent. */
+body[data-award-marketing="true"] .wb-header {
+  position: fixed !important;
+  z-index: 7000 !important;
+  inset: 0 0 auto !important;
+  top: 0 !important;
+  color: var(--biloo-brand-ink) !important;
+  background: rgba(247, 248, 252, 0.96) !important;
+  background-image: none !important;
+  border-bottom: 1px solid var(--biloo-brand-ink-18) !important;
+  box-shadow: 0 10px 28px var(--biloo-brand-ink-10) !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 {
+  padding-top: 62px !important;
+}
+
+body[data-award-marketing="true"] .wb-primary-nav > a,
+body[data-award-marketing="true"] .wb-nav-group > button,
+body[data-award-marketing="true"] .wb-action-button,
+body[data-award-marketing="true"] .wb-icon-button,
+body[data-award-marketing="true"] .wb-mobile-toggle {
+  color: var(--biloo-brand-ink) !important;
+  -webkit-text-fill-color: var(--biloo-brand-ink) !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+body[data-award-marketing="true"] .wb-nav-group > button svg,
+body[data-award-marketing="true"] .wb-header-actions svg {
+  color: var(--biloo-brand-ink-72) !important;
+}
+
+body[data-award-marketing="true"] :is(
+  .wb-mega-menu, .wb-mega-intro, .wb-utility-popover,
+  .wb-search-panel, .wb-search-field, .wb-mobile-panel,
+  .wb-mobile-search, .wb-mobile-intro,
+  .wb-mobile-utilities > a, .wb-mobile-utilities > button,
+  .wb-mobile-actions a
+) {
+  color: var(--biloo-brand-ink) !important;
+  background: var(--biloo-brand-canvas) !important;
+  background-color: var(--biloo-brand-canvas) !important;
+  background-image: none !important;
+  border-color: var(--biloo-brand-ink-18) !important;
+  box-shadow: 0 20px 54px var(--biloo-brand-ink-10) !important;
+}
+
+body[data-award-marketing="true"] :is(
+  .wb-mega-menu, .wb-utility-popover, .wb-search-panel,
+  .wb-mobile-panel
+) :is(h2, h3, strong, a, button, summary, span) {
+  color: var(--biloo-brand-ink) !important;
+  -webkit-text-fill-color: var(--biloo-brand-ink) !important;
+}
+
+body[data-award-marketing="true"] :is(
+  .wb-mega-menu, .wb-utility-popover, .wb-search-panel,
+  .wb-mobile-panel
+) :is(p, small) {
+  color: var(--biloo-brand-ink-72) !important;
+  -webkit-text-fill-color: var(--biloo-brand-ink-72) !important;
+}
+
+body[data-award-marketing="true"] :is(
+  .wb-mega-icon, .wb-search-result-icon,
+  .wp-pillar-icon, .wp-step-icon, .wp-float-icon,
+  .wp-security-list > div > span, .wp-story-copy li > span,
+  .wp-audience-grid article > span
+) {
+  color: var(--biloo-brand-accent) !important;
+  background: var(--biloo-brand-accent-10) !important;
+  border-color: var(--biloo-brand-accent-16) !important;
+}
+
+/* Product surfaces use only the same canvas with navy structure. */
+body[data-award-marketing="true"] .marketing-site-v2 :is(
+  .wp-app-window, .wp-app-topbar, .wp-app-body, .wp-app-content,
+  .wp-app-sidebar, .wp-app-metrics article, .wp-app-chart-card,
+  .wp-app-attention, .wp-explorer, .wp-explorer-preview,
+  .wp-preview-rows > div, .wp-connection-map, .wp-map-center,
+  .wp-map-node, .wp-security-center, .wp-security-badge,
+  .marketing-page-hero, [class$="-hero-summary"],
+  form, input, textarea, select, table, details
+) {
+  color: var(--biloo-brand-ink) !important;
+  background: var(--biloo-brand-canvas) !important;
+  background-color: var(--biloo-brand-canvas) !important;
+  background-image: none !important;
+  border-color: var(--biloo-brand-ink-18) !important;
+  box-shadow: 0 14px 38px var(--biloo-brand-ink-10) !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(input, textarea, select) {
+  color: var(--biloo-brand-ink) !important;
+  -webkit-text-fill-color: var(--biloo-brand-ink) !important;
+  caret-color: var(--biloo-brand-accent) !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(input, textarea)::placeholder {
+  color: var(--biloo-brand-ink-58) !important;
+  -webkit-text-fill-color: var(--biloo-brand-ink-58) !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :focus-visible {
+  outline: 3px solid var(--biloo-brand-accent) !important;
+  outline-offset: 3px !important;
+}
+
+/* Every decorative or status color is collapsed to ink/accent. */
+body[data-award-marketing="true"] .marketing-site-v2 :is(
+  .warning, .amber, .success, .danger, .error,
+  [class*="warning"], [class*="amber"], [class*="success"],
+  [class*="danger"], [class*="error"]
+) {
+  color: var(--biloo-brand-accent) !important;
+  -webkit-text-fill-color: var(--biloo-brand-accent) !important;
+  background: var(--biloo-brand-accent-10) !important;
+  border-color: var(--biloo-brand-accent-16) !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(
+  .wp-mini-chart span, .wp-preview-chart span,
+  [class*="bar"], [class*="progress"]
+) {
+  background: var(--biloo-brand-accent) !important;
+  background-color: var(--biloo-brand-accent) !important;
+  background-image: none !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 svg :is(path, circle, rect, line, polyline, polygon) {
+  --biloo-svg-color: currentColor;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(
+  .wp-hero-orb, .wp-hero-grid, .wp-map-glow,
+  .wp-security-ring, .wp-final-orb,
+  [class*="motion-orb"], [class*="gradient"], [class*="glow"]
+) {
+  background: transparent !important;
+  background-image: none !important;
+  border-color: var(--biloo-brand-ink-18) !important;
+  box-shadow: none !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(
+  .wp-pillar-card, .wp-journey-grid article, .wp-audience-grid article,
+  .wp-faq-list article, .wp-story-copy li, .wp-security-list > div,
+  .wp-local-row > div, [class$="-grid"] > article
+) {
+  color: var(--biloo-brand-ink) !important;
+  background: transparent !important;
+  background-image: none !important;
+  border-color: var(--biloo-brand-ink-18) !important;
+  box-shadow: none !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 :is(hr, .wp-step-line) {
+  color: var(--biloo-brand-ink-18) !important;
+  background: var(--biloo-brand-ink-18) !important;
+  border-color: var(--biloo-brand-ink-18) !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 ::selection {
+  color: var(--biloo-brand-canvas) !important;
+  background: var(--biloo-brand-accent) !important;
+}
+
+/* Prevent alternate public palettes from introducing new hues. */
+html[data-public-theme="dark"] body[data-award-marketing="true"],
+html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-site-v2,
+html[data-public-theme="dark"] body[data-award-marketing="true"] #public-main-content,
+html[data-public-theme="dark"] body[data-award-marketing="true"] .marketing-footer,
+html[data-public-theme="dark"] body[data-award-marketing="true"] .wp-footer {
+  color: var(--biloo-brand-ink) !important;
+  background: var(--biloo-brand-canvas) !important;
+  background-image: none !important;
+}
+
+body[data-award-marketing="true"] button[aria-label^="Color mode"],
+body[data-award-marketing="true"] .wb-mobile-utilities > button:last-child {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  body[data-award-marketing="true"] .marketing-site-v2 {
+    padding-top: 58px !important;
+  }
+}
