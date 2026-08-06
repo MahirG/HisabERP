@@ -212,11 +212,6 @@ export function MarketingExperienceController() {
 
   if (!marketingPath) return null;
 
-  const returnToTop = () => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
-  };
-
   return (
     <>
       <link rel="stylesheet" href="/biloo-marketing-interactions.css?v=20260805-1" />
@@ -229,15 +224,12 @@ export function MarketingExperienceController() {
         </>
       ) : null}
       <link rel="stylesheet" href="/biloo-marketing-foundation-v2.css?v=20260806-1" />
-      {homePath ? <link rel="stylesheet" href="/biloo-premium-home-v3.css?v=20260806-1" /> : null}
+      {homePath ? <link rel="stylesheet" href="/biloo-home-graphics-v4.css?v=20260806-1" /> : null}
       <MarketingLegalSuite />
       <div className="marketing-motion-layer">
         <span className="marketing-motion-orb marketing-motion-orb-one" aria-hidden="true" />
         <span className="marketing-motion-orb marketing-motion-orb-two" aria-hidden="true" />
         <span className="marketing-scroll-progress" aria-hidden="true" />
-        <button className="marketing-back-to-top" type="button" aria-label="Back to top" onClick={returnToTop}>
-          <span aria-hidden="true">↑</span>
-        </button>
       </div>
     </>
   );
