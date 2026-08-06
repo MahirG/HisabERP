@@ -1,6 +1,7 @@
 /*
- * Biloo homepage v6
- * One neutral canvas, one white surface and one blue accent.
+ * Biloo homepage v7
+ * Open editorial layout with contained surfaces only for real product graphics.
+ * Header styling and docking live exclusively in biloo-whitebit-header.css.
  */
 
 .marketing-home-unified {
@@ -58,22 +59,24 @@
   background: none !important;
 }
 
-.marketing-home-unified :is(.wp-announcement, .wp-header, .wp-final-cta, .wp-footer-cta) {
+.marketing-home-unified :is(
+  .wp-announcement,
+  .wp-header,
+  .wp-final-cta,
+  .wp-footer-cta,
+  .wp-float-card
+) {
   display: none !important;
 }
 
 .marketing-home-unified #wp-main :is(h1, h2, h3, h4, strong, b) {
   color: var(--biloo-home-text) !important;
-  -webkit-text-fill-color: var(--biloo-home-text) !important;
-  font-family: var(--font-biloo-manrope), Manrope, "Segoe UI", Arial, sans-serif !important;
   font-style: normal !important;
-  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
   text-wrap: balance;
 }
 
 .marketing-home-unified #wp-main :is(p, li, small) {
   color: var(--biloo-home-muted) !important;
-  -webkit-text-fill-color: var(--biloo-home-muted) !important;
 }
 
 .marketing-home-unified #wp-main :is(a, button) {
@@ -81,79 +84,16 @@
   visibility: visible !important;
 }
 
-/* Docked light header using the same page canvas. */
-.marketing-home-unified .wb-header.wb-header {
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 6000 !important;
-  color: var(--biloo-home-text) !important;
-  background: rgba(244, 246, 250, 0.96) !important;
-  background-image: none !important;
-  border-bottom: 1px solid var(--biloo-home-line) !important;
-  box-shadow: 0 8px 24px rgba(20, 33, 61, 0.07) !important;
-  backdrop-filter: blur(18px) saturate(125%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(125%) !important;
-}
-
-.marketing-home-unified .wb-header::after { display: none !important; }
-
-.marketing-home-unified .wb-header :is(
-  .wb-primary-nav > a, .wb-nav-group > button, .wb-action-button,
-  .wb-icon-button, .wb-mobile-toggle
-) {
-  color: var(--biloo-home-text) !important;
-  -webkit-text-fill-color: var(--biloo-home-text) !important;
-}
-
-.marketing-home-unified .wb-header :is(.wb-action-button, .wb-icon-button, .wb-mobile-toggle) {
-  border: 1px solid var(--biloo-home-line) !important;
-  background: var(--biloo-home-surface) !important;
-  background-image: none !important;
-}
-
-.marketing-home-unified .wb-header :is(
-  .wb-action-button, .wb-icon-button, .wb-mobile-toggle,
-  .wb-dashboard-button, .wb-nav-group > button, .wb-primary-nav > a
-) svg {
-  display: block !important;
-  color: currentColor !important;
-  stroke: currentColor !important;
-  fill: none !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-.marketing-home-unified .wb-header .wb-dashboard-button {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  border-color: var(--biloo-home-accent) !important;
-  background: var(--biloo-home-accent) !important;
-  background-image: none !important;
-  box-shadow: 0 11px 24px rgba(49, 94, 251, 0.2) !important;
-}
-
-.marketing-home-unified .wb-header .wb-dashboard-button :is(span, svg) {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-}
-
-.marketing-home-unified :is(.wb-mobile-panel, .wb-search-panel, .wb-mega-menu, .wb-utility-popover) {
-  color: var(--biloo-home-text) !important;
-  background: var(--biloo-home-surface) !important;
-  background-image: none !important;
-  border-color: var(--biloo-home-line) !important;
-}
-
-/* Hero: compact editorial scale instead of oversized display type. */
+/* Hero. */
 .marketing-home-unified .wp-hero {
   min-height: auto !important;
-  padding: clamp(68px, 7vw, 94px) 0 clamp(72px, 7vw, 102px) !important;
+  padding: clamp(66px, 6.5vw, 90px) 0 clamp(72px, 7vw, 100px) !important;
   border: 0 !important;
 }
 
 .marketing-home-unified .wp-hero-layout {
   grid-template-columns: minmax(0, 0.92fr) minmax(500px, 1.08fr) !important;
-  gap: clamp(42px, 5vw, 72px) !important;
+  gap: clamp(42px, 5vw, 70px) !important;
   align-items: center !important;
 }
 
@@ -169,15 +109,16 @@
 
 .marketing-home-unified .wp-kicker,
 .marketing-home-unified .wp-kicker-light {
+  width: fit-content;
+  padding: 0 !important;
   color: var(--biloo-home-accent-dark) !important;
-  -webkit-text-fill-color: var(--biloo-home-accent-dark) !important;
-  border: 1px solid var(--biloo-home-line) !important;
-  background: var(--biloo-home-surface) !important;
+  border: 0 !important;
+  background: transparent !important;
   background-image: none !important;
   box-shadow: none !important;
   font-size: 0.78rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.015em !important;
+  font-weight: 720 !important;
+  letter-spacing: 0.02em !important;
   text-transform: none !important;
 }
 
@@ -185,16 +126,14 @@
   max-width: 12.5ch !important;
   margin-bottom: 22px !important;
   color: var(--biloo-home-text) !important;
-  -webkit-text-fill-color: var(--biloo-home-text) !important;
-  font-size: clamp(2.65rem, 4.9vw, 4.45rem) !important;
+  font-size: clamp(2.6rem, 4.7vw, 4.25rem) !important;
   font-weight: 720 !important;
-  letter-spacing: -0.05em !important;
-  line-height: 1.02 !important;
+  letter-spacing: -0.048em !important;
+  line-height: 1.03 !important;
 }
 
 .marketing-home-unified .wp-hero-copy h1 em {
   color: var(--biloo-home-accent) !important;
-  -webkit-text-fill-color: var(--biloo-home-accent) !important;
   background: none !important;
   font-style: normal !important;
   font-weight: inherit !important;
@@ -205,45 +144,50 @@
 .marketing-home-unified .wp-hero-copy > p {
   max-width: 580px !important;
   color: var(--biloo-home-muted) !important;
-  -webkit-text-fill-color: var(--biloo-home-muted) !important;
-  font-size: clamp(1rem, 1.25vw, 1.14rem) !important;
+  font-size: clamp(1rem, 1.22vw, 1.13rem) !important;
   line-height: 1.7 !important;
 }
 
 .marketing-home-unified :is(
-  .wp-section-heading h2, .wp-story-copy h2, .wp-audience-heading h2,
-  .wp-security-copy h2, .wp-faq-heading h2
+  .wp-section-heading h2,
+  .wp-story-copy h2,
+  .wp-audience-heading h2,
+  .wp-security-copy h2,
+  .wp-faq-heading h2
 ) {
-  max-width: 22ch !important;
-  font-size: clamp(1.95rem, 3.35vw, 3.05rem) !important;
+  max-width: 23ch !important;
+  font-size: clamp(1.92rem, 3.2vw, 2.95rem) !important;
   font-weight: 710 !important;
-  letter-spacing: -0.042em !important;
-  line-height: 1.07 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1.08 !important;
 }
 
-.marketing-home-unified :is(.wp-pillar-card h3, .wp-explorer-copy h3, .wp-journey-grid h3, .wp-audience-grid h3) {
-  font-size: clamp(1.18rem, 1.7vw, 1.48rem) !important;
+.marketing-home-unified :is(
+  .wp-pillar-card h3,
+  .wp-explorer-copy h3,
+  .wp-journey-grid h3,
+  .wp-audience-grid h3
+) {
+  font-size: clamp(1.16rem, 1.65vw, 1.46rem) !important;
   font-weight: 700 !important;
-  letter-spacing: -0.025em !important;
-  line-height: 1.18 !important;
+  letter-spacing: -0.024em !important;
+  line-height: 1.2 !important;
 }
 
 .marketing-home-unified .wp-button-primary,
 .marketing-home-unified .wp-button-gold {
   color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
   border-color: var(--biloo-home-accent) !important;
   background: var(--biloo-home-accent) !important;
   background-image: none !important;
-  box-shadow: 0 14px 30px rgba(49, 94, 251, 0.2) !important;
+  box-shadow: 0 12px 28px rgba(49, 94, 251, 0.18) !important;
 }
 
 .marketing-home-unified .wp-button-secondary,
 .marketing-home-unified .wp-button-dark-ghost {
   color: var(--biloo-home-text) !important;
-  -webkit-text-fill-color: var(--biloo-home-text) !important;
   border-color: var(--biloo-home-line) !important;
-  background: var(--biloo-home-surface) !important;
+  background: transparent !important;
   background-image: none !important;
   box-shadow: none !important;
 }
@@ -251,31 +195,9 @@
 .marketing-home-unified .wp-hero-assurance,
 .marketing-home-unified .wp-hero-assurance span {
   color: var(--biloo-home-soft) !important;
-  -webkit-text-fill-color: var(--biloo-home-soft) !important;
 }
 
-/* Product graphics use white surfaces only. */
-.marketing-home-unified :is(
-  .wp-app-window, .wp-explorer, .wp-connection-map, .wp-audience-panel,
-  .wp-security-center, .wp-security-badge, .wp-pillar-card,
-  .wp-journey-grid > article, .wp-faq-list > article, .wp-float-card,
-  .wp-app-metrics article, .wp-app-chart-card, .wp-app-attention,
-  .wp-explorer-preview, .wp-audience-grid > article, .wp-local-row > div,
-  .wp-map-node, .wp-map-center
-) {
-  color: var(--biloo-home-text) !important;
-  border: 1px solid var(--biloo-home-line) !important;
-  background: var(--biloo-home-surface) !important;
-  background-image: none !important;
-  box-shadow: var(--biloo-home-shadow) !important;
-}
-
-.marketing-home-unified .wp-app-window {
-  overflow: hidden;
-  border-radius: 24px !important;
-  transform: none !important;
-}
-
+/* Functional product graphic. */
 .marketing-home-unified .wp-hero-visual,
 .marketing-home-unified .wp-hero-visual::before {
   perspective: none !important;
@@ -284,11 +206,21 @@
 
 .marketing-home-unified .wp-hero-visual::before { display: none !important; }
 
-.marketing-home-unified :is(.wp-app-topbar, .wp-app-sidebar, .wp-app-content, .wp-explorer-tabs) {
+.marketing-home-unified .wp-app-window {
+  overflow: hidden;
+  border: 1px solid var(--biloo-home-line) !important;
+  border-radius: 22px !important;
   color: var(--biloo-home-text) !important;
   background: var(--biloo-home-surface) !important;
   background-image: none !important;
-  border-color: var(--biloo-home-line) !important;
+  box-shadow: var(--biloo-home-shadow) !important;
+  transform: none !important;
+}
+
+.marketing-home-unified :is(.wp-app-topbar, .wp-app-sidebar, .wp-app-content) {
+  color: var(--biloo-home-text) !important;
+  background: var(--biloo-home-surface) !important;
+  background-image: none !important;
 }
 
 .marketing-home-unified .wp-app-topbar { border-bottom: 1px solid var(--biloo-home-line) !important; }
@@ -297,52 +229,45 @@
 .marketing-home-unified .wp-app-topbar :is(strong, span),
 .marketing-home-unified .wp-app-sidebar > span:not(.active) {
   color: var(--biloo-home-muted) !important;
-  -webkit-text-fill-color: var(--biloo-home-muted) !important;
 }
 
-.marketing-home-unified .wp-app-sidebar > span.active,
-.marketing-home-unified .wp-explorer-tabs button.active,
-.marketing-home-unified :is(.wp-pillar-icon, .wp-step-icon, .wp-story-copy > ul > li > span, .wp-security-list > div > span) {
+.marketing-home-unified .wp-app-sidebar > span.active {
   color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
   background: var(--biloo-home-accent) !important;
+}
+
+.marketing-home-unified :is(
+  .wp-app-metrics article,
+  .wp-app-chart-card,
+  .wp-app-attention,
+  .wp-explorer-preview
+) {
+  color: var(--biloo-home-text) !important;
+  border: 1px solid var(--biloo-home-line) !important;
+  border-radius: 12px !important;
+  background: #fbfcff !important;
   background-image: none !important;
   box-shadow: none !important;
 }
 
-.marketing-home-unified .wp-explorer-tabs button {
-  color: var(--biloo-home-muted) !important;
-  -webkit-text-fill-color: var(--biloo-home-muted) !important;
-  background: transparent !important;
-}
-
 .marketing-home-unified .wp-mini-chart span,
 .marketing-home-unified .wp-preview-chart span,
-.marketing-home-unified .wp-app-metrics article::before,
-.marketing-home-unified .wp-pillar-card::before {
+.marketing-home-unified .wp-app-metrics article::before {
   background: var(--biloo-home-accent) !important;
   background-image: none !important;
 }
 
-/* Remove the remaining warm status backgrounds from inherited styles. */
 .marketing-home-unified :is(.amber, .warning, [class*="gold"], [class*="orange"]) {
   color: var(--biloo-home-accent-dark) !important;
-  -webkit-text-fill-color: var(--biloo-home-accent-dark) !important;
   background: rgba(49, 94, 251, 0.08) !important;
   background-image: none !important;
   border-color: rgba(49, 94, 251, 0.18) !important;
 }
 
-.marketing-home-unified .wp-window-dots span {
-  background: #c8d0dd !important;
-  background-image: none !important;
-}
-
+.marketing-home-unified .wp-window-dots span { background: #c8d0dd !important; }
 .marketing-home-unified .wp-window-dots span:first-child { background: var(--biloo-home-accent) !important; }
 
-.marketing-home-unified .wp-float-card-sales { border-left: 4px solid var(--biloo-home-success) !important; }
-.marketing-home-unified .wp-float-card-stock { border-left: 4px solid var(--biloo-home-danger) !important; }
-
+/* Proof strip. */
 .marketing-home-unified .wp-proof-strip {
   border-block: 1px solid var(--biloo-home-line) !important;
 }
@@ -350,13 +275,221 @@
 .marketing-home-unified .wp-proof-grid > div { border-right-color: var(--biloo-home-line) !important; }
 .marketing-home-unified .wp-proof-grid strong { color: var(--biloo-home-text) !important; }
 .marketing-home-unified .wp-proof-grid span { color: var(--biloo-home-muted) !important; }
-.marketing-home-unified .wp-map-lines path { stroke: var(--biloo-home-accent) !important; opacity: 0.52 !important; }
-.marketing-home-unified .wp-security-ring { border-color: rgba(49, 94, 251, 0.2) !important; }
-.marketing-home-unified .wp-audience-panel { box-shadow: none !important; }
 
-/* Footer stays on the same neutral canvas. */
+/* Open feature pillars. */
+.marketing-home-unified .wp-pillar-grid {
+  gap: clamp(26px, 3vw, 40px) !important;
+}
+
+.marketing-home-unified .wp-pillar-card {
+  padding: 24px 0 0 !important;
+  border: 0 !important;
+  border-top: 1px solid var(--biloo-home-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.marketing-home-unified .wp-pillar-card::before { display: none !important; }
+
+.marketing-home-unified .wp-pillar-icon {
+  color: var(--biloo-home-accent) !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.marketing-home-unified .wp-pillar-top b { color: var(--biloo-home-accent-dark) !important; }
+
+/* Explorer: one data preview, no surrounding card. */
+.marketing-home-unified .wp-explorer {
+  display: grid !important;
+  border: 0 !important;
+  border-top: 1px solid var(--biloo-home-line) !important;
+  border-bottom: 1px solid var(--biloo-home-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.marketing-home-unified .wp-explorer-tabs {
+  color: var(--biloo-home-text) !important;
+  border: 0 !important;
+  border-right: 1px solid var(--biloo-home-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+}
+
+.marketing-home-unified .wp-explorer-tabs button {
+  color: var(--biloo-home-muted) !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+}
+
+.marketing-home-unified .wp-explorer-tabs button.active {
+  color: var(--biloo-home-accent-dark) !important;
+  background: #edf2ff !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.marketing-home-unified .wp-explorer-copy {
+  background: transparent !important;
+}
+
+.marketing-home-unified .wp-explorer-preview {
+  margin: clamp(20px, 3vw, 34px) !important;
+  background: var(--biloo-home-surface) !important;
+}
+
+/* Connection story: keep nodes as graphical labels, remove outer box. */
+.marketing-home-unified .wp-connection-map {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.marketing-home-unified :is(.wp-map-node, .wp-map-center) {
+  color: var(--biloo-home-text) !important;
+  border: 1px solid var(--biloo-home-line) !important;
+  border-radius: 12px !important;
+  background: var(--biloo-home-surface) !important;
+  background-image: none !important;
+  box-shadow: 0 10px 28px rgba(20, 33, 61, 0.07) !important;
+}
+
+.marketing-home-unified .wp-map-lines path {
+  stroke: var(--biloo-home-accent) !important;
+  opacity: 0.48 !important;
+}
+
+/* Journey steps use rhythm and dividers. */
+.marketing-home-unified .wp-journey-grid {
+  gap: clamp(24px, 3vw, 38px) !important;
+}
+
+.marketing-home-unified .wp-journey-grid > article {
+  padding: 24px 0 0 !important;
+  border: 0 !important;
+  border-top: 1px solid var(--biloo-home-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.marketing-home-unified .wp-step-icon {
+  color: var(--biloo-home-accent) !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.marketing-home-unified .wp-step-line { display: none !important; }
+
+/* Audience section is open, not a large panel full of boxes. */
+.marketing-home-unified .wp-audience-panel {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.marketing-home-unified .wp-audience-grid {
+  gap: clamp(26px, 3vw, 40px) !important;
+}
+
+.marketing-home-unified .wp-audience-grid > article {
+  padding: 24px 0 0 !important;
+  border: 0 !important;
+  border-top: 1px solid var(--biloo-home-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.marketing-home-unified .wp-audience-grid > article > span {
+  color: var(--biloo-home-accent) !important;
+  background: transparent !important;
+}
+
+.marketing-home-unified .wp-local-row {
+  border-top: 1px solid var(--biloo-home-line) !important;
+}
+
+.marketing-home-unified .wp-local-row > div {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Security graphic keeps one core surface; labels are plain. */
+.marketing-home-unified .wp-security-visual {
+  background: transparent !important;
+}
+
+.marketing-home-unified .wp-security-center {
+  color: var(--biloo-home-text) !important;
+  border: 1px solid var(--biloo-home-line) !important;
+  border-radius: 50% !important;
+  background: var(--biloo-home-surface) !important;
+  background-image: none !important;
+  box-shadow: var(--biloo-home-shadow) !important;
+}
+
+.marketing-home-unified .wp-security-badge {
+  color: var(--biloo-home-text) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--biloo-home-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.marketing-home-unified .wp-security-ring {
+  border-color: rgba(49, 94, 251, 0.18) !important;
+}
+
+.marketing-home-unified .wp-security-list > div {
+  border-top: 1px solid var(--biloo-home-line) !important;
+}
+
+.marketing-home-unified .wp-security-list > div > span,
+.marketing-home-unified .wp-story-copy > ul > li > span {
+  color: var(--biloo-home-accent) !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* FAQ rows, not cards. */
+.marketing-home-unified .wp-faq-list {
+  border-top: 1px solid var(--biloo-home-line) !important;
+}
+
+.marketing-home-unified .wp-faq-list > article {
+  border: 0 !important;
+  border-bottom: 1px solid var(--biloo-home-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Footer remains open and quiet. */
 .marketing-home-unified .wp-footer {
-  padding-top: clamp(58px, 6vw, 82px) !important;
+  padding-top: clamp(56px, 6vw, 80px) !important;
   padding-bottom: clamp(26px, 3vw, 42px) !important;
   border-top: 1px solid var(--biloo-home-line) !important;
 }
@@ -387,20 +520,18 @@
   margin-bottom: 6px !important;
   font-size: 0.78rem !important;
   font-weight: 750 !important;
-  letter-spacing: 0.035em !important;
+  letter-spacing: 0.03em !important;
   text-transform: none !important;
 }
 
 .marketing-home-unified .wp-footer a {
   color: var(--biloo-home-muted) !important;
-  -webkit-text-fill-color: var(--biloo-home-muted) !important;
   text-decoration: none !important;
 }
 
 .marketing-home-unified .wp-footer a:hover,
 .marketing-home-unified .wp-footer a:focus-visible {
   color: var(--biloo-home-accent) !important;
-  -webkit-text-fill-color: var(--biloo-home-accent) !important;
 }
 
 .marketing-home-unified .wp-footer-bottom {
@@ -421,6 +552,15 @@
   flex-wrap: wrap !important;
 }
 
+html[data-public-theme="dark"] .marketing-home-unified {
+  --biloo-home-bg: #0d1119;
+  --biloo-home-surface: #151a23;
+  --biloo-home-text: #f3f5f8;
+  --biloo-home-muted: #aeb7c6;
+  --biloo-home-soft: #8f9bad;
+  --biloo-home-line: #2a3341;
+}
+
 @media (max-width: 1180px) {
   .marketing-home-unified .wp-hero-layout {
     grid-template-columns: 1fr !important;
@@ -435,7 +575,8 @@
 
   .marketing-home-unified .wp-hero-copy::before,
   .marketing-home-unified .wp-hero-copy h1,
-  .marketing-home-unified .wp-hero-copy > p {
+  .marketing-home-unified .wp-hero-copy > p,
+  .marketing-home-unified .wp-kicker {
     margin-inline: auto !important;
   }
 
@@ -448,29 +589,42 @@
   }
 }
 
+@media (max-width: 900px) {
+  .marketing-home-unified .wp-explorer-tabs {
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--biloo-home-line) !important;
+  }
+}
+
 @media (max-width: 820px) {
   .marketing-home-unified .wp-footer-main { grid-template-columns: 1fr !important; gap: 38px !important; }
 }
 
 @media (max-width: 760px) {
-  .marketing-home-unified .wp-hero { padding: 56px 0 68px !important; }
+  .marketing-home-unified .wp-hero { padding: 54px 0 66px !important; }
   .marketing-home-unified .wp-hero-copy { text-align: left; }
 
   .marketing-home-unified .wp-hero-copy::before,
   .marketing-home-unified .wp-hero-copy h1,
-  .marketing-home-unified .wp-hero-copy > p { margin-inline: 0 !important; }
+  .marketing-home-unified .wp-hero-copy > p,
+  .marketing-home-unified .wp-kicker {
+    margin-inline: 0 !important;
+  }
 
   .marketing-home-unified .wp-hero-copy h1 {
     max-width: 13ch !important;
-    font-size: clamp(2.3rem, 9.8vw, 3.45rem) !important;
-    line-height: 1.04 !important;
+    font-size: clamp(2.25rem, 9.5vw, 3.35rem) !important;
+    line-height: 1.05 !important;
   }
 
   .marketing-home-unified :is(
-    .wp-section-heading h2, .wp-story-copy h2, .wp-audience-heading h2,
-    .wp-security-copy h2, .wp-faq-heading h2
+    .wp-section-heading h2,
+    .wp-story-copy h2,
+    .wp-audience-heading h2,
+    .wp-security-copy h2,
+    .wp-faq-heading h2
   ) {
-    font-size: clamp(1.8rem, 7.2vw, 2.55rem) !important;
+    font-size: clamp(1.78rem, 7vw, 2.5rem) !important;
   }
 
   .marketing-home-unified .wp-hero-actions {
@@ -489,6 +643,5 @@
 }
 
 @media (max-width: 480px) {
-  .marketing-home-unified .wp-float-card { display: none !important; }
   .marketing-home-unified .wp-footer-links { grid-template-columns: 1fr !important; }
 }
