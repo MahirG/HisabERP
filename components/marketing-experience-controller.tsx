@@ -218,18 +218,15 @@ export function MarketingExperienceController() {
       <link rel="stylesheet" href="/biloo-legal-suite.css?v=20260806-1" />
       {legalPath ? <link rel="stylesheet" href="/biloo-legal-pages.css?v=20260806-1" /> : null}
       {!homePath ? <link rel="stylesheet" href="/biloo-marketing-foundation-v2.css?v=20260806-1" /> : null}
-      {homePath ? (
-        <>
-          <link rel="stylesheet" href="/biloo-home-graphics-v4.css?v=20260806-2" />
-          <link rel="stylesheet" href="/biloo-home-footer-v4.css?v=20260806-2" />
-        </>
-      ) : null}
+      {homePath ? <link rel="stylesheet" href="/biloo-home-latest.css?v=20260806-1" /> : null}
       <MarketingLegalSuite />
-      <div className="marketing-motion-layer">
-        <span className="marketing-motion-orb marketing-motion-orb-one" aria-hidden="true" />
-        <span className="marketing-motion-orb marketing-motion-orb-two" aria-hidden="true" />
-        <span className="marketing-scroll-progress" aria-hidden="true" />
-      </div>
+      {!homePath ? (
+        <div className="marketing-motion-layer">
+          <span className="marketing-motion-orb marketing-motion-orb-one" aria-hidden="true" />
+          <span className="marketing-motion-orb marketing-motion-orb-two" aria-hidden="true" />
+          <span className="marketing-scroll-progress" aria-hidden="true" />
+        </div>
+      ) : null}
     </>
   );
 }
