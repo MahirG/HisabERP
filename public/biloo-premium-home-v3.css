@@ -1,0 +1,1072 @@
+/*
+ * Biloo premium homepage direction v3.
+ * Loaded last on `/` so the accessibility fixes remain intact while the
+ * homepage regains depth, motion, hierarchy and a distinctive fintech finish.
+ */
+
+.marketing-home-unified {
+  --premium-ink: #0b1220;
+  --premium-navy: #101d38;
+  --premium-navy-2: #172b50;
+  --premium-midnight: #050912;
+  --premium-gold: #fca311;
+  --premium-gold-bright: #ffc65c;
+  --premium-cyan: #58d8ff;
+  --premium-paper: #ffffff;
+  --premium-mist: #f3f7fc;
+  --premium-line: rgba(15, 28, 52, 0.12);
+  --premium-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  color: var(--premium-ink) !important;
+  background: #07101f !important;
+}
+
+.marketing-home-unified .wp-site,
+.marketing-home-unified #wp-main {
+  overflow: clip;
+  color: var(--premium-ink) !important;
+  background: var(--premium-mist) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Global header: polished dark glass with unmistakable controls
+   -------------------------------------------------------------------------- */
+
+.marketing-home-unified .wb-header.wb-header {
+  color: #f8fbff !important;
+  background:
+    linear-gradient(180deg, rgba(5, 9, 18, 0.96), rgba(7, 14, 27, 0.9)) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.035) inset,
+    0 18px 55px rgba(1, 5, 14, 0.34) !important;
+  backdrop-filter: blur(22px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(150%) !important;
+}
+
+.marketing-home-unified .wb-header::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(252, 163, 17, 0.82), rgba(88, 216, 255, 0.58), transparent);
+  opacity: 0.72;
+}
+
+.marketing-home-unified .wb-header :is(
+  .wb-primary-nav > a,
+  .wb-nav-group > button,
+  .wb-action-button,
+  .wb-icon-button,
+  .wb-mobile-toggle
+) {
+  color: #f4f8ff !important;
+  -webkit-text-fill-color: #f4f8ff !important;
+}
+
+.marketing-home-unified .wb-header :is(.wb-action-button, .wb-icon-button, .wb-mobile-toggle) {
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.045)) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18), inset 0 1px rgba(255, 255, 255, 0.08) !important;
+}
+
+.marketing-home-unified .wb-header :is(.wb-action-button, .wb-icon-button, .wb-mobile-toggle):hover,
+.marketing-home-unified .wb-header :is(.wb-action-button, .wb-icon-button, .wb-mobile-toggle):focus-visible {
+  color: #ffffff !important;
+  border-color: rgba(252, 163, 17, 0.62) !important;
+  background: linear-gradient(180deg, rgba(252, 163, 17, 0.22), rgba(252, 163, 17, 0.1)) !important;
+  box-shadow: 0 14px 32px rgba(252, 163, 17, 0.15), inset 0 1px rgba(255, 255, 255, 0.12) !important;
+}
+
+.marketing-home-unified .wb-header :is(
+  .wb-action-button,
+  .wb-icon-button,
+  .wb-mobile-toggle,
+  .wb-dashboard-button,
+  .wb-nav-group > button,
+  .wb-primary-nav > a
+) svg {
+  display: block !important;
+  color: currentColor !important;
+  stroke: currentColor !important;
+  fill: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.12));
+}
+
+.marketing-home-unified .wb-header .wb-dashboard-button {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  border-color: rgba(255, 205, 100, 0.82) !important;
+  background: linear-gradient(135deg, #ffd270, #fca311 54%, #ffb72f) !important;
+  box-shadow: 0 12px 32px rgba(252, 163, 17, 0.32), inset 0 1px rgba(255, 255, 255, 0.48) !important;
+}
+
+.marketing-home-unified .wb-header .wb-dashboard-button :is(span, svg) {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Hero: cinematic fintech depth, clear copy, premium product theatre
+   -------------------------------------------------------------------------- */
+
+.marketing-home-unified .wp-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: min(900px, calc(100svh - 62px));
+  padding: clamp(92px, 9vw, 132px) 0 clamp(92px, 8vw, 124px) !important;
+  color: #ffffff !important;
+  border-bottom: 0 !important;
+  background:
+    radial-gradient(circle at 13% 18%, rgba(252, 163, 17, 0.27), transparent 30rem),
+    radial-gradient(circle at 82% 20%, rgba(88, 216, 255, 0.2), transparent 34rem),
+    radial-gradient(circle at 58% 96%, rgba(57, 91, 160, 0.25), transparent 35rem),
+    linear-gradient(135deg, #04070d 0%, #0a1427 43%, #101f3b 72%, #07101f 100%) !important;
+}
+
+.marketing-home-unified .wp-hero::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, 0.045) 42%, transparent 60%),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.06), transparent 45%);
+  mix-blend-mode: screen;
+}
+
+.marketing-home-unified .wp-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 190px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, rgba(3, 8, 17, 0.32));
+}
+
+.marketing-home-unified .wp-hero-grid {
+  display: block !important;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.16 !important;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px) !important;
+  background-size: 64px 64px !important;
+  mask-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0.56) 60%, transparent 96%);
+  -webkit-mask-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0.56) 60%, transparent 96%);
+}
+
+.marketing-home-unified .wp-hero-orb {
+  display: block !important;
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(14px);
+  opacity: 0.72 !important;
+  animation: biloo-premium-float 10s var(--premium-ease) infinite alternate;
+}
+
+.marketing-home-unified .wp-hero-orb-one {
+  top: 10%;
+  left: -9rem;
+  width: 28rem;
+  height: 28rem;
+  background: radial-gradient(circle, rgba(252, 163, 17, 0.34), transparent 68%);
+}
+
+.marketing-home-unified .wp-hero-orb-two {
+  top: 4%;
+  right: -7rem;
+  width: 34rem;
+  height: 34rem;
+  background: radial-gradient(circle, rgba(74, 191, 255, 0.27), transparent 68%);
+  animation-delay: -3s;
+}
+
+.marketing-home-unified .wp-hero-layout {
+  position: relative;
+  z-index: 2;
+  grid-template-columns: minmax(0, 0.88fr) minmax(540px, 1.12fr) !important;
+  gap: clamp(54px, 7vw, 96px) !important;
+}
+
+.marketing-home-unified .wp-hero-copy {
+  position: relative;
+}
+
+.marketing-home-unified .wp-hero-copy::before {
+  content: "";
+  position: absolute;
+  top: -48px;
+  left: -52px;
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--premium-gold), transparent);
+  box-shadow: 0 0 22px rgba(252, 163, 17, 0.65);
+}
+
+.marketing-home-unified .wp-hero .wp-kicker {
+  color: #ffd77f !important;
+  -webkit-text-fill-color: #ffd77f !important;
+  border: 1px solid rgba(255, 210, 112, 0.3) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.055)) !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 16px 42px rgba(0, 0, 0, 0.22) !important;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+.marketing-home-unified .wp-hero .wp-kicker svg {
+  color: var(--premium-gold-bright) !important;
+  filter: drop-shadow(0 0 9px rgba(252, 163, 17, 0.6));
+}
+
+.marketing-home-unified .wp-hero-copy h1 {
+  max-width: 10.8ch !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-size: clamp(3.5rem, 6.8vw, 6rem) !important;
+  font-weight: 720 !important;
+  letter-spacing: -0.072em !important;
+  line-height: 0.94 !important;
+  text-shadow: 0 18px 55px rgba(0, 0, 0, 0.24);
+}
+
+.marketing-home-unified .wp-hero-copy h1 em {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  background: linear-gradient(105deg, #fff1ca 0%, #ffc253 36%, #fca311 67%, #67dcff 116%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 12px 28px rgba(252, 163, 17, 0.16));
+}
+
+.marketing-home-unified .wp-hero-copy h1 em::after {
+  z-index: 0 !important;
+  bottom: -0.06em !important;
+  height: 0.08em !important;
+  background: linear-gradient(90deg, transparent, rgba(252, 163, 17, 0.92), rgba(88, 216, 255, 0.66), transparent) !important;
+  box-shadow: 0 0 18px rgba(252, 163, 17, 0.45);
+}
+
+.marketing-home-unified .wp-hero-copy > p {
+  max-width: 600px !important;
+  color: #c8d4e6 !important;
+  -webkit-text-fill-color: #c8d4e6 !important;
+  font-size: clamp(1.07rem, 1.55vw, 1.25rem) !important;
+  line-height: 1.72 !important;
+}
+
+.marketing-home-unified .wp-hero .wp-button-primary {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  border-color: rgba(255, 215, 128, 0.9) !important;
+  background: linear-gradient(135deg, #ffe09b 0%, #fca311 54%, #ffb52a 100%) !important;
+  box-shadow:
+    0 22px 50px rgba(252, 163, 17, 0.3),
+    inset 0 1px rgba(255, 255, 255, 0.5) !important;
+}
+
+.marketing-home-unified .wp-hero .wp-button-primary :is(span, svg) {
+  color: #111827 !important;
+}
+
+.marketing-home-unified .wp-hero .wp-button-secondary {
+  color: #f7fbff !important;
+  -webkit-text-fill-color: #f7fbff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.115), rgba(255, 255, 255, 0.055)) !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 16px 38px rgba(0, 0, 0, 0.18) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.marketing-home-unified .wp-hero .wp-button:hover {
+  transform: translateY(-4px) scale(1.01) !important;
+}
+
+.marketing-home-unified .wp-hero .wp-hero-assurance,
+.marketing-home-unified .wp-hero .wp-hero-assurance span {
+  color: #d5dfed !important;
+  -webkit-text-fill-color: #d5dfed !important;
+}
+
+.marketing-home-unified .wp-hero .wp-hero-assurance svg {
+  color: #79e5bd !important;
+  filter: drop-shadow(0 0 8px rgba(72, 222, 166, 0.45));
+}
+
+.marketing-home-unified .wp-hero-visual {
+  position: relative;
+  padding-block: 42px;
+  perspective: 1800px;
+}
+
+.marketing-home-unified .wp-hero-visual::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 10% 3% 5%;
+  border-radius: 44px;
+  background:
+    radial-gradient(circle at 22% 10%, rgba(252, 163, 17, 0.24), transparent 40%),
+    radial-gradient(circle at 82% 18%, rgba(88, 216, 255, 0.2), transparent 40%),
+    rgba(255, 255, 255, 0.045);
+  filter: blur(34px);
+}
+
+.marketing-home-unified .wp-app-window {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.36) !important;
+  border-radius: 30px !important;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(237, 244, 252, 0.94)) !important;
+  box-shadow:
+    0 80px 150px -55px rgba(0, 0, 0, 0.86),
+    0 34px 84px rgba(0, 0, 0, 0.38),
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 1px rgba(255, 255, 255, 0.92) !important;
+  transform: rotateY(-4deg) rotateX(2deg) translateZ(0) !important;
+  transition: transform 700ms var(--premium-ease), box-shadow 700ms var(--premium-ease) !important;
+}
+
+.marketing-home-unified .wp-hero-visual:hover .wp-app-window {
+  transform: rotateY(-1deg) rotateX(0.5deg) translateY(-10px) translateZ(0) !important;
+  box-shadow:
+    0 94px 170px -58px rgba(0, 0, 0, 0.9),
+    0 42px 94px rgba(0, 0, 0, 0.42),
+    0 0 54px rgba(88, 216, 255, 0.09),
+    inset 0 1px rgba(255, 255, 255, 0.95) !important;
+}
+
+.marketing-home-unified .wp-app-topbar {
+  color: #eaf2ff !important;
+  border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+  background: linear-gradient(90deg, #0a1325, #14294e) !important;
+}
+
+.marketing-home-unified .wp-app-topbar :is(strong, span) {
+  color: #eaf2ff !important;
+  -webkit-text-fill-color: #eaf2ff !important;
+}
+
+.marketing-home-unified .wp-app-user b {
+  color: #101827 !important;
+  background: linear-gradient(135deg, #ffe09b, #fca311) !important;
+}
+
+.marketing-home-unified .wp-app-sidebar {
+  background: linear-gradient(180deg, #0a1325, #101f3a) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.marketing-home-unified .wp-app-sidebar > span:not(.wp-sidebar-logo) {
+  color: #97a8c0 !important;
+}
+
+.marketing-home-unified .wp-app-sidebar > span.active {
+  color: #111827 !important;
+  background: linear-gradient(135deg, #ffd77d, #fca311) !important;
+  box-shadow: 0 8px 20px rgba(252, 163, 17, 0.32);
+}
+
+.marketing-home-unified .wp-app-content {
+  background:
+    radial-gradient(circle at 90% 0%, rgba(88, 216, 255, 0.08), transparent 38%),
+    linear-gradient(180deg, #f8fbff, #eef4fa) !important;
+}
+
+.marketing-home-unified :is(.wp-app-metrics article, .wp-app-chart-card, .wp-app-attention) {
+  border-color: rgba(20, 33, 61, 0.11) !important;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.99), rgba(247, 250, 254, 0.96)) !important;
+  box-shadow: 0 14px 34px rgba(20, 33, 61, 0.085), inset 0 1px rgba(255, 255, 255, 0.92) !important;
+}
+
+.marketing-home-unified .wp-mini-chart span,
+.marketing-home-unified .wp-preview-chart span {
+  background: linear-gradient(180deg, #6edcff, #2d78d7 58%, #14213d) !important;
+  box-shadow: 0 0 12px rgba(88, 216, 255, 0.16);
+}
+
+.marketing-home-unified .wp-float-card {
+  border: 1px solid rgba(255, 255, 255, 0.52) !important;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(239, 246, 253, 0.92)) !important;
+  box-shadow: 0 24px 58px rgba(1, 6, 16, 0.34), inset 0 1px rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  animation: biloo-card-float 6s ease-in-out infinite;
+}
+
+.marketing-home-unified .wp-float-card-stock {
+  animation-delay: -2.3s;
+}
+
+/* --------------------------------------------------------------------------
+   Proof strip and light sections: editorial rhythm with controlled energy
+   -------------------------------------------------------------------------- */
+
+.marketing-home-unified .wp-proof-strip {
+  position: relative;
+  color: #ffffff !important;
+  border-block: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(circle at 18% 50%, rgba(252, 163, 17, 0.15), transparent 28%),
+    radial-gradient(circle at 84% 50%, rgba(88, 216, 255, 0.12), transparent 30%),
+    linear-gradient(90deg, #07101f, #132644 50%, #07101f) !important;
+  box-shadow: 0 24px 70px rgba(5, 12, 26, 0.18);
+}
+
+.marketing-home-unified .wp-proof-grid > div {
+  position: relative;
+}
+
+.marketing-home-unified .wp-proof-grid > div:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 16%;
+  right: 0;
+  width: 1px;
+  height: 68%;
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.22), transparent);
+}
+
+.marketing-home-unified .wp-proof-grid strong {
+  color: #ffffff !important;
+  text-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+
+.marketing-home-unified .wp-proof-grid span {
+  color: #bfcce0 !important;
+}
+
+.marketing-home-unified :is(.wp-intro, .wp-journey-section, .wp-faq-section) {
+  color: var(--premium-ink) !important;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(252, 163, 17, 0.08), transparent 28rem),
+    radial-gradient(circle at 92% 22%, rgba(72, 162, 255, 0.08), transparent 30rem),
+    linear-gradient(180deg, #f8fbff, #eef4fa) !important;
+}
+
+.marketing-home-unified :is(.wp-story-section, .wp-security-section) {
+  color: var(--premium-ink) !important;
+  background:
+    linear-gradient(135deg, rgba(20, 33, 61, 0.025), transparent 34%),
+    #ffffff !important;
+}
+
+.marketing-home-unified :is(
+  .wp-intro,
+  .wp-story-section,
+  .wp-journey-section,
+  .wp-security-section,
+  .wp-faq-section
+) :is(h1, h2, h3, h4, strong) {
+  color: #0b1426 !important;
+  -webkit-text-fill-color: #0b1426 !important;
+}
+
+.marketing-home-unified :is(
+  .wp-intro,
+  .wp-story-section,
+  .wp-journey-section,
+  .wp-security-section,
+  .wp-faq-section
+) :is(p, li, small) {
+  color: #536178 !important;
+  -webkit-text-fill-color: #536178 !important;
+}
+
+.marketing-home-unified :is(.wp-intro, .wp-story-section, .wp-journey-section, .wp-security-section, .wp-faq-section) .wp-kicker {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  border-color: rgba(20, 33, 61, 0.12) !important;
+  background: rgba(255, 255, 255, 0.82) !important;
+  box-shadow: 0 12px 34px rgba(20, 33, 61, 0.07), inset 0 1px rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.marketing-home-unified .wp-section-heading h2 {
+  letter-spacing: -0.055em !important;
+}
+
+.marketing-home-unified .wp-pillar-grid {
+  gap: clamp(18px, 2vw, 26px) !important;
+}
+
+.marketing-home-unified .wp-pillar-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(20, 33, 61, 0.1) !important;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(88, 216, 255, 0.1), transparent 36%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.99), rgba(244, 248, 253, 0.96)) !important;
+  box-shadow:
+    0 20px 50px rgba(20, 33, 61, 0.085),
+    inset 0 1px rgba(255, 255, 255, 0.95) !important;
+  transition: transform 420ms var(--premium-ease), box-shadow 420ms var(--premium-ease), border-color 300ms ease !important;
+}
+
+.marketing-home-unified .wp-pillar-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--premium-gold), var(--premium-cyan));
+  transform: scaleX(0.24);
+  transform-origin: left;
+  transition: transform 420ms var(--premium-ease);
+}
+
+.marketing-home-unified .wp-pillar-card::after {
+  content: "";
+  position: absolute;
+  right: -70px;
+  bottom: -80px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(252, 163, 17, 0.11), transparent 68%);
+  pointer-events: none;
+}
+
+.marketing-home-unified .wp-pillar-card:hover {
+  border-color: rgba(252, 163, 17, 0.3) !important;
+  box-shadow: 0 30px 75px rgba(20, 33, 61, 0.15), 0 0 0 1px rgba(252, 163, 17, 0.06) !important;
+  transform: translateY(-10px) !important;
+}
+
+.marketing-home-unified .wp-pillar-card:hover::before {
+  transform: scaleX(1);
+}
+
+.marketing-home-unified .wp-pillar-icon,
+.marketing-home-unified .wp-step-icon,
+.marketing-home-unified .wp-story-copy > ul > li > span,
+.marketing-home-unified .wp-security-list > div > span {
+  color: #152443 !important;
+  background: linear-gradient(135deg, #ffe4a7, #fca311) !important;
+  box-shadow: 0 10px 26px rgba(252, 163, 17, 0.2), inset 0 1px rgba(255, 255, 255, 0.55) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Product explorer: immersive dark command center
+   -------------------------------------------------------------------------- */
+
+.marketing-home-unified .wp-product-explorer {
+  position: relative;
+  isolation: isolate;
+  color: #f8fbff !important;
+  background:
+    radial-gradient(circle at 12% 16%, rgba(252, 163, 17, 0.18), transparent 29rem),
+    radial-gradient(circle at 88% 20%, rgba(88, 216, 255, 0.15), transparent 32rem),
+    linear-gradient(135deg, #050a13, #0d1b34 48%, #132a50 100%) !important;
+}
+
+.marketing-home-unified .wp-product-explorer::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at 50% 50%, black, transparent 82%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black, transparent 82%);
+}
+
+.marketing-home-unified .wp-product-explorer :is(h2, h3, strong, b, button, a) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.marketing-home-unified .wp-product-explorer :is(p, small) {
+  color: #bdc9dc !important;
+  -webkit-text-fill-color: #bdc9dc !important;
+}
+
+.marketing-home-unified .wp-product-explorer .wp-kicker {
+  color: #ffd477 !important;
+  -webkit-text-fill-color: #ffd477 !important;
+  border-color: rgba(255, 210, 112, 0.26) !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.08) !important;
+}
+
+.marketing-home-unified .wp-explorer {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 30px !important;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.115), rgba(255, 255, 255, 0.045)) !important;
+  box-shadow:
+    0 45px 110px rgba(0, 0, 0, 0.4),
+    inset 0 1px rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(22px) saturate(135%);
+  -webkit-backdrop-filter: blur(22px) saturate(135%);
+}
+
+.marketing-home-unified .wp-explorer-tabs {
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  background: rgba(4, 10, 20, 0.36) !important;
+}
+
+.marketing-home-unified .wp-explorer-tabs button {
+  color: #aebcd1 !important;
+  -webkit-text-fill-color: #aebcd1 !important;
+  border-color: transparent !important;
+  background: transparent !important;
+}
+
+.marketing-home-unified .wp-explorer-tabs button.active {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  border-color: rgba(255, 208, 102, 0.28) !important;
+  background: linear-gradient(90deg, rgba(252, 163, 17, 0.24), rgba(88, 216, 255, 0.1)) !important;
+  box-shadow: inset 3px 0 #fca311, 0 12px 32px rgba(0, 0, 0, 0.18) !important;
+}
+
+.marketing-home-unified .wp-explorer-preview {
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background:
+    radial-gradient(circle at 86% 10%, rgba(88, 216, 255, 0.12), transparent 32%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06)) !important;
+  box-shadow: 0 28px 75px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.11) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Story, journey, audience and security
+   -------------------------------------------------------------------------- */
+
+.marketing-home-unified .wp-connection-map {
+  border: 1px solid rgba(20, 33, 61, 0.11) !important;
+  background:
+    radial-gradient(circle at center, rgba(88, 216, 255, 0.11), transparent 42%),
+    linear-gradient(145deg, #ffffff, #eef5fc) !important;
+  box-shadow: 0 32px 85px rgba(20, 33, 61, 0.14), inset 0 1px rgba(255, 255, 255, 0.96) !important;
+}
+
+.marketing-home-unified .wp-map-glow {
+  display: block !important;
+  background: radial-gradient(circle, rgba(252, 163, 17, 0.22), rgba(88, 216, 255, 0.09) 42%, transparent 72%) !important;
+  filter: blur(10px);
+  animation: biloo-premium-pulse 5.5s ease-in-out infinite;
+}
+
+.marketing-home-unified :is(.wp-map-node, .wp-map-center) {
+  border-color: rgba(20, 33, 61, 0.1) !important;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.99), rgba(245, 249, 253, 0.96)) !important;
+  box-shadow: 0 17px 42px rgba(20, 33, 61, 0.12), inset 0 1px rgba(255, 255, 255, 0.96) !important;
+}
+
+.marketing-home-unified .wp-map-lines path {
+  stroke: url(#premium-map-gradient);
+  stroke: rgba(44, 112, 185, 0.42) !important;
+  filter: drop-shadow(0 0 7px rgba(88, 216, 255, 0.22));
+}
+
+.marketing-home-unified .wp-journey-grid > article {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(20, 33, 61, 0.1) !important;
+  background: linear-gradient(145deg, #ffffff, #f4f8fd) !important;
+  box-shadow: 0 18px 46px rgba(20, 33, 61, 0.08), inset 0 1px rgba(255, 255, 255, 0.95) !important;
+  transition: transform 380ms var(--premium-ease), box-shadow 380ms var(--premium-ease) !important;
+}
+
+.marketing-home-unified .wp-journey-grid > article:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 28px 68px rgba(20, 33, 61, 0.14) !important;
+}
+
+.marketing-home-unified .wp-step-number {
+  color: rgba(20, 33, 61, 0.13) !important;
+  -webkit-text-fill-color: rgba(20, 33, 61, 0.13) !important;
+}
+
+.marketing-home-unified .wp-audience-section {
+  color: #ffffff !important;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(252, 163, 17, 0.08), transparent 30rem),
+    linear-gradient(180deg, #eef4fa, #f9fbfe) !important;
+}
+
+.marketing-home-unified .wp-audience-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(252, 163, 17, 0.23), transparent 29rem),
+    radial-gradient(circle at 92% 10%, rgba(88, 216, 255, 0.17), transparent 31rem),
+    linear-gradient(135deg, #08111f, #132847 54%, #0b172b) !important;
+  box-shadow: 0 44px 110px rgba(20, 33, 61, 0.27), inset 0 1px rgba(255, 255, 255, 0.09) !important;
+}
+
+.marketing-home-unified .wp-audience-panel::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: 0.16;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 68px 68px;
+  mask-image: linear-gradient(to bottom, black, transparent 92%);
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 92%);
+}
+
+.marketing-home-unified .wp-audience-panel :is(h2, h3, strong, b) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.marketing-home-unified .wp-audience-panel :is(p, small) {
+  color: #c5d0df !important;
+  -webkit-text-fill-color: #c5d0df !important;
+}
+
+.marketing-home-unified .wp-audience-panel .wp-kicker {
+  color: #ffd477 !important;
+  -webkit-text-fill-color: #ffd477 !important;
+  border-color: rgba(255, 210, 112, 0.28) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.marketing-home-unified .wp-audience-grid > article {
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.055)) !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 18px 45px rgba(0, 0, 0, 0.15) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: transform 380ms var(--premium-ease), border-color 300ms ease, background 300ms ease !important;
+}
+
+.marketing-home-unified .wp-audience-grid > article:hover {
+  transform: translateY(-8px) !important;
+  border-color: rgba(255, 208, 102, 0.34) !important;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.075)) !important;
+}
+
+.marketing-home-unified .wp-security-visual {
+  filter: drop-shadow(0 34px 48px rgba(20, 33, 61, 0.16));
+}
+
+.marketing-home-unified .wp-security-ring {
+  border-color: rgba(35, 104, 180, 0.18) !important;
+  box-shadow: 0 0 40px rgba(88, 216, 255, 0.08);
+}
+
+.marketing-home-unified .wp-security-center {
+  border: 1px solid rgba(20, 33, 61, 0.1) !important;
+  background: linear-gradient(145deg, #ffffff, #eef5fc) !important;
+  box-shadow: 0 24px 60px rgba(20, 33, 61, 0.16), inset 0 1px rgba(255, 255, 255, 0.96) !important;
+}
+
+.marketing-home-unified .wp-security-badge {
+  border: 1px solid rgba(20, 33, 61, 0.11) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 16px 38px rgba(20, 33, 61, 0.12) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* --------------------------------------------------------------------------
+   FAQ, final conversion and footer
+   -------------------------------------------------------------------------- */
+
+.marketing-home-unified .wp-faq-list > article {
+  border: 1px solid rgba(20, 33, 61, 0.1) !important;
+  background: linear-gradient(145deg, #ffffff, #f6f9fd) !important;
+  box-shadow: 0 14px 38px rgba(20, 33, 61, 0.07), inset 0 1px rgba(255, 255, 255, 0.96) !important;
+  transition: border-color 280ms ease, box-shadow 280ms ease, transform 280ms var(--premium-ease) !important;
+}
+
+.marketing-home-unified .wp-faq-list > article:hover,
+.marketing-home-unified .wp-faq-list > article.open {
+  border-color: rgba(252, 163, 17, 0.28) !important;
+  box-shadow: 0 20px 52px rgba(20, 33, 61, 0.11) !important;
+  transform: translateY(-2px);
+}
+
+.marketing-home-unified .wp-final-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #ffffff !important;
+  background:
+    radial-gradient(circle at 12% 15%, rgba(252, 163, 17, 0.27), transparent 31rem),
+    radial-gradient(circle at 88% 18%, rgba(88, 216, 255, 0.17), transparent 34rem),
+    linear-gradient(135deg, #03070e, #0b1730 48%, #142d52 100%) !important;
+}
+
+.marketing-home-unified .wp-final-cta::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: 0.16;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, black, transparent 82%);
+  -webkit-mask-image: radial-gradient(circle at center, black, transparent 82%);
+}
+
+.marketing-home-unified .wp-final-orb {
+  display: block !important;
+  background: radial-gradient(circle, rgba(252, 163, 17, 0.25), rgba(88, 216, 255, 0.09) 44%, transparent 72%) !important;
+  filter: blur(18px);
+  animation: biloo-premium-pulse 6s ease-in-out infinite;
+}
+
+.marketing-home-unified .wp-final-cta :is(h2, h3, strong, b) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.marketing-home-unified .wp-final-cta :is(p, small, span) {
+  color: #c6d1e1 !important;
+  -webkit-text-fill-color: #c6d1e1 !important;
+}
+
+.marketing-home-unified .wp-final-cta .wp-kicker {
+  color: #ffd477 !important;
+  -webkit-text-fill-color: #ffd477 !important;
+  border-color: rgba(255, 210, 112, 0.28) !important;
+  background: rgba(255, 255, 255, 0.075) !important;
+}
+
+.marketing-home-unified .wp-button-gold {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  background: linear-gradient(135deg, #ffe29f, #fca311 54%, #ffb52a) !important;
+  box-shadow: 0 22px 54px rgba(252, 163, 17, 0.29), inset 0 1px rgba(255, 255, 255, 0.52) !important;
+}
+
+.marketing-home-unified .wp-footer {
+  color: #dce5f2 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.09) !important;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(252, 163, 17, 0.08), transparent 30rem),
+    linear-gradient(180deg, #05080e, #020407) !important;
+}
+
+.marketing-home-unified .wp-footer :is(strong, h2, h3) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.marketing-home-unified .wp-footer :is(a, p, span, small) {
+  color: #aebacc !important;
+  -webkit-text-fill-color: #aebacc !important;
+}
+
+.marketing-home-unified .wp-footer a:hover {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* --------------------------------------------------------------------------
+   First-paint and dark-mode safeguards
+   -------------------------------------------------------------------------- */
+
+.marketing-home-unified #wp-main :is(h1, h2, h3, h4, p, li, span, small, strong, b, em, a, button) {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+html:is([data-public-theme="dark"], [data-theme="dark"]) .marketing-home-unified :is(.wp-intro, .wp-story-section, .wp-journey-section, .wp-security-section, .wp-faq-section) {
+  color: #f8fbff !important;
+  background:
+    radial-gradient(circle at 10% 15%, rgba(252, 163, 17, 0.09), transparent 28rem),
+    radial-gradient(circle at 90% 20%, rgba(88, 216, 255, 0.08), transparent 30rem),
+    #09101b !important;
+}
+
+html:is([data-public-theme="dark"], [data-theme="dark"]) .marketing-home-unified :is(.wp-intro, .wp-story-section, .wp-journey-section, .wp-security-section, .wp-faq-section) :is(h1, h2, h3, h4, strong) {
+  color: #f8fbff !important;
+  -webkit-text-fill-color: #f8fbff !important;
+}
+
+html:is([data-public-theme="dark"], [data-theme="dark"]) .marketing-home-unified :is(.wp-intro, .wp-story-section, .wp-journey-section, .wp-security-section, .wp-faq-section) :is(p, li, small) {
+  color: #c1ccdc !important;
+  -webkit-text-fill-color: #c1ccdc !important;
+}
+
+html:is([data-public-theme="dark"], [data-theme="dark"]) .marketing-home-unified :is(.wp-pillar-card, .wp-journey-grid > article, .wp-faq-list > article, .wp-map-node, .wp-map-center, .wp-security-center, .wp-security-badge) {
+  color: #f8fbff !important;
+  border-color: rgba(255, 255, 255, 0.11) !important;
+  background: linear-gradient(145deg, #141d2b, #0f1723) !important;
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.28), inset 0 1px rgba(255, 255, 255, 0.06) !important;
+}
+
+html:is([data-public-theme="dark"], [data-theme="dark"]) .marketing-home-unified :is(.wp-pillar-card, .wp-journey-grid > article, .wp-faq-list > article, .wp-map-node, .wp-map-center, .wp-security-center, .wp-security-badge) :is(h2, h3, h4, strong, b) {
+  color: #f8fbff !important;
+  -webkit-text-fill-color: #f8fbff !important;
+}
+
+html:is([data-public-theme="dark"], [data-theme="dark"]) .marketing-home-unified :is(.wp-pillar-card, .wp-journey-grid > article, .wp-faq-list > article, .wp-map-node, .wp-map-center, .wp-security-center, .wp-security-badge) :is(p, li, small) {
+  color: #bdc9d9 !important;
+  -webkit-text-fill-color: #bdc9d9 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive refinement
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1180px) {
+  .marketing-home-unified .wp-hero-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 62px !important;
+  }
+
+  .marketing-home-unified .wp-hero-copy {
+    width: min(100%, 840px);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .marketing-home-unified .wp-hero-copy h1,
+  .marketing-home-unified .wp-hero-copy > p {
+    margin-inline: auto !important;
+  }
+
+  .marketing-home-unified .wp-hero-actions,
+  .marketing-home-unified .wp-hero-assurance {
+    justify-content: center;
+  }
+
+  .marketing-home-unified .wp-hero-copy::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .marketing-home-unified .wp-hero-visual {
+    width: min(100%, 900px);
+    margin-inline: auto;
+  }
+
+  .marketing-home-unified .wp-app-window {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .marketing-home-unified .wp-hero {
+    min-height: auto;
+    padding-top: 70px !important;
+    padding-bottom: 82px !important;
+  }
+
+  .marketing-home-unified .wp-hero-grid {
+    background-size: 42px 42px !important;
+  }
+
+  .marketing-home-unified .wp-hero-copy {
+    text-align: left;
+  }
+
+  .marketing-home-unified .wp-hero-copy::before {
+    left: 0;
+    transform: none;
+  }
+
+  .marketing-home-unified .wp-hero-copy h1 {
+    max-width: 12ch !important;
+    margin-inline: 0 !important;
+    font-size: clamp(2.75rem, 13vw, 4.3rem) !important;
+  }
+
+  .marketing-home-unified .wp-hero-copy > p {
+    margin-inline: 0 !important;
+  }
+
+  .marketing-home-unified .wp-hero-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .marketing-home-unified .wp-hero-actions .wp-button {
+    width: 100% !important;
+  }
+
+  .marketing-home-unified .wp-hero-assurance {
+    justify-content: flex-start;
+  }
+
+  .marketing-home-unified .wp-hero-visual {
+    padding-top: 20px;
+  }
+
+  .marketing-home-unified .wp-app-window {
+    border-radius: 22px !important;
+  }
+
+  .marketing-home-unified .wp-proof-grid > div::after {
+    display: none;
+  }
+
+  .marketing-home-unified .wp-audience-panel,
+  .marketing-home-unified .wp-explorer {
+    border-radius: 24px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .marketing-home-unified .wp-hero-copy h1 {
+    font-size: clamp(2.45rem, 12.5vw, 3.5rem) !important;
+  }
+
+  .marketing-home-unified .wp-hero .wp-kicker {
+    line-height: 1.45;
+  }
+
+  .marketing-home-unified .wp-float-card {
+    display: none !important;
+  }
+}
+
+@keyframes biloo-premium-float {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(34px, 22px, 0) scale(1.06); }
+}
+
+@keyframes biloo-card-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -9px, 0); }
+}
+
+@keyframes biloo-premium-pulse {
+  0%, 100% { opacity: 0.62; transform: scale(0.96); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-home-unified .wp-hero-orb,
+  .marketing-home-unified .wp-float-card,
+  .marketing-home-unified .wp-map-glow,
+  .marketing-home-unified .wp-final-orb {
+    animation: none !important;
+  }
+
+  .marketing-home-unified :is(.wp-app-window, .wp-pillar-card, .wp-journey-grid > article, .wp-audience-grid > article) {
+    transition-duration: 0.01ms !important;
+  }
+}
