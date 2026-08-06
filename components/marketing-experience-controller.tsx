@@ -245,8 +245,8 @@ export function MarketingExperienceController() {
       <link rel="stylesheet" href="/biloo-marketing-interactions.css?v=20260806-3" />
       <link rel="stylesheet" href="/biloo-legal-suite.css?v=20260806-1" />
       {legalPath ? <link rel="stylesheet" href="/biloo-legal-pages.css?v=20260806-1" /> : null}
-      {!homePath ? <link rel="stylesheet" href="/biloo-marketing-foundation-v2.css?v=20260806-1" /> : null}
-      {homePath ? <link rel="stylesheet" href="/biloo-home-latest.css?v=20260806-1" /> : null}
+      {!homePath ? <link rel="stylesheet" href="/biloo-marketing-foundation-v2.css?v=20260806-2" /> : null}
+      {homePath ? <link rel="stylesheet" href="/biloo-home-latest.css?v=20260806-2" /> : null}
       <MarketingLegalSuite />
       {!homePath ? (
         <div className="marketing-motion-layer">
