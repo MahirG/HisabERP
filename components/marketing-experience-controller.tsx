@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { MarketingLegalSuite } from "./marketing-legal-suite";
 
 const ADMIN_CONTACT_EMAIL = "mahir@hisabtech.com";
+const POWERED_BY_URL = "https://hisabtechnologies.com";
 const MARKETING_ROUTE_PREFIXES = [
   "/product",
   "/product-tour",
@@ -72,6 +73,31 @@ function normalizeAdminContactLinks(scope: ParentNode) {
     if (anchor.textContent?.trim().toLowerCase() === "info@hisabtech.com") {
       anchor.textContent = ADMIN_CONTACT_EMAIL;
     }
+  });
+}
+
+function ensurePoweredByFooter(scope: ParentNode) {
+  const footerRows: HTMLElement[] = [];
+  if (scope instanceof HTMLElement && scope.matches(".wp-footer-bottom, .marketing-footer-bottom")) {
+    footerRows.push(scope);
+  }
+  footerRows.push(
+    ...Array.from(scope.querySelectorAll<HTMLElement>(".wp-footer-bottom, .marketing-footer-bottom")),
+  );
+
+  footerRows.forEach((footerRow) => {
+    if (footerRow.querySelector('[data-powered-by-hisab="true"]')) return;
+
+    const link = document.createElement("a");
+    link.href = POWERED_BY_URL;
+    link.textContent = "Powered by hisabtechnologies.com";
+    link.className = "marketing-powered-by";
+    link.dataset.poweredByHisab = "true";
+    link.rel = "noopener noreferrer";
+
+    const legalLinks = footerRow.querySelector<HTMLElement>(":scope > div");
+    if (legalLinks) legalLinks.append(link);
+    else footerRow.append(link);
   });
 }
 
@@ -171,6 +197,7 @@ export function MarketingExperienceController() {
       }
 
       normalizeAdminContactLinks(marketingRoot);
+      ensurePoweredByFooter(marketingRoot);
       registerRevealElements(marketingRoot);
       updateScrollState();
 
@@ -179,6 +206,7 @@ export function MarketingExperienceController() {
           mutation.addedNodes.forEach((node) => {
             if (!(node instanceof HTMLElement)) return;
             normalizeAdminContactLinks(node);
+            ensurePoweredByFooter(node);
             registerRevealElements(node);
           });
         });
@@ -214,7 +242,7 @@ export function MarketingExperienceController() {
 
   return (
     <>
-      <link rel="stylesheet" href="/biloo-marketing-interactions.css?v=20260806-2" />
+      <link rel="stylesheet" href="/biloo-marketing-interactions.css?v=20260806-3" />
       <link rel="stylesheet" href="/biloo-legal-suite.css?v=20260806-1" />
       {legalPath ? <link rel="stylesheet" href="/biloo-legal-pages.css?v=20260806-1" /> : null}
       {!homePath ? <link rel="stylesheet" href="/biloo-marketing-foundation-v2.css?v=20260806-1" /> : null}
