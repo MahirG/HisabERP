@@ -109,6 +109,7 @@ export function MarketingExperienceController() {
 
   useEffect(() => {
     const body = document.body;
+    const documentRoot = document.documentElement;
 
     if (!marketingPath) {
       delete body.dataset.awardMarketing;
@@ -153,6 +154,14 @@ export function MarketingExperienceController() {
       if (!marketingRoot) {
         delete body.dataset.awardMarketing;
         return;
+      }
+
+      documentRoot.dataset.publicTheme = "light";
+      documentRoot.style.colorScheme = "light";
+      try {
+        window.localStorage.setItem("biloo-public-theme", "light");
+      } catch {
+        // Storage can be unavailable in restricted browsing contexts.
       }
 
       body.dataset.awardMarketing = "true";
@@ -215,6 +224,7 @@ export function MarketingExperienceController() {
       {legalPath ? <link rel="stylesheet" href="/biloo-legal-pages.css?v=20260806-1" /> : null}
       {!homePath ? <link rel="stylesheet" href="/biloo-marketing-foundation-v2.css?v=20260806-4" /> : null}
       {homePath ? <link rel="stylesheet" href="/biloo-home-latest.css?v=20260806-4" /> : null}
+      <link rel="stylesheet" href="/biloo-marketing-tricolor.css?v=20260806-1" />
       <MarketingLegalSuite />
     </>
   );
