@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
+import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { sharedResponsibility, trustControls } from "../../lib/marketing-trust";
 
 export const metadata = {
@@ -9,6 +10,13 @@ export const metadata = {
 
 export default function TrustPage() {
   const implemented = trustControls.filter((control) => control.status === "implemented").length;
+  const trustMetrics = [
+    { label: "Documented safeguards", value: String(trustControls.length), note: "Current control register" },
+    { label: "Implemented", value: String(implemented), note: "Verified product controls" },
+    { label: "Needs configuration", value: String(trustControls.length - implemented), note: "Operational or upgrade dependent" },
+  ];
+  const trustRows = trustControls.slice(0, 3).map((control) => ({ label: control.title, value: control.statusLabel, meta: control.number }));
+
   return (
     <MarketingPageShell>
       <section className="trust-page-hero">
@@ -18,12 +26,7 @@ export default function TrustPage() {
           <p>This Trust Center separates controls that are implemented today from safeguards that require configuration, ongoing operational evidence or a platform upgrade.</p>
           <div className="marketing-hero-actions"><a className="marketing-start marketing-large" href="mailto:mahir@hisabtech.com?subject=HisabERP%20security%20question">Ask a security question</a><Link className="marketing-demo marketing-large" href="/request-demo">Request a controlled demo</Link></div>
         </div>
-        <aside className="trust-summary-card">
-          <span>Current control register</span>
-          <strong>{trustControls.length} documented safeguards</strong>
-          <div><p><b>{implemented}</b><small>Implemented controls</small></p><p><b>{trustControls.length - implemented}</b><small>Configuration, operations or upgrade dependent</small></p></div>
-          <small>No certification, compliance or recovery capability is presented as active unless the product or platform state supports it.</small>
-        </aside>
+        <InteractiveErpOffice moduleTitle="Trust & controls" moduleEyebrow="Security operations workspace" metrics={trustMetrics} rows={trustRows} compact />
       </section>
 
       <section className="trust-section trust-section-light">
