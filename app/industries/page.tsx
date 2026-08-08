@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
+import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { marketingIndustries } from "../../lib/marketing-industries";
 
 export const metadata: Metadata = {
@@ -8,12 +9,24 @@ export const metadata: Metadata = {
   description: "Explore HisabERP solutions for retail, wholesale, hospitality, services, construction, manufacturing, cooperatives, trade and multi-branch Ethiopian businesses.",
 };
 
+const industryMetrics = [
+  { label: "Industry paths", value: String(marketingIndustries.length), note: "Focused operating models" },
+  { label: "Product foundation", value: "Connected", note: "One ERP data model" },
+  { label: "Local context", value: "Ethiopia", note: "ETB-first workflows" },
+];
+
+const industryRows = [
+  { label: "Sales activity", value: "Live", meta: "Revenue + balances + stock" },
+  { label: "Purchasing activity", value: "Linked", meta: "Costs + suppliers + inventory" },
+  { label: "Management reporting", value: "Ready", meta: "Decision indicators" },
+];
+
 export default function IndustriesPage() {
   return (
     <MarketingPageShell>
       <section className="industry-index-hero">
         <div><span className="marketing-eyebrow">Industry solutions</span><h1>See HisabERP through the workflow of your business.</h1><p>Every industry uses sales, expenses, inventory, customers, suppliers and finance differently. These solution pages show how connected ERP records support the decisions each team makes.</p><div className="marketing-hero-actions"><Link href="/request-demo" className="marketing-start marketing-large">Request an industry demo</Link><Link href="/product-tour" className="marketing-demo marketing-large">Explore the product</Link></div></div>
-        <div className="industry-index-summary"><span>Industry coverage</span><strong>{marketingIndustries.length}</strong><p>Focused solution paths for Ethiopian businesses moving from manual records to a connected operating system.</p><div><b>Local context</b><b>Connected modules</b><b>Practical workflows</b></div></div>
+        <InteractiveErpOffice moduleTitle="Industry operations" moduleEyebrow="Configured around your workflow" metrics={industryMetrics} rows={industryRows} compact />
       </section>
 
       <section className="marketing-section industry-index-section">
