@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MarketingPageShell } from "../../../components/marketing-site-chrome";
+import { InteractiveErpOffice } from "../../../components/interactive-erp-office";
 import { getMarketingModule, marketingModules } from "../../../lib/marketing-modules";
 
 export function generateStaticParams() {
@@ -40,11 +41,12 @@ export default async function ProductModulePage({ params }: { params: Promise<{ 
           </div>
         </div>
 
-        <div className="module-preview-card">
-          <header><div><img src="/hisab-logo.svg" alt="" width="34" height="34"/><span><small>HisabERP</small><strong>{module.shortTitle}</strong></span></div><b>Live workspace</b></header>
-          <div className="module-preview-metrics">{module.metrics.map((metric) => <article key={metric.label}><small>{metric.label}</small><strong>{metric.value}</strong><span>{metric.note}</span></article>)}</div>
-          <div className="module-preview-table"><header><strong>Current activity</strong><small>Operational records</small></header>{module.previewRows.map((row) => <p key={row.label}><span><strong>{row.label}</strong><small>{row.meta}</small></span><b>{row.value}</b></p>)}</div>
-        </div>
+        <InteractiveErpOffice
+          moduleTitle={module.shortTitle}
+          moduleEyebrow={module.eyebrow}
+          metrics={module.metrics}
+          rows={module.previewRows}
+        />
       </section>
 
       <section className="module-problem-outcome">
