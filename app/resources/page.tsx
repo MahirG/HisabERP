@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
+import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { marketingResources } from "../../lib/marketing-resources";
 import { getPublicLanguage, localize } from "../../lib/public-localization";
 
@@ -61,15 +62,18 @@ const copy = {
 export default async function ResourcesPage() {
   const language = await getPublicLanguage();
   const c = copy[language];
+  const resourceMetrics = [
+    { label: c.guides, value: String(marketingResources.length), note: language === "am" ? "የተግባር መመሪያ" : "Implementation-focused" },
+    { label: language === "am" ? "መዋቅር" : "Framework", value: "4 steps", note: language === "am" ? "ከእውቀት ወደ ለውጥ" : "From guidance to change" },
+    { label: language === "am" ? "አውድ" : "Context", value: "ET", note: language === "am" ? "የኢትዮጵያ ንግድ" : "Ethiopian business" },
+  ];
+  const resourceRows = marketingResources.slice(0, 3).map((article) => ({ label: localize(article.title, language), value: `${article.readingMinutes} ${c.minutes}`, meta: localize(article.category, language) }));
 
   return (
     <MarketingPageShell>
       <section className="resources-hero">
         <div><span className="marketing-eyebrow">{c.eyebrow}</span><h1>{c.title}</h1><p>{c.intro}</p></div>
-        <div className="resources-hero-index" aria-label={c.guides}>
-          <strong>{marketingResources.length}</strong><span>{c.guides}</span>
-          <div>{marketingResources.slice(0, 4).map((article) => <Link href={`/resources/${article.slug}`} key={article.slug}>{localize(article.category, language)}<b>→</b></Link>)}</div>
-        </div>
+        <InteractiveErpOffice moduleTitle={language === "am" ? "የንግድ ትምህርት" : "Business learning"} moduleEyebrow={c.guides} metrics={resourceMetrics} rows={resourceRows} compact />
       </section>
 
       <section className="marketing-section resources-index-section">
