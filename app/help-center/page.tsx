@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
+import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { PublicHelpCenter } from "../../components/public-help-center";
 import { helpArticles, helpCategories } from "../../lib/help-center-content";
 
@@ -13,6 +14,13 @@ const featuredSlugs = ["create-your-organization", "create-your-first-customer-a
 
 export default function HelpCenterPage() {
   const featured = featuredSlugs.map((slug) => helpArticles.find((article) => article.slug === slug)).filter(Boolean);
+  const helpMetrics = [
+    { label: "Practical guides", value: String(helpArticles.length), note: "Task-focused documentation" },
+    { label: "Workflow categories", value: String(helpCategories.length), note: "Browse by responsibility" },
+    { label: "Business context", value: "ET", note: "Ethiopian operations" },
+  ];
+  const helpRows = featured.slice(0, 3).map((article) => article ? ({ label: article.title, value: article.readTime, meta: helpCategories.find((category) => category.slug === article.category)?.title || "Guide" }) : null).filter((item): item is { label: string; value: string; meta: string } => Boolean(item));
+
   return (
     <MarketingPageShell>
       <section className="help-public-hero">
@@ -22,7 +30,7 @@ export default function HelpCenterPage() {
           <p>Search setup, sales, inventory, finance, security and migration guides. Every article separates product steps from business validation responsibilities.</p>
           <div className="marketing-hero-actions"><a href="mailto:mahir@hisabtech.com?subject=HisabERP%20support%20request" className="marketing-start marketing-large">Contact support</a><Link href="/product-tour" className="marketing-demo marketing-large">Open product tour</Link></div>
         </div>
-        <div className="help-public-stats"><article><strong>{helpArticles.length}</strong><span>practical guides</span></article><article><strong>{helpCategories.length}</strong><span>workflow categories</span></article><article><strong>EN</strong><span>public documentation</span></article><article><strong>ET</strong><span>Ethiopian business context</span></article></div>
+        <InteractiveErpOffice moduleTitle="Help Center" moduleEyebrow="Guided product support" metrics={helpMetrics} rows={helpRows} compact />
       </section>
 
       <section className="help-category-section">
