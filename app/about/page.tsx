@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
+import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { getPublicLanguage } from "../../lib/public-localization";
 
 export const metadata: Metadata = {
@@ -100,12 +101,14 @@ const copy = {
 export default async function AboutPage() {
   const language = await getPublicLanguage();
   const c = copy[language];
+  const aboutMetrics = c.facts.slice(0, 3).map(([label, value]) => ({ label, value, note: language === "am" ? "HisabTech" : "Company profile" }));
+  const aboutRows = c.principles.slice(0, 3).map(([number, title]) => ({ label: title, value: "Active", meta: number }));
 
   return (
     <MarketingPageShell>
       <section className="about-hero">
         <div><span className="marketing-eyebrow">{c.eyebrow}</span><h1>{c.title}</h1><p>{c.intro}</p><div className="marketing-hero-actions"><Link href="/request-demo?source=about" className="marketing-start marketing-large">{c.demo}</Link><a href="mailto:info@hisabtech.com" className="marketing-demo marketing-large">{c.email}</a></div></div>
-        <div className="about-fact-grid">{c.facts.map(([label, value]) => <article key={label}><span>{label}</span><strong>{value}</strong></article>)}</div>
+        <InteractiveErpOffice moduleTitle="HisabTech" moduleEyebrow={c.missionEyebrow} metrics={aboutMetrics} rows={aboutRows} compact />
       </section>
 
       <section className="about-mission-section"><div><span>{c.missionEyebrow}</span><h2>{c.missionTitle}</h2><p>{c.missionText}</p></div><div className="about-mission-mark"><img src="/hisab-logo.svg" alt="" width="150" height="150" className="hisab-logo"/><strong>HisabERP</strong><span>Business operating system</span></div></section>
