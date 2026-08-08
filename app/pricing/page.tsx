@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { PricingExperience } from "../../components/pricing-experience";
+import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 
 export const metadata: Metadata = {
   title: "HisabERP Pricing in Ethiopian Birr",
@@ -17,12 +18,24 @@ const questions = [
   { q: "What does data migration include?", a: "Migration can cover prepared customers, suppliers, products, inventory quantities and opening balances. Historical transactions are assessed separately because effort depends on data quality and volume." },
 ];
 
+const pricingMetrics = [
+  { label: "Starter", value: "ETB-ready", note: "Core finance & sales" },
+  { label: "Growth", value: "Multi-user", note: "Expanded operations" },
+  { label: "Business", value: "Advanced", note: "Broader control" },
+];
+
+const pricingRows = [
+  { label: "Secure Chapa checkout", value: "Verified", meta: "One-time payment" },
+  { label: "Annual access", value: "Save", meta: "Clear ETB pricing" },
+  { label: "Enterprise scope", value: "Custom", meta: "Guided engagement" },
+];
+
 export default function PricingPage() {
   return (
     <MarketingPageShell>
       <section className="pricing-hero">
         <div><span className="marketing-eyebrow">Transparent ETB pricing</span><h1>Choose the plan that gives your business the right control now.</h1><p>Compare users, locations, modules and support, then continue through secure Chapa checkout for Starter, Growth or Business. Enterprise remains a guided commercial engagement.</p><div className="pricing-hero-notes"><span>Chapa-verified activation</span><span>No automatic recurring charge</span><span>Annual savings shown clearly</span><span>Migration scoped separately</span></div></div>
-        <div className="pricing-principles"><header><span>How paid access works</span><strong>Choose · pay · verify</strong></header><p><b>1.</b><span><strong>Select the operating plan</strong><small>Choose the modules, users, branches and access period required today.</small></span></p><p><b>2.</b><span><strong>Complete Chapa checkout</strong><small>Pay the displayed ETB amount on Chapa’s hosted payment page.</small></span></p><p><b>3.</b><span><strong>Activate after verification</strong><small>HisabTech verifies the transaction directly before enabling the paid access period.</small></span></p></div>
+        <InteractiveErpOffice moduleTitle="Plan & access control" moduleEyebrow="HisabERP pricing workspace" metrics={pricingMetrics} rows={pricingRows} compact />
       </section>
 
       <section className="pricing-section"><div className="marketing-section-heading marketing-section-heading-centered"><span>Plans and inclusions</span><h2>Start with dependable records, then expand into connected operations.</h2><p>Annual access provides approximately two months of savings compared with twelve separate monthly payments.</p></div><PricingExperience /></section>
