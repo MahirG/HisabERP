@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { ProductTourExperience } from "../../components/product-tour-experience";
+import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import "./product-tour-phase-2-4.css";
 
 export const metadata: Metadata = {
@@ -15,6 +16,18 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
+
+const tourMetrics = [
+  { label: "Revenue", value: "ETB 4.82M", note: "+18.6% this month" },
+  { label: "Cash", value: "ETB 2.48M", note: "+8.4% this month" },
+  { label: "Stock alerts", value: "12", note: "Needs attention" },
+];
+
+const tourRows = [
+  { label: "Sales & invoicing", value: "Live", meta: "Connected workspace" },
+  { label: "Inventory control", value: "98.4%", meta: "Stock visibility" },
+  { label: "Finance & reports", value: "Ready", meta: "Decision view" },
+];
 
 export default function ProductTourPage() {
   return (
@@ -30,14 +43,7 @@ export default function ProductTourPage() {
               <Link href="/request-demo" className="marketing-demo marketing-large">Request a guided demo</Link>
             </div>
           </div>
-          <aside className="product-tour-hero-summary" aria-label="Product tour contents">
-            <strong>Five connected workspaces</strong>
-            <span>Executive dashboard</span>
-            <span>Sales and invoicing</span>
-            <span>Inventory control</span>
-            <span>Finance and cash flow</span>
-            <span>Reports and analytics</span>
-          </aside>
+          <InteractiveErpOffice moduleTitle="Executive dashboard" moduleEyebrow="Five connected workspaces" metrics={tourMetrics} rows={tourRows} compact />
         </section>
 
         <section className="product-tour-page-stage">
