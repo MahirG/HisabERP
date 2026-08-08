@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MarketingPageShell } from "../../../components/marketing-site-chrome";
+import { InteractiveErpOffice } from "../../../components/interactive-erp-office";
 import { getMarketingIndustry, marketingIndustries } from "../../../lib/marketing-industries";
 import { marketingModules } from "../../../lib/marketing-modules";
 
@@ -22,12 +23,14 @@ export default async function IndustrySolutionPage({ params }: { params: Promise
   if (!industry) notFound();
   const relatedModules = industry.modules.map((moduleSlug) => marketingModules.find((module) => module.slug === moduleSlug)).filter(Boolean);
   const relatedIndustries = marketingIndustries.filter((item) => item.slug !== industry.slug).slice(0, 3);
+  const workstationMetrics = industry.metrics.map((metric) => ({ label: metric.label, value: metric.value, note: metric.detail }));
+  const workstationRows = industry.capabilities.slice(0, 3).map((capability, index) => ({ label: capability, value: "Connected", meta: `Priority ${index + 1}` }));
 
   return (
     <MarketingPageShell>
       <section className="industry-detail-hero">
         <div><span className="marketing-eyebrow">{industry.eyebrow}</span><h1>{industry.title}</h1><p>{industry.summary}</p><div className="marketing-hero-actions"><Link href={`/request-demo?industry=${industry.slug}`} className="marketing-start marketing-large">Request a focused demo</Link><Link href="/pricing" className="marketing-demo marketing-large">View pricing</Link></div><div className="industry-team-pills">{industry.teams.map((team)=><span key={team}>{team}</span>)}</div></div>
-        <div className="industry-metric-board"><header><div><small>{industry.shortTitle}</small><strong>Management overview</strong></div><span>Illustrative workspace</span></header><div>{industry.metrics.map((metric)=><article key={metric.label}><small>{metric.label}</small><strong>{metric.value}</strong><span>{metric.detail}</span></article>)}</div><footer><span>Connected records</span><b>Sales · Costs · Stock · Balances · Reporting</b></footer></div>
+        <InteractiveErpOffice moduleTitle={industry.shortTitle} moduleEyebrow="Illustrative industry workspace" metrics={workstationMetrics} rows={workstationRows} compact />
       </section>
 
       <section className="industry-problem-outcome"><article><span>Operating challenge</span><h2>The problem businesses recognize</h2><p>{industry.challenge}</p></article><article><span>HisabERP outcome</span><h2>The management position to create</h2><p>{industry.outcome}</p></article></section>
