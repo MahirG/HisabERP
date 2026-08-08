@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
+import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 
 export const metadata: Metadata = {
   title: "Data Migration and Onboarding",
@@ -34,6 +35,18 @@ const packages = [
   { title: "Complex implementation", badge: "Multi-branch or multiple systems", text: "A separately quoted project for large volumes, several source systems, complex branches or integration dependencies.", includes: ["Phased migration plan", "Source-system mapping", "Branch-by-branch validation", "Custom implementation scope"] },
 ];
 
+const migrationMetrics = [
+  { label: "Workstreams ready", value: "5 / 6", note: "Controlled readiness" },
+  { label: "Dry run", value: "Required", note: "Before cutover" },
+  { label: "Validation", value: "Named owners", note: "Business approval" },
+];
+
+const migrationRows = [
+  { label: "Customers & suppliers", value: "Validated", meta: "Master data" },
+  { label: "Opening stock", value: "Review", meta: "Control total" },
+  { label: "Cutover approval", value: "Pending", meta: "Go-live gate" },
+];
+
 export default function MigrationPage() {
   return (
     <MarketingPageShell>
@@ -45,11 +58,7 @@ export default function MigrationPage() {
           <div className="marketing-hero-actions"><Link href="/request-demo?topic=migration" className="marketing-start marketing-large">Request a migration assessment</Link><Link href="/help-center/prepare-data-for-import" className="marketing-demo marketing-large">Open the preparation guide</Link></div>
           <div className="migration-hero-pills"><span>Source preserved</span><span>Dry run required</span><span>Business approval</span><span>Controlled cutover</span></div>
         </div>
-        <div className="migration-control-board" aria-label="Illustrative migration control board">
-          <header><div><small>Migration workstream</small><strong>Readiness overview</strong></div><span>Illustrative plan</span></header>
-          <div className="migration-control-score"><strong>5/6</strong><span>workstreams prepared</span></div>
-          <div className="migration-control-list"><p><span>Customers and suppliers</span><b>Validated</b></p><p><span>Products and units</span><b>Validated</b></p><p><span>Opening stock</span><b>Review</b></p><p><span>Receivables and payables</span><b>Validated</b></p><p><span>User access</span><b>Prepared</b></p><p><span>Cutover approval</span><b>Pending</b></p></div>
-        </div>
+        <InteractiveErpOffice moduleTitle="Migration control" moduleEyebrow="Data onboarding workspace" metrics={migrationMetrics} rows={migrationRows} compact />
       </section>
 
       <section className="marketing-section migration-source-section">
