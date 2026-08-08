@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
+import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { integrationStatusCopy, marketingIntegrations, type IntegrationStatus } from "../../lib/marketing-integrations";
 
 export const metadata = {
@@ -10,6 +11,14 @@ export const metadata = {
 const statusOrder: IntegrationStatus[] = ["available", "configuration", "beta", "planned"];
 
 export default function IntegrationsPage() {
+  const statusCounts = statusOrder.map((status) => marketingIntegrations.filter((integration) => integration.status === status).length);
+  const integrationMetrics = [
+    { label: "Available", value: String(statusCounts[0]), note: "Production-ready paths" },
+    { label: "Configuration", value: String(statusCounts[1]), note: "Provider setup required" },
+    { label: "Roadmap", value: String(statusCounts[2] + statusCounts[3]), note: "Beta + planned" },
+  ];
+  const integrationRows = marketingIntegrations.slice(0, 3).map((integration) => ({ label: integration.name, value: integration.statusLabel, meta: integration.category }));
+
   return (
     <MarketingPageShell>
       <section className="integration-page-hero">
@@ -19,9 +28,7 @@ export default function IntegrationsPage() {
           <p>The directory uses explicit statuses so an authentication button, callback route or roadmap item is never presented as a fully activated production integration without the required provider setup.</p>
           <div className="marketing-hero-actions"><Link className="marketing-start marketing-large" href="/request-demo">Discuss an integration</Link><Link className="marketing-demo marketing-large" href="/trust">Review security controls</Link></div>
         </div>
-        <aside className="integration-status-panel">
-          {statusOrder.map((status) => <article key={status}><b data-status={status}>{integrationStatusCopy[status].label}</b><p>{integrationStatusCopy[status].description}</p></article>)}
-        </aside>
+        <InteractiveErpOffice moduleTitle="Integrations" moduleEyebrow="Connection operations workspace" metrics={integrationMetrics} rows={integrationRows} compact />
       </section>
 
       <section className="integration-directory-section">
