@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
+import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 
 export const metadata: Metadata = {
   title: "ERP Built for Ethiopian Businesses",
@@ -24,6 +25,18 @@ const operatingReality = [
   ["Software that assumes foreign workflows", "A product designed around Ethiopian business use cases and terminology"],
 ];
 
+const localMetrics = [
+  { label: "Primary currency", value: "ETB", note: "Ethiopian birr" },
+  { label: "Languages", value: "EN · AM", note: "Localized access" },
+  { label: "Support", value: "Addis Ababa", note: "Local implementation context" },
+];
+
+const localRows = [
+  { label: "Mobile workflows", value: "Ready", meta: "Phone · tablet · desktop" },
+  { label: "Multi-branch operations", value: "Connected", meta: "Consolidated visibility" },
+  { label: "Payment records", value: "Local-ready", meta: "Reconciliation workflow" },
+];
+
 export default function EthiopiaPage() {
   return (
     <MarketingPageShell>
@@ -37,11 +50,7 @@ export default function EthiopiaPage() {
             <Link href="/request-demo" className="marketing-demo marketing-large">Request an Ethiopia-focused demo</Link>
           </div>
         </div>
-        <div className="local-context-card">
-          <header><img src="/hisab-logo.svg" alt="" width="52" height="52"/><div><small>HisabERP local operating profile</small><strong>Addis Ababa, Ethiopia</strong></div></header>
-          <div className="local-context-grid"><article><small>Primary currency</small><strong>ETB</strong><span>Ethiopian birr</span></article><article><small>Languages</small><strong>EN · AM</strong><span>Product access</span></article><article><small>Business access</small><strong>Mobile</strong><span>Desktop and tablet</span></article><article><small>Support context</small><strong>Local</strong><span>HisabTech team</span></article></div>
-          <p>Designed for SMEs, growing teams, multi-branch operators and organizations that need stronger operational and financial control.</p>
-        </div>
+        <InteractiveErpOffice moduleTitle="Ethiopia operations" moduleEyebrow="Local operating profile" metrics={localMetrics} rows={localRows} compact />
       </section>
 
       <section className="marketing-section local-advantages-section">
