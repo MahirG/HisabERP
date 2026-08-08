@@ -5,8 +5,9 @@ import "./home-wishpond-redesign.css";
 import "./home-unified-marketing-navigation.css";
 import "./home-hero-copy-cleanup.css";
 import "./home-apple-phase-2-3.css";
+import "./home-office-workstation.css";
 
-// Production redeploy marker: Phase 2.3 Apple-style product presentation.
+// Production redeploy marker: Interactive office workstation hero presentation.
 export const dynamic = "force-static";
 export const revalidate = 3600;
 
