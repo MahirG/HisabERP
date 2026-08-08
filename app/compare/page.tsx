@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
+import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { marketingComparisons } from "../../lib/marketing-comparisons";
 
 export const metadata: Metadata = {
   title: "Compare HisabERP",
   description: "Compare HisabERP with spreadsheets, notebooks, disconnected tools, desktop software and larger enterprise ERP approaches.",
 };
+
+const comparisonMetrics = [
+  { label: "Models compared", value: String(marketingComparisons.length), note: "Current operating approaches" },
+  { label: "Evaluation", value: "5 questions", note: "Repeatable decision frame" },
+  { label: "Migration", value: "Included", note: "Cutover risk considered" },
+];
+
+const comparisonRows = marketingComparisons.slice(0, 3).map((comparison) => ({ label: comparison.shortTitle, value: "Compare", meta: comparison.bestFor }));
 
 export default function ComparisonHubPage() {
   return (
@@ -18,12 +27,7 @@ export default function ComparisonHubPage() {
           <p>The right system depends on the number of users, control risks, reporting effort, connectivity and specialist requirements. These comparisons explain where HisabERP can improve operations and where another approach may still be appropriate.</p>
           <div className="marketing-hero-actions"><Link href="/product-tour" className="marketing-start marketing-large">Inspect the product</Link><Link href="/request-demo?topic=comparison" className="marketing-demo marketing-large">Discuss your requirements</Link></div>
         </div>
-        <div className="comparison-principles">
-          <article><span>01</span><strong>No false certainty</strong><p>Every comparison includes limitations and decision questions.</p></article>
-          <article><span>02</span><strong>Workflow before branding</strong><p>Evaluate the real process, records and people involved.</p></article>
-          <article><span>03</span><strong>Migration included</strong><p>Consider how the source will be prepared and validated.</p></article>
-          <article><span>04</span><strong>Fit can change</strong><p>A tool that works today may become risky as the business grows.</p></article>
-        </div>
+        <InteractiveErpOffice moduleTitle="ERP comparison" moduleEyebrow="Decision workspace" metrics={comparisonMetrics} rows={comparisonRows} compact />
       </section>
 
       <section className="marketing-section comparison-index-section">
