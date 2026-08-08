@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
+import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { inspectableProof, proofStandards, referencePrograms } from "../../lib/marketing-customer-proof";
 
 export const metadata = {
@@ -8,6 +9,13 @@ export const metadata = {
 };
 
 export default function CustomerStoriesPage() {
+  const proofMetrics = [
+    { label: "Inspectable proof", value: String(inspectableProof.length), note: "Available evidence paths" },
+    { label: "Reference programs", value: String(referencePrograms.length), note: "Measured pilot formats" },
+    { label: "Publication checks", value: String(proofStandards.length), note: "Evidence-first standard" },
+  ];
+  const proofRows = inspectableProof.slice(0, 3).map((item, index) => ({ label: item.title, value: "Inspectable", meta: `Evidence ${index + 1}` }));
+
   return (
     <MarketingPageShell>
       <section className="proof-page-hero">
@@ -20,12 +28,7 @@ export default function CustomerStoriesPage() {
             <Link className="marketing-demo marketing-large" href="/product-tour">Inspect the product first</Link>
           </div>
         </div>
-        <aside className="proof-standard-card">
-          <span>Publication standard</span>
-          <strong>Evidence before promotion</strong>
-          <p>Every public case study must include a confirmed customer, a documented starting point, a defined implementation scope and an approved result.</p>
-          <small>Stories remain private until the participating business approves publication.</small>
-        </aside>
+        <InteractiveErpOffice moduleTitle="Customer proof" moduleEyebrow="Evidence workspace" metrics={proofMetrics} rows={proofRows} compact />
       </section>
 
       <section className="proof-section proof-section-light">
