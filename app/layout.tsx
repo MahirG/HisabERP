@@ -191,9 +191,18 @@ const mobileNavigationBootstrap = `
 })();`;
 
 const publicFirstPaintGuard = `
+.marketing-home-unified,
+.marketing-home-unified .wp-site,
+.marketing-home-unified #public-main-content,
+.marketing-home-unified #wp-main {
+  background: #f4f6fa !important;
+}
 .marketing-home-unified #public-main-content > .wp-site > .wp-skip,
 .marketing-home-unified #public-main-content > .wp-site > .wp-header,
-.marketing-home-unified #public-main-content > .wp-site > .wp-mobile-nav {
+.marketing-home-unified #public-main-content > .wp-site > .wp-mobile-nav,
+.marketing-home-unified .wp-announcement,
+.marketing-home-unified .wp-footer-cta,
+.marketing-home-unified .wp-float-card {
   display: none !important;
 }`;
 
@@ -264,6 +273,13 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <link id="biloo-mobile-compact-drawer" rel="stylesheet" href="/biloo-mobile-compact-drawer.css?v=20260802-2" />
         <link id="biloo-marketing-contrast-logo-authority" rel="stylesheet" href="/biloo-marketing-contrast-logo-authority.css?v=20260802-1" />
         <link id="biloo-marketing-drawer-recovery" rel="stylesheet" href="/biloo-marketing-drawer-recovery.css?v=20260802-1" />
+        <link id="biloo-whitebit-header" rel="stylesheet" href="/biloo-whitebit-header.css?v=20260805-1" />
+        <link id="biloo-marketing-interactions" rel="stylesheet" href="/biloo-marketing-interactions.css?v=20260806-4" />
+        <link id="biloo-legal-suite" rel="stylesheet" href="/biloo-legal-suite.css?v=20260806-1" />
+        <link id="biloo-legal-pages" rel="stylesheet" href="/biloo-legal-pages.css?v=20260806-1" />
+        <link id="biloo-marketing-foundation-v2" rel="stylesheet" href="/biloo-marketing-foundation-v2.css?v=20260806-4" />
+        <link id="biloo-home-latest" rel="stylesheet" href="/biloo-home-latest.css?v=20260806-4" />
+        <link id="biloo-marketing-tricolor" rel="stylesheet" href="/biloo-marketing-tricolor.css?v=20260806-1" />
         <script src="/biloo-brand-bootstrap.js?v=20260802-4" defer />
         <script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} />
         <script dangerouslySetInnerHTML={{ __html: mobileNavigationBootstrap }} />
