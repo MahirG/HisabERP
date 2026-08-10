@@ -190,6 +190,13 @@ const mobileNavigationBootstrap = `
   window.addEventListener('pageshow', expandHamburgerBreakpoint);
 })();`;
 
+const publicFirstPaintGuard = `
+.marketing-home-unified #public-main-content > .wp-site > .wp-skip,
+.marketing-home-unified #public-main-content > .wp-site > .wp-header,
+.marketing-home-unified #public-main-content > .wp-site > .wp-mobile-nav {
+  display: none !important;
+}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.hisabtech.com"),
   title: { default: "Biloo — Business Operating System for Ethiopia", template: "%s | Biloo" },
@@ -246,10 +253,17 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html className={bilooManrope.variable} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
       <head>
+        <style dangerouslySetInnerHTML={{ __html: publicFirstPaintGuard }} />
         <link id="biloo-workspace-utility-header" rel="stylesheet" href="/biloo-workspace-utility-header.css?v=20260802-3" />
         <link id="biloo-mobile-navigation-v4" rel="stylesheet" href="/biloo-mobile-navigation-v4.css?v=20260802-2" media="(max-width: 960px)" />
         <link id="biloo-mobile-glass-footer" rel="stylesheet" href="/biloo-mobile-glass-footer.css?v=20260802-1" media="(max-width: 760px)" />
         <link id="biloo-public-scroll-recovery" rel="stylesheet" href="/biloo-public-scroll-recovery.css?v=20260802-1" />
+        <link id="biloo-marketing-navigation-v5" rel="stylesheet" href="/biloo-marketing-navigation-v5.css?v=20260802-1" />
+        <link id="biloo-home-footer-v2" rel="stylesheet" href="/biloo-home-footer-v2.css?v=20260802-1" />
+        <link id="biloo-account-security-v3" rel="stylesheet" href="/biloo-account-security-v3.css?v=20260802-1" />
+        <link id="biloo-mobile-compact-drawer" rel="stylesheet" href="/biloo-mobile-compact-drawer.css?v=20260802-2" />
+        <link id="biloo-marketing-contrast-logo-authority" rel="stylesheet" href="/biloo-marketing-contrast-logo-authority.css?v=20260802-1" />
+        <link id="biloo-marketing-drawer-recovery" rel="stylesheet" href="/biloo-marketing-drawer-recovery.css?v=20260802-1" />
         <script src="/biloo-brand-bootstrap.js?v=20260802-4" defer />
         <script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} />
         <script dangerouslySetInnerHTML={{ __html: mobileNavigationBootstrap }} />
