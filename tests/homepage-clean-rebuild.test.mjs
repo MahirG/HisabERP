@@ -38,6 +38,7 @@ test("homepage rebuild covers responsive, accessible and reduced-motion states",
   assert.match(styles, /@media \(max-width: 820px\)/);
   assert.match(styles, /@media \(max-width: 600px\)/);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
+  assert.match(styles, /\.cf-site :is\(section, article\)\s*\{[^}]*content-visibility:\s*visible !important/s);
   assert.doesNotMatch(home, /cf-hero-glow|cf-float|cf-marquee|cf-ring|cf-local-core/);
   assert.match(home, /Finance, operations and decisions—connected\./);
 });
