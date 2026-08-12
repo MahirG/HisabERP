@@ -499,5 +499,5 @@ export function MarketingFooter() {
 }
 
 export function MarketingPageShell({ children }: { children: ReactNode }) {
-  return <main className="marketing-site marketing-site-v2"><MarketingStructuredData/><MarketingHeader/><div id="public-main-content">{children}</div><MarketingFooter/></main>;
+  return <div className="marketing-site marketing-site-v2"><MarketingStructuredData/><MarketingHeader/><main id="public-main-content">{children}</main><MarketingFooter/></div>;
 }

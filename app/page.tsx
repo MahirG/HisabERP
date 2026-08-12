@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
-import { MarketingHeader } from "../components/marketing-site-chrome";
-import { WishpondMarketingHome } from "../components/wishpond-marketing-home";
-import "./home-wishpond-redesign.css";
-import "./home-unified-marketing-navigation.css";
-import "./home-hero-copy-cleanup.css";
-import "./home-apple-phase-2-3.css";
-import "./home-office-workstation.css";
+import { CampfireMarketingHome } from "../components/campfire-marketing-home";
+import { MarketingPageShell } from "../components/marketing-site-chrome";
+import "./home-campfire-redesign.css";
 
-// Production redeploy marker: Interactive office workstation hero presentation.
 export const dynamic = "force-static";
 export const revalidate = 3600;
 
@@ -28,11 +23,8 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <div className="marketing-site marketing-site-v2 marketing-home-unified">
-      <MarketingHeader />
-      <div id="public-main-content">
-        <WishpondMarketingHome />
-      </div>
-    </div>
+    <MarketingPageShell>
+      <CampfireMarketingHome />
+    </MarketingPageShell>
   );
 }

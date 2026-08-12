@@ -2,11 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, type KeyboardEvent } from 'react';
 
 type IconName =
   | 'arrow'
-  | 'menu'
   | 'close'
   | 'check'
   | 'spark'
@@ -42,8 +41,6 @@ function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
   switch (name) {
     case 'arrow':
       return <svg {...common}><path d="M5 12h14M13 6l6 6-6 6" /></svg>;
-    case 'menu':
-      return <svg {...common}><path d="M4 7h16M4 12h16M4 17h16" /></svg>;
     case 'close':
       return <svg {...common}><path d="m6 6 12 12M18 6 6 18" /></svg>;
     case 'check':
@@ -159,59 +156,28 @@ const operations = [
 ];
 
 export function CampfireMarketingHome() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(0);
   const activeProduct = products[selectedProduct];
 
+  const moveProductFocus = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    const keyTargets: Partial<Record<string, number>> = {
+      ArrowRight: (index + 1) % products.length,
+      ArrowDown: (index + 1) % products.length,
+      ArrowLeft: (index - 1 + products.length) % products.length,
+      ArrowUp: (index - 1 + products.length) % products.length,
+      Home: 0,
+      End: products.length - 1,
+    };
+    const nextIndex = keyTargets[event.key];
+    if (nextIndex === undefined) return;
+    event.preventDefault();
+    setSelectedProduct(nextIndex);
+    document.getElementById(`cf-product-tab-${products[nextIndex].id}`)?.focus();
+  };
+
   return (
     <div className="cf-site">
-      <a className="cf-skip" href="#cf-main">Skip to content</a>
-
-      <div className="cf-announcement">
-        <span className="cf-announcement-dot" />
-        <span>Biloo ERP is the business operating system by HisabTech.</span>
-        <Link href="/product-tour">Explore the product <Icon name="arrow" size={14} /></Link>
-      </div>
-
-      <header className="cf-header">
-        <div className="cf-navbar">
-          <Link className="cf-brand" href="/" aria-label="HisabTech home">
-            <span className="cf-logo"><Image src="/hisab-logo.svg" alt="" width={42} height={42} priority /></span>
-            <span><strong>HisabTech</strong><small>Biloo ERP</small></span>
-          </Link>
-
-          <nav className="cf-desktop-nav" aria-label="Primary navigation">
-            <a href="#cf-product">Product</a>
-            <Link href="/industries">Industries</Link>
-            <Link href="/pricing">Pricing</Link>
-            <Link href="/trust">Trust</Link>
-            <Link href="/about">Company</Link>
-          </nav>
-
-          <div className="cf-nav-actions">
-            <Link className="cf-login" href="/auth/login">Log in</Link>
-            <Link className="cf-button-small" href="/request-demo?source=campfire-redesign">Request a demo <Icon name="arrow" size={15} /></Link>
-            <button className="cf-menu" type="button" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}>
-              <Icon name={menuOpen ? 'close' : 'menu'} size={21} />
-            </button>
-          </div>
-        </div>
-
-        {menuOpen && (
-          <nav className="cf-mobile-nav" aria-label="Mobile navigation">
-            <a href="#cf-product" onClick={() => setMenuOpen(false)}>Product</a>
-            <Link href="/industries">Industries</Link>
-            <Link href="/pricing">Pricing</Link>
-            <Link href="/trust">Trust</Link>
-            <Link href="/about">Company</Link>
-            <Link href="/auth/login">Log in</Link>
-            <Link className="cf-mobile-cta" href="/request-demo?source=mobile-navigation">Request a demo</Link>
-          </nav>
-        )}
-      </header>
-
-      <main id="cf-main">
-        <section className="cf-hero">
+      <section className="cf-hero">
           <div className="cf-hero-glow" aria-hidden="true" />
           <div className="cf-hero-grid" aria-hidden="true" />
           <div className="cf-hero-copy">
@@ -244,7 +210,7 @@ export function CampfireMarketingHome() {
                 <div className="cf-dashboard-content">
                   <div className="cf-dashboard-heading">
                     <div><small>Good morning, Mahir</small><strong>Here is how the business is performing.</strong></div>
-                    <button type="button">Generate report</button>
+                    <Link href="/product/reports-analytics">Generate report</Link>
                   </div>
                   <div className="cf-metrics">
                     <article><span>Net revenue</span><strong>ETB 4.82M</strong><em><Icon name="trend" size={12} /> 18.6%</em></article>
@@ -278,18 +244,18 @@ export function CampfireMarketingHome() {
             <div className="cf-float cf-float-left"><i><Icon name="check" size={15} /></i><div><strong>Payment approved</strong><small>ETB 184,500 · just now</small></div></div>
             <div className="cf-float cf-float-right"><i><Icon name="spark" size={15} /></i><div><strong>Variance detected</strong><small>Expenses are 14% above plan</small></div></div>
           </div>
-        </section>
+      </section>
 
-        <section className="cf-industries" aria-label="Industries">
+      <section className="cf-industries" aria-label="Industries">
           <p>Designed for teams across</p>
           <div>{['Retail', 'Wholesale', 'Services', 'Hospitality', 'Cooperatives', 'Multi-branch groups'].map((industry) => <span key={industry}>{industry}</span>)}</div>
-        </section>
+      </section>
 
-        <section className="cf-marquee" aria-label="Platform capabilities">
+      <section className="cf-marquee" aria-label="Platform capabilities">
           <div>{[...operations, ...operations].map((item, index) => <span key={`${item}-${index}`}><i />{item}</span>)}</div>
-        </section>
+      </section>
 
-        <section className="cf-product-section" id="cf-product">
+      <section className="cf-product-section" id="cf-product">
           <div className="cf-section-intro">
             <span>Explore Biloo ERP</span>
             <h2>One connected platform for the work that runs your business.</h2>
@@ -298,12 +264,29 @@ export function CampfireMarketingHome() {
           <div className="cf-product-explorer">
             <div className="cf-product-tabs" role="tablist" aria-label="Product areas">
               {products.map((product, index) => (
-                <button key={product.id} type="button" role="tab" aria-selected={selectedProduct === index} className={selectedProduct === index ? 'active' : ''} onClick={() => setSelectedProduct(index)}>
+                <button
+                  id={`cf-product-tab-${product.id}`}
+                  key={product.id}
+                  type="button"
+                  role="tab"
+                  aria-controls={`cf-product-panel-${product.id}`}
+                  aria-selected={selectedProduct === index}
+                  className={selectedProduct === index ? 'active' : ''}
+                  tabIndex={selectedProduct === index ? 0 : -1}
+                  onClick={() => setSelectedProduct(index)}
+                  onKeyDown={(event) => moveProductFocus(event, index)}
+                >
                   <i><Icon name={product.icon} size={18} /></i><span><strong>{product.label}</strong><small>{product.title}</small></span><Icon name="arrow" size={16} />
                 </button>
               ))}
             </div>
-            <div className="cf-product-panel" role="tabpanel">
+            <div
+              id={`cf-product-panel-${activeProduct.id}`}
+              className="cf-product-panel"
+              role="tabpanel"
+              aria-labelledby={`cf-product-tab-${activeProduct.id}`}
+              tabIndex={0}
+            >
               <div className="cf-product-copy">
                 <i><Icon name={activeProduct.icon} size={22} /></i>
                 <span>{activeProduct.label}</span>
@@ -318,16 +301,16 @@ export function CampfireMarketingHome() {
               </div>
             </div>
           </div>
-        </section>
+      </section>
 
-        <section className="cf-platform-section">
+      <section className="cf-platform-section">
           <div className="cf-platform-header"><div><span>Built as a system</span><h2>Control without slowing the business down.</h2></div><p>Biloo ERP combines operational speed with finance-grade accountability, allowing teams to move quickly while owners maintain oversight.</p></div>
           <div className="cf-capability-grid">
             {capabilities.map((capability, index) => <article className={index === 0 ? 'featured' : ''} key={capability.number}><b>{capability.number}</b><i><Icon name={capability.icon} size={21} /></i><h3>{capability.title}</h3><p>{capability.text}</p>{index === 0 && <div className="cf-flow" aria-hidden="true"><span>Sales</span><i /><span>Inventory</span><i /><span>Finance</span><i /><span>Insight</span></div>}</article>)}
           </div>
-        </section>
+      </section>
 
-        <section className="cf-intelligence-section">
+      <section className="cf-intelligence-section">
           <div className="cf-intelligence-copy">
             <span><Icon name="spark" size={15} /> Decision intelligence</span>
             <h2>See what changed, why it matters and where to act next.</h2>
@@ -339,12 +322,12 @@ export function CampfireMarketingHome() {
             <header><div><i><Icon name="spark" size={16} /></i><span><strong>Management insight</strong><small>Grounded in live records</small></span></div><span><Icon name="lock" size={13} /> Permission aware</span></header>
             <div className="cf-intelligence-body">
               <div className="cf-question">Why did operating expenses increase this month?</div>
-              <div className="cf-answer"><i><Icon name="spark" size={13} /></i><div><p>Operating expenses increased by <strong>ETB 214,300 (14.2%)</strong> compared with June.</p><article><b>1</b><span><strong>Logistics costs</strong><small>ETB 108,400 increase · 51% of variance</small></span></article><article><b>2</b><span><strong>Temporary staffing</strong><small>ETB 72,800 increase · 34% of variance</small></span></article><button type="button">View supporting transactions <Icon name="arrow" size={13} /></button></div></div>
+              <div className="cf-answer"><i><Icon name="spark" size={13} /></i><div><p>Operating expenses increased by <strong>ETB 214,300 (14.2%)</strong> compared with June.</p><article><b>1</b><span><strong>Logistics costs</strong><small>ETB 108,400 increase · 51% of variance</small></span></article><article><b>2</b><span><strong>Temporary staffing</strong><small>ETB 72,800 increase · 34% of variance</small></span></article><Link href="/product/reports-analytics">View supporting transactions <Icon name="arrow" size={13} /></Link></div></div>
             </div>
           </div>
-        </section>
+      </section>
 
-        <section className="cf-solutions-section">
+      <section className="cf-solutions-section">
           <div className="cf-section-intro left"><span>Built for complexity</span><h2>Ready for the business you are becoming.</h2><p>Start with the workflows needed today, then expand across branches, teams and reporting requirements as the organization grows.</p></div>
           <div className="cf-solutions-grid">
             <article className="large"><div><span><Icon name="building" size={18} /> Multi-branch operations</span><h3>See the whole organization without losing local detail.</h3><p>Standardize controls and reporting while preserving the visibility each branch and operating team needs.</p></div><div className="cf-entity-map"><strong>Biloo Group</strong><i /><div><span>Addis HQ</span><span>Adama Branch</span><span>Hawassa Branch</span></div></div></article>
@@ -353,31 +336,22 @@ export function CampfireMarketingHome() {
             <article><i><Icon name="zap" size={20} /></i><h3>Guided implementation</h3><p>Move from legacy records using structured setup, migration templates and clear reconciliation.</p></article>
             <article><i><Icon name="chart" size={20} /></i><h3>Decision-ready finance</h3><p>Bring actuals, balances, operating drivers and management signals into one business picture.</p></article>
           </div>
-        </section>
+      </section>
 
-        <section className="cf-local-section">
+      <section className="cf-local-section">
           <div className="cf-local-visual"><div className="cf-ring one" /><div className="cf-ring two" /><div className="cf-local-core"><Image src="/hisab-logo.svg" alt="HisabTech" width={88} height={88} /><span>Built in Ethiopia</span><strong>World-class by design</strong></div><b className="tag one">ETB</b><b className="tag two">ERP</b><b className="tag three">ADDIS</b></div>
           <div className="cf-local-copy"><span>Local context. Global standard.</span><h2>Software that understands how Ethiopian businesses actually operate.</h2><p>Biloo ERP is shaped around local financial realities, team workflows, connectivity conditions and growth ambitions—not retrofitted after the fact.</p><div>{['Ethiopian birr-first workflows', 'Business structures for local teams', 'Desktop, tablet and mobile access', 'Low-bandwidth conscious design', 'Local onboarding and support', 'Finance-grade controls and auditability'].map((item) => <span key={item}><Icon name="check" size={15} />{item}</span>)}</div></div>
-        </section>
+      </section>
 
-        <section className="cf-outcomes">
+      <section className="cf-outcomes">
           <article className="before"><span>Before Biloo ERP</span><h3>Disconnected work creates expensive uncertainty.</h3><ul><li><Icon name="close" size={15} /> Multiple records telling different stories</li><li><Icon name="close" size={15} /> Manual handoffs between operations and finance</li><li><Icon name="close" size={15} /> Decisions delayed by report preparation</li><li><Icon name="close" size={15} /> Limited auditability and control</li></ul></article>
           <i className="cf-outcome-arrow"><Icon name="arrow" size={21} /></i>
           <article className="after"><span>With Biloo ERP</span><h3>Every team works from the same operational truth.</h3><ul><li><Icon name="check" size={15} /> One system across core business functions</li><li><Icon name="check" size={15} /> Real-time financial and operational visibility</li><li><Icon name="check" size={15} /> Controls embedded directly into workflows</li><li><Icon name="check" size={15} /> Faster answers with complete context</li></ul></article>
-        </section>
+      </section>
 
-        <section className="cf-final-cta">
+      <section className="cf-final-cta">
           <div><span><Icon name="message" size={15} /> A better operating system starts here</span><h2>See what your team can do with Biloo ERP.</h2><p>Walk through the current processes with HisabTech and see how one connected system can simplify, control and strengthen the work behind the business.</p><div><Link className="cf-primary gold" href="/request-demo?source=campfire-final">Book a walkthrough <Icon name="arrow" /></Link><Link className="cf-secondary dark" href="/auth/email-sign-up">Start free</Link></div></div>
-        </section>
-      </main>
-
-      <footer className="cf-footer">
-        <div className="cf-footer-top">
-          <div><Link className="cf-brand footer" href="/"><span className="cf-logo"><Image src="/hisab-logo.svg" alt="" width={42} height={42} /></span><span><strong>HisabTech</strong><small>Biloo ERP</small></span></Link><p>The connected business operating system for ambitious Ethiopian organizations.</p></div>
-          <div className="cf-footer-links"><div><strong>Product</strong><Link href="/product-tour">Product tour</Link><Link href="/pricing">Pricing</Link><Link href="/integrations">Integrations</Link><Link href="/migration">Migration</Link></div><div><strong>Company</strong><Link href="/about">About</Link><Link href="/customer-stories">Customer proof</Link><Link href="/trust">Trust Center</Link><Link href="/resources">Resources</Link></div><div><strong>Get started</strong><Link href="/request-demo">Request a demo</Link><Link href="/auth/email-sign-up">Start free</Link><Link href="/auth/login">Log in</Link><Link href="/help-center">Help Center</Link></div></div>
-        </div>
-        <div className="cf-footer-bottom"><span>© {new Date().getFullYear()} HisabTech. Addis Ababa, Ethiopia.</span><div><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></div></div>
-      </footer>
+      </section>
     </div>
   );
 }
