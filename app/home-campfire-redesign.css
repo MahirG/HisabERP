@@ -373,3 +373,44 @@
     transition-duration: .01ms !important;
   }
 }
+
+/* Final homepage authority over legacy public-brand layers. */
+.marketing-site-v2 .cf-site a.cf-primary {
+  border-color: var(--cf-blue) !important;
+  color: #fff !important;
+  background: var(--cf-blue) !important;
+  box-shadow: none !important;
+}
+.marketing-site-v2 .cf-site a.cf-primary:hover,
+.marketing-site-v2 .cf-site a.cf-primary:focus-visible {
+  border-color: var(--cf-blue-dark) !important;
+  background: var(--cf-blue-dark) !important;
+}
+.marketing-site-v2 .cf-site .cf-final-cta a.cf-primary {
+  border-color: #fff !important;
+  color: #19305e !important;
+  background: #fff !important;
+}
+.marketing-site-v2 .cf-site .cf-final-cta a.cf-primary:hover,
+.marketing-site-v2 .cf-site .cf-final-cta a.cf-primary:focus-visible {
+  background: #eef2ff !important;
+}
+.marketing-site-v2 .cf-site :is(
+  .cf-eyebrow,
+  .cf-section-intro > span,
+  .cf-platform-header span,
+  .cf-intelligence-copy > span,
+  .cf-local-copy > span,
+  .cf-final-cta > div > span
+) { color: var(--cf-blue) !important; }
+.marketing-site-v2 .cf-site .cf-intelligence-copy > span,
+.marketing-site-v2 .cf-site .cf-final-cta > div > span { color: #b9c7ff !important; }
+.marketing-site-v2 .cf-site .cf-intelligence-section :is(h2, h3, strong, b),
+.marketing-site-v2 .cf-site .cf-final-cta :is(h2, h3, strong, b) { color: #fff !important; }
+.marketing-site-v2 .cf-site .cf-intelligence-section :is(p, li, small),
+.marketing-site-v2 .cf-site .cf-final-cta :is(p, li, small) { color: rgba(255, 255, 255, .68) !important; }
+.marketing-site-v2 .cf-site :where(a, button, [tabindex]):focus-visible {
+  outline: 3px solid rgba(49, 94, 251, .3) !important;
+  outline-offset: 3px;
+  box-shadow: none !important;
+}

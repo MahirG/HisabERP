@@ -204,6 +204,18 @@
 .wb-primary-action:focus-visible { background: var(--wb-blue-dark); }
 .wb-mobile-toggle { display: none; }
 
+.marketing-site-v2 .wb-header a.wb-primary-action {
+  border-color: var(--wb-blue) !important;
+  color: #fff !important;
+  background: var(--wb-blue) !important;
+  box-shadow: none !important;
+}
+.marketing-site-v2 .wb-header a.wb-primary-action:hover,
+.marketing-site-v2 .wb-header a.wb-primary-action:focus-visible {
+  border-color: var(--wb-blue-dark) !important;
+  background: var(--wb-blue-dark) !important;
+}
+
 .wb-search-overlay,
 .wb-mobile-drawer {
   position: fixed;
