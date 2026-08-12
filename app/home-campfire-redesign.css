@@ -523,6 +523,12 @@ body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-si
   padding: 14px !important;
   background: #fff !important;
 }
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-dashboard-frame [data-marketing-reveal="true"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  transition: none !important;
+}
 
 @media (max-width: 820px) {
   body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > .cf-site > .cf-hero {
