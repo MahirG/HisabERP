@@ -414,3 +414,133 @@
   outline-offset: 3px;
   box-shadow: none !important;
 }
+
+/*
+ * The legacy public award layer intentionally targets every marketing hero,
+ * CTA and card with ID-level selectors. Keep the rebuilt homepage isolated
+ * from those broad rules so its compact, enterprise UI remains authoritative.
+ */
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > .cf-site > .cf-hero {
+  padding: 92px 24px 82px !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > .cf-site > .cf-industries {
+  padding: 25px 24px !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > .cf-site > .cf-operations {
+  padding: 0 24px !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > .cf-site > :is(.cf-product-section, .cf-platform-section, .cf-solutions-section) {
+  padding: 104px 24px !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > .cf-site > .cf-intelligence-section {
+  padding: 104px max(24px, calc((100vw - 1180px) / 2)) !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > .cf-site > .cf-local-section {
+  padding: 92px max(24px, calc((100vw - 1180px) / 2)) !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > .cf-site > .cf-final-cta {
+  padding: 96px 24px !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site :is([class*="hero"], [class*="masthead"])::before {
+  content: none !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site .cf-hero-actions > a.cf-primary {
+  min-height: 48px !important;
+  border: 1px solid var(--cf-blue) !important;
+  border-radius: 8px !important;
+  padding: 0 19px !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  background: var(--cf-blue) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site .cf-hero-actions > a.cf-secondary {
+  min-height: 48px !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  padding: 0 19px !important;
+  color: var(--cf-ink) !important;
+  -webkit-text-fill-color: var(--cf-ink) !important;
+  background: #fff !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site .cf-hero-actions > a.cf-primary:hover {
+  border-color: var(--cf-blue-dark) !important;
+  background: var(--cf-blue-dark) !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site .cf-hero-actions > a.cf-secondary:hover {
+  border-color: #94a3b8 !important;
+  background: var(--cf-soft) !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site :is(
+  .cf-eyebrow,
+  .cf-section-intro > span,
+  .cf-platform-header span,
+  .cf-local-copy > span
+) {
+  color: var(--cf-blue) !important;
+}
+
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site .cf-dashboard-frame {
+  border-radius: 12px !important;
+  background: #fff !important;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, .12) !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site .cf-dashboard-topbar {
+  height: 52px !important;
+  border-bottom-color: var(--cf-line) !important;
+  color: #657184 !important;
+  background: #fff !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site .cf-dashboard-sidebar {
+  border-right-color: var(--cf-line) !important;
+  background: #f8fafc !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site .cf-dashboard-sidebar span.active {
+  color: var(--cf-blue) !important;
+  background: #edf2ff !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site .cf-dashboard-content {
+  background: #fbfcfe !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site .cf-metrics {
+  height: 84px !important;
+  align-items: start !important;
+  grid-auto-rows: 84px !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site .cf-metrics > article {
+  height: 84px !important;
+  min-height: 84px !important;
+  border-radius: 8px !important;
+  padding: 13px !important;
+  background: #fff !important;
+}
+body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site :is(.cf-chart-card, .cf-attention-card) {
+  border-radius: 8px !important;
+  padding: 14px !important;
+  background: #fff !important;
+}
+
+@media (max-width: 820px) {
+  body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > .cf-site > .cf-hero {
+    padding: 72px 20px 62px !important;
+  }
+  body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > .cf-site > :is(.cf-product-section, .cf-platform-section, .cf-solutions-section) {
+    padding: 78px 20px !important;
+  }
+  body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > .cf-site > :is(.cf-intelligence-section, .cf-local-section) {
+    padding: 78px 20px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  body[data-award-marketing="true"] .marketing-site-v2 #public-main-content .cf-site .cf-hero-actions > :is(a.cf-primary, a.cf-secondary) {
+    width: 100% !important;
+  }
+  body[data-award-marketing="true"] .marketing-site-v2 #public-main-content > .cf-site > .cf-final-cta {
+    padding: 72px 20px !important;
+  }
+}
