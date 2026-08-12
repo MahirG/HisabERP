@@ -25,16 +25,19 @@ test("homepage uses the clean Biloo rebuild and shared public chrome", async () 
   assert.doesNotMatch(home, /<header className="cf-header"|<footer className="cf-footer"|<main/);
 
   assert.match(chrome, /<main id="public-main-content">\{children\}<\/main>/);
-  assert.match(chrome, /<MarketingHeader\/>/);
-  assert.match(chrome, /<MarketingFooter\/>/);
+  assert.match(chrome, /<MarketingHeader\s*\/>/);
+  assert.match(chrome, /<MarketingFooter\s*\/>/);
 });
 
 test("homepage rebuild covers responsive, accessible and reduced-motion states", async () => {
   const styles = await read("app/home-campfire-redesign.css");
+  const home = await read("components/campfire-marketing-home.tsx");
 
-  assert.match(styles, /\.cf-primary,.cf-secondary\s*\{[^}]*min-height:\s*52px/s);
-  assert.match(styles, /@media \(max-width: 1060px\)/);
+  assert.match(styles, /\.cf-primary,\s*\.cf-secondary\s*\{[^}]*min-height:\s*48px/s);
+  assert.match(styles, /@media \(max-width: 1080px\)/);
   assert.match(styles, /@media \(max-width: 820px\)/);
   assert.match(styles, /@media \(max-width: 600px\)/);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
+  assert.doesNotMatch(home, /cf-hero-glow|cf-float|cf-marquee|cf-ring|cf-local-core/);
+  assert.match(home, /Finance, operations and decisions—connected\./);
 });

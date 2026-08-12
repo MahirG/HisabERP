@@ -10,20 +10,19 @@ async function source(relativePath) {
   return readFile(path.join(root, relativePath), "utf8");
 }
 
-test("public header keeps every required customer utility", async () => {
+test("public header uses conventional navigation and restrained customer actions", async () => {
   const component = await source("components/marketing-site-chrome.tsx");
   const styles = await source("public/biloo-whitebit-header.css");
 
-  for (const requiredLabel of ["Search", "Dashboard", "Account", "Help Center", "Language", "Color mode"]) {
+  for (const requiredLabel of ["Product", "Solutions", "Resources", "Company", "Pricing", "Search", "Sign in", "Start free"]) {
     assert.match(component, new RegExp(requiredLabel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   }
 
   assert.match(component, /wb-search-overlay/);
-  assert.match(component, /wb-account-popover/);
-  assert.match(component, /wb-language-popover/);
-  assert.match(component, /biloo-public-theme/);
+  assert.match(component, /wb-dropdown/);
   assert.match(component, /wb-mobile-drawer/);
-  assert.match(styles, /--wb-black:\s*#08090b/);
-  assert.match(styles, /--wb-gold:\s*#fca311/);
-  assert.match(styles, /html\[data-public-theme="dark"\]/);
+  assert.match(styles, /\.wb-dropdown\s*\{/);
+  assert.match(styles, /width:\s*264px/);
+  assert.doesNotMatch(component, /wb-mega-menu|wb-mega-intro|wb-account-popover|wb-dashboard-button|wb-icon-button/);
+  assert.doesNotMatch(styles, /grid-template-columns:\s*minmax\(230px/);
 });
