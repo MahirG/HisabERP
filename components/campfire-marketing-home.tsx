@@ -135,12 +135,12 @@ export function CampfireMarketingHome() {
                     <Link href="/product/reports-analytics">Generate report</Link>
                   </div>
                   <div className="cf-metrics">
-                    <article><span>Net revenue</span><strong>ETB 4.82M</strong><em>+18.6%</em></article>
-                    <article><span>Cash position</span><strong>ETB 2.48M</strong><em>+8.4%</em></article>
-                    <article><span>Receivables</span><strong>ETB 1.36M</strong><em className="warning">11 overdue</em></article>
+                    <div><span>Net revenue</span><strong>ETB 4.82M</strong><em>+18.6%</em></div>
+                    <div><span>Cash position</span><strong>ETB 2.48M</strong><em>+8.4%</em></div>
+                    <div><span>Receivables</span><strong>ETB 1.36M</strong><em className="warning">11 overdue</em></div>
                   </div>
                   <div className="cf-analytics">
-                    <article className="cf-chart-card">
+                    <div className="cf-chart-card">
                       <header><div><span>Revenue performance</span><strong>Monthly trend</strong></div><small>ETB</small></header>
                       <div className="cf-chart-area">
                         <svg viewBox="0 0 640 220" preserveAspectRatio="none" role="img" aria-label="Upward revenue trend">
@@ -149,15 +149,15 @@ export function CampfireMarketingHome() {
                           <path className="cf-chart-line" d="M0,188 C65,174 78,150 134,160 C205,174 220,104 284,118 C348,132 365,72 424,88 C488,104 510,50 566,64 C604,73 620,38 640,28" />
                         </svg>
                       </div>
-                    </article>
-                    <article className="cf-attention-card">
+                    </div>
+                    <div className="cf-attention-card">
                       <header><div><span>Controls</span><strong>Needs attention</strong></div><small>3 items</small></header>
                       <ul>
                         <li><div><strong>Bank reconciliation</strong><small>3 unmatched transactions</small></div><b>Review</b></li>
                         <li><div><strong>Supplier payment</strong><small>Ready for approval</small></div><b>Approve</b></li>
                         <li><div><strong>Inventory reorder</strong><small>12 items below threshold</small></div><b>Open</b></li>
                       </ul>
-                    </article>
+                    </div>
                   </div>
                 </div>
               </div>
