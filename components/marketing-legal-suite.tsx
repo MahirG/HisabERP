@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Cookie, ShieldCheck, Xmark } from "iconoir-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 const CONSENT_STORAGE_KEY = "biloo-cookie-consent-v1";
@@ -51,11 +51,28 @@ function persistConsent(analytics: boolean) {
 }
 
 export function MarketingLegalSuite() {
+  const dialogRef = useRef<HTMLElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const customizeButtonRef = useRef<HTMLButtonElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
   const [isMarketing, setIsMarketing] = useState(false);
   const [footerTarget, setFooterTarget] = useState<HTMLElement | null>(null);
   const [bannerOpen, setBannerOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [analytics, setAnalytics] = useState(false);
+
+  const openPreferences = useCallback(() => {
+    const current = readConsent();
+    returnFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setAnalytics(current?.analytics ?? false);
+    setBannerOpen(false);
+    setPreferencesOpen(true);
+  }, []);
+
+  const closePreferences = useCallback(() => {
+    setPreferencesOpen(false);
+    if (!readConsent()) setBannerOpen(true);
+  }, []);
 
   useEffect(() => {
     const marketingRoot = document.querySelector<HTMLElement>(".marketing-site-v2");
@@ -73,30 +90,49 @@ export function MarketingLegalSuite() {
       document.documentElement.dataset.analyticsConsent = "pending";
     }
 
-    const openPreferences = () => {
-      const current = readConsent();
-      setAnalytics(current?.analytics ?? false);
-      setBannerOpen(false);
-      setPreferencesOpen(true);
-    };
-
     window.addEventListener(OPEN_PREFERENCES_EVENT, openPreferences);
     return () => window.removeEventListener(OPEN_PREFERENCES_EVENT, openPreferences);
-  }, []);
+  }, [openPreferences]);
 
   useEffect(() => {
     if (!preferencesOpen) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setPreferencesOpen(false);
+    window.requestAnimationFrame(() => closeButtonRef.current?.focus());
+
+    const handleDialogKeyboard = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closePreferences();
+        return;
+      }
+
+      if (event.key !== "Tab" || !dialogRef.current) return;
+      const focusable = Array.from(dialogRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ));
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
-    window.addEventListener("keydown", closeOnEscape);
+    window.addEventListener("keydown", handleDialogKeyboard);
     return () => {
       document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("keydown", handleDialogKeyboard);
+      const returnTarget = returnFocusRef.current;
+      window.requestAnimationFrame(() => {
+        if (returnTarget?.isConnected) returnTarget.focus();
+        else customizeButtonRef.current?.focus();
+      });
     };
-  }, [preferencesOpen]);
+  }, [closePreferences, preferencesOpen]);
 
   if (!isMarketing) return null;
 
@@ -124,7 +160,7 @@ export function MarketingLegalSuite() {
       {legalFooter}
 
       {bannerOpen ? (
-        <aside className="biloo-consent-banner" aria-labelledby="biloo-consent-title" aria-describedby="biloo-consent-description">
+        <aside className="biloo-consent-banner" aria-live="polite" aria-labelledby="biloo-consent-title" aria-describedby="biloo-consent-description">
           <div className="biloo-consent-icon"><Cookie width={23} height={23} strokeWidth={1.55} aria-hidden /></div>
           <div className="biloo-consent-copy">
             <span>YOUR PRIVACY, YOUR CHOICE</span>
@@ -135,22 +171,22 @@ export function MarketingLegalSuite() {
           <div className="biloo-consent-actions">
             <button type="button" className="biloo-consent-primary" onClick={() => save(true)}>Accept all</button>
             <button type="button" className="biloo-consent-secondary" onClick={() => save(false)}>Essential only</button>
-            <button type="button" className="biloo-consent-text" onClick={() => { setBannerOpen(false); setPreferencesOpen(true); }}>Customize</button>
+            <button ref={customizeButtonRef} type="button" className="biloo-consent-text" onClick={openPreferences}>Customize</button>
           </div>
         </aside>
       ) : null}
 
       {preferencesOpen ? (
         <div className="biloo-consent-modal" role="presentation">
-          <button className="biloo-consent-backdrop" type="button" aria-label="Close cookie preferences" onClick={() => setPreferencesOpen(false)} />
-          <section role="dialog" aria-modal="true" aria-labelledby="biloo-preferences-title" className="biloo-consent-dialog">
+          <button className="biloo-consent-backdrop" type="button" aria-label="Close cookie preferences" onClick={closePreferences} />
+          <section ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="biloo-preferences-title" aria-describedby="biloo-preferences-description" className="biloo-consent-dialog">
             <header>
               <div className="biloo-consent-icon"><ShieldCheck width={23} height={23} strokeWidth={1.55} aria-hidden /></div>
               <div><span>PRIVACY CONTROL CENTER</span><h2 id="biloo-preferences-title">Choose how Biloo uses storage.</h2></div>
-              <button type="button" className="biloo-consent-close" aria-label="Close cookie preferences" onClick={() => setPreferencesOpen(false)}><Xmark width={19} height={19} strokeWidth={1.55} aria-hidden /></button>
+              <button ref={closeButtonRef} type="button" className="biloo-consent-close" aria-label="Close cookie preferences" onClick={closePreferences}><Xmark width={19} height={19} strokeWidth={1.55} aria-hidden /></button>
             </header>
 
-            <p className="biloo-consent-dialog-intro">Essential technologies keep the website secure and remember actions you request. Optional analytics is never required to browse the public website.</p>
+            <p id="biloo-preferences-description" className="biloo-consent-dialog-intro">Essential technologies keep the website secure and remember actions you request. Optional analytics is never required to browse the public website.</p>
 
             <div className="biloo-consent-category">
               <div><strong>Essential</strong><span>Security, consent records, language and display preferences.</span></div>
@@ -168,7 +204,7 @@ export function MarketingLegalSuite() {
               <button type="button" className="biloo-consent-secondary" onClick={() => save(false)}>Use essential only</button>
             </div>
 
-            <p className="biloo-consent-fine-print">Read the <Link href="/privacy#cookies" onClick={() => setPreferencesOpen(false)}>Privacy Policy</Link> for details. Contact <a href="mailto:mahir@hisabtech.com">mahir@hisabtech.com</a> with privacy questions.</p>
+            <p className="biloo-consent-fine-print">Read the <Link href="/privacy#cookies" onClick={closePreferences}>Privacy Policy</Link> for details. Contact <a href="mailto:mahir@hisabtech.com">mahir@hisabtech.com</a> with privacy questions.</p>
           </section>
         </div>
       ) : null}

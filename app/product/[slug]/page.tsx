@@ -54,7 +54,7 @@ export default async function ProductModulePage({ params }: { params: Promise<{ 
         <article><span>With HisabERP</span><h2>The business outcome</h2><p>{module.outcome}</p></article>
       </section>
 
-      <section className="marketing-section module-capabilities-section">
+      <section className="marketing-section module-capability-section">
         <div className="marketing-section-heading"><span>Core capabilities</span><h2>Everything required to run this workflow with greater control.</h2></div>
         <div className="module-capability-grid">{module.features.map((feature, index) => <article key={feature}><b>{String(index + 1).padStart(2, "0")}</b><p>{feature}</p></article>)}</div>
       </section>
