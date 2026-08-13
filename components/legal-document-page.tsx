@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Page, Settings, ShieldCheck } from "iconoir-react";
 import type { ReactNode } from "react";
 import { MarketingPageShell } from "./marketing-site-chrome";
 
@@ -22,13 +23,9 @@ type LegalDocumentPageProps = {
 };
 
 function LegalIcon({ type }: { type: "shield" | "document" | "control" }) {
-  if (type === "shield") {
-    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 2.7 7.6 7 10 4.3-2.4 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>;
-  }
-  if (type === "control") {
-    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/><path d="M4 12h4M12 12h8"/><circle cx="10" cy="12" r="2"/></svg>;
-  }
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h5M10 13h5M10 17h5"/></svg>;
+  if (type === "shield") return <ShieldCheck width={22} height={22} strokeWidth={1.55} aria-hidden />;
+  if (type === "control") return <Settings width={22} height={22} strokeWidth={1.55} aria-hidden />;
+  return <Page width={22} height={22} strokeWidth={1.55} aria-hidden />;
 }
 
 export function LegalDocumentPage({

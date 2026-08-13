@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Cookie, ShieldCheck, Xmark } from "iconoir-react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -47,26 +48,6 @@ function persistConsent(analytics: boolean) {
   document.documentElement.dataset.analyticsConsent = analytics ? "granted" : "denied";
   window.dispatchEvent(new CustomEvent(CONSENT_CHANGED_EVENT, { detail: record }));
   return record;
-}
-
-function CookieIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M19.7 13.1A7.8 7.8 0 0 1 10.9 4.3 8 8 0 1 0 19.7 13.1Z" />
-      <circle cx="9" cy="10" r="1" />
-      <circle cx="13" cy="15" r="1" />
-      <circle cx="7" cy="15" r="1" />
-    </svg>
-  );
-}
-
-function ShieldIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 3 5 6v5c0 4.5 2.7 7.6 7 10 4.3-2.4 7-5.5 7-10V6l-7-3Z" />
-      <path d="m9 12 2 2 4-4" />
-    </svg>
-  );
 }
 
 export function MarketingLegalSuite() {
@@ -147,7 +128,7 @@ export function MarketingLegalSuite() {
 
       {bannerOpen ? (
         <aside className="biloo-consent-banner" aria-labelledby="biloo-consent-title" aria-describedby="biloo-consent-description">
-          <div className="biloo-consent-icon"><CookieIcon /></div>
+          <div className="biloo-consent-icon"><Cookie width={23} height={23} strokeWidth={1.55} aria-hidden /></div>
           <div className="biloo-consent-copy">
             <span>YOUR PRIVACY, YOUR CHOICE</span>
             <h2 id="biloo-consent-title">A better website—with your permission.</h2>
@@ -167,9 +148,9 @@ export function MarketingLegalSuite() {
           <button className="biloo-consent-backdrop" type="button" aria-label="Close cookie preferences" onClick={() => setPreferencesOpen(false)} />
           <section role="dialog" aria-modal="true" aria-labelledby="biloo-preferences-title" className="biloo-consent-dialog">
             <header>
-              <div className="biloo-consent-icon"><ShieldIcon /></div>
+              <div className="biloo-consent-icon"><ShieldCheck width={23} height={23} strokeWidth={1.55} aria-hidden /></div>
               <div><span>PRIVACY CONTROL CENTER</span><h2 id="biloo-preferences-title">Choose how Biloo uses storage.</h2></div>
-              <button type="button" className="biloo-consent-close" aria-label="Close cookie preferences" onClick={() => setPreferencesOpen(false)}>×</button>
+              <button type="button" className="biloo-consent-close" aria-label="Close cookie preferences" onClick={() => setPreferencesOpen(false)}><Xmark width={19} height={19} strokeWidth={1.55} aria-hidden /></button>
             </header>
 
             <p className="biloo-consent-dialog-intro">Essential technologies keep the website secure and remember actions you request. Optional analytics is never required to browse the public website.</p>

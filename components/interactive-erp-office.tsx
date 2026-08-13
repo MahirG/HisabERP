@@ -1,6 +1,31 @@
 'use client';
 
-import { useMemo, useState, type CSSProperties, type PointerEvent } from 'react';
+import { useMemo, useState } from 'react';
+import {
+  Bank,
+  Calendar,
+  Cart,
+  CheckCircle,
+  Cube,
+  Dashboard,
+  Download,
+  FilterList,
+  IconoirProvider,
+  Page,
+  Plus,
+  Reports,
+  Settings,
+  WarningCircle,
+} from 'iconoir-react';
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import './interactive-erp-office.css';
 
 type HeroMetric = { label: string; value: string; note?: string };
@@ -14,100 +39,133 @@ type InteractiveErpOfficeProps = {
   compact?: boolean;
 };
 
-type ViewId = 'overview' | 'activity' | 'insights';
+type ViewId = 'records' | 'trend' | 'controls';
 
-const views: Array<{ id: ViewId; label: string }> = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'activity', label: 'Activity' },
-  { id: 'insights', label: 'Insights' },
+const navigation = [
+  { label: 'Overview', Icon: Dashboard },
+  { label: 'Sales', Icon: Cart },
+  { label: 'Purchases', Icon: Page },
+  { label: 'Inventory', Icon: Cube },
+  { label: 'Finance', Icon: Bank },
+  { label: 'Reports', Icon: Reports },
+  { label: 'Settings', Icon: Settings },
 ];
 
-function clamp(value: number, min: number, max: number) {
-  return Math.min(max, Math.max(min, value));
+const chartData = [
+  { period: 'Mar', value: 2.9 },
+  { period: 'Apr', value: 3.7 },
+  { period: 'May', value: 3.35 },
+  { period: 'Jun', value: 4.1 },
+  { period: 'Jul', value: 3.82 },
+  { period: 'Aug', value: 4.82 },
+];
+
+const statuses = ['Paid', 'Approved', 'Partial', 'Posted', 'Review'] as const;
+const branches = ['Addis HQ', 'Adama', 'Hawassa', 'Addis HQ', 'Mekelle'] as const;
+
+function statusClass(status: string) {
+  const normalized = status.toLowerCase();
+  if (normalized === 'paid' || normalized === 'approved' || normalized === 'posted') return 'positive';
+  if (normalized === 'partial' || normalized === 'review') return 'attention';
+  return 'neutral';
 }
 
-export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Live workspace', metrics, rows, compact = false }: InteractiveErpOfficeProps) {
-  const [view, setView] = useState<ViewId>('overview');
-  const [hovered, setHovered] = useState(false);
+function toAmount(value: string, index: number) {
+  if (/ETB|%|\d/.test(value)) return value;
+  return ['ETB 126,500', 'ETB 89,760', 'ETB 45,600', 'ETB 73,200', 'ETB 18,975'][index] ?? value;
+}
 
-  const bars = useMemo(() => {
-    const seed = moduleTitle.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
-    return Array.from({ length: 10 }, (_, index) => 34 + ((seed + index * 17) % 58));
-  }, [moduleTitle]);
+export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected operating workspace', metrics, rows, compact = false }: InteractiveErpOfficeProps) {
+  const [view, setView] = useState<ViewId>('records');
 
-  function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-    const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-    event.currentTarget.style.setProperty('--office-rx', `${clamp(-y * 1.7, -2.2, 2.2)}deg`);
-    event.currentTarget.style.setProperty('--office-ry', `${clamp(x * 2.2, -2.8, 2.8)}deg`);
-  }
-
-  function resetTilt(event: PointerEvent<HTMLDivElement>) {
-    event.currentTarget.style.setProperty('--office-rx', '0deg');
-    event.currentTarget.style.setProperty('--office-ry', '0deg');
-    setHovered(false);
-  }
-
-  const visibleRows = view === 'activity' ? [...rows].reverse() : rows;
+  const records = useMemo(() => {
+    const source = rows.length ? rows : [{ label: 'Selam Supermarket', value: 'ETB 126,500', meta: 'Current record' }];
+    return Array.from({ length: 5 }, (_, index) => {
+      const row = source[index % source.length];
+      return {
+        reference: `${moduleTitle.toLowerCase().includes('integration') ? 'INT' : 'INV'}-26-${String(891 - index).padStart(4, '0')}`,
+        date: `${31 - index} Aug 2026`,
+        record: row.label,
+        branch: branches[index],
+        amount: toAmount(row.value, index),
+        status: statuses[index],
+        meta: row.meta,
+      };
+    });
+  }, [moduleTitle, rows]);
 
   return (
-    <div className={`erp-office ${compact ? 'erp-office-compact' : ''} ${hovered ? 'is-interacting' : ''}`} onPointerMove={handlePointerMove} onPointerEnter={() => setHovered(true)} onPointerLeave={resetTilt} style={{ '--office-rx': '0deg', '--office-ry': '0deg' } as CSSProperties} aria-label={`${moduleTitle} shown on an interactive ERP workstation in a modern office`}>
-      <div className="erp-office-ambient erp-office-ambient-a" aria-hidden="true" />
-      <div className="erp-office-ambient erp-office-ambient-b" aria-hidden="true" />
-      <div className="erp-office-window" aria-hidden="true"><span /><span /><span /><span /></div>
-      <div className="erp-office-shelf" aria-hidden="true"><i /><i /><i /></div>
-      <div className="erp-office-plant" aria-hidden="true"><span /><span /><span /><b /></div>
-
-      <div className="erp-workstation">
-        <div className="erp-monitor">
-          <div className="erp-monitor-camera" aria-hidden="true" />
-          <div className="erp-screen">
-            <header className="erp-screen-topbar">
-              <div className="erp-screen-brand"><span className="erp-screen-logo">H</span><span><small>HisabERP</small><strong>{moduleTitle}</strong></span></div>
-              <div className="erp-screen-status"><span /> Live</div>
-            </header>
-
-            <div className="erp-screen-layout">
-              <aside className="erp-screen-sidebar" aria-label="ERP screen navigation"><span className="active" /><span /><span /><span /><span /></aside>
-              <div className="erp-screen-content">
-                <div className="erp-screen-heading"><div><small>{moduleEyebrow}</small><strong>{moduleTitle}</strong></div><span>Today</span></div>
-                <div className="erp-screen-tabs" role="tablist" aria-label={`${moduleTitle} preview views`}>
-                  {views.map((item) => <button type="button" role="tab" aria-selected={view === item.id} className={view === item.id ? 'active' : ''} key={item.id} onClick={() => setView(item.id)}>{item.label}</button>)}
-                </div>
-
-                {view === 'insights' ? (
-                  <div className="erp-insights-view">
-                    <div className="erp-insight-copy"><small>AI-ready business signal</small><strong>{metrics[0]?.label || 'Performance'} is the strongest live indicator.</strong><p>{metrics[0]?.note || 'Operational records are synchronized across the current workspace.'}</p></div>
-                    <div className="erp-insight-score"><span>Business health</span><strong>92</strong><small>/100</small></div>
-                  </div>
-                ) : (
-                  <>
-                    <div className="erp-screen-metrics">
-                      {metrics.slice(0, 3).map((metric) => <article key={metric.label}><small>{metric.label}</small><strong>{metric.value}</strong><span>{metric.note || 'Live'}</span></article>)}
-                    </div>
-                    <div className="erp-screen-lower">
-                      <section className="erp-screen-chart" aria-label="ERP performance chart">
-                        <header><strong>{view === 'activity' ? 'Operational flow' : 'Performance trend'}</strong><span>Live</span></header>
-                        <div className="erp-chart-bars" aria-hidden="true">{bars.map((height, index) => <i key={index} style={{ height: `${height}%` }} />)}</div>
-                        <div className="erp-chart-axis" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
-                      </section>
-                      <section className="erp-screen-table">
-                        <header><strong>{view === 'activity' ? 'Latest activity' : 'Current records'}</strong><span>Updated now</span></header>
-                        {visibleRows.slice(0, 3).map((row) => <p key={`${row.label}-${row.value}`}><span><strong>{row.label}</strong><small>{row.meta || 'Current'}</small></span><b>{row.value}</b></p>)}
-                      </section>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
+    <IconoirProvider iconProps={{ width: 17, height: 17, strokeWidth: 1.55, 'aria-hidden': true }}>
+      <div className={`erp-evidence${compact ? ' erp-evidence-compact' : ''}`} aria-label={`${moduleTitle} live Biloo ERP interface preview`}>
+        <header className="erp-evidence-topbar">
+          <div className="erp-evidence-brand"><span>b.</span><strong>Biloo ERP</strong></div>
+          <nav aria-label="Product breadcrumb"><span>Workspace</span><b>/</b><strong>{moduleTitle}</strong></nav>
+          <div className="erp-evidence-toolbar">
+            <button type="button"><Calendar />Aug 2026</button>
+            <button type="button" aria-label="Filter records"><FilterList /></button>
+            <button type="button" aria-label="Export records"><Download /></button>
           </div>
+        </header>
+
+        <div className="erp-evidence-layout">
+          <aside className="erp-evidence-sidebar" aria-label="ERP navigation">
+            {navigation.map(({ label, Icon }, index) => <button className={index === 1 ? 'active' : undefined} type="button" key={label}><Icon /><span>{label}</span></button>)}
+          </aside>
+
+          <section className="erp-evidence-content">
+            <div className="erp-evidence-heading">
+              <div><span>{moduleEyebrow}</span><h2>{moduleTitle}</h2></div>
+              <button type="button" className="erp-evidence-create"><Plus />New record</button>
+            </div>
+
+            <div className="erp-evidence-tabs" role="tablist" aria-label={`${moduleTitle} preview views`}>
+              {([
+                ['records', 'Records'],
+                ['trend', 'Performance'],
+                ['controls', 'Controls'],
+              ] as const).map(([id, label]) => <button type="button" role="tab" aria-selected={view === id} className={view === id ? 'active' : undefined} onClick={() => setView(id)} key={id}>{label}</button>)}
+            </div>
+
+            <div className="erp-evidence-metrics">
+              {metrics.slice(0, 3).map((metric, index) => <article key={metric.label}><span>{metric.label}</span><strong>{metric.value}</strong><small className={index === 1 ? 'attention' : undefined}>{metric.note || 'Updated now'}</small></article>)}
+            </div>
+
+            {view === 'records' ? (
+              <div className="erp-evidence-table-wrap">
+                <table className="erp-evidence-table">
+                  <thead><tr><th>Reference</th><th>Date</th><th>Record</th><th>Branch</th><th>Amount</th><th>Status</th></tr></thead>
+                  <tbody>{records.map((record) => <tr key={record.reference}><td><strong>{record.reference}</strong></td><td>{record.date}</td><td><span>{record.record}</span><small>{record.meta}</small></td><td>{record.branch}</td><td>{record.amount}</td><td><b className={`erp-status ${statusClass(record.status)}`}>{record.status}</b></td></tr>)}</tbody>
+                </table>
+              </div>
+            ) : null}
+
+            {view === 'trend' ? (
+              <div className="erp-evidence-analysis">
+                <div><span>Revenue performance</span><strong>ETB 4.82M</strong><small>+18.6% compared with July</small></div>
+                <div className="erp-evidence-chart" aria-label="Revenue performance from March to August 2026">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={chartData} margin={{ top: 12, right: 12, left: -20, bottom: 0 }}>
+                      <CartesianGrid stroke="#e8ebf0" vertical={false} />
+                      <XAxis dataKey="period" tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 10 }} />
+                      <YAxis tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 9 }} tickFormatter={(value) => `ETB ${value}M`} />
+                      <Tooltip formatter={(value) => [`ETB ${value}M`, 'Revenue']} contentStyle={{ border: '1px solid #dfe3ea', borderRadius: 6, boxShadow: '0 10px 30px rgba(16,36,74,.1)', fontSize: 11 }} />
+                      <Area type="monotone" dataKey="value" stroke="#315efb" fill="#315efb" fillOpacity={0.08} strokeWidth={2} />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            ) : null}
+
+            {view === 'controls' ? (
+              <div className="erp-evidence-controls">
+                <article><CheckCircle /><div><strong>Payment controls</strong><span>All August receipts reconciled</span></div><b>Ready</b></article>
+                <article><WarningCircle /><div><strong>Approval queue</strong><span>3 records require finance review</span></div><b>Review</b></article>
+                <article><CheckCircle /><div><strong>Audit evidence</strong><span>Source documents attached</span></div><b>Complete</b></article>
+              </div>
+            ) : null}
+          </section>
         </div>
-        <div className="erp-monitor-neck" aria-hidden="true" />
-        <div className="erp-monitor-base" aria-hidden="true" />
-        <div className="erp-office-desk" aria-hidden="true"><div className="erp-keyboard" /><div className="erp-mouse" /><div className="erp-desk-cup" /></div>
       </div>
-      <div className="erp-office-hint" aria-hidden="true"><span className="erp-office-hint-dot" /> Move your pointer · click the ERP tabs</div>
-    </div>
+    </IconoirProvider>
   );
 }

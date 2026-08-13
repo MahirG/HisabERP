@@ -2,12 +2,13 @@ import { NextResponse, type NextRequest } from "next/server";
 import { isCacheablePublicPath, updateSession } from "./lib/supabase/proxy";
 import { rateLimit } from "./lib/security/rate-limit";
 
-function contentSecurityPolicy(nonce: string | null, relaxedScripts: boolean) {
+function contentSecurityPolicy(nonce: string | null, relaxedScripts: boolean, localPreview: boolean) {
   const extraConnect = process.env.CSP_CONNECT_SRC?.split(",").map((value) => value.trim()).filter(Boolean).join(" ") ?? "";
   const scriptPolicy = relaxedScripts ? "'self' 'unsafe-inline'" : `'self' 'nonce-${nonce}' 'strict-dynamic'`;
+  const developmentEval = process.env.NODE_ENV === "development" || localPreview ? " 'unsafe-eval'" : "";
   return [
     "default-src 'self'",
-    `script-src ${scriptPolicy}`,
+    `script-src ${scriptPolicy}${developmentEval}`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob: https://*.googleusercontent.com https://www.ethiotelecom.et",
     "font-src 'self' data:",
@@ -16,7 +17,7 @@ function contentSecurityPolicy(nonce: string | null, relaxedScripts: boolean) {
     "base-uri 'self'",
     "form-action 'self'",
     "object-src 'none'",
-    "upgrade-insecure-requests",
+    ...(localPreview ? [] : ["upgrade-insecure-requests"]),
   ].join("; ");
 }
 
@@ -41,8 +42,9 @@ export async function proxy(request: NextRequest) {
   const isLegacy = path.startsWith("/legacy");
   const cacheablePublic = isCacheablePublicPath(path) && !(path === "/" && hasSupabaseSessionCookie(request));
   const relaxedScripts = isLegacy || cacheablePublic;
+  const localPreview = request.nextUrl.hostname === "terminal.local" || request.headers.get("host")?.startsWith("terminal.local") === true;
   const nonce = relaxedScripts ? null : crypto.randomUUID().replaceAll("-", "");
-  const csp = contentSecurityPolicy(nonce, relaxedScripts);
+  const csp = contentSecurityPolicy(nonce, relaxedScripts, localPreview);
   const isSensitive = path.startsWith("/auth/") || path.startsWith("/api/");
 
   if (isSensitive) {

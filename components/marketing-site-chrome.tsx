@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { MenuScale, NavArrowDown, Search, Xmark } from "iconoir-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 type Locale = "en" | "am";
@@ -164,7 +165,7 @@ export function MarketingHeader() {
               const active = group.items.some((item) => routeMatches(pathname, item.href));
               return (
                 <div className={`wb-nav-group${open ? " is-open" : ""}`} key={group.id}>
-                  <button type="button" aria-expanded={open} aria-haspopup="menu" className={active ? "is-active" : undefined} onClick={() => setOpenMenu((current) => current === group.id ? null : group.id)}>{group.label}</button>
+                  <button type="button" aria-expanded={open} aria-haspopup="menu" className={active ? "is-active" : undefined} onClick={() => setOpenMenu((current) => current === group.id ? null : group.id)}>{group.label}<NavArrowDown width={14} height={14} strokeWidth={1.6} aria-hidden /></button>
                   <div className="wb-dropdown" role="menu" aria-hidden={!open}>
                     {group.items.map((item) => <Link href={item.href} key={`${group.id}-${item.href}-${item.label}`} role="menuitem" aria-current={routeMatches(pathname, item.href) ? "page" : undefined} onClick={() => setOpenMenu(null)}>{item.label}</Link>)}
                   </div>
@@ -174,11 +175,11 @@ export function MarketingHeader() {
             <Link href="/pricing" className={routeMatches(pathname, "/pricing") ? "is-active" : undefined}>{c.pricing}</Link>
           </nav>
           <div className="wb-header-actions">
-            <button type="button" className="wb-search-trigger" onClick={() => setSearchOpen(true)}>{c.search}</button>
+            <button type="button" className="wb-search-trigger" onClick={() => setSearchOpen(true)}><Search width={17} height={17} strokeWidth={1.6} aria-hidden /><span>{c.search}</span></button>
             <button type="button" className="wb-language-switch" aria-label={c.language} onClick={changeLocale}>{locale.toUpperCase()}</button>
             <Link href="/auth/login?next=%2F" className="wb-sign-in">{c.signIn}</Link>
             <Link href="/auth/email-sign-up" className="wb-primary-action">{c.startFree}</Link>
-            <button type="button" className="wb-mobile-toggle" aria-label={mobileOpen ? c.closeMenu : c.openMenu} aria-expanded={mobileOpen} onClick={() => setMobileOpen((current) => !current)}>{mobileOpen ? c.closeMenu : "Menu"}</button>
+            <button type="button" className="wb-mobile-toggle" aria-label={mobileOpen ? c.closeMenu : c.openMenu} aria-expanded={mobileOpen} onClick={() => setMobileOpen((current) => !current)}>{mobileOpen ? <Xmark width={18} height={18} strokeWidth={1.6} aria-hidden /> : <MenuScale width={19} height={19} strokeWidth={1.6} aria-hidden />}<span>{mobileOpen ? c.closeMenu : "Menu"}</span></button>
           </div>
         </div>
       </header>
@@ -186,7 +187,7 @@ export function MarketingHeader() {
       <div className={`wb-search-overlay${searchOpen ? " is-open" : ""}`} aria-hidden={!searchOpen}>
         <button type="button" className="wb-overlay-backdrop" aria-label="Close search" onClick={() => setSearchOpen(false)} />
         <section className="wb-search-panel" role="dialog" aria-modal="true" aria-label={c.searchTitle}>
-          <header><div><span>{c.search}</span><h2>{c.searchTitle}</h2></div><button type="button" onClick={() => setSearchOpen(false)}>Close</button></header>
+          <header><div><span>{c.search}</span><h2>{c.searchTitle}</h2></div><button type="button" onClick={() => setSearchOpen(false)} aria-label="Close search"><Xmark width={19} height={19} strokeWidth={1.6} aria-hidden /></button></header>
           <label className="wb-search-field"><span className="wb-visually-hidden">{c.searchPlaceholder}</span><input ref={searchInputRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder={c.searchPlaceholder} autoComplete="off" /></label>
           <div className="wb-search-results">{filteredSearchItems.length ? filteredSearchItems.map((item) => <Link href={item.href} key={`${item.href}-${item.label}`} onClick={() => setSearchOpen(false)}>{item.label}</Link>) : <p className="wb-no-results">{c.noResults}</p>}</div>
         </section>
@@ -195,8 +196,8 @@ export function MarketingHeader() {
       <div className={`wb-mobile-drawer${mobileOpen ? " is-open" : ""}`} aria-hidden={!mobileOpen}>
         <button type="button" className="wb-overlay-backdrop" aria-label={c.closeMenu} onClick={() => setMobileOpen(false)} />
         <aside className="wb-mobile-panel" role="dialog" aria-modal="true" aria-label={c.navigation}>
-          <header><Link href="/" onClick={() => setMobileOpen(false)}><img src="/biloo-header-logo.svg" alt="Biloo" width="106" height="52" /></Link><button type="button" onClick={() => setMobileOpen(false)}>{c.closeMenu}</button></header>
-          <button type="button" className="wb-mobile-search" onClick={() => { setMobileOpen(false); setSearchOpen(true); }}>{c.searchPlaceholder}</button>
+          <header><Link href="/" onClick={() => setMobileOpen(false)}><img src="/biloo-header-logo.svg" alt="Biloo" width="106" height="52" /></Link><button type="button" onClick={() => setMobileOpen(false)} aria-label={c.closeMenu}><Xmark width={19} height={19} strokeWidth={1.6} aria-hidden /></button></header>
+          <button type="button" className="wb-mobile-search" onClick={() => { setMobileOpen(false); setSearchOpen(true); }}><Search width={17} height={17} strokeWidth={1.6} aria-hidden /><span>{c.searchPlaceholder}</span></button>
           <nav className="wb-mobile-navigation">
             {navigationGroups.map((group) => <details key={group.id}><summary>{group.label}</summary><div>{group.items.map((item) => <Link href={item.href} key={`${group.id}-${item.href}-${item.label}`} onClick={() => setMobileOpen(false)}>{item.label}</Link>)}</div></details>)}
             <Link href="/pricing" onClick={() => setMobileOpen(false)}>{c.pricing}</Link>
@@ -229,5 +230,5 @@ export function MarketingFooter() {
 }
 
 export function MarketingPageShell({ children }: { children: ReactNode }) {
-  return <div className="marketing-site marketing-site-v2"><MarketingStructuredData /><MarketingHeader /><main id="public-main-content">{children}</main><MarketingFooter /></div>;
+  return <div className="marketing-site marketing-site-v2 marketing-editorial-v1"><MarketingStructuredData /><MarketingHeader /><main id="public-main-content">{children}</main><MarketingFooter /></div>;
 }

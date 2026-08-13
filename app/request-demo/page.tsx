@@ -18,7 +18,7 @@ export default async function RequestDemoPage({
   const context = [params.source, params.topic].filter(Boolean).join(" · ");
 
   return (
-    <main className="marketing-site marketing-site-v2 demo-request-page">
+    <main className="marketing-site marketing-site-v2 marketing-editorial-v1 demo-request-page">
       <MarketingHeader />
       <section className="demo-request-shell" id="public-main-content">
         <div className="demo-request-copy">
