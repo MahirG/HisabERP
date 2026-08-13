@@ -43,6 +43,7 @@ test("shared footer and consent UI cannot fall back to unstyled browser defaults
   assert.match(styles, /\.marketing-editorial-v1 \.biloo-footer-legal\s*\{/);
   assert.match(styles, /\.biloo-consent-banner\s*\{[\s\S]*?position:\s*fixed/);
   assert.match(styles, /\.biloo-consent-dialog\s*\{[\s\S]*?max-height:/);
+  assert.match(styles, /\.biloo-consent-copy h2,[\s\S]*?font-size:\s*var\(--ms-fs-h4\)/);
   assert.match(styles, /@keyframes biloo-consent-enter/);
   assert.match(styles, /@media \(max-width:\s*680px\)/);
   assert.match(styles, /@media \(prefers-reduced-motion:\s*reduce\)/);
