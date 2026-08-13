@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import { Inter_Tight, Manrope, Source_Serif_4 } from "next/font/google";
 import type { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AppExperienceProvider } from "../components/app-experience-provider";
@@ -17,6 +17,24 @@ const bilooManrope = Manrope({
   variable: "--font-biloo-manrope",
   preload: true,
   fallback: ["Segoe UI", "Arial", "sans-serif"],
+});
+
+const marketingText = Inter_Tight({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  variable: "--font-ms-text",
+  preload: true,
+  fallback: ["Segoe UI", "Arial", "sans-serif"],
+});
+
+const marketingDisplay = Source_Serif_4({
+  subsets: ["latin"],
+  weight: ["600"],
+  display: "swap",
+  variable: "--font-ms-display",
+  preload: true,
+  fallback: ["Georgia", "Times New Roman", "serif"],
 });
 
 const preferenceBootstrap = `
@@ -146,7 +164,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html className={bilooManrope.variable} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
+    <html className={`${bilooManrope.variable} ${marketingText.variable} ${marketingDisplay.variable}`} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
       <head>
         <script src="/biloo-brand-bootstrap.js?v=20260802-4" defer />
         <script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} />

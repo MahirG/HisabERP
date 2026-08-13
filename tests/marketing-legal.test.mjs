@@ -47,7 +47,8 @@ test("single editorial stylesheet keeps a coherent public hierarchy", async () =
   const marketingStyles = await source("app/marketing-editorial-system.css");
 
   assert.doesNotMatch(controller, /<link[^>]+stylesheet/);
-  assert.match(marketingStyles, /--me-ink:\s*#11213f/);
+  assert.match(marketingStyles, /--ms-ink-900:\s*#11213f/);
+  assert.match(marketingStyles, /--me-ink:\s*var\(--ms-ink-900\)/);
   assert.match(marketingStyles, /\.marketing-editorial-v1/);
   assert.match(marketingStyles, /\.legal-document-shell/);
   assert.match(marketingStyles, /\.legal-contact-panel/);
