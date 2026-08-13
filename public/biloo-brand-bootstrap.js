@@ -35,15 +35,13 @@
     },
     {
       id: "biloo-mobile-navigation-v4",
-      href: "/biloo-mobile-navigation-v4.css?v=20260802-2"
+      href: "/biloo-mobile-navigation-v4.css?v=20260802-2",
+      media: "(max-width: 960px)"
     },
     {
-      id: "biloo-marketing-navigation-v5",
-      href: "/biloo-marketing-navigation-v5.css?v=20260802-1"
-    },
-    {
-      id: "biloo-home-footer-v2",
-      href: "/biloo-home-footer-v2.css?v=20260802-1"
+      id: "biloo-mobile-glass-footer",
+      href: "/biloo-mobile-glass-footer.css?v=20260802-1",
+      media: "(max-width: 760px)"
     },
     {
       id: "biloo-account-security-v3",
@@ -52,22 +50,18 @@
     {
       id: "biloo-mobile-compact-drawer",
       href: "/biloo-mobile-compact-drawer.css?v=20260802-2"
-    },
-    {
-      id: "biloo-public-scroll-recovery",
-      href: "/biloo-public-scroll-recovery.css?v=20260802-1"
-    },
-    {
-      id: "biloo-marketing-contrast-logo-authority",
-      href: "/biloo-marketing-contrast-logo-authority.css?v=20260802-1"
-    },
-    {
-      id: "biloo-marketing-drawer-recovery",
-      href: "/biloo-marketing-drawer-recovery.css?v=20260802-1"
     }
   ];
 
+  function isPublicMarketingDocument() {
+    return Boolean(document.querySelector(
+      ".marketing-site, .marketing-site-v2, .marketing-home-unified, .wp-site"
+    ));
+  }
+
   function ensureWorkspaceStyles() {
+    if (isPublicMarketingDocument()) return;
+
     for (var index = 0; index < WORKSPACE_STYLES.length; index += 1) {
       var stylesheet = WORKSPACE_STYLES[index];
       if (document.getElementById(stylesheet.id)) continue;
@@ -75,6 +69,7 @@
       link.id = stylesheet.id;
       link.rel = "stylesheet";
       link.href = stylesheet.href;
+      if (stylesheet.media) link.media = stylesheet.media;
       document.head.appendChild(link);
     }
   }

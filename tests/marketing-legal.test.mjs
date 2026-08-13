@@ -42,16 +42,13 @@ test("privacy and terms pages use the shared premium legal layout", async () => 
   assert.match(sitemap, /path: "\/terms"/);
 });
 
-test("executive marketing stylesheet keeps a coherent public hierarchy", async () => {
+test("single editorial stylesheet keeps a coherent public hierarchy", async () => {
   const controller = await source("components/marketing-experience-controller.tsx");
-  const marketingStyles = await source("public/biloo-executive-marketing.css");
-  const legalStyles = await source("public/biloo-legal-pages.css");
+  const marketingStyles = await source("app/marketing-editorial-system.css");
 
-  assert.match(controller, /biloo-executive-marketing\.css/);
-  assert.match(controller, /biloo-legal-pages\.css/);
-  assert.match(marketingStyles, /--biloo-page-width:\s*1280px/);
-  assert.match(marketingStyles, /--biloo-copy-width:\s*700px/);
-  assert.match(marketingStyles, /html\[data-public-theme="dark"\]/);
-  assert.match(legalStyles, /\.legal-document-shell/);
-  assert.match(legalStyles, /\.legal-contact-panel/);
+  assert.doesNotMatch(controller, /<link[^>]+stylesheet/);
+  assert.match(marketingStyles, /--me-ink:\s*#11213f/);
+  assert.match(marketingStyles, /\.marketing-editorial-v1/);
+  assert.match(marketingStyles, /\.legal-document-shell/);
+  assert.match(marketingStyles, /\.legal-contact-panel/);
 });

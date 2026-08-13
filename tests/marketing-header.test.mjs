@@ -12,7 +12,7 @@ async function source(relativePath) {
 
 test("public header uses conventional navigation and restrained customer actions", async () => {
   const component = await source("components/marketing-site-chrome.tsx");
-  const styles = await source("public/biloo-whitebit-header.css");
+  const styles = await source("app/marketing-editorial-system.css");
 
   for (const requiredLabel of ["Product", "Solutions", "Resources", "Company", "Pricing", "Search", "Sign in", "Start free"]) {
     assert.match(component, new RegExp(requiredLabel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
@@ -24,5 +24,5 @@ test("public header uses conventional navigation and restrained customer actions
   assert.match(styles, /\.wb-dropdown\s*\{/);
   assert.match(styles, /width:\s*264px/);
   assert.doesNotMatch(component, /wb-mega-menu|wb-mega-intro|wb-account-popover|wb-dashboard-button|wb-icon-button/);
-  assert.doesNotMatch(styles, /grid-template-columns:\s*minmax\(230px/);
+  assert.doesNotMatch(component, /<link[^>]+stylesheet/);
 });

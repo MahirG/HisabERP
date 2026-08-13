@@ -3,8 +3,6 @@ import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { ProductTourExperience } from "../../components/product-tour-experience";
 import { InteractiveErpOffice } from "../../components/interactive-erp-office";
-import "./product-tour-phase-2-4.css";
-
 export const metadata: Metadata = {
   title: "Biloo ERP Product Tour",
   description: "Explore Biloo ERP across dashboard, sales, inventory, finance and reporting in an interactive desktop and mobile product tour.",

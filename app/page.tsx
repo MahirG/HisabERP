@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { CampfireMarketingHome } from "../components/campfire-marketing-home";
 import { MarketingPageShell } from "../components/marketing-site-chrome";
-import "./home-campfire-redesign.css";
-
 export const dynamic = "force-static";
 export const revalidate = 3600;
 

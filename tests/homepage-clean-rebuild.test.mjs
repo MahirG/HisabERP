@@ -13,7 +13,7 @@ test("homepage uses the clean Biloo rebuild and shared public chrome", async () 
 
   assert.match(page, /<MarketingPageShell>/);
   assert.match(page, /<CampfireMarketingHome \/>/);
-  assert.match(page, /home-campfire-redesign\.css/);
+  assert.doesNotMatch(page, /\.css/);
   assert.doesNotMatch(page, /WishpondMarketingHome|marketing-home-unified|home-wishpond-redesign|home-apple-phase-2-3|home-office-workstation/);
 
   assert.match(home, /Start free/);
@@ -34,7 +34,7 @@ test("homepage uses the clean Biloo rebuild and shared public chrome", async () 
 });
 
 test("homepage rebuild covers responsive, accessible and reduced-motion states", async () => {
-  const styles = await read("app/home-campfire-redesign.css");
+  const styles = await read("app/marketing-editorial-system.css");
   const home = await read("components/campfire-marketing-home.tsx");
 
   assert.match(styles, /\.cf-primary,\s*\.marketing-site-v2 \.cf-secondary\s*\{[^}]*min-height:\s*40px/s);

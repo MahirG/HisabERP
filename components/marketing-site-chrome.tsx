@@ -154,7 +154,6 @@ export function MarketingHeader() {
 
   return (
     <>
-      <link rel="stylesheet" href="/biloo-whitebit-header.css?v=20260813-2" />
       <a href="#public-main-content" className="wb-skip-link">Skip to main content</a>
       <header ref={headerRef} className="wb-header">
         <div className="wb-header-inner">

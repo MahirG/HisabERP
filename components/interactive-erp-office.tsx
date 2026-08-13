@@ -26,8 +26,6 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import './interactive-erp-office.css';
-
 type HeroMetric = { label: string; value: string; note?: string };
 type HeroRow = { label: string; value: string; meta?: string };
 

@@ -4,107 +4,10 @@ import type { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AppExperienceProvider } from "../components/app-experience-provider";
 import { AuthPagePreferences } from "../components/auth-page-preferences";
+import { InternalStyleLoader } from "../components/internal-style-loader";
 import { LanguageProvider } from "../components/language-provider";
 import { MarketingExperienceController } from "../components/marketing-experience-controller";
 import { WorkspaceShell } from "../components/workspace-shell";
-import "./fonts.css";
-import "./globals.css";
-import "./design-system.css";
-import "./icon-system.css";
-import "./erp-modules.css";
-import "./i18n.css";
-import "./production.css";
-import "./auth-i18n.css";
-import "./auth-premium.css";
-import "./auth-social.css";
-import "./internal-premium.css";
-import "./internal-modules-premium.css";
-import "./finance.css";
-import "./sales.css";
-import "./e-invoicing.css";
-import "./reconciliation.css";
-import "./core-operations.css";
-import "./setup-controls.css";
-import "./onboarding-launch.css";
-import "./readiness.css";
-import "./user-menu.css";
-import "./user-menu-layout.css";
-import "./docked-sidebar.css";
-import "./product-experience.css";
-import "./brand-refinements.css";
-import "./sidebar-icon-cleanup.css";
-import "./account-security-premium.css";
-import "./workspace-standardization.css";
-import "./phone-auth-standard.css";
-import "./auth-official.css";
-import "./auth-login-slack.css";
-import "./auth-hisab-brand.css";
-import "./market-expansion.css";
-import "./proof-trust-integrations.css";
-import "./migration-comparisons-help.css";
-import "./home-implementation-resources.css";
-import "./public-experience-final.css";
-import "./home-final-recommendations.css";
-import "./request-demo.css";
-import "./request-demo-secure.css";
-import "./mobile-workspace.css";
-import "./workspace-command-center.css";
-import "./help-center.css";
-import "./supabase-sidebar.css";
-import "./financial-workspace-foundation.css";
-import "./financial-workspace-components.css";
-import "./financial-dashboard.css";
-import "./workspace-header-preferences.css";
-import "./light-theme-contrast.css";
-import "./light-theme-component-guards.css";
-import "./auth-page-preferences.css";
-import "./header-only-preferences.css";
-import "./official-brand.css";
-import "./strict-brand.css";
-import "./brand-loading.css";
-import "./public-route-progress.css";
-import "./brand-audit-fixes.css";
-import "./brand-final-lock.css";
-import "./public-visual-system.css";
-import "./global-preferences-icons.css";
-import "./brand-hamburger-menu.css";
-import "./third-party-brand-colors.css";
-import "./mobile-first-paint.css";
-import "./mobile-controls-recovery.css";
-import "./mobile-controls-menu.css";
-import "./workspace-brand-completion.css";
-import "./standard-mobile-header.css";
-import "./full-ui-polish.css";
-import "./brand-typography-color-lock.css";
-import "./sticky-header-lock.css";
-import "./surface-uniformity-lock.css";
-import "./auth-standard-experience.css";
-import "./workspace-theme-visibility.css";
-import "./public-dashboard-theme-visibility.css";
-import "./public-white-background.css";
-import "./mobile-cta-premium.css";
-import "./home-imac-showcase.css";
-import "./commercial-platform.css";
-import "./apple-workspace-redesign.css";
-import "./apple-workspace-redesign-fixes.css";
-import "./dashboard-color-system.css";
-import "./hisab-premium-fintech.css";
-import "./apple-editorial-public-system.css";
-import "./public-pure-white-background.css";
-import "./application-polish.css";
-import "./adaptive-theme-contrast.css";
-import "./public-theme-coherence.css";
-import "./english-light-lock.css";
-import "./home-dashboard-imac.css";
-import "./zylo-typography-system.css";
-import "./biloo-black-gold-brand-system.css";
-import "./auth-login-award.css";
-import "./public-navigation-home-coherence.css";
-import "./public-navigation-home-parity.css";
-import "./biloo-workspace-final-lock.css";
-import "./biloo-all-workspace-routes-contrast-lock.css";
-import "./biloo-workspace-utility-visibility-lock.css";
-import "./biloo-pure-white-workspace-lock.css";
 import "./marketing-editorial-system.css";
 
 const bilooManrope = Manrope({
@@ -189,22 +92,6 @@ const mobileNavigationBootstrap = `
   window.addEventListener('pageshow', expandHamburgerBreakpoint);
 })();`;
 
-const publicFirstPaintGuard = `
-.marketing-home-unified,
-.marketing-home-unified .wp-site,
-.marketing-home-unified #public-main-content,
-.marketing-home-unified #wp-main {
-  background: #f4f6fa !important;
-}
-.marketing-home-unified #public-main-content > .wp-site > .wp-skip,
-.marketing-home-unified #public-main-content > .wp-site > .wp-header,
-.marketing-home-unified #public-main-content > .wp-site > .wp-mobile-nav,
-.marketing-home-unified .wp-announcement,
-.marketing-home-unified .wp-footer-cta,
-.marketing-home-unified .wp-float-card {
-  display: none !important;
-}`;
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.hisabtech.com"),
   title: { default: "Biloo — Business Operating System for Ethiopia", template: "%s | Biloo" },
@@ -261,29 +148,12 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html className={bilooManrope.variable} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
       <head>
-        <style dangerouslySetInnerHTML={{ __html: publicFirstPaintGuard }} />
-        <link id="biloo-workspace-utility-header" rel="stylesheet" href="/biloo-workspace-utility-header.css?v=20260802-3" />
-        <link id="biloo-mobile-navigation-v4" rel="stylesheet" href="/biloo-mobile-navigation-v4.css?v=20260802-2" media="(max-width: 960px)" />
-        <link id="biloo-mobile-glass-footer" rel="stylesheet" href="/biloo-mobile-glass-footer.css?v=20260802-1" media="(max-width: 760px)" />
-        <link id="biloo-public-scroll-recovery" rel="stylesheet" href="/biloo-public-scroll-recovery.css?v=20260802-1" />
-        <link id="biloo-marketing-navigation-v5" rel="stylesheet" href="/biloo-marketing-navigation-v5.css?v=20260802-1" />
-        <link id="biloo-home-footer-v2" rel="stylesheet" href="/biloo-home-footer-v2.css?v=20260802-1" />
-        <link id="biloo-account-security-v3" rel="stylesheet" href="/biloo-account-security-v3.css?v=20260802-1" />
-        <link id="biloo-mobile-compact-drawer" rel="stylesheet" href="/biloo-mobile-compact-drawer.css?v=20260802-2" />
-        <link id="biloo-marketing-contrast-logo-authority" rel="stylesheet" href="/biloo-marketing-contrast-logo-authority.css?v=20260802-1" />
-        <link id="biloo-marketing-drawer-recovery" rel="stylesheet" href="/biloo-marketing-drawer-recovery.css?v=20260802-1" />
-        <link id="biloo-whitebit-header" rel="stylesheet" href="/biloo-whitebit-header.css?v=20260805-1" />
-        <link id="biloo-marketing-interactions" rel="stylesheet" href="/biloo-marketing-interactions.css?v=20260806-4" />
-        <link id="biloo-legal-suite" rel="stylesheet" href="/biloo-legal-suite.css?v=20260806-1" />
-        <link id="biloo-legal-pages" rel="stylesheet" href="/biloo-legal-pages.css?v=20260806-1" />
-        <link id="biloo-marketing-foundation-v2" rel="stylesheet" href="/biloo-marketing-foundation-v2.css?v=20260806-4" />
-        <link id="biloo-home-latest" rel="stylesheet" href="/biloo-home-latest.css?v=20260806-4" />
-        <link id="biloo-marketing-tricolor" rel="stylesheet" href="/biloo-marketing-tricolor.css?v=20260806-1" />
         <script src="/biloo-brand-bootstrap.js?v=20260802-4" defer />
         <script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} />
         <script dangerouslySetInnerHTML={{ __html: mobileNavigationBootstrap }} />
       </head>
       <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="biloo-award-marketing-2026">
+        <InternalStyleLoader />
         <LanguageProvider initialLanguage="en">
           <AppExperienceProvider>
             <AuthPagePreferences />

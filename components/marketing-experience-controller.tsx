@@ -45,12 +45,6 @@ function isMarketingPath(pathname: string) {
   );
 }
 
-function isLegalPath(pathname: string) {
-  return ["/privacy", "/terms", "/cookies", "/legal"].some(
-    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
-  );
-}
-
 function isVisible(element: HTMLElement) {
   const rect = element.getBoundingClientRect();
   return rect.bottom > 0 && rect.top < window.innerHeight * 0.94;
@@ -104,8 +98,6 @@ function ensurePoweredByFooter(scope: ParentNode) {
 export function MarketingExperienceController() {
   const pathname = usePathname();
   const marketingPath = isMarketingPath(pathname);
-  const homePath = pathname === "/";
-  const legalPath = isLegalPath(pathname);
 
   useEffect(() => {
     const body = document.body;
@@ -219,12 +211,6 @@ export function MarketingExperienceController() {
 
   return (
     <>
-      <link rel="stylesheet" href="/biloo-marketing-interactions.css?v=20260806-4" />
-      <link rel="stylesheet" href="/biloo-legal-suite.css?v=20260806-1" />
-      {legalPath ? <link rel="stylesheet" href="/biloo-legal-pages.css?v=20260806-1" /> : null}
-      {!homePath ? <link rel="stylesheet" href="/biloo-marketing-foundation-v2.css?v=20260806-4" /> : null}
-      {homePath ? <link rel="stylesheet" href="/biloo-home-latest.css?v=20260806-4" /> : null}
-      <link rel="stylesheet" href="/biloo-marketing-tricolor.css?v=20260806-1" />
       <MarketingLegalSuite />
     </>
   );
