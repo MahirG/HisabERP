@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MenuScale, NavArrowDown, Search, Xmark } from "iconoir-react";
+import { MenuScale, Search, Xmark } from "iconoir-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 type Locale = "en" | "am";
-type MenuId = "product" | "solutions" | "resources" | "company";
 type NavigationItem = { label: string; href: string };
-type NavigationGroup = { id: MenuId; label: string; items: NavigationItem[] };
+type NavigationGroup = { id: "product" | "solutions" | "resources" | "company"; label: string; items: NavigationItem[] };
 
 const copy = {
   en: {
@@ -91,9 +90,9 @@ function MarketingStructuredData() {
 
 export function MarketingHeader() {
   const pathname = usePathname();
-  const headerRef = useRef<HTMLElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const [openMenu, setOpenMenu] = useState<MenuId | null>(null);
+  const searchTriggerRef = useRef<HTMLButtonElement>(null);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -122,28 +121,47 @@ export function MarketingHeader() {
   }, []);
 
   useEffect(() => {
-    setOpenMenu(null); setMobileOpen(false); setSearchOpen(false); setQuery("");
+    setMobileOpen(false); setSearchOpen(false); setQuery("");
   }, [pathname]);
 
   useEffect(() => {
-    const closeOutside = (event: PointerEvent) => {
-      if (!headerRef.current?.contains(event.target as Node)) setOpenMenu(null);
+    const handleKeyboard = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        const returnTarget = searchOpen ? searchTriggerRef.current : mobileOpen ? menuToggleRef.current : null;
+        setMobileOpen(false);
+        setSearchOpen(false);
+        window.requestAnimationFrame(() => returnTarget?.focus());
+        return;
+      }
+
+      const target = event.target as HTMLElement | null;
+      const isEditing = Boolean(target?.closest("input, textarea, select, [contenteditable='true']"));
+      const keyboardSearch = (event.key === "/" && !isEditing) || ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k");
+      if (!keyboardSearch) return;
+
+      event.preventDefault();
+      setMobileOpen(false);
+      setSearchOpen(true);
     };
-    const closeEscape = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      setOpenMenu(null); setMobileOpen(false); setSearchOpen(false);
-    };
-    document.addEventListener("pointerdown", closeOutside);
-    window.addEventListener("keydown", closeEscape);
-    return () => {
-      document.removeEventListener("pointerdown", closeOutside);
-      window.removeEventListener("keydown", closeEscape);
-    };
-  }, []);
+    window.addEventListener("keydown", handleKeyboard);
+    return () => window.removeEventListener("keydown", handleKeyboard);
+  }, [mobileOpen, searchOpen]);
 
   useEffect(() => {
     if (searchOpen) window.requestAnimationFrame(() => searchInputRef.current?.focus());
   }, [searchOpen]);
+
+  useEffect(() => {
+    if (!mobileOpen && !searchOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previousOverflow; };
+  }, [mobileOpen, searchOpen]);
+
+  const openSearch = () => {
+    setMobileOpen(false);
+    setSearchOpen(true);
+  };
 
   const changeLocale = () => {
     const nextLocale: Locale = locale === "en" ? "am" : "en";
@@ -155,51 +173,31 @@ export function MarketingHeader() {
   return (
     <>
       <a href="#public-main-content" className="wb-skip-link">Skip to main content</a>
-      <header ref={headerRef} className="wb-header">
+      <header className="wb-header">
         <div className="wb-header-inner">
           <Link href="/" className="wb-brand" aria-label="Biloo home"><img src="/biloo-header-logo.svg" alt="Biloo" width="112" height="56" /></Link>
-          <nav className="wb-primary-nav" aria-label={c.navigation}>
-            {navigationGroups.map((group) => {
-              const open = openMenu === group.id;
-              const active = group.items.some((item) => routeMatches(pathname, item.href));
-              return (
-                <div className={`wb-nav-group${open ? " is-open" : ""}`} key={group.id}>
-                  <button type="button" aria-expanded={open} aria-haspopup="menu" className={active ? "is-active" : undefined} onClick={() => setOpenMenu((current) => current === group.id ? null : group.id)}>{group.label}<NavArrowDown width={14} height={14} strokeWidth={1.6} aria-hidden /></button>
-                  <div className="wb-dropdown" role="menu" aria-hidden={!open}>
-                    {group.items.map((item) => <Link href={item.href} key={`${group.id}-${item.href}-${item.label}`} role="menuitem" aria-current={routeMatches(pathname, item.href) ? "page" : undefined} onClick={() => setOpenMenu(null)}>{item.label}</Link>)}
-                  </div>
-                </div>
-              );
-            })}
-            <Link href="/pricing" className={routeMatches(pathname, "/pricing") ? "is-active" : undefined}>{c.pricing}</Link>
-          </nav>
-          <div className="wb-header-actions">
-            <button type="button" className="wb-search-trigger" onClick={() => setSearchOpen(true)}><Search width={17} height={17} strokeWidth={1.6} aria-hidden /><span>{c.search}</span></button>
-            <button type="button" className="wb-language-switch" aria-label={c.language} onClick={changeLocale}>{locale.toUpperCase()}</button>
-            <Link href="/auth/login?next=%2F" className="wb-sign-in">{c.signIn}</Link>
-            <Link href="/auth/email-sign-up" className="wb-primary-action">{c.startFree}</Link>
-            <button type="button" className="wb-mobile-toggle" aria-label={mobileOpen ? c.closeMenu : c.openMenu} aria-expanded={mobileOpen} onClick={() => setMobileOpen((current) => !current)}>{mobileOpen ? <Xmark width={18} height={18} strokeWidth={1.6} aria-hidden /> : <MenuScale width={19} height={19} strokeWidth={1.6} aria-hidden />}<span>{mobileOpen ? c.closeMenu : "Menu"}</span></button>
-          </div>
+          <button ref={searchTriggerRef} type="button" className="wb-search-trigger" aria-label={c.searchTitle} aria-haspopup="dialog" aria-expanded={searchOpen} aria-controls="wb-site-search" onClick={openSearch}><Search width={19} height={19} strokeWidth={1.7} aria-hidden /><span className="wb-search-label">{c.searchPlaceholder}</span><kbd className="wb-search-shortcut" aria-hidden="true">/</kbd></button>
+          <button ref={menuToggleRef} type="button" className="wb-mobile-toggle" aria-label={mobileOpen ? c.closeMenu : c.openMenu} aria-expanded={mobileOpen} aria-controls="wb-site-navigation" onClick={() => { setSearchOpen(false); setMobileOpen((current) => !current); }}>{mobileOpen ? <Xmark width={21} height={21} strokeWidth={1.7} aria-hidden /> : <MenuScale width={22} height={22} strokeWidth={1.7} aria-hidden />}<span className="wb-visually-hidden">{mobileOpen ? c.closeMenu : c.openMenu}</span></button>
         </div>
       </header>
 
       <div className={`wb-search-overlay${searchOpen ? " is-open" : ""}`} aria-hidden={!searchOpen}>
         <button type="button" className="wb-overlay-backdrop" aria-label="Close search" onClick={() => setSearchOpen(false)} />
-        <section className="wb-search-panel" role="dialog" aria-modal="true" aria-label={c.searchTitle}>
+        <section id="wb-site-search" className="wb-search-panel" role="dialog" aria-modal="true" aria-label={c.searchTitle}>
           <header><div><span>{c.search}</span><h2>{c.searchTitle}</h2></div><button type="button" onClick={() => setSearchOpen(false)} aria-label="Close search"><Xmark width={19} height={19} strokeWidth={1.6} aria-hidden /></button></header>
-          <label className="wb-search-field"><span className="wb-visually-hidden">{c.searchPlaceholder}</span><input ref={searchInputRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder={c.searchPlaceholder} autoComplete="off" /></label>
+          <label className="wb-search-field"><span className="wb-visually-hidden">{c.searchPlaceholder}</span><input ref={searchInputRef} type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={c.searchPlaceholder} autoComplete="off" /></label>
           <div className="wb-search-results">{filteredSearchItems.length ? filteredSearchItems.map((item) => <Link href={item.href} key={`${item.href}-${item.label}`} onClick={() => setSearchOpen(false)}>{item.label}</Link>) : <p className="wb-no-results">{c.noResults}</p>}</div>
         </section>
       </div>
 
       <div className={`wb-mobile-drawer${mobileOpen ? " is-open" : ""}`} aria-hidden={!mobileOpen}>
         <button type="button" className="wb-overlay-backdrop" aria-label={c.closeMenu} onClick={() => setMobileOpen(false)} />
-        <aside className="wb-mobile-panel" role="dialog" aria-modal="true" aria-label={c.navigation}>
+        <aside id="wb-site-navigation" className="wb-mobile-panel" role="dialog" aria-modal="true" aria-label={c.navigation}>
           <header><Link href="/" onClick={() => setMobileOpen(false)}><img src="/biloo-header-logo.svg" alt="Biloo" width="106" height="52" /></Link><button type="button" onClick={() => setMobileOpen(false)} aria-label={c.closeMenu}><Xmark width={19} height={19} strokeWidth={1.6} aria-hidden /></button></header>
-          <button type="button" className="wb-mobile-search" onClick={() => { setMobileOpen(false); setSearchOpen(true); }}><Search width={17} height={17} strokeWidth={1.6} aria-hidden /><span>{c.searchPlaceholder}</span></button>
+          <button type="button" className="wb-mobile-search" onClick={openSearch}><Search width={17} height={17} strokeWidth={1.6} aria-hidden /><span>{c.searchPlaceholder}</span></button>
           <nav className="wb-mobile-navigation">
-            {navigationGroups.map((group) => <details key={group.id}><summary>{group.label}</summary><div>{group.items.map((item) => <Link href={item.href} key={`${group.id}-${item.href}-${item.label}`} onClick={() => setMobileOpen(false)}>{item.label}</Link>)}</div></details>)}
-            <Link href="/pricing" onClick={() => setMobileOpen(false)}>{c.pricing}</Link>
+            {navigationGroups.map((group) => <details key={group.id}><summary>{group.label}</summary><div>{group.items.map((item) => <Link href={item.href} key={`${group.id}-${item.href}-${item.label}`} aria-current={routeMatches(pathname, item.href) ? "page" : undefined} onClick={() => setMobileOpen(false)}>{item.label}</Link>)}</div></details>)}
+            <Link href="/pricing" aria-current={routeMatches(pathname, "/pricing") ? "page" : undefined} onClick={() => setMobileOpen(false)}>{c.pricing}</Link>
           </nav>
           <div className="wb-mobile-utilities"><Link href="/help-center" onClick={() => setMobileOpen(false)}>Help Center</Link><Link href="/account" onClick={() => setMobileOpen(false)}>Account</Link><button type="button" onClick={changeLocale}>{c.language}: {locale === "en" ? "English" : "አማርኛ"}</button></div>
           <div className="wb-mobile-actions"><Link href="/auth/login?next=%2F" onClick={() => setMobileOpen(false)}>{c.signIn}</Link><Link href="/auth/email-sign-up" onClick={() => setMobileOpen(false)}>{c.startFree}</Link></div>
