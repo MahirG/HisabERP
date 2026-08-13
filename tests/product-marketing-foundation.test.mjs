@@ -47,14 +47,13 @@ test("public middleware exposes product marketing routes", async () => {
   assert.match(proxy, /publicPagePrefixes = \["\/product\/", "\/industries\/"\]/);
 });
 
-test("marketing experience is loaded before final brand enforcement", async () => {
+test("consolidated marketing stylesheet is the only marketing CSS authority", async () => {
   const layout = await read("app/layout.tsx");
   const imports = [...layout.matchAll(/import "\.\/(.+?\.css)";/g)].map((match) => match[1]);
-  const experience = imports.indexOf("marketing-experience.css");
-  const expansion = imports.indexOf("market-expansion.css");
+  const editorial = imports.indexOf("marketing-editorial-system.css");
   const finalLock = imports.indexOf("brand-final-lock.css");
 
-  assert.ok(experience >= 0);
-  assert.ok(expansion > experience);
-  assert.ok(finalLock > expansion);
+  assert.equal(imports.includes("marketing-site.css"), false);
+  assert.equal(imports.includes("marketing-experience.css"), false);
+  assert.ok(editorial > finalLock);
 });
