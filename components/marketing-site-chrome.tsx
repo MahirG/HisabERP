@@ -1,8 +1,21 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MenuScale, Search, Xmark } from "iconoir-react";
+import {
+  ArrowUpRight,
+  Book,
+  Box,
+  Building,
+  CheckCircle,
+  Mail,
+  MapPin,
+  MenuScale,
+  Phone,
+  Search,
+  Xmark,
+} from "iconoir-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 type Locale = "en" | "am";
@@ -175,7 +188,7 @@ export function MarketingHeader() {
       <a href="#public-main-content" className="wb-skip-link">Skip to main content</a>
       <header className="wb-header">
         <div className="wb-header-inner">
-          <Link href="/" className="wb-brand" aria-label="Biloo home"><img src="/biloo-header-logo.svg" alt="Biloo" width="112" height="56" /></Link>
+          <Link href="/" className="wb-brand" aria-label="Biloo home"><Image src="/biloo-header-logo.svg" alt="Biloo" width={112} height={56} priority /></Link>
           <button ref={searchTriggerRef} type="button" className="wb-search-trigger" aria-label={c.searchTitle} aria-haspopup="dialog" aria-expanded={searchOpen} aria-controls="wb-site-search" onClick={openSearch}><Search width={19} height={19} strokeWidth={1.7} aria-hidden /><span className="wb-search-label">{c.searchPlaceholder}</span><kbd className="wb-search-shortcut" aria-hidden="true">/</kbd></button>
           <button ref={menuToggleRef} type="button" className="wb-mobile-toggle" aria-label={mobileOpen ? c.closeMenu : c.openMenu} aria-expanded={mobileOpen} aria-controls="wb-site-navigation" onClick={() => { setSearchOpen(false); setMobileOpen((current) => !current); }}>{mobileOpen ? <Xmark width={21} height={21} strokeWidth={1.7} aria-hidden /> : <MenuScale width={22} height={22} strokeWidth={1.7} aria-hidden />}<span className="wb-visually-hidden">{mobileOpen ? c.closeMenu : c.openMenu}</span></button>
         </div>
@@ -193,7 +206,7 @@ export function MarketingHeader() {
       <div className={`wb-mobile-drawer${mobileOpen ? " is-open" : ""}`} aria-hidden={!mobileOpen}>
         <button type="button" className="wb-overlay-backdrop" aria-label={c.closeMenu} onClick={() => setMobileOpen(false)} />
         <aside id="wb-site-navigation" className="wb-mobile-panel" role="dialog" aria-modal="true" aria-label={c.navigation}>
-          <header><Link href="/" onClick={() => setMobileOpen(false)}><img src="/biloo-header-logo.svg" alt="Biloo" width="106" height="52" /></Link><button type="button" onClick={() => setMobileOpen(false)} aria-label={c.closeMenu}><Xmark width={19} height={19} strokeWidth={1.6} aria-hidden /></button></header>
+          <header><Link href="/" onClick={() => setMobileOpen(false)}><Image src="/biloo-header-logo.svg" alt="Biloo" width={106} height={52} /></Link><button type="button" onClick={() => setMobileOpen(false)} aria-label={c.closeMenu}><Xmark width={19} height={19} strokeWidth={1.6} aria-hidden /></button></header>
           <button type="button" className="wb-mobile-search" onClick={openSearch}><Search width={17} height={17} strokeWidth={1.6} aria-hidden /><span>{c.searchPlaceholder}</span></button>
           <nav className="wb-mobile-navigation">
             {navigationGroups.map((group) => <details key={group.id}><summary>{group.label}</summary><div>{group.items.map((item) => <Link href={item.href} key={`${group.id}-${item.href}-${item.label}`} aria-current={routeMatches(pathname, item.href) ? "page" : undefined} onClick={() => setMobileOpen(false)}>{item.label}</Link>)}</div></details>)}
@@ -216,12 +229,57 @@ export function MarketingFooter() {
   return (
     <footer className="marketing-footer">
       <div className="marketing-footer-top">
-        <div><Link href="/" className="marketing-brand marketing-footer-brand"><img src="/biloo-header-logo.svg" alt="Biloo" width="108" height="54" /><span className="marketing-brand-copy"><strong>Biloo</strong><small>Business operating system</small></span></Link><p>{c.footerIntro}</p><a href="mailto:mahir@hisabtech.com">mahir@hisabtech.com</a><a href="tel:+251924093037">+251 924 093 037</a></div>
-        <div><strong>{c.product}</strong><Link href="/product-tour">Product tour</Link><Link href="/product/sales-invoicing">Sales & invoicing</Link><Link href="/product/finance-cashflow">Finance & cash flow</Link><Link href="/product/inventory">Inventory</Link><Link href="/pricing">{c.pricing}</Link></div>
-        <div><strong>{c.resources}</strong><Link href="/resources">Learning center</Link><Link href="/migration">Data migration</Link><Link href="/compare">ERP comparisons</Link><Link href="/help-center">Help Center</Link><Link href="/customer-stories">Customer stories</Link></div>
-        <div><strong>{c.company}</strong><Link href="/about">About Biloo</Link><Link href="/trust">Trust Center</Link><Link href="/integrations">Integrations</Link><Link href="/auth/login">{c.signIn}</Link><a href="mailto:mahir@hisabtech.com?subject=Biloo%20security%20question">Security contact</a></div>
+        <div className="marketing-footer-overview">
+          <Link href="/" className="marketing-footer-brand" aria-label="Biloo home">
+            <Image src="/biloo-header-logo.svg" alt="Biloo" width={108} height={54} />
+          </Link>
+          <div className="marketing-footer-kicker"><CheckCircle width={17} height={17} strokeWidth={1.7} aria-hidden /><span>Business, beautifully connected</span></div>
+          <p>{c.footerIntro}</p>
+          <div className="marketing-footer-contact-list">
+            <a href="mailto:mahir@hisabtech.com">
+              <span className="marketing-footer-contact-icon" data-tone="coral"><Mail width={17} height={17} strokeWidth={1.7} aria-hidden /></span>
+              <span>mahir@hisabtech.com</span>
+              <ArrowUpRight width={15} height={15} strokeWidth={1.7} aria-hidden />
+            </a>
+            <a href="tel:+251924093037">
+              <span className="marketing-footer-contact-icon" data-tone="mint"><Phone width={17} height={17} strokeWidth={1.7} aria-hidden /></span>
+              <span>+251 924 093 037</span>
+              <ArrowUpRight width={15} height={15} strokeWidth={1.7} aria-hidden />
+            </a>
+          </div>
+        </div>
+
+        <nav className="marketing-footer-column" data-tone="blue" aria-labelledby="marketing-footer-product">
+          <div className="marketing-footer-heading"><span><Box width={18} height={18} strokeWidth={1.65} aria-hidden /></span><strong id="marketing-footer-product">{c.product}</strong></div>
+          <Link href="/product-tour">Product tour</Link>
+          <Link href="/product/sales-invoicing">Sales & invoicing</Link>
+          <Link href="/product/finance-cashflow">Finance & cash flow</Link>
+          <Link href="/product/inventory">Inventory</Link>
+          <Link href="/pricing">{c.pricing}</Link>
+        </nav>
+
+        <nav className="marketing-footer-column" data-tone="gold" aria-labelledby="marketing-footer-resources">
+          <div className="marketing-footer-heading"><span><Book width={18} height={18} strokeWidth={1.65} aria-hidden /></span><strong id="marketing-footer-resources">{c.resources}</strong></div>
+          <Link href="/resources">Learning center</Link>
+          <Link href="/migration">Data migration</Link>
+          <Link href="/compare">ERP comparisons</Link>
+          <Link href="/help-center">Help Center</Link>
+          <Link href="/customer-stories">Customer stories</Link>
+        </nav>
+
+        <nav className="marketing-footer-column" data-tone="coral" aria-labelledby="marketing-footer-company">
+          <div className="marketing-footer-heading"><span><Building width={18} height={18} strokeWidth={1.65} aria-hidden /></span><strong id="marketing-footer-company">{c.company}</strong></div>
+          <Link href="/about">About Biloo</Link>
+          <Link href="/trust">Trust Center</Link>
+          <Link href="/integrations">Integrations</Link>
+          <Link href="/auth/login">{c.signIn}</Link>
+          <a href="mailto:mahir@hisabtech.com?subject=Biloo%20security%20question">Security contact</a>
+        </nav>
       </div>
-      <div className="marketing-footer-bottom"><span>© {new Date().getFullYear()} Biloo. {c.rights}</span><span>{c.location}</span></div>
+      <div className="marketing-footer-bottom">
+        <span>© {new Date().getFullYear()} Biloo. {c.rights}</span>
+        <span className="marketing-footer-location"><MapPin width={15} height={15} strokeWidth={1.7} aria-hidden />{c.location}</span>
+      </div>
     </footer>
   );
 }

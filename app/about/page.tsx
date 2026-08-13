@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import { ProfileCircle } from "iconoir-react";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { getPublicLanguage } from "../../lib/public-localization";
@@ -111,11 +113,11 @@ export default async function AboutPage() {
         <InteractiveErpOffice moduleTitle="HisabTech" moduleEyebrow={c.missionEyebrow} metrics={aboutMetrics} rows={aboutRows} compact />
       </section>
 
-      <section className="about-mission-section"><div><span>{c.missionEyebrow}</span><h2>{c.missionTitle}</h2><p>{c.missionText}</p></div><div className="about-mission-mark"><img src="/hisab-logo.svg" alt="" width="150" height="150" className="hisab-logo"/><strong>HisabERP</strong><span>Business operating system</span></div></section>
+      <section className="about-mission-section"><div><span>{c.missionEyebrow}</span><h2>{c.missionTitle}</h2><p>{c.missionText}</p></div><div className="about-mission-mark"><Image src="/hisab-logo.svg" alt="" width={150} height={150} className="hisab-logo"/><strong>HisabERP</strong><span>Business operating system</span></div></section>
 
       <section className="marketing-section about-principles-section"><div className="marketing-section-heading marketing-section-heading-wide"><span>{c.principlesEyebrow}</span><h2>{c.principlesTitle}</h2></div><div className="about-principles-grid">{c.principles.map(([number, title, text]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{text}</p></article>)}</div></section>
 
-      <section className="about-leadership-section"><div><span className="marketing-eyebrow">{c.leadershipEyebrow}</span><h2>{c.leadershipTitle}</h2><p>{c.founderText}</p></div><article><span className="about-founder-avatar">MA</span><div><strong>{c.founderName}</strong><small>{c.founderRole}</small><a href="mailto:info@hisabtech.com">info@hisabtech.com</a></div></article></section>
+      <section className="about-leadership-section"><div><span className="marketing-eyebrow">{c.leadershipEyebrow}</span><h2>{c.leadershipTitle}</h2><p>{c.founderText}</p></div><article><span className="about-founder-avatar"><ProfileCircle width={34} height={34} strokeWidth={1.5} aria-hidden /></span><div><strong>{c.founderName}</strong><small>{c.founderRole}</small><a href="mailto:info@hisabtech.com">info@hisabtech.com</a></div></article></section>
 
       <section className="marketing-section about-standards-section"><div className="marketing-section-heading"><span>{c.standardsEyebrow}</span><h2>{c.standardsTitle}</h2></div><div className="about-standards-grid">{c.standards.map((standard, index) => <article key={standard}><span>{String(index + 1).padStart(2, "0")}</span><strong>{standard}</strong></article>)}</div></section>
 
