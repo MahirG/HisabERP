@@ -31,6 +31,7 @@ test("shared footer and consent UI cannot fall back to unstyled browser defaults
   const layout = await source("app/layout.tsx");
   const styles = await source("app/marketing-editorial-system.css");
   const chrome = await source("components/marketing-site-chrome.tsx");
+  const demo = await source("app/request-demo/page.tsx");
 
   assert.match(layout, /import "\.\/marketing-editorial-system\.css"/);
   assert.match(chrome, /marketing-footer-overview/);
@@ -39,7 +40,14 @@ test("shared footer and consent UI cannot fall back to unstyled browser defaults
   assert.match(chrome, /<Book\b/);
   assert.match(chrome, /<Box\b/);
   assert.match(chrome, /<Building\b/);
+  assert.match(chrome, /Prefer direct contact\?/);
+  assert.match(chrome, /\+251 924 093 037/);
+  assert.match(chrome, /mahir@hisabtech\.com/);
+  assert.match(chrome, /WhatsApp Biloo/);
+  assert.match(chrome, /https:\/\/wa\.me\/251924093037/);
+  assert.doesNotMatch(demo, /Prefer direct contact\?/);
   assert.match(styles, /\.marketing-editorial-v1 \.marketing-footer-top\s*\{[\s\S]*?display:\s*grid/);
+  assert.match(styles, /\.marketing-editorial-v1 \.marketing-footer-direct-contact\s*\{/);
   assert.match(styles, /\.marketing-editorial-v1 \.biloo-footer-legal\s*\{/);
   assert.match(styles, /\.biloo-consent-banner\s*\{[\s\S]*?position:\s*fixed/);
   assert.match(styles, /\.biloo-consent-dialog\s*\{[\s\S]*?max-height:/);

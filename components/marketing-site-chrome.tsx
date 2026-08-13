@@ -14,6 +14,7 @@ import {
   MenuScale,
   Phone,
   Search,
+  Whatsapp,
   Xmark,
 } from "iconoir-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
@@ -29,7 +30,7 @@ const copy = {
     startFree: "Start free", openMenu: "Open menu", closeMenu: "Close menu", language: "Language",
     footerIntro: "One secure business operating system for Ethiopian companies that want clearer operations and better decisions.",
     product: "Product", resources: "Learn & implement", company: "Company & trust", rights: "All rights reserved.",
-    location: "Addis Ababa, Ethiopia",
+    location: "Addis Ababa, Ethiopia", directContact: "Prefer direct contact?", whatsapp: "WhatsApp Biloo",
   },
   am: {
     navigation: "ዋና አሰሳ", pricing: "ዋጋ", search: "ፈልግ", searchTitle: "Biloo ፈልግ",
@@ -37,7 +38,7 @@ const copy = {
     startFree: "በነፃ ይጀምሩ", openMenu: "ምናሌ ክፈት", closeMenu: "ምናሌ ዝጋ", language: "ቋንቋ",
     footerIntro: "ለግልጽ አሰራር እና ለተሻለ ውሳኔ የተገነባ የኢትዮጵያ ንግድ ስርዓት።",
     product: "ምርት", resources: "ይማሩ እና ይተግብሩ", company: "ኩባንያ እና እምነት", rights: "መብቶቹ ሁሉ የተጠበቁ ናቸው።",
-    location: "አዲስ አበባ፣ ኢትዮጵያ",
+    location: "አዲስ አበባ፣ ኢትዮጵያ", directContact: "በቀጥታ ማግኘት ይፈልጋሉ?", whatsapp: "WhatsApp Biloo",
   },
 } as const;
 
@@ -235,17 +236,25 @@ export function MarketingFooter() {
           </Link>
           <div className="marketing-footer-kicker"><CheckCircle width={17} height={17} strokeWidth={1.7} aria-hidden /><span>Business, beautifully connected</span></div>
           <p>{c.footerIntro}</p>
-          <div className="marketing-footer-contact-list">
-            <a href="mailto:mahir@hisabtech.com">
-              <span className="marketing-footer-contact-icon" data-tone="coral"><Mail width={17} height={17} strokeWidth={1.7} aria-hidden /></span>
-              <span>mahir@hisabtech.com</span>
-              <ArrowUpRight width={15} height={15} strokeWidth={1.7} aria-hidden />
-            </a>
-            <a href="tel:+251924093037">
-              <span className="marketing-footer-contact-icon" data-tone="mint"><Phone width={17} height={17} strokeWidth={1.7} aria-hidden /></span>
-              <span>+251 924 093 037</span>
-              <ArrowUpRight width={15} height={15} strokeWidth={1.7} aria-hidden />
-            </a>
+          <div className="marketing-footer-direct-contact">
+            <strong>{c.directContact}</strong>
+            <div className="marketing-footer-contact-list">
+              <a href="tel:+251924093037">
+                <span className="marketing-footer-contact-icon" data-tone="mint"><Phone width={17} height={17} strokeWidth={1.7} aria-hidden /></span>
+                <span>+251 924 093 037</span>
+                <ArrowUpRight width={15} height={15} strokeWidth={1.7} aria-hidden />
+              </a>
+              <a href="mailto:mahir@hisabtech.com">
+                <span className="marketing-footer-contact-icon" data-tone="coral"><Mail width={17} height={17} strokeWidth={1.7} aria-hidden /></span>
+                <span>mahir@hisabtech.com</span>
+                <ArrowUpRight width={15} height={15} strokeWidth={1.7} aria-hidden />
+              </a>
+              <a href="https://wa.me/251924093037" target="_blank" rel="noopener noreferrer">
+                <span className="marketing-footer-contact-icon" data-tone="blue"><Whatsapp width={17} height={17} strokeWidth={1.7} aria-hidden /></span>
+                <span>{c.whatsapp}</span>
+                <ArrowUpRight width={15} height={15} strokeWidth={1.7} aria-hidden />
+              </a>
+            </div>
           </div>
         </div>
 

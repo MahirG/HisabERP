@@ -2240,11 +2240,23 @@ html[data-public-theme="dark"] .wb-header { background: rgba(255, 255, 255, .97)
   line-height: 1.7;
 }
 
+.marketing-editorial-v1 .marketing-footer-direct-contact {
+  width: min(100%, 390px);
+  margin-top: 22px;
+}
+
+.marketing-editorial-v1 .marketing-footer-direct-contact > strong {
+  display: block;
+  color: var(--ms-on-inverse);
+  font-size: var(--ms-fs-xs);
+  font-weight: var(--ms-weight-strong);
+  line-height: 1.4;
+}
+
 .marketing-editorial-v1 .marketing-footer-contact-list {
   display: grid;
-  width: min(100%, 390px);
   gap: 8px;
-  margin-top: 22px;
+  margin-top: 10px;
 }
 
 .marketing-editorial-v1 .marketing-footer-contact-list a {
@@ -3450,28 +3462,6 @@ html[data-public-theme="dark"] .wb-header { background: rgba(255, 255, 255, .97)
   padding-left: 3px;
   font-size: var(--ms-fs-xs);
   line-height: 1.55;
-}
-
-.marketing-editorial-v1.demo-request-page .demo-request-copy > div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-  margin-top: 28px;
-  border-top: 1px solid var(--me-line);
-  padding-top: 20px;
-}
-
-.marketing-editorial-v1.demo-request-page .demo-request-copy > div strong {
-  color: var(--me-ink);
-  font-size: var(--ms-fs-xs);
-}
-
-.marketing-editorial-v1.demo-request-page .demo-request-copy > div a {
-  color: var(--route-blue);
-  font-size: var(--ms-fs-xs);
-  font-weight: var(--ms-weight-medium);
-  text-decoration: none;
 }
 
 .marketing-editorial-v1.demo-request-page .demo-request-form {

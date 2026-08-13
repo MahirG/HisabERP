@@ -32,7 +32,6 @@ export default async function RequestDemoPage({
             <li>telebirr, M-Pesa, banking and integration-readiness discussion</li>
             <li>Implementation, onboarding and government-program guidance</li>
           </ul>
-          <div><strong>Prefer direct contact?</strong><a href="tel:+251924093037">+251 924 093 037</a><a href="mailto:mahir@hisabtech.com?subject=Biloo%20demo%20request">mahir@hisabtech.com</a><a href="https://wa.me/251924093037" target="_blank" rel="noopener noreferrer">WhatsApp HisabTech</a></div>
         </div>
 
         {submitted ? (
