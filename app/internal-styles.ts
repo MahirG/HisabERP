@@ -72,5 +72,6 @@ import "./biloo-workspace-final-lock.css";
 import "./biloo-all-workspace-routes-contrast-lock.css";
 import "./biloo-workspace-utility-visibility-lock.css";
 import "./biloo-pure-white-workspace-lock.css";
+import "./biloo-final-visual-polish.css";
 
 export {};
