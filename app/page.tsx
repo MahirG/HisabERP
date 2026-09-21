@@ -16,7 +16,7 @@ export const metadata: Metadata = {
       "A connected ERP for sales, finance, inventory, controls and live management visibility—built around Ethiopian business operations.",
     url: "/",
     type: "website",
-    images: [{ url: "/hisab-logo.svg", width: 512, height: 512, alt: "Biloo ERP" }],
+    images: [{ url: "/biloo-erp-hero-4k.svg", width: 3840, height: 2160, alt: "Biloo ERP management dashboard" }],
   },
 };
 
