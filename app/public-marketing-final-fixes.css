@@ -194,3 +194,204 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* -------------------------------------------------------------------------- */
+/* Final contrast contract                                                     */
+/* Keep public marketing copy readable regardless of the legacy theme rules.  */
+/* -------------------------------------------------------------------------- */
+
+.marketing-site-v2 {
+  --public-ink-strong: #171717;
+  --public-ink: #2f2a28;
+  --public-ink-muted: #5f514b;
+  --public-ink-subtle: #74655f;
+  --public-link: #8f412c;
+  --public-border-strong: #d9c8c1;
+  --public-dark: #171717;
+  --public-dark-copy: #ffffff;
+  --public-dark-muted: #d6c8c2;
+}
+
+/* Light/public canvas: never allow inherited low-contrast gray text. */
+.marketing-site-v2 #public-main-content {
+  color: var(--public-ink) !important;
+}
+
+.marketing-site-v2 #public-main-content :where(
+  h1, h2, h3, h4, h5, h6, strong, b
+) {
+  color: var(--public-ink-strong) !important;
+}
+
+.marketing-site-v2 #public-main-content :where(
+  p, li, dt, dd, small, label, figcaption
+) {
+  color: var(--public-ink-muted) !important;
+}
+
+.marketing-site-v2 #public-main-content :where(
+  a:not(.marketing-start):not(.marketing-demo),
+  button:not(.marketing-start):not(.marketing-demo)
+) {
+  color: var(--public-link) !important;
+}
+
+.marketing-site-v2 #public-main-content :where(
+  input, textarea, select
+) {
+  color: var(--public-ink-strong) !important;
+  background: #ffffff !important;
+  border-color: var(--public-border-strong) !important;
+}
+
+.marketing-site-v2 #public-main-content :where(
+  input::placeholder, textarea::placeholder
+) {
+  color: #6f625c !important;
+  opacity: 1 !important;
+}
+
+/* Explicitly dark sections: light copy only. */
+.marketing-site-v2 :where(
+  .marketing-dark-section,
+  .marketing-dark-section-v2,
+  .resources-framework-section,
+  .resource-apply-section,
+  .about-mission-section,
+  .marketing-cta-v2
+) {
+  color: var(--public-dark-copy) !important;
+  background-color: var(--public-dark) !important;
+}
+
+.marketing-site-v2 :where(
+  .marketing-dark-section,
+  .marketing-dark-section-v2,
+  .resources-framework-section,
+  .resource-apply-section,
+  .about-mission-section,
+  .marketing-cta-v2
+) :where(h1, h2, h3, h4, h5, h6, strong, b) {
+  color: var(--public-dark-copy) !important;
+}
+
+.marketing-site-v2 :where(
+  .marketing-dark-section,
+  .marketing-dark-section-v2,
+  .resources-framework-section,
+  .resource-apply-section,
+  .about-mission-section,
+  .marketing-cta-v2
+) :where(p, li, small, label, span) {
+  color: var(--public-dark-muted) !important;
+}
+
+.marketing-site-v2 :where(
+  .marketing-dark-section,
+  .marketing-dark-section-v2,
+  .resources-framework-section,
+  .resource-apply-section,
+  .about-mission-section,
+  .marketing-cta-v2
+) :where(a:not(.marketing-start), button:not(.marketing-start)) {
+  color: #ffffff !important;
+}
+
+/* Dark CTA buttons need dark ink against the gold fill. */
+.marketing-site-v2 :where(
+  .marketing-start,
+  .marketing-cta-v2 .marketing-start
+) {
+  color: #171717 !important;
+  background: #f0a35d !important;
+  border-color: #f0a35d !important;
+}
+
+/* Cards and bordered content use a darker secondary text color. */
+.marketing-site-v2 :where(
+  article, .marketing-card, [class*="-card"]
+) :where(p, li, small) {
+  color: var(--public-ink-muted) !important;
+}
+
+.marketing-site-v2 :where(
+  article, .marketing-card, [class*="-card"]
+) :where(h3, h4, strong, b) {
+  color: var(--public-ink-strong) !important;
+}
+
+/* Header/mobile controls: strong contrast on the white navigation surface. */
+.marketing-site-v2 .marketing-nav-v2,
+.marketing-site-v2 .marketing-nav {
+  color: var(--public-ink-strong) !important;
+  background: #ffffff !important;
+  border-bottom-color: var(--public-border-strong) !important;
+}
+
+.marketing-site-v2 :where(
+  .marketing-brand,
+  .marketing-brand-copy strong,
+  .marketing-nav nav a,
+  .marketing-signin
+) {
+  color: var(--public-ink-strong) !important;
+}
+
+.marketing-site-v2 .marketing-nav nav a:hover,
+.marketing-site-v2 .marketing-nav nav a[aria-current="page"],
+.marketing-site-v2 .marketing-signin:hover {
+  color: var(--public-link) !important;
+}
+
+.marketing-site-v2 .marketing-menu-toggle span {
+  background: var(--public-ink-strong) !important;
+}
+
+/* Footer is intentionally light and therefore gets its own readable hierarchy. */
+.marketing-site-v2 .marketing-footer,
+.marketing-site-v2 .marketing-footer * {
+  text-shadow: none !important;
+}
+
+.marketing-site-v2 .marketing-footer {
+  color: var(--public-ink) !important;
+  background: #ffffff !important;
+  border-top: 1px solid var(--public-border-strong) !important;
+}
+
+.marketing-site-v2 .marketing-footer :where(h1, h2, h3, h4, h5, h6, strong, b) {
+  color: var(--public-ink-strong) !important;
+}
+
+.marketing-site-v2 .marketing-footer :where(p, small, span) {
+  color: var(--public-ink-muted) !important;
+}
+
+.marketing-site-v2 .marketing-footer a {
+  color: var(--public-ink-muted) !important;
+}
+
+.marketing-site-v2 .marketing-footer a:hover,
+.marketing-site-v2 .marketing-footer a:focus-visible {
+  color: var(--public-link) !important;
+}
+
+.marketing-site-v2 .marketing-footer-bottom {
+  border-top-color: var(--public-border-strong) !important;
+  color: #5f514b !important;
+}
+
+@media (prefers-contrast: more) {
+  .marketing-site-v2 :where(
+    p, li, small, span, label, a
+  ) {
+    text-decoration-thickness: 0.08em;
+  }
+
+  .marketing-site-v2 :where(
+    input, textarea, select, button
+  ) {
+    border-width: 2px !important;
+  }
+}
