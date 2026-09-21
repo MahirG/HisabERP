@@ -395,3 +395,35 @@
     border-width: 2px !important;
   }
 }
+
+
+/* Text surfaces: keep copy clean — no accidental highlight/background blocks. */
+.marketing-site-v2 #public-main-content :where(
+  h1, h2, h3, h4, h5, h6, p, li, dt, dd, small, label, span, strong, b, em, i, figcaption
+) {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none;
+}
+
+/* Do not let legacy pseudo-elements paint rectangles behind ordinary copy. */
+.marketing-site-v2 #public-main-content :where(
+  h1, h2, h3, h4, h5, h6, p, li, dt, dd, small, label, span, strong, b, em, i, figcaption
+)::before,
+.marketing-site-v2 #public-main-content :where(
+  h1, h2, h3, h4, h5, h6, p, li, dt, dd, small, label, span, strong, b, em, i, figcaption
+)::after {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Keep intentional UI surfaces intact. */
+.marketing-site-v2 #public-main-content :where(
+  .marketing-card, article, input, textarea, select, button,
+  [role="button"], [role="tab"], [class*="badge"], [class*="chip"]
+) {
+  background-image: revert;
+}
