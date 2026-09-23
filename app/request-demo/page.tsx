@@ -4,14 +4,14 @@ import { MarketingFooter, MarketingHeader } from "../../components/marketing-sit
 import { submitDemoRequest } from "../../lib/actions/demo-request";
 
 export const metadata: Metadata = {
-  title: "Request a HisabERP demo",
-  description: "Request a guided HisabERP demonstration for your business, institution or government program.",
+  title: "Book a Biloo ERP walkthrough",
+  description: "Book a personalized Biloo ERP walkthrough for your business.",
 };
 
 export default async function RequestDemoPage({
   searchParams,
 }: {
-  searchParams: Promise<{ submitted?: string; error?: string; source?: string; topic?: string }>;
+  searchParams: Promise<{ submitted?: string; delivered?: string; error?: string; source?: string; topic?: string }>;
 }) {
   const params = await searchParams;
   const submitted = params.submitted === "1";
@@ -20,60 +20,72 @@ export default async function RequestDemoPage({
   return (
     <main className="marketing-site marketing-site-v2 marketing-editorial-v1 demo-request-page">
       <MarketingHeader />
-      <section className="demo-request-shell" id="public-main-content">
-        <div className="demo-request-copy">
-          <span>Personalized HisabERP demonstration</span>
-          <h1>See how HisabERP can run your business.</h1>
-          <p>Tell us about your organization and the workflows you want to improve. Our team will prepare a focused demonstration covering the modules, integrations and reporting that matter to you.</p>
-          <ul>
-            <li>Business-specific product walkthrough</li>
-            <li>Sales, finance, inventory and reporting demonstration</li>
-            <li>telebirr, M-Pesa, banking and integration-readiness discussion</li>
-            <li>Implementation, onboarding and government-program guidance</li>
-          </ul>
-          <div><strong>Prefer direct contact?</strong><a href="tel:+251924093037">+251 924 093 037</a><a href="mailto:mahir@hisabtech.com?subject=Biloo%20demo%20request">mahir@hisabtech.com</a><a href="https://wa.me/251924093037" target="_blank" rel="noopener noreferrer">WhatsApp HisabTech</a></div>
+      <section className="demo-booking-hero" id="public-main-content">
+        <div className="demo-booking-intro">
+          <div className="demo-booking-kicker"><span aria-hidden="true">●</span> Biloo ERP · Personalized walkthrough</div>
+          <h1>See Biloo in action.</h1>
+          <p>Tell us what your business needs and we’ll tailor a focused walkthrough around the workflows that matter most—sales, finance, inventory and reporting.</p>
+          <div className="demo-booking-proof">
+            <span><b>01</b> Understand your workflow</span>
+            <span><b>02</b> See the right modules</span>
+            <span><b>03</b> Plan your next step</span>
+          </div>
         </div>
 
         {submitted ? (
-          <section className="demo-request-form demo-request-success" role="status" aria-labelledby="demo-success-title">
-            <span className="demo-success-mark" aria-hidden="true">✓</span>
-            <div><span>Request delivered</span><h2 id="demo-success-title">Thank you. Your request was sent successfully.</h2><p>Your demo request has been emailed directly to Mahir at Hisab Technologies. You will be contacted using your preferred method to arrange the product walkthrough.</p></div>
-            <div className="demo-success-actions"><Link className="demo-request-primary-link" href="/">Return to website</Link><Link href="/auth/email-sign-up">Create an account instead</Link></div>
+          <section className="demo-booking-card demo-booking-success" role="status" aria-labelledby="demo-success-title">
+            <div className="demo-success-icon" aria-hidden="true">✓</div>
+            <p className="demo-form-kicker">Request received</p>
+            <h2 id="demo-success-title">You’re on the list.</h2>
+            <p>Thanks for reaching out. Your request has been delivered to our team. We’ll contact you using your preferred method to arrange your walkthrough.</p>
+            <div className="demo-success-actions">
+              <Link className="demo-request-primary-link" href="/">Back to Biloo</Link>
+              <Link href="/auth/email-sign-up">Create an account</Link>
+            </div>
           </section>
         ) : (
-          <form className="demo-request-form" action={submitDemoRequest}>
-            <div><span>Request your demo</span><h2>Tell us about your business</h2><p>Complete the details below. Fields marked with * are required.</p>{context ? <small className="demo-request-context">Demo context: {context}</small> : null}</div>
+          <form className="demo-booking-card demo-request-form" action={submitDemoRequest}>
+            <div className="demo-form-heading">
+              <p className="demo-form-kicker">Book your walkthrough</p>
+              <h2>Let’s talk about your business.</h2>
+              <p>It takes about 2 minutes. Required fields are marked <span>*</span>.</p>
+              {context ? <small className="demo-request-context">From: {context}</small> : null}
+            </div>
 
-            {params.error && <div className="demo-request-alert" role="alert">{params.error}</div>}
+            {params.error ? <div className="demo-request-alert" role="alert">{params.error}</div> : null}
 
             <label className="demo-request-honeypot" aria-hidden="true">Website<input name="website" type="text" tabIndex={-1} autoComplete="off"/></label>
             <input type="hidden" name="request_context" value={context}/>
 
+            <div className="demo-form-section-label">Your details</div>
             <div className="demo-form-row">
-              <label>Full name *<input name="full_name" type="text" autoComplete="name" minLength={2} maxLength={120} required placeholder="Your full name"/></label>
-              <label>Company or organization *<input name="business_name" type="text" autoComplete="organization" minLength={2} maxLength={160} required placeholder="Business name"/></label>
+              <label>Full name *<input name="full_name" type="text" autoComplete="name" minLength={2} maxLength={120} required placeholder="e.g. Mahir Aman"/></label>
+              <label>Company or organization *<input name="business_name" type="text" autoComplete="organization" minLength={2} maxLength={160} required placeholder="Your company"/></label>
             </div>
-
             <div className="demo-form-row">
               <label>Business email *<input name="email" type="email" autoComplete="email" maxLength={254} required placeholder="name@company.com"/></label>
-              <label>Phone number *<input name="phone" type="tel" autoComplete="tel" minLength={7} maxLength={32} required placeholder="+251 9..."/></label>
+              <label>Phone number *<input name="phone" type="tel" autoComplete="tel" minLength={7} maxLength={32} required placeholder="+251 9xx xxx xxx"/></label>
             </div>
 
+            <div className="demo-form-section-label">Your business</div>
             <div className="demo-form-row">
               <label>Business type *<select name="business_type" defaultValue="" required><option value="" disabled>Select business type</option><option>Retail and distribution</option><option>Professional services</option><option>Manufacturing</option><option>Hospitality and restaurant</option><option>Construction and projects</option><option>Cooperative or association</option><option>Government or NGO program</option><option>Other</option></select></label>
               <label>Team size *<select name="team_size" defaultValue="" required><option value="" disabled>Select team size</option><option value="1-5">1–5 people</option><option value="6-20">6–20 people</option><option value="21-50">21–50 people</option><option value="51-200">51–200 people</option><option value="200+">More than 200</option></select></label>
             </div>
 
             <fieldset className="demo-contact-method">
-              <legend>Preferred contact method *</legend>
+              <legend>How should we contact you? *</legend>
               <label><input type="radio" name="preferred_contact" value="phone" defaultChecked/> Phone</label>
               <label><input type="radio" name="preferred_contact" value="email"/> Email</label>
             </fieldset>
 
-            <label>What would you like to improve?<textarea name="message" rows={5} maxLength={2000} defaultValue={context ? `I am interested in: ${context}. ` : undefined} placeholder="Tell us about your current process, challenges, required modules or integration needs."/></label>
-            <label className="demo-request-consent"><input type="checkbox" required/><span>I agree that Hisab Technologies may contact me about this demo request.</span></label>
-            <button type="submit">Send demo request</button>
-            <small>Your request is emailed securely to mahir@hisabtech.com and is not visible to other website visitors.</small>
+            <label className="demo-message-field">What would you like to see?
+              <textarea name="message" rows={4} maxLength={2000} defaultValue={context ? `I am interested in: ${context}. ` : undefined} placeholder="Tell us what you want Biloo to help you manage."/>
+            </label>
+
+            <label className="demo-request-consent"><input type="checkbox" required/><span>I agree that Hisab Technologies may contact me about this walkthrough.</span></label>
+            <button className="demo-booking-submit" type="submit"><span>Book my walkthrough</span><b aria-hidden="true">→</b></button>
+            <small className="demo-form-note">Your details are sent securely to the Biloo team and are never shown publicly.</small>
           </form>
         )}
       </section>
