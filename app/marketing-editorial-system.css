@@ -2540,3 +2540,14 @@ html[data-public-theme="dark"] .wb-header { background: rgba(255, 255, 255, .97)
 
 /* Final mobile menu icon — three compact lines, ChatGPT-style. */
 @media (max-width:900px){.wb-mobile-toggle{width:42px;height:42px;min-height:42px;padding:0;border:0;background:transparent}.wb-mobile-toggle:hover,.wb-mobile-toggle:focus-visible{background:transparent}.wb-mobile-toggle-icon{display:flex;width:21px;flex-direction:column;gap:5px;align-items:flex-start}.wb-mobile-toggle-icon i{width:21px;height:2px;border-radius:2px;background:currentColor}.wb-mobile-toggle-icon i:nth-child(3){width:13px}}
+
+
+/* Final chrome: no utility strip above the header; header stays pinned while scrolling. */
+:root { --wb-header-height: 72px !important; }
+.marketing-site-v2 { padding-top: var(--wb-header-height) !important; }
+.wb-header { position: fixed !important; top: 0 !important; right: 0 !important; left: 0 !important; z-index: 5000 !important; height: var(--wb-header-height) !important; background: #fff !important; box-shadow: 0 1px 0 #eaecf0 !important; }
+.wb-utility-bar { display: none !important; }
+.wb-header-inner { height: var(--wb-header-height) !important; }
+.wb-dropdown { z-index: 5001 !important; }
+.wb-mobile-drawer { z-index: 5100 !important; }
+@media (max-width: 760px) { .wb-header, .wb-header-inner { height: 72px !important; } .marketing-site-v2 { padding-top: 72px !important; } }
