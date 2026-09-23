@@ -1,4 +1,6 @@
-/* Current public marketing CSS bundle. Keep this file limited to the public site so authenticated ERP styling is unaffected. */
+/* Single public CSS entry point. The root layout must not load a second public stylesheet before this bundle. */
+import "./marketing-editorial-system.css";
+import "./biloo-final-visual-polish.css";
 import "./public-experience-final.css";
 import "./public-visual-system.css";
 import "./public-theme-coherence.css";
