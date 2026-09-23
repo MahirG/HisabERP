@@ -2020,3 +2020,214 @@ html[data-public-theme="dark"] .wb-header { background: rgba(255, 255, 255, .97)
   .marketing-editorial-v1 *::before,
   .marketing-editorial-v1 *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+
+/* Public chrome refinement — standard responsive header + Payoneer-inspired footer information architecture. */
+.marketing-site-v2 {
+  padding-top: var(--wb-header-height) !important;
+}
+
+.wb-header-inner {
+  max-width: 1320px;
+  gap: 18px;
+  padding-inline: 24px;
+}
+
+.wb-primary-nav {
+  min-width: 0;
+  gap: 0;
+  justify-content: flex-start;
+  white-space: nowrap;
+}
+
+.wb-nav-group > button,
+.wb-primary-nav > a {
+  padding-inline: 11px;
+}
+
+.wb-dropdown {
+  top: 100%;
+  margin-top: 0;
+}
+
+.marketing-footer {
+  margin-top: 0 !important;
+  background: #101f3b !important;
+}
+
+.marketing-footer-top {
+  display: grid !important;
+  grid-template-columns: minmax(240px, 1.45fr) repeat(4, minmax(145px, 1fr)) !important;
+  gap: 48px !important;
+  width: min(1280px, calc(100% - 48px)) !important;
+  margin: 0 auto !important;
+  padding: 64px 0 56px !important;
+}
+
+.marketing-footer-brand-column {
+  min-width: 0;
+  max-width: 330px;
+}
+
+.marketing-footer-brand {
+  display: inline-flex !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 0 22px !important;
+}
+
+.marketing-footer-brand img {
+  width: 112px !important;
+  height: auto !important;
+}
+
+.marketing-footer-brand-column > p {
+  max-width: 310px;
+  margin: 0 0 22px !important;
+  color: #b4bfd0 !important;
+  font-size: 13px !important;
+  line-height: 1.7 !important;
+}
+
+.marketing-footer-contact {
+  display: grid;
+  gap: 7px;
+}
+
+.marketing-footer-contact :is(a, span) {
+  color: #d3dae5 !important;
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  text-decoration: none !important;
+}
+
+.marketing-footer-contact a:hover {
+  color: #fff !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+.marketing-footer-column {
+  display: flex !important;
+  min-width: 0;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 11px !important;
+}
+
+.marketing-footer-column strong {
+  margin: 0 0 7px !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+}
+
+.marketing-footer-column a {
+  color: #b8c2d1 !important;
+  font-size: 12px !important;
+  font-weight: 450 !important;
+  line-height: 1.45 !important;
+  text-decoration: none !important;
+}
+
+.marketing-footer-column a:hover {
+  color: #fff !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+.marketing-footer-bottom {
+  display: flex !important;
+  width: min(1280px, calc(100% - 48px)) !important;
+  min-height: 64px !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 24px !important;
+  margin: 0 auto !important;
+  border-top: 1px solid #2a3c5c !important;
+  padding: 18px 0 !important;
+  color: #9eabbe !important;
+  font-size: 11px !important;
+}
+
+.marketing-footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.marketing-footer-legal a {
+  color: #aeb8c8 !important;
+  text-decoration: none !important;
+}
+
+.marketing-footer-legal a:hover {
+  color: #fff !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+/* Prevent the desktop navigation from squeezing into a second visual row. */
+@media (max-width: 1080px) {
+  .wb-header-inner {
+    grid-template-columns: 1fr auto !important;
+    gap: 16px !important;
+    padding-inline: 20px !important;
+  }
+
+  .wb-primary-nav,
+  .wb-header-actions > :is(.wb-search-trigger, .wb-language-switch, .wb-sign-in, .wb-primary-action) {
+    display: none !important;
+  }
+
+  .wb-header-actions {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+  }
+
+  .wb-mobile-toggle {
+    display: inline-flex !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .marketing-footer-top {
+    width: min(100% - 32px, 1280px) !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 40px 28px !important;
+    padding: 52px 0 44px !important;
+  }
+
+  .marketing-footer-brand-column {
+    grid-column: 1 / -1;
+    max-width: 520px;
+  }
+
+  .marketing-footer-bottom {
+    width: min(100% - 32px, 1280px) !important;
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    padding: 18px 0 22px !important;
+  }
+
+  .marketing-footer-legal {
+    justify-content: flex-start;
+    gap: 14px 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .marketing-footer-top {
+    grid-template-columns: 1fr !important;
+  }
+
+  .marketing-footer-column {
+    gap: 10px !important;
+  }
+}
