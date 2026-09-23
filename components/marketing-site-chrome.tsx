@@ -202,7 +202,7 @@ export function MarketingHeader() {
             <Link href="/auth/email-sign-up" className="wb-primary-action">{c.startFree}</Link>
             <button type="button" className="wb-mobile-toggle" aria-label={mobileOpen ? c.closeMenu : c.openMenu} aria-expanded={mobileOpen} aria-controls={mobilePanelId} onClick={() => { setOpenMenu(null); setSearchOpen(false); setMobileOpen((current) => !current); }}>
               <span className="wb-mobile-toggle-icon" aria-hidden="true"><i /><i /><i /></span>
-              <span className="wb-mobile-toggle-label">{mobileOpen ? c.closeMenu : "Menu"}</span>
+              
             </button>
           </div>
         </div>
