@@ -556,3 +556,192 @@
   .marketing-site-v2 .wb-mobile-panel { width: 100% !important; }
   .marketing-site-v2 .wb-mobile-toggle-label { font-size: 12px !important; }
 }
+
+
+/* ============================================================
+   CANONICAL PAYONEER-INSPIRED PUBLIC PRESENTATION
+   No legacy brand layers, gradients, scroll reveals, or motion.
+   ============================================================ */
+
+.marketing-site-v2,
+.marketing-site-v2 * {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.marketing-site-v2 {
+  --public-bg: #ffffff;
+  --public-surface: #ffffff;
+  --public-surface-soft: #f6f8fb;
+  --public-ink-strong: #111827;
+  --public-ink: #344054;
+  --public-ink-muted: #667085;
+  --public-link: #1463ff;
+  --public-brand: #1463ff;
+  --public-border-strong: #dfe3ea;
+  --public-border-soft: #eaecf0;
+  background: #ffffff !important;
+  color: var(--public-ink) !important;
+}
+
+.marketing-site-v2::before,
+.marketing-site-v2::after,
+.marketing-site-v2 [class*="gradient"],
+.marketing-site-v2 [class*="glow"],
+.marketing-site-v2 [class*="orb"],
+.marketing-site-v2 [class*="ambient"] {
+  background-image: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 :where(section, main, header, footer, article, aside) {
+  background-image: none !important;
+}
+
+.marketing-site-v2 :where(.marketing-nav-v2, .marketing-nav, .wb-header) {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 6000 !important;
+  min-height: 72px !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid var(--public-border-soft) !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 :where(.marketing-nav-v2, .marketing-nav, .wb-header) :where(a, button) {
+  color: var(--public-ink-strong) !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 :where(.marketing-nav-v2, .marketing-nav, .wb-header) :where(a:hover, a:focus-visible) {
+  color: var(--public-brand) !important;
+}
+
+.marketing-site-v2 :where(.marketing-nav-v2, .marketing-nav, .wb-header) :where(.marketing-signup, .marketing-start, .marketing-demo, .primary-cta, .cta-primary) {
+  min-height: 42px !important;
+  padding: 0 18px !important;
+  border: 1px solid var(--public-brand) !important;
+  border-radius: 6px !important;
+  background: var(--public-brand) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 :where(.marketing-nav-v2, .marketing-nav, .wb-header) :where(.marketing-signup, .marketing-start, .marketing-demo, .primary-cta, .cta-primary):hover {
+  background: #0f55dc !important;
+  color: #ffffff !important;
+}
+
+.marketing-site-v2 #public-main-content {
+  background: #ffffff !important;
+}
+
+.marketing-site-v2 #public-main-content :where(h1, h2, h3, h4, h5, h6) {
+  color: var(--public-ink-strong) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.035em !important;
+}
+
+.marketing-site-v2 #public-main-content :where(p, li, small, label) {
+  color: var(--public-ink-muted) !important;
+}
+
+.marketing-site-v2 #public-main-content :where(a) {
+  color: var(--public-link) !important;
+}
+
+.marketing-site-v2 #public-main-content :where(a:hover, a:focus-visible) {
+  color: #0f55dc !important;
+}
+
+.marketing-site-v2 #public-main-content :where(button, [role="button"]) {
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 #public-main-content :where(a[href="/request-demo"], a[href="/auth/email-sign-up"], a[href="/product-tour"], button[type="submit"], [class*="primary-cta"], [class*="cta-primary"]) {
+  min-height: 48px !important;
+  padding: 0 20px !important;
+  border: 1px solid var(--public-brand) !important;
+  border-radius: 6px !important;
+  background: var(--public-brand) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.marketing-site-v2 #public-main-content :where(a[href="/request-demo"], a[href="/auth/email-sign-up"], a[href="/product-tour"], button[type="submit"], [class*="primary-cta"], [class*="cta-primary"]):hover {
+  background: #0f55dc !important;
+  color: #ffffff !important;
+}
+
+.marketing-site-v2 #public-main-content :where([class*="-card"], [class$="card"], [class*="-panel"], [class*="-tile"], [class*="-module"], [class*="-feature"]) {
+  border: 1px solid var(--public-border-soft) !important;
+  border-radius: 10px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.marketing-site-v2 #public-main-content :where([class*="-card"]:hover, [class*="-panel"]:hover, [class*="-tile"]:hover, [class*="-feature"]:hover) {
+  border-color: var(--public-border-strong) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.marketing-site-v2 #public-main-content :where(input, textarea, select) {
+  min-height: 48px !important;
+  border: 1px solid var(--public-border-strong) !important;
+  border-radius: 6px !important;
+  background: #ffffff !important;
+  color: var(--public-ink-strong) !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 #public-main-content :where(input:focus, textarea:focus, select:focus) {
+  border-color: var(--public-brand) !important;
+  box-shadow: 0 0 0 3px rgba(20, 99, 255, 0.12) !important;
+}
+
+.marketing-site-v2 .marketing-footer {
+  background: #ffffff !important;
+  border-top: 1px solid var(--public-border-soft) !important;
+  box-shadow: none !important;
+}
+
+.marketing-site-v2 .marketing-footer :where(a, p, span, small) {
+  color: var(--public-ink-muted) !important;
+}
+
+.marketing-site-v2 .marketing-footer :where(a:hover, a:focus-visible) {
+  color: var(--public-brand) !important;
+}
+
+@media (max-width: 960px) {
+  .marketing-site-v2 :where(.wb-mobile-toggle, .marketing-menu-toggle) {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    padding: 0 !important;
+    border: 1px solid var(--public-border-strong) !important;
+    border-radius: 6px !important;
+    background: #ffffff !important;
+    color: var(--public-ink-strong) !important;
+    box-shadow: none !important;
+  }
+
+  .marketing-site-v2 .wb-mobile-panel {
+    background: #ffffff !important;
+    border-left: 1px solid var(--public-border-soft) !important;
+    box-shadow: none !important;
+  }
+}
