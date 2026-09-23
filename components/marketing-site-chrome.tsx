@@ -97,6 +97,7 @@ export function MarketingHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const mobilePanelId = "biloo-mobile-navigation-panel";
   const [locale, setLocale] = useState<Locale>("en");
   const c = copy[locale];
 
@@ -178,7 +179,10 @@ export function MarketingHeader() {
             <button type="button" className="wb-language-switch" aria-label={c.language} onClick={changeLocale}>{locale.toUpperCase()}</button>
             <Link href="/auth/login?next=%2F" className="wb-sign-in">{c.signIn}</Link>
             <Link href="/auth/email-sign-up" className="wb-primary-action">{c.startFree}</Link>
-            <button type="button" className="wb-mobile-toggle" aria-label={mobileOpen ? c.closeMenu : c.openMenu} aria-expanded={mobileOpen} onClick={() => setMobileOpen((current) => !current)}>{mobileOpen ? <Xmark width={18} height={18} strokeWidth={1.6} aria-hidden /> : <MenuScale width={19} height={19} strokeWidth={1.6} aria-hidden />}<span>{mobileOpen ? c.closeMenu : "Menu"}</span></button>
+            <button type="button" className="wb-mobile-toggle" aria-label={mobileOpen ? c.closeMenu : c.openMenu} aria-expanded={mobileOpen} aria-controls={mobilePanelId} onClick={() => { setOpenMenu(null); setSearchOpen(false); setMobileOpen((current) => !current); }}>
+              <span className="wb-mobile-toggle-icon" aria-hidden="true"><i /><i /><i /></span>
+              <span className="wb-mobile-toggle-label">{mobileOpen ? c.closeMenu : "Menu"}</span>
+            </button>
           </div>
         </div>
       </header>
@@ -192,14 +196,22 @@ export function MarketingHeader() {
         </section>
       </div>
 
-      <div className={`wb-mobile-drawer${mobileOpen ? " is-open" : ""}`} aria-hidden={!mobileOpen}>
+      <div className={`wb-mobile-drawer${mobileOpen ? " is-open" : ""}`} aria-hidden={!mobileOpen} inert={!mobileOpen ? true : undefined}>
         <button type="button" className="wb-overlay-backdrop" aria-label={c.closeMenu} onClick={() => setMobileOpen(false)} />
-        <aside className="wb-mobile-panel" role="dialog" aria-modal="true" aria-label={c.navigation}>
+        <aside id={mobilePanelId} className="wb-mobile-panel" role="dialog" aria-modal="true" aria-label={c.navigation}>
           <header><Link href="/" onClick={() => setMobileOpen(false)}><img src="/biloo-header-logo.svg" alt="Biloo" width="106" height="52" /></Link><button type="button" onClick={() => setMobileOpen(false)} aria-label={c.closeMenu}><Xmark width={19} height={19} strokeWidth={1.6} aria-hidden /></button></header>
           <button type="button" className="wb-mobile-search" onClick={() => { setMobileOpen(false); setSearchOpen(true); }}><Search width={17} height={17} strokeWidth={1.6} aria-hidden /><span>{c.searchPlaceholder}</span></button>
-          <nav className="wb-mobile-navigation">
-            {navigationGroups.map((group) => <details key={group.id}><summary>{group.label}</summary><div>{group.items.map((item) => <Link href={item.href} key={`${group.id}-${item.href}-${item.label}`} onClick={() => setMobileOpen(false)}>{item.label}</Link>)}</div></details>)}
-            <Link href="/pricing" onClick={() => setMobileOpen(false)}>{c.pricing}</Link>
+          <nav className="wb-mobile-navigation" aria-label={c.navigation}>
+            {navigationGroups.map((group) => {
+              const active = group.items.some((item) => routeMatches(pathname, item.href));
+              return (
+                <details key={group.id} className={active ? "is-active" : undefined}>
+                  <summary>{group.label}<NavArrowDown width={16} height={16} strokeWidth={1.6} aria-hidden /></summary>
+                  <div>{group.items.map((item) => <Link href={item.href} key={group.id + "-" + item.href + "-" + item.label} aria-current={routeMatches(pathname, item.href) ? "page" : undefined} onClick={() => setMobileOpen(false)}>{item.label}</Link>)}</div>
+                </details>
+              );
+            })}
+            <Link href="/pricing" className={routeMatches(pathname, "/pricing") ? "is-active" : undefined} onClick={() => setMobileOpen(false)}>{c.pricing}</Link>
           </nav>
           <div className="wb-mobile-utilities"><Link href="/help-center" onClick={() => setMobileOpen(false)}>Help Center</Link><Link href="/account" onClick={() => setMobileOpen(false)}>Account</Link><button type="button" onClick={changeLocale}>{c.language}: {locale === "en" ? "English" : "አማርኛ"}</button></div>
           <div className="wb-mobile-actions"><Link href="/auth/login?next=%2F" onClick={() => setMobileOpen(false)}>{c.signIn}</Link><Link href="/auth/email-sign-up" onClick={() => setMobileOpen(false)}>{c.startFree}</Link></div>
