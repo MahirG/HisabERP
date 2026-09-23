@@ -55,42 +55,8 @@ const preferenceBootstrap = `
     root.lang = 'en';
     root.style.colorScheme = 'light';
   }
-})();`;
-
-const mobileNavigationBootstrap = `
-(function () {
-  var styleId = 'biloo-mobile-navigation-v4';
-
-  function expandHamburgerBreakpoint() {
-    var link = document.getElementById(styleId);
-    if (!link || !link.sheet) return;
-
-    try {
-      var rules = link.sheet.cssRules;
-      for (var index = 0; index < rules.length; index += 1) {
-        var rule = rules[index];
-        if (!rule.media || !rule.media.mediaText) continue;
-        if (rule.media.mediaText.indexOf('max-width: 760px') === -1) continue;
-        rule.media.mediaText = '(max-width: 960px)';
-      }
-    } catch (_) {}
-  }
-
-  function initializeNavigationStyles() {
-    var link = document.getElementById(styleId);
-    if (!link) return;
-    link.addEventListener('load', expandHamburgerBreakpoint, { once: true });
-    expandHamburgerBreakpoint();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeNavigationStyles, { once: true });
-  } else {
-    initializeNavigationStyles();
-  }
-
-  window.addEventListener('pageshow', expandHamburgerBreakpoint);
-})();`;
+})();
+`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.hisabtech.com"),
@@ -150,7 +116,6 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <head>
         <script src="/biloo-brand-bootstrap.js?v=20260802-4" defer />
         <script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} />
-        <script dangerouslySetInnerHTML={{ __html: mobileNavigationBootstrap }} />
       </head>
       <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="biloo-award-marketing-2026">
         <InternalStyleLoader />
