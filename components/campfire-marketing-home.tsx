@@ -130,30 +130,32 @@ export function CampfireMarketingHome() {
     <IconoirProvider iconProps={{ width: 20, height: 20, strokeWidth: 1.55, 'aria-hidden': true }}>
       <div className="cf-site cf-editorial-site">
         <section className="cf-hero">
-          <div className="cf-hero-layout">
-            <div className="cf-vertical-label" aria-hidden="true"><span>Business operating system for Ethiopia</span></div>
+          <div className="cf-hero-shell">
             <div className="cf-hero-copy">
               <span className="cf-eyebrow">Biloo ERP · Built for Ethiopian business</span>
-              <h1>One operating record. Every team in control.</h1>
-              <p>Biloo connects sales, inventory, finance and reporting so growing businesses run with clarity from day to day—and decide with confidence.</p>
+              <h1>The business operating system built to keep you moving forward.</h1>
+              <p>Connect sales, finance, inventory and reporting in one place—so your team can run the business with clarity and make better decisions every day.</p>
               <div className="cf-hero-actions">
                 <Link className="cf-primary" href="/auth/email-sign-up">Start free</Link>
                 <Link className="cf-secondary" href="/request-demo?source=homepage-hero">Book a walkthrough</Link>
               </div>
-              <div className="cf-trust-line">
-                <span><ShieldCheck />Local compliance built in</span>
-                <span><Building />Multi-branch ready</span>
-                <span><Headset />Human support in your time</span>
-              </div>
+              <div className="cf-hero-note">One connected platform for sales, operations, finance and management.</div>
             </div>
-
-            <div className="cf-hero-visual">
-              <div className="cf-hero-photo"><Image src="/biloo-retail-operators.webp" alt="Ethiopian business operators reviewing Biloo records on a tablet" fill sizes="(max-width: 900px) 100vw, 36vw" priority /></div>
-              <div className="cf-hero-preview"><InteractiveErpOffice moduleTitle="Sales invoices" moduleEyebrow="Sales / Invoices & collections" metrics={heroMetrics} rows={heroRows} compact /></div>
+            <div className="cf-hero-product">
+              <div className="cf-hero-product-top">
+                <span>Biloo ERP</span>
+                <span>Live business view</span>
+              </div>
+              <InteractiveErpOffice moduleTitle="Sales invoices" moduleEyebrow="Sales / Invoices & collections" metrics={heroMetrics} rows={heroRows} compact />
             </div>
           </div>
+          <div className="cf-hero-capabilities" aria-label="Biloo capabilities">
+            <div><strong>Sales & invoicing</strong><span>Quote, invoice and collect</span></div>
+            <div><strong>Finance & accounting</strong><span>Cash, journals and controls</span></div>
+            <div><strong>Inventory & procurement</strong><span>Stock, purchasing and suppliers</span></div>
+            <div><strong>Reports & analytics</strong><span>Decision-ready visibility</span></div>
+          </div>
         </section>
-
         <section className="cf-record-system" aria-labelledby="record-system-title">
           <div className="cf-record-main">
             <div className="cf-section-intro left"><span>From daily work to decisions</span><h2 id="record-system-title">Decision-ready records, without the spreadsheet relay.</h2><p>Every module contributes to the same trusted record—across teams, branches and time.</p></div>
