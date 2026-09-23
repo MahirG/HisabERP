@@ -1,4 +1,4 @@
-/* Biloo public-site final visual system: the whole public website follows the clean footer language. */
+/* Biloo public-site final visual system: clean, calm, smooth — no scroll-fade effects. */
 
 .marketing-site-v2 {
   --public-bg: #ffffff;
@@ -11,20 +11,43 @@
   --public-border-strong: #e3e3e3;
   color: var(--public-ink) !important;
   background: #ffffff !important;
+  scroll-behavior: smooth;
 }
 
-/* The footer is now the visual reference for the entire public website. */
+/* Remove scroll-triggered fade/reveal behavior. Elements should remain visible. */
 .marketing-site-v2,
-.marketing-site-v2 #public-main-content,
-.marketing-site-v2 :where(.cf-site,.help-public-hero,.help-category-section,.help-featured-section,.help-search-section,.help-support-boundary) {
-  background: #ffffff !important;
+.marketing-site-v2 * {
+  animation-delay: 0s !important;
+}
+
+.marketing-site-v2 [class*="reveal"],
+.marketing-site-v2 [class*="fade-up"],
+.marketing-site-v2 [class*="fade-in"],
+.marketing-site-v2 [data-reveal],
+.marketing-site-v2 [data-scroll-reveal],
+.marketing-site-v2 [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
+/* Respect the requested static presentation even when animation classes are toggled by JS. */
+.marketing-site-v2 [style*="opacity: 0"],
+.marketing-site-v2 [style*="opacity:0"] {
+  opacity: 1 !important;
 }
 
 .marketing-site-v2 :where(section,header,main,article) {
   background-image: none;
 }
 
-/* Ordinary text stays completely clean: no highlight blocks or colored boxes. */
+.marketing-site-v2,
+.marketing-site-v2 #public-main-content,
+.marketing-site-v2 :where(.cf-site,.help-public-hero,.help-category-section,.help-featured-section,.help-search-section,.help-support-boundary) {
+  background: #ffffff !important;
+}
+
+/* Clean typography: no backgrounds behind ordinary text. */
 .marketing-site-v2 #public-main-content :where(h1,h2,h3,h4,h5,h6,p,li,dt,dd,small,label,span,strong,b,em,i,figcaption) {
   background: transparent !important;
   background-color: transparent !important;
@@ -46,7 +69,7 @@
 .marketing-site-v2 :where(a) { color: var(--public-ink) !important; }
 .marketing-site-v2 :where(a:hover,a:focus-visible) { color: var(--public-link) !important; }
 
-/* Header follows the same quiet white treatment. */
+/* Header */
 .marketing-site-v2 :where(.marketing-nav-v2,.marketing-nav) {
   color: var(--public-ink-strong) !important;
   background: #ffffff !important;
@@ -56,22 +79,20 @@
 .marketing-site-v2 :where(.marketing-brand,.marketing-brand-copy strong,.marketing-nav nav a,.marketing-signin) { color: var(--public-ink-strong) !important; }
 .marketing-site-v2 .marketing-menu-toggle span { background: var(--public-ink-strong) !important; }
 
-/* ORIGINAL FIRST HUMAN HERO — restored to the exact original asset name used by the July hero. */
+/* Original first human hero. */
 .marketing-site-v2 .cf-hero-photo {
   overflow: hidden;
   background: #f7f7f7 url('/hisab-ethiopian-office-hero.webp') center / cover no-repeat !important;
 }
 .marketing-site-v2 .cf-hero-photo > img { opacity: 0 !important; }
-
-/* Do not repeat a second human photograph immediately below the hero. */
 .marketing-site-v2 .cf-operator-proof { display: none !important; }
 
-/* White editorial canvas throughout the homepage. */
+/* White editorial canvas. */
 .marketing-site-v2 :where(.cf-hero,.cf-hero-layout,.cf-hero-copy,.cf-record-system,.cf-product-section,.cf-control-section,.cf-pricing-section,.cf-local-section) {
   background: #ffffff !important;
 }
 
-/* Intentional UI surfaces use subtle borders, not heavy colored blocks. */
+/* Intentional UI surfaces. */
 .marketing-site-v2 :where(.cf-product-panel,.cf-module-analysis,.cf-control-table-wrap,.cf-plan-table-wrap,.cf-module-ledger,.cf-record-flow,.cf-local-facts) {
   background: #ffffff !important;
   border-color: var(--public-border-strong) !important;
@@ -89,7 +110,7 @@
   border-color: #cfcfcf !important;
 }
 
-/* Previously dark public sections now share the footer's white language. */
+/* Formerly dark sections now follow the footer's white language. */
 .marketing-site-v2 :where(.marketing-dark-section,.marketing-dark-section-v2,.resources-framework-section,.resource-apply-section,.about-mission-section,.marketing-cta-v2) {
   color: var(--public-ink) !important;
   background: #ffffff !important;
@@ -99,7 +120,7 @@
 .marketing-site-v2 :where(.marketing-dark-section,.marketing-dark-section-v2,.resources-framework-section,.resource-apply-section,.about-mission-section,.marketing-cta-v2) :where(h1,h2,h3,h4,h5,h6,strong,b) { color: var(--public-ink-strong) !important; }
 .marketing-site-v2 :where(.marketing-dark-section,.marketing-dark-section-v2,.resources-framework-section,.resource-apply-section,.about-mission-section,.marketing-cta-v2) :where(p,li,small,label,span) { color: var(--public-ink-muted) !important; }
 
-/* Footer remains the exact visual reference. */
+/* Footer */
 .marketing-site-v2 .marketing-footer,
 .marketing-site-v2 .marketing-footer * { text-shadow: none !important; }
 .marketing-site-v2 .marketing-footer { color: var(--public-ink) !important; background: #ffffff !important; border-top: 1px solid var(--public-border-strong) !important; box-shadow: none !important; }
@@ -109,9 +130,13 @@
 .marketing-site-v2 .marketing-footer a:hover,.marketing-site-v2 .marketing-footer a:focus-visible { color: var(--public-link) !important; }
 .marketing-site-v2 .marketing-footer-bottom { border-top-color: var(--public-border-strong) !important; color: var(--public-ink-muted) !important; }
 
-/* Forms retain only their necessary UI surface. */
+/* Forms */
 .marketing-site-v2 :where(input,textarea,select) { color: var(--public-ink-strong) !important; background: #ffffff !important; border-color: var(--public-border-strong) !important; }
 .marketing-site-v2 :where(input::placeholder,textarea::placeholder) { color: #777777 !important; opacity: 1 !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-site-v2 * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
 
 @media (prefers-contrast: more) {
   .marketing-site-v2 :where(p,li,small,span,label,a) { text-decoration-thickness: .08em; }
