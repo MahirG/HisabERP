@@ -146,6 +146,16 @@ export function MarketingHeader() {
     if (searchOpen) window.requestAnimationFrame(() => searchInputRef.current?.focus());
   }, [searchOpen]);
 
+  useEffect(() => {
+    const locked = mobileOpen || searchOpen;
+    document.documentElement.classList.toggle("wb-modal-open", locked);
+    document.body.classList.toggle("wb-modal-open", locked);
+    return () => {
+      document.documentElement.classList.remove("wb-modal-open");
+      document.body.classList.remove("wb-modal-open");
+    };
+  }, [mobileOpen, searchOpen]);
+
   const changeLocale = () => {
     const nextLocale: Locale = locale === "en" ? "am" : "en";
     setLocale(nextLocale);
