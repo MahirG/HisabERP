@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MenuScale, NavArrowDown, Search, Xmark } from "iconoir-react";
+import { NavArrowDown, Search, Xmark } from "iconoir-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 type Locale = "en" | "am";
