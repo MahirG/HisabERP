@@ -237,19 +237,71 @@ export function MarketingFooter() {
     try { setLocale(window.localStorage.getItem("biloo-public-language") === "am" ? "am" : "en"); } catch { setLocale("en"); }
   }, []);
   const c = copy[locale];
+
   return (
     <footer className="marketing-footer">
       <div className="marketing-footer-top">
-        <div><Link href="/" className="marketing-brand marketing-footer-brand"><img src="/biloo-header-logo.svg" alt="Biloo" width="108" height="54" /><span className="marketing-brand-copy"><strong>Biloo</strong><small>Business operating system</small></span></Link><p>{c.footerIntro}</p><a href="mailto:mahir@hisabtech.com">mahir@hisabtech.com</a><a href="tel:+251924093037">+251 924 093 037</a></div>
-        <div><strong>{c.product}</strong><Link href="/product-tour">Product tour</Link><Link href="/product/sales-invoicing">Sales & invoicing</Link><Link href="/product/finance-cashflow">Finance & cash flow</Link><Link href="/product/inventory">Inventory</Link><Link href="/pricing">{c.pricing}</Link></div>
-        <div><strong>{c.resources}</strong><Link href="/resources">Learning center</Link><Link href="/migration">Data migration</Link><Link href="/compare">ERP comparisons</Link><Link href="/help-center">Help Center</Link><Link href="/customer-stories">Customer stories</Link></div>
-        <div><strong>{c.company}</strong><Link href="/about">About Biloo</Link><Link href="/trust">Trust Center</Link><Link href="/integrations">Integrations</Link><Link href="/auth/login">{c.signIn}</Link><a href="mailto:mahir@hisabtech.com?subject=Biloo%20security%20question">Security contact</a></div>
+        <div className="marketing-footer-brand-column">
+          <Link href="/" className="marketing-brand marketing-footer-brand" aria-label="Biloo home">
+            <img src="/biloo-header-logo.svg" alt="Biloo" width="108" height="54" />
+          </Link>
+          <p>{c.footerIntro}</p>
+          <div className="marketing-footer-contact">
+            <a href="mailto:mahir@hisabtech.com">mahir@hisabtech.com</a>
+            <a href="tel:+251924093037">+251 924 093 037</a>
+            <span>{c.location}</span>
+          </div>
+        </div>
+
+        <nav className="marketing-footer-column" aria-label="Solutions">
+          <strong>Solutions</strong>
+          <Link href="/ethiopia">ERP for Ethiopia</Link>
+          <Link href="/industries/retail">Retail</Link>
+          <Link href="/industries/restaurants-hospitality">Restaurants & hospitality</Link>
+          <Link href="/industries">Industry solutions</Link>
+          <Link href="/customer-stories">Customer stories</Link>
+        </nav>
+
+        <nav className="marketing-footer-column" aria-label="Products">
+          <strong>Products</strong>
+          <Link href="/product-tour">Biloo ERP</Link>
+          <Link href="/product/sales-invoicing">Sales & invoicing</Link>
+          <Link href="/product/finance-cashflow">Finance & accounting</Link>
+          <Link href="/product/inventory">Inventory & procurement</Link>
+          <Link href="/product/reports-analytics">Reports & analytics</Link>
+        </nav>
+
+        <nav className="marketing-footer-column" aria-label="Resources and support">
+          <strong>Resources & support</strong>
+          <Link href="/resources">Resource center</Link>
+          <Link href="/help-center">Help Center</Link>
+          <Link href="/compare">ERP comparisons</Link>
+          <Link href="/migration">Data migration</Link>
+          <Link href="/request-demo">Book a walkthrough</Link>
+        </nav>
+
+        <nav className="marketing-footer-column" aria-label="Company">
+          <strong>Company</strong>
+          <Link href="/about">About Biloo</Link>
+          <Link href="/pricing">{c.pricing}</Link>
+          <Link href="/integrations">Integrations</Link>
+          <Link href="/trust">Trust & security</Link>
+          <a href="mailto:mahir@hisabtech.com">Contact us</a>
+        </nav>
       </div>
-      <div className="marketing-footer-bottom"><span>© {new Date().getFullYear()} Biloo. {c.rights}</span><span>{c.location}</span></div>
+
+      <div className="marketing-footer-bottom">
+        <span>© {new Date().getFullYear()} Biloo. {c.rights}</span>
+        <div className="marketing-footer-legal">
+          <Link href="/trust">Trust & security</Link>
+          <Link href="/privacy">Privacy</Link>
+          <Link href="/terms">Terms</Link>
+          <Link href="/help-center">Help</Link>
+        </div>
+      </div>
     </footer>
   );
 }
-
 export function MarketingPageShell({ children }: { children: ReactNode }) {
   return <div className="marketing-site marketing-site-v2 marketing-editorial-v1"><MarketingStructuredData /><MarketingHeader /><main id="public-main-content">{children}</main><MarketingFooter /></div>;
 }
