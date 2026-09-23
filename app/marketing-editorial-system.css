@@ -2619,3 +2619,20 @@ html[data-public-theme="dark"] .wb-header { background: rgba(255, 255, 255, .97)
   .demo-booking-success{padding:30px 22px}
   .demo-success-actions{flex-direction:column;align-items:flex-start}
 }
+
+
+/* Header actions — Payoneer-inspired lightweight controls. */
+@media (max-width:900px){
+  .marketing-editorial-v1 .wb-header-actions{gap:14px!important}
+  .marketing-editorial-v1 .wb-primary-action{display:inline-flex!important;min-height:40px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:var(--wb-ink)!important;box-shadow:none!important;font-size:12px!important;font-weight:650!important}
+  .marketing-editorial-v1 .wb-primary-action:hover,.marketing-editorial-v1 .wb-primary-action:focus-visible{background:transparent!important;color:var(--wb-blue)!important;border:0!important}
+  .marketing-editorial-v1 .wb-mobile-toggle{display:inline-flex!important;width:auto!important;height:40px!important;min-height:40px!important;padding:0!important;border:0!important;background:transparent!important;color:var(--wb-ink)!important;gap:8px!important;border-radius:0!important}
+  .marketing-editorial-v1 .wb-mobile-toggle:hover,.marketing-editorial-v1 .wb-mobile-toggle:focus-visible{background:transparent!important;color:var(--wb-blue)!important}
+  .marketing-editorial-v1 .wb-mobile-toggle-label{display:inline!important;font-size:12px!important;font-weight:650!important;line-height:1!important}
+  .marketing-editorial-v1 .wb-mobile-toggle-icon{display:flex!important;width:17px!important;gap:4px!important}
+  .marketing-editorial-v1 .wb-mobile-toggle-icon i{width:17px!important;height:1.5px!important}
+}
+@media (min-width:901px){
+  .marketing-editorial-v1 .wb-primary-action{border:0!important;background:transparent!important;color:var(--wb-ink)!important;box-shadow:none!important}
+  .marketing-editorial-v1 .wb-primary-action:hover,.marketing-editorial-v1 .wb-primary-action:focus-visible{background:transparent!important;color:var(--wb-blue)!important;border:0!important}
+}
