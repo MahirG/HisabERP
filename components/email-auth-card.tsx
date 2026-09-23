@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ProviderOrbit } from "./provider-orbit";
 import { CookieConsent } from "./cookie-consent";
 
 type EmailAuthCardProps = {
@@ -21,37 +20,45 @@ export function EmailAuthCard({
   footer,
   eyebrow = "Biloo secure access",
   badge = "Protected business workspace",
-  showcaseTitle = "Run your business from one trusted workspace.",
-  showcaseDescription = "Keep sales, finance, inventory and reporting connected with secure, role-aware access.",
+  showcaseTitle = "Everything your business needs. One clear view.",
+  showcaseDescription = "Biloo brings sales, finance, inventory and reporting together in one workspace built for growing businesses in Ethiopia.",
 }: EmailAuthCardProps) {
   return (
     <main className="auth-page auth-premium-page auth-official-page auth-standard-page">
       <section className="auth-standard-shell">
         <aside className="auth-standard-showcase" aria-label="Biloo product introduction">
-          <Link href="/" className="auth-standard-brand" aria-label="Biloo home">
-            <img src="/hisab-logo.svg" alt="" width="44" height="44" className="hisab-logo" />
-            <span><strong>Biloo</strong><small>Business operating system</small></span>
-          </Link>
+          <div className="auth-showcase-inner">
+            <Link href="/" className="auth-standard-brand" aria-label="Biloo home">
+              <img src="/hisab-logo.svg" alt="" width="42" height="42" className="hisab-logo" />
+              <span><strong>Biloo</strong><small>Business operating system</small></span>
+            </Link>
 
-          <div className="auth-standard-showcase-copy">
-            <span className="auth-standard-badge"><i aria-hidden="true" />{badge}</span>
-            <h2>{showcaseTitle}</h2>
-            <p>{showcaseDescription}</p>
-            <ProviderOrbit compact />
-            <ul className="auth-standard-benefits">
-              <li><span aria-hidden="true">✓</span><div><strong>Secure by design</strong><small>Verified identity, protected sessions and reliable recovery.</small></div></li>
-              <li><span aria-hidden="true">✓</span><div><strong>Built for Ethiopia</strong><small>Localized workflows for growing Ethiopian organizations.</small></div></li>
-              <li><span aria-hidden="true">✓</span><div><strong>Your data stays connected</strong><small>Move between devices without losing business context.</small></div></li>
-            </ul>
+            <div className="auth-standard-showcase-copy">
+              <span className="auth-standard-badge"><i aria-hidden="true" />{badge}</span>
+              <h2>{showcaseTitle}</h2>
+              <p>{showcaseDescription}</p>
+
+              <div className="auth-product-proof" aria-label="Biloo platform capabilities">
+                <div><strong>Sales</strong><span>Invoices & collections</span></div>
+                <div><strong>Finance</strong><span>Cash & accounting</span></div>
+                <div><strong>Inventory</strong><span>Stock & purchasing</span></div>
+              </div>
+
+              <ul className="auth-standard-benefits">
+                <li><span aria-hidden="true">✓</span><div><strong>One connected workspace</strong><small>Keep your day-to-day operations in one place.</small></div></li>
+                <li><span aria-hidden="true">✓</span><div><strong>Built for Ethiopian business</strong><small>Practical workflows for local teams and growing companies.</small></div></li>
+                <li><span aria-hidden="true">✓</span><div><strong>Secure access</strong><small>Protected identity, sessions and account recovery.</small></div></li>
+              </ul>
+            </div>
           </div>
 
-          <p className="auth-standard-trust"><span aria-hidden="true">●</span> Encrypted connection · Role-aware access</p>
+          <p className="auth-standard-trust"><span aria-hidden="true">●</span> Secure connection · Your account is protected</p>
         </aside>
 
         <section className="auth-standard-form-side">
           <div className="auth-standard-mobile-topbar">
             <Link href="/" className="auth-standard-brand" aria-label="Biloo home">
-              <img src="/hisab-logo.svg" alt="" width="38" height="38" className="hisab-logo" />
+              <img src="/hisab-logo.svg" alt="" width="36" height="36" className="hisab-logo" />
               <strong>Biloo</strong>
             </Link>
             <Link href="/" className="auth-standard-home-link">Back to website</Link>
@@ -65,9 +72,8 @@ export function EmailAuthCard({
             </header>
             {children}
             {footer ? <div className="auth-standard-switch">{footer}</div> : null}
+            <p className="auth-form-security">By creating an account, you agree to use Biloo responsibly and keep your login details secure.</p>
           </div>
-
-
         </section>
       </section>
       <CookieConsent />
