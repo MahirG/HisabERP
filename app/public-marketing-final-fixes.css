@@ -1,6 +1,5 @@
 /* Biloo public-site final visual repair. */
 
-/* Final public palette: clean neutral canvas, deep ink, restrained blue accent. */
 .marketing-site-v2 {
   --public-bg: #ffffff;
   --public-surface: #ffffff;
@@ -17,7 +16,6 @@
   background: var(--public-bg) !important;
 }
 
-/* Remove accidental color blocks from ordinary copy, but never from real UI surfaces. */
 .marketing-site-v2 #public-main-content :where(h1,h2,h3,h4,h5,h6,p,li,dt,dd,small,label,span,strong,b,em,i,figcaption) {
   background: transparent !important;
   background-color: transparent !important;
@@ -33,83 +31,42 @@
   box-shadow: none !important;
 }
 
-/* Public marketing homepage/help surfaces. */
-.marketing-site-v2 :where(.cf-site, .help-public-hero, .help-category-section, .help-featured-section, .help-search-section, .help-support-boundary) {
+.marketing-site-v2 :where(.cf-site,.help-public-hero,.help-category-section,.help-featured-section,.help-search-section,.help-support-boundary) {
   color: var(--public-ink) !important;
   background-color: var(--public-bg) !important;
 }
 
-.marketing-site-v2 :where(.cf-site, .help-public-hero, .help-category-section, .help-featured-section, .help-search-section, .help-support-boundary) :where(h1,h2,h3,h4,h5,h6,strong,b) {
-  color: var(--public-ink-strong) !important;
-}
+.marketing-site-v2 :where(.cf-site,.help-public-hero,.help-category-section,.help-featured-section,.help-search-section,.help-support-boundary) :where(h1,h2,h3,h4,h5,h6,strong,b) { color: var(--public-ink-strong) !important; }
+.marketing-site-v2 :where(.cf-site,.help-public-hero,.help-category-section,.help-featured-section,.help-search-section,.help-support-boundary) :where(p,li,small,span,label,dt,dd) { color: var(--public-ink-muted) !important; }
 
-.marketing-site-v2 :where(.cf-site, .help-public-hero, .help-category-section, .help-featured-section, .help-search-section, .help-support-boundary) :where(p,li,small,span,label,dt,dd) {
-  color: var(--public-ink-muted) !important;
+/* Restore the first human-led hero visual when the legacy retail asset is empty/broken. */
+.marketing-site-v2 .cf-hero-photo {
+  overflow: hidden;
+  background: #eef1f4 url('/biloo-warehouse-leader.webp') center / cover no-repeat !important;
 }
+.marketing-site-v2 .cf-hero-photo > img { opacity: 0 !important; }
 
-/* Restore the intentional neutral surfaces used by the product evidence UI. */
-.marketing-site-v2 :where(.erp-evidence, .erp-evidence-topbar, .erp-evidence-sidebar, .erp-evidence-content, .erp-evidence-metrics article, .erp-evidence-table-wrap, .erp-evidence-analysis, .erp-evidence-controls article) {
-  background-color: #ffffff !important;
-}
+/* Keep product evidence panels neutral and readable. */
+.marketing-site-v2 :where(.erp-evidence,.erp-evidence-topbar,.erp-evidence-sidebar,.erp-evidence-content,.erp-evidence-metrics article,.erp-evidence-table-wrap,.erp-evidence-analysis,.erp-evidence-controls article) { background-color: #ffffff !important; }
+.marketing-site-v2 :where(.erp-evidence-sidebar,.erp-evidence-content) { color: #2f3744 !important; }
 
-.marketing-site-v2 :where(.erp-evidence-sidebar, .erp-evidence-content) {
-  color: #2f3744 !important;
-}
+.marketing-site-v2 :where(.marketing-dark-section,.marketing-dark-section-v2,.resources-framework-section,.resource-apply-section,.about-mission-section,.marketing-cta-v2) { color: #ffffff !important; background: var(--public-dark) !important; }
+.marketing-site-v2 :where(.marketing-dark-section,.marketing-dark-section-v2,.resources-framework-section,.resource-apply-section,.about-mission-section,.marketing-cta-v2) :where(h1,h2,h3,h4,h5,h6,strong,b) { color: #ffffff !important; }
+.marketing-site-v2 :where(.marketing-dark-section,.marketing-dark-section-v2,.resources-framework-section,.resource-apply-section,.about-mission-section,.marketing-cta-v2) :where(p,li,small,label,span) { color: #d5dae2 !important; }
 
-/* Explicit dark CTA sections. */
-.marketing-site-v2 :where(.marketing-dark-section,.marketing-dark-section-v2,.resources-framework-section,.resource-apply-section,.about-mission-section,.marketing-cta-v2) {
-  color: var(--public-dark-copy) !important;
-  background: var(--public-dark) !important;
-}
+.marketing-site-v2 :where(.marketing-nav-v2,.marketing-nav) { color: var(--public-ink-strong) !important; background: #ffffff !important; border-bottom-color: var(--public-border-strong) !important; }
+.marketing-site-v2 :where(.marketing-brand,.marketing-brand-copy strong,.marketing-nav nav a,.marketing-signin) { color: var(--public-ink-strong) !important; }
+.marketing-site-v2 .marketing-nav nav a:hover,.marketing-site-v2 .marketing-nav nav a[aria-current="page"],.marketing-site-v2 .marketing-signin:hover { color: var(--public-link) !important; }
 
-.marketing-site-v2 :where(.marketing-dark-section,.marketing-dark-section-v2,.resources-framework-section,.resource-apply-section,.about-mission-section,.marketing-cta-v2) :where(h1,h2,h3,h4,h5,h6,strong,b) {
-  color: #ffffff !important;
-}
-
-.marketing-site-v2 :where(.marketing-dark-section,.marketing-dark-section-v2,.resources-framework-section,.resource-apply-section,.about-mission-section,.marketing-cta-v2) :where(p,li,small,label,span) {
-  color: #d5dae2 !important;
-}
-
-/* Navigation */
-.marketing-site-v2 :where(.marketing-nav-v2,.marketing-nav) {
-  color: var(--public-ink-strong) !important;
-  background: #ffffff !important;
-  border-bottom-color: var(--public-border-strong) !important;
-}
-
-.marketing-site-v2 :where(.marketing-brand,.marketing-brand-copy strong,.marketing-nav nav a,.marketing-signin) {
-  color: var(--public-ink-strong) !important;
-}
-
-.marketing-site-v2 .marketing-nav nav a:hover,
-.marketing-site-v2 .marketing-nav nav a[aria-current="page"],
-.marketing-site-v2 .marketing-signin:hover {
-  color: var(--public-link) !important;
-}
-
-/* Footer */
-.marketing-site-v2 .marketing-footer,
-.marketing-site-v2 .marketing-footer * {
-  text-shadow: none !important;
-}
-
-.marketing-site-v2 .marketing-footer {
-  color: var(--public-ink) !important;
-  background: #ffffff !important;
-  border-top: 1px solid var(--public-border-strong) !important;
-}
-
+.marketing-site-v2 .marketing-footer,.marketing-site-v2 .marketing-footer * { text-shadow: none !important; }
+.marketing-site-v2 .marketing-footer { color: var(--public-ink) !important; background: #ffffff !important; border-top: 1px solid var(--public-border-strong) !important; }
 .marketing-site-v2 .marketing-footer :where(h1,h2,h3,h4,h5,h6,strong,b) { color: var(--public-ink-strong) !important; }
 .marketing-site-v2 .marketing-footer :where(p,small,span) { color: var(--public-ink-muted) !important; }
 .marketing-site-v2 .marketing-footer a { color: var(--public-ink-muted) !important; }
-.marketing-site-v2 .marketing-footer a:hover,
-.marketing-site-v2 .marketing-footer a:focus-visible { color: var(--public-link) !important; }
+.marketing-site-v2 .marketing-footer a:hover,.marketing-site-v2 .marketing-footer a:focus-visible { color: var(--public-link) !important; }
 .marketing-site-v2 .marketing-footer-bottom { border-top-color: var(--public-border-strong) !important; color: var(--public-ink-muted) !important; }
 
-/* Keep intentional UI elements as surfaces. */
-.marketing-site-v2 #public-main-content :where(.marketing-card,article,input,textarea,select,button,[role="button"],[role="tab"],[class*="badge"],[class*="chip"]) {
-  background-image: revert;
-}
+.marketing-site-v2 #public-main-content :where(.marketing-card,article,input,textarea,select,button,[role="button"],[role="tab"],[class*="badge"],[class*="chip"]) { background-image: revert; }
 
 @media (prefers-contrast: more) {
   .marketing-site-v2 :where(p,li,small,span,label,a) { text-decoration-thickness: .08em; }
