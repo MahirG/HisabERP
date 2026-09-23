@@ -2532,3 +2532,7 @@ html[data-public-theme="dark"] .wb-header { background: rgba(255, 255, 255, .97)
     border-bottom: 0;
   }
 }
+
+
+/* Language control lives in the utility row on desktop; keep the main row uncluttered. */
+.wb-header-actions .wb-language-switch { display: none !important; }
