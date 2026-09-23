@@ -183,3 +183,73 @@
 .biloo-cookie-banner{position:fixed;z-index:9000;right:22px;bottom:22px;left:22px;display:flex;align-items:center;justify-content:space-between;gap:22px;width:min(760px,calc(100% - 44px));margin:0 auto;border:1px solid #dfe3ea;border-radius:10px;padding:14px 16px;background:rgba(255,255,255,.98);box-shadow:0 18px 50px rgba(16,24,40,.14)}
 .biloo-cookie-copy{min-width:0}.biloo-cookie-copy strong{display:block;color:#101828;font-size:11px}.biloo-cookie-copy p{margin:5px 0 0;color:#667085;font-size:10px;line-height:1.5}.biloo-cookie-copy a{color:#1463ff;font-weight:650;text-decoration:none}.biloo-cookie-actions{display:flex;flex:0 0 auto;gap:7px}.biloo-cookie-actions button{min-height:36px;border-radius:5px;padding:0 14px;font:inherit;font-size:10px;font-weight:700;cursor:pointer}.biloo-cookie-decline{border:1px solid #d0d5dd;color:#344054;background:#fff}.biloo-cookie-accept{border:1px solid #1463ff;color:#fff;background:#1463ff}
 @media(max-width:620px){.biloo-cookie-banner{right:12px;bottom:12px;left:12px;width:calc(100% - 24px);align-items:stretch;flex-direction:column;gap:12px}.biloo-cookie-actions{justify-content:flex-end}}
+
+
+/* Final auth polish — restrained Payoneer-inspired account creation UI. */
+.auth-standard-page{background:#fff!important}
+.auth-standard-shell{grid-template-columns:minmax(420px,.88fr) minmax(520px,1.12fr);min-height:100svh}
+.auth-standard-showcase{background:#f7f9fc;border-right:1px solid #e4e7ec;padding:34px clamp(28px,5vw,76px) 28px}
+.auth-showcase-inner{width:100%;max-width:600px;margin:0 auto}
+.auth-standard-brand{gap:10px}
+.auth-standard-brand .hisab-logo{width:40px;height:40px}
+.auth-standard-brand strong{font-size:18px;letter-spacing:-.02em}
+.auth-standard-showcase-copy{max-width:560px;margin:0;padding:clamp(72px,13vh,150px) 0 40px}
+.auth-standard-badge{font-size:11px;letter-spacing:.01em}
+.auth-standard-showcase-copy h2{max-width:540px;margin-top:20px;font-size:clamp(38px,4.1vw,58px);font-weight:650;letter-spacing:-.055em;line-height:1.02}
+.auth-standard-showcase-copy>p{max-width:490px;margin-top:18px;font-size:14px;line-height:1.65}
+.auth-product-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:34px;border:1px solid #e4e7ec;border-radius:8px;background:#fff;overflow:hidden}
+.auth-product-proof>div{min-height:76px;padding:15px 14px;border-right:1px solid #e4e7ec}
+.auth-product-proof>div:last-child{border-right:0}
+.auth-product-proof strong,.auth-product-proof span{display:block}
+.auth-product-proof strong{color:#101828;font-size:11px}
+.auth-product-proof span{margin-top:6px;color:#667085;font-size:9px;line-height:1.35}
+.auth-standard-benefits{grid-template-columns:1fr;gap:16px;max-width:490px;margin-top:30px}
+.auth-standard-benefits li{gap:10px}
+.auth-standard-benefits li>span{display:grid;width:20px;height:20px;flex:0 0 20px;place-items:center;border-radius:50%;background:#eef4ff;color:#1463ff;font-size:10px}
+.auth-standard-benefits strong{font-size:11px}
+.auth-standard-benefits small{font-size:10px}
+.auth-standard-form-side{padding:40px clamp(26px,7vw,112px)}
+.auth-standard-card{width:min(460px,100%)}
+.auth-standard-heading{margin-bottom:24px}
+.auth-standard-eyebrow{margin-bottom:10px;color:#667085;font-size:10px}
+.auth-standard-heading h1{font-size:clamp(32px,3.1vw,42px);font-weight:650;letter-spacing:-.045em}
+.auth-standard-heading>p:last-child{max-width:420px;font-size:13px}
+.social-auth-block{margin-bottom:18px}
+.social-auth-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.social-auth-grid form{min-width:0}
+.social-auth-button{display:flex;width:100%;height:44px;align-items:center;justify-content:center;gap:9px;border:1px solid #d0d5dd;border-radius:5px;background:#fff;color:#344054;font-size:11px;font-weight:650;cursor:pointer}
+.social-auth-button:hover{background:#f9fafb;border-color:#98a2b3}
+.social-provider-icon{width:17px;height:17px;flex:0 0 17px}
+.social-auth-divider{display:flex;align-items:center;gap:12px;margin:18px 0 0;color:#98a2b3;font-size:9px}
+.social-auth-divider:before,.social-auth-divider:after{content:"";height:1px;flex:1;background:#eaecf0}
+.auth-standard-form{gap:14px}
+.auth-standard-field{gap:6px}
+.auth-standard-field>span{font-size:11px}
+.auth-standard-field input{height:46px;border-radius:5px;font-size:13px}
+.auth-standard-field input::placeholder{color:#98a2b3}
+.auth-standard-field-grid{gap:10px}
+.auth-standard-password-help{font-size:9px}
+.auth-standard-consent{font-size:9px}
+.auth-standard-primary{height:48px;min-height:48px;border-radius:5px;font-size:11px}
+.auth-standard-switch{margin-top:20px;padding-top:18px;font-size:11px}
+.auth-form-security{margin:18px auto 0;max-width:390px;color:#98a2b3;font-size:9px;line-height:1.5;text-align:center}
+.auth-standard-trust{font-size:9px}
+.auth-selected-plan{margin-bottom:16px}
+.biloo-cookie-banner{max-width:720px}
+@media(max-width:1100px) and (min-width:901px){
+  .auth-standard-shell{grid-template-columns:minmax(360px,.78fr) minmax(500px,1.22fr)}
+  .auth-standard-showcase{padding-inline:32px}
+  .auth-standard-showcase-copy h2{font-size:42px}
+  .auth-standard-form-side{padding-inline:42px}
+}
+@media(max-width:900px){
+  .auth-standard-shell{min-height:100svh}
+  .auth-standard-form-side{padding:20px 18px 34px}
+  .auth-standard-mobile-topbar{margin-bottom:48px}
+  .auth-standard-card{width:min(460px,100%)}
+}
+@media(max-width:560px){
+  .social-auth-grid{grid-template-columns:1fr}
+  .auth-standard-mobile-topbar{margin-bottom:34px}
+  .auth-standard-heading h1{font-size:30px}
+}
