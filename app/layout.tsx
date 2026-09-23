@@ -8,8 +8,6 @@ import { InternalStyleLoader } from "../components/internal-style-loader";
 import { LanguageProvider } from "../components/language-provider";
 import { MarketingExperienceController } from "../components/marketing-experience-controller";
 import { WorkspaceShell } from "../components/workspace-shell";
-import "./marketing-editorial-system.css";
-import "./biloo-final-visual-polish.css";
 import "./public-styles";
 
 const bilooManrope = Manrope({
