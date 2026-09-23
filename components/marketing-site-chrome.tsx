@@ -30,31 +30,32 @@ const copy = {
 } as const;
 
 const navigationGroups: NavigationGroup[] = [
-  { id: "product", label: "Product", items: [
-    { label: "Product overview", href: "/product-tour" },
-    { label: "Finance & accounting", href: "/product/finance-cashflow" },
+  { id: "product", label: "Products", items: [
+    { label: "Biloo ERP", href: "/product-tour" },
     { label: "Sales & invoicing", href: "/product/sales-invoicing" },
+    { label: "Finance & accounting", href: "/product/finance-cashflow" },
     { label: "Inventory & procurement", href: "/product/inventory" },
     { label: "Reports & analytics", href: "/product/reports-analytics" },
   ] },
   { id: "solutions", label: "Solutions", items: [
     { label: "ERP for Ethiopia", href: "/ethiopia" },
-    { label: "Industry solutions", href: "/industries" },
-    { label: "Data migration", href: "/migration" },
-    { label: "Integrations", href: "/integrations" },
+    { label: "Retail", href: "/industries/retail" },
+    { label: "Restaurants & hospitality", href: "/industries/restaurants-hospitality" },
+    { label: "Multi-branch businesses", href: "/industries" },
     { label: "Customer stories", href: "/customer-stories" },
   ] },
-  { id: "resources", label: "Resources", items: [
-    { label: "Learning center", href: "/resources" },
+  { id: "resources", label: "Resources & support", items: [
+    { label: "Resource center", href: "/resources" },
     { label: "Help Center", href: "/help-center" },
     { label: "ERP comparisons", href: "/compare" },
-    { label: "Trust Center", href: "/trust" },
+    { label: "Data migration", href: "/migration" },
     { label: "Book a walkthrough", href: "/request-demo" },
   ] },
   { id: "company", label: "Company", items: [
     { label: "About Biloo", href: "/about" },
     { label: "Trust & security", href: "/trust" },
-    { label: "Contact", href: "mailto:mahir@hisabtech.com" },
+    { label: "Integrations", href: "/integrations" },
+    { label: "Contact us", href: "mailto:mahir@hisabtech.com" },
   ] },
 ];
 
@@ -167,6 +168,16 @@ export function MarketingHeader() {
     <>
       <a href="#public-main-content" className="wb-skip-link">Skip to main content</a>
       <header ref={headerRef} className="wb-header">
+        <div className="wb-utility-bar">
+          <div className="wb-utility-inner">
+            <div className="wb-utility-links">
+              <Link href="/resources">Resources</Link>
+              <Link href="/integrations">Developers API</Link>
+              <Link href="/about">About us</Link>
+            </div>
+            <button type="button" onClick={changeLocale}>{locale === "en" ? "English" : "አማርኛ"}</button>
+          </div>
+        </div>
         <div className="wb-header-inner">
           <Link href="/" className="wb-brand" aria-label="Biloo home"><img src="/biloo-header-logo.svg" alt="Biloo" width="112" height="56" /></Link>
           <nav className="wb-primary-nav" aria-label={c.navigation}>
