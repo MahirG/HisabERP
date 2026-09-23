@@ -369,3 +369,190 @@
   .wb-mobile-toggle-icon i,
   .wb-mobile-navigation summary svg { transition: none !important; }
 }
+
+
+/* ===== Biloo global navigation contract v2 ===== */
+.marketing-site-v2 .wb-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1100 !important;
+  width: 100% !important;
+  min-height: 72px !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--public-border-strong) !important;
+  background: rgba(255,255,255,.96) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+.marketing-site-v2 .wb-header-inner {
+  width: min(1180px, calc(100% - 48px)) !important;
+  min-height: 72px !important;
+  margin: 0 auto !important;
+  display: grid !important;
+  grid-template-columns: auto minmax(0,1fr) auto !important;
+  align-items: center !important;
+  gap: 28px !important;
+}
+.marketing-site-v2 .wb-brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-width: max-content !important;
+}
+.marketing-site-v2 .wb-brand img {
+  width: 108px !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+.marketing-site-v2 .wb-primary-nav {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+}
+.marketing-site-v2 .wb-primary-nav > a,
+.marketing-site-v2 .wb-nav-group > button {
+  min-height: 42px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 0 11px !important;
+  border: 0 !important;
+  border-radius: 9px !important;
+  background: transparent !important;
+  color: var(--public-ink) !important;
+  font-size: 13px !important;
+  font-weight: 650 !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+}
+.marketing-site-v2 .wb-primary-nav > a:hover,
+.marketing-site-v2 .wb-nav-group > button:hover,
+.marketing-site-v2 .wb-nav-group > button.is-active,
+.marketing-site-v2 .wb-primary-nav > a.is-active {
+  background: var(--public-surface-soft) !important;
+  color: var(--public-ink-strong) !important;
+}
+.marketing-site-v2 .wb-nav-group { position: relative !important; }
+.marketing-site-v2 .wb-nav-group > button svg { transition: transform .18s ease !important; }
+.marketing-site-v2 .wb-nav-group.is-open > button svg { transform: rotate(180deg); }
+.marketing-site-v2 .wb-dropdown {
+  position: absolute !important;
+  top: calc(100% + 8px) !important;
+  left: 50% !important;
+  width: 250px !important;
+  transform: translateX(-50%) translateY(-5px) !important;
+  display: grid !important;
+  gap: 3px !important;
+  padding: 8px !important;
+  border: 1px solid var(--public-border-strong) !important;
+  border-radius: 12px !important;
+  background: #fff !important;
+  box-shadow: 0 18px 45px rgba(23,23,23,.09) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity .16s ease, transform .16s ease, visibility .16s ease !important;
+}
+.marketing-site-v2 .wb-nav-group.is-open .wb-dropdown {
+  transform: translateX(-50%) translateY(0) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+.marketing-site-v2 .wb-dropdown a {
+  min-height: 42px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 11px !important;
+  border-radius: 8px !important;
+  color: var(--public-ink) !important;
+  font-size: 13px !important;
+  text-decoration: none !important;
+}
+.marketing-site-v2 .wb-dropdown a:hover,
+.marketing-site-v2 .wb-dropdown a[aria-current="page"] {
+  background: var(--public-surface-soft) !important;
+  color: var(--public-link) !important;
+}
+.marketing-site-v2 .wb-header-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 7px !important;
+}
+.marketing-site-v2 .wb-search-trigger,
+.marketing-site-v2 .wb-language-switch,
+.marketing-site-v2 .wb-sign-in {
+  min-height: 40px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  padding: 0 10px !important;
+  border: 0 !important;
+  border-radius: 9px !important;
+  background: transparent !important;
+  color: var(--public-ink-muted) !important;
+  font-size: 12px !important;
+  font-weight: 650 !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+}
+.marketing-site-v2 .wb-search-trigger:hover,
+.marketing-site-v2 .wb-language-switch:hover,
+.marketing-site-v2 .wb-sign-in:hover {
+  color: var(--public-ink-strong) !important;
+  background: var(--public-surface-soft) !important;
+}
+.marketing-site-v2 .wb-primary-action {
+  min-height: 42px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 16px !important;
+  border: 1px solid var(--public-ink-strong) !important;
+  border-radius: 9px !important;
+  background: var(--public-ink-strong) !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+}
+.marketing-site-v2 .wb-primary-action:hover {
+  background: #303030 !important;
+  color: #fff !important;
+}
+
+/* Mobile: one predictable trigger, one predictable panel, no nested page chrome. */
+@media (max-width: 900px) {
+  .marketing-site-v2 .wb-header,
+  .marketing-site-v2 .wb-header-inner { min-height: 68px !important; }
+  .marketing-site-v2 .wb-header-inner {
+    width: calc(100% - 32px) !important;
+    grid-template-columns: 1fr auto !important;
+    gap: 14px !important;
+  }
+  .marketing-site-v2 .wb-brand img { width: 100px !important; }
+  .marketing-site-v2 .wb-primary-nav,
+  .marketing-site-v2 .wb-header-actions > .wb-search-trigger,
+  .marketing-site-v2 .wb-header-actions > .wb-language-switch,
+  .marketing-site-v2 .wb-header-actions > .wb-sign-in,
+  .marketing-site-v2 .wb-header-actions > .wb-primary-action { display: none !important; }
+  .marketing-site-v2 .wb-header-actions { gap: 0 !important; }
+  .marketing-site-v2 .wb-mobile-toggle {
+    display: inline-flex !important;
+    width: auto !important;
+    min-width: 88px !important;
+    height: 44px !important;
+  }
+  .marketing-site-v2 .wb-mobile-panel {
+    width: min(100%, 440px) !important;
+    padding: 14px 18px 22px !important;
+  }
+}
+@media (max-width: 520px) {
+  .marketing-site-v2 .wb-mobile-panel { width: 100% !important; }
+  .marketing-site-v2 .wb-mobile-toggle-label { font-size: 12px !important; }
+}
