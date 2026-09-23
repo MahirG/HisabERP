@@ -2536,3 +2536,7 @@ html[data-public-theme="dark"] .wb-header { background: rgba(255, 255, 255, .97)
 
 /* Language control lives in the utility row on desktop; keep the main row uncluttered. */
 .wb-header-actions .wb-language-switch { display: none !important; }
+
+
+/* Final mobile menu icon — three compact lines, ChatGPT-style. */
+@media (max-width:900px){.wb-mobile-toggle{width:42px;height:42px;min-height:42px;padding:0;border:0;background:transparent}.wb-mobile-toggle:hover,.wb-mobile-toggle:focus-visible{background:transparent}.wb-mobile-toggle-icon{display:flex;width:21px;flex-direction:column;gap:5px;align-items:flex-start}.wb-mobile-toggle-icon i{width:21px;height:2px;border-radius:2px;background:currentColor}.wb-mobile-toggle-icon i:nth-child(3){width:13px}}
