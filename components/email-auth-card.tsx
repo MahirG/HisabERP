@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ProviderOrbit } from "./provider-orbit";
+import { CookieConsent } from "./cookie-consent";
 
 type EmailAuthCardProps = {
   title: string;
@@ -66,12 +67,10 @@ export function EmailAuthCard({
             {footer ? <div className="auth-standard-switch">{footer}</div> : null}
           </div>
 
-          <footer className="auth-standard-form-footer">
-            <Link href="/trust">Privacy &amp; security</Link>
-            <Link href="/help-center">Help Center</Link>
-          </footer>
+
         </section>
       </section>
+      <CookieConsent />
     </main>
   );
 }
