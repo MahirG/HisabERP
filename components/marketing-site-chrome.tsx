@@ -168,6 +168,16 @@ export function MarketingHeader() {
     <>
       <a href="#public-main-content" className="wb-skip-link">Skip to main content</a>
       <header ref={headerRef} className="wb-header">
+        <div className="wb-utility-bar">
+          <div className="wb-utility-inner">
+            <div className="wb-utility-left">
+              <Link href="/resources">Resources</Link>
+              <Link href="/help-center">Help Center</Link>
+              <Link href="/about">About Biloo</Link>
+            </div>
+            <button type="button" className="wb-utility-language" aria-label={c.language} onClick={changeLocale}>{locale === "en" ? "English" : "አማርኛ"} <NavArrowDown width={12} height={12} strokeWidth={1.5} aria-hidden /></button>
+          </div>
+        </div>
         <div className="wb-header-inner">
           <Link href="/" className="wb-brand" aria-label="Biloo home"><img src="/biloo-header-logo.svg" alt="Biloo" width="112" height="56" /></Link>
           <nav className="wb-primary-nav" aria-label={c.navigation}>
