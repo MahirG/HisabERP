@@ -745,3 +745,9 @@
     box-shadow: none !important;
   }
 }
+
+/* Final CTA copy — requested dark-yellow emphasis. */
+.cf-final-cta h2,
+.cf-final-cta p{
+  color:#8A6A00!important;
+}
