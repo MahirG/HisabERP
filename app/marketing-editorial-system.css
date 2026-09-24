@@ -2641,11 +2641,20 @@ html[data-public-theme="dark"] .wb-header { background: rgba(255, 255, 255, .97)
   .marketing-editorial-v1 .wb-primary-action:hover,.marketing-editorial-v1 .wb-primary-action:focus-visible{background:transparent!important;color:var(--wb-blue)!important;border:0!important}
 }
 
-/* Exact requested header-only adjustments: compact Biloo wordmark and mobile Get Started action. */
+/* Exact requested header-only adjustments: compact Biloo wordmark, tighter header spacing, and visible Get Started action. */
+:root{--wb-header-height:64px!important}
+.marketing-site-v2{padding-top:64px!important}
+.wb-header{height:64px!important}
+.wb-header-inner{height:64px!important}
+.wb-brand{height:64px!important;display:flex!important;align-items:center!important}
 .wb-brand img{width:92px!important;height:auto!important;max-width:92px!important;object-fit:contain}
 @media(max-width:900px){
   .wb-brand img{width:88px!important;max-width:88px!important}
-  .marketing-editorial-v1 .wb-primary-action{display:inline-flex!important;min-height:40px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:var(--wb-ink)!important;box-shadow:none!important;font-size:12px!important;font-weight:650!important}
+  .marketing-editorial-v1 .wb-primary-action{display:inline-flex!important;visibility:visible!important;min-height:40px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:var(--wb-ink)!important;box-shadow:none!important;font-size:12px!important;font-weight:650!important}
   .marketing-editorial-v1 .wb-mobile-toggle-label{display:none!important}
   .marketing-editorial-v1 .wb-header-actions{gap:14px!important}
+}
+@media(max-width:760px){
+  .wb-header,.wb-header-inner,.wb-brand{height:64px!important}
+  .marketing-site-v2{padding-top:64px!important}
 }
