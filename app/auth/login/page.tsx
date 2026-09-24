@@ -190,7 +190,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
 
         <section className="biloo-login-form-pane">
           <nav className="biloo-login-topbar" aria-label="Sign-in support links">
-            <Link href="/" className="biloo-login-mobile-wordmark" aria-label="Biloo home">biloo<span>.</span></Link>
+            <Link href="/" className="biloo-login-mobile-wordmark" aria-label="Biloo home"><img src="/biloo-header-logo.svg" alt="Biloo" /></Link>
             <div><Link href="/help-center">Help</Link><Link href="/">Back to website</Link></div>
           </nav>
 
