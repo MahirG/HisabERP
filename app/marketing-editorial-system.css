@@ -2858,3 +2858,9 @@ html[data-public-theme="dark"] .wb-header { background: rgba(255, 255, 255, .97)
   .wb-mobile-toggle-icon i{width:20px!important;height:1.5px!important;background:currentColor!important}
   .wb-mobile-toggle-icon i:nth-child(3){width:14px!important}
 }
+
+
+/* Footer lead copy — requested dark-gold emphasis. */
+.marketing-footer-brand-column > p{
+  color:#8A6A00!important;
+}
