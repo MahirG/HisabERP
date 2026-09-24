@@ -14,7 +14,7 @@ const copy = {
   en: {
     navigation: "Main navigation", pricing: "Pricing", search: "Search", searchTitle: "Search Biloo",
     searchPlaceholder: "Search products and resources", noResults: "No matching pages found.", signIn: "Sign in",
-    startFree: "Start free", openMenu: "Open menu", closeMenu: "Close menu", language: "Language",
+    startFree: "Get Started", openMenu: "Open menu", closeMenu: "Close menu", language: "Language",
     footerIntro: "One secure business operating system for Ethiopian companies that want clearer operations and better decisions.",
     product: "Product", resources: "Learn & implement", company: "Company & trust", rights: "All rights reserved.",
     location: "Addis Ababa, Ethiopia",
