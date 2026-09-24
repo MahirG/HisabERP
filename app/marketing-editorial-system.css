@@ -2658,3 +2658,120 @@ html[data-public-theme="dark"] .wb-header { background: rgba(255, 255, 255, .97)
   .wb-header,.wb-header-inner,.wb-brand{height:64px!important}
   .marketing-site-v2{padding-top:64px!important}
 }
+
+
+/* Final header normalization — one standard responsive navigation system. */
+:root{--wb-header-height:72px!important}
+.marketing-site-v2{padding-top:72px!important}
+.wb-header{height:72px!important;background:#fff!important;border-bottom:1px solid #eaecf0!important;box-shadow:none!important}
+.wb-header-inner{
+  width:min(1280px,100%)!important;
+  height:72px!important;
+  grid-template-columns:116px minmax(0,1fr) auto!important;
+  align-items:center!important;
+  gap:24px!important;
+  padding:0 28px!important;
+}
+.wb-brand{width:116px!important;height:72px!important;display:flex!important;align-items:center!important}
+.wb-brand img{display:block!important;width:92px!important;height:auto!important;max-width:92px!important}
+.wb-primary-nav{display:flex!important;height:72px!important;align-items:center!important;gap:2px!important}
+.wb-primary-nav>a,.wb-nav-group>button{
+  min-height:40px!important;
+  padding:0 11px!important;
+  border:0!important;
+  border-radius:5px!important;
+  color:#475467!important;
+  background:transparent!important;
+  font-size:13px!important;
+  font-weight:600!important;
+}
+.wb-primary-nav>a:hover,.wb-primary-nav>a:focus-visible,.wb-primary-nav>a.is-active,
+.wb-nav-group>button:hover,.wb-nav-group>button:focus-visible,.wb-nav-group>button.is-active,
+.wb-nav-group.is-open>button{color:#101828!important;background:#f8f9fb!important}
+.wb-header-actions{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:4px!important}
+.wb-search-trigger,.wb-language-switch{display:none!important}
+.wb-sign-in{
+  display:inline-flex!important;
+  min-height:40px!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0 11px!important;
+  border:0!important;
+  color:#344054!important;
+  background:transparent!important;
+  font-size:12.5px!important;
+  font-weight:650!important;
+}
+.wb-sign-in:hover,.wb-sign-in:focus-visible{color:#101828!important;background:#f8f9fb!important}
+.wb-primary-action{
+  display:inline-flex!important;
+  min-height:40px!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0 17px!important;
+  border:1px solid #1463ff!important;
+  border-radius:5px!important;
+  color:#fff!important;
+  background:#1463ff!important;
+  font-size:12.5px!important;
+  font-weight:700!important;
+  box-shadow:none!important;
+}
+.wb-primary-action:hover,.wb-primary-action:focus-visible{border-color:#0f55dc!important;background:#0f55dc!important;color:#fff!important}
+.wb-mobile-toggle{display:none!important}
+
+@media(max-width:1080px) and (min-width:901px){
+  .wb-header-inner{grid-template-columns:106px minmax(0,1fr) auto!important;gap:10px!important;padding:0 18px!important}
+  .wb-brand{width:106px!important}
+  .wb-brand img{width:88px!important;max-width:88px!important}
+  .wb-primary-nav>a,.wb-nav-group>button{padding:0 7px!important;font-size:12px!important}
+  .wb-header-actions{gap:1px!important}
+  .wb-sign-in{padding:0 8px!important}
+  .wb-primary-action{padding:0 12px!important}
+}
+
+@media(max-width:900px){
+  :root{--wb-header-height:64px!important}
+  .marketing-site-v2{padding-top:64px!important}
+  .wb-header,.wb-header-inner{height:64px!important}
+  .wb-header-inner{grid-template-columns:1fr auto!important;width:100%!important;padding:0 16px!important}
+  .wb-brand{width:92px!important;height:64px!important}
+  .wb-brand img{width:88px!important;max-width:88px!important}
+  .wb-primary-nav,.wb-sign-in,.wb-search-trigger,.wb-language-switch{display:none!important}
+  .wb-header-actions{gap:14px!important}
+  .wb-primary-action{
+    display:inline-flex!important;
+    min-height:40px!important;
+    padding:0!important;
+    border:0!important;
+    background:transparent!important;
+    color:#101828!important;
+    font-size:12px!important;
+    font-weight:700!important;
+  }
+  .wb-primary-action:hover,.wb-primary-action:focus-visible{border:0!important;background:transparent!important;color:#1463ff!important}
+  .wb-mobile-toggle{
+    display:inline-flex!important;
+    width:36px!important;
+    height:40px!important;
+    min-height:40px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    padding:0!important;
+    border:0!important;
+    border-radius:0!important;
+    color:#101828!important;
+    background:transparent!important;
+  }
+  .wb-mobile-toggle:hover,.wb-mobile-toggle:focus-visible{background:transparent!important;color:#1463ff!important}
+  .wb-mobile-toggle-icon{display:flex!important;width:20px!important;flex-direction:column!important;gap:5px!important}
+  .wb-mobile-toggle-icon i{display:block!important;width:20px!important;height:1.5px!important;border-radius:0!important;background:currentColor!important}
+  .wb-mobile-toggle-icon i:nth-child(3){width:14px!important}
+}
+
+@media(max-width:520px){
+  .wb-header-inner{padding:0 14px!important}
+  .wb-brand{width:92px!important}
+  .wb-brand img{width:86px!important;max-width:86px!important}
+  .wb-header-actions{gap:10px!important}
+}
