@@ -1,0 +1,129 @@
+[
+  {
+    "slug": "ethiopia-tech-market-2026-10-12",
+    "title": "Ethiopia tech market: financial data, ERP and secure automation",
+    "summary": "New procurement signals point to financial-data platforms, established ERP implementations and secure digital operations, alongside payment-developer and public-sector AI initiatives.",
+    "publishedAt": "2026-10-12T08:28:00+03:00",
+    "updatedAt": "2026-10-12T08:28:00+03:00",
+    "coverage": "October 5–11, 2026",
+    "readingMinutes": 5,
+    "topics": ["Software", "AI", "Cloud", "Automation", "Public sector"],
+    "lead": "This edition tracks concrete buying requirements and implementation signals. Procurement notices indicate intended purchases, not completed contracts. Business implications below are editorial analysis, not statements from the buyers.",
+    "items": [
+      {
+        "category": "Public sector",
+        "date": "October 10, 2026",
+        "title": "NBE seeks financial-sector data governance and analytics",
+        "status": "Procurement notice",
+        "fact": "A published National Bank of Ethiopia notice invites consulting firms for a data-governance framework, dictionary, sectoral data exchange, lakehouse and analytics platform. Reference NBE/ICB/CS/02/2026/27 lists November 10 at 10:00 a.m. as the closing time and bid security of 2% of the bid price.",
+        "why": "The scope links policy, interoperability and data engineering. It signals demand for integration and governance expertise alongside application development.",
+        "action": "Request the official RFP, assess technical qualifications and confirm amendments with NBE before preparing a bid or partnership proposal.",
+        "sources": [{"name": "NBE notice reproduced by Qelal", "url": "https://tenders.qelal.et/tender-6aca04f10a538a19b2000001/"}]
+      },
+      {
+        "category": "Automation",
+        "date": "October 9–12, 2026",
+        "title": "My Wish Enterprise seeks an established ERP",
+        "status": "Procurement notice",
+        "fact": "The machinery and trading business is requesting ERP coverage across sales, inventory, finance, HR, service, procurement, import/export, fleet, CRM and expenses. The notice sets November 10 at 10:00 a.m. as the deadline, requires six similar implementations including two in Ethiopia, and explicitly excludes custom-built ERP solutions.",
+        "why": "This is a specific demand signal for connected business operations and experienced implementation partners rather than a from-scratch product.",
+        "action": "Check vendor authorization, reference requirements and local support eligibility in the RFP. Do not assume a proprietary custom ERP meets this procurement.",
+        "sources": [{"name": "My Wish Enterprise notice in Reporter Tenders", "url": "https://reportertenders.com/bids/my-wish-enterprise-plc-invites-qualified-domestic-and-international-bidders-to-submit-sealed-technical-and-financial-proposals-for-the-supply-and-implementation-of-an-internationally-recognized-erp-sy/"}]
+      },
+      {
+        "category": "Cloud",
+        "date": "October 5–8, 2026",
+        "title": "Financial buyers specify security, collaboration and observability",
+        "status": "Procurement notices",
+        "fact": "Awash Bank's collaboration procurement includes Microsoft 365 E5 with Copilot for 100 users, local professional support and an observability solution; documents are available from October 7 and the notice closes November 13 at 2:00 p.m. CBE separately lists an asset, vulnerability and patch-management solution closing October 29 at 10:00 a.m.",
+        "why": "These requirements show buyers investing in secure operations, staff productivity and platform reliability. They do not prove that either system has already been deployed.",
+        "action": "Review licensing, implementation, migration and ongoing-support requirements with qualified vendor partners. Confirm the latest documents directly with each buyer.",
+        "sources": [{"name": "Awash Bank notice reproduced by Qelal", "url": "https://tenders.qelal.et/tender-6ac35b330a538acafb000001/"}, {"name": "CBE notice in Reporter Tenders", "url": "https://reportertenders.com/bids/commercial-bank-of-ethiopia-invites-interested-and-qualified-bidders-for-the-purchase-of-the-following-item-2/"}]
+      },
+      {
+        "category": "Software",
+        "date": "Reported October 6, 2026",
+        "title": "M-PESA and Yenetta Code expand payment-development skills",
+        "status": "Completed bootcamp; hackathon planned",
+        "fact": "M-PESA Ethiopia and Yenetta Code completed a three-day bootcamp for more than 100 developers, including API-integration exercises using the M-PESA Developer Portal. The main hackathon was planned for mid-October. This is ecosystem activity, not a newly announced API release.",
+        "why": "Developer familiarity can broaden the supply of payment-enabled commerce, mobility and business software.",
+        "action": "Confirm production onboarding and API documentation with M-PESA. Treat payment verification, reconciliation and retry recovery as part of the integration, not optional extras.",
+        "sources": [{"name": "TechAfrica News", "url": "https://techafricanews.com/2026/10/06/m-pesa-ethiopia-trains-100-young-developers-in-digital-payments-hackathon/"}]
+      },
+      {
+        "category": "AI",
+        "date": "October 8, 2026",
+        "title": "Government leaders review UAE AI implementation experience",
+        "status": "Capacity-building programme",
+        "fact": "Emirates News Agency reports Ethiopian officials participated in an AI executive leadership programme under the UAE–Ethiopia government-modernization partnership. Training and visits covered AI strategies, governance and service development across 15 institutions. No Ethiopian implementation contract was announced in that report.",
+        "why": "Capacity building may improve how public institutions define AI use cases, governance and evaluation. It is not evidence of an open procurement.",
+        "action": "Prepare narrowly scoped, auditable workflow pilots with human review and measurable service outcomes when approaching institutional buyers.",
+        "sources": [{"name": "Emirates News Agency", "url": "https://www.wam.ae/en/article/c2n1i30-ethiopian-government-officials-review-uae"}]
+      },
+      {
+        "category": "Software",
+        "date": "October 5–8, 2026",
+        "title": "Regional disruption keeps business continuity in focus",
+        "status": "Reported operational risk",
+        "fact": "Reuters reported residents in Mekelle saw phone and internet access returning after a week-long disruption. Subsequent AP reporting described continuing instability and closed public offices and businesses in parts of Tigray. These reports do not establish a nationwide outage.",
+        "why": "Regional deployments may face interrupted connectivity, field support and business operations even where some services resume.",
+        "action": "Check conditions with local teams and test backups, synchronization recovery and remote-support plans before promising uninterrupted regional service.",
+        "sources": [{"name": "Reuters", "url": "https://www.reuters.com/world/africa/airstrikes-artillery-hit-north-ethiopia-after-tigray-capitals-fall-aid-sources-2026-10-05/"}, {"name": "Associated Press", "url": "https://apnews.com/article/6d89a0f53f527fb45d21637c5d9a0179"}]
+      }
+    ]
+  },
+  {
+    "slug": "ethiopia-tech-market-2026-10-05",
+    "title": "Ethiopia tech market: data governance, public ICT and digital services",
+    "summary": "A proposed data-governance framework, public ICT investment and delivered education technology highlight the gap between digital ambitions and practical implementation.",
+    "publishedAt": "2026-10-12T08:28:00+03:00",
+    "updatedAt": "2026-10-12T08:28:00+03:00",
+    "coverage": "September 28–October 4, 2026",
+    "readingMinutes": 4,
+    "topics": ["Public sector", "Cloud", "AI", "Automation"],
+    "lead": "An archive edition based on the October 5 briefing, first published on this news section on October 12. Announcement status and reporting dates are preserved; historical deadlines must be rechecked with the buyer.",
+    "items": [
+      {
+        "category": "Public sector",
+        "date": "September 28–30, 2026",
+        "title": "Data-governance proposal advances; Wingu responds",
+        "status": "Draft referred to Parliament",
+        "fact": "The Council of Ministers referred a National Data Governance draft proclamation to Parliament, targeting data sovereignty, government interoperability and AI research. On September 30, Wingu Africa published its case for local and hybrid infrastructure. That was commercial positioning, not a new cloud-service launch.",
+        "why": "The proposal connects digital services to data quality, access, exchange and infrastructure choices. Its final obligations depend on enactment and implementation.",
+        "action": "Map data flows and hosting choices early. Do not treat a draft as an enacted rule or rely on a provider's marketing as legal advice.",
+        "sources": [{"name": "Ethiopian News Agency", "url": "https://www.ena.et/web/eng/w/eng_9629721"}, {"name": "Wingu Africa", "url": "https://www.wingu.africa/blogs/data-needs-a-home-what-ethiopias-new-draft-data-law-means-for-infrastructure"}]
+      },
+      {
+        "category": "Cloud",
+        "date": "September 28 and October 1, 2026",
+        "title": "Government ICT buying signals implementation demand",
+        "status": "Procurement reporting",
+        "fact": "Published notices cover assessment devices and AI-ready infrastructure at EAES, equipment for 40 government universities and equipment for 123 federal organizations. Published closing dates were October 13, October 26 and October 27 respectively. The PPS official portal was not independently retrieved during the original briefing.",
+        "why": "Equipment purchases may support later integration, training and maintenance needs, but follow-on software contracts are an inference, not confirmed awards.",
+        "action": "Use current official documents to verify eligibility, scope and amendments before considering supply or implementation partnerships.",
+        "sources": [{"name": "Germany Trade & Invest", "url": "https://www.gtai.de/de/trade/aethiopien/ausschreibungen-projekte/it-ausruestung-2032100"}, {"name": "East Africa Tech Tenders", "url": "https://www.eastafricatechtenders.com/issue-027-east-africa-tech-tenders-17-opportunities-across-6-countries-2-oct-2026/"}]
+      },
+      {
+        "category": "AI",
+        "date": "Reported September 30, 2026",
+        "title": "Tourism policy emphasizes digital visitor experiences",
+        "status": "Policy and initiative announcement",
+        "fact": "At Oromia Tourism Week, the tourism minister highlighted digital platforms, AI and a Smart Tourism Information Center. The report describes policy direction and stakeholder collaboration; it does not announce an open API or procurement.",
+        "why": "Visitor information, enquiry handling and tourism-business workflows are plausible application areas, but commercial demand must be validated.",
+        "action": "Test a focused workflow with hotels or tour operators and measure response time or booking completion before committing to a broad platform.",
+        "sources": [{"name": "Ethiopian News Agency", "url": "https://www.ena.et/web/eng/w/eng_9647557"}]
+      },
+      {
+        "category": "Automation",
+        "date": "Reported October 1, 2026",
+        "title": "UNESCO–Huawei school initiative closes with delivered outputs",
+        "status": "Completed project",
+        "fact": "UNESCO reports the initiative supported 24 pilot secondary schools and developed 150 multimedia learning resources, alongside teacher training and online/offline tools. Its closing review considered sustainability and scaling; no new funded rollout was confirmed.",
+        "why": "The delivered project demonstrates practical demand for accessible content, training and continuity under connectivity constraints.",
+        "action": "Explore maintenance, training and implementation needs with education providers rather than assuming an announced discussion guarantees funding.",
+        "sources": [{"name": "UNESCO", "url": "https://www.unesco.org/en/articles/ethiopia-concludes-unesco-huawei-project-advance-technology-enabled-secondary-education"}]
+      }
+    ]
+  }
+]
+

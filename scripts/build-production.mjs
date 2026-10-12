@@ -13,6 +13,7 @@ const expectedStaticRoutes = [
   "/pricing",
   "/product-tour",
   "/resources",
+  "/resources/tech-news",
   "/trust",
 ];
 
