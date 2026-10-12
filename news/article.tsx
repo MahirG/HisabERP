@@ -1,0 +1,19 @@
+import Link from "next/link";
+import { canonicalUrl,formatNewsDate,safeJson,NEWS_ORIGIN,type NewsEdition } from "./types";
+import { NewsGraphic,NewsIcon } from "./icon";
+import s from "./news.module.css";
+export function NewsArticle({edition,basePath="/news",variant="company",related=[]}:{edition:NewsEdition;basePath?:string;variant?:"company"|"erp";related?:NewsEdition[]}) {
+ const canonical=canonicalUrl(edition.slug);
+ const data={"@context":"https://schema.org","@graph":[{"@type":"NewsArticle",headline:edition.title,description:edition.summary,datePublished:edition.publishedAt,dateModified:edition.updatedAt,mainEntityOfPage:canonical,url:canonical,image:NEWS_ORIGIN+"/news/"+edition.slug+"/opengraph-image",inLanguage:"en",author:{"@type":"Organization",name:"Hisab Technologies",url:NEWS_ORIGIN},publisher:{"@type":"Organization",name:"Hisab Technologies",url:NEWS_ORIGIN,logo:{"@type":"ImageObject",url:NEWS_ORIGIN+"/hisabtech-logo.svg"}},citation:edition.items.flatMap(i=>i.sources.map(s=>s.url))},{"@type":"BreadcrumbList",itemListElement:[{"@type":"ListItem",position:1,name:"Home",item:NEWS_ORIGIN},{"@type":"ListItem",position:2,name:"Ethiopia Tech News",item:NEWS_ORIGIN+"/news"},{"@type":"ListItem",position:3,name:edition.title,item:canonical}]}]};
+ return <div className={s.root+" "+(variant==="erp"?s.erp:s.company)} lang="en"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:safeJson(data)}}/>
+ <nav className={s.breadcrumb} aria-label="Breadcrumb"><Link href="/">Home</Link><span>/</span><Link href={basePath}>Tech news</Link><span>/</span><span>Weekly edition</span></nav>
+ <header className={s.articleHero}><span className={s.eyebrow}>Ethiopia market brief · {edition.coverage}</span><h1>{edition.title}</h1><p>{edition.summary}</p><div className={s.meta}><span>Hisab Technologies editorial</span><time dateTime={edition.publishedAt}>Published {formatNewsDate(edition.publishedAt)}</time><span>{edition.readingMinutes} min read</span></div><div className={s.cover}><NewsGraphic accent={variant==="erp"?"#7db4ff":"#da7757"}/></div></header>
+ <div className={s.articleLayout}><aside className={s.toc}><span className={s.eyebrow}>In this edition</span><ol>{edition.items.map((i,n)=><li key={i.title}><a href={"#item-"+(n+1)}>{i.title}</a></li>)}</ol><a className={s.read} href={basePath+"/rss.xml"}>Follow via RSS ↗</a></aside>
+ <article className={s.articleBody}><p className={s.lead}>{edition.lead}</p>{variant==="erp"&&<p className={s.note}>Also published in the <a href={canonical}>Hisab Technologies news journal</a>, the canonical source for this edition.</p>}
+ {edition.items.map((i,n)=><section className={s.story} id={"item-"+(n+1)} key={i.title}><div className={s.storyTop}><NewsIcon topic={i.category}/><span>{i.category} · {i.date}</span></div><h2><span className={s.number}>{String(n+1).padStart(2,"0")}</span>{i.title}</h2><span className={s.status}>{i.status}</span><p>{i.fact}</p><div className={s.analysis}><h3>Why it matters · Editorial analysis</h3><p>{i.why}</p><h3>Practical next step</h3><p>{i.action}</p></div><ul className={s.sources} aria-label="Sources">{i.sources.map(source=><li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">Source: {source.name} ↗</a></li>)}</ul></section>)}
+ <footer className={s.articleFooter}><h2>Use the signal. Verify the detail.</h2><p>This is an original summary with source attribution, not a reproduced news report or legal advice. Dates and procurement details reflect the sources checked for this edition, not a guarantee that a bid remains open.</p><a href="mailto:mahir@hisabtech.com?subject=Tech%20news%20correction">Suggest a correction ↗</a></footer>
+ </article></div>
+ {related.length>0&&<section className={s.related}><span className={s.eyebrow}>Keep reading</span>{related.map(e=><h2 key={e.slug}><Link href={basePath+"/"+e.slug}>{e.title} →</Link></h2>)}</section>}
+ </div>;
+}
+

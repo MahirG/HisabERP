@@ -46,6 +46,7 @@ const navigationGroups: NavigationGroup[] = [
   ] },
   { id: "resources", label: "Resources & support", items: [
     { label: "Resource center", href: "/resources" },
+    { label: "Ethiopia tech news", href: "/resources/tech-news" },
     { label: "Help Center", href: "/help-center" },
     { label: "ERP comparisons", href: "/compare" },
     { label: "Data migration", href: "/migration" },
@@ -284,6 +285,7 @@ export function MarketingFooter() {
         <nav className="marketing-footer-column" aria-label="Resources and support">
           <strong>Resources & support</strong>
           <Link href="/resources">Resource center</Link>
+          <Link href="/resources/tech-news">Ethiopia tech news</Link>
           <Link href="/help-center">Help Center</Link>
           <Link href="/compare">ERP comparisons</Link>
           <Link href="/migration">Data migration</Link>
