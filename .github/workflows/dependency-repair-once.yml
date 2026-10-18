@@ -1,0 +1,36 @@
+name: One-time locked dependency security repair
+
+on:
+  push:
+    branches:
+      - fix/biloo-auth-email-delivery-2026
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: "!contains(github.event.head_commit.message, '[lockfile-repair]')"
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: fix/biloo-auth-email-delivery-2026
+          persist-credentials: true
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Refresh vulnerable locked dependencies without install scripts
+        run: |
+          set -euo pipefail
+          npm pkg delete overrides.postcss overrides.sharp
+          npm audit fix --force --package-lock-only --ignore-scripts --no-fund
+          npm audit --omit=dev --audit-level=moderate
+          git diff --check
+          git add package.json package-lock.json
+          git diff --cached --exit-code && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix(security): refresh audited production dependency lockfile [lockfile-repair]"
+          git push origin HEAD:refs/heads/fix/biloo-auth-email-delivery-2026
