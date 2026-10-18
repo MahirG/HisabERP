@@ -312,6 +312,8 @@ export function MarketingFooter() {
     </footer>
   );
 }
-export function MarketingPageShell({ children }: { children: ReactNode }) {
-  return <div className="marketing-site marketing-site-v2 marketing-editorial-v1"><MarketingStructuredData /><MarketingHeader /><main id="public-main-content">{children}</main><MarketingFooter /></div>;
+export function MarketingPageShell({ children, className = "" }: { children: ReactNode; className?: string }) {
+  // One public shell owns the only marketing header and footer on every page.
+  // Do not add a separate fixed-header spacer: the header is sticky and in flow.
+  return <div className={`marketing-site marketing-site-v2 marketing-editorial-v1${className ? ` ${className}` : ""}`}><MarketingStructuredData /><MarketingHeader /><main id="public-main-content">{children}</main><MarketingFooter /></div>;
 }
