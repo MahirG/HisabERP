@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { MarketingFooter, MarketingHeader } from "../../components/marketing-site-chrome";
+import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { submitDemoRequest } from "../../lib/actions/demo-request";
 
 export const metadata: Metadata = {
@@ -18,9 +18,8 @@ export default async function RequestDemoPage({
   const context = [params.source, params.topic].filter(Boolean).join(" · ");
 
   return (
-    <main className="marketing-site marketing-site-v2 marketing-editorial-v1 demo-request-page">
-      <MarketingHeader />
-      <section className="demo-booking-hero" id="public-main-content">
+    <MarketingPageShell className="demo-request-page">
+      <section className="demo-booking-hero">
         <div className="demo-booking-intro">
           <div className="demo-booking-kicker"><span aria-hidden="true">●</span> Biloo ERP · Personalized walkthrough</div>
           <h1>See Biloo in action.</h1>
@@ -89,7 +88,6 @@ export default async function RequestDemoPage({
           </form>
         )}
       </section>
-      <MarketingFooter />
-    </main>
+    </MarketingPageShell>
   );
 }
