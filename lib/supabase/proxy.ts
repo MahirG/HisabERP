@@ -4,7 +4,7 @@ import { appConfig, isSupabaseConfigured } from "../config";
 
 const publicPageRoutes = new Set([
   "/", "/request-demo", "/product-tour", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about",
-  "/auth/login", "/auth/phone-login", "/auth/sign-up", "/auth/verify-phone", "/auth/email-login", "/auth/email-sign-up", "/auth/verify-email", "/auth/forgot-password", "/auth/magic-link", "/auth/reset-password", "/auth/invalid-link", "/auth/callback", "/auth/confirm",
+  "/auth/login", "/auth/phone-login", "/auth/sign-up", "/auth/verify-phone", "/auth/email-login", "/auth/email-sign-up", "/auth/verify-email", "/auth/forgot-password", "/auth/magic-link", "/auth/reset-password", "/auth/invalid-link", "/auth/callback", "/auth/confirm", "/auth/finish",
 ]);
 
 const publicAssetRoutes = new Set(["/manifest.webmanifest", "/robots.txt", "/sitemap.xml", "/release.json"]);
@@ -108,7 +108,7 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
   const authenticatedRecoveryPage = path === "/auth/reset-password";
   const authenticatedPreview = request.nextUrl.searchParams.get("preview") === "1";
   const authenticatedMarketingPath = authenticatedMarketingRoutes.has(path) || publicPagePrefixes.some((prefix) => path.startsWith(prefix));
-  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/" && !authenticatedMarketingPath && path !== "/auth/callback" && path !== "/auth/confirm" && !authenticatedRecoveryPage && !authenticatedPreview) {
+  if (isAuthenticated && publicPageRoutes.has(path) && path !== "/" && !authenticatedMarketingPath && path !== "/auth/callback" && path !== "/auth/confirm" && path !== "/auth/finish" && !authenticatedRecoveryPage && !authenticatedPreview) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     url.search = "";

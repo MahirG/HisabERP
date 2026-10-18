@@ -15,7 +15,7 @@ test("uses a dedicated PKCE-compatible confirmation endpoint", async () => {
   ]);
 
   assert.match(actions, /function confirmationUrl\(next: string\)/);
-  assert.match(actions, /\/auth\/confirm\?next=/);
+  assert.match(actions, /\/auth\/finish\?next=/);
   assert.match(confirm, /verifyOtp\(\{ token_hash: tokenHash, type: rawType \}\)/);
   assert.match(confirm, /exchangeCodeForSession\(code\)/);
   assert.match(confirm, /safeNextPath/);
@@ -98,4 +98,22 @@ test("does not advertise or execute providers that have not been configured", as
 test("removes legacy email-card language controls", async () => {
   const card = await read("components/email-auth-card.tsx");
   assert.doesNotMatch(card, /LanguageSelector/);
+});
+
+test("supports hosted email fragment, PKCE and token-hash callbacks", async () => {
+  const [finish, proxy, actions, config] = await Promise.all([
+    read("app/auth/finish/page.tsx"),
+    read("lib/supabase/proxy.ts"),
+    read("lib/actions/email-auth.ts"),
+    read("lib/config.ts"),
+  ]);
+  assert.match(finish, /URLSearchParams\(url.hash/);
+  assert.match(finish, /setSession\(/);
+  assert.match(finish, /exchangeCodeForSession\(code\)/);
+  assert.match(finish, /verifyOtp\(/);
+  assert.match(finish, /history.replaceState\(/);
+  assert.match(finish, /searchParams.delete\("code"\)/);
+  assert.match(proxy, /"\/auth\/finish"/);
+  assert.match(actions, /reportEmailError\("recovery", error\)/);
+  assert.match(config, /NEXT_PUBLIC_SUPABASE_ANON_KEY/);
 });

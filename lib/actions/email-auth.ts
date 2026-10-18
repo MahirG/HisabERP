@@ -34,7 +34,13 @@ function validationMessage(error: unknown, fallback: string) {
 }
 
 function confirmationUrl(next: string) {
-  return `${appConfig.appUrl}/auth/confirm?next=${encodeURIComponent(next)}`;
+  return `${appConfig.appUrl}/auth/finish?next=${encodeURIComponent(next)}`;
+}
+
+function reportEmailError(flow: string, error: { code?: string; status?: number } | null) {
+  if (!error) return;
+  // Log only safe diagnostics. Never log an email address, password, verification URL, or token.
+  console.error("biloo.auth.email_failure", { flow, code: error.code || "unknown", status: error.status || null });
 }
 
 function loginErrorMessage(code?: string) {
@@ -105,6 +111,7 @@ export async function signUpWithEmail(formData: FormData) {
   });
 
   if (error) {
+    reportEmailError("signup", error);
     if (error.code === "user_already_exists" || error.code === "email_exists") {
       redirect(`/auth/login?message=${encodeURIComponent(existingAccountMessage)}&reason=existing-account&email=${encodeURIComponent(email)}&next=${encodeURIComponent(next)}`);
     }
@@ -167,7 +174,8 @@ export async function requestPasswordReset(formData: FormData) {
   try {
     email = normalizeEmail(formData.get("email"));
     const supabase = await createClient();
-    await supabase.auth.resetPasswordForEmail(email, { redirectTo: confirmationUrl("/auth/reset-password") });
+    const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: confirmationUrl("/auth/reset-password") });
+    reportEmailError("recovery", error);
   } catch {
     // Deliberately identical response to prevent account enumeration.
   }
@@ -181,7 +189,8 @@ export async function requestMagicLink(formData: FormData) {
     const email = normalizeEmail(formData.get("email"));
     const next = safeNextPath(formData.get("next"));
     const supabase = await createClient();
-    await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: confirmationUrl(next), shouldCreateUser: false } });
+    const { error } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: confirmationUrl(next), shouldCreateUser: false } });
+    reportEmailError("magic-link", error);
   } catch {
     // Deliberately identical response to prevent account enumeration.
   }
@@ -196,7 +205,8 @@ export async function resendEmailConfirmation(formData: FormData) {
   try {
     email = normalizeEmail(formData.get("email"));
     const supabase = await createClient();
-    await supabase.auth.resend({ type: "signup", email, options: { emailRedirectTo: confirmationUrl(next) } });
+    const { error } = await supabase.auth.resend({ type: "signup", email, options: { emailRedirectTo: confirmationUrl(next) } });
+    reportEmailError("confirmation-resend", error);
   } catch {
     // Deliberately identical response to prevent account enumeration.
   }

@@ -29,7 +29,7 @@ export const appConfig = {
   defaultLocale: "en" as const,
   supportedLocales: ["en", "am", "ti"] as const,
   supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() ?? "",
-  supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim() ?? "",
+  supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim() || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim() || "",
   appUrl: resolveAppUrl(),
   authProviders: {
     google: process.env.NEXT_PUBLIC_ENABLE_GOOGLE_AUTH?.trim().toLowerCase() !== "false",
