@@ -397,6 +397,7 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
 
       <button className="mobile-command-trigger" type="button" onClick={() => setSurface("search")} aria-label={t("Open global search")}>
         <Icon name="search" size={19} />
+        <span>{t("Search or jump to…")}</span>
       </button>
 
       {surface && <button className="workspace-surface-backdrop" type="button" aria-label={t("Close active panel")} onClick={closeSurface} />}
