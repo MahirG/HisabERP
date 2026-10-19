@@ -52,6 +52,7 @@ export async function submitDemoRequest(formData: FormData) {
     isSupabaseConfigured()
       ? createClient()
           .then((supabase) => supabase.from("demo_requests").insert({
+            id: submissionId,
             full_name: fullName,
             business_name: businessName,
             email, phone, business_type: businessType, team_size: teamSize,
