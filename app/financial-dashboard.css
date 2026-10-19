@@ -20,3 +20,75 @@
 @media(max-width:1180px){.financial-module-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:900px){.financial-priority-grid{grid-template-columns:1fr}.financial-analysis-grid{grid-template-columns:1fr}}
 @media(max-width:700px){.financial-module-grid{grid-template-columns:1fr}.financial-dashboard .chart{height:150px;gap:3px;padding-inline:6px}}
+
+
+/* Biloo executive dashboard: intentionally neutral visual hierarchy. */
+.financial-dashboard.apple-grade-dashboard {
+  --fin-primary: #14213d;
+  --fin-text: #14213d;
+  --fin-text-muted: #475467;
+  --fin-text-faint: #667085;
+  --fin-surface: #fff;
+  --fin-surface-muted: #f1f5f9;
+  --fin-surface-subtle: #f8fafc;
+  --fin-border: #e2e8f0;
+  color: #14213d;
+  font-family: var(--font-biloo-manrope), Manrope, "Segoe UI", sans-serif;
+}
+.financial-dashboard.apple-grade-dashboard .workspace-section {
+  border-color: #e2e8f0;
+  background: #fff;
+  box-shadow: none;
+  border-radius: 14px;
+}
+.financial-dashboard.apple-grade-dashboard .financial-metric-grid {
+  gap: 12px;
+}
+.financial-dashboard.apple-grade-dashboard :is(.financial-priority-grid>a,.financial-module-grid>a) {
+  border-color: #e2e8f0;
+  border-radius: 12px;
+  box-shadow: none;
+  background: #fff;
+}
+.financial-dashboard.apple-grade-dashboard :is(.financial-priority-grid strong,.financial-module-grid strong) {
+  font-size: 14px;
+  line-height: 1.45;
+  color: #14213d;
+}
+.financial-dashboard.apple-grade-dashboard :is(.financial-priority-grid p,.financial-module-grid p) {
+  font-size: 12px;
+  line-height: 1.55;
+  color: #475467;
+}
+.financial-dashboard.apple-grade-dashboard :is(.financial-priority-grid>a,.financial-module-grid>a):focus-visible {
+  outline: 3px solid #a66a0b;
+  outline-offset: 2px;
+}
+.financial-dashboard.apple-grade-dashboard .revenue-line-chart {
+  color: #14213d;
+}
+.financial-dashboard.apple-grade-dashboard .revenue-line {
+  filter: none;
+}
+.financial-dashboard.apple-grade-dashboard .revenue-area { opacity: .24; }
+.financial-dashboard.apple-grade-dashboard .workspace-data-table {
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 760px) {
+  .financial-dashboard.apple-grade-dashboard .financial-analysis-grid,
+  .financial-dashboard.apple-grade-dashboard .dashboard-operating-grid {
+    grid-template-columns: minmax(0,1fr);
+    gap: 12px;
+  }
+  .financial-dashboard.apple-grade-dashboard .financial-priority-grid,
+  .financial-dashboard.apple-grade-dashboard .financial-module-grid {
+    grid-template-columns: minmax(0,1fr);
+    gap: 10px;
+  }
+  .financial-dashboard.apple-grade-dashboard .financial-metric-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+}
+@media (max-width: 380px) {
+  .financial-dashboard.apple-grade-dashboard .financial-metric-grid { grid-template-columns: minmax(0,1fr); }
+}
