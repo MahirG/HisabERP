@@ -156,6 +156,34 @@ export async function signInWithEmail(formData: FormData) {
   }
 
   await recordLoginAttempt(email, true, data.user.id, null, metadata);
+  // Route authenticated users to the actual next access step. Owners/admins
+  // require AAL2 before their dashboard can run protected organization RPCs.
+  // An account without active membership needs company setup, not a broken dashboard.
+  let postLoginDestination = next;
+  if (next === "/workspace-home") {
+    try {
+      const { data: membership, error: membershipError } = await supabase
+        .from("organization_members")
+        .select("role")
+        .eq("user_id", data.user.id)
+        .eq("is_active", true)
+        .order("is_default", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (!membershipError) {
+        if (!membership) {
+          postLoginDestination = "/onboarding";
+        } else if (membership.role === "owner" || membership.role === "admin") {
+          const { data: aalData, error: aalError } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+          if (!aalError && aalData?.currentLevel !== "aal2") {
+            postLoginDestination = "/account?verify=mfa&next=%2Fworkspace-home";
+          }
+        }
+      }
+    } catch {
+      // Session is already valid; let the dashboard's existing guards decide.
+    }
+  }
   // Optional audit logging must not strand an already-authenticated customer.
   try {
     const { data: membership } = await supabase.from("organization_members").select("organization_id").eq("user_id", data.user.id).eq("is_active", true).order("is_default", { ascending: false }).limit(1).maybeSingle();
@@ -170,7 +198,7 @@ export async function signInWithEmail(formData: FormData) {
   } catch {
     console.warn("biloo.auth.audit_unavailable", { code: "request_failed" });
   }
-  redirect(next);
+  redirect(postLoginDestination);
 }
 
 export async function requestPasswordReset(formData: FormData) {
