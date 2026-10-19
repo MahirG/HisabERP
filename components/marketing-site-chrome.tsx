@@ -55,7 +55,7 @@ const navigationGroups: NavigationGroup[] = [
     { label: "About Biloo", href: "/about" },
     { label: "Trust & security", href: "/trust" },
     { label: "Integrations", href: "/integrations" },
-    { label: "Contact us", href: "mailto:mahir@hisabtech.com" },
+    { label: "Contact us", href: "/request-demo?source=contact" },
   ] },
 ];
 
@@ -296,7 +296,7 @@ export function MarketingFooter() {
           <Link href="/pricing">{c.pricing}</Link>
           <Link href="/integrations">Integrations</Link>
           <Link href="/trust">Trust & security</Link>
-          <a href="mailto:mahir@hisabtech.com">Contact us</a>
+          <Link href="/request-demo?source=contact">Contact us</Link>
         </nav>
       </div>
 

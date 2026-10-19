@@ -1,13 +1,15 @@
 "use server";
 
+import { randomUUID } from "node:crypto";
 import { redirect } from "next/navigation";
 import { isSupabaseConfigured } from "../config";
-import { ADMIN_CONTACT_EMAIL, sendDemoRequestEmail } from "../email/demo-request-email";
+import { ADMIN_CONTACT_EMAIL, sendDemoConfirmationEmail, sendDemoRequestEmail } from "../email/demo-request-email";
 import { createClient } from "../supabase/server";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const TEAM_SIZES = new Set(["1-5", "6-20", "21-50", "51-200", "200+"]);
 const CONTACT_METHODS = new Set(["phone", "email"]);
+const UUID_PATTERN = /^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
 
 function value(formData: FormData, key: string, maxLength: number) {
   return String(formData.get(key) ?? "").trim().slice(0, maxLength);
@@ -18,8 +20,8 @@ function fail(message: string): never {
 }
 
 export async function submitDemoRequest(formData: FormData) {
-  const honeypot = value(formData, "website", 200);
-  if (honeypot) redirect("/request-demo?submitted=1");
+  // Never send email for honeypot submissions, or claim they were delivered.
+  if (value(formData, "website", 200)) redirect("/");
 
   const fullName = value(formData, "full_name", 120);
   const businessName = value(formData, "business_name", 160);
@@ -30,6 +32,9 @@ export async function submitDemoRequest(formData: FormData) {
   const preferredContact = value(formData, "preferred_contact", 20);
   const message = value(formData, "message", 2000);
   const requestContext = value(formData, "request_context", 300);
+  const submittedId = value(formData, "request_id", 36);
+  const submissionId = UUID_PATTERN.test(submittedId) ? submittedId : randomUUID();
+  const isContact = value(formData, "request_kind", 12) === "contact";
 
   if (fullName.length < 2 || businessName.length < 2) fail("Please enter your name and business name.");
   if (!EMAIL_PATTERN.test(email)) fail("Please enter a valid business email address.");
@@ -38,44 +43,43 @@ export async function submitDemoRequest(formData: FormData) {
   if (!TEAM_SIZES.has(teamSize)) fail("Please select your team size.");
   if (!CONTACT_METHODS.has(preferredContact)) fail("Please choose how we should contact you.");
 
-  const request = {
-    fullName,
-    businessName,
-    email,
-    phone,
-    businessType,
-    teamSize,
-    preferredContact,
-    message,
-    requestContext,
-  };
+  const request = { fullName, businessName, email, phone, businessType, teamSize, preferredContact, message, requestContext };
 
-  const emailDelivery = sendDemoRequestEmail(request);
-  const databaseStorage = isSupabaseConfigured()
-    ? createClient().then((supabase) => supabase.from("demo_requests").insert({
-        full_name: fullName,
-        business_name: businessName,
-        email,
-        phone,
-        business_type: businessType,
-        team_size: teamSize,
-        preferred_contact: preferredContact,
-        message: [requestContext ? `Context: ${requestContext}` : "", message].filter(Boolean).join("\n\n") || null,
-      }))
-    : Promise.resolve({ error: null });
-
-  const [deliveryResult, storageResult] = await Promise.all([emailDelivery, databaseStorage]);
+  // Saving the request and notifying the business are independent safety nets.
+  // Never promise inbox delivery on a provider failure or a database-only success.
+  const [deliveryResult, storageResult] = await Promise.all([
+    sendDemoRequestEmail(request, submissionId),
+    isSupabaseConfigured()
+      ? createClient()
+          .then((supabase) => supabase.from("demo_requests").insert({
+            id: submissionId,
+            full_name: fullName,
+            business_name: businessName,
+            email, phone, business_type: businessType, team_size: teamSize,
+            preferred_contact: preferredContact,
+            message: [requestContext ? `Context: ${requestContext}` : "", message].filter(Boolean).join("\n\n") || null,
+          }))
+          .catch(() => ({ error: { code: "storage_unavailable" } }))
+      : Promise.resolve({ error: { code: "not_configured" } }),
+  ]);
 
   if (storageResult.error) {
-    console.error("Demo request database storage failed", { code: storageResult.error.code });
+    console.error("biloo.contact.storage_failed", { code: storageResult.error.code });
   }
 
-  if (!deliveryResult.ok) {
-    const reason = deliveryResult.reason === "not_configured"
-      ? "Email delivery is being configured."
-      : "We could not deliver your request automatically.";
-    fail(`${reason} Please email ${ADMIN_CONTACT_EMAIL} directly.`);
+  const saved = !storageResult.error;
+  if (!deliveryResult.ok && !saved) {
+    fail(`We couldn't submit your request right now. Please email ${ADMIN_CONTACT_EMAIL} directly.`);
   }
 
-  redirect("/request-demo?submitted=1&delivered=1");
+  // Only acknowledge a request if it was accepted by the email provider or saved.
+  const customerResult = await sendDemoConfirmationEmail(request, submissionId);
+  const query = new URLSearchParams({
+    submitted: "1",
+    notification: deliveryResult.ok ? "sent" : "pending",
+    confirmation: customerResult.ok ? "sent" : "pending",
+    saved: saved ? "1" : "0",
+  });
+  if (isContact) query.set("source", "contact");
+  redirect(`/request-demo?${query.toString()}`);
 }
