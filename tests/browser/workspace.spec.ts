@@ -644,3 +644,62 @@ test("Account layout typography, navigation actions, and long IDs fit mobile",as
     await checkPageWidth(page);
   }
 });
+
+test("Biloo billing page fixture has compact, high-contrast cards across mobile and desktop", async ({ page }) => {
+  await page.goto(fixture + "/finance");
+  await page.evaluate(() => {
+    const workspace = document.querySelector(".workspace");
+    if (!workspace) return;
+    const main = document.createElement("main");
+    main.className = "commerce-page billing-page";
+    main.innerHTML = `
+      <header class="commerce-topbar"><a class="commerce-brand" href="/workspace-home"><img alt="" width="42" height="42" /><span><strong>Biloo ERP</strong><small>Billing &amp; paid access</small></span></a><a class="billing-return" href="/workspace-home">Back to workspace</a></header>
+      <section class="billing-hero"><div><span class="commerce-kicker">Billing &amp; subscriptions</span><h1>Billing &amp; paid access</h1><p>Review access dates and latest payment status. There are no automatic recurring charges.</p></div><span class="billing-status inactive"><i></i>No paid access</span></section>
+      <div class="commerce-alert warning billing-alert">Payments are made manually through Chapa.</div>
+      <section class="billing-grid">
+        <article class="billing-plan-card"><span class="billing-card-eyebrow">Current plan</span><h2>Growth</h2><p>Connected inventory, purchasing, invoicing, and operations.</p><div class="billing-price"><strong>ETB 4,500</strong><small>Monthly access amount recorded</small></div><div class="billing-card-actions"><a class="commerce-primary" href="/pricing">Compare plans</a><a class="commerce-secondary" href="/help-center">Payment help</a></div></article>
+        <article class="billing-detail-card"><header><span>Access details</span><strong>Provider: Chapa</strong></header><dl><div><dt>Status</dt><dd>No paid access</dd></div><div><dt>Access starts</dt><dd>Not available</dd></div><div><dt>Access ends</dt><dd>Not available</dd></div><div><dt>Renewal</dt><dd>Manual payment through Chapa</dd></div></dl></article>
+        <article class="billing-security-card"><span class="billing-card-eyebrow">Payment security</span><h2>Access updates require server verification.</h2><p>Payment references and amounts are verified by the server.</p><div><span><b>01</b> Authenticated webhook delivery</span><span><b>02</b> Direct transaction verification</span><span><b>03</b> User-isolated RLS</span></div><a href="/trust">Review the Trust Center</a></article>
+      </section>`;
+    workspace.querySelectorAll("main").forEach(el => el.remove());
+    workspace.appendChild(main);
+  });
+  for (const width of [320, 375, 390, 430, 760, 1024, 1440]) {
+    await page.setViewportSize({width,height:900});
+    const main = page.locator("main.billing-page");
+    await expect(main).toBeVisible();
+    const computed = await main.evaluate(el => {
+      const title = el.querySelector(".billing-hero h1")!;
+      const hero = el.querySelector(".billing-hero")!;
+      const cards = [...el.querySelectorAll(".billing-grid > article")];
+      const action = el.querySelector(".billing-card-actions .commerce-primary")!;
+      const detail = el.querySelector(".billing-detail-card dd")!;
+      const heading = el.querySelector(".billing-detail-card dt")!;
+      return {
+        bg: getComputedStyle(el).backgroundColor,
+        titleColor: getComputedStyle(title).color,
+        titleSize: parseFloat(getComputedStyle(title).fontSize),
+        heroBg: getComputedStyle(hero).backgroundColor,
+        cards: cards.map(item => ({color:getComputedStyle(item).color, bg:getComputedStyle(item).backgroundColor, right:item.getBoundingClientRect().right})),
+        action: getComputedStyle(action).backgroundColor,
+        actionHeight: action.getBoundingClientRect().height,
+        detailColor: getComputedStyle(detail).color,
+        labelColor: getComputedStyle(heading).color,
+      };
+    });
+    expect(computed.bg).toBe("rgb(246, 248, 251)");
+    expect(computed.titleColor).toBe("rgb(20, 33, 61)");
+    expect(computed.titleSize).toBeLessThanOrEqual(37);
+    expect(computed.heroBg).toBe("rgb(255, 255, 255)");
+    expect(computed.cards).toHaveLength(3);
+    for(const card of computed.cards) {
+      expect(card.bg).toBe("rgb(255, 255, 255)");
+      expect(card.right).toBeLessThanOrEqual(width + 1);
+    }
+    expect(computed.action).toBe("rgb(252, 163, 17)");
+    expect(computed.actionHeight).toBeGreaterThanOrEqual(44);
+    expect(computed.detailColor).toBe("rgb(20, 33, 61)");
+    expect(computed.labelColor).toBe("rgb(89, 101, 121)");
+    await checkPageWidth(page);
+  }
+});

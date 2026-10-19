@@ -110,3 +110,34 @@ test("premium Hisab mobile navigation and commercial motion remain accessible", 
   assert.match(layout, /import "\.\/commercial-platform\.css";/);
   assert.ok(layout.lastIndexOf("./commercial-platform.css") > layout.lastIndexOf("./home-imac-showcase.css"));
 });
+
+
+test("Billing access failures are not silently presented as unpaid records", async () => {
+  const [data, page] = await Promise.all([read("lib/data/billing.ts"), read("app/billing/page.tsx")]);
+  assert.match(data, /readError: boolean/);
+  assert.match(data, /signedIn: boolean/);
+  assert.match(data, /if \(error\) return \{ configured, enforcementEnabled, signedIn: true, readError: true, access: null \}/);
+  assert.match(page, /Billing records are temporarily unavailable/);
+  assert.match(page, /snapshot\.readError \? "Status unavailable"/);
+  assert.match(page, /snapshot\.readError \? "Retry billing status"/);
+});
+test("Billing statuses and paid dates are truthful and readable", async () => {
+  const source = await read("app/billing/page.tsx");
+  assert.match(source, /billingGrantsAccess\(access\?\.status, access\?\.currentPeriodEnd\)/);
+  assert.match(source, /access\?\.status === "active" \? "Expired"/);
+  assert.match(source, /Number\.isFinite\(date\.getTime\(\)\)/);
+  assert.match(source, /<strong>Provider: Chapa<\/strong>/);
+  assert.doesNotMatch(source, /<strong>Chapa verified<\/strong>/);
+  assert.match(source, /safeNextPath\(params\.next \|\| "\/workspace-home"\)/);
+  assert.match(source, /Manual payment through Chapa/);
+});
+test("Billing UI is isolated to the route and uses responsive Biloo contrast", async () => {
+  const [layout, css] = await Promise.all([read("app/billing/layout.tsx"),read("app/billing/billing-finish.css")]);
+  assert.match(layout, /import "\.\/billing-finish\.css";/);
+  for (const cls of ["billing-hero","billing-status","billing-grid","billing-price","billing-detail-card","billing-security-card","billing-card-actions"]) assert.match(css,new RegExp(cls));
+  assert.match(css, /font-size:clamp\(27px,3\.2vw,36px\)/);
+  assert.match(css, /@media\(max-width:700px\)/);
+  assert.match(css, /:focus-visible/);
+  assert.match(css, /-webkit-text-fill-color/);
+  assert.match(css, /min-height:44px/);
+});
