@@ -86,6 +86,10 @@ function toAmount(value: string, index: number) {
 export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected operating workspace', metrics, rows, compact = false, illustrative = false }: InteractiveErpOfficeProps) {
   const [view, setView] = useState<ViewId>('records');
   const financePreview = illustrative && moduleTitle.toLowerCase().includes('finance');
+  const selectedPreviewNav = moduleTitle.toLowerCase().includes('finance') ? 'Finance'
+    : moduleTitle.toLowerCase().includes('sales') ? 'Sales'
+    : moduleTitle.toLowerCase().includes('inventory') ? 'Inventory'
+    : moduleTitle.toLowerCase().includes('report') ? 'Reports' : 'Overview';
 
   const records = useMemo(() => {
     const source = rows.length ? rows : [{ label: 'Selam Supermarket', value: 'ETB 126,500', meta: 'Current record' }];
@@ -96,7 +100,7 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
         date: `${31 - index} Aug 2026`,
         record: row.label,
         branch: branches[index],
-        amount: toAmount(row.value, index),
+        amount: illustrative ? row.value : toAmount(row.value, index),
         status: statuses[index],
         meta: row.meta,
       };
@@ -121,7 +125,7 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
         <div className="erp-evidence-layout">
           <aside className="erp-evidence-sidebar" aria-label="ERP navigation">
             {navigation.map(({ label, Icon }, index) => illustrative
-              ? <span className={label === 'Finance' ? 'active' : undefined} key={label}><Icon /><span>{label}</span></span>
+              ? <span className={label === selectedPreviewNav ? 'active' : undefined} key={label}><Icon /><span>{label}</span></span>
               : <button className={index === 1 ? 'active' : undefined} type="button" key={label}><Icon /><span>{label}</span></button>)}
           </aside>
 

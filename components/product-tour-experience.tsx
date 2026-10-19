@@ -74,8 +74,8 @@ export function ProductTourExperience({ compact = false }: { compact?: boolean }
       <section className={compact ? 'product-tour product-tour-compact' : 'product-tour'} aria-label="Interactive Biloo ERP product tour" data-active-scene={scene.id}>
         <div className="product-tour-toolbar">
           <div><span>Interactive workspace</span><strong>{String(activeIndex + 1).padStart(2, '0')} / {String(scenes.length).padStart(2, '0')}</strong></div>
-          <p>Direct product evidence · August 2026</p>
-          <span className="product-tour-live">Live preview</span>
+          <p>Five connected workflows · Illustrative data</p>
+          <span className="product-tour-live">Interactive sample</span>
         </div>
 
         <div className="product-tour-tabs" role="tablist" aria-label="Product areas">
@@ -88,7 +88,7 @@ export function ProductTourExperience({ compact = false }: { compact?: boolean }
             <div className="product-tour-copy-actions"><Link href={scene.moduleHref} className="marketing-start">Explore this module <ArrowRight /></Link>{!compact && <Link href="/request-demo" className="marketing-demo">Request a guided demo</Link>}</div>
             <div className="product-tour-scene-nav"><button type="button" onClick={() => activateIndex(activeIndex - 1)} aria-label="Show previous product area"><ArrowLeft />Previous</button><span>{scene.shortLabel}</span><button type="button" onClick={() => activateIndex(activeIndex + 1)} aria-label="Show next product area">Next<ArrowRight /></button></div>
           </div>
-          <InteractiveErpOffice moduleTitle={scene.label} moduleEyebrow={`${scene.shortLabel} / August 2026`} metrics={[...scene.metrics]} rows={[...scene.rows]} compact />
+          <InteractiveErpOffice moduleTitle={scene.label} moduleEyebrow={`${scene.shortLabel} / sample workflow`} metrics={[...scene.metrics]} rows={[...scene.rows]} compact illustrative />
         </div>
       </section>
     </IconoirProvider>

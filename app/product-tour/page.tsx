@@ -31,20 +31,20 @@ export default function ProductTourPage() {
   return (
     <MarketingPageShell>
       <div className="product-tour-phase-2-4">
-        <section className="marketing-page-hero product-tour-hero">
+        <section className="marketing-page-hero product-tour-hero" aria-labelledby="product-tour-page-title">
           <div className="product-tour-hero-copy">
             <span className="marketing-eyebrow">Interactive Biloo ERP product tour</span>
-            <h1>See the work. Follow the data. <em>Understand the business.</em></h1>
-            <p>Move through Biloo’s major product areas and see how sales, inventory, finance and reporting become one reliable operating picture—across desktop and mobile.</p>
+            <h1 id="product-tour-page-title">See the work. Follow the data. <em>Understand the business.</em></h1>
+            <p>Explore five connected Biloo workspaces with an interactive, illustrative walkthrough—built to make sales, stock, finances, and reporting easier to understand.</p>
             <div className="marketing-hero-actions">
-              <Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link>
+              <Link href="#interactive-tour" className="marketing-start marketing-large">Explore the tour</Link>
               <Link href="/request-demo" className="marketing-demo marketing-large">Request a guided demo</Link>
             </div>
           </div>
-          <InteractiveErpOffice moduleTitle="Executive dashboard" moduleEyebrow="Five connected workspaces" metrics={tourMetrics} rows={tourRows} compact />
+          <InteractiveErpOffice moduleTitle="Executive dashboard" moduleEyebrow="Five connected workspaces" metrics={tourMetrics} rows={tourRows} compact illustrative />
         </section>
 
-        <section className="product-tour-page-stage">
+        <section className="product-tour-page-stage" id="interactive-tour" aria-label="Explore Biloo interactive modules">
           <ProductTourExperience />
         </section>
 

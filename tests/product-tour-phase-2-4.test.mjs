@@ -24,7 +24,7 @@ test("product tour keeps the Biloo brand and uses direct product evidence", asyn
   assert.match(experience, /event\.key === ['"]Home['"]/);
   assert.match(experience, /event\.key === ['"]End['"]/);
   assert.match(experience, /InteractiveErpOffice/);
-  assert.match(experience, /Direct product evidence/);
+  assert.match(experience, /Illustrative data/);
   assert.doesNotMatch(experience, /tour-macbook|tour-iphone|device frame/i);
   assert.match(experience, /aria-live="polite"/);
   assert.match(experience, /Show previous product area/);
