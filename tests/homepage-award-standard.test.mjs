@@ -113,5 +113,5 @@ test("Navy hero headline stays readable, not covered by legacy white editorial b
  assert.match(css,/\.cf-hero :is\([\s\S]*?\.cf-hero-actions,[\s\S]*?\.ah-hero-assurances[\s\S]*?\)\{/);
  assert.match(css,/\.cf-hero-product\.ah-hero-board\{[\s\S]*?background:#fff!important/);
  assert.match(home,/className="cf-hero-copy"/);
- assert.match(home,/className="ah-hero-board"/);
+ assert.match(home,/className="cf-hero-product ah-hero-board"/);
 });
