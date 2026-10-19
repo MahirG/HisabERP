@@ -279,7 +279,7 @@ input[type="number"] { font-variant-numeric: tabular-nums; }
   overscroll-behavior: contain;
 }
 
-:where(dialog[open], [role="dialog"], .modal.open, .drawer.open, .premium-mobile-menu.open .premium-mobile-menu-panel) {
+:where(dialog[open]:not([data-workspace-navigation]), [role="dialog"]:not([data-workspace-navigation]), .modal.open, .drawer.open, .premium-mobile-menu.open .premium-mobile-menu-panel) {
   animation: appDialogIn var(--app-slow) var(--app-ease-out) both;
 }
 

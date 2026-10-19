@@ -31,12 +31,11 @@ test("drawer lists keep labels and icons visible with an explicit active state",
 test("workspace shell retains the semantic navigation hooks", () => {
   for (const hook of [
     "mobile-menu-trigger",
-    "mobile-sidebar-header",
     "sidebar-workspace-switcher",
     "sidebar-nav-group",
     "sidebar-group-items",
     "sidebar-dock-status",
-    "mobile-nav-backdrop",
+    "WorkspaceMobileNavigation",
   ]) {
     assert.ok(workspaceShell.includes(hook), `missing ${hook}`);
   }

@@ -600,7 +600,7 @@ body[data-workspace-system="financial-os-v1"] :is(
   dialog,
   [role="dialog"],
   [role="menu"]
-) {
+):not([data-workspace-navigation]) {
   border-color: #e5e5e5 !important;
   background: #ffffff !important;
   color: #14213d !important;

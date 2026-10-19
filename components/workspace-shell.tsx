@@ -10,7 +10,7 @@ import { UserMenu } from "./user-menu";
 import { Icon, type IconName } from "./ui/icon";
 import { WorkspaceCommandCenter, type WorkspaceCommandItem } from "./workspace-command-center";
 import { WorkspaceHeaderPreferences } from "./workspace-header-preferences";
-import { useModalFocus } from "./use-modal-focus";
+import { WorkspaceMobileNavigation } from "./workspace-mobile-navigation";
 
 type Props = { children: ReactNode; user?: UserContext | null };
 type NavItem = { label: string; href: string; icon: IconName };
@@ -54,8 +54,6 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
   const pathname = usePathname();
   const workspaceRef = useRef<HTMLDivElement>(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const sidebarRef = useRef<HTMLElement>(null);
-  useModalFocus(sidebarRef, mobileNavOpen);
   const { dictionary, language } = useLanguage();
   const isExcluded = shellExcludedRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
   const [activeUser, setActiveUser] = useState<UserContext | null>(initialUser);
@@ -204,7 +202,7 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
       <WorkspaceHeaderPreferences />
 
       <header className="mobile-workspace-header">
-        <button type="button" className="mobile-menu-trigger" aria-label={menuLabel} aria-controls="primary-sidebar" aria-expanded={mobileNavOpen} onClick={() => setMobileNavOpen(true)}>
+        <button type="button" className="mobile-menu-trigger" aria-label={menuLabel} aria-controls="mobile-workspace-navigation" aria-expanded={mobileNavOpen} onClick={() => setMobileNavOpen(true)}>
           <span aria-hidden="true"><i /><i /><i /></span>
         </button>
         <Link href="/" className="mobile-workspace-brand" aria-label="Biloo dashboard"><img src="/hisab-logo.svg" alt="" width="34" height="34" className="hisab-logo" /></Link>
@@ -213,14 +211,9 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
 
       <UserMenu user={user} />
 
-      <button className="mobile-nav-backdrop" type="button" aria-label="Close navigation" onClick={() => setMobileNavOpen(false)} />
+      <WorkspaceMobileNavigation open={mobileNavOpen} onDismiss={() => setMobileNavOpen(false)} groups={groups} pathname={pathname} organizationName={user.organizationName} organizationMark={organizationMark} activeLabel={activeItem?.label ?? d.nav.overview} label={menuLabel} />
 
-      <aside ref={sidebarRef} tabIndex={-1} role={mobileNavOpen ? "dialog" : undefined} aria-modal={mobileNavOpen || undefined} className="sidebar supabase-sidebar" id="primary-sidebar" data-docked="fixed" aria-label="Primary workspace navigation">
-        <div className="mobile-sidebar-header">
-          <div className="brand"><img src="/hisab-logo.svg" alt="" width="34" height="34" className="hisab-logo" /><div><strong>Biloo</strong><small>Business operating system</small></div></div>
-          <button type="button" aria-label="Close navigation" onClick={() => setMobileNavOpen(false)}>×</button>
-        </div>
-
+      <aside className="sidebar supabase-sidebar" id="primary-sidebar" data-docked="fixed" aria-label="Primary workspace navigation">
         <div className="supabase-sidebar-header">
           <Link href="/" className="desktop-sidebar-brand brand" aria-label="Biloo dashboard">
             <img src="/hisab-logo.svg" alt="" width="28" height="28" className="hisab-logo" />
@@ -281,7 +274,7 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
             </Link>
           );
         })}
-        <button type="button" className={mobileNavOpen ? "active" : undefined} aria-label={menuLabel} aria-expanded={mobileNavOpen} onClick={() => setMobileNavOpen(true)}>
+        <button type="button" className={mobileNavOpen ? "active" : undefined} aria-label={menuLabel} aria-controls="mobile-workspace-navigation" aria-expanded={mobileNavOpen} onClick={() => setMobileNavOpen(true)}>
           <Icon name="grid" size={21} />
           <span>{moreLabel}</span>
         </button>

@@ -35,11 +35,61 @@ test("Help Center search, guide layout, modal focus, dismissal and reduced viewp
  await trigger.click();await page.locator('.help-featured-grid a[href="/sales/invoices/new"]').click();await expect(page).toHaveURL(/\/sales\/invoices\/new/);await expect(page.getByRole('dialog')).toHaveCount(0);
 });
 
-test("workspace hamburger traps focus and navigates without losing controls",async({page})=>{
+test("workspace hamburger stays above utility bars and navigates without losing controls",async({page})=>{
  await page.setViewportSize({width:320,height:740});await page.goto(fixture+'/finance');
- const trigger=page.locator('.mobile-menu-trigger');await trigger.click();const drawer=page.locator('#primary-sidebar');await expect(drawer).toHaveAttribute('aria-modal','true');
- await drawer.getByRole('link',{name:'Inventory',exact:true}).click();await expect(page).toHaveURL(/\/inventory/);await expect(page.locator('.core-page')).toBeVisible();
- await page.locator('.mobile-menu-trigger').click();await page.keyboard.press('Escape');await expect(page.locator('.mobile-menu-trigger')).toBeFocused();
+ // Reproduce the reported utility-bar stacking conflict, including extreme z-index values.
+ await page.locator('.workspace-command-header').evaluate(element=>(element as HTMLElement).style.setProperty('z-index','2147483647','important'));
+ const trigger=page.locator('.mobile-menu-trigger');await trigger.click();
+ const drawer=page.getByRole('dialog',{name:'Workspace menu'});await expect(drawer).toBeVisible();
+ await expect(page.locator('#primary-sidebar')).not.toBeVisible();
+ await expect(drawer.locator('img[alt="Biloo"]')).toHaveCount(1);
+ await expect(drawer.getByRole('link',{name:'Finance',exact:true})).toHaveAttribute('aria-current','page');
+ expect(await drawer.evaluate(element=>element.matches(':modal'))).toBe(true);
+ const topmost=await drawer.locator('header').evaluate(element=>{const rect=element.getBoundingClientRect();return element.contains(document.elementFromPoint(rect.x+rect.width/2,rect.y+rect.height/2))});expect(topmost).toBe(true);
+ const close=drawer.getByRole('button',{name:'Close navigation'});await expect(close).toBeFocused();
+ const lastControl=drawer.locator('footer a');await lastControl.focus();await page.keyboard.press('Tab');expect(await drawer.evaluate(e=>e.contains(document.activeElement))).toBe(true);
+ await drawer.getByRole('link',{name:'Inventory',exact:true}).click();await expect(page).toHaveURL(/\/inventory/);await expect(drawer).not.toBeVisible();await expect(page.locator('.core-page')).toBeVisible();
+ await trigger.click();await page.keyboard.press('Escape');await expect(drawer).not.toBeVisible();await expect(trigger).toBeFocused();
+ await trigger.click();await expect(drawer).toBeVisible();const bounds=await drawer.boundingBox();await page.mouse.click(bounds!.x+bounds!.width-12,200);await expect(drawer).not.toBeVisible();await expect(trigger).toBeFocused();
+ await page.locator('.mobile-bottom-nav button').click();await expect(drawer).toBeVisible();
+ await page.setViewportSize({width:1024,height:740});await expect(drawer).not.toBeVisible();await expect(page.locator('#primary-sidebar')).toBeVisible();
+ expect(await page.evaluate(()=>document.body.style.overflow)).not.toBe('hidden');
+});
+
+for(const width of [320,360,375,390,430,768]) test(`mobile navigation containment and scrolling ${width}`,async({page})=>{
+ await page.setViewportSize({width,height:740});await page.emulateMedia({reducedMotion:'reduce'});await page.goto(fixture+'/e-invoicing');await page.locator('.mobile-menu-trigger').click();
+ const drawer=page.getByRole('dialog',{name:'Workspace menu'});
+ await expect(drawer).toBeVisible();await checkPageWidth(page);
+ const layout=await drawer.evaluate(element=>{
+  const nav=element.querySelector('nav')!;const footer=element.querySelector('footer')!;const header=element.querySelector('header')!;
+  const n=nav.getBoundingClientRect(),f=footer.getBoundingClientRect(),h=header.getBoundingClientRect();
+  return {navTop:n.top,navBottom:n.bottom,footerTop:f.top,footerBottom:f.bottom,headerBottom:h.bottom,scrollable:nav.scrollHeight>nav.clientHeight,
+   icons:[...nav.querySelectorAll('svg')].map(icon=>({width:icon.getBoundingClientRect().width,height:icon.getBoundingClientRect().height})),
+   links:[...nav.querySelectorAll('a')].map(link=>({left:link.getBoundingClientRect().left,right:link.getBoundingClientRect().right,height:link.getBoundingClientRect().height}))};
+ });
+ expect(layout.headerBottom).toBeLessThanOrEqual(layout.navTop+0.5);expect(layout.navBottom).toBeLessThanOrEqual(layout.footerTop+0.5);expect(layout.footerBottom).toBeLessThanOrEqual(741);expect(layout.scrollable).toBe(true);
+ for(const icon of layout.icons){expect(icon.width).toBe(21);expect(icon.height).toBe(21)}
+ for(const link of layout.links){expect(link.left).toBeGreaterThanOrEqual(0);expect(link.right).toBeLessThanOrEqual(width);expect(link.height).toBeGreaterThanOrEqual(44)}
+ const lastLink=drawer.locator('nav a').last();await lastLink.scrollIntoViewIfNeeded();await expect(lastLink).toBeInViewport();
+ const hit=await lastLink.evaluate(element=>{const r=element.getBoundingClientRect();return element.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2))});expect(hit).toBe(true);
+ await expect(drawer.getByRole('button',{name:'Close navigation'})).toBeInViewport();
+});
+
+for(const width of [320,390,768]) test(`mobile navigation visual baseline ${width}`,async({page})=>{
+ await page.setViewportSize({width,height:844});await page.emulateMedia({reducedMotion:'reduce'});await page.goto(fixture+'/e-invoicing');await page.locator('.mobile-menu-trigger').click();
+ await expect(page.getByRole('dialog',{name:'Workspace menu'})).toHaveScreenshot(`mobile-navigation-${width}.png`);
+});
+
+test('mobile menu handles long organization names, enlarged labels and short landscape',async({page})=>{
+ await page.setViewportSize({width:320,height:740});await page.emulateMedia({reducedMotion:'reduce'});await page.goto(fixture+'/finance');await page.locator('.mobile-menu-trigger').click();
+ const drawer=page.getByRole('dialog',{name:'Workspace menu'});
+ await drawer.locator('strong').first().evaluate(element=>element.textContent='NexRide International Transportation and Electronic Invoicing Services ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
+ await drawer.locator('nav a span:nth-child(2)').evaluateAll(elements=>elements.forEach(element=>(element as HTMLElement).style.fontSize='24px'));
+ await expect(drawer.getByRole('button',{name:'Close navigation'})).toBeInViewport();
+ const collision=await drawer.locator('nav a').evaluateAll(elements=>elements.some(element=>{const icon=element.querySelector('span')!.getBoundingClientRect();const label=element.querySelectorAll('span')[1].getBoundingClientRect();return icon.right>label.left||element.scrollWidth>element.clientWidth}));expect(collision).toBe(false);
+ await page.setViewportSize({width:740,height:360});
+ const last=drawer.locator('nav a').last();await last.scrollIntoViewIfNeeded();await expect(last).toBeInViewport();await expect(drawer.getByRole('button',{name:'Close navigation'})).toBeInViewport();
+ expect(await drawer.evaluate(element=>element.scrollWidth<=innerWidth&&element.getBoundingClientRect().bottom<=innerHeight)).toBe(true);
 });
 for(const width of [390,1440]) test(`Help Center visual baseline ${width}`,async({page})=>{
  await page.setViewportSize({width,height:900});await page.emulateMedia({reducedMotion:'reduce'});await page.goto(fixture+'/finance');await page.getByTitle('Help Center',{exact:true}).click();await expect(page.getByRole('dialog')).toHaveScreenshot(`help-center-${width}.png`);

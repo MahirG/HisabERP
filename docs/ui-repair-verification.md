@@ -57,3 +57,18 @@ Exact final test counts and production deployment evidence are reported with the
 - Existing Node suite plus new repair checks: **154 passed, 116 failed**. All 116 failures also occurred on the untouched baseline; no additional failing test names.
 - Source inventory: 56 implemented page sources reviewed and classified.
 - No lint command is configured.
+
+
+### Mobile navigation follow-up
+
+The supplied mobile reference showed the command header above the drawer, oversized navigation icons, duplicate branding, and footer content overlapping links. The command header used z-index 210 while the drawer used 190; multiple generic dialog rules also imposed backgrounds, radii, and entrance animations.
+
+- Mobile navigation now uses a native modal dialog in the browser top layer, outside the legacy sidebar cascade. Shared card/dialog surface and animation rules explicitly exclude this component. The desktop sidebar retains the original destinations and permission-derived groups.
+- A scoped CSS module owns the drawer: compact Biloo header, 44px close control, organization context, 21px icons, navy/gold active state, independently scrolling navigation, and a footer in normal flex layout. Dynamic viewport height and safe-area insets constrain the panel; reduced-motion settings disable transitions.
+- Both hamburger and bottom More controls open the same dialog. Tests cover native modal behavior, focus wrapping/return, Escape, outside clicks, link navigation, and dismissal on desktop resize. The utility bar is deliberately raised to z-index 2147483647 in a regression test; the menu still receives pointer interaction.
+- Containment, icon sizing, footer separation, and the final link's pointer hit target are measured at 320, 360, 375, 390, 430, and 768px. Additional cases cover 24px labels, long unbroken organization names, and a 740×360 viewport.
+- Three new screenshot baselines cover the mobile drawer at 320, 390, and 768px. The fixture now loads the same self-hosted Manrope face/variable as production; the two internal Help Center baselines were refreshed and visually reviewed for that font correction. Public baselines are unchanged.
+
+The earlier live-authentication and physical Android testing limits still apply. The menu is tested using the real workspace components with synthetic organization data; this is not a claim of a live signed-in production session.
+
+Follow-up release validation: TypeScript and the production build passed; the complete browser suite passed **92 checks, with 1 live-auth test skipped**. The Node suite remains **154 passed / 116 failed**, with exactly the same failing test names as the prior release. All seven screenshot baselines were compared in the final run without updates.

@@ -10,10 +10,10 @@ const layout = fs.readFileSync("app/layout.tsx", "utf8");
 test("mobile workspace adds an app header, drawer and bottom navigation", () => {
   assert.match(shell, /mobile-workspace-header/);
   assert.match(shell, /mobile-menu-trigger/);
-  assert.match(shell, /mobile-nav-backdrop/);
+  assert.match(shell, /WorkspaceMobileNavigation/);
   assert.match(shell, /mobile-bottom-nav/);
   assert.match(shell, /data-mobile-nav-open/);
-  assert.match(shell, /aria-controls="primary-sidebar"/);
+  assert.match(shell, /aria-controls="mobile-workspace-navigation"/);
   assert.match(shell, /aria-expanded=\{mobileNavOpen\}/);
 });
 

@@ -29,7 +29,7 @@ const server = createServer(async (req, res) => {
     const target = pathname === "/fixture.js" ? path.join(out, "workspace-fixture.js") : pathname === "/fixture.css" ? path.join(out, "workspace-fixture.css") : path.join(root, "public", pathname);
     if (path.extname(pathname)) { const bytes = await readFile(target); res.setHeader("Content-Type", mime[path.extname(target)] ?? "application/octet-stream"); res.end(bytes); return; }
     res.setHeader("Content-Type", "text/html");
-    res.end('<!doctype html><html lang="en" data-theme="light" data-brand="biloo"><head><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="stylesheet" href="/fixture.css"></head><body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="biloo-award-marketing-2026"><div id="root"></div><script type="module" src="/fixture.js"></script></body></html>');
+    res.end('<!doctype html><html lang="en" data-theme="light" data-brand="biloo"><head><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="stylesheet" href="/fixture.css"><style>@font-face{font-family:Manrope;src:url(/fonts/manrope-latin-wght-normal.woff2) format("woff2");font-weight:200 800;font-display:swap}:root{--font-biloo-manrope:Manrope}</style></head><body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="biloo-award-marketing-2026"><div id="root"></div><script type="module" src="/fixture.js"></script></body></html>');
   } catch { res.writeHead(404); res.end(); }
 });
 server.listen(Number(process.env.UI_FIXTURE_PORT || 41774), "127.0.0.1", () => console.log("Read-only UI fixtures ready"));
