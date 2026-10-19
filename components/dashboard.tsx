@@ -112,8 +112,8 @@ export function Dashboard({ snapshot, user }: { snapshot: DashboardSnapshot; use
       <WorkspacePageHeader
         breadcrumb={<><Link href="/workspace-home">{ui.home}</Link><Icon name="chevron-right" size={12} /><span>{ui.dashboard}</span></>}
         eyebrow={<><Icon name="activity" size={14} /><LocalGreeting language={language} firstName={snapshot.userName} /></>}
-        title={ui.overview}
-        description={profile.summary}
+        title="Business Overview"
+        description="Your business performance, operations, and priorities in one place."
         meta={<><StatusBadge label={profile.title} tone="info" /><span>{ui.roleContext}</span></>}
         actions={<><span className="workspace-status"><i />{snapshot.mode === "live" ? ui.liveWorkspace : ui.demoWorkspace}</span><LanguageSelector /><Link className="secondary action-link" href="/api/reports/dashboard"><Icon name="download" size={16} /><span>{d.exportReport}</span></Link><Link className="primary action-link" href={profile.quickAction.href}><Icon name="plus" size={16} /><span>{profile.quickAction.label}</span></Link></>}
       />
@@ -126,10 +126,10 @@ export function Dashboard({ snapshot, user }: { snapshot: DashboardSnapshot; use
           <Link className="workspace-inline-action" href="/finance"><span>{ui.reviewFinance}</span><Icon name="arrow-right" size={14} /></Link>
         </div>
         <div className="financial-metric-grid">
-          <MetricTile label={ui.sales} value={money(metrics.sales, language)} detail={d.metricItems.sales.change} icon="chart" tone="success" />
-          <MetricTile label={ui.expenses} value={money(metrics.expenses, language)} detail={d.metricItems.expenses.change} icon="receipt" tone="warning" />
-          <MetricTile label={ui.cash} value={money(metrics.cash, language)} detail={d.metricItems.cash.change} icon="wallet" tone="info" />
-          <MetricTile label={ui.receivables} value={money(metrics.debt, language)} detail={d.metricItems.debt.change} icon="file-check" tone={receivableTone} />
+          <MetricTile label={ui.sales} value={money(metrics.sales, language)} detail={snapshot.mode === "live" ? "Recorded sales" : "Demo data"} icon="chart" tone="neutral" />
+          <MetricTile label={ui.expenses} value={money(metrics.expenses, language)} detail={snapshot.mode === "live" ? "Recorded expenses" : "Demo data"} icon="receipt" tone="neutral" />
+          <MetricTile label={ui.cash} value={money(metrics.cash, language)} detail={snapshot.mode === "live" ? "Current recorded balance" : "Demo data"} icon="wallet" tone="neutral" />
+          <MetricTile label={ui.receivables} value={money(metrics.debt, language)} detail={snapshot.mode === "live" ? "Outstanding customer balances" : "Demo data"} icon="file-check" tone={receivableTone} />
           <MetricTile label={ui.operatingResult} value={money(operatingResult, language)} detail={operatingResult >= 0 ? ui.positiveResult : ui.negativeResult} icon={operatingResult >= 0 ? "trending-up" : "trending-down"} tone={resultTone} />
         </div>
       </section>
@@ -138,7 +138,7 @@ export function Dashboard({ snapshot, user }: { snapshot: DashboardSnapshot; use
         <article className="workspace-section performance-panel dashboard-performance-panel">
           <div className="workspace-section-heading"><div><p className="workspace-eyebrow"><Icon name="chart" size={14} />{ui.performance}</p><h2>{d.revenueOverview}</h2></div><StatusBadge label={d.last12Months} /></div>
           <div className="revenue-summary"><div><small>{d.revenueOverview}</small><strong>{money(annualRevenue, language)}</strong></div></div>
-          <RevenueTrendChart values={snapshot.monthlyRevenue} labels={d.months} label={d.revenueChart} />
+          {snapshot.monthlyRevenue.some((value) => value !== 0) ? <RevenueTrendChart values={snapshot.monthlyRevenue} labels={d.months} label={d.revenueChart} /> : <EmptyState icon="chart" title="No revenue history yet" description="Revenue trends will appear after transactions are recorded." />}
         </article>
 
         <article className="workspace-section health-panel dashboard-health-panel">
@@ -155,7 +155,7 @@ export function Dashboard({ snapshot, user }: { snapshot: DashboardSnapshot; use
         <article className="workspace-section attention-section dashboard-attention-panel" aria-labelledby="attention-title">
           <div className="workspace-section-heading"><div><p className="workspace-eyebrow"><Icon name="alert-triangle" size={14} />{ui.attention}</p><h2 id="attention-title">{ui.attention}</h2><p>{ui.attentionDescription}</p></div></div>
           <div className="workspace-action-alert-list">
-            <ActionAlert title={ui.collectReceivables} description={ui.collectReceivablesDescription} value={money(metrics.debt, language)} href="/customers" actionLabel={ui.reviewCustomers} icon="users" tone={receivableTone} />
+            {metrics.debt > 0 ? <ActionAlert title={ui.collectReceivables} description={ui.collectReceivablesDescription} value={money(metrics.debt, language)} href="/customers" actionLabel={ui.reviewCustomers} icon="users" tone={receivableTone} /> : null}
             <ActionAlert title={ui.operatingMargin} description={ui.operatingMarginDescription} value={money(operatingResult, language)} href="/finance" actionLabel={ui.reviewFinance} icon={operatingResult >= 0 ? "trending-up" : "trending-down"} tone={resultTone} />
             <ActionAlert title={ui.reconciliation} description={ui.reconciliationDescription} href="/reconciliation" actionLabel={ui.reconcile} icon="refresh-cw" tone="info" />
             <ActionAlert title={ui.businessHealth} description={ui.businessHealthDescription} value={`${snapshot.health.score}/100`} href="/reports" actionLabel={ui.openReports} icon="activity" tone={scoreTone} />
