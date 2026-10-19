@@ -39,6 +39,14 @@ function hasSupabaseSessionCookie(request: NextRequest) {
 
 export async function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
+  // Supabase may return a PKCE callback to the Site URL (/) when a configured
+  // redirect URL is not accepted. Never render/cache a one-time auth code on
+  // the marketing homepage: exchange it using the dedicated callback route.
+  if (path === "/" && (request.nextUrl.searchParams.has("code") || request.nextUrl.searchParams.has("error"))) {
+    const callback = request.nextUrl.clone();
+    callback.pathname = "/auth/callback";
+    return NextResponse.redirect(callback, { status: 307 });
+  }
   const isLegacy = path.startsWith("/legacy");
   const cacheablePublic = isCacheablePublicPath(path) && !(path === "/" && hasSupabaseSessionCookie(request));
   const relaxedScripts = isLegacy || cacheablePublic;
