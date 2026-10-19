@@ -434,3 +434,51 @@ test("Business Overview uses truthful demo status and non-fabricated reporting l
     expect(rect!.x + rect!.width).toBeLessThanOrEqual(391);
   }
 });
+
+
+for (const [route, heading, type] of [
+  ["/sales","Sales & Invoicing","sales"],
+  ["/finance","Finance & Accounting","finance"],
+  ["/inventory","Inventory & Warehouse","core"],
+] as const) {
+  test(`Biloo standard module presentation and contrast: ${route}`, async ({page}) => {
+    await page.goto(fixture+route);
+    for(const width of [320,390,760,1024,1440]) {
+      await page.setViewportSize({width,height:900});
+      const main=page.locator("main.biloo-standard-module");
+      const hero=main.locator(`.${type}-hero`);
+      await expect(hero).toBeVisible();
+      await expect(hero.locator("h1")).toHaveText(heading);
+      const style=await hero.evaluate(el=>{
+        const title=el.querySelector("h1")!;
+        const p=el.querySelector("div > p:last-child")!;
+        const box=el.getBoundingClientRect();
+        return {
+          background:getComputedStyle(el).backgroundColor,
+          title:getComputedStyle(title).webkitTextFillColor||getComputedStyle(title).color,
+          description:getComputedStyle(p).webkitTextFillColor||getComputedStyle(p).color,
+          titleFont:parseFloat(getComputedStyle(title).fontSize),left:box.left,right:box.right
+        };
+      });
+      expect(style.background).toBe("rgb(255, 255, 255)");
+      expect(style.title).toBe("rgb(20, 33, 61)");
+      expect(style.description).toBe("rgb(71, 84, 103)");
+      expect(style.titleFont).toBeLessThanOrEqual(37);
+      expect(style.left).toBeGreaterThanOrEqual(0);
+      expect(style.right).toBeLessThanOrEqual(width+1);
+      await expect(hero.locator("small")).toContainText("Demo workspace");
+      const tabs=main.locator(`.${type}-tabs`);
+      await expect(tabs).toBeVisible();
+      const active=tabs.locator("button.active");
+      await expect(active).toHaveCSS("background-color","rgb(252, 163, 17)");
+      const kpis=main.locator(`.${type}-kpis > article`);
+      await expect(kpis).toHaveCount(4);
+      await checkPageWidth(page);
+    }
+    const section=page.locator(`.${type}-tabs`);
+    const next=type==="sales"?"Quotations":type==="finance"?"Journal":"Products";
+    await section.getByRole("button",{name:next,exact:true}).click();
+    await expect(section.getByRole("button",{name:next,exact:true})).toHaveClass(/active/);
+    await expect(page.locator(`.${type}-view`)).toBeVisible();
+  });
+}

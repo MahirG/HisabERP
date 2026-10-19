@@ -16,6 +16,7 @@ import type {
   JournalRecord,
 } from "../lib/data/types";
 import { DemoNotice } from "./demo-notice";
+import { Icon } from "./ui/icon";
 import { FinancialActionButton } from "./ui/financial-action-button";
 import {
   VirtualizedDataGrid,
@@ -190,10 +191,10 @@ export function FinanceWorkspaceV2({ snapshot, initialTab, success, canManage }:
   const taxPayable = outputTax - inputTax;
 
   return (
-    <main className="finance-page finance-runtime-page">
+    <main className="finance-page finance-runtime-page biloo-standard-module">
       <header className="finance-hero" data-motion-enter>
-        <div><p className="eyebrow">Financial operating system</p><h1>Finance &amp; Accounting</h1><p>The financial source of truth for every sale, expense, payment, tax, asset and closing period.</p></div>
-        <div className="finance-hero-state"><span className="finance-live-dot" aria-hidden="true" /><div><small>Live workspace</small><strong>{snapshot.organizationName}</strong></div></div>
+        <div><p className="eyebrow module-standard-eyebrow"><Icon name="landmark" size={15} />Finance operations</p><h1>Finance &amp; Accounting</h1><p>The financial source of truth for every sale, expense, payment, tax, asset and closing period.</p></div>
+        <div className="finance-hero-state"><span className="finance-live-dot" aria-hidden="true" /><div><small>{snapshot.mode === "live" ? "Live workspace" : "Demo workspace"}</small><strong>{snapshot.organizationName}</strong></div></div>
       </header>
       <DemoNotice mode={snapshot.mode} />
       {success ? <div className="form-alert success finance-success" data-motion-enter>{success}</div> : null}

@@ -13,6 +13,7 @@ import {
 } from "../lib/actions/sales";
 import type { SalesProductRecord, SalesSnapshot } from "../lib/data/sales-types";
 import { DemoNotice } from "./demo-notice";
+import { Icon } from "./ui/icon";
 
 const tabs = [
   ["overview", "Overview"],
@@ -151,10 +152,10 @@ export function SalesWorkspace({ snapshot, initialTab, success, canManage }: { s
   const netSales = snapshot.metrics.invoicedThisMonth - snapshot.metrics.returnsThisMonth;
 
   return (
-    <main className="sales-page">
+    <main className="sales-page biloo-standard-module">
       <header className="sales-hero">
-        <div><p className="eyebrow">Phase 1 · Must have</p><h1>Sales &amp; Invoicing</h1><p>Manage quotations, sales orders, invoices, receipts, returns and customer balances from one workflow.</p></div>
-        <div className="sales-hero-state"><span className="sales-live-dot" /><div><small>Workspace</small><strong>{snapshot.organizationName}</strong></div></div>
+        <div><p className="eyebrow module-standard-eyebrow"><Icon name="shopping-cart" size={15} />Sales operations</p><h1>Sales &amp; Invoicing</h1><p>Manage quotations, sales orders, invoices, receipts, returns and customer balances from one workflow.</p></div>
+        <div className="sales-hero-state"><span className="sales-live-dot" /><div><small>{snapshot.mode === "live" ? "Live workspace" : "Demo workspace"}</small><strong>{snapshot.organizationName}</strong></div></div>
       </header>
 
       <DemoNotice mode={snapshot.mode} />

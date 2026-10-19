@@ -14,6 +14,7 @@ import {
 import { coreOperationsCopy, operationValue } from "../lib/core-operations-copy";
 import type { InventoryOperationsSnapshot } from "../lib/data/core-operations-types";
 import { DemoNotice } from "./demo-notice";
+import { Icon } from "./ui/icon";
 import { useLanguage } from "./language-provider";
 import { PendingActionButton } from "./pending-action-button";
 
@@ -43,8 +44,8 @@ export function InventoryOperationsWorkspace({ snapshot, initialTab, canManage }
   const openCounts = snapshot.counts.filter((count) => ["draft", "in_progress", "submitted"].includes(count.status));
   const expiringLots = snapshot.lots.filter((lot) => lot.expiryDate && lot.expiryDate <= new Date(Date.now() + 30 * 86_400_000).toISOString().slice(0, 10) && lot.status === "active");
 
-  return <main className="core-page">
-    <header className="core-hero"><div><p className="eyebrow">Phase 1 · Inventory control</p><h1>Inventory & Warehouse</h1><p>Real-time stock by warehouse, controlled transfers, physical counts, financial adjustments, reorder signals, batches, expiry and serial-number tracking.</p></div><div className="core-live"><span /><div><small>{c.live}</small><strong>{snapshot.organizationName}</strong></div></div></header>
+  return <main className="core-page inventory-operations-page biloo-standard-module">
+    <header className="core-hero"><div><p className="eyebrow module-standard-eyebrow"><Icon name="boxes" size={15} />Inventory operations</p><h1>Inventory & Warehouse</h1><p>Real-time stock by warehouse, controlled transfers, physical counts, financial adjustments, reorder signals, batches, expiry and serial-number tracking.</p></div><div className="core-live"><span /><div><small>{snapshot.mode === "live" ? "Live workspace" : "Demo workspace"}</small><strong>{snapshot.organizationName}</strong></div></div></header>
     <DemoNotice mode={snapshot.mode} />{!canManage && snapshot.mode === "live" && <div className="form-alert warning">{c.readOnly}</div>}
     <nav className="core-tabs" aria-label="Inventory sections">{tabs.map(([key, label]) => <button type="button" key={key} className={tab === key ? "active" : ""} onClick={() => setTab(key)}>{label}</button>)}</nav>
 
