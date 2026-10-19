@@ -14,11 +14,19 @@ test("desktop Biloo header is flush, continuous, and contains the account", asyn
       const box = element.getBoundingClientRect();
       const search = element.querySelector(".workspace-search-trigger")!.getBoundingClientRect();
       const profile = element.querySelector(".workspace-header-account")!.getBoundingClientRect();
+      const identity = element.querySelector(".workspace-header-identity") as HTMLElement;
+      const identityBox = identity.getBoundingClientRect();
+      const identityText = identity.querySelector("strong")!;
       return {
         top: box.top,
         right: box.right,
         height: box.height,
         searchRight: search.right,
+        searchLeft: search.left,
+        identityLeft: identityBox.left,
+        identityRight: identityBox.right,
+        identityText: identityText.textContent?.trim(),
+        identityColor: getComputedStyle(identityText).color,
         profileLeft: profile.left,
         bg: getComputedStyle(element).backgroundColor,
         ghost: getComputedStyle(element, "::before").content,
@@ -29,6 +37,10 @@ test("desktop Biloo header is flush, continuous, and contains the account", asyn
     expect(geometry.height).toBe(58);
     expect(geometry.bg).toBe("rgb(20, 33, 61)");
     expect(["none", "normal"]).toContain(geometry.ghost);
+    expect(geometry.identityText).toBe("Business Operating System");
+    expect(geometry.identityColor).toBe("rgb(255, 255, 255)");
+    expect(geometry.identityLeft).toBeGreaterThanOrEqual(0);
+    expect(geometry.identityRight).toBeLessThanOrEqual(geometry.searchLeft + 1);
     expect(geometry.searchRight).toBeLessThanOrEqual(geometry.profileLeft);
   }
 });
