@@ -17,7 +17,7 @@ export default function CustomerStoriesPage() {
   const proofRows = inspectableProof.slice(0, 3).map((item, index) => ({ label: item.title, value: "Inspectable", meta: `Evidence ${index + 1}` }));
 
   return (
-    <MarketingPageShell className="biloo-five-page">
+    <MarketingPageShell className="biloo-seven-page biloo-five-page">
       <section className="proof-page-hero">
         <div>
           <span className="marketing-eyebrow">Customer evidence</span>

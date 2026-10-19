@@ -27,7 +27,7 @@ export default async function IndustrySolutionPage({ params }: { params: Promise
   const workstationRows = industry.capabilities.slice(0, 3).map((capability, index) => ({ label: capability, value: "Connected", meta: `Priority ${index + 1}` }));
 
   return (
-    <MarketingPageShell className="biloo-five-page">
+    <MarketingPageShell className="biloo-seven-page biloo-five-page">
       <section className="industry-detail-hero">
         <div><span className="marketing-eyebrow">{industry.eyebrow}</span><h1>{industry.title}</h1><p>{industry.summary}</p><div className="marketing-hero-actions"><Link href={`/request-demo?industry=${industry.slug}`} className="marketing-start marketing-large">Request a focused demo</Link><Link href="/pricing" className="marketing-demo marketing-large">View pricing</Link></div><div className="industry-team-pills">{industry.teams.map((team)=><span key={team}>{team}</span>)}</div></div>
         <InteractiveErpOffice moduleTitle={industry.shortTitle} moduleEyebrow="Illustrative industry workspace" metrics={workstationMetrics} rows={workstationRows} compact illustrative informational />

@@ -22,7 +22,7 @@ export default function HelpCenterPage() {
   const helpRows = featured.slice(0, 3).map((article) => article ? ({ label: article.title, value: article.readTime, meta: helpCategories.find((category) => category.slug === article.category)?.title || "Guide" }) : null).filter((item): item is { label: string; value: string; meta: string } => Boolean(item));
 
   return (
-    <MarketingPageShell className="biloo-five-page">
+    <MarketingPageShell className="biloo-seven-page biloo-five-page">
       <section className="help-public-hero">
         <div>
           <span className="marketing-eyebrow">HisabERP Help Center</span>

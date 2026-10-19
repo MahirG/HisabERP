@@ -18,7 +18,7 @@ type ForgotPasswordSearchParams = {
 export default async function Page({ searchParams }: { searchParams: Promise<ForgotPasswordSearchParams> }) {
   const p = await searchParams;
   const configured = isSupabaseConfigured();
-  const next = safeNextPath(p.next || "/");
+  const next = safeNextPath(p.next || "/workspace-home");
   const email = typeof p.email === "string" ? p.email.trim().slice(0, 254) : "";
   const errorMessage = typeof p.error === "string" ? p.error.slice(0, 360) : "";
   const successMessage = typeof p.message === "string" ? p.message.slice(0, 360) : "";
