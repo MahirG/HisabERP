@@ -400,6 +400,14 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sid
   font-weight: 480 !important;
 }
 
+/* A narrow tablet uses an icon-only navigation rail; the full identity
+   card belongs to the expanded desktop sidebar rather than squeezing into it. */
+@media (max-width: 960px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer {
+    display: none !important;
+  }
+}
+
 /* App pages and content surfaces */
 body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
   .dashboard-content,
