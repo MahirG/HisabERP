@@ -36,3 +36,61 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace {
 body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(a, button):focus-visible {
   outline-offset: 2px;
 }
+
+
+/* Centered, high-contrast search in the single-row mobile Biloo masthead. */
+@media (max-width: 760px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-workspace-header .mobile-workspace-title {
+    display: none !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger {
+    position: fixed !important;
+    z-index: 175 !important;
+    left: 68px !important;
+    right: 138px !important;
+    top: calc(env(safe-area-inset-top) + 20px) !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 9px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 44px !important;
+    padding: 0 13px !important;
+    border: 1px solid #ccd7e4 !important;
+    border-radius: 13px !important;
+    background: #f6f8fb !important;
+    color: #14213d !important;
+    -webkit-text-fill-color: #14213d !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.85) !important;
+    overflow: hidden !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger span {
+    display: block !important;
+    min-width: 0 !important;
+    color: #475467 !important;
+    -webkit-text-fill-color: #475467 !important;
+    font-size: 12px !important;
+    font-weight: 650 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger svg {
+    flex: 0 0 18px !important;
+    color: #14213d !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger:focus-visible {
+    outline: 3px solid #ad751d !important;
+    outline-offset: 2px !important;
+  }
+}
+@media (max-width: 360px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger {
+    left: 62px !important;
+    right: 132px !important;
+    padding-inline: 9px !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger span { font-size: 11px !important; }
+}
