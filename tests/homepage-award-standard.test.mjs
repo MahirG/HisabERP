@@ -92,3 +92,26 @@ test("Homepage CSS is route scoped, readable and mobile-first",async()=>{
  assert.ok(contrast("#14213d","#fca311")>=4.5);
  assert.ok(contrast("#475467","#ffffff")>=4.5);
 });
+
+
+test("Navy hero headline stays readable, not covered by legacy white editorial background",async()=>{
+ const [css,legacy,home] = await Promise.all([
+  read("app/home-award-2026.css"),
+  read("app/public-marketing-final-fixes.css"),
+  read("components/campfire-marketing-home.tsx")
+ ]);
+ // Regression: the older CSS deliberately specifies a white .cf-hero-copy.
+ assert.match(legacy,/:where\(\.cf-hero,\.cf-hero-layout,\.cf-hero-copy/);
+ assert.match(legacy,/background: #ffffff !important/);
+ // Higher-specificity home scope overrides the opaque block, without
+ // changing the white ERP preview's intentional content surface.
+ const copyRule=css.match(/\.marketing-site-v2 #public-main-content \.cf-site\.ah-home \.cf-hero-copy\{([^}]*)\}/)?.[1];
+ assert.ok(copyRule,"Homepage hero copy rule exists");
+ assert.match(copyRule,/background:transparent!important/);
+ assert.match(copyRule,/background-image:none!important/);
+ assert.match(copyRule,/color:#fff!important/);
+ assert.match(css,/\.cf-hero :is\([\s\S]*?\.cf-hero-actions,[\s\S]*?\.ah-hero-assurances[\s\S]*?\)\{/);
+ assert.match(css,/\.cf-hero-product\.ah-hero-board\{[\s\S]*?background:#fff!important/);
+ assert.match(home,/className="cf-hero-copy"/);
+ assert.match(home,/className="ah-hero-board"/);
+});

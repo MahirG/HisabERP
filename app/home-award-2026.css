@@ -59,10 +59,21 @@
  margin:0 auto!important;padding:clamp(64px,7vw,104px) 0 58px!important;
  background:transparent!important;text-align:left!important;
 }
+/* Important: older public-marketing-final-fixes.css sets a white background
+ * on .cf-hero-copy. With white hero typography this creates an opaque white
+ * slab covering the headline. Override that legacy rule on the homepage only. */
+.marketing-site-v2 #public-main-content .cf-site.ah-home .cf-hero :is(
+ .cf-hero-shell,.cf-hero-copy,.cf-hero-actions,.cf-hero-note,.ah-hero-assurances
+){
+ background:transparent!important;background-color:transparent!important;
+ background-image:none!important;box-shadow:none!important;
+}
 .marketing-site-v2 #public-main-content .cf-site.ah-home .cf-hero-copy{
  display:flex!important;flex-direction:column!important;align-items:flex-start!important;
  width:100%!important;max-width:none!important;
  margin:0!important;padding:0!important;text-align:left!important;
+ background:transparent!important;background-image:none!important;
+ border:0!important;box-shadow:none!important;
  color:#fff!important;
 }
 .marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hero-eyebrow{
