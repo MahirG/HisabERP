@@ -82,3 +82,29 @@ test("mobile keeps one masthead without the legacy floating second row", async (
   await expect(page.locator(".erp-shell > .mobile-workspace-header")).toBeVisible();
   await expect(page.locator(".mobile-workspace-header .sticky-user-trigger")).toBeVisible();
 });
+
+
+test("desktop sidebar footer stays pinned with its own navy surface", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(fixture + "/modules");
+  const footer = page.locator("#primary-sidebar .sidebar-footer");
+  await expect(footer).toBeVisible();
+  await expect(footer.locator(".powered-by a")).toHaveText("Biloo");
+  await expect(footer.locator(".sidebar-footer-organization")).not.toBeEmpty();
+  await expect(footer.locator(".sidebar-footer-location")).toHaveText("Addis Ababa, Ethiopia");
+  const geometry = await footer.evaluate((node) => {
+    const element = node as HTMLElement;
+    const sidebar = element.closest("#primary-sidebar")!;
+    const rect = element.getBoundingClientRect();
+    const sidebarRect = sidebar.getBoundingClientRect();
+    return {
+      distanceToBottom: sidebarRect.bottom - rect.bottom,
+      background: getComputedStyle(element).backgroundImage,
+      labelColor: getComputedStyle(element.querySelector(".sidebar-footer-organization")!).color,
+    };
+  });
+  expect(geometry.distanceToBottom).toBeGreaterThanOrEqual(0);
+  expect(geometry.distanceToBottom).toBeLessThanOrEqual(24);
+  expect(geometry.background).toContain("linear-gradient");
+  expect(geometry.labelColor).toBe("rgb(255, 255, 255)");
+});
