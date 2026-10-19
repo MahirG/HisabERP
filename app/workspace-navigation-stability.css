@@ -301,3 +301,51 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
     -webkit-text-fill-color: #475467 !important;
   }
 }
+
+
+/* Windows / desktop ERP navigation type scale — compact and consistent. */
+@media (min-width: 761px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > aside.sidebar nav .sidebar-section-label {
+    font-size: 10px !important;
+    line-height: 1.45 !important;
+    font-weight: 750 !important;
+    letter-spacing: .045em !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > aside.sidebar nav .sidebar-group-items > a {
+    min-height: 38px !important;
+    padding: 7px 10px !important;
+    gap: 9px !important;
+    border-radius: 9px !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    font-weight: 590 !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > aside.sidebar nav .sidebar-group-items > a > span {
+    min-width: 0 !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    font-weight: inherit !important;
+    letter-spacing: 0 !important;
+    color: inherit !important;
+    -webkit-text-fill-color: currentColor !important;
+    overflow-wrap: normal !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > aside.sidebar nav .sidebar-group-items > a[aria-current="page"] {
+    font-weight: 730 !important;
+    color: #14213d !important;
+    background: #edf2f8 !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > aside.sidebar nav .sidebar-group-items .sidebar-nav-icon {
+    flex: 0 0 17px !important;
+    width: 17px !important;
+    height: 17px !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > aside.sidebar .sidebar-workspace-copy :is(strong,small) {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > aside.sidebar .sidebar-footer {
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+  }
+}
