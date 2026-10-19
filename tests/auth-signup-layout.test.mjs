@@ -59,3 +59,11 @@ test("Signup uses the same icon slots and centers its form on narrow phones",asy
   assert.ok(css.includes('width:calc(100% - 42px)!important'));
   assert.ok(css.includes('@media (max-width:620px)'));
 });
+
+test("Sign-up uses matching inset for all four fields and compact phone screens",async()=>{
+  const sheet=await read("app/auth/login/login-finish.css");
+  for(const id of ["signup-full-name","signup-email","signup-password","signup-confirm-password"])assert.ok(sheet.includes("input#"+id));
+  assert.ok(sheet.includes("padding:0 0 0 11px!important"));
+  assert.ok(sheet.includes("gap:12px!important"));
+  assert.ok(sheet.includes("padding-left:8px!important"));
+});

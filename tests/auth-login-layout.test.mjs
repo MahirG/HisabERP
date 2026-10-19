@@ -63,3 +63,12 @@ test("Sign-in fields use separate colored icon slots and a single clean input bo
   assert.ok(css.includes('width:0!important'));
   assert.ok(icons.includes('mail: <><rect'));
 });
+
+test("Sign-in placeholders have a clear inner inset and no nested input border",async()=>{
+  const sheet=await read("app/auth/login/login-finish.css");
+  assert.ok(sheet.includes("Biloo shared sign-in / sign-up text inset"));
+  for(const id of ["login-email","login-password"])assert.ok(sheet.includes("input#"+id));
+  assert.ok(sheet.includes("padding:0 0 0 11px!important"));
+  assert.ok(sheet.includes("border:0 none transparent!important"));
+  assert.ok(sheet.includes("box-shadow:none!important"));
+});

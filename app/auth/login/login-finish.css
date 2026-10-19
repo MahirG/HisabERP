@@ -399,3 +399,80 @@ body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login
   color:#244d89!important;
   -webkit-text-fill-color:#244d89!important;
 }
+
+
+/* Biloo shared sign-in / sign-up text inset.
+   A small spacing correction belongs to the real input, NOT another wrapper.
+   Specific IDs deliberately defeat obsolete global input borders and radii. */
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field .biloo-login-input-shell {
+  gap:12px!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field .biloo-login-input-shell > :is(
+  input#login-email,
+  input#login-password,
+  input#signup-full-name,
+  input#signup-email,
+  input#signup-password,
+  input#signup-confirm-password
+) {
+  flex:1 1 0%!important;
+  width:0!important;
+  min-width:0!important;
+  max-width:100%!important;
+  height:100%!important;
+  min-height:46px!important;
+  margin:0!important;
+  padding:0 0 0 11px!important;
+  border:0 none transparent!important;
+  border-width:0!important;
+  border-style:none!important;
+  border-radius:0!important;
+  outline:0!important;
+  outline-offset:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  background-image:none!important;
+  background-color:transparent!important;
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  text-indent:0!important;
+  font-size:16px!important;
+  line-height:1.5!important;
+  color:#14213d!important;
+  -webkit-text-fill-color:#14213d!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field .biloo-login-input-shell > :is(
+  input#login-email,
+  input#login-password,
+  input#signup-full-name,
+  input#signup-email,
+  input#signup-password,
+  input#signup-confirm-password
+):is(:hover,:focus,:active) {
+  border:0 none transparent!important;
+  border-radius:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field .biloo-login-input-shell > :is(
+  input#login-email,
+  input#login-password,
+  input#signup-full-name,
+  input#signup-email,
+  input#signup-password,
+  input#signup-confirm-password
+)::placeholder {
+  color:#667085!important;
+  -webkit-text-fill-color:#667085!important;
+  opacity:1!important;
+}
+@media(max-width:350px){
+  body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field .biloo-login-input-shell{
+    gap:9px!important;
+  }
+  body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field .biloo-login-input-shell > :is(
+    input#login-email,input#login-password,input#signup-full-name,
+    input#signup-email,input#signup-password,input#signup-confirm-password
+  ){padding-left:8px!important}
+}
