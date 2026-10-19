@@ -61,7 +61,7 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(p, sma
     height: 100svh !important;
     flex-direction: column !important;
     padding: 14px 12px 18px !important;
-    overflow-x: hidden !important;
+    min-width: 0;
     overflow-y: auto !important;
     border: 0 !important;
     border-right: 1px solid var(--biloo-app-line) !important;
@@ -86,7 +86,7 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(p, sma
     width: calc(100% - 276px) !important;
     min-height: 100svh !important;
     margin-left: 276px !important;
-    overflow-x: hidden !important;
+    min-width: 0;
     overflow-y: auto !important;
   }
 
@@ -141,7 +141,7 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(p, sma
 
   body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .desktop-sidebar-brand small {
     color: #7a818c !important;
-    font-size: 8px !important;
+    font-size: 12px !important;
     font-weight: 800 !important;
     letter-spacing: 0.14em !important;
     text-transform: uppercase !important;
@@ -219,7 +219,7 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sid
   display: block !important;
   padding: 0 10px 4px !important;
   color: #858d98 !important;
-  font-size: 9px !important;
+  font-size: 12px !important;
   font-weight: 850 !important;
   letter-spacing: 0.12em !important;
   line-height: 1.4 !important;
@@ -323,7 +323,7 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sid
 body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer,
 body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer :is(p, a) {
   color: #7a818c !important;
-  font-size: 9px !important;
+  font-size: 12px !important;
   line-height: 1.55 !important;
 }
 
@@ -374,7 +374,7 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .workspace
 
 body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(.workspace-eyebrow, .eyebrow) {
   color: var(--biloo-app-navy) !important;
-  font-size: 10px !important;
+  font-size: 12px !important;
   font-weight: 850 !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
@@ -599,7 +599,7 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .dashboard
 
   body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-workspace-header .mobile-workspace-title small {
     color: #7a818c !important;
-    font-size: 8px !important;
+    font-size: 12px !important;
     font-weight: 850 !important;
     letter-spacing: 0.14em !important;
     text-transform: uppercase !important;
@@ -620,7 +620,7 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .dashboard
     height: 100dvh !important;
     flex-direction: column !important;
     padding: max(14px, env(safe-area-inset-top)) 14px max(22px, env(safe-area-inset-bottom)) !important;
-    overflow-x: hidden !important;
+    min-width: 0;
     overflow-y: auto !important;
     border: 0 !important;
     border-right: 1px solid var(--biloo-app-line) !important;
@@ -668,7 +668,7 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .dashboard
     display: block !important;
     margin-top: 3px !important;
     color: #7a818c !important;
-    font-size: 8px !important;
+    font-size: 12px !important;
     font-weight: 800 !important;
     letter-spacing: 0.13em !important;
     text-transform: uppercase !important;

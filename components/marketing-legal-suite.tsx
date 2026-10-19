@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Cookie, ShieldCheck, Xmark } from "iconoir-react";
-import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useRef, useState } from "react";
+import { useModalFocus } from "./use-modal-focus";
 
 const CONSENT_STORAGE_KEY = "biloo-cookie-consent-v1";
 const CONSENT_COOKIE_NAME = "biloo_cookie_consent";
@@ -51,25 +52,32 @@ function persistConsent(analytics: boolean) {
 }
 
 export function MarketingLegalSuite() {
+  const pathname = usePathname();
   const [isMarketing, setIsMarketing] = useState(false);
-  const [footerTarget, setFooterTarget] = useState<HTMLElement | null>(null);
   const [bannerOpen, setBannerOpen] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
+  const dialogRef = useRef<HTMLElement>(null);
+  useModalFocus(dialogRef, preferencesOpen);
   const [analytics, setAnalytics] = useState(false);
 
   useEffect(() => {
     const marketingRoot = document.querySelector<HTMLElement>(".marketing-site-v2");
-    if (!marketingRoot) return;
+    if (!marketingRoot) {
+      setIsMarketing(false);
+      setBannerOpen(false);
+      setPreferencesOpen(false);
+      return;
+    }
 
     setIsMarketing(true);
-    setFooterTarget(marketingRoot.querySelector<HTMLElement>(".marketing-footer"));
 
     const existing = readConsent();
+    setBannerOpen(!existing);
+    setPreferencesOpen(false);
     if (existing) {
       setAnalytics(existing.analytics);
       document.documentElement.dataset.analyticsConsent = existing.analytics ? "granted" : "denied";
     } else {
-      setBannerOpen(true);
       document.documentElement.dataset.analyticsConsent = "pending";
     }
 
@@ -82,7 +90,7 @@ export function MarketingLegalSuite() {
 
     window.addEventListener(OPEN_PREFERENCES_EVENT, openPreferences);
     return () => window.removeEventListener(OPEN_PREFERENCES_EVENT, openPreferences);
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     if (!preferencesOpen) return;
@@ -107,21 +115,9 @@ export function MarketingLegalSuite() {
     setPreferencesOpen(false);
   };
 
-  const legalFooter = footerTarget ? createPortal(
-    <div className="biloo-footer-legal" aria-label="Legal and privacy links">
-      <div>
-        <Link href="/privacy">Privacy Policy</Link>
-        <Link href="/terms">Website Terms</Link>
-        <button type="button" onClick={() => window.dispatchEvent(new Event(OPEN_PREFERENCES_EVENT))}>Cookie settings</button>
-      </div>
-      <span>Privacy-conscious by design · Preferences can be changed at any time</span>
-    </div>,
-    footerTarget,
-  ) : null;
 
   return (
     <>
-      {legalFooter}
 
       {bannerOpen ? (
         <aside className="biloo-consent-banner" aria-labelledby="biloo-consent-title" aria-describedby="biloo-consent-description">
@@ -143,7 +139,7 @@ export function MarketingLegalSuite() {
       {preferencesOpen ? (
         <div className="biloo-consent-modal" role="presentation">
           <button className="biloo-consent-backdrop" type="button" aria-label="Close cookie preferences" onClick={() => setPreferencesOpen(false)} />
-          <section role="dialog" aria-modal="true" aria-labelledby="biloo-preferences-title" className="biloo-consent-dialog">
+          <section ref={dialogRef} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="biloo-preferences-title" className="biloo-consent-dialog">
             <header>
               <div className="biloo-consent-icon"><ShieldCheck width={23} height={23} strokeWidth={1.55} aria-hidden /></div>
               <div><span>PRIVACY CONTROL CENTER</span><h2 id="biloo-preferences-title">Choose how Biloo uses storage.</h2></div>
@@ -173,5 +169,19 @@ export function MarketingLegalSuite() {
         </div>
       ) : null}
     </>
+  );
+}
+
+/** Render with the footer so client navigation cannot leave a portal in a detached page. */
+export function MarketingLegalFooter() {
+  return (
+    <div className="biloo-footer-legal" aria-label="Legal and privacy links">
+      <div>
+        <Link href="/privacy">Privacy Policy</Link>
+        <Link href="/terms">Website Terms</Link>
+        <button type="button" onClick={() => window.dispatchEvent(new Event(OPEN_PREFERENCES_EVENT))}>Cookie settings</button>
+      </div>
+      <span>Privacy-conscious by design · Preferences can be changed at any time</span>
+    </div>
   );
 }

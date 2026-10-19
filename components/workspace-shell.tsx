@@ -10,12 +10,13 @@ import { UserMenu } from "./user-menu";
 import { Icon, type IconName } from "./ui/icon";
 import { WorkspaceCommandCenter, type WorkspaceCommandItem } from "./workspace-command-center";
 import { WorkspaceHeaderPreferences } from "./workspace-header-preferences";
+import { useModalFocus } from "./use-modal-focus";
 
 type Props = { children: ReactNode; user?: UserContext | null };
 type NavItem = { label: string; href: string; icon: IconName };
 type SessionContextResponse = { user: UserContext | null };
 
-const shellExcludedRoutes = ["/auth", "/onboarding", "/request-demo", "/product-tour", "/product", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about"];
+const shellExcludedRoutes = ["/auth", "/onboarding", "/request-demo", "/product-tour", "/product", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about", "/privacy", "/terms", "/help"];
 
 function isActiveRoute(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
@@ -53,6 +54,8 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
   const pathname = usePathname();
   const workspaceRef = useRef<HTMLDivElement>(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const sidebarRef = useRef<HTMLElement>(null);
+  useModalFocus(sidebarRef, mobileNavOpen);
   const { dictionary, language } = useLanguage();
   const isExcluded = shellExcludedRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
   const [activeUser, setActiveUser] = useState<UserContext | null>(initialUser);
@@ -212,7 +215,7 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
 
       <button className="mobile-nav-backdrop" type="button" aria-label="Close navigation" onClick={() => setMobileNavOpen(false)} />
 
-      <aside className="sidebar supabase-sidebar" id="primary-sidebar" data-docked="fixed" aria-label="Primary workspace navigation">
+      <aside ref={sidebarRef} tabIndex={-1} role={mobileNavOpen ? "dialog" : undefined} aria-modal={mobileNavOpen || undefined} className="sidebar supabase-sidebar" id="primary-sidebar" data-docked="fixed" aria-label="Primary workspace navigation">
         <div className="mobile-sidebar-header">
           <div className="brand"><img src="/hisab-logo.svg" alt="" width="34" height="34" className="hisab-logo" /><div><strong>Biloo</strong><small>Business operating system</small></div></div>
           <button type="button" aria-label="Close navigation" onClick={() => setMobileNavOpen(false)}>×</button>

@@ -409,9 +409,9 @@
 .workspace-assistance-panel > header > button {
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 34px;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
   padding: 0;
   border: 1px solid #e0e6ec;
   border-radius: 8px;
@@ -574,11 +574,12 @@
 
 .workspace-assistance-panel > header {
   display: grid;
-  grid-template-columns: 40px minmax(0, 1fr) 34px;
+  grid-template-columns: 40px minmax(0, 1fr) 44px;
   align-items: center;
   gap: 11px;
-  min-height: 72px;
-  padding: 12px 14px;
+  flex-shrink: 0;
+  min-height: 80px;
+  padding: max(16px, env(safe-area-inset-top)) 16px 16px;
   border-bottom: 1px solid #e3e9ee;
 }
 
@@ -600,20 +601,24 @@
 
 .workspace-assistance-panel > header strong {
   color: #122033;
-  font-size: 14px;
+  font-size: 18px;
+  line-height: 1.4;
 }
 
 .workspace-assistance-panel > header span {
   margin-top: 3px;
   color: #7b8898;
-  font-size: 9px;
-  line-height: 1.45;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .assistance-panel-body {
   flex: 1;
+  min-width: 0;
   min-height: 0;
   padding: 16px;
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+  scroll-padding-block: 16px;
   overflow-y: auto;
   overscroll-behavior: contain;
 }

@@ -1,3 +1,4 @@
+import "../internal-styles";
 import type { ReactNode } from "react";
 import "./account-v2.css";
 

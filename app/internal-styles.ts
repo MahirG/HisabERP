@@ -33,6 +33,7 @@ import "./auth-login-slack.css";
 import "./auth-hisab-brand.css";
 import "./mobile-workspace.css";
 import "./workspace-command-center.css";
+import "./help-center.css";
 import "./supabase-sidebar.css";
 import "./financial-workspace-foundation.css";
 import "./financial-workspace-components.css";

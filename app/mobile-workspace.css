@@ -252,7 +252,7 @@
     height: 100dvh;
     margin-left: 0 !important;
     padding: calc(var(--mobile-header-height) + env(safe-area-inset-top)) 0 calc(var(--mobile-bottom-nav-height) + env(safe-area-inset-bottom)) !important;
-    overflow-x: hidden;
+    min-width: 0;
     overflow-y: auto;
     scroll-padding-top: 16px;
     scrollbar-gutter: auto;
@@ -355,28 +355,11 @@
     min-height: 44px;
   }
 
-  .command-strip,
-  .section-kpis,
-  .report-kpis,
-  .module-summary-strip,
-  :is(.core-kpis, .finance-kpis, .sales-kpis, .ops-kpis, .controls-kpis, .einvoice-kpis, .recon-kpis) {
+  :is(.command-strip, .section-kpis, .report-kpis, .module-summary-strip, .core-kpis, .finance-kpis, .sales-kpis, .ops-kpis, .controls-kpis, .einvoice-kpis, .recon-kpis) {
     display: grid !important;
-    grid-template-columns: none !important;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(220px, 82vw);
-    gap: 10px;
-    overflow-x: auto;
-    overscroll-behavior-inline: contain;
-    scroll-snap-type: inline mandatory;
-    scrollbar-width: none;
-  }
-
-  :is(.command-strip, .section-kpis, .report-kpis, .module-summary-strip, .core-kpis, .finance-kpis, .sales-kpis, .ops-kpis, .controls-kpis, .einvoice-kpis, .recon-kpis)::-webkit-scrollbar {
-    display: none;
-  }
-
-  :is(.command-strip, .section-kpis, .report-kpis, .module-summary-strip, .core-kpis, .finance-kpis, .sales-kpis, .ops-kpis, .controls-kpis, .einvoice-kpis, .recon-kpis) > * {
-    scroll-snap-align: start;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-auto-flow: row;
+    gap: 12px;
   }
 
   .role-priority-grid,

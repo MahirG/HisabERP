@@ -1,0 +1,3 @@
+/* Isolate the guide collection in element screenshots; the sticky header is
+   verified separately by the page-width and navigation interaction tests. */
+.wb-header, .wb-skip-link { visibility: hidden !important; }

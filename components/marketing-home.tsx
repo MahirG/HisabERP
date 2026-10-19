@@ -70,7 +70,7 @@ export function MarketingHome() {
           <h1 id="home-hero-title">Financial clarity at the speed of your business.</h1>
           <p>Run sales, inventory, finance, reconciliations and management reporting from one precise, real-time workspace designed for ambitious Ethiopian organizations.</p>
           <div className="marketing-hero-actions">
-            <Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link>
+            <Link prefetch={false} href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link>
             <Link href="/request-demo?source=homepage-hero" className="marketing-demo marketing-large">Request a demo</Link>
           </div>
           <div className="marketing-trust" aria-label="Biloo ERP product highlights">
@@ -112,7 +112,7 @@ export function MarketingHome() {
 
       <section className="marketing-how" id="how"><div className="marketing-section-heading"><span>Implementation journey</span><h2>Launch a professional workspace in three clear stages.</h2><p>Biloo ERP is designed to move a business from setup to daily use and management reporting without unnecessary complexity.</p></div><div className="marketing-step-grid">{steps.map((step)=><article key={step.number}><span>{step.number}</span><h3>{step.title}</h3><p>{step.text}</p></article>)}</div><div className="marketing-centered-action"><Link href="/migration" className="marketing-start marketing-large">Plan the implementation</Link></div></section>
 
-      <section className="marketing-cta marketing-cta-v2"><div><span>Ready to see Biloo ERP in your business?</span><h2>Start with a workspace or request a guided demonstration.</h2><p>Explore the product at your own pace, then speak with Biloo when your team is ready to evaluate implementation.</p></div><div><Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a demo</Link></div></section>
+      <section className="marketing-cta marketing-cta-v2"><div><span>Ready to see Biloo ERP in your business?</span><h2>Start with a workspace or request a guided demonstration.</h2><p>Explore the product at your own pace, then speak with Biloo when your team is ready to evaluate implementation.</p></div><div><Link prefetch={false} href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link><Link href="/request-demo" className="marketing-demo marketing-large">Request a demo</Link></div></section>
     </MarketingPageShell>
   );
 }

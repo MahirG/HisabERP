@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import { useLanguage } from "./language-provider";
 import { Icon, type IconName } from "./ui/icon";
 
@@ -302,6 +302,8 @@ const helpCategories: HelpCategory[] = [
 export function HelpCenterPanel({ activeLabel, onNavigate }: Props) {
   const { t } = useLanguage();
   const [helpQuery, setHelpQuery] = useState("");
+  const helpId = useId();
+  const searchId = `${helpId}-search`;
 
   const filteredCategories = useMemo(() => {
     const normalized = helpQuery.trim().toLowerCase();
@@ -335,47 +337,48 @@ export function HelpCenterPanel({ activeLabel, onNavigate }: Props) {
 
   return (
     <div className="assistance-panel-body help-center-body">
-      <section className="help-welcome" aria-labelledby="help-welcome-title">
+      <section className="help-welcome" aria-labelledby={`${helpId}-help-welcome-title`}>
         <span className="help-welcome-icon"><Icon name="circle-help" size={22} /></span>
         <div>
-          <strong id="help-welcome-title">{t("How can we help?")}</strong>
+          <strong id={`${helpId}-help-welcome-title`}>{t("How can we help?")}</strong>
           <p>{t("Learn HisabTech workflows, controls, and safe operating practices for {0}.", [activeLabel])}</p>
         </div>
       </section>
 
-      <label className="help-search-field">
-        <span className="sr-only">{t("Search help articles")}</span>
+      <div className="help-search-field" role="search">
+        <label className="sr-only" htmlFor={searchId}>{t("Search help articles")}</label>
         <Icon name="search" size={18} />
         <input
+          id={searchId}
+          type="search"
           value={helpQuery}
           onChange={(event) => setHelpQuery(event.target.value)}
           placeholder={t("Search setup, invoices, stock, reports, security…")}
         />
         {helpQuery && <button type="button" onClick={() => setHelpQuery("")} aria-label={t("Clear help search")}><Icon name="x" size={16} /></button>}
-      </label>
+      </div>
 
       {!helpQuery && (
         <>
-          <section className="help-section" aria-labelledby="popular-guides-title">
+          <section className="help-section" aria-labelledby={`${helpId}-popular-guides-title`}>
             <div className="help-section-heading">
-              <div><span>{t("Start here")}</span><h3 id="popular-guides-title">{t("Popular guides")}</h3></div>
+              <div><span>{t("Start here")}</span><h3 id={`${helpId}-popular-guides-title`}>{t("Popular guides")}</h3></div>
               <small>{t("Recommended for most users")}</small>
             </div>
             <div className="help-featured-grid">
               {popularGuides.map((guide) => (
                 <Link href={guide.href} onClick={onNavigate} key={guide.title}>
                   <span><Icon name={guide.icon} size={19} /></span>
-                  <strong>{t(guide.title)}</strong>
-                  <small>{t(guide.copy)}</small>
+                  <div className="help-guide-copy"><strong>{t(guide.title)}</strong><small>{t(guide.copy)}</small></div>
                   <Icon name="arrow-right" size={15} />
                 </Link>
               ))}
             </div>
           </section>
 
-          <section className="help-learning-path" aria-labelledby="learning-path-title">
+          <section className="help-learning-path" aria-labelledby={`${helpId}-learning-path-title`}>
             <div className="help-section-heading">
-              <div><span>{t("Recommended order")}</span><h3 id="learning-path-title">{t("Your first operating workflow")}</h3></div>
+              <div><span>{t("Recommended order")}</span><h3 id={`${helpId}-learning-path-title`}>{t("Your first operating workflow")}</h3></div>
             </div>
             <ol>
               <li><span>01</span><div><strong>{t("Secure the account")}</strong><small>{t("Enroll MFA and confirm the correct organization and role.")}</small></div></li>
@@ -387,20 +390,20 @@ export function HelpCenterPanel({ activeLabel, onNavigate }: Props) {
         </>
       )}
 
-      <section className="help-section help-library" aria-labelledby="help-library-title">
+      <section className="help-section help-library" aria-labelledby={`${helpId}-help-library-title`}>
         <div className="help-section-heading">
           <div>
             <span>{helpQuery ? t("Search results") : t("Knowledge base")}</span>
-            <h3 id="help-library-title">{helpQuery ? t("{0} matching articles", [resultCount]) : t("HisabTech user guide")}</h3>
+            <h3 id={`${helpId}-help-library-title`} aria-live="polite">{helpQuery ? t("{0} matching articles", [resultCount]) : t("HisabTech user guide")}</h3>
           </div>
           {!helpQuery && <small>{t("Select an article to expand it")}</small>}
         </div>
 
         {filteredCategories.length ? filteredCategories.map((category) => (
-          <section className="help-category" key={category.id} aria-labelledby={`help-${category.id}`}>
+          <section className="help-category" key={category.id} aria-labelledby={`${helpId}-help-${category.id}`}>
             <header>
               <span><Icon name={category.icon} size={18} /></span>
-              <div><h4 id={`help-${category.id}`}>{t(category.title)}</h4><p>{t(category.description)}</p></div>
+              <div><h4 id={`${helpId}-help-${category.id}`}>{t(category.title)}</h4><p>{t(category.description)}</p></div>
               <small>{t("{0} articles", [category.articles.length])}</small>
             </header>
             <div className="help-article-list">

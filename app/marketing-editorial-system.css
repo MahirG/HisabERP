@@ -1,7 +1,8 @@
 /* Biloo public marketing typography — Avenir Next World when licensed, with safe fallbacks. */
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap");
+@font-face { font-family: "Nunito Sans"; font-style: normal; font-weight: 200 900; font-display: swap; src: url("/fonts/nunito-sans-latin-wght-normal.woff2") format("woff2"); }
 :root{--biloo-marketing-font:"Nunito Sans",Nunito,sans-serif}
 .marketing-site,.marketing-site *{font-family:var(--biloo-marketing-font)}
+.marketing-site a { color: inherit; text-decoration: none; }
 /*
  * Biloo public marketing system — single current authority.
  * Contains only the latest header, homepage, ERP-preview, and editorial rules.
@@ -14,9 +15,7 @@ body:has(.marketing-editorial-v1) {
   background: #fbfaf7;
 }
 
-body:has(.marketing-editorial-v1) {
-  overflow-x: clip;
-}
+/* Layout containers own their widths; document overflow is never concealed. */
 
 /* Canonical Biloo header — Payoneer-inspired, static and restrained. */
 :root {
@@ -2199,7 +2198,7 @@ html[data-public-theme="dark"] .wb-header { background: rgba(255, 255, 255, .97)
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 1100px) {
   .marketing-footer-top {
     width: min(100% - 32px, 1280px) !important;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;

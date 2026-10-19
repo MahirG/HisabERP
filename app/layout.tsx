@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import type { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AppExperienceProvider } from "../components/app-experience-provider";
@@ -10,9 +10,9 @@ import { MarketingExperienceController } from "../components/marketing-experienc
 import { WorkspaceShell } from "../components/workspace-shell";
 import "./public-styles";
 
-const bilooManrope = Manrope({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+const bilooManrope = localFont({
+  src: "../public/fonts/manrope-latin-wght-normal.woff2",
+  weight: "200 800",
   display: "swap",
   variable: "--font-biloo-manrope",
   preload: true,

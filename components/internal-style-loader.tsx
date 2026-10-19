@@ -24,7 +24,6 @@ const PUBLIC_ROUTE_PREFIXES = [
   "/legal",
   "/support",
   "/contact",
-  "/security",
   "/accessibility",
 ] as const;
 

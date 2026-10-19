@@ -27,7 +27,6 @@ const MARKETING_ROUTE_PREFIXES = [
   "/legal",
   "/support",
   "/contact",
-  "/security",
   "/accessibility",
 ] as const;
 

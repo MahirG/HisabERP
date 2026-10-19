@@ -1,3 +1,4 @@
+import "../internal-styles";
 import type { ReactNode } from "react";
 import "../commerce-route-shell.css";
 

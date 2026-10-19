@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavArrowDown, Search, Xmark } from "iconoir-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useModalFocus } from "./use-modal-focus";
+import { MarketingLegalFooter } from "./marketing-legal-suite";
 
 type Locale = "en" | "am";
 type MenuId = "product" | "solutions" | "resources" | "company";
@@ -98,6 +100,9 @@ export function MarketingHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const searchModalRef = useRef<HTMLElement>(null);
+  const menuModalRef = useRef<HTMLElement>(null);
+  useModalFocus(mobileOpen ? menuModalRef : searchModalRef, mobileOpen ? "menu" : searchOpen ? "search" : null);
   const mobilePanelId = "biloo-mobile-navigation-panel";
   const [locale, setLocale] = useState<Locale>("en");
   const c = copy[locale];
@@ -198,8 +203,8 @@ export function MarketingHeader() {
           <div className="wb-header-actions">
             <button type="button" className="wb-search-trigger" onClick={() => setSearchOpen(true)}><Search width={17} height={17} strokeWidth={1.6} aria-hidden /><span>{c.search}</span></button>
             <button type="button" className="wb-language-switch" aria-label={c.language} onClick={changeLocale}>{locale.toUpperCase()}</button>
-            <Link href="/auth/login?next=%2F" className="wb-sign-in">{c.signIn}</Link>
-            <Link href="/auth/email-sign-up" className="wb-primary-action">{c.startFree}</Link>
+            <Link prefetch={false} href="/auth/login?next=%2F" className="wb-sign-in">{c.signIn}</Link>
+            <Link prefetch={false} href="/auth/email-sign-up" className="wb-primary-action">{c.startFree}</Link>
             <button type="button" className="wb-mobile-toggle" aria-label={mobileOpen ? c.closeMenu : c.openMenu} aria-expanded={mobileOpen} aria-controls={mobilePanelId} onClick={() => { setOpenMenu(null); setSearchOpen(false); setMobileOpen((current) => !current); }}>
               <span className="wb-mobile-toggle-icon" aria-hidden="true"><i /><i /><i /></span>
             </button>
@@ -207,18 +212,18 @@ export function MarketingHeader() {
         </div>
       </header>
 
-      <div className={`wb-search-overlay${searchOpen ? " is-open" : ""}`} aria-hidden={!searchOpen}>
+      <div className={`wb-search-overlay${searchOpen ? " is-open" : ""}`} aria-hidden={!searchOpen} inert={!searchOpen ? true : undefined}>
         <button type="button" className="wb-overlay-backdrop" aria-label="Close search" onClick={() => setSearchOpen(false)} />
-        <section className="wb-search-panel" role="dialog" aria-modal="true" aria-label={c.searchTitle}>
+        <section ref={searchModalRef} tabIndex={-1} className="wb-search-panel" role="dialog" aria-modal="true" aria-label={c.searchTitle}>
           <header><div><span>{c.search}</span><h2>{c.searchTitle}</h2></div><button type="button" onClick={() => setSearchOpen(false)} aria-label="Close search"><Xmark width={19} height={19} strokeWidth={1.6} aria-hidden /></button></header>
           <label className="wb-search-field"><span className="wb-visually-hidden">{c.searchPlaceholder}</span><input ref={searchInputRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder={c.searchPlaceholder} autoComplete="off" /></label>
-          <div className="wb-search-results">{filteredSearchItems.length ? filteredSearchItems.map((item) => <Link href={item.href} key={`${item.href}-${item.label}`} onClick={() => setSearchOpen(false)}>{item.label}</Link>) : <p className="wb-no-results">{c.noResults}</p>}</div>
+          <div className="wb-search-results">{filteredSearchItems.length ? filteredSearchItems.map((item) => <Link prefetch={item.href.startsWith("/auth/") ? false : undefined} href={item.href} key={`${item.href}-${item.label}`} onClick={() => setSearchOpen(false)}>{item.label}</Link>) : <p className="wb-no-results">{c.noResults}</p>}</div>
         </section>
       </div>
 
       <div className={`wb-mobile-drawer${mobileOpen ? " is-open" : ""}`} aria-hidden={!mobileOpen} inert={!mobileOpen ? true : undefined}>
         <button type="button" className="wb-overlay-backdrop" aria-label={c.closeMenu} onClick={() => setMobileOpen(false)} />
-        <aside id={mobilePanelId} className="wb-mobile-panel" role="dialog" aria-modal="true" aria-label={c.navigation}>
+        <aside ref={menuModalRef} tabIndex={-1} id={mobilePanelId} className="wb-mobile-panel" role="dialog" aria-modal="true" aria-label={c.navigation}>
           <header><Link href="/" onClick={() => setMobileOpen(false)}><img src="/biloo-header-logo.svg" alt="Biloo" width="106" height="52" /></Link><button type="button" onClick={() => setMobileOpen(false)} aria-label={c.closeMenu}><Xmark width={19} height={19} strokeWidth={1.6} aria-hidden /></button></header>
           <button type="button" className="wb-mobile-search" onClick={() => { setMobileOpen(false); setSearchOpen(true); }}><Search width={17} height={17} strokeWidth={1.6} aria-hidden /><span>{c.searchPlaceholder}</span></button>
           <nav className="wb-mobile-navigation" aria-label={c.navigation}>
@@ -233,8 +238,8 @@ export function MarketingHeader() {
             })}
             <Link href="/pricing" className={routeMatches(pathname, "/pricing") ? "is-active" : undefined} onClick={() => setMobileOpen(false)}>{c.pricing}</Link>
           </nav>
-          <div className="wb-mobile-utilities"><Link href="/help-center" onClick={() => setMobileOpen(false)}>Help Center</Link><Link href="/account" onClick={() => setMobileOpen(false)}>Account</Link><button type="button" onClick={changeLocale}>{c.language}: {locale === "en" ? "English" : "አማርኛ"}</button></div>
-          <div className="wb-mobile-actions"><Link href="/auth/login?next=%2F" onClick={() => setMobileOpen(false)}>{c.signIn}</Link><Link href="/auth/email-sign-up" onClick={() => setMobileOpen(false)}>{c.startFree}</Link></div>
+          <div className="wb-mobile-utilities"><Link href="/help-center" onClick={() => setMobileOpen(false)}>Help Center</Link><Link prefetch={false} href="/account" onClick={() => setMobileOpen(false)}>Account</Link><button type="button" onClick={changeLocale}>{c.language}: {locale === "en" ? "English" : "አማርኛ"}</button></div>
+          <div className="wb-mobile-actions"><Link prefetch={false} href="/auth/login?next=%2F" onClick={() => setMobileOpen(false)}>{c.signIn}</Link><Link prefetch={false} href="/auth/email-sign-up" onClick={() => setMobileOpen(false)}>{c.startFree}</Link></div>
         </aside>
       </div>
     </>
@@ -309,6 +314,7 @@ export function MarketingFooter() {
           <Link href="/help-center">Help</Link>
         </div>
       </div>
+      <MarketingLegalFooter />
     </footer>
   );
 }

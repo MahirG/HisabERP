@@ -135,7 +135,7 @@ export function CampfireMarketingHome() {
               <h1>The business operating system built to keep you moving forward.</h1>
               <p>Connect sales, finance, inventory and reporting in one place—so your team can run the business with clarity and make better decisions every day.</p>
               <div className="cf-hero-actions">
-                <Link className="cf-primary" href="/auth/email-sign-up">Start free</Link>
+                <Link prefetch={false} className="cf-primary" href="/auth/email-sign-up">Start free</Link>
                 <Link className="cf-secondary" href="/request-demo?source=homepage-hero">Book a walkthrough</Link>
               </div>
               <div className="cf-hero-note">One connected platform for sales, operations, finance and management.</div>
@@ -206,7 +206,7 @@ export function CampfireMarketingHome() {
           <dl className="cf-local-facts"><div><dt>Currency</dt><dd>ETB-first records</dd></div><div><dt>Structure</dt><dd>Multi-branch visibility</dd></div><div><dt>Access</dt><dd>Role-based control</dd></div><div><dt>Support</dt><dd>Guided onboarding</dd></div></dl>
         </section>
 
-        <section className="cf-final-cta"><div><span>See Biloo in your workflow</span><h2>Run the business from one dependable system.</h2><p>Walk through your current processes and see where Biloo can simplify the work while preserving the controls that matter.</p><div><Link className="cf-primary" href="/request-demo?source=homepage-final">Book a walkthrough</Link><Link className="cf-secondary" href="/auth/email-sign-up">Start free</Link></div></div></section>
+        <section className="cf-final-cta"><div><span>See Biloo in your workflow</span><h2>Run the business from one dependable system.</h2><p>Walk through your current processes and see where Biloo can simplify the work while preserving the controls that matter.</p><div><Link className="cf-primary" href="/request-demo?source=homepage-final">Book a walkthrough</Link><Link prefetch={false} className="cf-secondary" href="/auth/email-sign-up">Start free</Link></div></div></section>
       </div>
     </IconoirProvider>
   );

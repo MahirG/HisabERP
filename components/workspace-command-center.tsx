@@ -12,6 +12,7 @@ import {
 } from "react";
 import type { UserContext } from "../lib/data/types";
 import { HelpCenterPanel } from "./help-center-panel";
+import { useModalFocus } from "./use-modal-focus";
 import { useLanguage } from "./language-provider";
 import { Icon, type IconName } from "./ui/icon";
 
@@ -246,6 +247,8 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
   const [messages, setMessages] = useState<AssistantMessage[]>([]);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const assistantInputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLElement>(null);
+  useModalFocus(dialogRef, surface);
 
   const utilityResults = useMemo<SearchResult[]>(() => [
     {
@@ -398,7 +401,7 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
       {surface && <button className="workspace-surface-backdrop" type="button" aria-label={t("Close active panel")} onClick={closeSurface} />}
 
       {surface === "search" && (
-        <section className="workspace-command-dialog" role="dialog" aria-modal="true" aria-labelledby="workspace-search-title">
+        <section ref={dialogRef} tabIndex={-1} className="workspace-command-dialog" role="dialog" aria-modal="true" aria-labelledby="workspace-search-title">
           <div className="command-dialog-heading">
             <div>
               <strong id="workspace-search-title">{t("Search HisabTech")}</strong>
@@ -447,7 +450,7 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
       )}
 
       {surface && surface !== "search" && (
-        <aside className={`workspace-assistance-panel workspace-assistance-${surface}`} role="dialog" aria-modal="true" aria-labelledby={`workspace-${surface}-title`}>
+        <aside ref={dialogRef} tabIndex={-1} className={`workspace-assistance-panel workspace-assistance-${surface}`} role="dialog" aria-modal="true" aria-labelledby={`workspace-${surface}-title`}>
           <header>
             <div className="assistance-title-icon"><Icon name={surface === "help" ? "circle-help" : surface === "advice" ? "lightbulb" : "sparkles"} size={20} /></div>
             <div>
