@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import "./pricing-finish.css";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
