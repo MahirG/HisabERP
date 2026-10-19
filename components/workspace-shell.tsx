@@ -205,7 +205,6 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
         <button type="button" className="mobile-menu-trigger" aria-label={menuLabel} aria-controls="mobile-workspace-navigation" aria-expanded={mobileNavOpen} onClick={() => setMobileNavOpen(true)}>
           <span aria-hidden="true"><i /><i /><i /></span>
         </button>
-        <Link href="/" className="mobile-workspace-brand" aria-label="Biloo dashboard"><img src="/hisab-logo.svg" alt="" width="34" height="34" className="hisab-logo" /></Link>
         <div className="mobile-workspace-title"><small>Biloo ERP</small><strong>{activeItem?.label ?? d.nav.overview}</strong></div>
       </header>
 

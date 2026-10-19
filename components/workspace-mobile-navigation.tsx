@@ -79,7 +79,6 @@ export function WorkspaceMobileNavigation({ open, onDismiss, groups, pathname, o
       <div className={styles.panel}>
         <header className={styles.header}>
           <div className={styles.identity}>
-            <img src="/biloo-header-logo.svg" alt="Biloo" width="96" height="40" />
             <h2 id={titleId}>{label}</h2>
           </div>
           <button className={styles.close} type="button" aria-label="Close navigation" onClick={onDismiss}>

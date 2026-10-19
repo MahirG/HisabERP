@@ -1,0 +1,116 @@
+/*
+ * Authenticated Biloo surface-aware contrast and mobile drawer isolation.
+ * Loaded after legacy visual locks. The palette remains navy/gold/white;
+ * text colors are never inferred from a parent page when the card surface differs.
+ */
+body[data-workspace-system="financial-os-v1"] .erp-shell {
+  --contrast-ink: #14213d;
+  --contrast-body: #475467;
+  --contrast-muted: #596579;
+  --contrast-accent-on-white: #795014;
+  --contrast-inverse: #ffffff;
+  --contrast-inverse-muted: #dbe4f2;
+}
+
+/* App surfaces: ensure readable foreground on neutral white cards, including
+ * the modules that share legacy typography with the dark hero components. */
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .metric-card, .dashboard-card, .workspace-metric-tile, .module-card,
+  .workspace-section, .data-panel, .documentation,
+  .finance-panel, .sales-panel, .einvoice-panel, .recon-panel, .core-panel,
+  .setup-step-card, .setup-import-card, .controls-panel, .control-card,
+  .security-mfa-panel, .security-identity-card, .security-profile-card,
+  .security-policy-card, .security-status-card,
+  .security-account-note, .mfa-required-card
+) {
+  color: var(--contrast-ink) !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .metric-card, .dashboard-card, .workspace-metric-tile, .module-card,
+  .workspace-section, .data-panel, .documentation,
+  .finance-panel, .sales-panel, .einvoice-panel, .recon-panel, .core-panel,
+  .setup-step-card, .setup-import-card, .controls-panel, .control-card,
+  .security-mfa-panel, .security-identity-card, .security-profile-card,
+  .security-policy-card, .security-status-card
+) :is(h1,h2,h3,h4,h5,h6) {
+  color: var(--contrast-ink) !important;
+  -webkit-text-fill-color: var(--contrast-ink) !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .metric-card, .dashboard-card, .workspace-metric-tile, .module-card,
+  .workspace-section, .data-panel, .documentation,
+  .finance-panel, .sales-panel, .einvoice-panel, .recon-panel, .core-panel,
+  .setup-step-card, .setup-import-card, .controls-panel, .control-card,
+  .security-mfa-panel, .security-identity-card, .security-profile-card,
+  .security-policy-card, .security-status-card
+) :is(p,small,dd,figcaption,.description,.subtitle,.help-text) {
+  color: var(--contrast-body) !important;
+  -webkit-text-fill-color: var(--contrast-body) !important;
+  opacity: 1 !important;
+}
+
+/* Restore button text after old universal strong/span overrides.
+ * Active tabs are deliberately navy; normal tabs are pale. */
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .finance-tabs, .sales-tabs, .core-tabs, .einvoice-filters, .setup-step-nav,
+  .tabs, .tab-list, [role="tablist"]
+) :is(button.active,a.active,button[aria-selected="true"],a[aria-current="page"],[role="tab"][aria-selected="true"]) :is(span,strong,b,small,svg) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  button.primary,a.primary,.action-link.primary,.security-primary-action,
+  .submit-button,.save-button,.create-button
+) :is(span,strong,b,small,svg) {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  button.secondary,a.secondary,.action-link.secondary,
+  button.ghost,button.outline,.cancel-button
+) :is(span,strong,b,small,svg) {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+}
+
+/* Gold is an accent fill on pale cards, never low-contrast gold-colored copy. */
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .workspace-section, .metric-card, .dashboard-card, .module-card, .data-panel,
+  .finance-panel, .sales-panel, .einvoice-panel, .recon-panel, .core-panel
+) :is(.eyebrow,.section-kicker,.workspace-eyebrow) {
+  color: var(--contrast-accent-on-white) !important;
+  -webkit-text-fill-color: var(--contrast-accent-on-white) !important;
+}
+
+/* Dark heroes must not inherit ink or washed-out text from their page shells. */
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .finance-hero,.sales-hero,.einvoice-hero,.recon-hero,.core-hero,
+  .setup-hero,.controls-hero,.security-account-hero,.security-command-header,
+  .module-hero,.page-hero,.workspace-hero
+) :is(h1,h2,h3,h4,h5,h6) {
+  color: var(--contrast-inverse) !important;
+  -webkit-text-fill-color: var(--contrast-inverse) !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .finance-hero,.sales-hero,.einvoice-hero,.recon-hero,.core-hero,
+  .setup-hero,.controls-hero,.security-account-hero,.security-command-header,
+  .module-hero,.page-hero,.workspace-hero
+) :is(p,small,.description,.subtitle,.help-text) {
+  color: var(--contrast-inverse-muted) !important;
+  -webkit-text-fill-color: var(--contrast-inverse-muted) !important;
+  opacity: 1 !important;
+}
+
+/* No two hamburger drawers: the legacy sidebar stays behind the native
+ * modal, which owns focus, scrolling, backdrop and keyboard dismissal. */
+@media (max-width: 960px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell[data-mobile-nav-open="true"] > #primary-sidebar {
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateX(-120%) !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace {
+    min-width: 0 !important;
+    overflow-wrap: break-word;
+  }
+}
