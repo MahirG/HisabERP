@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { UserContext } from "../lib/data/types";
 import { useLanguage } from "./language-provider";
 import { UserMenu } from "./user-menu";
@@ -19,7 +19,7 @@ type SessionContextResponse = { user: UserContext | null };
 const shellExcludedRoutes = ["/auth", "/onboarding", "/request-demo", "/product-tour", "/product", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about", "/privacy", "/terms", "/help"];
 
 function isActiveRoute(pathname: string, href: string) {
-  if (href === "/") return pathname === "/";
+  if (href === "/workspace-home") return pathname === "/workspace-home" || pathname === "/";
   if (href === "/modules") return pathname === "/modules";
   return pathname === href || pathname.startsWith(`${href}/`);
 }
@@ -53,9 +53,12 @@ function WorkspaceSessionLoading() {
 export function WorkspaceShell({ children, user: initialUser = null }: Props) {
   const pathname = usePathname();
   const workspaceRef = useRef<HTMLDivElement>(null);
+  const previousRouteRef = useRef(pathname);
+  const historyNavigationRef = useRef(false);
+  const scrollPositionsRef = useRef(new Map<string, number>());
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const { dictionary, language } = useLanguage();
-  const isExcluded = shellExcludedRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
+  const isExcluded = (pathname === "/" && !initialUser) || shellExcludedRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
   const [activeUser, setActiveUser] = useState<UserContext | null>(initialUser);
   const [sessionResolved, setSessionResolved] = useState(Boolean(initialUser) || isExcluded || pathname === "/");
   const show = Boolean(activeUser) && !isExcluded;
@@ -97,8 +100,27 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
   }, [activeUser, isExcluded, pathname]);
 
   useEffect(() => {
-    if (show) workspaceRef.current?.scrollTo({ top: 0, behavior: "auto" });
+    const onHistoryNavigation = () => { historyNavigationRef.current = true; };
+    window.addEventListener("popstate", onHistoryNavigation);
+    return () => window.removeEventListener("popstate", onHistoryNavigation);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!show || !workspaceRef.current) return;
+    if (previousRouteRef.current === pathname) return;
+    previousRouteRef.current = pathname;
+    const restoredPosition = historyNavigationRef.current ? scrollPositionsRef.current.get(pathname) ?? 0 : 0;
+    historyNavigationRef.current = false;
+    workspaceRef.current.scrollTo({ top: restoredPosition, behavior: "auto" });
     setMobileNavOpen(false);
+  }, [pathname, show]);
+
+  useEffect(() => {
+    const viewport = workspaceRef.current;
+    if (!show || !viewport) return;
+    const captureScroll = () => scrollPositionsRef.current.set(pathname, viewport.scrollTop);
+    viewport.addEventListener("scroll", captureScroll, { passive: true });
+    return () => viewport.removeEventListener("scroll", captureScroll);
   }, [pathname, show]);
 
   useEffect(() => {
@@ -145,7 +167,7 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
     {
       label: sections.core,
       items: [
-        { label: d.nav.overview, href: "/", icon: "home" },
+        { label: d.nav.overview, href: "/workspace-home", icon: "home" },
         { label: d.nav.modules, href: "/modules", icon: "grid" },
         { label: d.nav.finance, href: "/finance", icon: "landmark" },
         { label: d.nav.sales, href: "/sales", icon: "shopping-cart" },
@@ -183,7 +205,7 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
   const activeItem = allItems.find((item) => isActiveRoute(pathname, item.href));
   const organizationMark = getOrganizationMark(user.organizationName);
   const mobileShortcuts: NavItem[] = [
-    { label: d.nav.overview, href: "/", icon: "home" },
+    { label: d.nav.overview, href: "/workspace-home", icon: "home" },
     { label: d.nav.sales, href: "/sales", icon: "shopping-cart" },
     { label: d.nav.finance, href: "/finance", icon: "landmark" },
     { label: dictionary.moduleItems["inventory-warehouse"].shortTitle, href: "/inventory", icon: "boxes" },
@@ -214,14 +236,14 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
 
       <aside className="sidebar supabase-sidebar" id="primary-sidebar" data-docked="fixed" aria-label="Primary workspace navigation">
         <div className="supabase-sidebar-header">
-          <Link href="/" className="desktop-sidebar-brand brand" aria-label="Biloo dashboard">
+          <Link href="/workspace-home" className="desktop-sidebar-brand brand" aria-label="Biloo dashboard">
             <img src="/hisab-logo.svg" alt="" width="28" height="28" className="hisab-logo" />
             <div><strong>Biloo</strong><small>Business operating system</small></div>
           </Link>
           <span className="supabase-rail-indicator" aria-hidden="true"><Icon name="chevron-right" size={14} /></span>
         </div>
 
-        <Link className="sidebar-workspace-switcher" href="/" title={user.organizationName}>
+        <Link className="sidebar-workspace-switcher" href="/workspace-home" title={user.organizationName}>
           <span className="sidebar-workspace-mark" aria-hidden="true">{organizationMark}</span>
           <span className="sidebar-workspace-copy">
             <strong>{user.organizationName}</strong>

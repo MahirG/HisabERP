@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import styles from "./runtime-interactions.module.css";
 
@@ -65,23 +64,6 @@ function animatePress(element: HTMLElement) {
   );
 }
 
-function animateSpring(element: HTMLElement, delay = 0) {
-  playAnimation(
-    element,
-    [
-      { opacity: 0, transform: "translate3d(0, 8px, 0) scale(.992)" },
-      { opacity: 1, transform: "translate3d(0, -1px, 0) scale(1.001)", offset: 0.72 },
-      { opacity: 1, transform: "translate3d(0, 0, 0) scale(1)" },
-    ],
-    {
-      duration: 360,
-      delay,
-      easing: "cubic-bezier(.22, 1, .36, 1)",
-      fill: "backwards",
-    },
-  );
-}
-
 function interactionPattern(element: HTMLElement): HapticPattern {
   const explicit = element.dataset.haptic as HapticPattern | undefined;
   if (explicit && explicit in HAPTIC_PATTERNS) return explicit;
@@ -96,8 +78,6 @@ function setInputModality(modality: InputModality) {
 }
 
 export function InteractionOrchestrator() {
-  const pathname = usePathname();
-  const previousPathname = useRef(pathname);
   const statusRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -179,6 +159,7 @@ export function InteractionOrchestrator() {
       );
       if (!interactive || interactive.dataset.haptic === "none") return;
       vibrate(interactionPattern(interactive));
+      if (interactive.matches("a[href]")) return; // Route links never animate.
       animatePress(interactive);
     };
 
@@ -200,23 +181,6 @@ export function InteractionOrchestrator() {
       vibrate(detail?.pattern ?? "selection");
     };
 
-    const observer = new MutationObserver((records) => {
-      let animationIndex = 0;
-      for (const record of records) {
-        for (const node of record.addedNodes) {
-          if (!(node instanceof HTMLElement)) continue;
-          const candidates = [
-            ...(node.matches('[data-live-row="true"], [data-motion-enter]') ? [node] : []),
-            ...node.querySelectorAll<HTMLElement>('[data-live-row="true"], [data-motion-enter]'),
-          ];
-          for (const candidate of candidates.slice(0, 24)) {
-            animateSpring(candidate, Math.min(animationIndex * 12, 120));
-            animationIndex += 1;
-          }
-        }
-      }
-    });
-
     window.addEventListener("online", updateConnectivity);
     window.addEventListener("offline", updateConnectivity);
     window.addEventListener("pageshow", resetSubmittingForms);
@@ -228,7 +192,6 @@ export function InteractionOrchestrator() {
     document.addEventListener("click", handleClick, true);
     document.addEventListener("submit", handleSubmit, true);
     document.addEventListener("invalid", handleInvalid, true);
-    observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       window.removeEventListener("online", updateConnectivity);
@@ -242,35 +205,12 @@ export function InteractionOrchestrator() {
       document.removeEventListener("click", handleClick, true);
       document.removeEventListener("submit", handleSubmit, true);
       document.removeEventListener("invalid", handleInvalid, true);
-      observer.disconnect();
       formTimers.forEach((timer) => window.clearTimeout(timer));
       formTimers.clear();
       submittingForms.clear();
     };
   }, []);
 
-  useEffect(() => {
-    if (previousPathname.current === pathname) return;
-    previousPathname.current = pathname;
-
-    const root = document.documentElement;
-    let transitionTimer = 0;
-    root.dataset.routeTransition = "active";
-
-    const frame = window.requestAnimationFrame(() => {
-      const target = document.querySelector<HTMLElement>("#workspace-content > :first-child, #public-main-content > :first-child, main");
-      if (target) animateSpring(target);
-      transitionTimer = window.setTimeout(() => {
-        delete root.dataset.routeTransition;
-      }, 380);
-    });
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      if (transitionTimer) window.clearTimeout(transitionTimer);
-      delete root.dataset.routeTransition;
-    };
-  }, [pathname]);
 
   return (
     <>

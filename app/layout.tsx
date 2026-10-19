@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AppExperienceProvider } from "../components/app-experience-provider";
 import { AuthPagePreferences } from "../components/auth-page-preferences";
-import { InternalStyleLoader } from "../components/internal-style-loader";
 import { LanguageProvider } from "../components/language-provider";
 import { MarketingExperienceController } from "../components/marketing-experience-controller";
 import { WorkspaceShell } from "../components/workspace-shell";
@@ -117,7 +116,6 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} />
       </head>
       <body data-design-system="hisab-precision-v2" data-workspace-system="financial-os-v1" data-ui-polish="biloo-award-marketing-2026">
-        <InternalStyleLoader />
         <LanguageProvider initialLanguage="en">
           <AppExperienceProvider>
             <AuthPagePreferences />

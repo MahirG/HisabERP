@@ -482,3 +482,54 @@ for (const [route, heading, type] of [
     await expect(page.locator(`.${type}-view`)).toBeVisible();
   });
 }
+
+
+test("ERP navigation keeps one persistent shell and no route-entry animations", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(fixture + "/workspace-home");
+  const initial = await page.evaluate(() => {
+    const header = document.querySelector(".mobile-workspace-header")!;
+    const nav = document.querySelector(".mobile-bottom-nav")!;
+    const shell = document.querySelector(".erp-shell")!;
+    (header as HTMLElement).dataset.persistenceToken = "header-stable";
+    (nav as HTMLElement).dataset.persistenceToken = "footer-stable";
+    (shell as HTMLElement).dataset.persistenceToken = "workspace-stable";
+    return { header: header.isConnected, nav: nav.isConnected, shell: shell.isConnected };
+  });
+  expect(initial).toEqual({ header: true, nav: true, shell: true });
+  for (const [label, route] of [["Sales", "/sales"], ["Finance", "/finance"], ["Inventory", "/inventory"], ["Overview", "/workspace-home"]] as const) {
+    await page.locator(".mobile-bottom-nav").getByRole("link", { name: label }).click();
+    await expect(page).toHaveURL(new RegExp(route === "/workspace-home" ? "/workspace-home$" : route + "$"));
+    const evidence = await page.evaluate(() => {
+      const shell = document.querySelector(".erp-shell") as HTMLElement;
+      const header = document.querySelector(".mobile-workspace-header") as HTMLElement;
+      const footer = document.querySelector(".mobile-bottom-nav") as HTMLElement;
+      const main = document.querySelector(".workspace > main") as HTMLElement;
+      const styles = getComputedStyle(main);
+      return {
+        shell: shell.dataset.persistenceToken, header: header.dataset.persistenceToken,
+        footer: footer.dataset.persistenceToken, animation: styles.animationName,
+        transform: styles.transform, progress: document.querySelector(".app-navigation-progress"),
+      };
+    });
+    expect(evidence.shell).toBe("workspace-stable");
+    expect(evidence.header).toBe("header-stable");
+    expect(evidence.footer).toBe("footer-stable");
+    expect(evidence.animation).toBe("none");
+    expect(evidence.transform).toBe("none");
+    expect(evidence.progress).toBeNull();
+    await checkPageWidth(page);
+  }
+  await page.goBack();
+  await expect(page).toHaveURL(/\/inventory$/);
+  await page.goForward();
+  await expect(page).toHaveURL(/\/workspace-home$/);
+});
+
+test("Overview navigation remains in the secure ERP, not the marketing homepage", async ({ page }) => {
+  await page.goto(fixture + "/finance");
+  await expect(page.locator(".sidebar a[aria-current='page']")).toHaveAttribute("href", "/finance");
+  await expect(page.locator(".mobile-bottom-nav").getByRole("link", { name: "Overview" })).toHaveAttribute("href", "/workspace-home");
+  await expect(page.locator(".desktop-sidebar-brand")).toHaveAttribute("href", "/workspace-home");
+  await expect(page.locator(".sidebar-workspace-switcher")).toHaveAttribute("href", "/workspace-home");
+});

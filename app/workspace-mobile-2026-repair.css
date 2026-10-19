@@ -377,21 +377,6 @@
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace > main {
-    animation: biloo-route-settle 180ms ease-out both;
-  }
-}
-@keyframes biloo-route-settle {
-  from { opacity: .72; transform: translateY(3px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace > main {
-    animation: none !important;
-    transform: none !important;
-  }
-}
 
 
 /* Compact X-inspired navigation: a low-profile bar, 19px icons, small labels,

@@ -36,8 +36,7 @@ const experienceCopy = {
 } as const;
 
 type ToastState = { title: string; detail: string } | null;
-type BusyMode = "navigation" | "operation" | null;
-type ActiveBusyMode = Exclude<BusyMode, null>;
+type BusyMode = "operation" | null;
 
 function money(value: string | null) {
   const amount = Number(value || 0);
@@ -69,8 +68,6 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const [busyMode, setBusyMode] = useState<BusyMode>(null);
   const [toast, setToast] = useState<ToastState>(null);
   const busyVisible = useRef(false);
-  const busyShownAt = useRef(0);
-  const pendingBusyMode = useRef<ActiveBusyMode>("navigation");
   const busyDelayTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const busySafetyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const busyHideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -86,31 +83,26 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
 
     const hideBusy = () => {
       busyVisible.current = false;
-      busyShownAt.current = 0;
       setBusyMode(null);
     };
 
     const revealBusy = () => {
       busyDelayTimer.current = null;
       busyVisible.current = true;
-      busyShownAt.current = performance.now();
-      setBusyMode(pendingBusyMode.current);
+      setBusyMode("operation");
     };
 
-    function start(mode: ActiveBusyMode) {
-      pendingBusyMode.current = mode;
+    function start() {
       clearTimer(busyHideTimer);
       clearTimer(busySafetyTimer);
 
       if (busyVisible.current) {
-        setBusyMode(mode);
+        setBusyMode("operation");
       } else if (!busyDelayTimer.current) {
-        const delay = mode === "navigation" ? 180 : 240;
-        busyDelayTimer.current = setTimeout(revealBusy, delay);
+        busyDelayTimer.current = setTimeout(revealBusy, 240);
       }
 
-      const maximumVisibleTime = mode === "navigation" ? 4_000 : 12_000;
-      busySafetyTimer.current = setTimeout(hideBusy, maximumVisibleTime);
+      busySafetyTimer.current = setTimeout(hideBusy, 12_000);
     }
 
     function showSuccess() {
@@ -140,39 +132,24 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
       clearTimer(busySafetyTimer);
       clearTimer(busyHideTimer);
 
-      const elapsed = busyVisible.current ? performance.now() - busyShownAt.current : 0;
-      const remaining = busyVisible.current ? Math.max(0, 180 - elapsed) : 0;
-      busyHideTimer.current = setTimeout(() => {
-        busyHideTimer.current = null;
-        hideBusy();
-        window.setTimeout(showSuccess, 20);
-      }, remaining);
-    }
-
-    function onClick(event: MouseEvent) {
-      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      const target = event.target instanceof Element ? event.target.closest("a[href]") : null;
-      if (!(target instanceof HTMLAnchorElement) || target.target === "_blank" || target.hasAttribute("download") || target.dataset.noLoading === "true") return;
-      const url = new URL(target.href, window.location.href);
-      if (url.origin !== window.location.origin || url.href === window.location.href || url.hash) return;
-      start("navigation");
+      hideBusy();
+      window.setTimeout(showSuccess, 20);
     }
 
     function onSubmit(event: SubmitEvent) {
       const form = event.target;
-      if (form instanceof HTMLFormElement && form.dataset.noLoading !== "true") start("operation");
+      if (form instanceof HTMLFormElement && form.dataset.noLoading !== "true") start();
     }
 
     function onBusy(event: Event) {
-      const customEvent = event as CustomEvent<{ mode?: ActiveBusyMode }>;
-      start(customEvent.detail?.mode === "navigation" ? "navigation" : "operation");
+      const customEvent = event as CustomEvent<{ mode?: "navigation" | "operation" }>;
+      if (customEvent.detail?.mode !== "navigation") start();
     }
 
     function onVisibilityChange() {
       if (document.visibilityState === "visible") complete();
     }
 
-    document.addEventListener("click", onClick, true);
     document.addEventListener("submit", onSubmit, true);
     document.addEventListener("visibilitychange", onVisibilityChange);
     window.addEventListener("popstate", complete);
@@ -183,7 +160,6 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
     showSuccess();
 
     return () => {
-      document.removeEventListener("click", onClick, true);
       document.removeEventListener("submit", onSubmit, true);
       document.removeEventListener("visibilitychange", onVisibilityChange);
       window.removeEventListener("popstate", complete);
@@ -209,12 +185,6 @@ export function AppExperienceProvider({ children }: { children: ReactNode }) {
     <>
       <InteractionOrchestrator />
       {children}
-      {busyMode === "navigation" && (
-        <div className="public-route-progress app-navigation-progress" role="status" aria-live="polite" aria-label={copy.loadingDetail}>
-          <span aria-hidden="true" />
-          <b className="sr-only">{copy.loadingDetail}</b>
-        </div>
-      )}
       {busyMode === "operation" && (
         <div className="experience-operation-status" role="status" aria-live="polite" aria-atomic="true" aria-label={copy.loading}>
           <BrandLoader title={copy.loading} detail={copy.loadingDetail} />

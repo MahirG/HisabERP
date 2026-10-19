@@ -110,7 +110,7 @@ export function Dashboard({ snapshot, user }: { snapshot: DashboardSnapshot; use
   return (
     <main className="dashboard-content financial-dashboard apple-grade-dashboard" data-dashboard-role={user.role}>
       <WorkspacePageHeader
-        breadcrumb={<><Link href="/">{ui.home}</Link><Icon name="chevron-right" size={12} /><span>{ui.dashboard}</span></>}
+        breadcrumb={<><Link href="/workspace-home">{ui.home}</Link><Icon name="chevron-right" size={12} /><span>{ui.dashboard}</span></>}
         eyebrow={<><Icon name="activity" size={14} /><LocalGreeting language={language} firstName={snapshot.userName} /></>}
         title={ui.overview}
         description={profile.summary}

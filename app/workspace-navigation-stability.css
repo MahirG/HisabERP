@@ -1,0 +1,38 @@
+/*
+ * Quiet Biloo ERP navigation.
+ * No fade, slide, scale, shimmer or animated blank frames on route entry.
+ * App shell + footer preserve existing visual colors and dimensions.
+ * Scope to authenticated workspace and the standalone Company Setup route.
+ */
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace > :is(main, section, div),
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  [data-motion-enter], [data-live-row="true"], .route-loading, .brand-route-loading
+),
+body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center,
+body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center [data-motion-enter] {
+  animation: none !important;
+  animation-name: none !important;
+  animation-delay: 0ms !important;
+  transition: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace > :is(main, section, div)::before,
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace > :is(main, section, div)::after {
+  animation: none !important;
+  transition: none !important;
+}
+/* Disable the obsolete global route-entry overlay without suppressing form
+   submission feedback or legitimate access/error states. */
+body[data-workspace-system="financial-os-v1"] .app-navigation-progress {
+  display: none !important;
+}
+/* Avoid CSS smooth scrolling when a router swaps workspace pages; allow
+   regular keyboard focus, selection and user-initiated scrolling. */
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace {
+  scroll-behavior: auto !important;
+  overflow-anchor: none;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(a, button):focus-visible {
+  outline-offset: 2px;
+}

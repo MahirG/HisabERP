@@ -173,7 +173,7 @@ function adviceFor(pathname: string, role: UserContext["role"]) {
     {
       title: "Review business health",
       copy: "Check cash, revenue, expenses, and receivables before choosing the next operational action.",
-      href: "/",
+      href: "/workspace-home",
       icon: "activity" as IconName,
     },
     {

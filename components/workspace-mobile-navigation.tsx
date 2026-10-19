@@ -24,7 +24,6 @@ type Props = {
 export function WorkspaceMobileNavigation({ open, onDismiss, groups, pathname, organizationName, organizationMark, activeLabel, label }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [mounted, setMounted] = useState(false);
-  const [closing, setClosing] = useState(false);
   const titleId = useId();
   const dismissRef = useRef(onDismiss);
   dismissRef.current = onDismiss;
@@ -35,15 +34,10 @@ export function WorkspaceMobileNavigation({ open, onDismiss, groups, pathname, o
     const dialog = dialogRef.current;
     if (!mounted || !dialog) return;
     if (open) {
-      setClosing(false);
       if (!dialog.open) dialog.showModal();
       return;
     }
-    if (!dialog.open) return;
-    setClosing(true);
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const timer = window.setTimeout(() => { dialog.close(); setClosing(false); }, reducedMotion ? 0 : 180);
-    return () => window.clearTimeout(timer);
+    if (dialog.open) dialog.close();
   }, [open, mounted]);
 
   useEffect(() => {
@@ -63,7 +57,6 @@ export function WorkspaceMobileNavigation({ open, onDismiss, groups, pathname, o
       className={styles.dialog}
       aria-labelledby={titleId}
       aria-modal="true"
-      data-closing={closing || undefined}
       onCancel={(event) => { event.preventDefault(); onDismiss(); }}
       onClose={onDismiss}
       onClick={(event) => { if (event.target === event.currentTarget) onDismiss(); }}
@@ -86,7 +79,7 @@ export function WorkspaceMobileNavigation({ open, onDismiss, groups, pathname, o
           </button>
         </header>
 
-        <Link href="/" className={styles.organization} onClick={onDismiss}>
+        <Link href="/workspace-home" className={styles.organization} onClick={onDismiss}>
           <span className={styles.mark} aria-hidden="true">{organizationMark}</span>
           <div><strong>{organizationName}</strong><span>{activeLabel}</span></div>
           <Icon name="building" size={18} />
@@ -98,7 +91,7 @@ export function WorkspaceMobileNavigation({ open, onDismiss, groups, pathname, o
               <h3 id={`${titleId}-${index}`}>{group.label}</h3>
               <div className={styles.links}>
                 {group.items.map((item) => {
-                  const active = item.href === "/" ? pathname === "/" || pathname === "/workspace-home" : pathname === item.href || pathname.startsWith(`${item.href}/`);
+                  const active = item.href === "/workspace-home" ? pathname === "/" || pathname === "/workspace-home" : pathname === item.href || pathname.startsWith(`${item.href}/`);
                   return (
                     <Link href={item.href} key={item.href} onClick={onDismiss} aria-current={active ? "page" : undefined} className={styles.link}>
                       <span className={styles.icon}><Icon name={item.icon} size={21} /></span>

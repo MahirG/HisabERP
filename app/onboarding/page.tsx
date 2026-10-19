@@ -88,7 +88,7 @@ function formatPercent(value: number) {
 
 function LaunchBrand() {
   return (
-    <Link href="/" className="launch-brand" aria-label="Biloo ERB Company Setup — open dashboard">
+    <Link href="/workspace-home" className="launch-brand" aria-label="Biloo ERB Company Setup — open dashboard">
       <div className="launch-brand-wordmark">
         <strong>Biloo ERB</strong>
         <span className="launch-brand-separator" aria-hidden="true">|</span>
@@ -215,7 +215,7 @@ export default async function OnboardingPage({ searchParams }: { searchParams: P
           <a href="#launch-tasks">Setup tasks</a>
           <Link href="/help">Help</Link>
         </nav>
-        <div className="launch-header-actions"><LaunchPreferences /><Link href="/" className="launch-dashboard-link"><Icon name="grid" size={17} /><span>Open dashboard</span><Icon name="arrow-right" size={15} /></Link></div>
+        <div className="launch-header-actions"><LaunchPreferences /><Link href="/workspace-home" className="launch-dashboard-link"><Icon name="grid" size={17} /><span>Open dashboard</span><Icon name="arrow-right" size={15} /></Link></div>
       </header>
 
       <section className="launch-overview" id="launch-overview" style={progressStyle}>
@@ -225,7 +225,7 @@ export default async function OnboardingPage({ searchParams }: { searchParams: P
           <p>Build the operating foundation once, validate the critical controls, and move into daily work with dependable financial and inventory data.</p>
           <div className="launch-overview-actions">
             <a href={`#setup-${nextStep}`} className="launch-primary-action"><span>Continue: {stepCopy[nextStep].title}</span><Icon name="arrow-right" size={17} /></a>
-            <Link href="/" className="launch-tertiary-action"><Icon name="home" size={17} /><span>View workspace</span></Link>
+            <Link href="/workspace-home" className="launch-tertiary-action"><Icon name="home" size={17} /><span>View workspace</span></Link>
           </div>
         </div>
 
