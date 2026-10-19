@@ -15,5 +15,7 @@ import "./public-chrome-unification.css";
 import "./public-navy-header.css";
 /* Unified typography, contrast and responsive layout for seven product information pages. */
 import "./public-seven-pages.css";
+/* Five-page help, industry and customer proof visual authority. */
+import "./public-five-pages.css";
 
 export {};

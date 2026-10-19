@@ -23,10 +23,10 @@ const industryRows = [
 
 export default function IndustriesPage() {
   return (
-    <MarketingPageShell>
+    <MarketingPageShell className="biloo-five-page">
       <section className="industry-index-hero">
         <div><span className="marketing-eyebrow">Industry solutions</span><h1>See HisabERP through the workflow of your business.</h1><p>Every industry uses sales, expenses, inventory, customers, suppliers and finance differently. These solution pages show how connected ERP records support the decisions each team makes.</p><div className="marketing-hero-actions"><Link href="/request-demo" className="marketing-start marketing-large">Request an industry demo</Link><Link href="/product-tour" className="marketing-demo marketing-large">Explore the product</Link></div></div>
-        <InteractiveErpOffice moduleTitle="Industry operations" moduleEyebrow="Configured around your workflow" metrics={industryMetrics} rows={industryRows} compact />
+        <InteractiveErpOffice moduleTitle="Industry operations" moduleEyebrow="Configured around your workflow" metrics={industryMetrics} rows={industryRows} compact illustrative informational />
       </section>
 
       <section className="marketing-section industry-index-section">

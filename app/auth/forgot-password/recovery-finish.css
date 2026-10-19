@@ -1,0 +1,37 @@
+/* Password recovery shares the actual Sign In visual foundation. */
+body[data-workspace-system="financial-os-v1"] main.biloo-recovery-page .biloo-login-form{
+ display:grid!important;gap:15px!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-recovery-page .biloo-login-field .biloo-login-input-shell > input#recovery-email {
+ flex:1 1 0%!important;width:0!important;min-width:0!important;
+ max-width:100%!important;height:100%!important;min-height:46px!important;
+ margin:0!important;padding:0 0 0 11px!important;
+ background:transparent!important;color:#14213d!important;
+ -webkit-text-fill-color:#14213d!important;border:0!important;
+ border-radius:0!important;outline:0!important;box-shadow:none!important;
+ appearance:none!important;font-size:16px!important;line-height:1.5!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-recovery-page .biloo-login-field .biloo-login-input-shell > input#recovery-email:is(:hover,:focus){
+ border:0!important;border-radius:0!important;outline:0!important;
+ box-shadow:none!important;background:transparent!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-recovery-page .biloo-login-field .biloo-login-input-shell > input#recovery-email::placeholder{
+ color:#667085!important;-webkit-text-fill-color:#667085!important;opacity:1!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-recovery-page .biloo-recovery-privacy-note{
+ display:flex!important;align-items:flex-start!important;gap:9px!important;
+ margin:17px 0 0!important;padding:12px!important;border:1px solid #dfe5ec!important;
+ border-radius:10px!important;background:#f8fafc!important;color:#475467!important;
+ font-size:12px!important;line-height:1.65!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-recovery-page .biloo-recovery-privacy-note svg{
+ flex:0 0 17px!important;color:#80520b!important;margin-top:2px!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-recovery-page .biloo-login-account-switch a{
+ min-height:44px!important;
+}
+@media(max-width:620px){
+ body[data-workspace-system="financial-os-v1"] main.biloo-recovery-page .biloo-recovery-privacy-note{
+  font-size:11.5px!important;
+ }
+}

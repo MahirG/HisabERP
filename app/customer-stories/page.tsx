@@ -17,7 +17,7 @@ export default function CustomerStoriesPage() {
   const proofRows = inspectableProof.slice(0, 3).map((item, index) => ({ label: item.title, value: "Inspectable", meta: `Evidence ${index + 1}` }));
 
   return (
-    <MarketingPageShell>
+    <MarketingPageShell className="biloo-five-page">
       <section className="proof-page-hero">
         <div>
           <span className="marketing-eyebrow">Customer evidence</span>
@@ -28,7 +28,7 @@ export default function CustomerStoriesPage() {
             <Link className="marketing-demo marketing-large" href="/product-tour">Inspect the product first</Link>
           </div>
         </div>
-        <InteractiveErpOffice moduleTitle="Customer proof" moduleEyebrow="Evidence workspace" metrics={proofMetrics} rows={proofRows} compact />
+        <InteractiveErpOffice moduleTitle="Customer proof" moduleEyebrow="Evidence workspace" metrics={proofMetrics} rows={proofRows} compact illustrative informational />
       </section>
 
       <section className="proof-section proof-section-light">

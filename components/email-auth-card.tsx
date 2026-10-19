@@ -12,7 +12,7 @@ type EmailAuthCardProps = {
   badge?: string;
   showcaseTitle?: string;
   showcaseDescription?: string;
-  variant?: "sign-up";
+  variant?: "sign-up" | "recovery";
 };
 
 export function EmailAuthCard({
@@ -28,9 +28,9 @@ export function EmailAuthCard({
 }: EmailAuthCardProps) {
   // Signup uses the exact same visual and navigation primitives as /auth/login.
   // Other auth routes continue using the original shared EmailAuthCard markup.
-  if (variant === "sign-up") {
+  if (variant === "sign-up" || variant === "recovery") {
     return (
-      <main className="biloo-login-page biloo-signup-page">
+      <main className={`biloo-login-page ${variant === "recovery" ? "biloo-recovery-page" : "biloo-signup-page"}`}>
         <section className="biloo-login-shell">
           <aside className="biloo-login-visual" aria-label="Biloo business workspace introduction">
             <header className="biloo-login-visual-header">
@@ -54,7 +54,7 @@ export function EmailAuthCard({
             </footer>
           </aside>
           <section className="biloo-login-form-pane">
-            <nav className="biloo-login-topbar" aria-label="Sign-up support links">
+            <nav className="biloo-login-topbar" aria-label="Authentication support links">
               <Link href="/" className="biloo-login-mobile-wordmark" aria-label="Biloo home"><img src="/biloo-header-logo.svg" alt="Biloo" /></Link>
               <div><Link href="/help-center">Help</Link><Link href="/">Back to website</Link></div>
             </nav>

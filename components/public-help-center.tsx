@@ -1,12 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { HelpArticle, HelpCategory } from "../lib/help-center-content";
 
 export function PublicHelpCenter({ articles, categories }: { articles: HelpArticle[]; categories: HelpCategory[] }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
+
+  useEffect(() => {
+    const requested = new URLSearchParams(window.location.search).get("category");
+    if (requested && categories.some(item => item.slug === requested)) setCategory(requested);
+  }, [categories]);
 
   const filtered = useMemo(() => {
     const normalized = query.trim().toLowerCase();

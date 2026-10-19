@@ -27,10 +27,10 @@ export default async function IndustrySolutionPage({ params }: { params: Promise
   const workstationRows = industry.capabilities.slice(0, 3).map((capability, index) => ({ label: capability, value: "Connected", meta: `Priority ${index + 1}` }));
 
   return (
-    <MarketingPageShell>
+    <MarketingPageShell className="biloo-five-page">
       <section className="industry-detail-hero">
         <div><span className="marketing-eyebrow">{industry.eyebrow}</span><h1>{industry.title}</h1><p>{industry.summary}</p><div className="marketing-hero-actions"><Link href={`/request-demo?industry=${industry.slug}`} className="marketing-start marketing-large">Request a focused demo</Link><Link href="/pricing" className="marketing-demo marketing-large">View pricing</Link></div><div className="industry-team-pills">{industry.teams.map((team)=><span key={team}>{team}</span>)}</div></div>
-        <InteractiveErpOffice moduleTitle={industry.shortTitle} moduleEyebrow="Illustrative industry workspace" metrics={workstationMetrics} rows={workstationRows} compact />
+        <InteractiveErpOffice moduleTitle={industry.shortTitle} moduleEyebrow="Illustrative industry workspace" metrics={workstationMetrics} rows={workstationRows} compact illustrative informational />
       </section>
 
       <section className="industry-problem-outcome"><article><span>Operating challenge</span><h2>The problem businesses recognize</h2><p>{industry.challenge}</p></article><article><span>HisabERP outcome</span><h2>The management position to create</h2><p>{industry.outcome}</p></article></section>

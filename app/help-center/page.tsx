@@ -22,7 +22,7 @@ export default function HelpCenterPage() {
   const helpRows = featured.slice(0, 3).map((article) => article ? ({ label: article.title, value: article.readTime, meta: helpCategories.find((category) => category.slug === article.category)?.title || "Guide" }) : null).filter((item): item is { label: string; value: string; meta: string } => Boolean(item));
 
   return (
-    <MarketingPageShell>
+    <MarketingPageShell className="biloo-five-page">
       <section className="help-public-hero">
         <div>
           <span className="marketing-eyebrow">HisabERP Help Center</span>
@@ -30,12 +30,12 @@ export default function HelpCenterPage() {
           <p>Search setup, sales, inventory, finance, security and migration guides. Every article separates product steps from business validation responsibilities.</p>
           <div className="marketing-hero-actions"><a href="mailto:mahir@hisabtech.com?subject=HisabERP%20support%20request" className="marketing-start marketing-large">Contact support</a><Link href="/product-tour" className="marketing-demo marketing-large">Open product tour</Link></div>
         </div>
-        <InteractiveErpOffice moduleTitle="Help Center" moduleEyebrow="Guided product support" metrics={helpMetrics} rows={helpRows} compact />
+        <InteractiveErpOffice moduleTitle="Help Center" moduleEyebrow="Guided product support" metrics={helpMetrics} rows={helpRows} compact illustrative informational />
       </section>
 
       <section className="help-category-section">
         <div className="marketing-section-heading marketing-section-heading-wide"><span>Browse by workflow</span><h2>Start from the responsibility—not the software menu.</h2><p>Each category groups the setup, controls and validation steps required to complete a real business task.</p></div>
-        <div className="help-category-grid">{helpCategories.map((category, index) => <a href={`#guides`} key={category.slug}><span>{String(index + 1).padStart(2, "0")}</span><strong>{category.title}</strong><small>{category.summary}</small></a>)}</div>
+        <div className="help-category-grid">{helpCategories.map((category, index) => <Link href={`/help-center?category=${encodeURIComponent(category.slug)}#guides`} key={category.slug}><span>{String(index + 1).padStart(2, "0")}</span><strong>{category.title}</strong><small>{category.summary}</small></Link>)}</div>
       </section>
 
       <section className="help-featured-section">
