@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { Icon } from "./ui/icon";
 
 /** Visibility changes input types, never stores password values in React state. */
 export function SignUpPasswordFields() {
@@ -35,7 +34,6 @@ export function SignUpPasswordFields() {
           aria-label={visible ? "Hide passwords" : "Show passwords"}
           aria-pressed={visible}
           onClick={() => setVisible(previous => !previous)}>
-          <Icon name={visible ? "eye-off" : "eye"} size={16} />
           {visible ? "Hide passwords" : "Show passwords"}
         </button>
       </div>
