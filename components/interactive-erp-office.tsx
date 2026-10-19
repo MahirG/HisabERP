@@ -86,6 +86,7 @@ function toAmount(value: string, index: number) {
 export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected operating workspace', metrics, rows, compact = false, illustrative = false }: InteractiveErpOfficeProps) {
   const [view, setView] = useState<ViewId>('records');
   const financePreview = illustrative && moduleTitle.toLowerCase().includes('finance');
+  const inventoryPreview = illustrative && moduleTitle.toLowerCase().includes('inventory');
   const selectedPreviewNav = moduleTitle.toLowerCase().includes('finance') ? 'Finance'
     : moduleTitle.toLowerCase().includes('sales') ? 'Sales'
     : moduleTitle.toLowerCase().includes('inventory') ? 'Inventory'
@@ -137,8 +138,8 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
 
             <div className="erp-evidence-tabs" role="tablist" aria-label={`${moduleTitle} preview views`}>
               {([
-                ['records', financePreview ? 'Transactions' : 'Records'],
-                ['trend', financePreview ? 'Cash trends' : 'Performance'],
+                ['records', financePreview ? 'Transactions' : inventoryPreview ? 'Stock items' : 'Records'],
+                ['trend', financePreview ? 'Cash trends' : inventoryPreview ? 'Movement' : 'Performance'],
                 ['controls', 'Controls'],
               ] as const).map(([id, label]) => <button type="button" role="tab" aria-selected={view === id} className={view === id ? 'active' : undefined} onClick={() => setView(id)} key={id}>{label}</button>)}
             </div>
@@ -150,7 +151,7 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
             {view === 'records' ? (
               <div className="erp-evidence-table-wrap">
                 <table className="erp-evidence-table">
-                  <thead><tr><th>Reference</th><th>Date</th><th>Record</th><th>Branch</th><th>Amount</th><th>Status</th></tr></thead>
+                  <thead><tr><th>Reference</th><th>Date</th><th>Record</th><th>Branch</th><th>{inventoryPreview ? 'Quantity' : 'Amount'}</th><th>Status</th></tr></thead>
                   <tbody>{records.map((record) => <tr key={record.reference}><td><strong>{record.reference}</strong></td><td>{record.date}</td><td><span>{record.record}</span><small>{record.meta}</small></td><td>{record.branch}</td><td>{record.amount}</td><td><b className={`erp-status ${statusClass(record.status)}`}>{record.status}</b></td></tr>)}</tbody>
                 </table>
               </div>
@@ -158,14 +159,14 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
 
             {view === 'trend' ? (
               <div className="erp-evidence-analysis">
-                <div><span>{financePreview ? 'Sample net cash flow' : 'Revenue performance'}</span><strong>{financePreview ? (metrics[1]?.value ?? 'ETB 96,240') : 'ETB 4.82M'}</strong><small>{financePreview ? 'Illustrative trend, March–August 2026' : '+18.6% compared with July'}</small></div>
-                <div className="erp-evidence-chart" aria-label={financePreview ? "Sample net cash flow from March to August 2026" : "Revenue performance from March to August 2026"}>
+                <div><span>{financePreview ? 'Sample net cash flow' : inventoryPreview ? 'Illustrative stock movement' : 'Revenue performance'}</span><strong>{financePreview ? (metrics[1]?.value ?? 'ETB 96,240') : inventoryPreview ? (metrics[0]?.value ?? 'Sample inventory') : 'ETB 4.82M'}</strong><small>{financePreview ? 'Illustrative trend, March–August 2026' : inventoryPreview ? 'Sample movement trend, March–August 2026' : '+18.6% compared with July'}</small></div>
+                <div className="erp-evidence-chart" aria-label={financePreview ? "Sample net cash flow from March to August 2026" : inventoryPreview ? "Illustrative stock movement, March to August 2026" : "Revenue performance from March to August 2026"}>
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={financePreview ? financeCashflowData : chartData} margin={{ top: 12, right: 12, left: -20, bottom: 0 }}>
                       <CartesianGrid stroke="#e8ebf0" vertical={false} />
                       <XAxis dataKey="period" tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 10 }} />
-                      <YAxis tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 9 }} tickFormatter={(value) => financePreview ? `${value}k` : `ETB ${value}M`} />
-                      <Tooltip formatter={(value) => [financePreview ? `ETB ${value}k` : `ETB ${value}M`, financePreview ? 'Sample cash flow' : 'Revenue']} contentStyle={{ border: '1px solid #dfe3ea', borderRadius: 6, boxShadow: '0 10px 30px rgba(16,36,74,.1)', fontSize: 11 }} />
+                      <YAxis tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 9 }} tickFormatter={(value) => financePreview ? `${value}k` : inventoryPreview ? String(value) : `ETB ${value}M`} />
+                      <Tooltip formatter={(value) => [financePreview ? `ETB ${value}k` : inventoryPreview ? `${value}` : `ETB ${value}M`, financePreview ? 'Sample cash flow' : inventoryPreview ? 'Sample movement' : 'Revenue']} contentStyle={{ border: '1px solid #dfe3ea', borderRadius: 6, boxShadow: '0 10px 30px rgba(16,36,74,.1)', fontSize: 11 }} />
                       <Area type="monotone" dataKey="value" stroke={financePreview ? "#b57b19" : "#315efb"} fill={financePreview ? "#b57b19" : "#315efb"} fillOpacity={0.08} strokeWidth={2} />
                     </AreaChart>
                   </ResponsiveContainer>

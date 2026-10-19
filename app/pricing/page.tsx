@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { PricingExperience } from "../../components/pricing-experience";
-import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 
 export const metadata: Metadata = {
   title: "Biloo ERP Pricing in Ethiopian Birr",
@@ -16,18 +15,6 @@ const questions = [
   { q: "Is VAT included?", a: "Published prices are shown before any applicable VAT or statutory charge. The checkout and formal commercial documents show the final amount that applies." },
   { q: "Can we start small and upgrade later?", a: "Yes. Choose another plan when renewing. A verified payment can extend the access period and apply the selected plan." },
   { q: "What does data migration include?", a: "Migration can cover prepared customers, suppliers, products, inventory quantities and opening balances. Historical transactions are assessed separately because effort depends on data quality and volume." },
-];
-
-const pricingMetrics = [
-  { label: "Starter", value: "ETB-ready", note: "Core finance & sales" },
-  { label: "Growth", value: "Multi-user", note: "Expanded operations" },
-  { label: "Business", value: "Advanced", note: "Broader control" },
-];
-
-const pricingRows = [
-  { label: "Secure Chapa checkout", value: "Verified", meta: "One-time payment" },
-  { label: "Annual access", value: "Save", meta: "Clear ETB pricing" },
-  { label: "Enterprise scope", value: "Custom", meta: "Guided engagement" },
 ];
 
 export default function PricingPage() {
