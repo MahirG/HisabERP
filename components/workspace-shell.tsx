@@ -153,15 +153,13 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
   if (requiresMfaConfirmation) return <WorkspaceSessionLoading />;
 
   const d = dictionary.dashboard;
-  const sections = language === "am"
-    ? { core: "ዋና የስራ ቦታ", phase1: "ዋና ስራዎች", phase2: "ማስፋፊያ ሞጁሎች" }
-    : { core: "Core workspace", phase1: "Core operations", phase2: "Growth modules" };
-  const setup = language === "am" ? "የኩባንያ ማዋቀር" : "Company setup";
-  const controls = language === "am" ? "የምርት ደህነት" : "Production controls";
-  const einvoice = language === "am" ? "ኤሌክትሮኒክ ደረሰኝ" : "Electronic invoicing";
-  const reconciliation = language === "am" ? "የባንክ እና ክፍያ ማስታረቅ" : "Bank and payment reconciliation";
-  const moreLabel = language === "am" ? "ተጨማሪ" : "More";
-  const menuLabel = language === "am" ? "የስራ ቦታ ምናሌ" : "Workspace menu";
+  const sections = { core: "Core workspace", phase1: "Core operations", phase2: "Growth modules" };
+  const setup = "Company setup";
+  const controls = "Production controls";
+  const einvoice = "Electronic invoicing";
+  const reconciliation = "Bank and payment reconciliation";
+  const moreLabel = "More";
+  const menuLabel = "Workspace menu";
 
   const groups: Array<{ label: string; items: NavItem[] }> = [
     {

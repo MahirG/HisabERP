@@ -7,7 +7,6 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useModalFocus } from "./use-modal-focus";
 import { MarketingLegalFooter } from "./marketing-legal-suite";
 
-type Locale = "en" | "am";
 type MenuId = "product" | "solutions" | "resources" | "company";
 type NavigationItem = { label: string; href: string };
 type NavigationGroup = { id: MenuId; label: string; items: NavigationItem[] };
@@ -20,14 +19,6 @@ const copy = {
     footerIntro: "One secure business operating system for Ethiopian companies that want clearer operations and better decisions.",
     product: "Product", resources: "Learn & implement", company: "Company & trust", rights: "All rights reserved.",
     location: "Addis Ababa, Ethiopia",
-  },
-  am: {
-    navigation: "ዋና አሰሳ", pricing: "ዋጋ", search: "ፈልግ", searchTitle: "Biloo ፈልግ",
-    searchPlaceholder: "ምርቶችን እና መረጃዎችን ፈልግ", noResults: "ተዛማጅ ገጽ አልተገኘም።", signIn: "ግባ",
-    startFree: "በነፃ ይጀምሩ", openMenu: "ምናሌ ክፈት", closeMenu: "ምናሌ ዝጋ", language: "ቋንቋ",
-    footerIntro: "ለግልጽ አሰራር እና ለተሻለ ውሳኔ የተገነባ የኢትዮጵያ ንግድ ስርዓት።",
-    product: "ምርት", resources: "ይማሩ እና ይተግብሩ", company: "ኩባንያ እና እምነት", rights: "መብቶቹ ሁሉ የተጠበቁ ናቸው።",
-    location: "አዲስ አበባ፣ ኢትዮጵያ",
   },
 } as const;
 
@@ -104,8 +95,7 @@ export function MarketingHeader() {
   const menuModalRef = useRef<HTMLElement>(null);
   useModalFocus(mobileOpen ? menuModalRef : searchModalRef, mobileOpen ? "menu" : searchOpen ? "search" : null);
   const mobilePanelId = "biloo-mobile-navigation-panel";
-  const [locale, setLocale] = useState<Locale>("en");
-  const c = copy[locale];
+  const c = copy.en;
 
   const filteredSearchItems = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -115,16 +105,10 @@ export function MarketingHeader() {
 
   useEffect(() => {
     document.body.dataset.publicMarketing = "true";
-    try {
-      const storedLocale = window.localStorage.getItem("biloo-public-language");
-      const nextLocale: Locale = storedLocale === "am" ? "am" : "en";
-      setLocale(nextLocale);
-      document.documentElement.dataset.publicLanguage = nextLocale;
-      document.documentElement.dataset.publicTheme = "light";
-    } catch {
-      document.documentElement.dataset.publicLanguage = "en";
-      document.documentElement.dataset.publicTheme = "light";
-    }
+    document.documentElement.dataset.publicLanguage = "en";
+    document.documentElement.lang = "en";
+    document.documentElement.dataset.publicTheme = "light";
+    try { window.localStorage.setItem("biloo-public-language", "en"); } catch {}
     return () => { delete document.body.dataset.publicMarketing; };
   }, []);
 
@@ -162,12 +146,6 @@ export function MarketingHeader() {
     };
   }, [mobileOpen, searchOpen]);
 
-  const changeLocale = () => {
-    const nextLocale: Locale = locale === "en" ? "am" : "en";
-    setLocale(nextLocale);
-    document.documentElement.dataset.publicLanguage = nextLocale;
-    try { window.localStorage.setItem("biloo-public-language", nextLocale); } catch {}
-  };
 
   return (
     <>
@@ -180,7 +158,6 @@ export function MarketingHeader() {
               <Link href="/help-center">Help Center</Link>
               <Link href="/about">About Biloo</Link>
             </div>
-            <button type="button" className="wb-utility-language" aria-label={c.language} onClick={changeLocale}>{locale === "en" ? "English" : "አማርኛ"} <NavArrowDown width={12} height={12} strokeWidth={1.5} aria-hidden /></button>
           </div>
         </div>
         <div className="wb-header-inner">
@@ -202,7 +179,6 @@ export function MarketingHeader() {
           </nav>
           <div className="wb-header-actions">
             <button type="button" className="wb-search-trigger" onClick={() => setSearchOpen(true)}><Search width={17} height={17} strokeWidth={1.6} aria-hidden /><span>{c.search}</span></button>
-            <button type="button" className="wb-language-switch" aria-label={c.language} onClick={changeLocale}>{locale.toUpperCase()}</button>
             <Link prefetch={false} href="/auth/login?next=%2F" className="wb-sign-in">{c.signIn}</Link>
             <Link prefetch={false} href="/auth/email-sign-up" className="wb-primary-action">{c.startFree}</Link>
             <button type="button" className="wb-mobile-toggle" aria-label={mobileOpen ? c.closeMenu : c.openMenu} aria-expanded={mobileOpen} aria-controls={mobilePanelId} onClick={() => { setOpenMenu(null); setSearchOpen(false); setMobileOpen((current) => !current); }}>
@@ -238,7 +214,7 @@ export function MarketingHeader() {
             })}
             <Link href="/pricing" className={routeMatches(pathname, "/pricing") ? "is-active" : undefined} onClick={() => setMobileOpen(false)}>{c.pricing}</Link>
           </nav>
-          <div className="wb-mobile-utilities"><Link href="/help-center" onClick={() => setMobileOpen(false)}>Help Center</Link><Link prefetch={false} href="/account" onClick={() => setMobileOpen(false)}>Account</Link><button type="button" onClick={changeLocale}>{c.language}: {locale === "en" ? "English" : "አማርኛ"}</button></div>
+          <div className="wb-mobile-utilities"><Link href="/help-center" onClick={() => setMobileOpen(false)}>Help Center</Link><Link prefetch={false} href="/account" onClick={() => setMobileOpen(false)}>Account</Link></div>
           <div className="wb-mobile-actions"><Link prefetch={false} href="/auth/login?next=%2F" onClick={() => setMobileOpen(false)}>{c.signIn}</Link><Link prefetch={false} href="/auth/email-sign-up" onClick={() => setMobileOpen(false)}>{c.startFree}</Link></div>
         </aside>
       </div>
@@ -247,11 +223,7 @@ export function MarketingHeader() {
 }
 
 export function MarketingFooter() {
-  const [locale, setLocale] = useState<Locale>("en");
-  useEffect(() => {
-    try { setLocale(window.localStorage.getItem("biloo-public-language") === "am" ? "am" : "en"); } catch { setLocale("en"); }
-  }, []);
-  const c = copy[locale];
+  const c = copy.en;
 
   return (
     <footer className="marketing-footer">

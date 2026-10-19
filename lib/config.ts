@@ -27,7 +27,7 @@ function resolveAppUrl() {
 export const appConfig = {
   name: "Biloo ERP",
   defaultLocale: "en" as const,
-  supportedLocales: ["en", "am", "ti"] as const,
+  supportedLocales: ["en"] as const,
   supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() ?? "",
   supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim() || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim() || "",
   appUrl: resolveAppUrl(),

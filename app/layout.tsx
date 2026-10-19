@@ -30,12 +30,10 @@ const preferenceBootstrap = `
 
   try {
     var storedTheme = window.localStorage.getItem('hisab-theme') || readCookie('hisab_theme');
-    var storedLanguage = window.localStorage.getItem('hisab-erp-language') || readCookie('hisab_locale');
     var publicTheme = window.localStorage.getItem('biloo-public-theme');
-    var publicLanguage = window.localStorage.getItem('biloo-public-language');
 
     var theme = storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : 'light';
-    var language = storedLanguage === 'am' ? 'am' : 'en';
+    var language = 'en';
 
     root.dataset.theme = theme;
     root.dataset.language = language;
@@ -45,13 +43,17 @@ const preferenceBootstrap = `
     if (publicTheme === 'dark' || publicTheme === 'light') {
       root.dataset.publicTheme = publicTheme;
     }
-    if (publicLanguage === 'am' || publicLanguage === 'en') {
-      root.dataset.publicLanguage = publicLanguage;
-    }
+    root.dataset.publicLanguage = 'en';
+    try {
+      window.localStorage.setItem('hisab-erp-language', 'en');
+      window.localStorage.setItem('biloo-public-language', 'en');
+      document.cookie = 'hisab_locale=en; Path=/; Max-Age=31536000; SameSite=Lax';
+    } catch (_) {}
   } catch (_) {
     root.dataset.theme = 'light';
     root.dataset.language = 'en';
     root.lang = 'en';
+    root.dataset.publicLanguage = 'en';
     root.style.colorScheme = 'light';
   }
 })();

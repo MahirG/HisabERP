@@ -89,8 +89,8 @@ const helpCategories: HelpCategory[] = [
       },
       {
         title: "Language and display preferences",
-        summary: "Switch between English and Amharic and use the supported display modes.",
-        body: "Language selection changes supported interface labels without changing stored business data. Display preferences affect the interface only. Always review financial values, dates, tax settings, and document content before posting.",
+        summary: "Biloo uses a consistent English interface with supported display modes.",
+        body: "The interface uses English throughout. Display preferences affect appearance only and do not change stored business data. Always review financial values, dates, tax settings, and document content before posting.",
       },
     ],
   },

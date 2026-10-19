@@ -26,7 +26,7 @@ export const billingPlans: readonly BillingPlan[] = [
       "Customer and supplier balances",
       "Receivables and payables",
       "Essential dashboards and reports",
-      "English and Amharic access",
+      "English-language workspace",
     ],
   },
   {

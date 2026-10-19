@@ -11,12 +11,6 @@ const ENGLISH_GREETINGS: Record<GreetingPeriod, string> = {
   night: "wishing you a peaceful night",
 };
 
-const AMHARIC_GREETINGS: Record<GreetingPeriod, string> = {
-  morning: "እንደምን አደሩ",
-  afternoon: "እንደምን ዋሉ",
-  evening: "እንደምን አመሹ",
-  night: "መልካም ምሽት",
-};
 
 export function getGreetingPeriod(hour: number): GreetingPeriod {
   if (hour >= 5 && hour < 12) return "morning";
@@ -28,15 +22,11 @@ export function getGreetingPeriod(hour: number): GreetingPeriod {
 export function formatLocalGreeting(language: string, firstName: string, date: Date) {
   const period = getGreetingPeriod(date.getHours());
 
-  if (language === "am") {
-    return `ሰላም፣ ${firstName} — ${AMHARIC_GREETINGS[period]}`;
-  }
-
   return `Selam, ${firstName} — ${ENGLISH_GREETINGS[period]}`;
 }
 
 export function formatLocalDate(language: string, date: Date) {
-  return new Intl.DateTimeFormat(language === "am" ? "am-ET" : "en-ET", {
+  return new Intl.DateTimeFormat("en-ET", {
     weekday: "long",
     day: "numeric",
     month: "long",
@@ -57,7 +47,7 @@ export function LocalGreeting({ language, firstName }: { language: string; first
   }, []);
 
   if (!localTime) {
-    return <span>{language === "am" ? `ሰላም፣ ${firstName}` : `Selam, ${firstName}`}</span>;
+    return <span>{`Selam, ${firstName}`}</span>;
   }
 
   return (

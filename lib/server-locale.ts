@@ -1,10 +1,9 @@
-import { cookies } from "next/headers";
 import { getFoundationCopy } from "./foundation-copy";
 import type { SupportedLanguage as Language } from "./translations";
 
+/** English is the only supported website and ERP locale. Legacy cookies are ignored. */
 export async function getServerLanguage(): Promise<Language> {
-  const value = (await cookies()).get("hisab_locale")?.value;
-  return value === "am" ? "am" : "en";
+  return "en";
 }
 
 export async function getServerFoundationCopy() {

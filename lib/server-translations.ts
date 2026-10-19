@@ -1,12 +1,10 @@
 import "server-only";
-
-import { cookies } from "next/headers";
 import type { SupportedLanguage as Language } from "./translations";
 import { translateUiText, type TranslationValues } from "./ui-translations";
 
+/** Old Amharic locale cookies must not alter server-rendered pages. */
 export async function getRequestLanguage(): Promise<Language> {
-  const value = (await cookies()).get("hisab_locale")?.value;
-  return value === "am" ? "am" : "en";
+  return "en";
 }
 
 export async function getServerTranslator() {

@@ -1,52 +1,6 @@
 export function getDashboardInterfaceCopy(language: string) {
-  return language === "am"
-    ? {
-        home: "መነሻ",
-        dashboard: "ዳሽቦርድ",
-        overview: "የንግድ አጠቃላይ እይታ",
-        financialSnapshot: "የፋይናንስ ማጠቃለያ",
-        financialOverviewLabel: "የፋይናንስ አጠቃላይ እይታ",
-        financialSnapshotDescription: "ገንዘብ፣ ሽያጭ፣ ወጪ፣ ተሰብሳቢ ሂሳብ እና የስራ ውጤት።",
-        sales: "የዛሬ ሽያጭ",
-        expenses: "የዛሬ ወጪ",
-        cash: "ያለ ገንዘብ",
-        receivables: "ተሰብሳቢ ሂሳብ",
-        operatingResult: "የስራ ውጤት",
-        positiveResult: "ሽያጭ ከወጪ በላይ ነው",
-        negativeResult: "ወጪ ከሽያጭ በላይ ነው",
-        attention: "ትኩረት የሚፈልጉ",
-        attentionDescription: "ቀጣዩን ተግባር በቀጥታ የሚያሳዩ የስራ ምልክቶች።",
-        collectReceivables: "የደንበኛ ተሰብሳቢ ሂሳብ",
-        collectReceivablesDescription: "ያልተሰበሰበውን የደንበኛ ቀሪ ሂሳብ ይገምግሙ።",
-        reviewCustomers: "ደንበኞችን ይክፈቱ",
-        operatingMargin: "የሽያጭ እና ወጪ ልዩነት",
-        operatingMarginDescription: "የዛሬን ሽያጭ ከወጪ ጋር ያረጋግጡ።",
-        reviewFinance: "ፋይናንስን ይገምግሙ",
-        reconciliation: "የባንክ እና ክፍያ ማስታረቅ",
-        reconciliationDescription: "የጊዜ መዝጊያ በፊት ያልተጣጣሙ ክፍያዎችን ያረጋግጡ።",
-        reconcile: "ማስታረቅን ይክፈቱ",
-        businessHealth: "የንግድ ጤና",
-        businessHealthDescription: "የገንዘብ ፍሰት፣ ወጪ ቁጥጥር እና ዕዳ ስብስብን ይከታተሉ።",
-        openReports: "ሪፖርቶችን ይክፈቱ",
-        recommendedWorkspaces: "የሚመከሩ የስራ ቦታዎች",
-        recommendedWorkspacesDescription: "ለእርስዎ ሚና በጣም ጠቃሚ የሆኑ የስራ ፍሰቶች።",
-        priorityModules: "ዋና የERP ሞጁሎች",
-        exploreModule: "ሞጁሉን ይክፈቱ",
-        performance: "የፋይናንስ አፈጻጸም",
-        recentActivity: "የቅርብ ጊዜ እንቅስቃሴ",
-        recentActivityDescription: "የቅርብ ጊዜ ገቢ እና ወጪ መዝገቦች።",
-        transaction: "ግብይት",
-        category: "ምድብ",
-        date: "ቀን",
-        amount: "መጠን",
-        noTransactions: "ምንም የቅርብ ጊዜ ግብይት የለም",
-        noTransactionsDescription: "የተመዘገቡ ግብይቶች እዚህ ይታያሉ።",
-        viewAll: "ሁሉንም ይመልከቱ",
-        liveWorkspace: "ቀጥታ የስራ ቦታ",
-        demoWorkspace: "የሙከራ የስራ ቦታ",
-        roleContext: "የዳሽቦርድ ቅድሚያዎች ከተመደበው ሚና ጋር ይጣጣማሉ።",
-      }
-    : {
+  // English is the only supported interface language.
+  return {
         home: "Home",
         dashboard: "Dashboard",
         overview: "Business overview",
@@ -91,5 +45,5 @@ export function getDashboardInterfaceCopy(language: string) {
         liveWorkspace: "Live workspace",
         demoWorkspace: "Demo workspace",
         roleContext: "Dashboard priorities adapt to your assigned role.",
-      };
+  };
 }

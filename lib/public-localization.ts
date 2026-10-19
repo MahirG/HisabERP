@@ -1,20 +1,16 @@
-export type PublicLanguage = "en" | "am";
-export type LocalizedText = Readonly<{ en: string; am: string }>;
+export type PublicLanguage = "en";
+/** Legacy localized source shapes remain accepted; only English is rendered. */
+export type LocalizedText = Readonly<{ en: string; am?: string; ti?: string }>;
 
-/**
- * Public marketing HTML is emitted in English so it can be shared from the
- * Vercel CDN. The client LanguageProvider applies the visitor's persisted
- * English or Amharic preference after hydration without making every public
- * request depend on a server cookie.
- */
+/** Public marketing content is English-only and remains CDN-cacheable. */
 export async function getPublicLanguage(): Promise<PublicLanguage> {
   return "en";
 }
 
-export function localize(value: LocalizedText, language: PublicLanguage) {
-  return value[language];
+export function localize(value: LocalizedText, _language: PublicLanguage) {
+  return value.en;
 }
 
 export function localizedList(values: readonly LocalizedText[], language: PublicLanguage) {
-  return values.map((value) => localize(value, language));
+  return values.map(value => localize(value, language));
 }
