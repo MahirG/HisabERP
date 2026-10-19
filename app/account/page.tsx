@@ -35,10 +35,10 @@ function providerLabel(provider: string | null) {
 }
 
 function providerDescription(provider: string | null) {
-  if (provider === "google") return "Your Google identity is connected as your primary sign-in method.";
-  if (provider === "apple") return "Your Apple identity is connected as your primary sign-in method.";
-  if (provider === "phone") return "Your verified mobile number is used to access this workspace.";
-  if (provider === "email") return "Your verified business email and password are used to access this workspace.";
+  if (provider === "google") return "Your Google account is connected as a sign-in method for this workspace.";
+  if (provider === "apple") return "Your Apple account is connected as a sign-in method for this workspace.";
+  if (provider === "phone") return "Your mobile number is connected as a sign-in method for this workspace.";
+  if (provider === "email") return "Your email identity is managed through Supabase Auth. Use account recovery to create or reset your password.";
   return "Your identity is securely managed through Supabase Auth.";
 }
 
@@ -52,17 +52,19 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
 
   const supabase = await createClient();
   const factorResult = await supabase.auth.mfa.listFactors();
-  const allFactors = [
+  const factorStatusKnown = !factorResult.error;
+  const allFactors = factorStatusKnown ? [
     ...(factorResult.data?.totp || []),
     ...(factorResult.data?.phone || []),
-  ];
+  ] : [];
   const verifiedFactorCount = allFactors.filter((factor) => factor.status === "verified").length;
   const hasAuthenticator = verifiedFactorCount > 0;
   const strongSession = user.aal === "aal2";
-  const continueHref = safeNextPath(query.next || "/");
+  const continueHref = safeNextPath(query.next || "/workspace-home");
   const setupMode = query.setup === "mfa";
   const verificationMode = query.verify === "mfa";
-  const postureScore = Math.min(100, 45 + (user.provider ? 15 : 0) + (hasAuthenticator ? 22 : 0) + (strongSession ? 18 : 0));
+  const authenticatorStatus = !factorStatusKnown ? "Unavailable" : hasAuthenticator ? "Enrolled" : "Not enrolled";
+  const sessionStatus = strongSession ? "AAL2 verified" : "AAL1 standard";
   const resetQuery = new URLSearchParams({ next: "/account" });
   if (user.email) resetQuery.set("email", user.email);
   const resetHref = `/auth/forgot-password?${resetQuery.toString()}`;
@@ -82,9 +84,11 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
             <p>
               {strongSession
                 ? "This browser already has the strong authentication required for protected workspace operations."
-                : hasAuthenticator
+                : !factorStatusKnown
+                  ? "Authenticator status could not be retrieved. Retry the status check below before continuing."
+                  : hasAuthenticator
                   ? "Enter the current code from your authenticator app. No company registration or setup form is required for your existing membership."
-                  : "This is an existing workspace membership, so only authenticator security must be completed. Company registration will not be shown again."}
+                  : "This is an existing workspace membership. Complete authenticator setup for privileged access; no new company registration is required."}
             </p>
           </div>
           <div className="acct2-heading-actions">
@@ -97,7 +101,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
             <span className="acct2-security-icon"><Icon name={strongSession ? "check-circle" : "lock"} size={21} /></span>
             <div>
               <small>{user.organizationName}</small>
-              <strong>{strongSession ? "AAL2 session active" : hasAuthenticator ? "Authenticator confirmation required" : "Authenticator enrollment required"}</strong>
+              <strong>{strongSession ? "AAL2 session active" : !factorStatusKnown ? "Authenticator status unavailable" : hasAuthenticator ? "Authenticator confirmation required" : "Authenticator enrollment required"}</strong>
               <p>{roleLabel(user.role)} · {providerLabel(user.provider)} sign-in · {user.aal.toUpperCase()} assurance</p>
             </div>
           </div>
@@ -118,7 +122,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
   return (
     <main className="acct2-page">
       <nav className="acct2-breadcrumb" aria-label="Breadcrumb">
-        <Link href="/"><Icon name="home" size={14} /> Workspace</Link>
+        <Link href="/workspace-home"><Icon name="home" size={14} /> Workspace</Link>
         <Icon name="chevron-right" size={13} aria-hidden="true" />
         <span aria-current="page">Account & security</span>
       </nav>
@@ -128,10 +132,10 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
           <span className="acct2-setup-icon"><Icon name="shield-check" size={21} /></span>
           <div>
             <small>ADMINISTRATOR SECURITY</small>
-            <strong id="secure-account-heading">{hasAuthenticator ? "Confirm your authenticator" : "Finish authenticator setup"}</strong>
-            <p>{hasAuthenticator ? "Enter a current code to confirm this browser session, then continue to your workspace." : "Connect Google Authenticator or another TOTP app, verify one code, then continue to your workspace."}</p>
+            <strong id="secure-account-heading">{!factorStatusKnown ? "Check authenticator status" : hasAuthenticator ? "Confirm your authenticator" : "Finish authenticator setup"}</strong>
+            <p>{!factorStatusKnown ? "Authenticator status is unavailable. Use the authenticator panel below to retry." : hasAuthenticator ? "Enter a current code to confirm this browser session, then continue to your workspace." : "Connect Google Authenticator or another TOTP app, verify one code, then continue to your workspace."}</p>
           </div>
-          <a href="#authenticator">{hasAuthenticator ? "Verify now" : "Set up now"} <Icon name="arrow-right" size={15} /></a>
+          <a href="#authenticator">{!factorStatusKnown ? "Check status" : hasAuthenticator ? "Verify now" : "Set up now"} <Icon name="arrow-right" size={15} /></a>
         </section>
       ) : null}
 
@@ -142,24 +146,25 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
           <p>Manage your workspace identity, sign-in method, authenticator, and current browser session.</p>
         </div>
         <div className="acct2-heading-actions">
-          <Link href="/security" className="acct2-button"><Icon name="lock" size={15} /> Security controls</Link>
-          <Link href="/" className="acct2-button is-primary"><Icon name="grid" size={15} /> Back to workspace</Link>
+          {user.mfaRequired ? <Link href="/security" className="acct2-button"><Icon name="lock" size={15} /> Security controls</Link> : null}
+          <Link href="/workspace-home" className="acct2-button is-primary"><Icon name="grid" size={15} /> Back to workspace</Link>
         </div>
       </header>
 
-      <section className="acct2-security-strip" aria-label="Security posture">
+      {!factorStatusKnown ? <p className="acct2-service-notice" role="alert"><Icon name="alert-triangle" size={16} /> Authenticator status could not be loaded. Refresh this page to retry; the verification panel below checks again.</p> : null}
+      <section className="acct2-security-strip" aria-label="Account security status">
         <div className="acct2-security-summary">
           <span className="acct2-security-icon"><Icon name="shield-check" size={21} /></span>
           <div>
             <small>Security status</small>
-            <strong>{strongSession ? "Protected session" : hasAuthenticator ? "Session verification required" : "Authenticator setup recommended"}</strong>
-            <p>{hasAuthenticator ? `${verifiedFactorCount} verified authenticator${verifiedFactorCount === 1 ? "" : "s"}` : "No authenticator enrolled"} · {user.aal.toUpperCase()} assurance</p>
+            <strong>{strongSession ? "Strong session active" : !factorStatusKnown ? "Authenticator status unavailable" : hasAuthenticator ? "Session verification required" : user.mfaRequired ? "Authenticator setup required" : "Authenticator setup recommended"}</strong>
+            <p>{!factorStatusKnown ? "Authenticator data unavailable" : hasAuthenticator ? `${verifiedFactorCount} verified factor${verifiedFactorCount === 1 ? "" : "s"}` : "No verified authenticator"} · {user.aal.toUpperCase()} assurance</p>
           </div>
         </div>
-        <div className="acct2-progress" aria-label={`Security score ${postureScore} out of 100`}>
-          <div className="acct2-progress-row"><span>Security score</span><strong>{postureScore}/100</strong></div>
-          <div className="acct2-progress-track"><span style={{ width: `${postureScore}%` }} /></div>
-        </div>
+        <dl className="acct2-security-facts" aria-label="Account security checks">
+          <div><dt>Authenticator</dt><dd>{authenticatorStatus}</dd></div>
+          <div><dt>This session</dt><dd>{sessionStatus}</dd></div>
+        </dl>
       </section>
 
       <section className="acct2-grid">
@@ -172,7 +177,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
                 </span>
                 <div className="acct2-profile-copy">
                   <h2>{user.fullName}</h2>
-                  <p>{user.email || "Verified Biloo account"}</p>
+                  <p>{user.email || "Biloo account"}</p>
                 </div>
               </div>
               <span className="acct2-active"><i aria-hidden="true" /> Active</span>
@@ -197,7 +202,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
                 <p>{providerDescription(user.provider)}</p>
               </div>
               <div className="acct2-provider-links">
-                {user.email ? <Link href={resetHref}>Reset password</Link> : null}
+                {user.email ? <Link href={resetHref}>Create or reset password</Link> : null}
                 <Link href="/help-center">Account help</Link>
               </div>
             </div>
@@ -222,15 +227,15 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
             <div className="acct2-card-body acct2-status-list">
               <article className="acct2-status-item">
                 <span><Icon name="check-circle" size={16} /></span>
-                <div><strong>Identity verified</strong><small>{user.email || providerLabel(user.provider)}</small></div>
+                <div><strong>Signed-in identity</strong><small>{user.email || providerLabel(user.provider)}</small></div>
               </article>
               <article className={`acct2-status-item ${hasAuthenticator ? "" : "is-pending"}`}>
                 <span><Icon name={hasAuthenticator ? "check-circle" : "smartphone"} size={16} /></span>
-                <div><strong>{hasAuthenticator ? "Authenticator enrolled" : "Authenticator missing"}</strong><small>{hasAuthenticator ? `${verifiedFactorCount} verified factor${verifiedFactorCount === 1 ? "" : "s"}` : "Add an authenticator to protect privileged actions."}</small></div>
+                <div><strong>{!factorStatusKnown ? "Authenticator status unavailable" : hasAuthenticator ? "Authenticator enrolled" : "Authenticator not enrolled"}</strong><small>{!factorStatusKnown ? "Reload to confirm factor status." : hasAuthenticator ? `${verifiedFactorCount} verified factor${verifiedFactorCount === 1 ? "" : "s"}` : "Add an authenticator to protect privileged actions."}</small></div>
               </article>
               <article className={`acct2-status-item ${strongSession ? "" : "is-pending"}`}>
                 <span><Icon name={strongSession ? "check-circle" : "lock"} size={16} /></span>
-                <div><strong>{strongSession ? "Strong session active" : "Verification needed"}</strong><small>{strongSession ? "Protected actions are available." : "Enter a current authenticator code for AAL2."}</small></div>
+                <div><strong>{strongSession ? "Strong session active" : "Standard session"}</strong><small>{strongSession ? "AAL2 verified for this session." : "AAL2 verification may be required for privileged actions."}</small></div>
               </article>
             </div>
           </section>
