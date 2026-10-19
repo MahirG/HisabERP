@@ -38,12 +38,12 @@ export function ReadinessRoadmap({ role }: { role: Role }) {
     },
     {
       number: "08",
-      title: "Review translations professionally",
+      title: "Review interface copy professionally",
       status: "Professional sign-off required",
       tone: "review",
-      summary: "Automated coverage and terminology checks are active. Native-language reviewers must approve Amharic and Tigrinya before formal certification.",
+      summary: "The English interface requires clear terminology, accessible controls, and product copy review before release.",
       points: [
-        "Assign named native Amharic and Tigrinya reviewers.",
+        "Assign reviewers for English product copy and accessibility.",
         "Review accounting, tax, payroll and legal terminology in context.",
         "Check truncation, tone, dates, numbers, currencies and accessibility labels.",
         "Record reviewer, date, application version and approved exceptions.",

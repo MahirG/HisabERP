@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { InteractionOrchestrator } from "./interaction-orchestrator";
-import { useLanguage } from "./language-provider";
 
 const experienceCopy = {
   en: {
@@ -14,24 +13,6 @@ const experienceCopy = {
     created: "was created successfully.",
     updated: "was updated successfully.",
     money: "was recorded successfully.",
-  },
-  am: {
-    loading: "የስራ ቦታዎ እየተዘጋጀ ነው",
-    loadingDetail: "ለውጡን በደህንነት እያስቀመጥን መዝገቦችን እያደስን ነው…",
-    done: "ተጠናቋል",
-    completed: "በተሳካ ሁኔታ ተጠናቋል",
-    created: "በተሳካ ሁኔታ ተፈጥሯል።",
-    updated: "በተሳካ ሁኔታ ተዘምኗል።",
-    money: "በተሳካ ሁኔታ ተመዝግቧል።",
-  },
-  ti: {
-    loading: "መስርሕ ስራሕካ ይዳሎ ኣሎ",
-    loadingDetail: "ለውጢ ብውሑስ መንገዲ እናዓቀብና መዛግብቲ ነሐድስ ኣለና…",
-    done: "ተዛዚሙ",
-    completed: "ብዓወት ተዛዚሙ",
-    created: "ብዓወት ተፈጢሩ።",
-    updated: "ብዓወት ተዓሪዩ።",
-    money: "ብዓወት ተመዝጊቡ።",
   },
 } as const;
 
@@ -63,8 +44,7 @@ function BrandLoader({ title, detail }: { title: string; detail: string }) {
 
 export function AppExperienceProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const { language } = useLanguage();
-  const copy = experienceCopy[language];
+  const copy = experienceCopy.en;
   const [busyMode, setBusyMode] = useState<BusyMode>(null);
   const [toast, setToast] = useState<ToastState>(null);
   const busyVisible = useRef(false);

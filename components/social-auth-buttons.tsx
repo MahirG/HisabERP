@@ -8,16 +8,6 @@ const socialCopy = {
     apple: "Continue with Apple",
     divider: "or continue with email",
   },
-  am: {
-    google: "በGoogle ይቀጥሉ",
-    apple: "በApple ይቀጥሉ",
-    divider: "ወይም በኢሜይል ይቀጥሉ",
-  },
-  ti: {
-    google: "ብGoogle ቀጽሉ",
-    apple: "ብApple ቀጽሉ",
-    divider: "ወይ ብኢሜይል ቀጽሉ",
-  },
 } as const;
 
 function GoogleIcon() {
@@ -50,7 +40,7 @@ export function SocialAuthButtons({
   disabled?: boolean;
   dividerText?: string;
 }) {
-  const c = socialCopy[language];
+  const c = socialCopy.en;
   const { google, apple } = appConfig.authProviders;
   if (!google && !apple) return null;
 

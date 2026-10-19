@@ -1,6 +1,5 @@
 import type { ModulePriority } from "./erp-modules";
 import en from "./locales/en.json";
-import am from "./locales/am.json";
 
 export type Language = "en" | "am" | "ti";
 export type SupportedLanguage = Exclude<Language, "ti">;
@@ -86,5 +85,6 @@ export type Dictionary = {
 
 export const dictionaries: Record<SupportedLanguage, Dictionary> = {
   en: en as Dictionary,
-  am: am as Dictionary,
+  // Legacy API language keys resolve to English; Amharic assets are not loaded.
+  am: en as Dictionary,
 };

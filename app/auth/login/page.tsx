@@ -31,46 +31,6 @@ const loginCopy = {
     confirmationHelp: "Your email still needs verification before password sign-in is available.",
     confirmationAction: "Resend verification email",
   },
-  am: {
-    title: "እንኳን ደህና መጡ",
-    description: "ወደ Biloo የንግድ የሥራ ቦታዎ ለመቀጠል ይግቡ።",
-    email: "የንግድ ኢሜይል",
-    emailPlaceholder: "name@company.com",
-    password: "የይለፍ ቃል",
-    passwordPlaceholder: "የይለፍ ቃልዎን ያስገቡ",
-    submit: "ወደ Biloo ይግቡ",
-    divider: "ወይም በኢሜይል ይቀጥሉ",
-    magic: "የተጠበቀ መግቢያ ሊንክ በኢሜይል ይላኩልኝ",
-    forgot: "የይለፍ ቃልዎን ረሱ?",
-    phone: "በሞባይል ቁጥር ይግቡ",
-    newUser: "ለBiloo አዲስ ነዎት?",
-    create: "የሥራ ቦታዎን ይፍጠሩ",
-    passwordHelpTitle: "በኢሜይልና የይለፍ ቃል መግባት ይፈልጋሉ?",
-    passwordHelp: "ይህ ኢሜይል በGoogle ከተመዘገበ፣ ሁለተኛ መለያ ሳይፈጥሩ የይለፍ ቃል ያዘጋጁ።",
-    passwordHelpAction: "የኢሜይል የይለፍ ቃል ይፍጠሩ ወይም ይቀይሩ",
-    confirmationHelp: "በይለፍ ቃል ከመግባትዎ በፊት ኢሜይልዎን ማረጋገጥ ያስፈልጋል።",
-    confirmationAction: "የማረጋገጫ ኢሜይል እንደገና ይላኩ",
-  },
-  ti: {
-    title: "እንቋዕ ብደሓን መጻእኩም",
-    description: "ናብ Biloo ናይ ንግዲ መስርሒ ቦታኹም ንምቕጻል እተዉ።",
-    email: "ናይ ንግዲ ኢሜይል",
-    emailPlaceholder: "name@company.com",
-    password: "መሕለፊ ቃል",
-    passwordPlaceholder: "መሕለፊ ቃልኩም ኣእትዉ",
-    submit: "ናብ Biloo እተዉ",
-    divider: "ወይ ብኢሜይል ቀጽሉ",
-    magic: "ውሑስ መእተዊ ሊንክ ብኢሜይል ስደዱለይ",
-    forgot: "መሕለፊ ቃልኩም ረሲዕኩም?",
-    phone: "ብቁጽሪ ሞባይል እተዉ",
-    newUser: "ኣብ Biloo ሓድሽ ዲኹም?",
-    create: "መስርሒ ቦታኹም ፍጠሩ",
-    passwordHelpTitle: "ብኢሜይልን መሕለፊ ቃልን ክትኣትዉ ትደልዩ?",
-    passwordHelp: "እዚ ኢሜይል መጀመርታ ብGoogle እንተተመዝጊቡ፣ ካልእ ኣካውንት ከይፈጠርኩም መሕለፊ ቃል ኣዳልዉ።",
-    passwordHelpAction: "ናይ ኢሜይል መሕለፊ ቃል ፍጠሩ ወይ ቀይሩ",
-    confirmationHelp: "ብመሕለፊ ቃል ቅድሚ ምእታውኩም ኢሜይልኩም ክረጋገጽ ኣለዎ።",
-    confirmationAction: "ናይ ምርግጋጽ ኢሜይል ደጊምኩም ስደዱ",
-  },
 } as const;
 
 type LoginSearchParams = {
@@ -84,7 +44,7 @@ type LoginSearchParams = {
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<LoginSearchParams> }) {
   const [params, localized] = await Promise.all([searchParams, getServerFoundationCopy()]);
-  const p = loginCopy[localized.language];
+  const p = loginCopy.en;
   const configured = isSupabaseConfigured();
   const next = safeNextPath(params.next || "/workspace-home");
   const preview = params.preview === "1";

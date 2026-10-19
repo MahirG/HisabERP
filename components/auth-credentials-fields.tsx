@@ -67,36 +67,6 @@ const copy = {
     show: "Show",
     hide: "Hide",
   },
-  am: {
-    country: "የአገር ኮድ",
-    phone: "የሞባይል ቁጥር",
-    phoneHelp: "ኢትዮጵያ፦ ከ+251 በኋላ በ9 የሚጀምሩ 9 አሃዞችን ያስገቡ (የአገር ውስጥ ቅርጽ 09XXXXXXXX)።",
-    otherPhoneHelp: "ቁጥሩን ያለ ክፍተትና ያለ + ምልክት ያስገቡ።",
-    password: "የይለፍ ቃል",
-    confirm: "የይለፍ ቃል ያረጋግጡ",
-    mismatch: "የይለፍ ቃሎቹ መመሳሰል አለባቸው።",
-    strength: "የይለፍ ቃል ጥንካሬ",
-    weak: "ደካማ",
-    fair: "መካከለኛ",
-    strong: "ጠንካራ",
-    show: "አሳይ",
-    hide: "ደብቅ",
-  },
-  ti: {
-    country: "ኮድ ሃገር",
-    phone: "ቁጽሪ ሞባይል",
-    phoneHelp: "ኢትዮጵያ፦ ድሕሪ +251 ብ9 ዝጅምሩ 9 ኣሃዛት ኣእትዉ (ናይ ውሽጢ ሃገር ቅርጺ 09XXXXXXXX)።",
-    otherPhoneHelp: "ቁጽሪ ብዘይ ክፍተትን ብዘይ + ምልክትን ኣእትዉ።",
-    password: "መሕለፊ ቃል",
-    confirm: "መሕለፊ ቃል ኣረጋግጹ",
-    mismatch: "መሕለፊ ቃላት ክመሳሰሉ ኣለዎም።",
-    strength: "ጥንካረ መሕለፊ ቃል",
-    weak: "ድኹም",
-    fair: "ማእከላይ",
-    strong: "ጽኑዕ",
-    show: "ኣርኢ",
-    hide: "ሕባእ",
-  },
 } as const;
 
 function EyeIcon({ hidden }: { hidden: boolean }) {
@@ -108,7 +78,7 @@ function EyeIcon({ hidden }: { hidden: boolean }) {
 }
 
 export function AuthCredentialsFields({ mode, language, passwordHelp }: { mode: "sign-in" | "sign-up"; language: Language; passwordHelp?: string }) {
-  const c = copy[language];
+  const c = copy.en;
   const [countryIso, setCountryIso] = useState("ET");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
