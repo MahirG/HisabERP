@@ -71,7 +71,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
 
   if (verificationMode) {
     return (
-      <main className="acct2-page">
+      <main className="acct2-page acct2-verification-page">
         <nav className="acct2-breadcrumb" aria-label="Breadcrumb">
           <Link href={continueHref}><Icon name="chevron-right" size={13} style={{ transform: "rotate(180deg)" }} /> Return to workspace</Link>
           <span aria-current="page">Administrator verification</span>
