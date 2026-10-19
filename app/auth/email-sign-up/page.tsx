@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AuthNotice, EmailAuthCard } from "../../../components/email-auth-card";
 import { SocialAuthButtons } from "../../../components/social-auth-buttons";
+import { SignUpPasswordFields } from "../../../components/signup-password-fields";
 import { signUpWithEmail } from "../../../lib/actions/email-auth";
 import { formatEtb, getBillingPlan, getPlanAmountEtb, isBillingCycle } from "../../../lib/billing/catalog";
 import { isSupabaseConfigured } from "../../../lib/config";
@@ -18,20 +19,23 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ e
   const loginQuery = new URLSearchParams({ next });
   if (preview) loginQuery.set("preview", "1");
   const configured = isSupabaseConfigured();
+  const errorMessage = typeof p.error === "string" ? p.error.slice(0, 360) : "";
+  const successMessage = typeof p.message === "string" ? p.message.slice(0, 360) : "";
 
   return (
     <EmailAuthCard
+      variant="sign-up"
       title="Create your Biloo account"
-      description="Set up your secure business identity. Verify your email, then continue exactly where you left off."
+      description="Create your secure account, verify your email, and continue to your business workspace."
       footer={<>Already have an account? <Link href={`/auth/login?${loginQuery.toString()}`}>Sign in</Link></>}
-      eyebrow="Start your business workspace"
-      badge="Verified identity · protected activation"
-      showcaseTitle="Build a stronger operating foundation from day one."
-      showcaseDescription="Create one verified identity, select the right Biloo ERP plan and launch a connected company workspace."
+      eyebrow="Secure Biloo registration"
+      badge="One business. One connected workspace."
+      showcaseTitle="One workspace. A clearer way to run your business."
+      showcaseDescription="Bring sales, finance, inventory and everyday operations together with Biloo ERP."
     >
       {!configured ? <AuthNotice type="warning">Authentication is not configured.</AuthNotice> : null}
-      <AuthNotice type="error">{p.error}</AuthNotice>
-      <AuthNotice type="success">{p.message}</AuthNotice>
+      <AuthNotice type="error">{errorMessage}</AuthNotice>
+      <AuthNotice type="success">{successMessage}</AuthNotice>
 
       {plan ? (
         <div className="auth-selected-plan" aria-label={`Selected ${plan.name} plan`}>
@@ -45,26 +49,15 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ e
         <input type="hidden" name="next" value={next}/>
         <label className="auth-standard-field" htmlFor="signup-full-name">
           <span>Full name</span>
-          <input id="signup-full-name" name="fullName" autoComplete="name" maxLength={120} placeholder="Your full name" required autoFocus />
+          <input id="signup-full-name" name="fullName" autoComplete="name" maxLength={120} placeholder="Your full name" required />
         </label>
 
         <label className="auth-standard-field" htmlFor="signup-email">
           <span>Business email</span>
-          <input id="signup-email" name="email" type="email" inputMode="email" autoComplete="email" placeholder="name@company.com" required />
+          <input id="signup-email" name="email" type="email" inputMode="email" autoComplete="email" maxLength={254} placeholder="name@company.com" required />
         </label>
 
-        <div className="auth-standard-field-grid">
-          <label className="auth-standard-field" htmlFor="signup-password">
-            <span>Password</span>
-            <input id="signup-password" name="password" type="password" autoComplete="new-password" minLength={10} placeholder="Create a password" aria-describedby="signup-password-help" required />
-          </label>
-          <label className="auth-standard-field" htmlFor="signup-confirm-password">
-            <span>Confirm password</span>
-            <input id="signup-confirm-password" name="confirmPassword" type="password" autoComplete="new-password" minLength={10} placeholder="Repeat your password" required />
-          </label>
-        </div>
-
-        <p className="auth-standard-password-help" id="signup-password-help">Use at least 10 characters with uppercase, lowercase and a number.</p>
+        <SignUpPasswordFields />
 
         <label className="auth-standard-consent">
           <input type="checkbox" name="acceptedTerms" value="yes" required />

@@ -11,6 +11,7 @@ type EmailAuthCardProps = {
   badge?: string;
   showcaseTitle?: string;
   showcaseDescription?: string;
+  variant?: "sign-up";
 };
 
 export function EmailAuthCard({
@@ -22,9 +23,10 @@ export function EmailAuthCard({
   badge = "Protected business workspace",
   showcaseTitle = "Everything your business needs. One clear view.",
   showcaseDescription = "Biloo brings sales, finance, inventory and reporting together in one workspace built for growing businesses in Ethiopia.",
+  variant,
 }: EmailAuthCardProps) {
   return (
-    <main className="auth-page auth-premium-page auth-official-page auth-standard-page">
+    <main className={`auth-page auth-premium-page auth-official-page auth-standard-page${variant === "sign-up" ? " auth-signup-biloo" : ""}`}>
       <section className="auth-standard-shell">
         <aside className="auth-standard-showcase" aria-label="Biloo product introduction">
           <div className="auth-showcase-inner">
