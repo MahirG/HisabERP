@@ -7,43 +7,44 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (file) => readFile(path.join(root, file), "utf8");
 
-test("uses the premium Biloo sign-in hierarchy without changing authentication behavior", async () => {
-  const login = await read("app/auth/login/page.tsx");
-
-  assert.match(login, /biloo-login-page/);
-  assert.match(login, /biloo-login-dashboard/);
-  assert.match(login, /biloo-login-form-pane/);
-  assert.match(login, /LoginPasswordField/);
-  assert.match(login, /SocialAuthButtons/);
-  assert.match(login, /action=\{signInWithEmail\}/);
-  assert.match(login, /inputMode="email"/);
-  assert.match(login, /safeNextPath/);
-  assert.match(login, /auth\/magic-link/);
-  assert.match(login, /auth\/phone-login/);
-  assert.doesNotMatch(login, /auth-slack-page/);
-  assert.doesNotMatch(login, /LanguageSelector/);
+test("Biloo login preserves email, OAuth, password recovery and optional access routes", async () => {
+  const [login, passwordField, social] = await Promise.all([
+    read("app/auth/login/page.tsx"),
+    read("components/login-password-field.tsx"),
+    read("components/social-auth-buttons.tsx"),
+  ]);
+  for (const component of ["LoginPasswordField", "SocialAuthButtons", "action={signInWithEmail}", "auth/magic-link", "auth/phone-login", "auth/forgot-password", "auth/email-sign-up", 'name="next" value={next}', 'inputMode="email"', 'autoComplete="email"']) {
+    assert.ok(login.includes(component), component);
+  }
+  assert.ok(login.includes('safeNextPath(params.next || "/workspace-home")'));
+  assert.ok(!login.includes("autoFocus"), "Mobile navigation must not open the keyboard on entry");
+  assert.ok(passwordField.includes('autoComplete="current-password"'));
+  assert.ok(passwordField.includes("aria-pressed={visible}"));
+  assert.ok(passwordField.includes('type="button"'));
+  assert.ok(social.includes("if (!google && !apple) return null"));
+  assert.ok(social.includes("signInWithOAuthProvider"));
 });
 
-test("keeps the redesigned login responsive, accessible and brand-authoritative", async () => {
-  const [styles, passwordField, layout] = await Promise.all([
-    read("app/auth-login-award.css"),
-    read("components/login-password-field.tsx"),
-    read("app/layout.tsx"),
-  ]);
+test("Login introduction has a truthful static product hierarchy instead of demo financial KPIs", async () => {
+  const login = await read("app/auth/login/page.tsx");
+  assert.ok(login.includes("biloo-login-benefits"));
+  for (const label of ["Sales and invoicing", "Finance and reporting", "Inventory and purchasing"]) assert.ok(login.includes(label));
+  assert.ok(!login.includes("biloo-login-dashboard"));
+  assert.ok(!login.includes("ETB 2.48M"));
+  assert.ok(!login.includes("Business health"));
+  assert.ok(login.includes("<h1>{p.title}</h1>"));
+  assert.ok(login.includes('className="biloo-login-form-pane"'));
+});
 
-  assert.match(layout, /import "\.\/auth-login-award\.css"/);
-  assert.ok(
-    layout.indexOf('import "./auth-login-award.css";') > layout.indexOf('import "./biloo-black-gold-brand-system.css";'),
-    "login design must load after the global brand layer",
-  );
-  assert.match(styles, /@media \(max-width:960px\)/);
-  assert.match(styles, /@media \(max-width:620px\)/);
-  assert.match(styles, /:focus-visible/);
-  assert.match(styles, /prefers-reduced-motion:reduce/);
-  assert.match(styles, /prefers-contrast:more/);
-  assert.match(styles, /--biloo-login-gold:#fca311/i);
-  assert.match(styles, /--biloo-login-navy:#14213d/i);
-  assert.match(passwordField, /autoComplete="current-password"/);
-  assert.match(passwordField, /aria-pressed=\{visible\}/);
-  assert.match(passwordField, /type="button"/);
+test("Login route owns readable Biloo typography and responsive interaction states", async () => {
+  const [layout, styles] = await Promise.all([
+    read("app/auth/login/layout.tsx"),
+    read("app/auth/login/login-finish.css"),
+  ]);
+  assert.ok(layout.includes('import "./login-finish.css";'));
+  for (const token of ["biloo-login-benefits", "biloo-login-heading h1", "biloo-login-input-shell", "social-auth-grid", "biloo-login-password-toggle", "biloo-login-primary", ":focus-visible", "-webkit-text-fill-color", "font-size:16px", "@media(max-width:620px)", "@media(prefers-reduced-motion:reduce)"]) {
+    assert.ok(styles.includes(token), token);
+  }
+  assert.ok(styles.includes("--biloo-login-gold:#fca311"));
+  assert.ok(styles.includes("--biloo-login-navy:#14213d"));
 });
