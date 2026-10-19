@@ -47,6 +47,10 @@ test("workspace hamburger stays above utility bars and navigates without losing 
  expect(await drawer.evaluate(element=>element.matches(':modal'))).toBe(true);
  const topmost=await drawer.locator('header').evaluate(element=>{const rect=element.getBoundingClientRect();return element.contains(document.elementFromPoint(rect.x+rect.width/2,rect.y+rect.height/2))});expect(topmost).toBe(true);
  const close=drawer.getByRole('button',{name:'Close navigation'});await expect(close).toBeFocused();
+ // Regression: the visible X must dismiss immediately, restore focus, and
+ // allow opening the same drawer again without relying on route navigation.
+ await close.click();await expect(drawer).not.toBeVisible();await expect(trigger).toBeFocused();
+ await trigger.click();await expect(drawer).toBeVisible();await expect(close).toBeFocused();
  const lastControl=drawer.locator('footer a');await lastControl.focus();await page.keyboard.press('Tab');expect(await drawer.evaluate(e=>e.contains(document.activeElement))).toBe(true);
  await drawer.getByRole('link',{name:'Inventory',exact:true}).click();await expect(page).toHaveURL(/\/inventory/);await expect(drawer).not.toBeVisible();await expect(page.locator('.core-page')).toBeVisible();
  await trigger.click();await page.keyboard.press('Escape');await expect(drawer).not.toBeVisible();await expect(trigger).toBeFocused();
