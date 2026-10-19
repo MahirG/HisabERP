@@ -5,24 +5,24 @@ import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { getPublicLanguage } from "../../lib/public-localization";
 
 export const metadata: Metadata = {
-  title: "About Hisab Technologies",
-  description: "Learn about Hisab Technologies, the Addis Ababa team building HisabERP for Ethiopian businesses.",
+  title: "About Biloo",
+  description: "Learn about Hisab Technologies, the Addis Ababa team building Biloo for Ethiopian businesses.",
 };
 
 const copy = {
   en: {
-    eyebrow: "About Hisab Technologies",
+    eyebrow: "About Biloo",
     title: "Building a clearer operating system for Ethiopian business.",
     intro: "Hisab Technologies is an Addis Ababa product company focused on making daily business records more connected, controlled and useful for decision-making.",
     facts: [
       ["Based in", "Addis Ababa, Ethiopia"],
-      ["Flagship product", "HisabERP"],
+      ["Flagship product", "Biloo"],
       ["Product focus", "Business operations and financial visibility"],
       ["Primary market", "Growing Ethiopian organizations"],
     ],
     missionEyebrow: "Our mission",
     missionTitle: "Help businesses move from scattered records to reliable management information.",
-    missionText: "HisabERP is being built around one practical idea: sales, purchasing, inventory, finance, customers, suppliers and reporting should contribute to the same trusted business picture.",
+    missionText: "Biloo is being built around one practical idea: sales, purchasing, inventory, finance, customers, suppliers and reporting should contribute to the same trusted business picture.",
     principlesEyebrow: "How we build",
     principlesTitle: "Product principles that guide every release.",
     principles: [
@@ -35,9 +35,9 @@ const copy = {
     leadershipTitle: "Founder-led product development from Addis Ababa.",
     founderName: "Mahir Aman",
     founderRole: "Founder and Product Lead",
-    founderText: "Mahir leads HisabTech product direction, business workflow design and the development of HisabERP as a practical platform for Ethiopian organizations.",
+    founderText: "Mahir leads Biloo product direction, business workflow design and the development of Biloo as a practical platform for Ethiopian organizations.",
     standardsEyebrow: "Our standard",
-    standardsTitle: "What customers should expect from HisabTech.",
+    standardsTitle: "What customers should expect from Biloo.",
     standards: [
       "Clear product scope and implementation responsibilities",
       "Transparent pricing and integration statuses",
@@ -46,11 +46,11 @@ const copy = {
       "Migration validation before a production cutover",
       "A product roadmap shaped by real operating problems",
     ],
-    contactEyebrow: "Talk to HisabTech",
+    contactEyebrow: "Talk to Biloo",
     contactTitle: "Evaluate the product with the people building it.",
     contactText: "Share your current process, business size and main control problem. We will use that context to prepare a relevant conversation or demonstration.",
     demo: "Request a demo",
-    email: "Email HisabTech",
+    email: "Email Biloo",
     resources: "Read business guides",
   },
 } as const;
@@ -65,10 +65,10 @@ export default async function AboutPage() {
     <MarketingPageShell className="biloo-seven-page">
       <section className="about-hero">
         <div><span className="marketing-eyebrow">{c.eyebrow}</span><h1>{c.title}</h1><p>{c.intro}</p><div className="marketing-hero-actions"><Link href="/request-demo?source=about" className="marketing-start marketing-large">{c.demo}</Link><a href="mailto:info@hisabtech.com" className="marketing-demo marketing-large">{c.email}</a></div></div>
-        <InteractiveErpOffice moduleTitle="HisabTech" moduleEyebrow={c.missionEyebrow} metrics={aboutMetrics} rows={aboutRows} compact illustrative informational />
+        <InteractiveErpOffice moduleTitle="Biloo" moduleEyebrow={c.missionEyebrow} metrics={aboutMetrics} rows={aboutRows} compact illustrative informational />
       </section>
 
-      <section className="about-mission-section"><div><span>{c.missionEyebrow}</span><h2>{c.missionTitle}</h2><p>{c.missionText}</p></div><div className="about-mission-mark"><img src="/hisab-logo.svg" alt="" width="150" height="150" className="hisab-logo"/><strong>HisabERP</strong><span>Business operating system</span></div></section>
+      <section className="about-mission-section"><div><span>{c.missionEyebrow}</span><h2>{c.missionTitle}</h2><p>{c.missionText}</p></div><div className="about-mission-mark"><img src="/hisab-logo.svg" alt="" width="150" height="150" className="hisab-logo"/><strong>Biloo</strong><span>Business operating system</span></div></section>
 
       <section className="marketing-section about-principles-section"><div className="marketing-section-heading marketing-section-heading-wide"><span>{c.principlesEyebrow}</span><h2>{c.principlesTitle}</h2></div><div className="about-principles-grid">{c.principles.map(([number, title, text]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{text}</p></article>)}</div></section>
 

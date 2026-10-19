@@ -82,7 +82,7 @@ export const foundationCopies = {
       email: "Email",
       password: "Password",
       signIn: "Sign in",
-      newUser: "New to Hisab ERP?",
+      newUser: "New to Biloo?",
       createAccount: "Create a company account",
       onboardingLabel: "Company onboarding",
       signupTitle: "Create your secure workspace",
@@ -104,7 +104,7 @@ export const foundationCopies = {
     setup: {
       back: "Dashboard",
       label: "Deployment checklist",
-      title: "Connect Hisab ERP to Supabase",
+      title: "Connect Biloo to Supabase",
       steps: [
         "Create a Supabase project in the same region as most customers.",
         "Run the foundation SQL migration in the Supabase SQL editor.",
@@ -128,7 +128,7 @@ export const foundationCopies = {
       notFoundTitle: "This ERP page does not exist.",
       notFoundText: "The module may have moved or is not available for your role.",
       returnDashboard: "Return to dashboard",
-      loading: "Loading Hisab ERP…",
+      loading: "Loading Biloo…",
     },
   },
 } as const satisfies Partial<Record<Language, unknown>>;

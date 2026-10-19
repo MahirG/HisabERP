@@ -6,8 +6,8 @@ import { PublicHelpCenter } from "../../components/public-help-center";
 import { helpArticles, helpCategories } from "../../lib/help-center-content";
 
 export const metadata: Metadata = {
-  title: "HisabERP Help Center",
-  description: "Search practical HisabERP guides for setup, sales, inventory, finance, security, reconciliation and data migration.",
+  title: "Biloo Help Center",
+  description: "Search practical Biloo guides for setup, sales, inventory, finance, security, reconciliation and data migration.",
 };
 
 const featuredSlugs = ["create-your-organization", "create-your-first-customer-and-invoice", "prepare-data-for-import", "enable-administrator-mfa"];
@@ -25,10 +25,10 @@ export default function HelpCenterPage() {
     <MarketingPageShell className="biloo-seven-page biloo-five-page">
       <section className="help-public-hero">
         <div>
-          <span className="marketing-eyebrow">HisabERP Help Center</span>
+          <span className="marketing-eyebrow">Biloo Help Center</span>
           <h1>Practical guidance for the work your team needs to complete.</h1>
           <p>Search setup, sales, inventory, finance, security and migration guides. Every article separates product steps from business validation responsibilities.</p>
-          <div className="marketing-hero-actions"><a href="mailto:mahir@hisabtech.com?subject=HisabERP%20support%20request" className="marketing-start marketing-large">Contact support</a><Link href="/product-tour" className="marketing-demo marketing-large">Open product tour</Link></div>
+          <div className="marketing-hero-actions"><a href="mailto:mahir@hisabtech.com?subject=Biloo%20support%20request" className="marketing-start marketing-large">Contact support</a><Link href="/product-tour" className="marketing-demo marketing-large">Open product tour</Link></div>
         </div>
         <InteractiveErpOffice moduleTitle="Help Center" moduleEyebrow="Guided product support" metrics={helpMetrics} rows={helpRows} compact illustrative informational />
       </section>
@@ -50,7 +50,7 @@ export default function HelpCenterPage() {
 
       <section className="help-support-boundary"><div><span>Documentation boundary</span><h2>Guides explain product workflows, not professional legal or tax advice.</h2><p>Invoice, tax, payroll, privacy and statutory requirements must be confirmed for the organization’s actual jurisdiction and operating circumstances. Contact a qualified adviser when the decision requires professional interpretation.</p></div><Link href="/trust" className="marketing-demo marketing-large">Review the Trust Center</Link></section>
 
-      <section className="marketing-cta marketing-cta-v2"><div><span>Still blocked?</span><h2>Send HisabTech the workflow, page and exact error you are seeing.</h2><p>Include the organization context and the action you were attempting, but never send passwords, secret keys, authenticator codes or full payment credentials.</p></div><div><a href="mailto:mahir@hisabtech.com?subject=HisabERP%20support%20request" className="marketing-start marketing-large">Email support</a><Link href="/request-demo" className="marketing-demo marketing-large">Request guided onboarding</Link></div></section>
+      <section className="marketing-cta marketing-cta-v2"><div><span>Still blocked?</span><h2>Send Biloo the workflow, page and exact error you are seeing.</h2><p>Include the organization context and the action you were attempting, but never send passwords, secret keys, authenticator codes or full payment credentials.</p></div><div><a href="mailto:mahir@hisabtech.com?subject=Biloo%20support%20request" className="marketing-start marketing-large">Email support</a><Link href="/request-demo" className="marketing-demo marketing-large">Request guided onboarding</Link></div></section>
     </MarketingPageShell>
   );
 }

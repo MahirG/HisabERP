@@ -58,13 +58,13 @@ const helpCategories: HelpCategory[] = [
   {
     id: "getting-started",
     title: "Getting started",
-    description: "Learn what HisabTech manages and prepare a safe first workspace.",
+    description: "Learn what Biloo manages and prepare a safe first workspace.",
     icon: "building",
     articles: [
       {
-        title: "What is HisabTech?",
+        title: "What is Biloo?",
         summary: "A secure ERP workspace for operating and understanding your business.",
-        body: "HisabTech brings customers, sales, inventory, purchasing, finance, reporting, people operations, electronic invoicing, reconciliation, and production controls into one protected workspace. Access is role-based, and sensitive workflows remain subject to security and accounting controls.",
+        body: "Biloo brings customers, sales, inventory, purchasing, finance, reporting, people operations, electronic invoicing, reconciliation, and production controls into one protected workspace. Access is role-based, and sensitive workflows remain subject to security and accounting controls.",
         href: "/modules",
         actionLabel: "Explore ERP modules",
       },
@@ -341,7 +341,7 @@ export function HelpCenterPanel({ activeLabel, onNavigate }: Props) {
         <span className="help-welcome-icon"><Icon name="circle-help" size={22} /></span>
         <div>
           <strong id={`${helpId}-help-welcome-title`}>{t("How can we help?")}</strong>
-          <p>{t("Learn HisabTech workflows, controls, and safe operating practices for {0}.", [activeLabel])}</p>
+          <p>{t("Learn Biloo workflows, controls, and safe operating practices for {0}.", [activeLabel])}</p>
         </div>
       </section>
 
@@ -394,7 +394,7 @@ export function HelpCenterPanel({ activeLabel, onNavigate }: Props) {
         <div className="help-section-heading">
           <div>
             <span>{helpQuery ? t("Search results") : t("Knowledge base")}</span>
-            <h3 id={`${helpId}-help-library-title`} aria-live="polite">{helpQuery ? t("{0} matching articles", [resultCount]) : t("HisabTech user guide")}</h3>
+            <h3 id={`${helpId}-help-library-title`} aria-live="polite">{helpQuery ? t("{0} matching articles", [resultCount]) : t("Biloo user guide")}</h3>
           </div>
           {!helpQuery && <small>{t("Select an article to expand it")}</small>}
         </div>

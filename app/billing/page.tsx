@@ -32,8 +32,8 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
   return (
     <main className="commerce-page billing-page">
       <header className="commerce-topbar">
-        <Link href={snapshot.signedIn ? "/workspace-home" : "/"} className="commerce-brand" aria-label={snapshot.signedIn ? "Biloo workspace home" : "Hisab Technologies home"}><img src="/hisab-logo.svg" alt="" width="42" height="42"/><span><strong>Biloo ERP</strong><small>Billing &amp; paid access</small></span></Link>
-        <Link href={returnHref} className="billing-return"><Icon name="home" size={16} />{snapshot.signedIn ? "Back to workspace" : "HisabTech home"}</Link>
+        <Link href={snapshot.signedIn ? "/workspace-home" : "/"} className="commerce-brand" aria-label={snapshot.signedIn ? "Biloo workspace home" : "Biloo home"}><img src="/hisab-logo.svg" alt="" width="42" height="42"/><span><strong>Biloo ERP</strong><small>Billing &amp; paid access</small></span></Link>
+        <Link href={returnHref} className="billing-return"><Icon name="home" size={16} />{snapshot.signedIn ? "Back to workspace" : "Biloo home"}</Link>
       </header>
 
       <section className="billing-hero">

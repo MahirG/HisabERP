@@ -271,7 +271,7 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
       action: "advice",
     },
     {
-      label: t("Open Hisab AI"),
+      label: t("Open Biloo AI"),
       href: "#ai",
       icon: "sparkles",
       group: t("Workspace tools"),
@@ -410,7 +410,7 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
             <Icon name="lightbulb" size={18} />
             <span>{t("Advice")}</span>
           </button>
-          <button className="workspace-ai-trigger" type="button" onClick={() => setSurface("ai")} title={t("Hisab AI")}>
+          <button className="workspace-ai-trigger" type="button" onClick={() => setSurface("ai")} title={t("Biloo AI")}>
             <Icon name="sparkles" size={18} />
             <span>{t("AI Assistant")}</span>
           </button>
@@ -429,7 +429,7 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
         <section ref={dialogRef} tabIndex={-1} className="workspace-command-dialog" role="dialog" aria-modal="true" aria-labelledby="workspace-search-title">
           <div className="command-dialog-heading">
             <div>
-              <strong id="workspace-search-title">{t("Search HisabTech")}</strong>
+              <strong id="workspace-search-title">{t("Search Biloo")}</strong>
               <span>{t("Find pages, modules, reports, and actions.")}</span>
             </div>
             <button type="button" onClick={closeSurface} aria-label={t("Close active panel")}><Icon name="x" size={18} /></button>
@@ -481,11 +481,11 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
             <div className="assistance-title-icon"><Icon name={surface === "help" ? "circle-help" : surface === "advice" ? "lightbulb" : "sparkles"} size={20} /></div>
             <div>
               <strong id={`workspace-${surface}-title`}>
-                {surface === "help" ? t("Help Center") : surface === "advice" ? t("Advice Center") : t("Hisab AI")}
+                {surface === "help" ? t("Help Center") : surface === "advice" ? t("Advice Center") : t("Biloo AI")}
               </strong>
               <span>
                 {surface === "help"
-                  ? t("Guides and shortcuts for using HisabTech safely.")
+                  ? t("Guides and shortcuts for using Biloo safely.")
                   : surface === "advice"
                     ? t("Recommended next steps for this workspace.")
                     : t("Context-aware guidance for {0}.", [activeLabel])}

@@ -12,9 +12,9 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const module = getMarketingModule(slug);
-  if (!module) return { title: "HisabERP Product Module" };
+  if (!module) return { title: "Biloo Product Module" };
   return {
-    title: `${module.shortTitle} | HisabERP`,
+    title: `${module.shortTitle} | Biloo`,
     description: module.summary,
   };
 }
@@ -31,7 +31,7 @@ export default async function ProductModulePage({ params }: { params: Promise<{ 
       <section className={module.slug === "finance-cashflow" ? "module-page-hero finance-cashflow-hero" : module.slug === "inventory" ? "module-page-hero inventory-product-hero" : module.slug === "sales-invoicing" ? "module-page-hero sales-invoicing-hero" : "module-page-hero"}>
         <div className="module-page-hero-copy">
           <span className="marketing-eyebrow">{module.eyebrow}</span>
-          <p className="module-page-index">HisabERP module {module.number}</p>
+          <p className="module-page-index">Biloo module {module.number}</p>
           <h1>{module.title}</h1>
           <p>{module.summary}</p>
           <div className="marketing-hero-actions">
@@ -59,7 +59,7 @@ export default async function ProductModulePage({ params }: { params: Promise<{ 
 
       <section className="module-problem-outcome">
         <article><span>Without a connected system</span><h2>The operational problem</h2><p>{module.problem}</p></article>
-        <article><span>With HisabERP</span><h2>The business outcome</h2><p>{module.outcome}</p></article>
+        <article><span>With Biloo</span><h2>The business outcome</h2><p>{module.outcome}</p></article>
       </section>
 
       <section className="marketing-section module-capabilities-section">
@@ -73,7 +73,7 @@ export default async function ProductModulePage({ params }: { params: Promise<{ 
       </section>
 
       <section className="module-audience-section">
-        <div><span className="marketing-eyebrow">Designed for real operating teams</span><h2>Useful across the people responsible for this part of the business.</h2><p>HisabERP gives each role access to the information and actions required for their responsibility, while keeping the broader business record connected.</p></div>
+        <div><span className="marketing-eyebrow">Designed for real operating teams</span><h2>Useful across the people responsible for this part of the business.</h2><p>Biloo gives each role access to the information and actions required for their responsibility, while keeping the broader business record connected.</p></div>
         <div>{module.audiences.map((audience) => <span key={audience}>{audience}</span>)}</div>
       </section>
 
