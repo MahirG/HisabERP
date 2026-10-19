@@ -26,6 +26,8 @@ import "../../app/internal-styles";
 import "../../app/account/account-v2.css";
 import "../../app/sales/sales-contrast-final.css";
 import "../../app/module-workspaces-standard.css";
+import "../../app/account/account-v2.css";
+import "../../app/account/account-finish.css";
 
 const user = { userId: "ui-fixture", email: "fixture@example.test", fullName: "Visual Quality Review", organizationId: "fixture", organizationName: "Biloo UI Review", branchId: null, role: "viewer" as const, aal: "aal1" as const, mfaRequired: false, avatarUrl: null, provider: null };
 const base = { mode: "demo" as const, organizationName: user.organizationName };

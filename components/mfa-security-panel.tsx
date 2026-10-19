@@ -284,7 +284,7 @@ export function MfaSecurityPanel({ organizationId, required, initialAal, continu
           </div>
           <label className="biloo-mfa-code-field is-inline">
             <span>Current code</span>
-            <div><Icon name="smartphone" size={17} /><input autoFocus inputMode="numeric" autoComplete="one-time-code" value={code} onChange={(event) => setCode(event.target.value.replace(/\D/g, "").slice(0, 8))} placeholder="000 000" /></div>
+            <div><Icon name="smartphone" size={17} /><input inputMode="numeric" autoComplete="one-time-code" value={code} onChange={(event) => setCode(event.target.value.replace(/\D/g, "").slice(0, 8))} placeholder="000 000" /></div>
           </label>
           <button type="button" className="is-primary biloo-mfa-verify-button" disabled={busy} onClick={() => verifyFactor(activeFactor.id, "auth.mfa.verified")}><Icon name="shield-check" size={16} /> {busy ? "Verifying…" : "Verify this session"}</button>
         </section>

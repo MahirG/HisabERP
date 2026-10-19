@@ -611,3 +611,36 @@ test("Compact Biloo hamburger drawer is narrow, calm and fully navigable", async
   await page.keyboard.press("Escape");
   await expect(drawer).not.toBeVisible();
 });
+
+
+test("Account layout typography, navigation actions, and long IDs fit mobile",async({page})=>{
+  await page.goto(fixture+"/finance");
+  await page.evaluate(()=>{
+    const workspace=document.querySelector(".workspace");
+    if(!workspace)return;
+    const el=document.createElement("main");el.className="acct2-page";
+    el.innerHTML=`<nav class="acct2-breadcrumb"><a href="/workspace-home">Workspace</a><span aria-current="page">Account &amp; security</span></nav>
+    <header class="acct2-heading"><div><span class="acct2-eyebrow">Identity &amp; access</span><h1>Account &amp; security</h1><p>Manage your account and session.</p></div><div class="acct2-heading-actions"><a href="/security" class="acct2-button">Security controls</a><a href="/workspace-home" class="acct2-button is-primary">Back to workspace</a></div></header>
+    <section class="acct2-security-strip"><div class="acct2-security-summary"><span class="acct2-security-icon">✓</span><div><small>Security status</small><strong>Session verification required</strong><p>AAL1 assurance</p></div></div><dl class="acct2-security-facts"><div><dt>Authenticator</dt><dd>Enrolled</dd></div><div><dt>This session</dt><dd>AAL1 standard</dd></div></dl></section>
+    <section class="acct2-grid"><div class="acct2-main"><article class="acct2-card"><header class="acct2-card-head"><div class="acct2-profile"><span class="acct2-avatar">AB</span><div class="acct2-profile-copy"><h2>An exceptionally long administrator name</h2><p>an-exceptionally-long-email@organization.example</p></div></div><span class="acct2-active">Active</span></header><div class="acct2-card-body"><dl class="acct2-details"><div><dt>Organization</dt><dd>Long organization name</dd></div><div><dt>Role</dt><dd>Owner</dd></div><div class="is-wide"><dt>Account ID</dt><dd><code>12345678-1234-1234-1234-123456789012</code></dd></div></dl></div></article></div><aside class="acct2-side"><section class="acct2-card"><div class="acct2-card-body">Session information</div></section></aside></section>`;
+    workspace.querySelectorAll("main").forEach(main=>main.remove());workspace.appendChild(el);
+  });
+  for(const width of [320,390,430,760,1024]){
+    await page.setViewportSize({width,height:844});
+    const target=page.locator("main.acct2-page");
+    await expect(target.locator("h1")).toHaveText("Account & security");
+    const computed=await target.evaluate(el=>{
+      const title=el.querySelector(".acct2-heading h1")!;
+      const name=el.querySelector(".acct2-profile-copy h2")!;
+      const id=el.querySelector(".acct2-details code")!;
+      const action=el.querySelector(".acct2-heading-actions .is-primary")!;
+      return {color:getComputedStyle(title).color,nameWrap:getComputedStyle(name).whiteSpace,idWrap:getComputedStyle(id).overflowWrap,button:getComputedStyle(action).backgroundColor,right:el.getBoundingClientRect().right};
+    });
+    expect(computed.color).toBe("rgb(20, 33, 61)");
+    expect(computed.nameWrap).toBe("normal");
+    expect(computed.idWrap).toBe("anywhere");
+    expect(computed.button).toBe("rgb(252, 163, 17)");
+    expect(computed.right).toBeLessThanOrEqual(width+1);
+    await checkPageWidth(page);
+  }
+});
