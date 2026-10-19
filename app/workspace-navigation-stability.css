@@ -363,7 +363,7 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
     justify-content: flex-end !important;
     gap: 12px !important;
     padding-left: clamp(16px,2vw,28px) !important;
-    padding-right: 78px !important;
+    padding-right: 62px !important;
   }
   body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-search-trigger {
     width: clamp(220px,34vw,440px) !important;
@@ -463,5 +463,27 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
   }
   body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-workspace-header .mobile-menu-trigger :is(span,i) {
     color: #fff !important;
+  }
+}
+
+/* Seamless right-hand account group: remove empty strip around profile. */
+@media (min-width: 761px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header {
+    padding-right: 62px !important;
+    gap: 7px !important;
+    background-color: #14213d !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-header-actions {
+    gap: 2px !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .sticky-user-menu {
+    background: #14213d !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .sticky-user-menu .sticky-user-trigger {
+    background: rgba(255,255,255,.10) !important;
+    box-shadow: none !important;
+    margin: 0 !important;
   }
 }
