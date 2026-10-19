@@ -115,19 +115,23 @@
 .link[aria-current="page"] { border-color: #14213d; color: #fff; background: #14213d; }
 .link[aria-current="page"] .icon { color: #fca311; }
 .activeDot { width: 6px; height: 6px; border-radius: 50%; background: #fca311; }
-.footer {
+/* Standalone neutral footer surface, distinct from the white navigation body. */
+.dialog .footer {
   display: grid;
   flex: 0 0 auto;
   gap: 8px;
   padding: 14px 20px max(20px, env(safe-area-inset-bottom));
-  border-top: 1px solid #e9edf3;
+  border-top: 1px solid #d5dfea;
   border-radius: 0 0 24px 0;
-  background: #fff;
+  background: #eaf0f7;
+  background-image: none;
+  box-shadow: 0 -3px 10px rgba(20, 33, 61, .025);
 }
-.security { display: flex; align-items: center; gap: 6px; color: #667085; font-size: 12px; }
-.footer a { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; min-height: 44px; color: #667085; font-size: 12px; text-decoration: none; }
-.footer a strong { color: #344054; font-weight: 650; }
-.footer a > svg { margin-left: auto; color: #8a611c; }
+.dialog .security { display: flex; align-items: center; gap: 7px; color: #475467; font-size: 12px; font-weight: 550; }
+.dialog .security svg { flex: none; color: #475467; }
+.dialog .footer a { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; min-height: 44px; color: #475467; font-size: 12px; text-decoration: none; }
+.dialog .footer a strong { color: #14213d; font-weight: 750; }
+.dialog .footer a > svg { margin-left: auto; color: #976014; }
 .dialog :is(a,button):focus-visible { outline: 3px solid #d69a27; outline-offset: 2px; }
 .dialog[data-closing="true"] .panel { animation: panelOut 180ms ease both; }
 .dialog[data-closing="true"]::backdrop { animation: backdropOut 180ms ease both; }

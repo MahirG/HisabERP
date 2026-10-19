@@ -527,3 +527,34 @@ test("Overview navigation remains in the secure ERP, not the marketing homepage"
   await expect(page.locator(".desktop-sidebar-brand")).toHaveAttribute("href", "/workspace-home");
   await expect(page.locator(".sidebar-workspace-switcher")).toHaveAttribute("href", "/workspace-home");
 });
+
+test("Mobile workspace menu footer has an independently colored high-contrast surface", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(fixture + "/finance");
+  await page.locator(".mobile-menu-trigger").click();
+  const dialog = page.locator('dialog[data-workspace-navigation]');
+  await expect(dialog).toBeVisible();
+  const colors = await dialog.evaluate(element => {
+    const panel = element.querySelector<HTMLElement>("div[class*='panel']")!;
+    const footer = element.querySelector<HTMLElement>("footer")!;
+    const security = footer.querySelector<HTMLElement>("span")!;
+    const company = footer.querySelector<HTMLElement>("a strong")!;
+    return {
+      panel: getComputedStyle(panel).backgroundColor,
+      footer: getComputedStyle(footer).backgroundColor,
+      border: getComputedStyle(footer).borderTopColor,
+      security: getComputedStyle(security).color,
+      company: getComputedStyle(company).color,
+      link: footer.querySelector<HTMLAnchorElement>("a")?.getAttribute("href"),
+    };
+  });
+  expect(colors.panel).toBe("rgb(255, 255, 255)");
+  expect(colors.footer).toBe("rgb(234, 240, 247)");
+  expect(colors.footer).not.toBe(colors.panel);
+  expect(colors.border).toBe("rgb(213, 223, 234)");
+  expect(colors.security).toBe("rgb(71, 84, 103)");
+  expect(colors.company).toBe("rgb(20, 33, 61)");
+  expect(colors.link).toBe("https://www.hisabtech.com");
+  await dialog.getByRole("button", { name: "Close navigation" }).click();
+  await expect(dialog).not.toBeVisible();
+});
