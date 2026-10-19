@@ -392,3 +392,143 @@
     transform: none !important;
   }
 }
+
+
+/* Compact X-inspired navigation: a low-profile bar, 19px icons, small labels,
+ * and a single thin selection indicator (not a large rounded active card).
+ * Preserve 48px tap targets and account for Android gesture safe areas.
+ */
+@media (max-width: 760px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell {
+    --mobile-bottom-nav-height: 56px !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-bottom-nav {
+    position: fixed !important;
+    z-index: 175 !important;
+    inset: auto 0 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    align-items: start !important;
+    gap: 0 !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    height: calc(56px + env(safe-area-inset-bottom)) !important;
+    min-height: calc(56px + env(safe-area-inset-bottom)) !important;
+    max-height: calc(56px + env(safe-area-inset-bottom)) !important;
+    margin: 0 !important;
+    padding: 4px 7px calc(4px + env(safe-area-inset-bottom)) !important;
+    border: 0 !important;
+    border-top: 1px solid #e3e8ef !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    background-image: none !important;
+    box-shadow: 0 -2px 12px rgba(20, 33, 61, .035) !important;
+    backdrop-filter: blur(14px) saturate(1.08);
+    -webkit-backdrop-filter: blur(14px) saturate(1.08);
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-bottom-nav > :is(a, button) {
+    position: relative;
+    display: grid !important;
+    grid-template-rows: 20px 12px !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    align-content: center !important;
+    justify-items: center !important;
+    row-gap: 1px !important;
+    column-gap: 0 !important;
+    width: 100% !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    max-height: 48px !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 5px 2px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    background-image: none !important;
+    color: #647084 !important;
+    -webkit-text-fill-color: #647084 !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    transform: none !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-bottom-nav > :is(a, button) > svg {
+    display: block !important;
+    flex: none !important;
+    width: 19px !important;
+    height: 19px !important;
+    min-width: 19px !important;
+    min-height: 19px !important;
+    max-width: 19px !important;
+    max-height: 19px !important;
+    margin: 0 auto !important;
+    color: inherit !important;
+    stroke: currentColor;
+    stroke-width: 1.85;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-bottom-nav > :is(a, button) > span {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    color: inherit !important;
+    -webkit-text-fill-color: currentColor !important;
+    font-size: 9px !important;
+    line-height: 12px !important;
+    font-weight: 550 !important;
+    letter-spacing: -.01em !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-bottom-nav > :is(a[aria-current="page"], button.active) {
+    background: transparent !important;
+    background-image: none !important;
+    color: #14213d !important;
+    -webkit-text-fill-color: #14213d !important;
+    box-shadow: none !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-bottom-nav > :is(a[aria-current="page"], button.active) > span {
+    font-weight: 760 !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-bottom-nav > :is(a[aria-current="page"], button.active)::before {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    width: 26px;
+    height: 2px;
+    border-radius: 0 0 2px 2px;
+    background: #fca311;
+    content: "";
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-bottom-nav > :is(a, button):focus-visible {
+    outline: 2px solid #d68a08 !important;
+    outline-offset: -2px !important;
+    border-radius: 6px !important;
+  }
+  /* Match scrolling content padding to the actual compact bar. */
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace {
+    padding-bottom: calc(56px + env(safe-area-inset-bottom)) !important;
+  }
+}
+@media (max-width: 760px) {
+  html[data-theme="dark"] body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-bottom-nav {
+    background: #111827 !important;
+    border-top-color: #334155 !important;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, .15) !important;
+  }
+  html[data-theme="dark"] body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-bottom-nav > :is(a, button) {
+    color: #c3cedc !important;
+    -webkit-text-fill-color: #c3cedc !important;
+  }
+  html[data-theme="dark"] body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-bottom-nav > :is(a[aria-current="page"], button.active) {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+}

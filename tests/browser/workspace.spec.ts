@@ -340,3 +340,46 @@ test("Overview hero and controls remain usable on compact mobile viewports", asy
     await checkPageWidth(page);
   }
 });
+
+
+test("Compact mobile footer matches X-style dimensions and keeps all shortcuts operable", async ({ page }) => {
+  for (const width of [320, 375, 390, 430, 760]) {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto(fixture + "/");
+    const nav = page.getByRole("navigation", { name: "Mobile workspace shortcuts" });
+    await expect(nav).toBeVisible();
+    const measurement = await nav.evaluate(element => {
+      const box = element.getBoundingClientRect();
+      const items = [...element.children] as HTMLElement[];
+      return {
+        height: box.height,
+        right: box.right,
+        bottom: box.bottom,
+        itemCount: items.length,
+        minTapHeight: Math.min(...items.map(item => item.getBoundingClientRect().height)),
+        maxIconSize: Math.max(...items.map(item => item.querySelector("svg")?.getBoundingClientRect().width ?? 0)),
+        maxLabelSize: Math.max(...items.map(item => Number.parseFloat(getComputedStyle(item.querySelector("span")!).fontSize))),
+        activeBackground: getComputedStyle(element.querySelector('[aria-current="page"]')!).backgroundColor,
+        itemWidths: items.map(item => item.getBoundingClientRect().width),
+      };
+    });
+    expect(measurement.height).toBeGreaterThanOrEqual(55);
+    expect(measurement.height).toBeLessThanOrEqual(60);
+    expect(measurement.bottom).toBeCloseTo(844, 0);
+    expect(measurement.right).toBeLessThanOrEqual(width + 1);
+    expect(measurement.itemCount).toBe(5);
+    expect(measurement.minTapHeight).toBeGreaterThanOrEqual(44);
+    expect(measurement.maxIconSize).toBeLessThanOrEqual(19.5);
+    expect(measurement.maxLabelSize).toBeLessThanOrEqual(10);
+    expect(measurement.activeBackground).toBe("rgba(0, 0, 0, 0)");
+    expect(Math.min(...measurement.itemWidths)).toBeGreaterThanOrEqual(55);
+    await checkPageWidth(page);
+  }
+  await page.setViewportSize({ width: 390, height: 844 });
+  const nav = page.getByRole("navigation", { name: "Mobile workspace shortcuts" });
+  await nav.getByRole("link", { name: "Sales" }).click();
+  await expect(page).toHaveURL(/\/sales$/);
+  await expect(nav.getByRole("link", { name: "Sales" })).toHaveAttribute("aria-current", "page");
+  await nav.getByRole("button", { name: "Workspace menu" }).click();
+  await expect(page.getByRole("dialog", { name: "Workspace menu" })).toBeVisible();
+});

@@ -268,13 +268,13 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
           const active = isActiveRoute(pathname, item.href);
           return (
             <Link href={item.href} key={item.href} aria-current={active ? "page" : undefined}>
-              <Icon name={item.icon} size={21} />
+              <Icon name={item.icon} size={19} />
               <span>{item.label}</span>
             </Link>
           );
         })}
         <button type="button" className={mobileNavOpen ? "active" : undefined} aria-label={menuLabel} aria-controls="mobile-workspace-navigation" aria-expanded={mobileNavOpen} onClick={() => setMobileNavOpen(true)}>
-          <Icon name="grid" size={21} />
+          <Icon name="grid" size={19} />
           <span>{moreLabel}</span>
         </button>
       </nav>
