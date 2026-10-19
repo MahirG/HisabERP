@@ -349,3 +349,86 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
     line-height: 1.5 !important;
   }
 }
+
+
+/* Marketing-aligned Biloo ERP topbar. Navy #14213d is the public header color. */
+@media (min-width: 761px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header {
+    background: #14213d !important;
+    background-image: none !important;
+    border-bottom: 1px solid #30415f !important;
+    box-shadow: 0 3px 12px rgba(20,33,61,.12) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+    padding-left: clamp(16px,2vw,28px) !important;
+    padding-right: 160px !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-search-trigger {
+    width: clamp(220px,34vw,440px) !important;
+    max-width: 440px !important;
+    flex: 0 1 440px !important;
+    background: rgba(255,255,255,.11) !important;
+    border: 1px solid rgba(255,255,255,.32) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-search-trigger > span,
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-search-trigger :is(svg,kbd,kbd *) {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-header-actions {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+    gap: 6px !important;
+    background: transparent !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-header-actions > button {
+    background: transparent !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-header-actions > button :is(svg,span) {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header :is(button:hover,button:focus-visible) {
+    background: rgba(255,255,255,.17) !important;
+  }
+}
+@media (max-width: 760px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-workspace-header {
+    background: #14213d !important;
+    background-image: none !important;
+    border-bottom: 1px solid #30415f !important;
+    box-shadow: 0 3px 12px rgba(20,33,61,.12) !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-workspace-header .mobile-menu-trigger {
+    background: rgba(255,255,255,.10) !important;
+    border: 1px solid rgba(255,255,255,.3) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-workspace-header .mobile-menu-trigger i {
+    background: #fff !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger {
+    background: rgba(255,255,255,.12) !important;
+    border: 1px solid rgba(255,255,255,.3) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger :is(svg,span) {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger:hover {
+    background: rgba(255,255,255,.2) !important;
+  }
+}
