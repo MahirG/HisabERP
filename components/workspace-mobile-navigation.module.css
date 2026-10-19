@@ -1,4 +1,6 @@
-/* The mobile navigation is isolated from the historic sidebar cascade. */
+/* Biloo ERP — compact mobile navigation drawer.
+   Isolated CSS Module, not shared workspace styles.
+   Purposefully static: no menu-entry motion or decorative transitions. */
 .dialog {
   position: fixed;
   inset: 0;
@@ -13,36 +15,53 @@
   color: #14213d;
   background: transparent;
   font-family: var(--font-biloo-manrope, "Manrope"), Manrope, "Segoe UI", sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-  overflow: visible;
+  font-size: 13px;
+  line-height: 1.45;
+  overflow: hidden;
 }
 .dialog, .dialog * { box-sizing: border-box; }
 .dialog:not([open]) { display: none; }
 .dialog[open] { display: flex; }
-.dialog::backdrop { background: rgba(11,20,40,.46); backdrop-filter: blur(6px); animation: backdropIn 200ms ease both; }
+.dialog::backdrop {
+  background: rgba(11, 20, 40, .40);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  animation: none;
+}
 .panel {
   display: flex;
   flex-direction: column;
-  width: min(360px, calc(100% - 24px));
+  flex: 0 0 auto;
+  width: min(308px, calc(100% - 48px));
+  max-width: 100%;
   height: 100%;
   min-width: 0;
   min-height: 0;
-  border-radius: 0 24px 24px 0;
+  border-radius: 0 16px 16px 0;
+  border-right: 1px solid #dfe5ec;
   background: #fff;
-  box-shadow: 16px 0 64px rgba(11,20,40,.2);
-  animation: panelIn 220ms cubic-bezier(.22,1,.36,1) both;
+  box-shadow: 8px 0 28px rgba(11, 20, 40, .12);
+  animation: none;
+  transform: none;
 }
 .header {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: max(20px, env(safe-area-inset-top)) 20px 16px;
+  gap: 10px;
+  padding: max(14px, env(safe-area-inset-top)) 14px 10px;
 }
 .identity { min-width: 0; }
-.identity h2 { margin: 0; color: #14213d; font-size: 18px; line-height: 1.3; font-weight: 750; letter-spacing: -.025em; overflow-wrap: anywhere; }
+.identity h2 {
+  margin: 0;
+  color: #14213d;
+  font-size: 16px;
+  line-height: 1.3;
+  font-weight: 760;
+  letter-spacing: -.03em;
+  overflow-wrap: anywhere;
+}
 .dialog .close {
   display: grid;
   place-items: center;
@@ -50,101 +69,183 @@
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid #e4e7ec;
-  border-radius: 14px;
-  color: #344054;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  color: #475467;
   background: #f8fafc;
   box-shadow: none;
   cursor: pointer;
 }
-.close svg { display: block; width: 20px; height: 20px; }
+.close svg { display: block; width: 18px; height: 18px; }
 .organization {
   display: grid;
   flex: 0 0 auto;
-  grid-template-columns: 40px minmax(0,1fr) 18px;
+  grid-template-columns: 36px minmax(0, 1fr) 16px;
   align-items: center;
-  gap: 12px;
-  margin: 0 16px 12px;
-  padding: 12px;
-  border: 1px solid #e4e7ec;
-  border-radius: 14px;
-  background: #f8fafc;
+  gap: 9px;
+  margin: 0 12px 10px;
+  padding: 10px;
+  border: 1px solid #e3e8ef;
+  border-radius: 11px;
+  background: #f7f9fc;
   text-decoration: none;
 }
-.mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; color: #14213d; background: #f9eaca; font-size: 13px; font-weight: 800; }
+.mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  color: #14213d;
+  background: #f7e8c3;
+  font-size: 11px;
+  font-weight: 800;
+}
 .organization > div { min-width: 0; }
-.organization strong, .organization > div > span { display: block; overflow-wrap: anywhere; }
-.organization strong { color: #14213d; font-size: 13px; font-weight: 700; line-height: 1.5; }
-.organization > div > span { margin-top: 2px; color: #667085; font-size: 12px; line-height: 1.5; }
-.organization > svg { color: #667085; }
+.organization strong, .organization > div > span {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.organization strong {
+  color: #14213d;
+  font-size: 12px;
+  font-weight: 720;
+  line-height: 1.35;
+}
+.organization > div > span {
+  margin-top: 2px;
+  color: #596579;
+  font-size: 11px;
+  line-height: 1.4;
+}
+.organization > svg { width: 16px; height: 16px; color: #667085; }
 .navigation {
   flex: 1 1 auto;
   min-height: 0;
   min-width: 0;
-  padding: 4px 12px 20px;
+  padding: 1px 9px 14px;
   overflow-y: auto;
+  overflow-x: hidden;
   overscroll-behavior: contain;
-  scroll-padding-block: 12px;
+  scroll-padding-block: 8px;
   scrollbar-width: thin;
-  scrollbar-color: #cbd2dd transparent;
+  scrollbar-color: #cbd5e1 transparent;
   -webkit-overflow-scrolling: touch;
 }
 .group { min-width: 0; }
-.group + .group { margin-top: 20px; padding-top: 16px; border-top: 1px solid #eef0f4; }
-.group h3 { margin: 0 12px 8px; color: #667085; font-size: 12px; font-weight: 650; line-height: 1.5; letter-spacing: .035em; }
-.links { display: grid; gap: 4px; }
+.group + .group {
+  margin-top: 11px;
+  padding-top: 11px;
+  border-top: 1px solid #edf0f4;
+}
+.group h3 {
+  margin: 0 10px 5px;
+  color: #667085;
+  font-size: 10px;
+  font-weight: 740;
+  line-height: 1.4;
+  letter-spacing: .045em;
+}
+.links { display: grid; gap: 2px; }
 .link {
+  position: relative;
   display: grid;
-  grid-template-columns: 32px minmax(0,1fr) 8px;
+  grid-template-columns: 24px minmax(0, 1fr);
   align-items: center;
-  gap: 10px;
-  min-height: 48px;
-  padding: 8px 12px;
-  border: 1px solid transparent;
-  border-radius: 12px;
-  color: #475467;
+  gap: 8px;
+  min-height: 44px;
+  padding: 9px 11px;
+  border: 0;
+  border-radius: 9px;
+  color: #344054;
   background: transparent;
   text-decoration: none;
-  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
+  -webkit-tap-highlight-color: transparent;
 }
-.icon { display: grid; place-items: center; width: 32px; height: 32px; color: #667085; }
-.icon svg { display: block; width: 21px; height: 21px; }
-.label { min-width: 0; overflow-wrap: anywhere; color: inherit; font-size: 14px; font-weight: 600; line-height: 1.5; letter-spacing: -.01em; }
-.link:hover { color: #14213d; background: #f5f7fa; }
-.link:active { background: #edf1f6; }
-.link[aria-current="page"] { border-color: #14213d; color: #fff; background: #14213d; }
-.link[aria-current="page"] .icon { color: #fca311; }
-.activeDot { width: 6px; height: 6px; border-radius: 50%; background: #fca311; }
-/* Standalone neutral footer surface, distinct from the white navigation body. */
+.icon {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  color: #667085;
+}
+.icon svg { display: block; width: 18px; height: 18px; stroke-width: 1.85; }
+.label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 590;
+  line-height: 1.4;
+  letter-spacing: -.012em;
+}
+.link:hover { background: #f3f6fa; color: #14213d; }
+.link:active { background: #e8eef6; }
+.link[aria-current="page"] {
+  color: #14213d;
+  background: #edf2f8;
+}
+.link[aria-current="page"]::before {
+  position: absolute;
+  left: 0;
+  top: 9px;
+  bottom: 9px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: #d9961f;
+  content: "";
+}
+.link[aria-current="page"] .label { font-weight: 760; }
+.link[aria-current="page"] .icon { color: #9b6113; }
+/* Keep the footer visually distinct, without a large branded card. */
 .dialog .footer {
   display: grid;
   flex: 0 0 auto;
-  gap: 8px;
-  padding: 14px 20px max(20px, env(safe-area-inset-bottom));
+  gap: 3px;
+  padding: 10px 14px max(11px, env(safe-area-inset-bottom));
   border-top: 1px solid #d5dfea;
-  border-radius: 0 0 24px 0;
+  border-radius: 0 0 16px 0;
   background: #eaf0f7;
   background-image: none;
-  box-shadow: 0 -3px 10px rgba(20, 33, 61, .025);
+  box-shadow: none;
 }
-.dialog .security { display: flex; align-items: center; gap: 7px; color: #475467; font-size: 12px; font-weight: 550; }
-.dialog .security svg { flex: none; color: #475467; }
-.dialog .footer a { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; min-height: 44px; color: #475467; font-size: 12px; text-decoration: none; }
-.dialog .footer a strong { color: #14213d; font-weight: 750; }
-.dialog .footer a > svg { margin-left: auto; color: #976014; }
-.dialog :is(a,button):focus-visible { outline: 3px solid #d69a27; outline-offset: 2px; }
-.dialog[data-closing="true"] .panel { animation: panelOut 180ms ease both; }
-.dialog[data-closing="true"]::backdrop { animation: backdropOut 180ms ease both; }
-@keyframes panelIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
-@keyframes panelOut { from { transform: translateX(0); } to { transform: translateX(-100%); } }
-@keyframes backdropIn { from { background: rgba(11,20,40,0); } }
-@keyframes backdropOut { to { background: rgba(11,20,40,0); } }
-@media(max-height:560px) {
-  .header { padding-block: max(8px,env(safe-area-inset-top)) 8px; }
-  .organization { margin-bottom: 8px; padding: 8px 12px; }
-  .footer { padding-top: 8px; padding-bottom: max(8px,env(safe-area-inset-bottom)); gap: 4px; }
+.dialog .security {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #475467;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
 }
-@media(prefers-reduced-motion:reduce) {
-  .panel, .dialog::backdrop, .dialog[data-closing="true"] .panel, .dialog[data-closing="true"]::backdrop { animation: none; }
-  .link { transition: none; }
+.dialog .security svg { flex: none; width: 14px; height: 14px; color: #475467; }
+.dialog .footer a {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3px;
+  min-height: 36px;
+  color: #475467;
+  font-size: 11px;
+  line-height: 1.45;
+  text-decoration: none;
+}
+.dialog .footer a strong { color: #14213d; font-weight: 760; }
+.dialog .footer a > svg { margin-left: auto; width: 14px; height: 14px; color: #976014; }
+.dialog :is(a, button):focus-visible {
+  outline: 2px solid #a46a0f;
+  outline-offset: -2px;
+}
+@media (max-width: 340px) {
+  .panel { width: calc(100% - 40px); }
+  .navigation { padding-inline: 7px; }
+  .label { font-size: 12.5px; }
+}
+@media (max-height: 560px) {
+  .header { padding-top: max(8px, env(safe-area-inset-top)); padding-bottom: 8px; }
+  .organization { padding: 8px; margin-bottom: 6px; }
+  .navigation { padding-bottom: 8px; }
+  .group + .group { margin-top: 8px; padding-top: 8px; }
+  .dialog .footer { padding-top: 7px; padding-bottom: max(8px, env(safe-area-inset-bottom)); gap: 2px; }
 }

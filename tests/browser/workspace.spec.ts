@@ -558,3 +558,56 @@ test("Mobile workspace menu footer has an independently colored high-contrast su
   await dialog.getByRole("button", { name: "Close navigation" }).click();
   await expect(dialog).not.toBeVisible();
 });
+
+
+test("Compact Biloo hamburger drawer is narrow, calm and fully navigable", async ({ page }) => {
+  for (const width of [320, 390, 430, 760]) {
+    await page.setViewportSize({width, height: 844});
+    await page.goto(fixture + "/finance");
+    await page.locator(".mobile-menu-trigger").click();
+    const dialog = page.locator('dialog[data-workspace-navigation]');
+    await expect(dialog).toBeVisible();
+    const metrics = await dialog.evaluate(element => {
+      const panel = element.querySelector<HTMLElement>("div[class*='panel']")!;
+      const header = panel.querySelector<HTMLElement>("header")!;
+      const links = [...panel.querySelectorAll<HTMLAnchorElement>('nav a[href]')];
+      const active = panel.querySelector<HTMLAnchorElement>('nav a[aria-current="page"]')!;
+      const footer = panel.querySelector<HTMLElement>("footer")!;
+      return {
+        width: panel.getBoundingClientRect().width,
+        drawerAnim: getComputedStyle(panel).animationName,
+        closeTarget: header.querySelector("button")!.getBoundingClientRect().height,
+        count: links.length,
+        minTap: Math.min(...links.map(a => a.getBoundingClientRect().height)),
+        maxIcon: Math.max(...links.map(a => a.querySelector("svg")!.getBoundingClientRect().width)),
+        maxText: Math.max(...links.map(a => parseFloat(getComputedStyle(a.querySelector('span[class*="label"]')!).fontSize))),
+        activeBackground: getComputedStyle(active).backgroundColor,
+        activeText: getComputedStyle(active).color,
+        footerColor: getComputedStyle(footer).backgroundColor,
+      };
+    });
+    expect(metrics.width).toBeLessThanOrEqual(309);
+    expect(metrics.width).toBeLessThanOrEqual(width - 39);
+    expect(metrics.drawerAnim).toBe("none");
+    expect(metrics.closeTarget).toBeGreaterThanOrEqual(44);
+    expect(metrics.count).toBeGreaterThanOrEqual(12);
+    expect(metrics.minTap).toBeGreaterThanOrEqual(44);
+    expect(metrics.maxIcon).toBeLessThanOrEqual(19);
+    expect(metrics.maxText).toBeLessThanOrEqual(13.5);
+    expect(metrics.activeBackground).toBe("rgb(237, 242, 248)");
+    expect(metrics.activeText).toBe("rgb(20, 33, 61)");
+    expect(metrics.footerColor).toBe("rgb(234, 240, 247)");
+    await dialog.getByRole("button", {name:"Close navigation"}).click();
+    await expect(dialog).not.toBeVisible();
+    await checkPageWidth(page);
+  }
+  await page.setViewportSize({width:390,height:844});
+  await page.goto(fixture + "/finance");
+  await page.locator(".mobile-menu-trigger").click();
+  const drawer = page.locator('dialog[data-workspace-navigation]');
+  await expect(drawer.getByRole("link", {name:"Overview"})).toHaveAttribute("href","/workspace-home");
+  await expect(drawer.getByRole("link", {name:"Sales"})).toHaveAttribute("href","/sales");
+  await expect(drawer.getByRole("link", {name:"Finance"})).toHaveAttribute("aria-current","page");
+  await page.keyboard.press("Escape");
+  await expect(drawer).not.toBeVisible();
+});

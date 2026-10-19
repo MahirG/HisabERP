@@ -79,7 +79,7 @@ export function WorkspaceMobileNavigation({ open, onDismiss, groups, pathname, o
           </button>
         </header>
 
-        <Link href="/workspace-home" className={styles.organization} onClick={onDismiss}>
+        <Link href="/workspace-home" className={styles.organization} onClick={onDismiss} title={organizationName}>
           <span className={styles.mark} aria-hidden="true">{organizationMark}</span>
           <div><strong>{organizationName}</strong><span>{activeLabel}</span></div>
           <Icon name="building" size={18} />
@@ -94,9 +94,8 @@ export function WorkspaceMobileNavigation({ open, onDismiss, groups, pathname, o
                   const active = item.href === "/workspace-home" ? pathname === "/" || pathname === "/workspace-home" : pathname === item.href || pathname.startsWith(`${item.href}/`);
                   return (
                     <Link href={item.href} key={item.href} onClick={onDismiss} aria-current={active ? "page" : undefined} className={styles.link}>
-                      <span className={styles.icon}><Icon name={item.icon} size={21} /></span>
+                      <span className={styles.icon}><Icon name={item.icon} size={18} /></span>
                       <span className={styles.label}>{item.label}</span>
-                      {active && <span className={styles.activeDot} aria-hidden="true" />}
                     </Link>
                   );
                 })}
