@@ -247,3 +247,46 @@ test("Company Setup overview and creation hero preserve surface contrast in both
     await checkPageWidth(page);
   }
 });
+
+test("Company Setup mobile masthead and finish CTA remain legible", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(fixture + "/finance");
+  await page.evaluate(() => {
+    const main = document.createElement("main");
+    main.className = "guided-setup-page launch-center";
+    main.innerHTML = `
+      <header class="launch-topbar">
+        <a class="launch-brand" href="/"><div class="launch-brand-wordmark">
+          <strong>Biloo ERB</strong><span class="launch-brand-separator">|</span><span class="launch-brand-context">Company Setup</span>
+        </div></a>
+        <div class="launch-header-actions"><a class="launch-dashboard-link" href="/">Open dashboard</a></div>
+      </header>
+      <footer class="launch-finish">
+        <div class="launch-finish-icon"></div>
+        <div><span>4 tasks remaining</span><strong>Finish the critical controls, then move into daily operations.</strong><p>The roadmap keeps dependencies in order.</p></div>
+        <a href="#review">Review production controls</a>
+      </footer>
+    `;
+    document.body.append(main);
+  });
+  const expected = [
+    [".launch-finish", "backgroundColor", "rgb(20, 33, 61)"],
+    [".launch-finish > div:nth-child(2) > span", "color", "rgb(255, 208, 113)"],
+    [".launch-finish > div:nth-child(2) > strong", "color", "rgb(255, 255, 255)"],
+    [".launch-finish > div:nth-child(2) > p", "color", "rgb(219, 228, 242)"],
+    [".launch-finish > a", "backgroundColor", "rgb(252, 163, 17)"],
+    [".launch-finish > a", "color", "rgb(20, 33, 61)"],
+  ] as const;
+  for (const theme of ["light", "dark"] as const) {
+    await page.locator("html").evaluate((element, value) => { element.dataset.theme = value; }, theme);
+    for (const [selector, property, value] of expected) {
+      const actual = await page.locator("main.launch-center " + selector).evaluate((element, key) => {
+        const computed = getComputedStyle(element);
+        return key === "color" ? (computed.webkitTextFillColor || computed.color) : computed.backgroundColor;
+      }, property);
+      expect(actual, `Company Setup ${theme} ${selector} ${property}`).toBe(value);
+    }
+    await expect(page.locator("main.launch-center .launch-brand-wordmark")).toBeVisible();
+    await expect(page.locator("main.launch-center .launch-brand")).toContainText("Biloo ERB|Company Setup".replace("|", "|")); // text follows the divider
+  }
+});

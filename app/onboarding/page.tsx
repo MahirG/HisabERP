@@ -88,9 +88,12 @@ function formatPercent(value: number) {
 
 function LaunchBrand() {
   return (
-    <Link href="/" className="launch-brand" aria-label="HisabTech home">
-      <span aria-hidden="true">H</span>
-      <div><strong>HisabTech</strong><small>Company launch</small></div>
+    <Link href="/" className="launch-brand" aria-label="Biloo ERB Company Setup — open dashboard">
+      <div className="launch-brand-wordmark">
+        <strong>Biloo ERB</strong>
+        <span className="launch-brand-separator" aria-hidden="true">|</span>
+        <span className="launch-brand-context">Company Setup</span>
+      </div>
     </Link>
   );
 }
