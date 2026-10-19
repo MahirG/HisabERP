@@ -37,8 +37,8 @@ test("pricing is published in ETB with monthly and annual comparison", async () 
   for (const plan of ["Starter", "Growth", "Business", "Enterprise"]) assert.ok(pricing.includes(`name: "${plan}"`));
   assert.match(pricing, /monthlyEtb: 1500/);
   assert.match(pricing, /annualEtb: 15000/);
-  assert.match(experience, /Monthly billing/);
-  assert.match(experience, /Annual billing/);
+  assert.match(experience, /Monthly access/);
+  assert.match(experience, /Annual access/);
   assert.match(page, /Transparent ETB pricing/);
 });
 

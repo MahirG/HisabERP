@@ -41,7 +41,7 @@ test("Finance design authority is route scoped and responsive to small phones",a
     read("app/product/[slug]/finance-cashflow-finish.css"),
   ]);
   assert.match(layout,/import "\.\/finance-cashflow-finish\.css"/);
-  assert.match(css,/#public-main-content:has\(\.finance-cashflow-hero\)/);
+  assert.match(css,/#public-main-content:has\(:is\(\.finance-cashflow-hero,\.inventory-product-hero\)\)/);
   for(const selector of [
     "finance-cashflow-hero","module-problem-outcome","module-capability-grid",
     "module-workflow-grid","module-audience-section","related-module-grid",
