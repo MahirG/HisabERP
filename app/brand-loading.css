@@ -165,3 +165,46 @@
     display: none !important;
   }
 }
+
+
+/* Biloo's standard circular loader for secure session transitions.
+   Operation feedback cards are intentionally unaffected. */
+body .brand-route-loading.workspace-session-spinner {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9500 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 14px !important;
+  width: 100vw !important;
+  max-width: none !important;
+  height: 100dvh !important;
+  padding: 24px !important;
+  margin: 0 !important;
+  background: #f8fafc !important;
+  box-shadow: none !important;
+  pointer-events: auto;
+  animation: none !important;
+}
+body .workspace-session-spinner-ring {
+  display: block;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+  border: 3px solid rgba(20,33,61,.13);
+  border-top-color: #fca311;
+  border-right-color: #14213d;
+  border-radius: 50%;
+  animation: bilooSessionSpin .85s linear infinite !important;
+}
+body .workspace-session-spinner-label {
+  color: #14213d !important;
+  font: 700 12px/1.45 var(--font-biloo-manrope),Manrope,"Segoe UI",sans-serif;
+  letter-spacing: .005em;
+}
+@keyframes bilooSessionSpin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  body .workspace-session-spinner-ring { animation: none !important; }
+}
