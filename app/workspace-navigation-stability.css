@@ -470,11 +470,21 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
    The single navy row remains continuous through the far-right account avatar. */
 @media (min-width: 761px) {
   body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header {
+    position: fixed !important;
+    top: 0 !important;
     right: 0 !important;
-    padding-right: 14px !important;
+    bottom: auto !important;
+    height: 58px !important;
+    min-height: 58px !important;
+    margin: 0 !important;
+    padding: 0 14px !important;
     gap: 8px !important;
     background: #14213d !important;
+    background-image: none !important;
+    border-bottom: 1px solid #30415f !important;
+    border-radius: 0 !important;
     overflow: visible !important;
+    box-shadow: none !important;
   }
   body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-header-actions {
     gap: 2px !important;
