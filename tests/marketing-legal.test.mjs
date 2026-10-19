@@ -52,3 +52,33 @@ test("single editorial stylesheet keeps a coherent public hierarchy", async () =
   assert.match(marketingStyles, /\.legal-document-shell/);
   assert.match(marketingStyles, /\.legal-contact-panel/);
 });
+
+test("consent banner uses a compact, accessible navy and gold layout",async()=>{
+ const [suite,styles]=await Promise.all([
+   source("components/marketing-legal-suite.tsx"),
+   source("app/marketing-legal.css"),
+ ]);
+ assert.match(suite,/Your privacy\. Your choice\./);
+ assert.match(suite,/Accept all/);
+ assert.match(suite,/Essential only/);
+ assert.match(suite,/Customize preferences/);
+ assert.match(styles,/grid-template-columns:42px minmax\(0,1fr\) 310px/);
+ assert.match(styles,/@media\(max-width:800px\)/);
+ assert.match(styles,/safe-area-inset-bottom/);
+ assert.match(styles,/#14213d/);
+ assert.match(styles,/#fca311/);
+ assert.match(styles,/prefers-reduced-motion/);
+ assert.match(styles,/:focus-visible/);
+});
+test("marketing and authentication consent decisions share first-party storage",async()=>{
+ const suite=await source("components/marketing-legal-suite.tsx");
+ const auth=await source("components/cookie-consent.tsx");
+ assert.match(suite,/biloo-marketing-consent-v1/);
+ assert.match(suite,/biloo_cookie_consent_v1/);
+ assert.match(auth,/biloo_cookie_consent_v1/);
+ assert.match(suite,/Domain=hisabtech\.com/);
+ assert.match(suite,/SameSite=Lax/);
+ assert.match(suite,/if \(shared === "declined"\) return recordFor\(false\)/);
+ assert.match(suite,/if \(shared === "accepted"\) return recordFor\(false\)/);
+ assert.match(suite,/if \(!readConsent\(\)\) setBannerOpen\(true\)/);
+});
