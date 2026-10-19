@@ -378,6 +378,45 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
     box-shadow: none !important;
     backdrop-filter: none !important;
   }
+  /* Primary product descriptor lives in the same physical bar as Search and AI. */
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header > .workspace-header-identity {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    min-width: 0 !important;
+    max-width: 260px !important;
+    height: 40px !important;
+    margin: 0 auto 0 0 !important;
+    padding: 0 9px 0 2px !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header > .workspace-header-identity strong {
+    display: block !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    font-family: var(--font-biloo-manrope), Manrope, "Segoe UI", sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 780 !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.038em !important;
+    white-space: nowrap !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header > .workspace-header-identity:is(:hover,:focus-visible) {
+    background: rgba(255,255,255,.10) !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header > .workspace-header-identity:focus-visible {
+    outline: 2px solid #fca311 !important;
+    outline-offset: 2px !important;
+  }
   body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header::before,
   body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header::after {
     content: none !important;
@@ -603,5 +642,16 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
 @media (max-width: 760px) {
   body[data-workspace-system="financial-os-v1"] .erp-shell[data-workspace-brand="biloo"] > .workspace {
     padding-top: calc(var(--mobile-header-height, 84px) + env(safe-area-inset-top)) !important;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1200px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header > .workspace-header-identity strong {
+    font-size: 13px !important;
+    letter-spacing: -0.026em !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-search-trigger {
+    flex: 1 1 180px !important;
+    max-width: 270px !important;
   }
 }
