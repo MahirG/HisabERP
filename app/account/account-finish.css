@@ -94,3 +94,140 @@ body[data-workspace-system="financial-os-v1"] .acct2-auth .biloo-mfa-manual-key 
 body[data-workspace-system="financial-os-v1"] .acct2-heading-actions{grid-template-columns:minmax(0,1fr)!important}
 body[data-workspace-system="financial-os-v1"] .acct2-security-facts{grid-template-columns:minmax(0,1fr)!important}
 }
+
+
+/* Biloo administrator verification · focused, accessible 2026 refinement */
+body[data-workspace-system="financial-os-v1"] .workspace > main.acct2-verification-page {
+  max-width: 1040px !important;
+  padding: clamp(20px,3vw,38px) clamp(16px,3vw,36px) 64px !important;
+  color: #14213d !important;
+}
+.acct2-verification-page .acct2-breadcrumb {
+  margin-bottom: 22px !important;
+}
+.acct2-verification-page .acct2-heading {
+  display: flex !important;
+  align-items: center !important;
+  gap: 24px !important;
+  padding: 26px clamp(20px,3vw,34px) !important;
+  border: 1px solid #dfe6ef !important;
+  border-radius: 22px !important;
+  background: linear-gradient(125deg,#fff 0%,#f8fafd 74%,#fff6e7 100%) !important;
+  box-shadow: 0 12px 38px rgba(20,33,61,.055) !important;
+}
+.acct2-verification-page .acct2-heading h1 {
+  font-size: clamp(27px,3.2vw,40px) !important;
+  letter-spacing: -.045em !important;
+  line-height: 1.13 !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+}
+.acct2-verification-page .acct2-heading p {
+  max-width: 55ch !important;
+  color: #475467 !important;
+  -webkit-text-fill-color: #475467 !important;
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+}
+.acct2-verification-page .acct2-eyebrow {
+  color: #805100 !important;
+  -webkit-text-fill-color: #805100 !important;
+  font-size: 11px !important;
+}
+.acct2-verification-page .acct2-heading-actions .acct2-button {
+  white-space: nowrap !important;
+  min-height: 44px !important;
+  background: #fff !important;
+  color: #14213d !important;
+  border: 1px solid #bdc8d7 !important;
+}
+.acct2-verification-page .acct2-security-strip {
+  border: 1px solid #e1e7f0 !important;
+  border-radius: 17px !important;
+  background: #fff !important;
+  padding: 17px 20px !important;
+  box-shadow: 0 4px 18px rgba(20,33,61,.04) !important;
+}
+.acct2-verification-page .acct2-security-summary { gap: 13px !important; }
+.acct2-verification-page .acct2-security-summary :is(strong,small,p) {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+}
+.acct2-verification-page .acct2-security-summary p {
+  color: #596579 !important;
+  -webkit-text-fill-color: #596579 !important;
+}
+.acct2-verification-page .acct2-auth {
+  border: 1px solid #dfe6ef !important;
+  border-radius: 22px !important;
+  padding: clamp(16px,2.6vw,28px) !important;
+  background: #fff !important;
+  box-shadow: 0 15px 46px rgba(20,33,61,.05) !important;
+  min-width: 0 !important;
+}
+.acct2-verification-page .biloo-mfa-manager {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+.acct2-verification-page .biloo-mfa-manager :is(input,button,a) {
+  max-width: 100% !important;
+}
+.acct2-verification-page .biloo-mfa-manager :is(input,button,a):focus-visible,
+.acct2-verification-page a:focus-visible {
+  outline: 3px solid #bd780b !important;
+  outline-offset: 3px !important;
+}
+.acct2-verification-page .biloo-mfa-manager input {
+  font-size: 16px !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  background-color: #fff !important;
+}
+.acct2-verification-page .biloo-mfa-manager .is-primary {
+  min-height: 46px !important;
+  background: #14213d !important;
+  border-color: #14213d !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+.acct2-verification-page .biloo-mfa-manager .is-primary:disabled {
+  opacity: .6 !important;
+  cursor: wait !important;
+}
+@media (max-width: 700px) {
+  body[data-workspace-system="financial-os-v1"] .workspace > main.acct2-verification-page {
+    padding: 16px 12px 100px !important;
+  }
+  .acct2-verification-page .acct2-heading {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 20px 17px !important;
+    border-radius: 17px !important;
+    gap: 16px !important;
+  }
+  .acct2-verification-page .acct2-heading-actions {
+    width: 100% !important;
+  }
+  .acct2-verification-page .acct2-heading-actions .acct2-button {
+    width: 100% !important;
+  }
+  .acct2-verification-page .acct2-security-strip {
+    padding: 14px !important;
+  }
+  .acct2-verification-page .acct2-auth {
+    padding: 14px !important;
+    border-radius: 17px !important;
+  }
+  .acct2-verification-page .biloo-mfa-enrollment-grid {
+    grid-template-columns: minmax(0,1fr) !important;
+  }
+  .acct2-verification-page .biloo-mfa-manager .is-primary {
+    width: 100% !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .acct2-verification-page *, .acct2-verification-page *::before, .acct2-verification-page *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+}
