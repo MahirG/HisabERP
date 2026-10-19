@@ -28,7 +28,7 @@ export default async function ProductModulePage({ params }: { params: Promise<{ 
 
   return (
     <MarketingPageShell>
-      <section className="module-page-hero">
+      <section className={module.slug === "finance-cashflow" ? "module-page-hero finance-cashflow-hero" : "module-page-hero"}>
         <div className="module-page-hero-copy">
           <span className="marketing-eyebrow">{module.eyebrow}</span>
           <p className="module-page-index">HisabERP module {module.number}</p>
@@ -46,6 +46,7 @@ export default async function ProductModulePage({ params }: { params: Promise<{ 
           moduleEyebrow={module.eyebrow}
           metrics={module.metrics}
           rows={module.previewRows}
+          illustrative={module.slug === "finance-cashflow"}
         />
       </section>
 

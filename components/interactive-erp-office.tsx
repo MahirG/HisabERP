@@ -35,6 +35,7 @@ type InteractiveErpOfficeProps = {
   metrics: HeroMetric[];
   rows: HeroRow[];
   compact?: boolean;
+  illustrative?: boolean;
 };
 
 type ViewId = 'records' | 'trend' | 'controls';
@@ -47,6 +48,15 @@ const navigation = [
   { label: 'Finance', Icon: Bank },
   { label: 'Reports', Icon: Reports },
   { label: 'Settings', Icon: Settings },
+];
+
+const financeCashflowData = [
+  { period: 'Mar', value: 64 },
+  { period: 'Apr', value: 72 },
+  { period: 'May', value: 68 },
+  { period: 'Jun', value: 88 },
+  { period: 'Jul', value: 83 },
+  { period: 'Aug', value: 96 },
 ];
 
 const chartData = [
@@ -73,15 +83,16 @@ function toAmount(value: string, index: number) {
   return ['ETB 126,500', 'ETB 89,760', 'ETB 45,600', 'ETB 73,200', 'ETB 18,975'][index] ?? value;
 }
 
-export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected operating workspace', metrics, rows, compact = false }: InteractiveErpOfficeProps) {
+export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected operating workspace', metrics, rows, compact = false, illustrative = false }: InteractiveErpOfficeProps) {
   const [view, setView] = useState<ViewId>('records');
+  const financePreview = illustrative && moduleTitle.toLowerCase().includes('finance');
 
   const records = useMemo(() => {
     const source = rows.length ? rows : [{ label: 'Selam Supermarket', value: 'ETB 126,500', meta: 'Current record' }];
     return Array.from({ length: 5 }, (_, index) => {
       const row = source[index % source.length];
       return {
-        reference: `${moduleTitle.toLowerCase().includes('integration') ? 'INT' : 'INV'}-26-${String(891 - index).padStart(4, '0')}`,
+        reference: `${moduleTitle.toLowerCase().includes('finance') ? 'FIN' : moduleTitle.toLowerCase().includes('integration') ? 'INT' : 'INV'}-26-${String(891 - index).padStart(4, '0')}`,
         date: `${31 - index} Aug 2026`,
         record: row.label,
         branch: branches[index],
@@ -94,32 +105,36 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
 
   return (
     <IconoirProvider iconProps={{ width: 17, height: 17, strokeWidth: 1.55, 'aria-hidden': true }}>
-      <div className={`erp-evidence${compact ? ' erp-evidence-compact' : ''}`} aria-label={`${moduleTitle} live Biloo ERP interface preview`}>
+      <div className={`erp-evidence${compact ? ' erp-evidence-compact' : ''}`} aria-label={`${moduleTitle} ${illustrative ? 'illustrative sample interface' : 'Biloo ERP interface preview'}`}>
         <header className="erp-evidence-topbar">
           <div className="erp-evidence-brand"><span>b.</span><strong>Biloo ERP</strong></div>
           <nav aria-label="Product breadcrumb"><span>Workspace</span><b>/</b><strong>{moduleTitle}</strong></nav>
-          <div className="erp-evidence-toolbar">
-            <button type="button"><Calendar />Aug 2026</button>
-            <button type="button" aria-label="Filter records"><FilterList /></button>
-            <button type="button" aria-label="Export records"><Download /></button>
-          </div>
+          {illustrative ? <span className="erp-evidence-sample-indicator">Sample data</span> : (
+            <div className="erp-evidence-toolbar">
+              <button type="button"><Calendar />Aug 2026</button>
+              <button type="button" aria-label="Filter records"><FilterList /></button>
+              <button type="button" aria-label="Export records"><Download /></button>
+            </div>
+          )}
         </header>
 
         <div className="erp-evidence-layout">
           <aside className="erp-evidence-sidebar" aria-label="ERP navigation">
-            {navigation.map(({ label, Icon }, index) => <button className={index === 1 ? 'active' : undefined} type="button" key={label}><Icon /><span>{label}</span></button>)}
+            {navigation.map(({ label, Icon }, index) => illustrative
+              ? <span className={label === 'Finance' ? 'active' : undefined} key={label}><Icon /><span>{label}</span></span>
+              : <button className={index === 1 ? 'active' : undefined} type="button" key={label}><Icon /><span>{label}</span></button>)}
           </aside>
 
           <section className="erp-evidence-content">
             <div className="erp-evidence-heading">
               <div><span>{moduleEyebrow}</span><h2>{moduleTitle}</h2></div>
-              <button type="button" className="erp-evidence-create"><Plus />New record</button>
+              {illustrative ? <span className="erp-evidence-preview-label">Illustrative preview</span> : <button type="button" className="erp-evidence-create"><Plus />New record</button>}
             </div>
 
             <div className="erp-evidence-tabs" role="tablist" aria-label={`${moduleTitle} preview views`}>
               {([
-                ['records', 'Records'],
-                ['trend', 'Performance'],
+                ['records', financePreview ? 'Transactions' : 'Records'],
+                ['trend', financePreview ? 'Cash trends' : 'Performance'],
                 ['controls', 'Controls'],
               ] as const).map(([id, label]) => <button type="button" role="tab" aria-selected={view === id} className={view === id ? 'active' : undefined} onClick={() => setView(id)} key={id}>{label}</button>)}
             </div>
@@ -139,15 +154,15 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
 
             {view === 'trend' ? (
               <div className="erp-evidence-analysis">
-                <div><span>Revenue performance</span><strong>ETB 4.82M</strong><small>+18.6% compared with July</small></div>
-                <div className="erp-evidence-chart" aria-label="Revenue performance from March to August 2026">
+                <div><span>{financePreview ? 'Sample net cash flow' : 'Revenue performance'}</span><strong>{financePreview ? (metrics[1]?.value ?? 'ETB 96,240') : 'ETB 4.82M'}</strong><small>{financePreview ? 'Illustrative trend, March–August 2026' : '+18.6% compared with July'}</small></div>
+                <div className="erp-evidence-chart" aria-label={financePreview ? "Sample net cash flow from March to August 2026" : "Revenue performance from March to August 2026"}>
                   <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={chartData} margin={{ top: 12, right: 12, left: -20, bottom: 0 }}>
+                    <AreaChart data={financePreview ? financeCashflowData : chartData} margin={{ top: 12, right: 12, left: -20, bottom: 0 }}>
                       <CartesianGrid stroke="#e8ebf0" vertical={false} />
                       <XAxis dataKey="period" tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 10 }} />
-                      <YAxis tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 9 }} tickFormatter={(value) => `ETB ${value}M`} />
-                      <Tooltip formatter={(value) => [`ETB ${value}M`, 'Revenue']} contentStyle={{ border: '1px solid #dfe3ea', borderRadius: 6, boxShadow: '0 10px 30px rgba(16,36,74,.1)', fontSize: 11 }} />
-                      <Area type="monotone" dataKey="value" stroke="#315efb" fill="#315efb" fillOpacity={0.08} strokeWidth={2} />
+                      <YAxis tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 9 }} tickFormatter={(value) => financePreview ? `${value}k` : `ETB ${value}M`} />
+                      <Tooltip formatter={(value) => [financePreview ? `ETB ${value}k` : `ETB ${value}M`, financePreview ? 'Sample cash flow' : 'Revenue']} contentStyle={{ border: '1px solid #dfe3ea', borderRadius: 6, boxShadow: '0 10px 30px rgba(16,36,74,.1)', fontSize: 11 }} />
+                      <Area type="monotone" dataKey="value" stroke={financePreview ? "#b57b19" : "#315efb"} fill={financePreview ? "#b57b19" : "#315efb"} fillOpacity={0.08} strokeWidth={2} />
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>
@@ -163,6 +178,7 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
             ) : null}
           </section>
         </div>
+        {illustrative ? <p className="erp-evidence-disclaimer">Illustrative figures and sample records only. Not connected to an account.</p> : null}
       </div>
     </IconoirProvider>
   );
