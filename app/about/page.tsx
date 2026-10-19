@@ -53,55 +53,12 @@ const copy = {
     email: "Email HisabTech",
     resources: "Read business guides",
   },
-  am: {
-    eyebrow: "ስለ Hisab Technologies",
-    title: "ለኢትዮጵያ ንግድ የበለጠ ግልጽ የሥራ ስርዓት እየገነባን ነው።",
-    intro: "Hisab Technologies በአዲስ አበባ የሚገኝ የምርት ኩባንያ ሲሆን ዕለታዊ የንግድ መዝገቦችን የተገናኙ፣ ቁጥጥር ያላቸው እና ለውሳኔ ጠቃሚ ለማድረግ ያተኩራል።",
-    facts: [
-      ["የምንገኝበት", "አዲስ አበባ፣ ኢትዮጵያ"],
-      ["ዋና ምርት", "HisabERP"],
-      ["የምርት ትኩረት", "የንግድ አሰራር እና የፋይናንስ ግልጽነት"],
-      ["ዋና ገበያ", "እያደጉ ያሉ የኢትዮጵያ ድርጅቶች"],
-    ],
-    missionEyebrow: "ተልዕኳችን",
-    missionTitle: "ንግዶች ከተበታተኑ መዝገቦች ወደ አስተማማኝ የአስተዳደር መረጃ እንዲሸጋገሩ መርዳት።",
-    missionText: "HisabERP በአንድ ተግባራዊ ሀሳብ ላይ እየተገነባ ነው፤ ሽያጭ፣ ግዢ፣ ክምችት፣ ፋይናንስ፣ ደንበኞች፣ አቅራቢዎች እና ሪፖርት ለአንድ የታመነ የንግድ ምስል መረጃ ማቅረብ አለባቸው።",
-    principlesEyebrow: "እንዴት እንገነባለን",
-    principlesTitle: "እያንዳንዱን ልቀት የሚመሩ የምርት መርሆዎች።",
-    principles: [
-      ["01", "አካባቢያዊ ሁኔታ በቅድሚያ", "የኢትዮጵያ ብር፣ ብዙ ቋንቋ፣ የሞባይል የሥራ ሂደት እና የአካባቢ ትግበራ ሁኔታዎች ከመጀመሪያ ይታሰባሉ።"],
-      ["02", "ከንግግር በላይ ማስረጃ", "ደህነት፣ ውህደቶች እና የደንበኛ ውጤቶች በተተገበረውና በተረጋገጠው መሠረት ይገለጻሉ።"],
-      ["03", "ያለ አላስፈላጊ ውስብስብነት ቁጥጥር", "ምርቱ የተለመደውን ሥራ ሳያስቸግር ኃላፊነትን፣ ማጽደቅን እና ልዩነቶችን ግልጽ ማድረግ አለበት።"],
-      ["04", "የተገናኙ ውሳኔዎች", "የሥራ እንቅስቃሴ ሪፖርቶችን በእጅ ሳይገነቡ ጠቃሚ የአስተዳደር መረጃ መሆን አለበት።"],
-    ],
-    leadershipEyebrow: "አመራር",
-    leadershipTitle: "በአዲስ አበባ በመሥራች የሚመራ የምርት ልማት።",
-    founderName: "ማሂር አማን",
-    founderRole: "መሥራች እና የምርት መሪ",
-    founderText: "ማሂር የHisabTech የምርት አቅጣጫን፣ የንግድ የሥራ ሂደት ንድፍን እና HisabERPን ለኢትዮጵያ ድርጅቶች ተግባራዊ መድረክ አድርጎ የማሳደግ ሥራን ይመራል።",
-    standardsEyebrow: "የሥራ ደረጃችን",
-    standardsTitle: "ደንበኞች ከHisabTech ምን መጠበቅ አለባቸው።",
-    standards: [
-      "ግልጽ የምርት ወሰን እና የትግበራ ኃላፊነቶች",
-      "ግልጽ ዋጋ እና የውህደት ሁኔታ",
-      "የተፈጠሩ ምስክርነቶች፣ ሰርተፍኬቶች ወይም የአፈጻጸም ጥያቄዎች አለመጠቀም",
-      "የደህነት ቁጥጥሮችን ከእውነተኛ ገደቦቻቸው ጋር መግለጽ",
-      "ወደ ምርት ሥራ ከመሸጋገር በፊት የመረጃ ማረጋገጥ",
-      "በእውነተኛ የሥራ ችግሮች የሚመራ የምርት ዕቅድ",
-    ],
-    contactEyebrow: "ከHisabTech ጋር ይነጋገሩ",
-    contactTitle: "ምርቱን ከሚገነቡት ሰዎች ጋር ይገምግሙ።",
-    contactText: "የአሁኑን አሰራርዎን፣ የንግድዎን መጠን እና ዋናውን የቁጥጥር ችግር ያጋሩ። ተገቢ ውይይት ወይም ማሳያ ለማዘጋጀት ይህን መረጃ እንጠቀማለን።",
-    demo: "ማሳያ ይጠይቁ",
-    email: "ለHisabTech ኢሜይል ይላኩ",
-    resources: "የንግድ መመሪያዎችን ያንብቡ",
-  },
 } as const;
 
 export default async function AboutPage() {
   const language = await getPublicLanguage();
   const c = copy[language];
-  const aboutMetrics = c.facts.slice(0, 3).map(([label, value]) => ({ label, value, note: language === "am" ? "HisabTech" : "Company profile" }));
+  const aboutMetrics = c.facts.slice(0, 3).map(([label, value]) => ({ label, value, note: "Company profile" }));
   const aboutRows = c.principles.slice(0, 3).map(([number, title]) => ({ label: title, value: "Active", meta: number }));
 
   return (

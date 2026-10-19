@@ -34,38 +34,15 @@ const copy = {
     demo: "Request a demo",
     tour: "Explore the product",
   },
-  am: {
-    eyebrow: "የHisabTech የንግድ ትምህርት ማዕከል",
-    title: "ለሚያድጉ የኢትዮጵያ ንግዶች ተግባራዊ የአሰራር መመሪያ።",
-    intro: "የገንዘብ ግልጽነትን፣ የክምችት ቁጥጥርን፣ የዕዳ ስብስብን፣ የወር ሪፖርትን እና ከእጅ መዝገብ ወደ ERP ሽግግርን ለማሻሻል አጭርና በትግበራ ላይ ያተኮሩ መመሪያዎችን ይጠቀሙ።",
-    guides: "ተግባራዊ መመሪያዎች",
-    guideTitle: "አሁን አስፈላጊ ከሆነው የሥራ ችግር ይጀምሩ።",
-    guideIntro: "እያንዳንዱ ጽሑፍ በአጠቃላይ የቴክኖሎጂ ማስታወቂያ ሳይሆን ሊደገም በሚችል የአስተዳደር ልማድ ላይ ያተኩራል።",
-    read: "መመሪያውን ያንብቡ",
-    minutes: "ደቂቃ ንባብ",
-    framework: "የትምህርት መዋቅር",
-    frameworkTitle: "እያንዳንዱን ጽሑፍ ወደ የሥራ ለውጥ ይቀይሩ።",
-    steps: [
-      ["01", "ውሳኔውን ይለዩ", "ቡድኑ ማሻሻል ያለበትን የንግድ ውሳኔ፣ አደጋ ወይም መዘግየት ይሰይሙ።"],
-      ["02", "ኃላፊነት ይመድቡ", "ለመዝገቡ፣ ለግምገማው እና ለክትትል እርምጃው ኃላፊ የሆነውን ሰው ይምረጡ።"],
-      ["03", "ማስረጃውን ደረጃ ያድርጉ", "በእያንዳንዱ ጊዜ ተመሳሳይ መዝገቦችን፣ ትርጓሜዎችን እና የግምገማ ጊዜን ይጠቀሙ።"],
-      ["04", "ውጤቱን ይለኩ", "ከለውጡ በፊትና በኋላ ወቅታዊነትን፣ ትክክለኛነትን እና የንግድ ውጤቶችን ያወዳድሩ።"],
-    ],
-    ctaEyebrow: "መመሪያውን በHisabERP ውስጥ ይተግብሩ",
-    ctaTitle: "ተመሳሳይ ልማዶች በአንድ የተገናኘ የሥራ ቦታ ውስጥ እንዴት እንደሚሰሩ ይመልከቱ።",
-    ctaText: "ለንግድዎ በጣም አስፈላጊ የሆኑ ሪፖርቶች፣ ቁጥጥሮች እና የሥራ ሂደቶችን በመጠቀም የተመረጠ ማሳያ ይጠይቁ።",
-    demo: "ማሳያ ይጠይቁ",
-    tour: "ምርቱን ይመልከቱ",
-  },
 } as const;
 
 export default async function ResourcesPage() {
   const language = await getPublicLanguage();
   const c = copy[language];
   const resourceMetrics = [
-    { label: c.guides, value: String(marketingResources.length), note: language === "am" ? "የተግባር መመሪያ" : "Implementation-focused" },
-    { label: language === "am" ? "መዋቅር" : "Framework", value: "4 steps", note: language === "am" ? "ከእውቀት ወደ ለውጥ" : "From guidance to change" },
-    { label: language === "am" ? "አውድ" : "Context", value: "ET", note: language === "am" ? "የኢትዮጵያ ንግድ" : "Ethiopian business" },
+    { label: c.guides, value: String(marketingResources.length), note: "Implementation-focused" },
+    { label: "Framework", value: "4 steps", note: "From guidance to change" },
+    { label: "Context", value: "ET", note: "Ethiopian business" },
   ];
   const resourceRows = marketingResources.slice(0, 3).map((article) => ({ label: localize(article.title, language), value: `${article.readingMinutes} ${c.minutes}`, meta: localize(article.category, language) }));
 
@@ -73,7 +50,7 @@ export default async function ResourcesPage() {
     <MarketingPageShell>
       <section className="resources-hero">
         <div><span className="marketing-eyebrow">{c.eyebrow}</span><h1>{c.title}</h1><p>{c.intro}</p></div>
-        <InteractiveErpOffice moduleTitle={language === "am" ? "የንግድ ትምህርት" : "Business learning"} moduleEyebrow={c.guides} metrics={resourceMetrics} rows={resourceRows} compact />
+        <InteractiveErpOffice moduleTitle="Business learning" moduleEyebrow={c.guides} metrics={resourceMetrics} rows={resourceRows} compact />
       </section>
 
       <section className="marketing-section resources-index-section">
