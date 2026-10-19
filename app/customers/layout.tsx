@@ -1,4 +1,5 @@
 import "../internal-styles";
+import "./customers-polish.css";
 import type { ReactNode } from "react";
 
 /** Load the shared workspace styles before this route is painted. */
