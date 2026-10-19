@@ -12,6 +12,7 @@ import {
 } from "react";
 import type { UserContext } from "../lib/data/types";
 import { HelpCenterPanel } from "./help-center-panel";
+import { UserMenu } from "./user-menu";
 import { useModalFocus } from "./use-modal-focus";
 import { useLanguage } from "./language-provider";
 import { Icon, type IconName } from "./ui/icon";
@@ -414,6 +415,7 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
             <span>{t("AI Assistant")}</span>
           </button>
         </nav>
+        <div className="workspace-header-account"><UserMenu user={user} /></div>
       </header>
 
       <button className="mobile-command-trigger" type="button" onClick={() => setSurface("search")} aria-label={t("Open global search")}>
