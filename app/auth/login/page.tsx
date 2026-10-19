@@ -86,9 +86,11 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   const [params, localized] = await Promise.all([searchParams, getServerFoundationCopy()]);
   const p = loginCopy[localized.language];
   const configured = isSupabaseConfigured();
-  const next = safeNextPath(params.next || "/");
+  const next = safeNextPath(params.next || "/workspace-home");
   const preview = params.preview === "1";
   const email = typeof params.email === "string" ? params.email.trim().slice(0, 254) : "";
+  const errorMessage = typeof params.error === "string" ? params.error.slice(0, 360) : "";
+  const successMessage = typeof params.message === "string" ? params.message.slice(0, 360) : "";
   const showPasswordHelp = params.reason === "existing-account" || params.reason === "password-or-provider";
   const showConfirmationHelp = params.reason === "email-not-confirmed" && Boolean(email);
 
@@ -125,65 +127,19 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
 
           <div className="biloo-login-visual-copy">
             <p className="biloo-login-kicker"><Icon name="sparkles" size={16} /> Built for ambitious Ethiopian businesses</p>
-            <h1>Clarity for every birr, every decision.</h1>
+            <h2>Clarity for every birr, every decision.</h2>
             <p>One connected operating system for finance, sales, inventory, customers and the decisions that move your business forward.</p>
           </div>
 
-          <div className="biloo-login-dashboard" aria-hidden="true">
-            <div className="biloo-login-dashboard-topbar">
-              <div className="biloo-login-dashboard-brand"><span>B</span><strong>Finance overview</strong></div>
-              <div className="biloo-login-dashboard-actions"><i /><i /><i /></div>
-            </div>
-
-            <div className="biloo-login-dashboard-body">
-              <div className="biloo-login-dashboard-sidebar">
-                <span className="is-active"><Icon name="grid" size={15} /></span>
-                <span><Icon name="receipt" size={15} /></span>
-                <span><Icon name="wallet" size={15} /></span>
-                <span><Icon name="users" size={15} /></span>
-                <span><Icon name="chart" size={15} /></span>
-              </div>
-
-              <div className="biloo-login-dashboard-content">
-                <div className="biloo-login-dashboard-heading">
-                  <div><small>Good morning</small><strong>Business overview</strong></div>
-                  <span>July 2026</span>
-                </div>
-
-                <div className="biloo-login-stat-grid">
-                  <article><span><Icon name="trending-up" size={15} /></span><small>Revenue</small><strong>ETB 2.48M</strong><em>+18.4%</em></article>
-                  <article><span><Icon name="wallet" size={15} /></span><small>Cash balance</small><strong>ETB 840K</strong><em>Healthy</em></article>
-                  <article><span><Icon name="receipt" size={15} /></span><small>Receivables</small><strong>ETB 316K</strong><em>12 invoices</em></article>
-                </div>
-
-                <div className="biloo-login-insight-grid">
-                  <article className="biloo-login-chart-card">
-                    <div><span><small>Cash flow</small><strong>ETB 1.26M</strong></span><em>+24%</em></div>
-                    <svg viewBox="0 0 420 130" role="presentation">
-                      <defs>
-                        <linearGradient id="biloo-login-chart-fill" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#FCA311" stopOpacity=".34" />
-                          <stop offset="100%" stopColor="#FCA311" stopOpacity="0" />
-                        </linearGradient>
-                      </defs>
-                      <path className="biloo-login-chart-area" d="M0 112 C42 104 55 72 92 80 C135 90 150 46 194 58 C235 70 249 23 296 36 C337 47 357 18 420 9 L420 130 L0 130 Z" />
-                      <path className="biloo-login-chart-line" d="M0 112 C42 104 55 72 92 80 C135 90 150 46 194 58 C235 70 249 23 296 36 C337 47 357 18 420 9" />
-                      <circle cx="420" cy="9" r="5" />
-                    </svg>
-                  </article>
-
-                  <article className="biloo-login-health-card">
-                    <div className="biloo-login-health-ring"><strong>92</strong><small>/100</small></div>
-                    <span><small>Business health</small><strong>Excellent</strong><em>All systems are on track</em></span>
-                  </article>
-                </div>
-              </div>
-            </div>
+          <div className="biloo-login-benefits" aria-label="Your connected business modules">
+            <div><span aria-hidden="true"><Icon name="receipt" size={18} /></span><div><strong>Sales and invoicing</strong><small>Keep transactions, customers and receivables organized.</small></div></div>
+            <div><span aria-hidden="true"><Icon name="landmark" size={18} /></span><div><strong>Finance and reporting</strong><small>Understand cash flow with accurate business records.</small></div></div>
+            <div><span aria-hidden="true"><Icon name="boxes" size={18} /></span><div><strong>Inventory and purchasing</strong><small>Manage stock and supplier operations together.</small></div></div>
           </div>
 
           <footer className="biloo-login-visual-footer">
             <span><Icon name="shield-check" size={17} /> Protected access</span>
-            <span><Icon name="activity" size={17} /> Real-time reporting</span>
+            <span><Icon name="activity" size={17} /> Connected reporting</span>
             <span><Icon name="building" size={17} /> Multi-business ready</span>
           </footer>
         </aside>
@@ -199,13 +155,13 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
               <header className="biloo-login-heading">
                 <span className="biloo-login-heading-icon"><Icon name="lock" size={20} /></span>
                 <p>Secure workspace access</p>
-                <h2>{p.title}</h2>
+                <h1>{p.title}</h1>
                 <span>{p.description}</span>
               </header>
 
               {!configured && <AuthNotice type="warning">Authentication is not configured.</AuthNotice>}
-              <AuthNotice type="error">{params.error}</AuthNotice>
-              <AuthNotice type="success">{params.message}</AuthNotice>
+              <AuthNotice type="error">{errorMessage}</AuthNotice>
+              <AuthNotice type="success">{successMessage}</AuthNotice>
 
               {showPasswordHelp ? (
                 <AuthNotice type="warning">
@@ -239,7 +195,6 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
                       placeholder={p.emailPlaceholder}
                       defaultValue={email}
                       required
-                      autoFocus
                     />
                   </div>
                 </label>

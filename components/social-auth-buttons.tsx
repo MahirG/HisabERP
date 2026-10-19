@@ -52,6 +52,7 @@ export function SocialAuthButtons({
 }) {
   const c = socialCopy[language];
   const { google, apple } = appConfig.authProviders;
+  if (!google && !apple) return null;
 
   return (
     <section className="social-auth-block" data-third-party-brand aria-label="Trusted sign-in providers">
