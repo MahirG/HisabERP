@@ -144,7 +144,7 @@ for (const route of operationalHeroRoutes) {
       await expect(hero).toBeVisible();
       const contrast = await hero.evaluate((element) => {
         const rgb = (value: string) => {
-          const channels = value.match(/[\\d.]+/g)?.slice(0, 3).map(Number) ?? [];
+          const channels = value.match(/[\d.]+/g)?.slice(0, 3).map(Number) ?? [];
           return channels.length === 3 ? channels : [0, 0, 0];
         };
         const luminance = (value: string) => {
