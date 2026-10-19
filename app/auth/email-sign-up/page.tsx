@@ -51,7 +51,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ e
         <label className="biloo-login-field" htmlFor="signup-full-name">
           <span>Full name</span>
           <div className="biloo-login-input-shell">
-            <Icon name="user" size={18} />
+            <span className="biloo-login-field-icon is-name" aria-hidden="true"><Icon name="user" size={18} /></span>
             <input id="signup-full-name" name="fullName" autoComplete="name" maxLength={120} placeholder="Your full name" required />
           </div>
         </label>
@@ -59,7 +59,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ e
         <label className="biloo-login-field" htmlFor="signup-email">
           <span>Business email</span>
           <div className="biloo-login-input-shell">
-            <Icon name="user" size={18} />
+            <span className="biloo-login-field-icon is-email" aria-hidden="true"><Icon name="mail" size={18} /></span>
             <input id="signup-email" name="email" type="email" inputMode="email" autoComplete="email" maxLength={254} placeholder="name@company.com" required />
           </div>
         </label>

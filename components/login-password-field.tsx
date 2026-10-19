@@ -24,7 +24,7 @@ export function LoginPasswordField({
         <Link href={forgotHref}>{forgotLabel}</Link>
       </div>
       <div className="biloo-login-input-shell biloo-login-password-shell">
-        <Icon name="lock" size={18} />
+        <span className="biloo-login-field-icon is-password" aria-hidden="true"><Icon name="lock" size={18} /></span>
         <input
           id="login-password"
           name="password"

@@ -30,6 +30,7 @@ export type IconName =
   | "link"
   | "lock"
   | "log-out"
+  | "mail"
   | "moon"
   | "package-check"
   | "plus"
@@ -78,6 +79,7 @@ const paths: Record<IconName, ReactNode> = {
   link: <><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1" /><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1" /></>,
   lock: <><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /><path d="M12 14v3" /></>,
   "log-out": <><path d="M10 5H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5" /><path d="m14 8 4 4-4 4" /><path d="M18 12H9" /></>,
+  mail: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></>,
   moon: <><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 9 9 0 1 0 20.7 15.5Z" /></>,
   "package-check": <><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9Z" /><path d="m4.5 7.8 7.5 4.3 7.5-4.3" /><path d="M12 12v9" /><path d="m8.5 15.5 1.8 1.8 4-4" /></>,
   plus: <><path d="M12 5v14" /><path d="M5 12h14" /></>,

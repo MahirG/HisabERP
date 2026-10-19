@@ -45,3 +45,17 @@ test("New password controls share sign-in dimensions, are accessible, never stor
     'className="biloo-login-password-toggle"','className="biloo-login-input-shell biloo-login-password-shell"']) assert.ok(s.includes(token),token);
   assert.ok(!s.includes("setPassword("));
 });
+
+test("Signup uses the same icon slots and centers its form on narrow phones",async()=>{
+  const [page,pw,sharedCss,css]=await Promise.all([
+    read("app/auth/email-sign-up/page.tsx"),read("components/signup-password-fields.tsx"),
+    read("app/auth/login/login-finish.css"),read("app/auth/email-sign-up/signup-finish.css")
+  ]);
+  assert.ok(page.includes('biloo-login-field-icon is-name'));
+  assert.ok(page.includes('biloo-login-field-icon is-email'));
+  assert.ok(pw.includes('biloo-login-field-icon is-password'));
+  assert.ok(!pw.includes('biloo-signup-confirm-indicator'));
+  assert.ok(sharedCss.includes('main.biloo-login-page .biloo-login-field .biloo-login-input-shell > input'));
+  assert.ok(css.includes('width:calc(100% - 42px)!important'));
+  assert.ok(css.includes('@media (max-width:620px)'));
+});

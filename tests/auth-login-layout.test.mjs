@@ -48,3 +48,18 @@ test("Login route owns readable Biloo typography and responsive interaction stat
   assert.ok(styles.includes("--biloo-login-gold:#fca311"));
   assert.ok(styles.includes("--biloo-login-navy:#14213d"));
 });
+
+test("Sign-in fields use separate colored icon slots and a single clean input border",async()=>{
+  const [page,pw,css,icons]=await Promise.all([
+    read("app/auth/login/page.tsx"),read("components/login-password-field.tsx"),
+    read("app/auth/login/login-finish.css"),read("components/ui/icon.tsx")
+  ]);
+  assert.ok(page.includes('biloo-login-field-icon is-email'));
+  assert.ok(page.includes('name="mail"'));
+  assert.ok(pw.includes('biloo-login-field-icon is-password'));
+  assert.ok(css.includes('place-items:center!important'));
+  assert.ok(css.includes('gap:11px!important'));
+  assert.ok(css.includes('border-width:0!important'));
+  assert.ok(css.includes('width:0!important'));
+  assert.ok(icons.includes('mail: <><rect'));
+});

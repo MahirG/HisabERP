@@ -62,3 +62,21 @@ body[data-workspace-system="financial-os-v1"] .biloo-signup-page .biloo-login-fi
     font-size:clamp(27px,7.5vw,31px)!important;
   }
 }
+
+/* Phone registration: match sign-in's narrower centered form measure.
+   17px outer margin + 21px interior inset ~= 38px from viewport edge. */
+@media (max-width:620px) {
+  body[data-workspace-system="financial-os-v1"] main.biloo-signup-page .biloo-login-form-wrap {
+    padding-inline:17px!important;
+  }
+  body[data-workspace-system="financial-os-v1"] main.biloo-signup-page .biloo-login-card {
+    width:calc(100% - 42px)!important;
+    max-width:440px!important;
+    margin-inline:auto!important;
+  }
+}
+@media (max-width:350px) {
+  body[data-workspace-system="financial-os-v1"] main.biloo-signup-page .biloo-login-card {
+    width:calc(100% - 26px)!important;
+  }
+}

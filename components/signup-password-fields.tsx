@@ -11,7 +11,7 @@ export function SignUpPasswordFields() {
       <label className="biloo-login-field" htmlFor="signup-password">
         <span>Password</span>
         <div className="biloo-login-input-shell biloo-login-password-shell">
-          <Icon name="lock" size={18} />
+          <span className="biloo-login-field-icon is-password" aria-hidden="true"><Icon name="lock" size={18} /></span>
           <input id="signup-password" name="password"
             type={visible ? "text" : "password"}
             autoComplete="new-password" minLength={10}
@@ -27,12 +27,11 @@ export function SignUpPasswordFields() {
       <label className="biloo-login-field" htmlFor="signup-confirm-password">
         <span>Confirm password</span>
         <div className="biloo-login-input-shell biloo-login-password-shell">
-          <Icon name="lock" size={18} />
+          <span className="biloo-login-field-icon is-password" aria-hidden="true"><Icon name="lock" size={18} /></span>
           <input id="signup-confirm-password" name="confirmPassword"
             type={visible ? "text" : "password"}
             autoComplete="new-password" minLength={10}
             placeholder="Repeat your password" aria-describedby="signup-password-help" required />
-          <span className="biloo-signup-confirm-indicator" aria-hidden="true"><Icon name="shield-check" size={16} /></span>
         </div>
       </label>
       <p className="biloo-signup-password-help" id="signup-password-help">

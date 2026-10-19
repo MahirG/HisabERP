@@ -185,7 +185,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
                 <label className="biloo-login-field" htmlFor="login-email">
                   <span>{p.email}</span>
                   <div className="biloo-login-input-shell">
-                    <Icon name="user" size={18} />
+                    <span className="biloo-login-field-icon is-email" aria-hidden="true"><Icon name="mail" size={18} /></span>
                     <input
                       id="login-email"
                       name="email"

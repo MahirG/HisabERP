@@ -282,3 +282,120 @@ body[data-workspace-system="financial-os-v1"] .biloo-login-page :is(a,button,inp
   body[data-workspace-system="financial-os-v1"] .biloo-login-page :is(a,button,input){
     transition:none!important;animation:none!important}
 }
+
+/* Auth input alignment repair — one border only, dedicated centered icon slot.
+   Applies to BOTH sign-in and sign-up; fixes nested input rectangles and
+   placeholder collisions from older auth stylesheet specificity. */
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field .biloo-login-input-shell {
+  display:flex!important;
+  grid-template-columns:none!important;
+  align-items:center!important;
+  gap:11px!important;
+  width:100%!important;
+  min-width:0!important;
+  height:50px!important;
+  min-height:50px!important;
+  padding:0 11px!important;
+  border:1px solid #cbd5e1!important;
+  border-radius:10px!important;
+  background:#fff!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field .biloo-login-input-shell:focus-within {
+  border-color:#aa741c!important;
+  box-shadow:0 0 0 3px rgba(252,163,17,.16)!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field-icon {
+  display:grid!important;
+  flex:0 0 32px!important;
+  place-items:center!important;
+  width:32px!important;
+  min-width:32px!important;
+  height:32px!important;
+  min-height:32px!important;
+  margin:0!important;
+  padding:0!important;
+  border-radius:9px!important;
+  border:1px solid #d8e5f8!important;
+  background:#edf4ff!important;
+  color:#2859a0!important;
+  -webkit-text-fill-color:#2859a0!important;
+  line-height:1!important;
+  pointer-events:none!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field-icon.is-name {
+  border-color:#deebfa!important;
+  background:#eaf2ff!important;
+  color:#265a9d!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field-icon.is-password {
+  border-color:#f1dcaf!important;
+  background:#fff3da!important;
+  color:#a3670d!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field-icon svg {
+  display:block!important;
+  width:18px!important;
+  height:18px!important;
+  min-width:18px!important;
+  flex:none!important;
+  margin:0!important;
+  stroke:currentColor!important;
+  color:inherit!important;
+  overflow:visible!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field .biloo-login-input-shell > input {
+  display:block!important;
+  flex:1 1 auto!important;
+  align-self:center!important;
+  width:0!important;
+  min-width:0!important;
+  max-width:100%!important;
+  height:46px!important;
+  min-height:46px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-width:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  outline:0!important;
+  transform:none!important;
+  font-family:inherit!important;
+  font-size:16px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+  color:#14213d!important;
+  -webkit-text-fill-color:#14213d!important;
+  text-indent:0!important;
+  appearance:none!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field .biloo-login-input-shell > input:focus,
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field .biloo-login-input-shell > input:hover {
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  outline:0!important;
+  background:transparent!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field .biloo-login-input-shell > input::placeholder {
+  color:#667085!important;
+  -webkit-text-fill-color:#667085!important;
+  opacity:1!important;
+}
+body[data-workspace-system="financial-os-v1"] main.biloo-login-page .biloo-login-field .biloo-login-password-toggle {
+  flex:0 0 44px!important;
+  width:44px!important;
+  min-width:44px!important;
+  height:44px!important;
+  min-height:44px!important;
+  margin:0!important;
+  padding:0!important;
+  color:#244d89!important;
+  -webkit-text-fill-color:#244d89!important;
+}
