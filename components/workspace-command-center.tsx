@@ -242,6 +242,8 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
   const { t } = useLanguage();
   const [surface, setSurface] = useState<Surface>(null);
   const [query, setQuery] = useState("");
+  const [recordResults, setRecordResults] = useState<SearchResult[]>([]);
+  const [recordsLoading, setRecordsLoading] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [assistantInput, setAssistantInput] = useState("");
   const [messages, setMessages] = useState<AssistantMessage[]>([]);
@@ -283,13 +285,31 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
     [items, utilityResults],
   );
 
-  const filteredItems = useMemo(() => {
+  const navigationMatches = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     if (!normalized) return searchableItems.slice(0, 12);
     return searchableItems.filter((item) =>
       `${item.label} ${item.group} ${item.description ?? ""} ${item.href}`.toLowerCase().includes(normalized),
     ).slice(0, 18);
   }, [query, searchableItems]);
+
+  const filteredItems = useMemo(() => [...recordResults, ...navigationMatches].slice(0, 22), [recordResults, navigationMatches]);
+
+  useEffect(() => {
+    if (surface !== "search" || query.trim().length < 2) { setRecordResults([]); setRecordsLoading(false); return; }
+    const controller = new AbortController();
+    const timer = window.setTimeout(async () => {
+      setRecordsLoading(true);
+      try {
+        const response = await fetch(`/api/search/records?q=${encodeURIComponent(query.trim())}`, { signal: controller.signal, credentials: "same-origin", cache: "no-store" });
+        if (!response.ok) throw new Error("Search unavailable");
+        const data = await response.json();
+        if (!controller.signal.aborted) setRecordResults(Array.isArray(data.results) ? data.results : []);
+      } catch { if (!controller.signal.aborted) setRecordResults([]); }
+      finally { if (!controller.signal.aborted) setRecordsLoading(false); }
+    }, 220);
+    return () => { controller.abort(); window.clearTimeout(timer); };
+  }, [query, surface]);
 
   const recommendations = useMemo(() => adviceFor(pathname, user.role), [pathname, user.role]);
 
@@ -324,6 +344,7 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
   function closeSurface() {
     setSurface(null);
     setQuery("");
+    setRecordResults([]);
   }
 
   function executeResult(item: SearchResult) {
@@ -423,7 +444,8 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
             />
             <kbd>ESC</kbd>
           </label>
-          <div className="command-results" id="workspace-command-results" role="listbox">
+          <div className="command-results" id="workspace-command-results" role="listbox" aria-busy={recordsLoading}>
+            {recordsLoading ? <p className="command-search-loading" role="status">Searching your business records…</p> : null}
             {filteredItems.length ? filteredItems.map((item, index) => (
               <button
                 type="button"
