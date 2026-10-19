@@ -396,6 +396,9 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
   return (
     <>
       <header className="workspace-command-header" aria-label={t("Workspace command header")}>
+        <Link href="/workspace-home" className="workspace-header-identity" aria-label="Biloo Business Operating System home">
+          <strong>Business Operating System</strong>
+        </Link>
         <button className="workspace-search-trigger" type="button" onClick={() => setSurface("search")} aria-label={t("Open global search")}>
           <Icon name="search" size={17} />
           <span>{t("Search or jump to…")}</span>
