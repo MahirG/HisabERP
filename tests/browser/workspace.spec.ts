@@ -42,7 +42,7 @@ test("workspace hamburger stays above utility bars and navigates without losing 
  const trigger=page.locator('.mobile-menu-trigger');await trigger.click();
  const drawer=page.getByRole('dialog',{name:'Workspace menu'});await expect(drawer).toBeVisible();
  await expect(page.locator('#primary-sidebar')).not.toBeVisible();
- await expect(drawer.locator('img[alt="Biloo"]')).toHaveCount(1);
+ await expect(drawer.locator('img[alt="Biloo"]')).toHaveCount(0);
  await expect(drawer.getByRole('link',{name:'Finance',exact:true})).toHaveAttribute('aria-current','page');
  expect(await drawer.evaluate(element=>element.matches(':modal'))).toBe(true);
  const topmost=await drawer.locator('header').evaluate(element=>{const rect=element.getBoundingClientRect();return element.contains(document.elementFromPoint(rect.x+rect.width/2,rect.y+rect.height/2))});expect(topmost).toBe(true);
@@ -122,3 +122,71 @@ test('opening Help from documentation preserves unique accessibility IDs',async(
  await page.setViewportSize({width:390,height:844});await page.goto(fixture+'/docs/setup');await page.getByTitle('Help Center',{exact:true}).click();
  const duplicates=await page.locator('.help-center-body [id]').evaluateAll(elements=>{const ids=elements.map(e=>e.id);return ids.filter((id,index)=>ids.indexOf(id)!==index)});expect(duplicates).toEqual([]);await expect(page.getByRole('dialog').getByRole('searchbox',{name:'Search help articles'})).toBeVisible();
 });
+
+
+const operationalHeroRoutes = [
+  "/modules/reports-analytics",
+  "/modules/localization-compliance",
+  "/modules/fixed-assets",
+  "/modules/budgeting-projects",
+  "/modules/integrations-automation",
+] as const;
+
+// The five routes share a component. Assert computed foreground AND background
+// in both user themes at phone and desktop widths, not just CSS declarations.
+for (const route of operationalHeroRoutes) {
+  for (const theme of ["light", "dark"] as const) {
+    test(`operational hero readable ${route} (${theme})`, async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.goto(fixture + route);
+      await page.locator("html").evaluate((element, next) => { element.dataset.theme = next; }, theme);
+      const hero = page.locator(".ops-page > .ops-hero");
+      await expect(hero).toBeVisible();
+      const contrast = await hero.evaluate((element) => {
+        const rgb = (value: string) => {
+          const channels = value.match(/[\\d.]+/g)?.slice(0, 3).map(Number) ?? [];
+          return channels.length === 3 ? channels : [0, 0, 0];
+        };
+        const luminance = (value: string) => {
+          const channels = rgb(value).map(channel => {
+            const c = channel / 255;
+            return c <= .04045 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4;
+          });
+          return .2126 * channels[0] + .7152 * channels[1] + .0722 * channels[2];
+        };
+        const ratio = (foreground: string, background: string) => {
+          const values = [luminance(foreground), luminance(background)].sort((a, b) => b - a);
+          return (values[0] + .05) / (values[1] + .05);
+        };
+        const darkEndpoints = ["rgb(20, 33, 61)", "rgb(11, 20, 40)"];
+        const testText = (selector: string) => {
+          const node = element.querySelector<HTMLElement>(selector);
+          if (!node) return null;
+          const styles = getComputedStyle(node);
+          const color = styles.webkitTextFillColor || styles.color;
+          return Math.min(...darkEndpoints.map(background => ratio(color, background)));
+        };
+        return {
+          surface: getComputedStyle(element).backgroundColor,
+          heading: testText("h1"),
+          description: testText(":scope > div:first-child > p:not(.eyebrow)"),
+          eyebrow: testText(".eyebrow"),
+          status: testText(".ops-workspace-state strong"),
+          statusLabel: testText(".ops-workspace-state small"),
+          primaryContrast: (() => {
+            const button = element.querySelector<HTMLElement>(".ops-primary-link")!;
+            return ratio(getComputedStyle(button).color, getComputedStyle(button).backgroundColor);
+          })(),
+        };
+      });
+      expect(contrast.surface).toBe("rgb(20, 33, 61)");
+      for (const label of ["heading", "description", "eyebrow", "status", "statusLabel", "primaryContrast"] as const) {
+        expect(contrast[label], `${route} ${theme} ${label}`).not.toBeNull();
+        expect(contrast[label]!, `${route} ${theme} ${label} must meet WCAG AA`).toBeGreaterThanOrEqual(4.5);
+      }
+      await checkPageWidth(page);
+      await page.setViewportSize({ width: 1280, height: 900 });
+      await checkPageWidth(page);
+    });
+  }
+}

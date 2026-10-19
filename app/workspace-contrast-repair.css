@@ -114,3 +114,100 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
     overflow-wrap: break-word;
   }
 }
+
+/*
+ * Reports, Compliance, Fixed Assets, Budgeting and Integrations all render
+ * OperationalModuleWorkspace > .ops-hero. Earlier theme rules set pale text
+ * while the financial foundation repainted this hero white. The other dark
+ * hero overrides never included .ops-hero; make its foreground and background
+ * an indivisible, route-independent pair.
+ */
+html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .ops-page > .ops-hero {
+  border: 1px solid rgba(252, 163, 17, 0.32) !important;
+  border-radius: 24px !important;
+  background: linear-gradient(125deg, #14213d 0%, #0b1428 100%) !important;
+  background-color: #14213d !important;
+  color: #ffffff !important;
+  box-shadow: 0 18px 48px rgba(11, 20, 40, 0.16) !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .ops-page > .ops-hero h1 {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1 !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .ops-page > .ops-hero > div:first-child > p:not(.eyebrow) {
+  color: #dbe4f2 !important;
+  -webkit-text-fill-color: #dbe4f2 !important;
+  opacity: 1 !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .ops-page > .ops-hero .eyebrow {
+  color: #ffd071 !important;
+  -webkit-text-fill-color: #ffd071 !important;
+  opacity: 1 !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .ops-page > .ops-hero .ops-workspace-state {
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  background: rgba(255, 255, 255, 0.11) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .ops-page > .ops-hero .ops-workspace-state strong {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1 !important;
+  overflow-wrap: anywhere;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .ops-page > .ops-hero .ops-workspace-state small {
+  color: #dbe4f2 !important;
+  -webkit-text-fill-color: #dbe4f2 !important;
+  opacity: 1 !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .ops-page > .ops-hero .ops-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .ops-page > .ops-hero .ops-hero-actions > .ops-primary-link {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid #fca311 !important;
+  border-radius: 12px;
+  background: #fca311 !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  font-weight: 750;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .ops-page > .ops-hero .ops-hero-actions > a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border: 1px solid #b9c8dd !important;
+  border-radius: 12px;
+  background: transparent !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-decoration: none;
+  font-weight: 650;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .ops-page > .ops-hero .ops-hero-actions > :is(a, button):focus-visible {
+  outline: 3px solid #ffd071 !important;
+  outline-offset: 3px;
+}
+@media (max-width: 620px) {
+  html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .ops-page > .ops-hero {
+    padding: 20px !important;
+    border-radius: 20px !important;
+  }
+  html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .ops-page > .ops-hero .ops-workspace-state {
+    width: 100%;
+  }
+  html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace .ops-page > .ops-hero .ops-hero-actions > :is(a, button) {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}

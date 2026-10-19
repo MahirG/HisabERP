@@ -13,6 +13,9 @@ import { InventoryOperationsWorkspace } from "../../components/inventory-operati
 import { HrPayrollWorkspace } from "../../components/hr-payroll-workspace";
 import { ReconciliationWorkspace } from "../../components/reconciliation-workspace";
 import { EInvoicingWorkspace } from "../../components/e-invoicing-workspace";
+import { OperationalModuleWorkspace } from "../../components/operational-module-workspace";
+import { isOperationalModuleSlug } from "../../lib/operational-modules";
+import type { OperationalSnapshot } from "../../lib/data/operational-types";
 import { HelpCenterPage } from "../../components/help-center-page";
 import { demoDashboard, demoFinance } from "../../lib/data/demo";
 import { demoSales } from "../../lib/data/sales-demo";
@@ -29,8 +32,13 @@ const inventory = { ...base, products: [], warehouses: [], transfers: [], counts
 const purchasing = { ...base, suppliers: [], requests: [], quotes: [], orders: [], receipts: [], bills: [], returns: [], products: [], warehouses: [], expenseAccounts: [] };
 const hr = { ...base, employees: [], attendance: [], leaves: [], payrollRuns: [], cashAccounts: [] };
 const path = location.pathname;
+const moduleSlug = path.startsWith("/modules/") ? path.slice("/modules/".length) : "";
+const operational: OperationalSnapshot | null = isOperationalModuleSlug(moduleSlug)
+  ? { ...base, moduleSlug, metrics: { total: 0, active: 0, completed: 0, atRisk: 0, value: 0 }, records: [], activity: [] }
+  : null;
 const tab = new URLSearchParams(location.search).get("tab") ?? undefined;
-const content = path === "/finance" ? <FinanceWorkspaceV2 snapshot={demoFinance} initialTab={tab ?? "overview"} canManage={false} />
+const content = operational ? <OperationalModuleWorkspace snapshot={operational} initialTab={tab} canManage={false} />
+  : path === "/finance" ? <FinanceWorkspaceV2 snapshot={demoFinance} initialTab={tab ?? "overview"} canManage={false} />
   : path === "/sales" ? <SalesWorkspace snapshot={demoSales} initialTab={tab ?? "overview"} canManage={false} />
   : path === "/inventory" ? <InventoryOperationsWorkspace snapshot={inventory} initialTab={tab} canManage={false} />
   : path === "/purchasing" ? <PurchasingWorkspace snapshot={purchasing} initialTab={tab} canManage={false} />
