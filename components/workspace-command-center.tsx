@@ -278,7 +278,8 @@ export function WorkspaceCommandCenter({ items, activeLabel, pathname, user }: P
   ], [t]);
 
   const searchableItems = useMemo<SearchResult[]>(
-    () => [...items, ...shortcutItems, ...utilityResults],
+    // Put Help / Advice / AI first so compact mobile search preserves access.
+    () => [...utilityResults, ...items, ...shortcutItems],
     [items, utilityResults],
   );
 

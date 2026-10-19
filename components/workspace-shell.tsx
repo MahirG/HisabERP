@@ -205,7 +205,7 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
         <button type="button" className="mobile-menu-trigger" aria-label={menuLabel} aria-controls="mobile-workspace-navigation" aria-expanded={mobileNavOpen} onClick={() => setMobileNavOpen(true)}>
           <span aria-hidden="true"><i /><i /><i /></span>
         </button>
-        <div className="mobile-workspace-title"><small>Biloo ERP</small><strong>{activeItem?.label ?? d.nav.overview}</strong></div>
+        <div className="mobile-workspace-title" aria-label={activeItem?.label ?? d.nav.overview}><small>Biloo ERP</small><strong>{activeItem?.label ?? d.nav.overview}</strong></div>
       </header>
 
       <UserMenu user={user} />

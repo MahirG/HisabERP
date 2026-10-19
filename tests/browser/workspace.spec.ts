@@ -290,3 +290,53 @@ test("Company Setup mobile masthead and finish CTA remain legible", async ({ pag
     await expect(page.locator("main.launch-center .launch-brand")).toContainText("Biloo ERB|Company Setup".replace("|", "|")); // text follows the divider
   }
 });
+
+
+test("Shared Biloo mobile header shows complete titles and a single command entry", async ({ page }) => {
+  for (const route of ["/", "/finance", "/modules/localization-compliance", "/modules/integrations-automation"]) {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(fixture + route);
+    const masthead = page.locator(".mobile-workspace-header");
+    await expect(masthead).toBeVisible();
+    await expect(page.locator(".workspace-command-header")).not.toBeVisible();
+    const search = page.locator(".mobile-command-trigger");
+    await expect(search).toBeVisible();
+    const title = masthead.locator(".mobile-workspace-title strong");
+    await expect(title).not.toBeEmpty();
+    expect(await title.evaluate((element) => getComputedStyle(element).whiteSpace)).toBe("normal");
+    const visibleWithinSlot = await title.evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      const trigger = document.querySelector(".mobile-command-trigger")?.getBoundingClientRect();
+      return rect.width > 85 && rect.left >= 0 && (!trigger || rect.right <= trigger.left + 1)
+        && element.scrollWidth <= element.clientWidth + 1 && element.scrollHeight <= element.clientHeight + 1;
+    });
+    expect(visibleWithinSlot, `mobile header ${route}`).toBe(true);
+    await checkPageWidth(page);
+  }
+  await page.locator(".mobile-command-trigger").click();
+  await expect(page.getByRole("dialog", { name: /search/i })).toBeVisible();
+  await expect(page.getByText("Open Help Center")).toBeVisible();
+  await expect(page.getByText("Open Advice Center")).toBeVisible();
+  await expect(page.getByText("Open Hisab AI")).toBeVisible();
+});
+
+test("Overview hero and controls remain usable on compact mobile viewports", async ({ page }) => {
+  await page.goto(fixture + "/");
+  for (const width of [320, 390, 430]) {
+    await page.setViewportSize({ width, height: 844 });
+    const hero = page.locator("main.apple-grade-dashboard .workspace-page-header");
+    await expect(hero).toBeVisible();
+    const styles = await hero.evaluate(element => ({
+      background: getComputedStyle(element).backgroundColor,
+      title: getComputedStyle(element.querySelector("h1")!).color,
+      body: getComputedStyle(element.querySelector(".workspace-page-description")!).color,
+    }));
+    expect(styles.background).toBe("rgb(255, 255, 255)");
+    expect(styles.title).toBe("rgb(20, 33, 61)");
+    expect(styles.body).toBe("rgb(71, 84, 103)");
+    const actions = hero.locator(".workspace-page-actions a");
+    await expect(actions).toHaveCount(2);
+    for (const action of await actions.all()) await expect(action).toBeInViewport();
+    await checkPageWidth(page);
+  }
+});
