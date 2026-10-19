@@ -37,15 +37,9 @@ function getOrganizationMark(name: string) {
 
 function WorkspaceSessionLoading() {
   return (
-    <main className="route-loading brand-route-loading" role="status" aria-live="polite" aria-label="Loading secure Biloo workspace">
-      <div className="experience-loader-card brand-loader-card">
-        <div className="brand-loader-mark" aria-hidden="true">
-          <span className="brand-loader-ring" />
-          <span className="brand-loader-logo-shell"><img src="/hisab-logo.svg" alt="" width="48" height="48" /></span>
-        </div>
-        <div className="brand-loader-copy"><strong>Preparing Biloo</strong><span>Loading your secure business workspace…</span></div>
-        <div className="brand-loader-progress" aria-hidden="true"><span /></div>
-      </div>
+    <main className="route-loading brand-route-loading workspace-session-spinner" role="status" aria-live="polite" aria-label="Loading Biloo workspace">
+      <span className="workspace-session-spinner-ring" aria-hidden="true" />
+      <span className="workspace-session-spinner-label">Loading Biloo</span>
     </main>
   );
 }
