@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AuthNotice, EmailAuthCard } from "../../../components/email-auth-card";
 import { SocialAuthButtons } from "../../../components/social-auth-buttons";
 import { SignUpPasswordFields } from "../../../components/signup-password-fields";
+import { Icon } from "../../../components/ui/icon";
 import { signUpWithEmail } from "../../../lib/actions/email-auth";
 import { formatEtb, getBillingPlan, getPlanAmountEtb, isBillingCycle } from "../../../lib/billing/catalog";
 import { isSupabaseConfigured } from "../../../lib/config";
@@ -38,33 +39,39 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ e
       <AuthNotice type="success">{successMessage}</AuthNotice>
 
       {plan ? (
-        <div className="auth-selected-plan" aria-label={`Selected ${plan.name} plan`}>
+        <div className="biloo-signup-selected-plan" aria-label={`Selected ${plan.name} plan`}>
           <span>Selected plan</span><strong>Biloo ERP {plan.name}</strong><small>ETB {formatEtb(getPlanAmountEtb(plan, billingCycle))} {billingCycle === "annual" ? "per year" : "per month"}</small>
         </div>
       ) : null}
 
       <SocialAuthButtons language="en" next={next} disabled={!configured} dividerText="or create your account with email" />
 
-      <form action={signUpWithEmail} className="auth-standard-form">
+      <form action={signUpWithEmail} className="biloo-login-form biloo-signup-form">
         <input type="hidden" name="next" value={next}/>
-        <label className="auth-standard-field" htmlFor="signup-full-name">
+        <label className="biloo-login-field" htmlFor="signup-full-name">
           <span>Full name</span>
-          <input id="signup-full-name" name="fullName" autoComplete="name" maxLength={120} placeholder="Your full name" required />
+          <div className="biloo-login-input-shell">
+            <Icon name="user" size={18} />
+            <input id="signup-full-name" name="fullName" autoComplete="name" maxLength={120} placeholder="Your full name" required />
+          </div>
         </label>
 
-        <label className="auth-standard-field" htmlFor="signup-email">
+        <label className="biloo-login-field" htmlFor="signup-email">
           <span>Business email</span>
-          <input id="signup-email" name="email" type="email" inputMode="email" autoComplete="email" maxLength={254} placeholder="name@company.com" required />
+          <div className="biloo-login-input-shell">
+            <Icon name="user" size={18} />
+            <input id="signup-email" name="email" type="email" inputMode="email" autoComplete="email" maxLength={254} placeholder="name@company.com" required />
+          </div>
         </label>
 
         <SignUpPasswordFields />
 
-        <label className="auth-standard-consent">
+        <label className="biloo-signup-consent">
           <input type="checkbox" name="acceptedTerms" value="yes" required />
           <span>I agree to the <Link href="/trust">privacy and security terms</Link> and confirm that I am authorized to represent this business.</span>
         </label>
 
-        <button className="auth-standard-primary" type="submit" disabled={!configured}><span>{plan ? `Create account and continue to ${plan.name}` : "Create account"}</span><b aria-hidden="true">→</b></button>
+        <button className="biloo-login-primary" type="submit" disabled={!configured}><span>{plan ? `Create account and continue to ${plan.name}` : "Create account"}</span><Icon name="arrow-right" size={18} /></button>
       </form>
     </EmailAuthCard>
   );

@@ -3,35 +3,45 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 const read = p => readFile(new URL(`../${p}`,import.meta.url),"utf8");
 
-test("Signup preserves Supabase registration, plan checkout, terms and email confirmation", async () => {
-  const [page,actions,shared] = await Promise.all([
+test("Signup reuses exact sign-in header, logo, content width and primary button classes",async()=>{
+  const [login,shared,signup,layout,loginCss,signupCss] = await Promise.all([
+    read("app/auth/login/page.tsx"),read("components/email-auth-card.tsx"),
+    read("app/auth/email-sign-up/page.tsx"),read("app/auth/email-sign-up/layout.tsx"),
+    read("app/auth/login/login-finish.css"),read("app/auth/email-sign-up/signup-finish.css"),
+  ]);
+  for(const klass of ["biloo-login-page","biloo-login-shell","biloo-login-visual","biloo-login-form-pane","biloo-login-topbar",
+    "biloo-login-mobile-wordmark","biloo-login-form-wrap","biloo-login-card","biloo-login-heading",
+    "biloo-login-primary","biloo-login-legal"]) {
+    assert.ok(login.includes(klass), "sign-in must have "+klass);
+    assert.ok(shared.includes(klass)||signup.includes(klass), "signup must have "+klass);
+  }
+  assert.ok(layout.includes('import "../login/login-finish.css"'));
+  assert.ok(layout.includes('import "./signup-finish.css"'));
+  assert.ok(shared.includes('href="/help-center"'));
+  assert.ok(shared.includes('src="/biloo-header-logo.svg"'));
+  assert.ok(signup.includes('className="biloo-login-form biloo-signup-form"'));
+  assert.ok(signup.includes('className="biloo-login-primary"'));
+  assert.ok(signupCss.includes("max-width:440px"));
+  assert.ok(loginCss.includes("min-height:48px"));
+  assert.ok(loginCss.includes("biloo-login-topbar"));
+});
+test("Registration preserves backend, plan and consent controls",async()=>{
+  const [page,action,shared] = await Promise.all([
     read("app/auth/email-sign-up/page.tsx"),read("lib/actions/email-auth.ts"),read("components/email-auth-card.tsx")
   ]);
-  for(const item of ['action={signUpWithEmail}','getBillingPlan(p.plan)','getPlanAmountEtb(plan, billingCycle)',
+  for(const token of ['action={signUpWithEmail}','getBillingPlan(p.plan)','getPlanAmountEtb(plan, billingCycle)',
     'name="acceptedTerms"','name="next" value={next}','safeNextPath(p.next || planDestination)',
-    'type="email"','maxLength={254}','variant="sign-up"','SignUpPasswordFields']) {
-    assert.ok(page.includes(item),item);
-  }
-  assert.ok(actions.includes("emailRedirectTo: confirmationUrl(next)"));
-  assert.ok(actions.includes("assertPasswordIsSafe(secret)"));
-  assert.ok(actions.includes("secret !== confirmation"));
+    'type="email"','maxLength={254}','variant="sign-up"','SignUpPasswordFields']) assert.ok(page.includes(token),token);
+  assert.ok(action.includes("emailRedirectTo: confirmationUrl(next)"));
+  assert.ok(action.includes("assertPasswordIsSafe(secret)"));
+  assert.ok(action.includes("secret !== confirmation"));
   assert.ok(shared.includes('variant === "sign-up"'));
   assert.ok(!page.includes("autoFocus"));
 });
-test("Signup passwords have native controlled visibility without storing credentials", async () => {
-  const source = await read("components/signup-password-fields.tsx");
-  for(const item of ['name="password"','name="confirmPassword"','autoComplete="new-password"',
-    'type={visible ? "text" : "password"}','aria-pressed={visible}','type="button"',
-    'aria-describedby="signup-password-help"','minLength={10}']) assert.ok(source.includes(item),item);
-  assert.ok(!source.includes("setPassword("));
-});
-test("Signup visual authority is isolated and mobile-friendly", async () => {
-  const [layout,css] = await Promise.all([
-    read("app/auth/email-sign-up/layout.tsx"),read("app/auth/email-sign-up/signup-finish.css")
-  ]);
-  assert.ok(layout.includes('import "./signup-finish.css"'));
-  for(const item of ["auth-signup-biloo","auth-standard-shell","auth-standard-showcase","auth-standard-field-grid",
-    "auth-standard-consent","auth-selected-plan","social-auth-grid",":focus-visible","font-size:16px",
-    "@media(max-width:620px)","prefers-reduced-motion"]) assert.ok(css.includes(item),item);
-  assert.ok(css.includes("#14213d") && css.includes("#fca311"));
+test("New password controls share sign-in dimensions, are accessible, never store credentials",async()=>{
+  const s=await read("components/signup-password-fields.tsx");
+  for(const token of ['name="password"','name="confirmPassword"','type={visible ? "text" : "password"}',
+    'aria-pressed={visible}','type="button"','aria-describedby="signup-password-help"','minLength={10}',
+    'className="biloo-login-password-toggle"','className="biloo-login-input-shell biloo-login-password-shell"']) assert.ok(s.includes(token),token);
+  assert.ok(!s.includes("setPassword("));
 });

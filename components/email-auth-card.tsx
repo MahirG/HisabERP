@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { CookieConsent } from "./cookie-consent";
+import { Icon } from "./ui/icon";
 
 type EmailAuthCardProps = {
   title: string;
@@ -25,6 +26,62 @@ export function EmailAuthCard({
   showcaseDescription = "Biloo brings sales, finance, inventory and reporting together in one workspace built for growing businesses in Ethiopia.",
   variant,
 }: EmailAuthCardProps) {
+  // Signup uses the exact same visual and navigation primitives as /auth/login.
+  // Other auth routes continue using the original shared EmailAuthCard markup.
+  if (variant === "sign-up") {
+    return (
+      <main className="biloo-login-page biloo-signup-page">
+        <section className="biloo-login-shell">
+          <aside className="biloo-login-visual" aria-label="Biloo business workspace introduction">
+            <header className="biloo-login-visual-header">
+              <Link href="/" className="biloo-login-wordmark" aria-label="Biloo home">biloo<span>.</span></Link>
+              <span className="biloo-login-secure-status"><i aria-hidden="true" /> Secure cloud workspace</span>
+            </header>
+            <div className="biloo-login-visual-copy">
+              <p className="biloo-login-kicker"><Icon name="sparkles" size={16} /> Built for ambitious Ethiopian businesses</p>
+              <h2>{showcaseTitle}</h2>
+              <p>{showcaseDescription}</p>
+            </div>
+            <div className="biloo-login-benefits" aria-label="Your connected business modules">
+              <div><span aria-hidden="true"><Icon name="receipt" size={18} /></span><div><strong>Sales and invoicing</strong><small>Keep transactions, customers and receivables organized.</small></div></div>
+              <div><span aria-hidden="true"><Icon name="landmark" size={18} /></span><div><strong>Finance and reporting</strong><small>Understand cash flow with accurate business records.</small></div></div>
+              <div><span aria-hidden="true"><Icon name="boxes" size={18} /></span><div><strong>Inventory and purchasing</strong><small>Manage stock and supplier operations together.</small></div></div>
+            </div>
+            <footer className="biloo-login-visual-footer">
+              <span><Icon name="shield-check" size={17} /> Protected access</span>
+              <span><Icon name="activity" size={17} /> Connected reporting</span>
+              <span><Icon name="building" size={17} /> Multi-business ready</span>
+            </footer>
+          </aside>
+          <section className="biloo-login-form-pane">
+            <nav className="biloo-login-topbar" aria-label="Sign-up support links">
+              <Link href="/" className="biloo-login-mobile-wordmark" aria-label="Biloo home"><img src="/biloo-header-logo.svg" alt="Biloo" /></Link>
+              <div><Link href="/help-center">Help</Link><Link href="/">Back to website</Link></div>
+            </nav>
+            <div className="biloo-login-form-wrap">
+              <div className="biloo-login-card">
+                <header className="biloo-login-heading">
+                  <span className="biloo-login-heading-icon"><Icon name="lock" size={20} /></span>
+                  <p>{eyebrow}</p>
+                  <h1>{title}</h1>
+                  <span>{description}</span>
+                </header>
+                {children}
+                {footer ? <div className="biloo-login-account-switch">{footer}</div> : null}
+              </div>
+            </div>
+            <footer className="biloo-login-legal">
+              <span>© 2026 Biloo</span>
+              <Link href="/trust">Privacy &amp; security</Link>
+              <span>Encrypted connection</span>
+            </footer>
+          </section>
+        </section>
+        <CookieConsent />
+      </main>
+    );
+  }
+
   return (
     <main className={`auth-page auth-premium-page auth-official-page auth-standard-page${variant === "sign-up" ? " auth-signup-biloo" : ""}`}>
       <section className="auth-standard-shell">

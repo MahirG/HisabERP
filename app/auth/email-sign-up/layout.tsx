@@ -1,3 +1,8 @@
 import type { ReactNode } from "react";
+import "../login/login-finish.css";
 import "./signup-finish.css";
-export default function EmailSignUpLayout({children}:{children:ReactNode}){return children;}
+
+/** Auth pages intentionally share login's header, field and button authority. */
+export default function EmailSignUpLayout({children}:{children:ReactNode}) {
+  return children;
+}
