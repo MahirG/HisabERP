@@ -78,5 +78,6 @@ import "./workspace-contrast-repair.css";
 import "./workspace-mobile-2026-repair.css";
 import "./business-overview-standard.css";
 import "./workspace-navigation-stability.css";
+import "./biloo-interface-contrast-2026.css";
 
 export {};
