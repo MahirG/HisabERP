@@ -19,6 +19,8 @@ export type BillingAccessSnapshot = {
 export type BillingSnapshot = {
   configured: boolean;
   enforcementEnabled: boolean;
+  signedIn: boolean;
+  readError: boolean;
   access: BillingAccessSnapshot | null;
 };
 
@@ -38,7 +40,7 @@ export async function getCurrentBillingSnapshot(): Promise<BillingSnapshot> {
   const supabase = await createClient();
   const { data: claimsData } = await supabase.auth.getClaims();
   const userId = typeof claimsData?.claims?.sub === "string" ? claimsData.claims.sub : "";
-  if (!userId) return { configured, enforcementEnabled, access: null };
+  if (!userId) return { configured, enforcementEnabled, signedIn: false, readError: false, access: null };
 
   const { data, error } = await supabase
     .from("hisab_billing_access")
@@ -46,10 +48,13 @@ export async function getCurrentBillingSnapshot(): Promise<BillingSnapshot> {
     .eq("user_id", userId)
     .maybeSingle();
 
-  if (error || !data) return { configured, enforcementEnabled, access: null };
+  if (error) return { configured, enforcementEnabled, signedIn: true, readError: true, access: null };
+  if (!data) return { configured, enforcementEnabled, signedIn: true, readError: false, access: null };
   return {
     configured,
     enforcementEnabled,
+    signedIn: true,
+    readError: false,
     access: {
       userId: String(data.user_id),
       planCode: String(data.plan_code),
