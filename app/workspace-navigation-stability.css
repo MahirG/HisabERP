@@ -592,3 +592,16 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
     z-index: 200 !important;
   }
 }
+
+/* An old session can retain the removed stylesheet until it fully reloads.
+   Beat its equally-specific top padding declaration without hiding content. */
+@media (min-width: 761px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell[data-workspace-brand="biloo"] > .workspace {
+    padding-top: 58px !important;
+  }
+}
+@media (max-width: 760px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell[data-workspace-brand="biloo"] > .workspace {
+    padding-top: calc(var(--mobile-header-height, 84px) + env(safe-area-inset-top)) !important;
+  }
+}
