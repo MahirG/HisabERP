@@ -60,7 +60,7 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(p, sma
     width: 276px !important;
     height: 100svh !important;
     flex-direction: column !important;
-    padding: 14px 12px 18px !important;
+    padding: 0 12px 18px !important;
     min-width: 0;
     overflow-x: hidden !important;
     overflow-y: hidden !important;
@@ -94,9 +94,16 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(p, sma
   body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .supabase-sidebar-header {
     display: flex !important;
     min-height: 58px !important;
+    height: 58px !important;
+    flex: 0 0 58px !important;
     align-items: center !important;
-    padding: 0 7px !important;
+    margin: 0 -12px 10px !important;
+    padding: 0 19px !important;
     border: 0 !important;
+    border-bottom: 1px solid #30415f !important;
+    background: #14213d !important;
+    background-image: none !important;
+    box-shadow: none !important;
   }
 
   body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .desktop-sidebar-brand {
@@ -107,7 +114,7 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(p, sma
     justify-content: flex-start !important;
     gap: 10px !important;
     padding: 4px !important;
-    color: var(--biloo-app-ink) !important;
+    color: #ffffff !important;
     text-decoration: none !important;
   }
 
@@ -133,7 +140,8 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(p, sma
   }
 
   body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .desktop-sidebar-brand strong {
-    color: var(--biloo-app-ink) !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
     font-size: 18px !important;
     font-weight: 850 !important;
     letter-spacing: -0.045em !important;
@@ -141,7 +149,8 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(p, sma
   }
 
   body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .desktop-sidebar-brand small {
-    color: #7a818c !important;
+    color: #e7edf7 !important;
+    -webkit-text-fill-color: #e7edf7 !important;
     font-size: 12px !important;
     font-weight: 800 !important;
     letter-spacing: 0.14em !important;
