@@ -219,3 +219,85 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
     padding: 16px !important;
   }
 }
+
+
+/* Global command search: dedicated middle lane, no hamburger overlap. */
+@media (max-width: 760px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-workspace-header {
+    grid-template-columns: 44px minmax(0, 1fr) !important;
+    column-gap: 10px !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-workspace-header .mobile-menu-trigger {
+    position: relative !important;
+    grid-column: 1 !important;
+    z-index: 2 !important;
+    width: 44px !important;
+    min-width: 44px !important;
+    color: #14213d !important;
+    background: #fff !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger {
+    box-sizing: border-box !important;
+    left: 68px !important;
+    right: 142px !important;
+    top: calc(env(safe-area-inset-top) + 19px) !important;
+    min-height: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 0 12px !important;
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+    color: #14213d !important;
+    -webkit-text-fill-color: #14213d !important;
+    box-shadow: none !important;
+    white-space: nowrap !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger > span {
+    display: block !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    font-size: 12px !important;
+    font-weight: 650 !important;
+    color: #475467 !important;
+    -webkit-text-fill-color: #475467 !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger:hover {
+    background: #eef2f7 !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger:focus-visible {
+    outline: 3px solid #a66a0b !important;
+    outline-offset: 2px !important;
+  }
+}
+@media (max-width: 360px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger {
+    left: 63px !important;
+    right: 130px !important;
+    padding-inline: 8px !important;
+  }
+}
+@media (min-width: 761px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header {
+    min-width: 0 !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-search-trigger {
+    min-width: 0 !important;
+    max-width: 520px !important;
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+    color: #14213d !important;
+    box-shadow: none !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-search-trigger > span {
+    color: #475467 !important;
+    -webkit-text-fill-color: #475467 !important;
+  }
+}
