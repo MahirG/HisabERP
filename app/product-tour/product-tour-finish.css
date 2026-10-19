@@ -1,0 +1,452 @@
+/* Biloo product tour: focused design authority only on /product-tour.
+   Core marketing header/footer and authenticated ERP remain unchanged. */
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 {
+  --tour-ink:#14213d;--tour-muted:#475467;--tour-line:#dfe5ec;--tour-gold:#fca311;
+  min-width:0;color:#14213d;background:#fff;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 *{box-sizing:border-box}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 :is(section,article,div,nav){min-width:0}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-hero.marketing-page-hero {
+  display:grid!important;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr)!important;
+  align-items:center!important;gap:clamp(22px,3.6vw,44px)!important;
+  width:min(1160px,calc(100% - 48px))!important;
+  margin:0 auto!important;padding:52px 0 48px!important;
+  border:0!important;border-bottom:1px solid #dfe5ec!important;
+  background:#fff!important;box-shadow:none!important;color:#14213d!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-hero-copy{min-width:0!important}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-hero .marketing-eyebrow{
+  color:#80520b!important;font-size:11px!important;font-weight:790!important;
+  letter-spacing:.065em!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-hero h1{
+  max-width:18ch!important;margin:11px 0 14px!important;color:#14213d!important;
+  font-size:clamp(32px,3.7vw,47px)!important;font-weight:790!important;
+  letter-spacing:-.05em!important;line-height:1.13!important;text-wrap:balance!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-hero h1 em{
+  color:#a56a0e!important;font-style:normal!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-hero-copy>p{
+  max-width:55ch!important;margin:0!important;color:#475467!important;
+  font-size:14px!important;line-height:1.7!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-hero-actions{
+  display:flex!important;flex-wrap:wrap!important;gap:9px!important;margin-top:24px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 :is(
+  .marketing-hero-actions,.product-tour-copy-actions
+)>a{
+  display:inline-flex!important;min-width:0!important;min-height:44px!important;
+  align-items:center!important;justify-content:center!important;gap:6px!important;
+  padding:10px 15px!important;border-radius:9px!important;
+  font-size:12px!important;font-weight:760!important;line-height:1.4!important;
+  text-decoration:none!important;text-align:center!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 :is(
+  .marketing-hero-actions,.product-tour-copy-actions
+)>.marketing-start{
+  color:#14213d!important;background:#fca311!important;border:1px solid #fca311!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 :is(
+  .marketing-hero-actions,.product-tour-copy-actions
+)>.marketing-demo{
+  color:#14213d!important;background:#fff!important;border:1px solid #cbd5e1!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-page-stage{
+  width:min(1160px,calc(100% - 48px))!important;
+  margin:0 auto!important;padding:48px 0!important;scroll-margin-top:96px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour{
+  min-width:0!important;overflow:hidden!important;
+  border:1px solid #dbe3ee!important;border-radius:15px!important;
+  background:#fff!important;box-shadow:0 10px 32px rgba(20,33,61,.045)!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-toolbar{
+  display:flex!important;min-height:53px!important;align-items:center!important;
+  justify-content:space-between!important;gap:12px!important;
+  padding:10px 17px!important;border-radius:0!important;
+  background:#14213d!important;color:#fff!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-toolbar>div{
+  display:flex!important;align-items:center!important;flex-wrap:wrap!important;gap:8px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-toolbar :is(strong,span,p){
+  color:#e3eaf4!important;font-size:11px!important;line-height:1.45!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-toolbar strong{
+  color:#fff!important;font-size:13px!important;font-variant-numeric:tabular-nums!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-toolbar>p{
+  margin:0!important;text-align:center!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-toolbar>.product-tour-live{
+  color:#f2ca7b!important;font-size:11px!important;font-weight:740!important;white-space:nowrap!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-tabs{
+  display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:0!important;min-width:0!important;
+  border-bottom:1px solid #dfe5ec!important;background:#fff!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-tabs>button{
+  display:flex!important;align-items:center!important;gap:8px!important;
+  min-width:0!important;min-height:58px!important;padding:11px 10px!important;
+  border:0!important;border-right:1px solid #e6eaf0!important;border-radius:0!important;
+  background:#fff!important;color:#344054!important;box-shadow:none!important;
+  transform:none!important;text-align:left!important;cursor:pointer!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-tabs>button:last-child{border-right:0!important}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-tabs>button span{
+  flex:none;color:#80520b!important;font-size:11px!important;font-weight:800!important;
+  font-variant-numeric:tabular-nums!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-tabs>button strong{
+  color:#344054!important;font-size:11px!important;font-weight:730!important;line-height:1.35!important;
+  white-space:normal!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-tabs>button.active{
+  color:#14213d!important;background:#fff7e7!important;
+  box-shadow:inset 0 -3px 0 #fca311!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-tabs>button.active :is(span,strong){color:#14213d!important}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-stage{
+  display:grid!important;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)!important;
+  align-items:start!important;gap:clamp(18px,2.7vw,30px)!important;
+  min-width:0!important;margin:0!important;padding:27px!important;
+  border:0!important;border-radius:0!important;background:#fff!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-copy{
+  min-width:0!important;max-width:none!important;padding:0!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-copy .marketing-eyebrow{
+  color:#80520b!important;font-size:11px!important;font-weight:770!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-copy h2{
+  max-width:26ch!important;margin:11px 0 0!important;color:#14213d!important;
+  font-size:clamp(23px,2.65vw,32px)!important;line-height:1.22!important;
+  font-weight:760!important;letter-spacing:-.035em!important;text-wrap:balance!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-copy>p{
+  max-width:60ch!important;margin:12px 0 0!important;color:#475467!important;
+  font-size:13px!important;line-height:1.68!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-copy-actions{
+  display:flex!important;flex-wrap:wrap!important;gap:8px!important;margin-top:19px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-scene-nav{
+  display:flex!important;align-items:center!important;justify-content:space-between!important;
+  flex-wrap:wrap!important;gap:8px!important;
+  margin-top:24px!important;padding-top:12px!important;border-top:1px solid #dfe5ec!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-scene-nav>button{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  gap:7px!important;min-width:96px!important;min-height:44px!important;
+  padding:8px 12px!important;border:1px solid #cbd5e1!important;
+  border-radius:9px!important;background:#fff!important;color:#244d89!important;
+  font-size:12px!important;font-weight:740!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-scene-nav>span{
+  color:#596579!important;font-size:11px!important;font-weight:700!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 :is(a,button):focus-visible{
+  outline:3px solid #b57b1b!important;outline-offset:2px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact{
+  width:100%!important;min-width:0!important;overflow:hidden!important;
+  border:1px solid #dbe3ee!important;border-radius:11px!important;
+  box-shadow:none!important;background:#fff!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-topbar{
+  min-height:44px!important;grid-template-columns:auto minmax(0,1fr) auto!important;
+  gap:7px!important;padding:7px 10px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-brand strong{
+  color:#14213d!important;font-size:11px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-topbar nav{
+  overflow:hidden!important;min-width:0!important;text-overflow:ellipsis!important;
+  font-size:10px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-sample-indicator{
+  padding:5px 7px!important;border:1px solid #ead5a8!important;border-radius:7px!important;
+  color:#80520b!important;background:#fff7e9!important;
+  font-size:10px!important;font-weight:760!important;white-space:nowrap!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-layout{
+  grid-template-columns:72px minmax(0,1fr)!important;min-height:230px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-sidebar{
+  gap:3px!important;padding:8px 5px!important;background:#14213d!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-sidebar>span{
+  display:flex!important;align-items:center!important;gap:5px!important;
+  min-height:29px!important;padding:4px 5px!important;border-radius:5px!important;
+  color:#d2dbea!important;font-size:9px!important;line-height:1.3!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-sidebar>span.active{
+  color:#14213d!important;background:#fca311!important;font-weight:760!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-sidebar svg{
+  flex:none;width:14px!important;height:14px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-content{
+  min-width:0!important;padding:10px!important;background:#f8fafc!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-heading span{
+  color:#596579!important;font-size:10px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-heading h2{
+  color:#14213d!important;font-size:15px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-preview-label{
+  display:inline-flex!important;align-items:center!important;padding:4px 7px!important;
+  border:1px solid #dfe5ec!important;border-radius:7px!important;background:#fff!important;
+  color:#475467!important;font-size:10px!important;font-weight:700!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-tabs{
+  gap:10px!important;margin-top:8px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-tabs button{
+  min-height:37px!important;padding:7px 3px!important;
+  font-size:11px!important;color:#475467!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-tabs button.active{
+  color:#14213d!important;font-weight:800!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-tabs button.active::after{background:#fca311!important}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-metrics{
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  overflow:hidden!important;border-radius:9px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-metrics article{
+  min-width:0!important;padding:10px!important;background:#fff!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-metrics span,
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-metrics small{
+  font-size:10px!important;line-height:1.35!important;
+  color:#475467!important;white-space:normal!important;overflow-wrap:anywhere!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-metrics strong{
+  color:#14213d!important;font-size:14px!important;font-weight:790!important;
+  font-variant-numeric:tabular-nums!important;white-space:normal!important;
+  overflow-wrap:anywhere!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-table-wrap{
+  min-width:0!important;width:100%!important;max-width:100%!important;
+  overflow-x:auto!important;overscroll-behavior-x:contain!important;
+  margin-top:10px!important;border-radius:7px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-table{
+  width:100%!important;min-width:560px!important;border-collapse:collapse!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-table th{
+  color:#475467!important;font-size:9px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-table td{
+  color:#344054!important;font-size:10px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-table td strong{
+  color:#14213d!important;font-size:10px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-disclaimer{
+  margin:0!important;padding:8px 10px!important;border-top:1px solid #dfe5ec!important;
+  background:#f6f8fb!important;color:#475467!important;font-size:10px!important;
+  line-height:1.55!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-tour-principles{
+  width:min(1160px,calc(100% - 48px))!important;margin:0 auto!important;
+  padding:44px 0!important;background:#fff!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-section-heading{
+  max-width:760px!important;margin:0 auto 22px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-section-heading>span{
+  color:#80520b!important;font-size:11px!important;font-weight:780!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-section-heading h2{
+  color:#14213d!important;font-size:clamp(22px,2.7vw,30px)!important;
+  line-height:1.25!important;letter-spacing:-.035em!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-tour-principles>div:last-child{
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:13px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-tour-principles article{
+  min-width:0!important;padding:20px!important;border:1px solid #dfe5ec!important;
+  border-radius:12px!important;background:#fff!important;box-shadow:none!important;transform:none!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-tour-principles article b{
+  color:#80520b!important;font-size:11px!important;font-weight:790!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-tour-principles article h3{
+  margin:10px 0 6px!important;color:#14213d!important;
+  font-size:16px!important;line-height:1.35!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-tour-principles article p{
+  margin:0!important;color:#475467!important;font-size:13px!important;line-height:1.65!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-cta-v2{
+  display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:center!important;gap:20px!important;
+  width:min(1160px,calc(100% - 48px))!important;margin:0 auto 55px!important;
+  padding:30px!important;border:0!important;border-radius:13px!important;
+  background:#14213d!important;color:#fff!important;box-shadow:none!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-cta-v2 h2{
+  color:#fff!important;font-size:clamp(20px,2.4vw,28px)!important;line-height:1.25!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-cta-v2 :is(span,p){
+  color:#e0e7f4!important;font-size:13px!important;line-height:1.6!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-cta-v2>div:last-child{
+  display:flex!important;flex-wrap:wrap!important;gap:9px!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-cta-v2 a{
+  display:inline-flex!important;min-height:44px!important;align-items:center!important;
+  justify-content:center!important;padding:10px 15px!important;border-radius:9px!important;
+  font-size:12px!important;font-weight:760!important;text-align:center!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-cta-v2 .marketing-start{
+  color:#14213d!important;border:1px solid #fca311!important;background:#fca311!important;
+}
+.marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-cta-v2 .marketing-demo{
+  color:#fff!important;border:1px solid #a9b9d0!important;background:transparent!important;
+}
+@media(max-width:1100px){
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-hero.marketing-page-hero{
+    grid-template-columns:minmax(0,1fr)!important;padding:38px 0!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-hero h1{max-width:24ch!important}
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-stage{
+    grid-template-columns:minmax(0,1fr)!important;gap:20px!important;
+  }
+}
+@media(max-width:800px){
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-toolbar>p{display:none!important}
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-tabs{
+    display:flex!important;flex-wrap:nowrap!important;gap:0!important;
+    width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;
+    scrollbar-width:thin!important;overscroll-behavior-x:contain!important;
+    scroll-snap-type:x proximity!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-tabs>button{
+    flex:0 0 auto!important;width:158px!important;min-height:50px!important;
+    border-right:1px solid #e6eaf0!important;border-bottom:0!important;
+    padding:8px 12px!important;scroll-snap-align:start!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-tabs>button strong{
+    font-size:11px!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-tour-principles>div:last-child{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-cta-v2{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+}
+@media(max-width:520px){
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-hero.marketing-page-hero,
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-page-stage,
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-tour-principles,
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-cta-v2{
+    width:calc(100% - 32px)!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-hero.marketing-page-hero{
+    gap:24px!important;padding:30px 0!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-hero h1{
+    max-width:100%!important;font-size:clamp(29px,8vw,37px)!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-hero-copy>p{
+    font-size:13px!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-hero-actions{
+    display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-hero-actions>a{
+    width:100%!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-page-stage{padding:30px 0!important}
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-toolbar{
+    min-height:48px!important;padding:9px 12px!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-toolbar :is(span,strong){
+    font-size:10px!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-stage{
+    padding:16px 12px!important;gap:17px!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-copy h2{
+    font-size:clamp(23px,6.5vw,29px)!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-copy-actions{
+    display:grid!important;grid-template-columns:1fr!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-copy-actions>a{
+    width:100%!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-scene-nav{
+    display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    gap:9px!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-scene-nav>button{
+    min-width:0!important;width:100%!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .product-tour-scene-nav>span{
+    display:none!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-topbar{
+    grid-template-columns:minmax(0,1fr) auto!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-topbar nav{display:none!important}
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-layout{
+    grid-template-columns:minmax(0,1fr)!important;min-height:0!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-sidebar{display:none!important}
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-content{
+    padding:11px!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-preview-label{
+    display:none!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-metrics{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-metrics article:last-child{
+    grid-column:1/-1!important;border-top:1px solid #e2e8f0!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-table{
+    width:100%!important;min-width:0!important;table-layout:auto!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-table :is(th,td):nth-child(1),
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-table :is(th,td):nth-child(2),
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-table :is(th,td):nth-child(4){
+    display:none!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-table :is(th,td){
+    padding:8px 5px!important;font-size:10px!important;
+    white-space:normal!important;overflow-wrap:anywhere!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .erp-evidence-compact .erp-evidence-table td span{
+    max-width:none!important;white-space:normal!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-tour-principles{
+    padding:26px 0!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-cta-v2{
+    margin-bottom:40px!important;padding:22px 16px!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-cta-v2>div:last-child{
+    display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  }
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 .marketing-cta-v2 a{
+    width:100%!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 *,
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 *::before,
+  .marketing-editorial-v1 #public-main-content .product-tour-phase-2-4 *::after{
+    animation:none!important;transition:none!important;scroll-behavior:auto!important;
+  }
+}
