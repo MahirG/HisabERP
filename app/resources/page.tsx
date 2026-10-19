@@ -47,10 +47,10 @@ export default async function ResourcesPage() {
   const resourceRows = marketingResources.slice(0, 3).map((article) => ({ label: localize(article.title, language), value: `${article.readingMinutes} ${c.minutes}`, meta: localize(article.category, language) }));
 
   return (
-    <MarketingPageShell>
+    <MarketingPageShell className="biloo-seven-page">
       <section className="resources-hero">
         <div><span className="marketing-eyebrow">{c.eyebrow}</span><h1>{c.title}</h1><p>{c.intro}</p></div>
-        <InteractiveErpOffice moduleTitle="Business learning" moduleEyebrow={c.guides} metrics={resourceMetrics} rows={resourceRows} compact />
+        <InteractiveErpOffice moduleTitle="Business learning" moduleEyebrow={c.guides} metrics={resourceMetrics} rows={resourceRows} compact illustrative informational />
       </section>
 
       <section className="marketing-section resources-index-section">

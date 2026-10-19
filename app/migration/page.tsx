@@ -49,7 +49,7 @@ const migrationRows = [
 
 export default function MigrationPage() {
   return (
-    <MarketingPageShell>
+    <MarketingPageShell className="biloo-seven-page">
       <section className="migration-hero">
         <div>
           <span className="marketing-eyebrow">Data migration and onboarding</span>
@@ -58,7 +58,7 @@ export default function MigrationPage() {
           <div className="marketing-hero-actions"><Link href="/request-demo?topic=migration" className="marketing-start marketing-large">Request a migration assessment</Link><Link href="/help-center/prepare-data-for-import" className="marketing-demo marketing-large">Open the preparation guide</Link></div>
           <div className="migration-hero-pills"><span>Source preserved</span><span>Dry run required</span><span>Business approval</span><span>Controlled cutover</span></div>
         </div>
-        <InteractiveErpOffice moduleTitle="Migration control" moduleEyebrow="Data onboarding workspace" metrics={migrationMetrics} rows={migrationRows} compact />
+        <InteractiveErpOffice moduleTitle="Migration control" moduleEyebrow="Data onboarding workspace" metrics={migrationMetrics} rows={migrationRows} compact illustrative informational />
       </section>
 
       <section className="marketing-section migration-source-section">

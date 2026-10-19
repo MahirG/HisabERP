@@ -19,7 +19,7 @@ const comparisonRows = marketingComparisons.slice(0, 3).map((comparison) => ({ l
 
 export default function ComparisonHubPage() {
   return (
-    <MarketingPageShell>
+    <MarketingPageShell className="biloo-seven-page">
       <section className="comparison-hub-hero">
         <div>
           <span className="marketing-eyebrow">Honest ERP comparisons</span>
@@ -27,7 +27,7 @@ export default function ComparisonHubPage() {
           <p>The right system depends on the number of users, control risks, reporting effort, connectivity and specialist requirements. These comparisons explain where HisabERP can improve operations and where another approach may still be appropriate.</p>
           <div className="marketing-hero-actions"><Link href="/product-tour" className="marketing-start marketing-large">Inspect the product</Link><Link href="/request-demo?topic=comparison" className="marketing-demo marketing-large">Discuss your requirements</Link></div>
         </div>
-        <InteractiveErpOffice moduleTitle="ERP comparison" moduleEyebrow="Decision workspace" metrics={comparisonMetrics} rows={comparisonRows} compact />
+        <InteractiveErpOffice moduleTitle="ERP comparison" moduleEyebrow="Decision workspace" metrics={comparisonMetrics} rows={comparisonRows} compact illustrative informational />
       </section>
 
       <section className="marketing-section comparison-index-section">

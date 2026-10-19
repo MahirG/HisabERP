@@ -36,6 +36,7 @@ type InteractiveErpOfficeProps = {
   rows: HeroRow[];
   compact?: boolean;
   illustrative?: boolean;
+  informational?: boolean;
 };
 
 type ViewId = 'records' | 'trend' | 'controls';
@@ -92,7 +93,7 @@ function toAmount(value: string, index: number) {
   return ['ETB 126,500', 'ETB 89,760', 'ETB 45,600', 'ETB 73,200', 'ETB 18,975'][index] ?? value;
 }
 
-export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected operating workspace', metrics, rows, compact = false, illustrative = false }: InteractiveErpOfficeProps) {
+export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected operating workspace', metrics, rows, compact = false, illustrative = false, informational = false }: InteractiveErpOfficeProps) {
   const [view, setView] = useState<ViewId>('records');
   const financePreview = illustrative && moduleTitle.toLowerCase().includes('finance');
   const inventoryPreview = illustrative && moduleTitle.toLowerCase().includes('inventory');
@@ -150,9 +151,9 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
 
             <div className="erp-evidence-tabs" role="tablist" aria-label={`${moduleTitle} preview views`}>
               {([
-                ['records', financePreview ? 'Transactions' : inventoryPreview ? 'Stock items' : salesPreview ? 'Invoices' : 'Records'],
-                ['trend', financePreview ? 'Cash trends' : inventoryPreview ? 'Movement' : salesPreview ? 'Sales trends' : 'Performance'],
-                ['controls', salesPreview ? 'Collections' : 'Controls'],
+                ['records', informational ? 'Summary' : financePreview ? 'Transactions' : inventoryPreview ? 'Stock items' : salesPreview ? 'Invoices' : 'Records'],
+                ['trend', informational ? 'Highlights' : financePreview ? 'Cash trends' : inventoryPreview ? 'Movement' : salesPreview ? 'Sales trends' : 'Performance'],
+                ['controls', informational ? 'Context' : salesPreview ? 'Collections' : 'Controls'],
               ] as const).map(([id, label]) => <button type="button" role="tab" aria-selected={view === id} className={view === id ? 'active' : undefined} onClick={() => setView(id)} key={id}>{label}</button>)}
             </div>
 
@@ -160,7 +161,19 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
               {metrics.slice(0, 3).map((metric, index) => <article key={metric.label}><span>{metric.label}</span><strong>{metric.value}</strong><small className={index === 1 ? 'attention' : undefined}>{metric.note || 'Updated now'}</small></article>)}
             </div>
 
-            {view === 'records' ? (
+            {view === 'records' && informational ? (
+              <div className="erp-evidence-information" role="tabpanel" aria-label={`${moduleTitle} summary`}>
+                {rows.slice(0, 4).map((row, index) => (
+                  <article key={`${index}-${row.label}`}>
+                    <div><span>{String(index + 1).padStart(2, '0')}</span><strong>{row.label}</strong></div>
+                    <p>{row.meta || moduleEyebrow}</p>
+                    <b>{row.value}</b>
+                  </article>
+                ))}
+              </div>
+            ) : null}
+
+            {view === 'records' && !informational ? (
               <div className="erp-evidence-table-wrap">
                 <table className="erp-evidence-table">
                   <thead><tr><th>{salesPreview ? 'Invoice' : 'Reference'}</th><th>Date</th><th>{salesPreview ? 'Customer' : 'Record'}</th><th>Branch</th><th>{inventoryPreview ? 'Quantity' : 'Amount'}</th><th>Status</th></tr></thead>
@@ -169,7 +182,19 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
               </div>
             ) : null}
 
-            {view === 'trend' ? (
+            {view === 'trend' && informational ? (
+              <div className="erp-evidence-information" role="tabpanel" aria-label={`${moduleTitle} highlights`}>
+                {metrics.slice(0, 3).map((metric, index) => (
+                  <article key={metric.label}>
+                    <div><span>{String(index + 1).padStart(2, '0')}</span><strong>{metric.label}</strong></div>
+                    <p>{metric.note || 'Public information'}</p>
+                    <b>{metric.value}</b>
+                  </article>
+                ))}
+              </div>
+            ) : null}
+
+            {view === 'trend' && !informational ? (
               <div className="erp-evidence-analysis">
                 <div><span>{financePreview ? 'Sample net cash flow' : inventoryPreview ? 'Illustrative stock movement' : salesPreview ? 'Illustrative sales revenue' : 'Revenue performance'}</span><strong>{financePreview ? (metrics[1]?.value ?? 'ETB 96,240') : inventoryPreview ? (metrics[0]?.value ?? 'Sample inventory') : salesPreview ? (metrics[0]?.value ?? 'ETB 84,600') : 'ETB 4.82M'}</strong><small>{financePreview ? 'Illustrative trend, March–August 2026' : inventoryPreview ? 'Sample movement trend, March–August 2026' : salesPreview ? 'Sample week, Monday–Saturday' : '+18.6% compared with July'}</small></div>
                 <div className="erp-evidence-chart" aria-label={financePreview ? "Sample net cash flow from March to August 2026" : inventoryPreview ? "Illustrative stock movement, March to August 2026" : salesPreview ? "Illustrative daily sales, Monday through Saturday" : "Revenue performance from March to August 2026"}>
@@ -186,7 +211,15 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
               </div>
             ) : null}
 
-            {view === 'controls' ? (
+            {view === 'controls' && informational ? (
+              <div className="erp-evidence-info-context" role="tabpanel" aria-label={`${moduleTitle} context`}>
+                <strong>Explore the details below</strong>
+                <p>This informational preview summarizes the public page. It is not connected to a customer account, and the figures shown are not live financial records.</p>
+                <span>Review the page sections for current scope, qualifications and next steps.</span>
+              </div>
+            ) : null}
+
+            {view === 'controls' && !informational ? (
               <div className="erp-evidence-controls">
                 <article><CheckCircle /><div><strong>{salesPreview ? 'Invoice tracking' : 'Payment controls'}</strong><span>{salesPreview ? 'Sample paid and partial invoices' : 'All August receipts reconciled'}</span></div><b>Ready</b></article>
                 <article><WarningCircle /><div><strong>{salesPreview ? 'Collection follow-up' : 'Approval queue'}</strong><span>{salesPreview ? 'Outstanding sample invoices to review' : '3 records require finance review'}</span></div><b>Review</b></article>
@@ -195,7 +228,7 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
             ) : null}
           </section>
         </div>
-        {illustrative ? <p className="erp-evidence-disclaimer">Illustrative figures and sample records only. Not connected to an account.</p> : null}
+        {illustrative ? <p className="erp-evidence-disclaimer">{informational ? 'Public information preview only. No customer data is shown.' : 'Illustrative figures and sample records only. Not connected to an account.'}</p> : null}
       </div>
     </IconoirProvider>
   );

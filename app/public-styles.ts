@@ -13,5 +13,7 @@ import "./public-marketing-final-fixes.css";
 import "./public-chrome-unification.css";
 /* Final website-wide brand authority for public header, imported after legacy overrides. */
 import "./public-navy-header.css";
+/* Unified typography, contrast and responsive layout for seven product information pages. */
+import "./public-seven-pages.css";
 
 export {};

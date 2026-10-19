@@ -20,7 +20,7 @@ export default function IntegrationsPage() {
   const integrationRows = marketingIntegrations.slice(0, 3).map((integration) => ({ label: integration.name, value: integration.statusLabel, meta: integration.category }));
 
   return (
-    <MarketingPageShell>
+    <MarketingPageShell className="biloo-seven-page">
       <section className="integration-page-hero">
         <div>
           <span className="marketing-eyebrow">HisabERP integrations</span>
@@ -28,7 +28,7 @@ export default function IntegrationsPage() {
           <p>The directory uses explicit statuses so an authentication button, callback route or roadmap item is never presented as a fully activated production integration without the required provider setup.</p>
           <div className="marketing-hero-actions"><Link className="marketing-start marketing-large" href="/request-demo">Discuss an integration</Link><Link className="marketing-demo marketing-large" href="/trust">Review security controls</Link></div>
         </div>
-        <InteractiveErpOffice moduleTitle="Integrations" moduleEyebrow="Connection operations workspace" metrics={integrationMetrics} rows={integrationRows} compact />
+        <InteractiveErpOffice moduleTitle="Integrations" moduleEyebrow="Connection operations workspace" metrics={integrationMetrics} rows={integrationRows} compact illustrative informational />
       </section>
 
       <section className="integration-directory-section">

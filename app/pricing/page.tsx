@@ -19,7 +19,7 @@ const questions = [
 
 export default function PricingPage() {
   return (
-    <MarketingPageShell className="biloo-pricing-page">
+    <MarketingPageShell className="biloo-pricing-page biloo-seven-page">
       <section className="pricing-hero">
         <div><span className="marketing-eyebrow">Transparent ETB pricing</span><h1>Choose the plan that gives your business the right control now.</h1><p>Compare users, locations, modules and support, then continue through secure Chapa checkout for Starter, Growth or Business. Enterprise remains a guided commercial engagement.</p><div className="pricing-hero-notes"><span>Chapa-verified activation</span><span>No automatic recurring charge</span><span>Annual savings shown clearly</span><span>Migration scoped separately</span></div></div>
         <div className="pricing-value-panel" aria-label="What your Biloo subscription includes">

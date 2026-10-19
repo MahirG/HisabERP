@@ -26,7 +26,7 @@ const copy = {
     principlesEyebrow: "How we build",
     principlesTitle: "Product principles that guide every release.",
     principles: [
-      ["01", "Local context first", "Ethiopian birr, multilingual access, mobile workflows and local implementation realities are considered from the beginning."],
+      ["01", "Local context first", "Ethiopian birr, clear English interfaces, mobile workflows and local implementation realities are considered from the beginning."],
       ["02", "Evidence over claims", "Security, integrations and customer outcomes are described according to what is implemented and verified."],
       ["03", "Control without complexity", "The product should make responsibilities, approvals and exceptions visible without making routine work difficult."],
       ["04", "Connected decisions", "Operational activity should become useful management information without rebuilding reports manually."],
@@ -62,10 +62,10 @@ export default async function AboutPage() {
   const aboutRows = c.principles.slice(0, 3).map(([number, title]) => ({ label: title, value: "Active", meta: number }));
 
   return (
-    <MarketingPageShell>
+    <MarketingPageShell className="biloo-seven-page">
       <section className="about-hero">
         <div><span className="marketing-eyebrow">{c.eyebrow}</span><h1>{c.title}</h1><p>{c.intro}</p><div className="marketing-hero-actions"><Link href="/request-demo?source=about" className="marketing-start marketing-large">{c.demo}</Link><a href="mailto:info@hisabtech.com" className="marketing-demo marketing-large">{c.email}</a></div></div>
-        <InteractiveErpOffice moduleTitle="HisabTech" moduleEyebrow={c.missionEyebrow} metrics={aboutMetrics} rows={aboutRows} compact />
+        <InteractiveErpOffice moduleTitle="HisabTech" moduleEyebrow={c.missionEyebrow} metrics={aboutMetrics} rows={aboutRows} compact illustrative informational />
       </section>
 
       <section className="about-mission-section"><div><span>{c.missionEyebrow}</span><h2>{c.missionTitle}</h2><p>{c.missionText}</p></div><div className="about-mission-mark"><img src="/hisab-logo.svg" alt="" width="150" height="150" className="hisab-logo"/><strong>HisabERP</strong><span>Business operating system</span></div></section>

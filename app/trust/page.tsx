@@ -18,7 +18,7 @@ export default function TrustPage() {
   const trustRows = trustControls.slice(0, 3).map((control) => ({ label: control.title, value: control.statusLabel, meta: control.number }));
 
   return (
-    <MarketingPageShell>
+    <MarketingPageShell className="biloo-seven-page">
       <section className="trust-page-hero">
         <div>
           <span className="marketing-eyebrow">HisabERP Trust Center</span>
@@ -26,7 +26,7 @@ export default function TrustPage() {
           <p>This Trust Center separates controls that are implemented today from safeguards that require configuration, ongoing operational evidence or a platform upgrade.</p>
           <div className="marketing-hero-actions"><a className="marketing-start marketing-large" href="mailto:mahir@hisabtech.com?subject=HisabERP%20security%20question">Ask a security question</a><Link className="marketing-demo marketing-large" href="/request-demo">Request a controlled demo</Link></div>
         </div>
-        <InteractiveErpOffice moduleTitle="Trust & controls" moduleEyebrow="Security operations workspace" metrics={trustMetrics} rows={trustRows} compact />
+        <InteractiveErpOffice moduleTitle="Trust & controls" moduleEyebrow="Security operations workspace" metrics={trustMetrics} rows={trustRows} compact illustrative informational />
       </section>
 
       <section className="trust-section trust-section-light">
