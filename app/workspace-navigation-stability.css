@@ -360,10 +360,10 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
     box-shadow: 0 3px 12px rgba(20,33,61,.12) !important;
     display: flex !important;
     align-items: center !important;
-    justify-content: flex-start !important;
+    justify-content: flex-end !important;
     gap: 12px !important;
     padding-left: clamp(16px,2vw,28px) !important;
-    padding-right: 160px !important;
+    padding-right: 78px !important;
   }
   body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header .workspace-search-trigger {
     width: clamp(220px,34vw,440px) !important;
@@ -430,5 +430,38 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
   }
   body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-command-trigger:hover {
     background: rgba(255,255,255,.2) !important;
+  }
+}
+
+/* Right-aligned utility group and high-contrast navy header labels. */
+@media (min-width: 761px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header {
+    justify-content: flex-end !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header :is(.workspace-search-trigger,.workspace-header-actions > button) {
+    font-size: 12px !important;
+    font-weight: 650 !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace-command-header :is(.workspace-search-trigger,.workspace-header-actions > button) :is(span,svg,kbd,b) {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .sticky-user-menu .sticky-user-trigger {
+    border: 1px solid rgba(255,255,255,.35) !important;
+    background: rgba(255,255,255,.1) !important;
+    color: #fff !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .sticky-user-menu .sticky-user-avatar {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+}
+@media (max-width: 760px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-workspace-header .mobile-workspace-title :is(small,strong) {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .mobile-workspace-header .mobile-menu-trigger :is(span,i) {
+    color: #fff !important;
   }
 }
