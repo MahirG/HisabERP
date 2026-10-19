@@ -30,10 +30,6 @@
 
   var WORKSPACE_STYLES = [
     {
-      id: "biloo-workspace-utility-header",
-      href: "/biloo-workspace-utility-header.css?v=20260802-3"
-    },
-    {
       id: "biloo-mobile-navigation-v4",
       href: "/biloo-mobile-navigation-v4.css?v=20260802-2",
       media: "(max-width: 960px)"
@@ -60,6 +56,9 @@
   }
 
   function ensureWorkspaceStyles() {
+    /* Remove the old floating-header sheet from SPA sessions as well as reloads. */
+    var obsolete = document.getElementById('biloo-workspace-utility-header');
+    if (obsolete) obsolete.remove();
     if (isPublicMarketingDocument()) return;
 
     for (var index = 0; index < WORKSPACE_STYLES.length; index += 1) {
@@ -95,33 +94,6 @@
     document.body.removeAttribute("data-public-marketing");
   }
 
-  function updateWorkspaceCredit() {
-    var credits = document.querySelectorAll(".erp-shell > #primary-sidebar .sidebar-footer .powered-by");
-    for (var index = 0; index < credits.length; index += 1) {
-      var credit = credits[index];
-      credit.setAttribute("data-brand-legacy", "true");
-
-      var link = credit.querySelector("a");
-      if (!link) {
-        link = document.createElement("a");
-        credit.appendChild(link);
-      }
-
-      var firstNode = credit.firstChild;
-      if (!firstNode || firstNode.nodeType !== Node.TEXT_NODE) {
-        firstNode = document.createTextNode("Powered by ");
-        credit.insertBefore(firstNode, link);
-      } else if (firstNode.nodeValue !== "Powered by ") {
-        firstNode.nodeValue = "Powered by ";
-      }
-
-      link.textContent = "Hisab Technologies";
-      link.setAttribute("href", "https://www.hisabtechnologies.com");
-      link.setAttribute("target", "_blank");
-      link.setAttribute("rel", "noopener noreferrer");
-      link.setAttribute("aria-label", "Hisab Technologies website");
-    }
-  }
 
   ensureWorkspaceStyles();
 
@@ -229,11 +201,9 @@
   function flushQueuedRoots() {
     queued = false;
     syncPublicMarketingMode();
-    updateWorkspaceCredit();
     var roots = queuedRoots.splice(0, queuedRoots.length);
     for (var index = 0; index < roots.length; index += 1) updateSubtree(roots[index]);
     syncPublicMarketingMode();
-    updateWorkspaceCredit();
     updateHead();
   }
 
@@ -250,7 +220,6 @@
     ensureWorkspaceStyles();
     root.dataset.brand = "biloo";
     syncPublicMarketingMode();
-    updateWorkspaceCredit();
     queueRoot(document.body);
 
     var observer = new MutationObserver(function (mutations) {
