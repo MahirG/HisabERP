@@ -271,7 +271,11 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
         </nav>
 
         <div className="sidebar-dock-status" aria-label="Biloo navigation"><Icon name="chevron-right" size={14} /><strong>Biloo workspace</strong></div>
-        <footer className="sidebar-footer"><p className="powered-by">Powered by <a href="https://www.hisabtech.com" target="_blank" rel="noopener noreferrer">Biloo</a></p><p>{user.organizationName}<br />Addis Ababa, Ethiopia</p></footer>
+        <footer className="sidebar-footer" aria-label="Workspace details">
+          <p className="powered-by">Powered by <a href="https://www.hisabtech.com" target="_blank" rel="noopener noreferrer">Biloo</a></p>
+          <p className="sidebar-footer-organization">{user.organizationName}</p>
+          <p className="sidebar-footer-location">Addis Ababa, Ethiopia</p>
+        </footer>
       </aside>
 
       <div className="workspace" id="workspace-content" ref={workspaceRef}>{children}</div>
