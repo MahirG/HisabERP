@@ -1,0 +1,217 @@
+/* Biloo public website — single deep-navy header authority (2026).
+ * Intentionally loaded LAST in app/public-styles.ts to defeat older white
+ * header CSS without touching authenticated ERP, auth, or the white body.
+ * The header is shared by MarketingPageShell on all marketing pages.
+ */
+.marketing-site-v2 > .wb-header {
+  --public-header-navy: #14213d;
+  --public-header-white: #ffffff;
+  --public-header-soft: #e7edf7;
+  --public-header-gold: #fca311;
+  background: var(--public-header-navy) !important;
+  background-image: none !important;
+  color: var(--public-header-white) !important;
+  border: 0 !important;
+  border-bottom: 1px solid #30415f !important;
+  box-shadow: 0 3px 12px rgba(20,33,61,.12) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.marketing-site-v2 > .wb-header > .wb-utility-bar,
+.marketing-site-v2 > .wb-header > .wb-utility-bar .wb-utility-inner {
+  background: #0e1930 !important;
+  background-image: none !important;
+  color: #e7edf7 !important;
+}
+.marketing-site-v2 > .wb-header > .wb-utility-bar {
+  border-bottom: 1px solid #30415f !important;
+}
+.marketing-site-v2 > .wb-header .wb-utility-left a {
+  color: #e7edf7 !important;
+  -webkit-text-fill-color: #e7edf7 !important;
+  background: transparent !important;
+  font-weight: 680 !important;
+}
+.marketing-site-v2 > .wb-header .wb-utility-left a:hover,
+.marketing-site-v2 > .wb-header .wb-utility-left a:focus-visible {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-decoration: underline !important;
+  text-underline-offset: 4px !important;
+}
+.marketing-site-v2 > .wb-header .wb-header-inner,
+.marketing-site-v2 > .wb-header .wb-header-actions,
+.marketing-site-v2 > .wb-header .wb-primary-nav,
+.marketing-site-v2 > .wb-header .wb-nav-group {
+  background: transparent !important;
+  background-image: none !important;
+  color: #ffffff !important;
+}
+.marketing-site-v2 > .wb-header a.wb-brand {
+  color: #ffffff !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+.marketing-site-v2 > .wb-header a.wb-brand img {
+  display: block !important;
+  object-fit: contain !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+.marketing-site-v2 > .wb-header .wb-primary-nav > a,
+.marketing-site-v2 > .wb-header .wb-nav-group > button,
+.marketing-site-v2 > .wb-header .wb-search-trigger,
+.marketing-site-v2 > .wb-header .wb-sign-in {
+  display: inline-flex;
+  align-items: center;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  text-decoration: none !important;
+  font-weight: 690 !important;
+}
+.marketing-site-v2 > .wb-header .wb-primary-nav > a svg,
+.marketing-site-v2 > .wb-header .wb-nav-group > button svg,
+.marketing-site-v2 > .wb-header .wb-search-trigger svg {
+  color: inherit !important;
+  stroke: currentColor !important;
+}
+.marketing-site-v2 > .wb-header .wb-primary-nav > a:hover,
+.marketing-site-v2 > .wb-header .wb-primary-nav > a:focus-visible,
+.marketing-site-v2 > .wb-header .wb-primary-nav > a.is-active,
+.marketing-site-v2 > .wb-header .wb-nav-group > button:hover,
+.marketing-site-v2 > .wb-header .wb-nav-group > button:focus-visible,
+.marketing-site-v2 > .wb-header .wb-nav-group > button.is-active,
+.marketing-site-v2 > .wb-header .wb-nav-group.is-open > button,
+.marketing-site-v2 > .wb-header .wb-search-trigger:hover,
+.marketing-site-v2 > .wb-header .wb-sign-in:hover {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: rgba(255,255,255,.12) !important;
+  border-color: transparent !important;
+}
+.marketing-site-v2 > .wb-header .wb-primary-nav > a[aria-current="page"],
+.marketing-site-v2 > .wb-header .wb-nav-group > button.is-active {
+  box-shadow: inset 0 -2px 0 #fca311 !important;
+}
+.marketing-site-v2 > .wb-header .wb-primary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px !important;
+  padding: 0 15px !important;
+  border: 1px solid #fca311 !important;
+  border-radius: 9px !important;
+  background: #fca311 !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  font-weight: 800 !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+.marketing-site-v2 > .wb-header .wb-primary-action:hover {
+  background: #ffb83e !important;
+  border-color: #ffb83e !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+}
+/* A dropdown is a separate WHITE surface with NAVY text: no white-on-white. */
+.marketing-site-v2 > .wb-header .wb-dropdown {
+  background: #ffffff !important;
+  border: 1px solid #dce4ee !important;
+  color: #14213d !important;
+  box-shadow: 0 18px 45px rgba(20,33,61,.18) !important;
+}
+.marketing-site-v2 > .wb-header .wb-dropdown a {
+  color: #243650 !important;
+  -webkit-text-fill-color: #243650 !important;
+  background: transparent !important;
+}
+.marketing-site-v2 > .wb-header .wb-dropdown a:hover,
+.marketing-site-v2 > .wb-header .wb-dropdown a:focus-visible,
+.marketing-site-v2 > .wb-header .wb-dropdown a[aria-current="page"] {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  background: #eef3fa !important;
+}
+.marketing-site-v2 > .wb-header :is(a,button):focus-visible {
+  outline: 3px solid #fca311 !important;
+  outline-offset: 3px !important;
+}
+/* Mobile top bar: white mark + centered white hamburger lines. */
+@media (max-width: 900px) {
+  .marketing-site-v2 > .wb-header .wb-mobile-toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 44px !important;
+    width: 44px !important;
+    min-height: 44px !important;
+    height: 44px !important;
+    padding: 0 !important;
+    background: rgba(255,255,255,.08) !important;
+    border: 1px solid rgba(255,255,255,.42) !important;
+    border-radius: 10px !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    box-shadow: none !important;
+  }
+  .marketing-site-v2 > .wb-header .wb-mobile-toggle:hover,
+  .marketing-site-v2 > .wb-header .wb-mobile-toggle[aria-expanded="true"] {
+    background: rgba(255,255,255,.16) !important;
+    border-color: #fca311 !important;
+    color: #ffffff !important;
+  }
+  .marketing-site-v2 > .wb-header .wb-mobile-toggle-icon i {
+    background: #ffffff !important;
+  }
+}
+/* The opened drawer remains a WHITE navigation surface; only its own
+ * header matches the navy identity, keeping drawer links dark and readable. */
+.marketing-site-v2 .wb-mobile-panel > header {
+  min-height: 66px !important;
+  margin: -14px -18px 13px !important;
+  padding: 10px 18px !important;
+  background: #14213d !important;
+  border-bottom: 1px solid #30415f !important;
+  color: #ffffff !important;
+}
+.marketing-site-v2 .wb-mobile-panel > header img {
+  object-fit: contain !important;
+  filter: none !important;
+}
+.marketing-site-v2 .wb-mobile-panel > header button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 44px !important;
+  min-width: 44px !important;
+  width: 44px !important;
+  height: 44px !important;
+  border: 1px solid rgba(255,255,255,.4) !important;
+  border-radius: 10px !important;
+  background: rgba(255,255,255,.08) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+.marketing-site-v2 .wb-mobile-panel > header button:hover {
+  background: rgba(255,255,255,.16) !important;
+}
+.marketing-site-v2 .wb-mobile-panel > header :is(a,button):focus-visible {
+  outline: 3px solid #fca311 !important;
+  outline-offset: 3px !important;
+}
+@media (max-width: 520px) {
+  .marketing-site-v2 .wb-mobile-panel > header {
+    margin-inline: -16px !important;
+    padding-inline: 16px !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marketing-site-v2 > .wb-header *,
+  .marketing-site-v2 .wb-mobile-panel > header * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

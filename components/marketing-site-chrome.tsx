@@ -161,7 +161,7 @@ export function MarketingHeader() {
           </div>
         </div>
         <div className="wb-header-inner">
-          <Link href="/" className="wb-brand" aria-label="Biloo home"><img src="/biloo-header-logo.svg" alt="Biloo" width="112" height="56" /></Link>
+          <Link href="/" className="wb-brand" aria-label="Biloo home"><img src="/biloo-header-logo-white.svg" alt="Biloo" width="112" height="56" /></Link>
           <nav className="wb-primary-nav" aria-label={c.navigation}>
             {navigationGroups.map((group) => {
               const open = openMenu === group.id;
@@ -200,7 +200,7 @@ export function MarketingHeader() {
       <div className={`wb-mobile-drawer${mobileOpen ? " is-open" : ""}`} aria-hidden={!mobileOpen} inert={!mobileOpen ? true : undefined}>
         <button type="button" className="wb-overlay-backdrop" aria-label={c.closeMenu} onClick={() => setMobileOpen(false)} />
         <aside ref={menuModalRef} tabIndex={-1} id={mobilePanelId} className="wb-mobile-panel" role="dialog" aria-modal="true" aria-label={c.navigation}>
-          <header><Link href="/" onClick={() => setMobileOpen(false)}><img src="/biloo-header-logo.svg" alt="Biloo" width="106" height="52" /></Link><button type="button" onClick={() => setMobileOpen(false)} aria-label={c.closeMenu}><Xmark width={19} height={19} strokeWidth={1.6} aria-hidden /></button></header>
+          <header><Link href="/" onClick={() => setMobileOpen(false)}><img src="/biloo-header-logo-white.svg" alt="Biloo" width="106" height="52" /></Link><button type="button" onClick={() => setMobileOpen(false)} aria-label={c.closeMenu}><Xmark width={19} height={19} strokeWidth={1.6} aria-hidden /></button></header>
           <button type="button" className="wb-mobile-search" onClick={() => { setMobileOpen(false); setSearchOpen(true); }}><Search width={17} height={17} strokeWidth={1.6} aria-hidden /><span>{c.searchPlaceholder}</span></button>
           <nav className="wb-mobile-navigation" aria-label={c.navigation}>
             {navigationGroups.map((group) => {

@@ -11,5 +11,7 @@ import "./marketing-legal.css";
 import "./marketing-editorial-system.css";
 import "./public-marketing-final-fixes.css";
 import "./public-chrome-unification.css";
+/* Final website-wide brand authority for public header, imported after legacy overrides. */
+import "./public-navy-header.css";
 
 export {};
