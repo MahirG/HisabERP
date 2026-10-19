@@ -220,9 +220,8 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
           <span aria-hidden="true"><i /><i /><i /></span>
         </button>
         <div className="mobile-workspace-title" aria-label={activeItem?.label ?? d.nav.overview}><small>Biloo ERP</small><strong>{activeItem?.label ?? d.nav.overview}</strong></div>
+        <UserMenu user={user} />
       </header>
-
-      <UserMenu user={user} />
 
       <WorkspaceMobileNavigation open={mobileNavOpen} onDismiss={() => setMobileNavOpen(false)} groups={groups} pathname={pathname} organizationName={user.organizationName} organizationMark={organizationMark} activeLabel={activeItem?.label ?? d.nav.overview} label={menuLabel} />
 
