@@ -136,7 +136,7 @@ export async function signUpWithEmail(formData: FormData) {
 
 export async function signInWithEmail(formData: FormData) {
   if (!isSupabaseConfigured()) redirect("/auth/login?error=Authentication+is+not+configured");
-  const next = safeNextPath(formData.get("next"));
+  const next = safeNextPath(formData.get("next") || "/workspace-home");
 
   let email: string;
   let secret: string;

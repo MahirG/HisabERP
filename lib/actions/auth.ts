@@ -76,7 +76,7 @@ export async function signInWithOAuthProvider(formData: FormData) {
 
   const providerValue = typeof formData.get("provider") === "string" ? String(formData.get("provider")) : "";
   const provider = providerValue === "google" || providerValue === "apple" ? providerValue : null;
-  const next = safeNextPath(formData.get("next"));
+  const next = safeNextPath(formData.get("next") || "/workspace-home");
 
   const providerEnabled = provider === "google"
     ? appConfig.authProviders.google

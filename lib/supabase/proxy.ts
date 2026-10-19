@@ -100,9 +100,13 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
 
   if (path === "/") {
     if (!isAuthenticated) return withCookies(NextResponse.next({ request: { headers: requestHeaders } }));
+    // A rewrite keeps pathname "/" on the client, so WorkspaceShell treats
+    // the dashboard as public and never mounts its persistent navigation.
+    // Always redirect to the canonical authenticated route instead.
     const url = request.nextUrl.clone();
     url.pathname = "/workspace-home";
-    return withCookies(NextResponse.rewrite(url, { request: { headers: requestHeaders } }));
+    url.search = "";
+    return withCookies(NextResponse.redirect(url));
   }
 
   const authenticatedRecoveryPage = path === "/auth/reset-password";
@@ -110,7 +114,8 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
   const authenticatedMarketingPath = authenticatedMarketingRoutes.has(path) || publicPagePrefixes.some((prefix) => path.startsWith(prefix));
   if (isAuthenticated && publicPageRoutes.has(path) && path !== "/" && !authenticatedMarketingPath && path !== "/auth/callback" && path !== "/auth/confirm" && path !== "/auth/finish" && !authenticatedRecoveryPage && !authenticatedPreview) {
     const url = request.nextUrl.clone();
-    url.pathname = "/";
+    // Never bounce a signed-in user through the public marketing homepage.
+    url.pathname = "/workspace-home";
     url.search = "";
     return withCookies(NextResponse.redirect(url));
   }

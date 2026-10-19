@@ -117,3 +117,21 @@ test("supports hosted email fragment, PKCE and token-hash callbacks", async () =
   assert.match(actions, /reportEmailError\("recovery", error\)/);
   assert.match(config, /NEXT_PUBLIC_SUPABASE_ANON_KEY/);
 });
+
+
+test("successful sign-in and OAuth return to a canonical workspace URL", async () => {
+  const [proxy, login, oauth, callback, page, shell] = await Promise.all([
+    read("lib/supabase/proxy.ts"), read("lib/actions/email-auth.ts"),
+    read("lib/actions/auth.ts"), read("app/auth/callback/route.ts"),
+    read("app/auth/login/page.tsx"), read("components/workspace-shell.tsx"),
+  ]);
+  assert.match(proxy, /url\.pathname = "\/workspace-home"/);
+  assert.doesNotMatch(proxy, /NextResponse\.rewrite\(url/);
+  assert.match(proxy, /signed-in user through the public marketing homepage/);
+  assert.match(login, /const next = safeNextPath\(formData\.get\("next"\) \|\| "\/workspace-home"\)/);
+  assert.match(oauth, /const next = safeNextPath\(formData\.get\("next"\) \|\| "\/workspace-home"\)/);
+  assert.match(callback, /safeNextPath\(request\.nextUrl\.searchParams\.get\("next"\) \|\| "\/workspace-home"\)/);
+  assert.match(page, /safeNextPath\(params\.next \|\| "\/workspace-home"\)/);
+  assert.match(shell, /pathname === "\/" && !initialUser/);
+  assert.match(proxy, /billingRedirect\(request\)/);
+});
