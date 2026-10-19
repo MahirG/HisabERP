@@ -105,7 +105,7 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
         meta: row.meta,
       };
     });
-  }, [moduleTitle, rows]);
+  }, [moduleTitle, rows, illustrative]);
 
   return (
     <IconoirProvider iconProps={{ width: 17, height: 17, strokeWidth: 1.55, 'aria-hidden': true }}>

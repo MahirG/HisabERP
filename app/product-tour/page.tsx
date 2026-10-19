@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/product-tour" },
   openGraph: {
     title: "Biloo ERP Product Tour",
-    description: "See how Biloo connects daily operations to live management visibility across desktop and mobile.",
+    description: "Explore illustrative Biloo ERP screens for sales, inventory, finance, and reporting on desktop and mobile.",
     url: "/product-tour",
     type: "website",
   },
@@ -22,7 +22,7 @@ const tourMetrics = [
 ];
 
 const tourRows = [
-  { label: "Sales & invoicing", value: "Live", meta: "Connected workspace" },
+  { label: "Sales & invoicing", value: "Sample", meta: "Connected workspace" },
   { label: "Inventory control", value: "98.4%", meta: "Stock visibility" },
   { label: "Finance & reports", value: "Ready", meta: "Decision view" },
 ];

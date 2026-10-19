@@ -26,7 +26,7 @@ test("Finance product preview labels all sample data and does not expose fake ac
   assert.match(preview,/illustrative\?: boolean/);
   assert.match(preview,/erp-evidence-sample-indicator/);
   assert.match(preview,/Illustrative figures and sample records only/);
-  assert.match(preview,/label === 'Finance' \? 'active'/);
+  assert.match(preview,/label === selectedPreviewNav \? 'active'/);
   assert.match(preview,/financeCashflowData/);
   assert.match(preview,/Sample net cash flow/);
   assert.match(preview,/financePreview \? 'Transactions' : 'Records'/);
