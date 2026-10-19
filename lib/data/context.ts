@@ -31,7 +31,12 @@ export async function getCurrentUserContext(options: { required?: boolean } = {}
     .limit(1)
     .maybeSingle();
 
-  if (error || !data) {
+  if (error) {
+    // A failed database lookup does not mean a user's company disappeared.
+    console.error("biloo.auth.membership_lookup_failed", { code: error.code || "unknown" });
+    throw new Error("Workspace membership could not be loaded. Please retry.");
+  }
+  if (!data) {
     if (options.required) redirect("/onboarding");
     return null;
   }

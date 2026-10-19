@@ -156,14 +156,20 @@ export async function signInWithEmail(formData: FormData) {
   }
 
   await recordLoginAttempt(email, true, data.user.id, null, metadata);
-  const { data: membership } = await supabase.from("organization_members").select("organization_id").eq("user_id", data.user.id).eq("is_active", true).order("is_default", { ascending: false }).limit(1).maybeSingle();
-  await supabase.rpc("record_auth_audit", {
-    p_event_type: "auth.sign_in.succeeded",
-    p_organization_id: membership?.organization_id || null,
-    p_ip_address: metadata.ip,
-    p_user_agent: metadata.userAgent,
-    p_metadata: { provider: "email" },
-  });
+  // Optional audit logging must not strand an already-authenticated customer.
+  try {
+    const { data: membership } = await supabase.from("organization_members").select("organization_id").eq("user_id", data.user.id).eq("is_active", true).order("is_default", { ascending: false }).limit(1).maybeSingle();
+    const { error: auditError } = await supabase.rpc("record_auth_audit", {
+      p_event_type: "auth.sign_in.succeeded",
+      p_organization_id: membership?.organization_id || null,
+      p_ip_address: metadata.ip,
+      p_user_agent: metadata.userAgent,
+      p_metadata: { provider: "email" },
+    });
+    if (auditError) console.warn("biloo.auth.audit_unavailable", { code: auditError.code || "unknown" });
+  } catch {
+    console.warn("biloo.auth.audit_unavailable", { code: "request_failed" });
+  }
   redirect(next);
 }
 
