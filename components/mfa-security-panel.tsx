@@ -129,7 +129,8 @@ export function MfaSecurityPanel({ organizationId, required, initialAal, continu
         code: normalizedCode,
       });
       if (verification.error) throw verification.error;
-      await recordAudit(eventType);
+      // MFA succeeded: optional audit failures must never strand the user on this page.
+      try { await recordAudit(eventType); } catch { console.warn("biloo.mfa.audit_unavailable"); }
       setEnrollment(null);
       setCode("");
       setMessage(eventType === "auth.mfa.enrolled" ? "Authenticator enabled. This browser now carries strong administrator assurance." : "Session verified. Protected actions are now available in this browser.");
@@ -139,7 +140,7 @@ export function MfaSecurityPanel({ organizationId, required, initialAal, continu
         else window.location.reload();
       }, 850);
     } catch (reason) {
-      await recordAudit("auth.mfa.challenge_failed", "critical");
+      try { await recordAudit("auth.mfa.challenge_failed", "critical"); } catch { console.warn("biloo.mfa.audit_unavailable"); }
       setError(readableError(reason, "The verification code was not accepted."));
     } finally {
       setBusy(false);
