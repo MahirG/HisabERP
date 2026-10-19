@@ -249,3 +249,26 @@
   .group + .group { margin-top: 8px; padding-top: 8px; }
   .dialog .footer { padding-top: 7px; padding-bottom: max(8px, env(safe-area-inset-bottom)); gap: 2px; }
 }
+
+/* Mobile navigation refinement: isolated native top-layer drawer. */
+.dialog[open] .panel {
+  animation: biloo-drawer-enter 210ms cubic-bezier(.2,.8,.2,1) both;
+}
+.dialog[open]::backdrop {
+  animation: biloo-drawer-backdrop 210ms ease-out both;
+}
+.dialog .close:hover { background: #eaf0f7; color: #14213d; }
+.dialog .close:active { transform: scale(.97); }
+.dialog .link { transition: background-color 160ms ease, color 160ms ease; }
+@keyframes biloo-drawer-enter {
+  from { transform: translateX(-18px); opacity: .8; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes biloo-drawer-backdrop {
+  from { background: rgba(11,20,40,0); }
+  to { background: rgba(11,20,40,.5); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dialog[open] .panel, .dialog[open]::backdrop { animation: none; }
+  .dialog .link { transition: none; }
+}
