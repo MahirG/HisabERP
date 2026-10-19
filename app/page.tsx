@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./hd-hero-visual.css";
+import "./home-award-2026.css";
 import { CampfireMarketingHome } from "../components/campfire-marketing-home";
 import { MarketingPageShell } from "../components/marketing-site-chrome";
 export const dynamic = "force-static";
