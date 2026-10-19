@@ -211,3 +211,132 @@ html[data-theme] body[data-workspace-system="financial-os-v1"] .erp-shell > .wor
     overflow-wrap: anywhere;
   }
 }
+
+/*
+ * Company Setup (/onboarding) is a standalone Company Launch layout, not an
+ * ERP shell descendant. Its two hero states therefore need an explicit
+ * on-surface contrast contract, separate from .ops-hero.
+ * Scope to launch-center so public/auth pages retain their own design.
+ */
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center > .launch-overview,
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-create-intro {
+  border: 1px solid rgba(252, 163, 17, .28) !important;
+  background: linear-gradient(135deg, #14213d 0%, #0b1428 100%) !important;
+  background-color: #14213d !important;
+  color: #ffffff !important;
+  box-shadow: 0 22px 55px rgba(11, 20, 40, .15) !important;
+}
+
+/* Setup overview hero: title, eyebrow, description and workflow status. */
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-title-row h1,
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-create-intro .launch-create-copy h1 {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1 !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-overview-copy > p,
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-create-intro .launch-create-copy > p {
+  color: #dbe4f2 !important;
+  -webkit-text-fill-color: #dbe4f2 !important;
+  opacity: 1 !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center :is(.launch-overview, .launch-create-intro) .launch-kicker {
+  color: #ffd071 !important;
+  -webkit-text-fill-color: #ffd071 !important;
+  opacity: 1 !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-title-row > span {
+  border: 1px solid #d8e5f5 !important;
+  background: #e8f0fb !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  opacity: 1 !important;
+}
+
+/* Continue/setup buttons must contrast with the navy hero in both themes. */
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-primary-action {
+  min-height: 44px;
+  border: 1px solid #fca311 !important;
+  background: #fca311 !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .16) !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-primary-action :is(span, strong, svg) {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-tertiary-action {
+  min-height: 44px;
+  border: 1px solid #b9c8dd !important;
+  background: rgba(255, 255, 255, .08) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-tertiary-action :is(span, strong, svg) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Readiness lives on a solid white card, not on the dark hero surface. */
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-progress-card {
+  border: 1px solid #ced8e5 !important;
+  background: #ffffff !important;
+  color: #14213d !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .12) !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-progress-copy > strong,
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-progress-ring strong {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview :is(
+  .launch-progress-copy > span, .launch-progress-copy > p, .launch-progress-ring span
+) {
+  color: #475467 !important;
+  -webkit-text-fill-color: #475467 !important;
+  opacity: 1 !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-progress-ring > div {
+  background: #ffffff !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-progress-ring {
+  background: conic-gradient(#fca311 var(--launch-progress), #dce4ee 0) !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-progress-track {
+  background: #e4eaf2 !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-progress-track > span {
+  background: #fca311 !important;
+}
+
+/* First-time creation sidebar: preserve legibility of benefit rows and blueprints. */
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-create-intro .launch-create-proof b,
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-create-intro .launch-blueprint :is(h2, strong, b) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-create-intro .launch-create-proof small,
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-create-intro .launch-blueprint :is(p, small) {
+  color: #dbe4f2 !important;
+  -webkit-text-fill-color: #dbe4f2 !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center :is(.launch-overview, .launch-create-intro) :is(a, button):focus-visible {
+  outline: 3px solid #ffd071 !important;
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center > .launch-overview {
+    gap: 18px !important;
+    padding: 22px 19px !important;
+  }
+  html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center :is(.launch-overview, .launch-create-intro) {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  html[data-theme] body[data-workspace-system="financial-os-v1"] main.guided-setup-page.launch-center .launch-overview .launch-progress-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+}

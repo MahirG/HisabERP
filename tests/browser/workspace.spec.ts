@@ -190,3 +190,60 @@ for (const route of operationalHeroRoutes) {
     });
   }
 }
+
+
+test("Company Setup overview and creation hero preserve surface contrast in both themes", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(fixture + "/finance");
+  // Standalone launch route is server-rendered with protected user state.
+  // Use the real launch class structure with the production stylesheet
+  // without spoofing authentication or mutating company data.
+  await page.evaluate(() => {
+    const main = document.createElement("main");
+    main.className = "guided-setup-page launch-center";
+    main.innerHTML = `
+      <section class="launch-overview" style="--launch-progress:50%">
+        <div class="launch-overview-copy">
+          <span class="launch-kicker">Company launch center</span>
+          <div class="launch-title-row"><h1>Example Company Setup</h1><span class="in-progress">Setup in progress</span></div>
+          <p>Build the operating foundation once and validate the controls.</p>
+          <div class="launch-overview-actions">
+            <a class="launch-primary-action" href="#setup-company"><span>Continue: Company profile</span></a>
+            <a class="launch-tertiary-action" href="#workspace"><span>View workspace</span></a>
+          </div>
+        </div>
+        <aside class="launch-progress-card">
+          <div class="launch-progress-ring"><div><strong>50%</strong><span>complete</span></div></div>
+          <div class="launch-progress-copy"><span>Launch readiness</span><strong>4 of 8 milestones complete</strong><p>Four tasks remain</p></div>
+          <div class="launch-progress-track"><span></span></div>
+        </aside>
+      </section>
+      <section class="launch-create-shell">
+        <aside class="launch-create-intro"><div class="launch-create-copy"><span class="launch-kicker light">Guided ERP launch</span><h1>Launch your company.</h1><p>Start with operating details.</p></div></aside>
+      </section>
+    `;
+    document.body.append(main);
+  });
+  const selectors = [
+    [".launch-overview", "rgb(20, 33, 61)"],
+    [".launch-create-intro", "rgb(20, 33, 61)"],
+    [".launch-title-row h1", "rgb(255, 255, 255)"],
+    [".launch-overview-copy > p", "rgb(219, 228, 242)"],
+    [".launch-create-copy h1", "rgb(255, 255, 255)"],
+    [".launch-create-copy > p", "rgb(219, 228, 242)"],
+    [".launch-progress-card", "rgb(255, 255, 255)"],
+    [".launch-progress-copy > strong", "rgb(20, 33, 61)"],
+    [".launch-primary-action", "rgb(252, 163, 17)"],
+  ] as const;
+  for (const theme of ["light", "dark"] as const) {
+    await page.locator("html").evaluate((element, next) => { element.dataset.theme = next; }, theme);
+    for (const [selector, expected] of selectors) {
+      const value = await page.locator("main.launch-center " + selector).evaluate((element) => {
+        const style = getComputedStyle(element);
+        return element.matches("h1, p, strong") ? (style.webkitTextFillColor || style.color) : style.backgroundColor;
+      });
+      expect(value, `Company Setup ${theme}: ${selector}`).toBe(expected);
+    }
+    await checkPageWidth(page);
+  }
+});
