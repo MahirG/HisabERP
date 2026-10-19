@@ -146,7 +146,6 @@ export function CampfireMarketingHome() {
         <section className="cf-hero">
           <div className="cf-hero-shell">
             <div className="cf-hero-copy">
-              <span className="ah-hero-eyebrow"><span aria-hidden="true" className="ah-signal-dot" /> BILOO ERP <i aria-hidden="true" /> BUILT FOR ETHIOPIAN BUSINESS</span>
               <h1>One connected business. <em>Clarity at every step.</em></h1>
               <p>Bring sales, finance, inventory, purchasing and reporting together in one dependable business operating system. Built for how Ethiopian businesses work—and where they want to go.</p>
               <div className="cf-hero-actions">
