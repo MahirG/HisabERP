@@ -76,5 +76,6 @@ import "./biloo-pure-white-workspace-lock.css";
 import "./biloo-final-visual-polish.css";
 import "./workspace-contrast-repair.css";
 import "./workspace-mobile-2026-repair.css";
+import "./business-overview-standard.css";
 
 export {};

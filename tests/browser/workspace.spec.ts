@@ -383,3 +383,54 @@ test("Compact mobile footer matches X-style dimensions and keeps all shortcuts o
   await nav.getByRole("button", { name: "Workspace menu" }).click();
   await expect(page.getByRole("dialog", { name: "Workspace menu" })).toBeVisible();
 });
+
+
+test("Business Overview uses standard compact typography, cards and icon sizing", async ({ page }) => {
+  for (const width of [320, 390, 760, 1024, 1440]) {
+    await page.setViewportSize({width, height:900});
+    await page.goto(fixture + "/");
+    const dashboard = page.locator("main.apple-grade-dashboard");
+    await expect(dashboard).toBeVisible();
+    const hero = dashboard.locator(".workspace-page-header");
+    const details = await hero.evaluate((header) => {
+      const title = header.querySelector("h1")!;
+      const style = getComputedStyle(title);
+      const bg = getComputedStyle(header).backgroundColor;
+      const box = header.getBoundingClientRect();
+      const main = header.closest("main")!.getBoundingClientRect();
+      return {title: title.textContent, font: parseFloat(style.fontSize), color: style.webkitTextFillColor || style.color, bg, left:box.left, right:box.right, mainLeft:main.left, mainRight:main.right};
+    });
+    expect(details.title).toContain("Business overview");
+    expect(details.font).toBeLessThanOrEqual(37);
+    expect(details.font).toBeGreaterThanOrEqual(24);
+    expect(details.color).toBe("rgb(20, 33, 61)");
+    expect(details.bg).toBe("rgb(255, 255, 255)");
+    expect(details.left).toBeGreaterThanOrEqual(details.mainLeft - 1);
+    expect(details.right).toBeLessThanOrEqual(details.mainRight + 1);
+    await expect(dashboard.locator(".financial-metric-grid > .workspace-metric-tile")).toHaveCount(5);
+    const iconSizes = await dashboard.locator(".financial-metric-grid .workspace-metric-icon svg").evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().width));
+    expect(iconSizes.length).toBe(5);
+    expect(Math.max(...iconSizes)).toBeLessThanOrEqual(17);
+    const lastMetric = dashboard.locator(".financial-metric-grid > .workspace-metric-tile").last();
+    await expect(lastMetric).toHaveCSS("color", "rgb(20, 33, 61)");
+    await checkPageWidth(page);
+  }
+});
+
+test("Business Overview uses truthful demo status and non-fabricated reporting labels", async ({ page }) => {
+  await page.setViewportSize({width:390,height:844});
+  await page.goto(fixture + "/");
+  const board = page.locator("main.apple-grade-dashboard");
+  await expect(board.locator(".workspace-page-actions .workspace-status")).toContainText("Demo workspace");
+  await expect(board.locator(".dashboard-performance-panel")).not.toContainText("+18.2%");
+  await expect(board.locator(".financial-snapshot-section .workspace-eyebrow")).toContainText("Finance at a glance");
+  const actions = board.locator(".workspace-page-actions a.action-link");
+  await expect(actions).toHaveCount(2);
+  for (const link of await actions.all()) {
+    const rect = await link.boundingBox();
+    expect(rect).not.toBeNull();
+    expect(rect!.width).toBeGreaterThanOrEqual(110);
+    expect(rect!.x).toBeGreaterThanOrEqual(0);
+    expect(rect!.x + rect!.width).toBeLessThanOrEqual(391);
+  }
+});

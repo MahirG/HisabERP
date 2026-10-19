@@ -5,6 +5,7 @@ export function getDashboardInterfaceCopy(language: string) {
         dashboard: "ዳሽቦርድ",
         overview: "የንግድ አጠቃላይ እይታ",
         financialSnapshot: "የፋይናንስ ማጠቃለያ",
+        financialOverviewLabel: "የፋይናንስ አጠቃላይ እይታ",
         financialSnapshotDescription: "ገንዘብ፣ ሽያጭ፣ ወጪ፣ ተሰብሳቢ ሂሳብ እና የስራ ውጤት።",
         sales: "የዛሬ ሽያጭ",
         expenses: "የዛሬ ወጪ",
@@ -42,6 +43,7 @@ export function getDashboardInterfaceCopy(language: string) {
         noTransactionsDescription: "የተመዘገቡ ግብይቶች እዚህ ይታያሉ።",
         viewAll: "ሁሉንም ይመልከቱ",
         liveWorkspace: "ቀጥታ የስራ ቦታ",
+        demoWorkspace: "የሙከራ የስራ ቦታ",
         roleContext: "የዳሽቦርድ ቅድሚያዎች ከተመደበው ሚና ጋር ይጣጣማሉ።",
       }
     : {
@@ -49,6 +51,7 @@ export function getDashboardInterfaceCopy(language: string) {
         dashboard: "Dashboard",
         overview: "Business overview",
         financialSnapshot: "Financial snapshot",
+        financialOverviewLabel: "Finance at a glance",
         financialSnapshotDescription: "Cash, sales, expenses, receivables and operating result at a glance.",
         sales: "Sales today",
         expenses: "Expenses today",
@@ -86,6 +89,7 @@ export function getDashboardInterfaceCopy(language: string) {
         noTransactionsDescription: "Posted income and expense activity will appear here.",
         viewAll: "View all",
         liveWorkspace: "Live workspace",
+        demoWorkspace: "Demo workspace",
         roleContext: "Dashboard priorities adapt to your assigned role.",
       };
 }

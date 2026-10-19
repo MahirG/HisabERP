@@ -115,14 +115,14 @@ export function Dashboard({ snapshot, user }: { snapshot: DashboardSnapshot; use
         title={ui.overview}
         description={profile.summary}
         meta={<><StatusBadge label={profile.title} tone="info" /><span>{ui.roleContext}</span></>}
-        actions={<><span className="workspace-status"><i />{ui.liveWorkspace}</span><LanguageSelector /><Link className="secondary action-link" href="/api/reports/dashboard"><Icon name="download" size={16} /><span>{d.exportReport}</span></Link><Link className="primary action-link" href={profile.quickAction.href}><Icon name="plus" size={16} /><span>{profile.quickAction.label}</span></Link></>}
+        actions={<><span className="workspace-status"><i />{snapshot.mode === "live" ? ui.liveWorkspace : ui.demoWorkspace}</span><LanguageSelector /><Link className="secondary action-link" href="/api/reports/dashboard"><Icon name="download" size={16} /><span>{d.exportReport}</span></Link><Link className="primary action-link" href={profile.quickAction.href}><Icon name="plus" size={16} /><span>{profile.quickAction.label}</span></Link></>}
       />
 
       <DemoNotice mode={snapshot.mode} />
 
       <section className="workspace-section financial-snapshot-section dashboard-snapshot-card" aria-labelledby="financial-snapshot-title">
         <div className="workspace-section-heading">
-          <div><p className="workspace-eyebrow"><Icon name="circle-dollar" size={14} />{ui.financialSnapshot}</p><h2 id="financial-snapshot-title">{ui.financialSnapshot}</h2><p>{ui.financialSnapshotDescription}</p></div>
+          <div><p className="workspace-eyebrow"><Icon name="circle-dollar" size={14} />{ui.financialOverviewLabel}</p><h2 id="financial-snapshot-title">{ui.financialSnapshot}</h2><p>{ui.financialSnapshotDescription}</p></div>
           <Link className="workspace-inline-action" href="/finance"><span>{ui.reviewFinance}</span><Icon name="arrow-right" size={14} /></Link>
         </div>
         <div className="financial-metric-grid">
@@ -137,12 +137,12 @@ export function Dashboard({ snapshot, user }: { snapshot: DashboardSnapshot; use
       <section className="financial-analysis-grid dashboard-insight-grid">
         <article className="workspace-section performance-panel dashboard-performance-panel">
           <div className="workspace-section-heading"><div><p className="workspace-eyebrow"><Icon name="chart" size={14} />{ui.performance}</p><h2>{d.revenueOverview}</h2></div><StatusBadge label={d.last12Months} /></div>
-          <div className="revenue-summary"><div><small>{d.revenueOverview}</small><strong>{money(annualRevenue, language)}</strong></div><span><Icon name="trending-up" size={14} />+18.2% {d.fromLastYear}</span></div>
+          <div className="revenue-summary"><div><small>{d.revenueOverview}</small><strong>{money(annualRevenue, language)}</strong></div></div>
           <RevenueTrendChart values={snapshot.monthlyRevenue} labels={d.months} label={d.revenueChart} />
         </article>
 
         <article className="workspace-section health-panel dashboard-health-panel">
-          <div className="workspace-section-heading"><div><p className="workspace-eyebrow"><Icon name="activity" size={14} />{ui.businessHealth}</p><h2>{d.excellentCondition}</h2></div><StatusBadge label={`${snapshot.health.score}/100`} tone={scoreTone} /></div>
+          <div className="workspace-section-heading"><div><p className="workspace-eyebrow"><Icon name="activity" size={14} />{ui.businessHealth}</p><h2>{snapshot.health.score >= 80 ? d.strong : snapshot.health.score >= 60 ? d.good : d.needsAttention}</h2></div><StatusBadge label={`${snapshot.health.score}/100`} tone={scoreTone} /></div>
           <div className="dashboard-health-score">
             <div className="dashboard-health-ring" style={healthStyle}><span><strong>{snapshot.health.score}</strong><small>/100</small></span></div>
             <p>{ui.businessHealthDescription}</p>
