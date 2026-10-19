@@ -50,7 +50,7 @@ test("Inventory preview is illustrative, stock oriented and mobile responsive",a
   read("lib/marketing-modules.ts"),
  ]);
  assert.match(page,/inventory-product-hero/);
- assert.match(page,/illustrative=\{module\.slug === "finance-cashflow" \|\| module\.slug === "inventory"\}/);
+ assert.match(page,/illustrative=\{module\.slug === "finance-cashflow" \|\| module\.slug === "inventory" \|\| module\.slug === "sales-invoicing"\}/);
  assert.match(page,/\/request-demo\?topic=inventory/);
  assert.match(source,/inventoryPreview \? 'Stock items' : 'Records'/);
  assert.match(source,/inventoryPreview \? 'Movement' : 'Performance'/);

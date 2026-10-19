@@ -1,0 +1,75 @@
+/* Sales & Invoicing — an additive, route-scoped finish on the shared Biloo
+   premium module layout. Finance and Inventory retain their existing styling. */
+.marketing-site-v2 #public-main-content .sales-invoicing-hero .sales-hero-steps{
+  display:flex!important;align-items:center!important;flex-wrap:wrap!important;
+  gap:9px!important;margin:20px 0 0!important;
+  border:0!important;background:transparent!important;
+}
+.marketing-site-v2 #public-main-content .sales-invoicing-hero .sales-hero-steps>span{
+  display:inline-flex!important;align-items:center!important;gap:7px!important;
+  min-height:34px!important;padding:7px 10px!important;
+  border:1px solid #e1e6ed!important;border-radius:8px!important;
+  background:#fffaf2!important;color:#344054!important;
+  font-size:11px!important;font-weight:700!important;line-height:1.4!important;
+}
+.marketing-site-v2 #public-main-content .sales-invoicing-hero .sales-hero-steps b{
+  color:#87560c!important;font-size:10px!important;
+  font-weight:800!important;font-variant-numeric:tabular-nums!important;
+}
+.marketing-site-v2 #public-main-content .sales-invoicing-hero .erp-evidence-status,
+.marketing-site-v2 #public-main-content .sales-invoicing-hero .erp-evidence-metrics small{
+  font-variant-numeric:tabular-nums!important;
+}
+.marketing-site-v2 #public-main-content .sales-invoicing-hero .erp-evidence-table th,
+.marketing-site-v2 #public-main-content .sales-invoicing-hero .erp-evidence-table td{
+  line-height:1.55!important;
+}
+.marketing-site-v2 #public-main-content .sales-invoicing-hero .erp-evidence-table td:nth-child(5){
+  font-weight:740!important;color:#14213d!important;font-variant-numeric:tabular-nums!important;
+}
+.marketing-site-v2 #public-main-content .sales-invoicing-hero .erp-evidence-table td:nth-child(3) small{
+  display:none!important;
+}
+.marketing-site-v2 #public-main-content .sales-invoicing-hero .erp-evidence-analysis strong{
+  color:#14213d!important;font-size:clamp(17px,2vw,23px)!important;
+}
+.marketing-site-v2 #public-main-content .sales-invoicing-hero .erp-evidence-sample-indicator{
+  background:#fff6e6!important;color:#80520b!important;
+}
+@media(max-width:740px){
+  .marketing-site-v2 #public-main-content .sales-invoicing-hero .sales-hero-steps{
+    gap:7px!important;margin-top:17px!important;
+  }
+  .marketing-site-v2 #public-main-content .sales-invoicing-hero .sales-hero-steps>span{
+    font-size:11px!important;min-height:33px!important;
+  }
+}
+@media(max-width:520px){
+  .marketing-site-v2 #public-main-content .sales-invoicing-hero .sales-hero-steps{
+    display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+  .marketing-site-v2 #public-main-content .sales-invoicing-hero .sales-hero-steps>span{
+    min-width:0!important;min-height:48px!important;
+    flex-wrap:wrap!important;align-content:center!important;
+    padding:7px 6px!important;font-size:10px!important;line-height:1.35!important;
+  }
+  .marketing-site-v2 #public-main-content .sales-invoicing-hero .erp-evidence-table th,
+  .marketing-site-v2 #public-main-content .sales-invoicing-hero .erp-evidence-table td{
+    padding:10px 7px!important;font-size:10.5px!important;
+    white-space:normal!important;overflow-wrap:anywhere!important;
+  }
+  .marketing-site-v2 #public-main-content .sales-invoicing-hero .erp-evidence-table td:nth-child(3) small{
+    display:block!important;margin-top:2px!important;color:#667085!important;
+    font-size:9.5px!important;line-height:1.4!important;
+  }
+  .marketing-site-v2 #public-main-content .sales-invoicing-hero .erp-evidence-table-wrap{
+    max-width:100%!important;overflow-x:auto!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .marketing-site-v2 #public-main-content .sales-invoicing-hero *,
+  .marketing-site-v2 #public-main-content .sales-invoicing-hero *::before,
+  .marketing-site-v2 #public-main-content .sales-invoicing-hero *::after{
+    animation:none!important;transition:none!important;
+  }
+}

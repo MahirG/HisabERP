@@ -13,7 +13,7 @@ test("Finance cash-flow route retains the shared product header and navigation",
   assert.match(modules,/slug: "finance-cashflow"/);
   assert.match(page,/<MarketingPageShell>/);
   assert.match(page,/finance-cashflow-hero/);
-  assert.match(page,/illustrative=\{module\.slug === "finance-cashflow"\}/);
+  assert.match(page,/illustrative=\{module\.slug === "finance-cashflow" \|\| module\.slug === "inventory" \|\| module\.slug === "sales-invoicing"\}/);
   assert.match(page,/module\.workflow\.map/);
   assert.match(page,/module\.features\.map/);
   assert.match(page,/href="\/request-demo"/);
@@ -29,7 +29,7 @@ test("Finance product preview labels all sample data and does not expose fake ac
   assert.match(preview,/label === selectedPreviewNav \? 'active'/);
   assert.match(preview,/financeCashflowData/);
   assert.match(preview,/Sample net cash flow/);
-  assert.match(preview,/financePreview \? 'Transactions' : 'Records'/);
+  assert.match(preview,/financePreview \? 'Transactions'/);
   assert.match(preview,/role="tab"/);
   assert.match(preview,/onClick=\{\(\) => setView\(id\)\}/);
   assert.match(preview,/illustrative \? <span className="erp-evidence-preview-label"/);
@@ -41,7 +41,7 @@ test("Finance design authority is route scoped and responsive to small phones",a
     read("app/product/[slug]/finance-cashflow-finish.css"),
   ]);
   assert.match(layout,/import "\.\/finance-cashflow-finish\.css"/);
-  assert.match(css,/#public-main-content:has\(:is\(\.finance-cashflow-hero,\.inventory-product-hero\)\)/);
+  assert.match(css,/#public-main-content:has\(:is\(\.finance-cashflow-hero,\.inventory-product-hero,\.sales-invoicing-hero\)\)/);
   for(const selector of [
     "finance-cashflow-hero","module-problem-outcome","module-capability-grid",
     "module-workflow-grid","module-audience-section","related-module-grid",

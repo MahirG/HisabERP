@@ -59,6 +59,15 @@ const financeCashflowData = [
   { period: 'Aug', value: 96 },
 ];
 
+const salesRevenueData = [
+  { period: 'Mon', value: 54.3 },
+  { period: 'Tue', value: 67.8 },
+  { period: 'Wed', value: 61.5 },
+  { period: 'Thu', value: 72.2 },
+  { period: 'Fri', value: 78.1 },
+  { period: 'Sat', value: 84.6 },
+];
+
 const chartData = [
   { period: 'Mar', value: 2.9 },
   { period: 'Apr', value: 3.7 },
@@ -74,7 +83,7 @@ const branches = ['Addis HQ', 'Adama', 'Hawassa', 'Addis HQ', 'Mekelle'] as cons
 function statusClass(status: string) {
   const normalized = status.toLowerCase();
   if (normalized === 'paid' || normalized === 'approved' || normalized === 'posted') return 'positive';
-  if (normalized === 'partial' || normalized === 'review') return 'attention';
+  if (normalized === 'partial' || normalized === 'review' || normalized.startsWith('due') || normalized === 'overdue') return 'attention';
   return 'neutral';
 }
 
@@ -87,6 +96,7 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
   const [view, setView] = useState<ViewId>('records');
   const financePreview = illustrative && moduleTitle.toLowerCase().includes('finance');
   const inventoryPreview = illustrative && moduleTitle.toLowerCase().includes('inventory');
+  const salesPreview = illustrative && moduleTitle.toLowerCase().includes('sales');
   const selectedPreviewNav = moduleTitle.toLowerCase().includes('finance') ? 'Finance'
     : moduleTitle.toLowerCase().includes('sales') ? 'Sales'
     : moduleTitle.toLowerCase().includes('inventory') ? 'Inventory'
@@ -94,19 +104,21 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
 
   const records = useMemo(() => {
     const source = rows.length ? rows : [{ label: 'Selam Supermarket', value: 'ETB 126,500', meta: 'Current record' }];
-    return Array.from({ length: 5 }, (_, index) => {
+    return Array.from({ length: salesPreview ? source.length : 5 }, (_, index) => {
       const row = source[index % source.length];
       return {
-        reference: `${moduleTitle.toLowerCase().includes('finance') ? 'FIN' : moduleTitle.toLowerCase().includes('integration') ? 'INT' : 'INV'}-26-${String(891 - index).padStart(4, '0')}`,
+        reference: salesPreview
+          ? (row.label.match(/^(INV-[A-Za-z0-9-]+)/)?.[1] ?? `INV-SAMPLE-${index + 1}`)
+          : `${moduleTitle.toLowerCase().includes('finance') ? 'FIN' : moduleTitle.toLowerCase().includes('integration') ? 'INT' : 'INV'}-26-${String(891 - index).padStart(4, '0')}`,
         date: `${31 - index} Aug 2026`,
-        record: row.label,
+        record: salesPreview ? row.label.replace(/^INV-[A-Za-z0-9-]+\s*[·–-]\s*/, '') : row.label,
         branch: branches[index],
         amount: illustrative ? row.value : toAmount(row.value, index),
-        status: statuses[index],
+        status: salesPreview ? (row.meta || 'Unspecified') : statuses[index],
         meta: row.meta,
       };
     });
-  }, [moduleTitle, rows, illustrative]);
+  }, [moduleTitle, rows, illustrative, salesPreview]);
 
   return (
     <IconoirProvider iconProps={{ width: 17, height: 17, strokeWidth: 1.55, 'aria-hidden': true }}>
@@ -138,9 +150,9 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
 
             <div className="erp-evidence-tabs" role="tablist" aria-label={`${moduleTitle} preview views`}>
               {([
-                ['records', financePreview ? 'Transactions' : inventoryPreview ? 'Stock items' : 'Records'],
-                ['trend', financePreview ? 'Cash trends' : inventoryPreview ? 'Movement' : 'Performance'],
-                ['controls', 'Controls'],
+                ['records', financePreview ? 'Transactions' : inventoryPreview ? 'Stock items' : salesPreview ? 'Invoices' : 'Records'],
+                ['trend', financePreview ? 'Cash trends' : inventoryPreview ? 'Movement' : salesPreview ? 'Sales trends' : 'Performance'],
+                ['controls', salesPreview ? 'Collections' : 'Controls'],
               ] as const).map(([id, label]) => <button type="button" role="tab" aria-selected={view === id} className={view === id ? 'active' : undefined} onClick={() => setView(id)} key={id}>{label}</button>)}
             </div>
 
@@ -151,23 +163,23 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
             {view === 'records' ? (
               <div className="erp-evidence-table-wrap">
                 <table className="erp-evidence-table">
-                  <thead><tr><th>Reference</th><th>Date</th><th>Record</th><th>Branch</th><th>{inventoryPreview ? 'Quantity' : 'Amount'}</th><th>Status</th></tr></thead>
-                  <tbody>{records.map((record) => <tr key={record.reference}><td><strong>{record.reference}</strong></td><td>{record.date}</td><td><span>{record.record}</span><small>{record.meta}</small></td><td>{record.branch}</td><td>{record.amount}</td><td><b className={`erp-status ${statusClass(record.status)}`}>{record.status}</b></td></tr>)}</tbody>
+                  <thead><tr><th>{salesPreview ? 'Invoice' : 'Reference'}</th><th>Date</th><th>{salesPreview ? 'Customer' : 'Record'}</th><th>Branch</th><th>{inventoryPreview ? 'Quantity' : 'Amount'}</th><th>Status</th></tr></thead>
+                  <tbody>{records.map((record) => <tr key={record.reference}><td><strong>{record.reference}</strong></td><td>{record.date}</td><td><span>{record.record}</span><small>{salesPreview ? record.reference : record.meta}</small></td><td>{record.branch}</td><td>{record.amount}</td><td><b className={`erp-status ${statusClass(record.status)}`}>{record.status}</b></td></tr>)}</tbody>
                 </table>
               </div>
             ) : null}
 
             {view === 'trend' ? (
               <div className="erp-evidence-analysis">
-                <div><span>{financePreview ? 'Sample net cash flow' : inventoryPreview ? 'Illustrative stock movement' : 'Revenue performance'}</span><strong>{financePreview ? (metrics[1]?.value ?? 'ETB 96,240') : inventoryPreview ? (metrics[0]?.value ?? 'Sample inventory') : 'ETB 4.82M'}</strong><small>{financePreview ? 'Illustrative trend, March–August 2026' : inventoryPreview ? 'Sample movement trend, March–August 2026' : '+18.6% compared with July'}</small></div>
-                <div className="erp-evidence-chart" aria-label={financePreview ? "Sample net cash flow from March to August 2026" : inventoryPreview ? "Illustrative stock movement, March to August 2026" : "Revenue performance from March to August 2026"}>
+                <div><span>{financePreview ? 'Sample net cash flow' : inventoryPreview ? 'Illustrative stock movement' : salesPreview ? 'Illustrative sales revenue' : 'Revenue performance'}</span><strong>{financePreview ? (metrics[1]?.value ?? 'ETB 96,240') : inventoryPreview ? (metrics[0]?.value ?? 'Sample inventory') : salesPreview ? (metrics[0]?.value ?? 'ETB 84,600') : 'ETB 4.82M'}</strong><small>{financePreview ? 'Illustrative trend, March–August 2026' : inventoryPreview ? 'Sample movement trend, March–August 2026' : salesPreview ? 'Sample week, Monday–Saturday' : '+18.6% compared with July'}</small></div>
+                <div className="erp-evidence-chart" aria-label={financePreview ? "Sample net cash flow from March to August 2026" : inventoryPreview ? "Illustrative stock movement, March to August 2026" : salesPreview ? "Illustrative daily sales, Monday through Saturday" : "Revenue performance from March to August 2026"}>
                   <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={financePreview ? financeCashflowData : chartData} margin={{ top: 12, right: 12, left: -20, bottom: 0 }}>
+                    <AreaChart data={financePreview ? financeCashflowData : salesPreview ? salesRevenueData : chartData} margin={{ top: 12, right: 12, left: -20, bottom: 0 }}>
                       <CartesianGrid stroke="#e8ebf0" vertical={false} />
                       <XAxis dataKey="period" tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 10 }} />
-                      <YAxis tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 9 }} tickFormatter={(value) => financePreview ? `${value}k` : inventoryPreview ? String(value) : `ETB ${value}M`} />
-                      <Tooltip formatter={(value) => [financePreview ? `ETB ${value}k` : inventoryPreview ? `${value}` : `ETB ${value}M`, financePreview ? 'Sample cash flow' : inventoryPreview ? 'Sample movement' : 'Revenue']} contentStyle={{ border: '1px solid #dfe3ea', borderRadius: 6, boxShadow: '0 10px 30px rgba(16,36,74,.1)', fontSize: 11 }} />
-                      <Area type="monotone" dataKey="value" stroke={financePreview ? "#b57b19" : "#315efb"} fill={financePreview ? "#b57b19" : "#315efb"} fillOpacity={0.08} strokeWidth={2} />
+                      <YAxis tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 9 }} tickFormatter={(value) => financePreview || salesPreview ? `${value}k` : inventoryPreview ? String(value) : `ETB ${value}M`} />
+                      <Tooltip formatter={(value) => [financePreview || salesPreview ? `ETB ${value}k` : inventoryPreview ? `${value}` : `ETB ${value}M`, financePreview ? 'Sample cash flow' : inventoryPreview ? 'Sample movement' : salesPreview ? 'Sample sales' : 'Revenue']} contentStyle={{ border: '1px solid #dfe3ea', borderRadius: 6, boxShadow: '0 10px 30px rgba(16,36,74,.1)', fontSize: 11 }} />
+                      <Area type="monotone" dataKey="value" stroke={financePreview || salesPreview ? "#b57b19" : "#315efb"} fill={financePreview || salesPreview ? "#b57b19" : "#315efb"} fillOpacity={0.08} strokeWidth={2} />
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>
@@ -176,9 +188,9 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
 
             {view === 'controls' ? (
               <div className="erp-evidence-controls">
-                <article><CheckCircle /><div><strong>Payment controls</strong><span>All August receipts reconciled</span></div><b>Ready</b></article>
-                <article><WarningCircle /><div><strong>Approval queue</strong><span>3 records require finance review</span></div><b>Review</b></article>
-                <article><CheckCircle /><div><strong>Audit evidence</strong><span>Source documents attached</span></div><b>Complete</b></article>
+                <article><CheckCircle /><div><strong>{salesPreview ? 'Invoice tracking' : 'Payment controls'}</strong><span>{salesPreview ? 'Sample paid and partial invoices' : 'All August receipts reconciled'}</span></div><b>Ready</b></article>
+                <article><WarningCircle /><div><strong>{salesPreview ? 'Collection follow-up' : 'Approval queue'}</strong><span>{salesPreview ? 'Outstanding sample invoices to review' : '3 records require finance review'}</span></div><b>Review</b></article>
+                <article><CheckCircle /><div><strong>{salesPreview ? 'Sales audit trail' : 'Audit evidence'}</strong><span>{salesPreview ? 'Illustrative invoice records retained' : 'Source documents attached'}</span></div><b>Complete</b></article>
               </div>
             ) : null}
           </section>

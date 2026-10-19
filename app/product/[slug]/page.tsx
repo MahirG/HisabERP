@@ -28,7 +28,7 @@ export default async function ProductModulePage({ params }: { params: Promise<{ 
 
   return (
     <MarketingPageShell>
-      <section className={module.slug === "finance-cashflow" ? "module-page-hero finance-cashflow-hero" : module.slug === "inventory" ? "module-page-hero inventory-product-hero" : "module-page-hero"}>
+      <section className={module.slug === "finance-cashflow" ? "module-page-hero finance-cashflow-hero" : module.slug === "inventory" ? "module-page-hero inventory-product-hero" : module.slug === "sales-invoicing" ? "module-page-hero sales-invoicing-hero" : "module-page-hero"}>
         <div className="module-page-hero-copy">
           <span className="marketing-eyebrow">{module.eyebrow}</span>
           <p className="module-page-index">HisabERP module {module.number}</p>
@@ -36,9 +36,16 @@ export default async function ProductModulePage({ params }: { params: Promise<{ 
           <p>{module.summary}</p>
           <div className="marketing-hero-actions">
             <Link href="/auth/email-sign-up" className="marketing-start marketing-large">Create a workspace</Link>
-            <Link href={module.slug === "inventory" ? "/request-demo?topic=inventory" : "/request-demo"} className="marketing-demo marketing-large">Request a demo</Link>
+            <Link href={module.slug === "inventory" ? "/request-demo?topic=inventory" : module.slug === "sales-invoicing" ? "/request-demo?topic=sales-invoicing" : "/request-demo"} className="marketing-demo marketing-large">Request a demo</Link>
             <Link href="/product-tour" className="marketing-text-action">Open product tour <span aria-hidden="true">→</span></Link>
           </div>
+          {module.slug === "sales-invoicing" ? (
+            <div className="sales-hero-steps" aria-label="Sales workflow stages">
+              <span><b>01</b> Record a sale</span>
+              <span><b>02</b> Issue an invoice</span>
+              <span><b>03</b> Track payment</span>
+            </div>
+          ) : null}
         </div>
 
         <InteractiveErpOffice
@@ -46,7 +53,7 @@ export default async function ProductModulePage({ params }: { params: Promise<{ 
           moduleEyebrow={module.eyebrow}
           metrics={module.metrics}
           rows={module.previewRows}
-          illustrative={module.slug === "finance-cashflow" || module.slug === "inventory"}
+          illustrative={module.slug === "finance-cashflow" || module.slug === "inventory" || module.slug === "sales-invoicing"}
         />
       </section>
 
@@ -77,7 +84,7 @@ export default async function ProductModulePage({ params }: { params: Promise<{ 
 
       <section className="marketing-cta marketing-cta-v2">
         <div><span>Evaluate {module.shortTitle.toLowerCase()} in your business</span><h2>See how this workflow fits your current operations.</h2><p>Start a workspace or request a demonstration based on your company, industry and reporting needs.</p></div>
-        <div><Link href="/auth/email-sign-up" className="marketing-start marketing-large">Create a workspace</Link><Link href={module.slug === "inventory" ? "/request-demo?topic=inventory" : "/request-demo"} className="marketing-demo marketing-large">Request a demo</Link></div>
+        <div><Link href="/auth/email-sign-up" className="marketing-start marketing-large">Create a workspace</Link><Link href={module.slug === "inventory" ? "/request-demo?topic=inventory" : module.slug === "sales-invoicing" ? "/request-demo?topic=sales-invoicing" : "/request-demo"} className="marketing-demo marketing-large">Request a demo</Link></div>
       </section>
     </MarketingPageShell>
   );
