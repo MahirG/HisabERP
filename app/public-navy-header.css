@@ -8,6 +8,7 @@
   --public-header-white: #ffffff;
   --public-header-soft: #e7edf7;
   --public-header-gold: #fca311;
+  --public-utility-deep-gold: #8a6a00;
   background: var(--public-header-navy) !important;
   background-image: none !important;
   color: var(--public-header-white) !important;
@@ -19,18 +20,18 @@
 }
 .marketing-site-v2 > .wb-header > .wb-utility-bar,
 .marketing-site-v2 > .wb-header > .wb-utility-bar .wb-utility-inner {
-  background: #0e1930 !important;
+  background: var(--public-utility-deep-gold) !important;
   background-image: none !important;
-  color: #e7edf7 !important;
+  color: #ffffff !important;
 }
 .marketing-site-v2 > .wb-header > .wb-utility-bar {
-  border-bottom: 1px solid #30415f !important;
+  border-bottom: 1px solid #715600 !important;
 }
 .marketing-site-v2 > .wb-header .wb-utility-left a {
-  color: #e7edf7 !important;
-  -webkit-text-fill-color: #e7edf7 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
   background: transparent !important;
-  font-weight: 680 !important;
+  font-weight: 720 !important;
 }
 .marketing-site-v2 > .wb-header .wb-utility-left a:hover,
 .marketing-site-v2 > .wb-header .wb-utility-left a:focus-visible {
@@ -38,6 +39,11 @@
   -webkit-text-fill-color: #ffffff !important;
   text-decoration: underline !important;
   text-underline-offset: 4px !important;
+}
+.marketing-site-v2 > .wb-header .wb-utility-left a:focus-visible {
+  outline: 2px solid #ffffff !important;
+  outline-offset: 2px !important;
+  border-radius: 2px !important;
 }
 .marketing-site-v2 > .wb-header .wb-header-inner,
 .marketing-site-v2 > .wb-header .wb-header-actions,

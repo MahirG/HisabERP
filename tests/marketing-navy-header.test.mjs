@@ -44,3 +44,17 @@ test("Navigation, utility bar, active menu and hamburger stay readable on navy",
   assert.match(sheet,/:focus-visible/);
   assert.match(sheet,/prefers-reduced-motion/);
 });
+
+
+test("Slim website utility strip uses deep brand gold and white readable links", async () => {
+  const sheet = await read("app/public-navy-header.css");
+  const [strip] = sheet.split(".marketing-site-v2 > .wb-header .wb-header-inner,");
+  assert.match(strip, /--public-utility-deep-gold: #8a6a00/);
+  assert.match(strip, /\.wb-utility-bar,[\s\S]*background: var\(--public-utility-deep-gold\) !important/);
+  assert.match(strip, /\.wb-utility-left a \{[\s\S]*color: #ffffff !important/);
+  assert.match(strip, /\.wb-utility-left a:focus-visible \{[\s\S]*outline: 2px solid #ffffff !important/);
+  const gamma = channel => channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+  const [r,g,b] = [0x8a,0x6a,0x00].map(channel => gamma(channel / 255));
+  const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  assert.ok(1.05 / (luminance + 0.05) >= 4.5, "White utility links must satisfy WCAG AA contrast");
+});
