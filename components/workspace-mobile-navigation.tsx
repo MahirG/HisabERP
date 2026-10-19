@@ -28,13 +28,25 @@ export function WorkspaceMobileNavigation({ open, onDismiss, groups, pathname, o
   const dismissRef = useRef(onDismiss);
   dismissRef.current = onDismiss;
 
+  // Close the native top-layer dialog immediately on activation. The parent
+  // state remains the source of truth, but no render/effect cycle is needed
+  // before the visible drawer becomes dismissible again.
+  const closeNavigation = () => {
+    const dialog = dialogRef.current;
+    if (dialog?.open) dialog.close();
+    dismissRef.current();
+  };
+
   useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!mounted || !dialog) return;
     if (open) {
-      if (!dialog.open) dialog.showModal();
+      if (!dialog.open) {
+        dialog.showModal();
+        dialog.querySelector<HTMLButtonElement>('button[aria-label="Close navigation"]')?.focus({ preventScroll: true });
+      }
       return;
     }
     if (dialog.open) dialog.close();
@@ -57,9 +69,12 @@ export function WorkspaceMobileNavigation({ open, onDismiss, groups, pathname, o
       className={styles.dialog}
       aria-labelledby={titleId}
       aria-modal="true"
-      onCancel={(event) => { event.preventDefault(); onDismiss(); }}
-      onClose={onDismiss}
-      onClick={(event) => { if (event.target === event.currentTarget) onDismiss(); }}
+      onCancel={(event) => { event.preventDefault(); closeNavigation(); }}
+      onClose={() => {
+        // A delayed native close event must not dismiss a newly reopened menu.
+        if (!dialogRef.current?.open) dismissRef.current();
+      }}
+      onClick={(event) => { if (event.target === event.currentTarget) closeNavigation(); }}
       onKeyDown={(event) => {
         if (event.key !== "Tab") return;
         const controls = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('a[href],button:not([disabled])'));
@@ -74,12 +89,12 @@ export function WorkspaceMobileNavigation({ open, onDismiss, groups, pathname, o
           <div className={styles.identity}>
             <h2 id={titleId}>{label}</h2>
           </div>
-          <button className={styles.close} type="button" aria-label="Close navigation" onClick={onDismiss}>
+          <button className={styles.close} type="button" aria-label="Close navigation" onClick={closeNavigation}>
             <Icon name="x" size={20} />
           </button>
         </header>
 
-        <Link href="/workspace-home" className={styles.organization} onClick={onDismiss} title={organizationName}>
+        <Link href="/workspace-home" className={styles.organization} onClick={closeNavigation} title={organizationName}>
           <span className={styles.mark} aria-hidden="true">{organizationMark}</span>
           <div><strong>{organizationName}</strong><span>{activeLabel}</span></div>
           <Icon name="building" size={18} />
@@ -93,7 +108,7 @@ export function WorkspaceMobileNavigation({ open, onDismiss, groups, pathname, o
                 {group.items.map((item) => {
                   const active = item.href === "/workspace-home" ? pathname === "/" || pathname === "/workspace-home" : pathname === item.href || pathname.startsWith(`${item.href}/`);
                   return (
-                    <Link href={item.href} key={item.href} onClick={onDismiss} aria-current={active ? "page" : undefined} className={styles.link}>
+                    <Link href={item.href} key={item.href} onClick={closeNavigation} aria-current={active ? "page" : undefined} className={styles.link}>
                       <span className={styles.icon}><Icon name={item.icon} size={18} /></span>
                       <span className={styles.label}>{item.label}</span>
                     </Link>
