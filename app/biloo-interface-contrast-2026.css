@@ -1,0 +1,332 @@
+/*
+ * Biloo 2026 authenticated UI readability pass.
+ * Loaded after historical theme layers. Scoped to workspace contents so
+ * marketing, checkout, dialogs and account dropdowns retain their own design.
+ */
+body[data-workspace-system="financial-os-v1"] .erp-shell {
+  --biloo-ui-ink: #14213d;
+  --biloo-ui-body: #344054;
+  --biloo-ui-muted: #596579;
+  --biloo-ui-line: #dce3ec;
+  --biloo-ui-surface: #ffffff;
+  --biloo-ui-surface-soft: #f8fafc;
+  --biloo-ui-navy: #14213d;
+  --biloo-ui-gold: #fca311;
+  --biloo-ui-focus: #a66a0b;
+  --biloo-ui-radius: 13px;
+}
+
+/* Balanced type scale across signed-in app modules. */
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--biloo-ui-body) !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .workspace-page-header,.section-shell-hero,.section-header,.module-detail-header,
+  .module-hero,.ops-hero
+) h1 {
+  font-size: clamp(24px, 2.45vw, 33px) !important;
+  font-weight: 770 !important;
+  line-height: 1.16 !important;
+  letter-spacing: -0.035em !important;
+  overflow-wrap: break-word;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .workspace-section-heading,.section-shell-hero,.section-header,.module-detail-header,
+  .ops-panel-head,.ops-panel,.ops-hero,.detail-panel
+) h2 {
+  font-size: clamp(17px, 1.6vw, 21px) !important;
+  font-weight: 740 !important;
+  letter-spacing: -0.028em !important;
+  line-height: 1.26 !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .ops-panel,.ops-kpis,.ops-overview-grid,.ops-controls-grid,.ops-guidance-panel,
+  .module-card,.detail-panel,.workspace-section,.data-panel,.financial-panel,
+  .finance-panel,.sales-panel,.controls-panel
+) :is(p,li,dd,dt,td) {
+  font-size: 13px !important;
+  line-height: 1.57 !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .ops-panel,.ops-kpis,.ops-overview-grid,.module-card,.detail-panel,
+  .workspace-section,.data-panel,.finance-panel,.sales-panel,.controls-panel
+) :is(small,time,.description,.subtitle,.help-text) {
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+}
+
+/* Operational workspaces: dark hero with genuinely inverse copy.
+ * The modules/localization-compliance, reports, fixed assets, automation and
+ * budgeting routes all render this shared structure. */
+html[data-theme] body[data-workspace-system="financial-os-v1"]
+  .erp-shell > .workspace .ops-page > .ops-hero {
+  background: linear-gradient(120deg, #14213d, #0b1428) !important;
+  border-color: rgba(252,163,17,.29) !important;
+  color: #fff !important;
+  border-radius: 18px !important;
+  padding: 24px !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"]
+  .erp-shell > .workspace .ops-page > .ops-hero :is(h1,h2,h3,strong) {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  opacity: 1 !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"]
+  .erp-shell > .workspace .ops-page > .ops-hero :is(p,small) {
+  color: #e0e8f5 !important;
+  -webkit-text-fill-color: #e0e8f5 !important;
+  font-size: 13px !important;
+  line-height: 1.55 !important;
+  opacity: 1 !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"]
+  .erp-shell > .workspace .ops-page > .ops-hero .eyebrow {
+  color: #ffd071 !important;
+  -webkit-text-fill-color: #ffd071 !important;
+  font-size: 11px !important;
+  font-weight: 730 !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"]
+  .erp-shell > .workspace .ops-page > .ops-hero .ops-workspace-state {
+  border: 1px solid rgba(255,255,255,.27) !important;
+  background: rgba(255,255,255,.10) !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"]
+  .erp-shell > .workspace .ops-page > .ops-hero .ops-hero-actions > .ops-primary-link {
+  background: #fca311 !important;
+  border: 1px solid #fca311 !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  font-size: 12px !important;
+  font-weight: 750 !important;
+}
+html[data-theme] body[data-workspace-system="financial-os-v1"]
+  .erp-shell > .workspace .ops-page > .ops-hero .ops-hero-actions > a {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  border: 1px solid rgba(255,255,255,.52) !important;
+  background: rgba(255,255,255,.05) !important;
+  font-size: 12px !important;
+}
+
+/* Neutral cards and data are always ink-on-white. Do not repaint semantic
+   status chips, colored hero areas or the dark progress illustration. */
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .ops-panel,.ops-kpis > article,.ops-capability-grid > article,
+  .ops-activity-item,.detail-panel:not(.control-panel)
+) {
+  color: #14213d !important;
+  border-color: #dce3ec !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .ops-panel,.ops-kpis > article,.ops-capability-grid > article
+) {
+  background: #fff !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .ops-panel,.ops-kpis > article,.ops-capability-grid > article,
+  .detail-panel:not(.control-panel)
+) :is(h2,h3,strong,b,th,label) {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .ops-panel,.ops-kpis > article,.ops-capability-grid > article,
+  .detail-panel:not(.control-panel)
+) :is(p,small,time,dd,td,li) {
+  color: #475467 !important;
+  -webkit-text-fill-color: #475467 !important;
+  opacity: 1 !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .ops-panel :is(.eyebrow,.ops-panel-head > span) {
+  color: #596579 !important;
+  -webkit-text-fill-color: #596579 !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .ops-panel :is(table,thead,tbody,tr,th,td) {
+  font-variant-numeric: tabular-nums;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .ops-panel :is(th,thead) {
+  color: #344054 !important;
+  -webkit-text-fill-color: #344054 !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .ops-panel :is(input,select,textarea) {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  background: #fff !important;
+  border-color: #b8c4d3 !important;
+  font-size: 13px !important;
+  min-height: 42px;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .ops-panel :is(input,textarea)::placeholder {
+  color: #667085 !important;
+  -webkit-text-fill-color: #667085 !important;
+  opacity: 1;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .ops-panel :is(input,select,textarea,button,a):focus-visible {
+  outline: 2px solid #a66a0b !important;
+  outline-offset: 2px !important;
+}
+
+/* Compact, visible tabs: no pale text on a pale button, no navy text on navy. */
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .ops-tabs > button {
+  min-height: 40px !important;
+  padding: 9px 13px !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  color: #344054 !important;
+  -webkit-text-fill-color: #344054 !important;
+  font-size: 12px !important;
+  font-weight: 660 !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .ops-tabs > button:is(.active,[aria-selected="true"]) {
+  border-color: #14213d !important;
+  background: #14213d !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .ops-tabs > button:focus-visible {
+  outline: 2px solid #a66a0b !important;
+  outline-offset: 2px !important;
+}
+
+/* Light interactive icons inherit the actual foreground, not retired teal. */
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .ops-tabs,.ops-panel-head,.ops-form,.section-actions,.workspace-page-actions,
+  .module-toolbar,.section-breadcrumb
+) :is(button,a) :is(svg,.app-icon) {
+  color: currentColor !important;
+  opacity: 1 !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+  .ops-panel-head,.ops-form,.section-actions,.workspace-page-actions
+) :is(svg,.app-icon) {
+  width: 17px;
+  height: 17px;
+  stroke-width: 1.8;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .ops-panel-head :is(button,a) {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  font-size: 12px !important;
+  font-weight: 680 !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .ops-panel-head :is(button,a):hover {
+  color: #0b1428 !important;
+  background: #eef2f7 !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .ops-form :is(label,legend) {
+  color: #344054 !important;
+  -webkit-text-fill-color: #344054 !important;
+  font-size: 12px !important;
+  font-weight: 650 !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .ops-form .primary {
+  background: #14213d !important;
+  border-color: #14213d !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  font-size: 12px !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .ops-form .primary :is(span,strong,svg) {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+/* Module list/details should use readable type on white cards. */
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .module-detail-header {
+  background: #fff !important;
+  color: #14213d !important;
+  border-color: #dce3ec !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .module-detail-header :is(h1,h2,strong) {
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .module-detail-header p {
+  color: #475467 !important;
+  -webkit-text-fill-color: #475467 !important;
+  font-size: 13px !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .module-page .module-card h3 {
+  font-size: 16px !important;
+  line-height: 1.3 !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+  .module-page .module-card p {
+  font-size: 13px !important;
+  color: #475467 !important;
+  -webkit-text-fill-color: #475467 !important;
+}
+
+/* Consistent desktop side navigation text and icons, including active state. */
+@media (min-width: 761px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar nav .sidebar-group-items > a {
+    font-size: 12px !important;
+    min-height: 38px !important;
+    line-height: 1.4 !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar nav .sidebar-group-items > a > span {
+    font-size: 12px !important;
+    color: inherit !important;
+    -webkit-text-fill-color: currentColor !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar nav .sidebar-group-items > a .sidebar-nav-icon {
+    width: 17px !important;
+    height: 17px !important;
+    stroke-width: 1.8 !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar nav .sidebar-group-items > a[aria-current="page"] {
+    background: #14213d !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar nav .sidebar-group-items > a[aria-current="page"] > span {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+}
+@media (max-width: 760px) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+    .workspace-page-header,.section-shell-hero,.section-header,.ops-hero
+  ) h1 {
+    font-size: clamp(22px, 6vw, 28px) !important;
+  }
+  html[data-theme] body[data-workspace-system="financial-os-v1"]
+    .erp-shell > .workspace .ops-page > .ops-hero {
+    padding: 18px !important;
+  }
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace
+    .ops-tabs > button {
+    min-height: 44px !important;
+    padding: 9px 12px !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-workspace-system="financial-os-v1"] .erp-shell > .workspace :is(
+    .ops-tabs button,.ops-panel-head button,.module-card,.workspace-page-actions a
+  ) {
+    transition-duration: 0.01ms !important;
+  }
+}
