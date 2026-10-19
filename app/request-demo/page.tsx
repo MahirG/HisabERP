@@ -20,14 +20,15 @@ export default async function RequestDemoPage({
   const notificationSent = params.notification === "sent";
   const confirmationSent = params.confirmation === "sent";
   const saved = params.saved === "1";
-  const context = [contact ? "Contact inquiry" : params.source, params.topic].filter(Boolean).join(" · ");
+  const context = [contact ? "Contact inquiry" : params.source?.slice(0, 80), params.topic?.slice(0, 80)].filter(Boolean).join(" · ");
+  const errorMessage = typeof params.error === "string" ? params.error.slice(0, 280) : "";
 
   return (
     <MarketingPageShell className="demo-request-page">
-      <section className="demo-booking-hero">
+      <section className="demo-booking-hero" aria-labelledby="demo-booking-title">
         <div className="demo-booking-intro">
           <div className="demo-booking-kicker"><span aria-hidden="true">●</span> Biloo ERP · Personalized walkthrough</div>
-          <h1>{contact ? "Contact the Biloo team." : "See Biloo in action."}</h1>
+          <h1 id="demo-booking-title">{contact ? "Contact the Biloo team." : "See Biloo in action."}</h1>
           <p>{contact ? "Tell us how we can help. Share your details and we’ll review your inquiry." : "Tell us what your business needs and we’ll tailor a focused walkthrough around the workflows that matter most—sales, finance, inventory and reporting."}</p>
           <div className="demo-booking-proof">
             <span><b>01</b> Understand your workflow</span>
@@ -60,11 +61,11 @@ export default async function RequestDemoPage({
             <div className="demo-form-heading">
               <p className="demo-form-kicker">{contact ? "Contact Biloo" : "Book your walkthrough"}</p>
               <h2>{contact ? "Send us your inquiry." : "Let’s talk about your business."}</h2>
-              <p>It takes about 2 minutes. Required fields are marked <span>*</span>.</p>
+              <p>Tell us a little about your company. Fields marked <span>*</span> are required.</p>
               {context ? <small className="demo-request-context">From: {context}</small> : null}
             </div>
 
-            {params.error ? <div className="demo-request-alert" role="alert">{params.error}</div> : null}
+            {errorMessage ? <div className="demo-request-alert" role="alert">{errorMessage}</div> : null}
 
             <label className="demo-request-honeypot" aria-hidden="true">Website<input name="website" type="text" tabIndex={-1} autoComplete="off"/></label>
             <input type="hidden" name="request_context" value={context}/>
@@ -73,7 +74,7 @@ export default async function RequestDemoPage({
 
             <div className="demo-form-section-label">Your details</div>
             <div className="demo-form-row">
-              <label>Full name *<input name="full_name" type="text" autoComplete="name" minLength={2} maxLength={120} required placeholder="e.g. Mahir Aman"/></label>
+              <label>Full name *<input name="full_name" type="text" autoComplete="name" minLength={2} maxLength={120} required placeholder="Your full name"/></label>
               <label>Company or organization *<input name="business_name" type="text" autoComplete="organization" minLength={2} maxLength={160} required placeholder="Your company"/></label>
             </div>
             <div className="demo-form-row">
@@ -97,7 +98,7 @@ export default async function RequestDemoPage({
               <textarea name="message" rows={4} maxLength={2000} defaultValue={context ? `I am interested in: ${context}. ` : undefined} placeholder="Tell us what you want Biloo to help you manage."/>
             </label>
 
-            <label className="demo-request-consent"><input type="checkbox" required/><span>I agree that Hisab Technologies may contact me about this walkthrough.</span></label>
+            <label className="demo-request-consent"><input type="checkbox" name="contact_consent" required/><span>I agree that Hisab Technologies may contact me about this walkthrough.</span></label>
             <button className="demo-booking-submit" type="submit"><span>{contact ? "Send inquiry" : "Book my walkthrough"}</span><b aria-hidden="true">→</b></button>
             <small className="demo-form-note">We securely record your request and email our team when delivery is configured. We also send you an acknowledgment when email delivery is available.</small>
           </form>

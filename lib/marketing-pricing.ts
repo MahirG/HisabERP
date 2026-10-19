@@ -23,7 +23,7 @@ export const pricingPlans: PricingPlan[] = [
     users: "Up to 2 users",
     branches: "1 business location",
     description: "A focused operating workspace for sales, expenses, customer balances and essential reporting.",
-    features: ["Sales and transaction records", "Expense tracking", "Customer and supplier records", "Receivables and payables", "Basic dashboard and reports", "English and Amharic access", "Email support"],
+    features: ["Sales and transaction records", "Expense tracking", "Customer and supplier records", "Receivables and payables", "Basic dashboard and reports", "English-language interface", "Email support"],
     cta: "Start with Starter",
     href: "/checkout?plan=starter&billing=annual",
   },

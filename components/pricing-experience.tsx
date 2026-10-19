@@ -38,7 +38,24 @@ export function PricingExperience() {
         <button type="button" className={annual ? 'active' : undefined} aria-pressed={annual} onClick={() => setBilling('annual')}>Annual access <span>Save about 2 months</span></button>
       </div>
 
-      <div className="pricing-comparison-wrap">
+      <div className="pricing-mobile-plans" aria-label="Available Biloo subscription plans">
+        {pricingPlans.map((plan) => {
+          const amount = annual ? plan.annualEtb : plan.monthlyEtb;
+          const href = plan.code === 'enterprise' ? plan.href : `/checkout?plan=${plan.code}&billing=${billing}`;
+          return <article className={plan.badge ? 'pricing-mobile-plan featured' : 'pricing-mobile-plan'} key={plan.code}>
+            {plan.badge ? <span className="pricing-mobile-badge">{plan.badge}</span> : null}
+            <p className="pricing-mobile-audience">{plan.audience}</p>
+            <h3>{plan.name}</h3>
+            <div className="pricing-mobile-amount"><strong>{amount === null ? 'Custom pricing' : `ETB ${formatEtb(amount)}`}</strong><span>{amount === null ? 'Quoted for your organization' : annual ? '/ year' : '/ month'}</span></div>
+            <p className="pricing-mobile-description">{plan.description}</p>
+            <p className="pricing-mobile-capacity">{plan.users} · {plan.branches}</p>
+            <ul>{plan.features.map((feature) => <li key={feature}><Check aria-hidden="true" />{feature}</li>)}</ul>
+            <Link className="pricing-mobile-cta" href={href}>{plan.cta}</Link>
+          </article>;
+        })}
+      </div>
+
+      <div className="pricing-comparison-wrap" aria-label="Detailed plan comparison">
         <table className="pricing-comparison-table">
           <thead>
             <tr>

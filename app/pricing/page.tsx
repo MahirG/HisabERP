@@ -5,7 +5,7 @@ import { PricingExperience } from "../../components/pricing-experience";
 import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 
 export const metadata: Metadata = {
-  title: "HisabERP Pricing in Ethiopian Birr",
+  title: "Biloo ERP Pricing in Ethiopian Birr",
   description: "Compare HisabERP plans in ETB and pay securely through Chapa for a monthly or annual access period.",
 };
 
@@ -32,10 +32,17 @@ const pricingRows = [
 
 export default function PricingPage() {
   return (
-    <MarketingPageShell>
+    <MarketingPageShell className="biloo-pricing-page">
       <section className="pricing-hero">
         <div><span className="marketing-eyebrow">Transparent ETB pricing</span><h1>Choose the plan that gives your business the right control now.</h1><p>Compare users, locations, modules and support, then continue through secure Chapa checkout for Starter, Growth or Business. Enterprise remains a guided commercial engagement.</p><div className="pricing-hero-notes"><span>Chapa-verified activation</span><span>No automatic recurring charge</span><span>Annual savings shown clearly</span><span>Migration scoped separately</span></div></div>
-        <InteractiveErpOffice moduleTitle="Plan & access control" moduleEyebrow="HisabERP pricing workspace" metrics={pricingMetrics} rows={pricingRows} compact />
+        <div className="pricing-value-panel" aria-label="What your Biloo subscription includes">
+          <p className="pricing-value-kicker">Straightforward subscriptions</p>
+          <h2>Know the cost before you commit.</h2>
+          <div><strong>01</strong><span>Prices shown in Ethiopian birr for the selected access period.</span></div>
+          <div><strong>02</strong><span>One-time Chapa checkout, with payment verification before activation.</span></div>
+          <div><strong>03</strong><span>Change plans at renewal; custom implementation is quoted separately.</span></div>
+          <small>Published prices exclude any applicable VAT or additional statutory charges.</small>
+        </div>
       </section>
 
       <section className="pricing-section"><div className="marketing-section-heading marketing-section-heading-centered"><span>Plans and inclusions</span><h2>Start with dependable records, then expand into connected operations.</h2><p>Annual access provides approximately two months of savings compared with twelve separate monthly payments.</p></div><PricingExperience /></section>
