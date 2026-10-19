@@ -329,31 +329,75 @@ body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar :is(
   display: none !important;
 }
 
+/* Distinct pinned identity card at the foot of the navigation. */
 body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer {
-  display: block !important;
+  display: flex !important;
   flex: 0 0 auto !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  max-width: 100% !important;
   max-height: none !important;
-  min-height: auto !important;
-  margin: 0 !important;
-  padding: 11px 10px 0 !important;
-  overflow: visible !important;
+  min-height: 0 !important;
+  margin: auto 0 0 !important;
+  padding: 14px 15px 13px !important;
+  overflow: hidden !important;
   opacity: 1 !important;
   visibility: visible !important;
   transform: none !important;
-  border-top: 1px solid var(--biloo-app-line) !important;
-  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-left: 3px solid #fca311 !important;
+  border-radius: 13px !important;
+  background: linear-gradient(135deg, #1d3053 0%, #14213d 70%, #0b1428 100%) !important;
+  box-shadow: 0 10px 26px rgba(20, 33, 61, 0.14) !important;
+  color: #ffffff !important;
 }
-
-body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer,
-body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer :is(p, a) {
-  color: #7a818c !important;
+body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer p {
+  width: 100% !important;
+  margin: 0 !important;
+  color: #e4eaf5 !important;
+  -webkit-text-fill-color: #e4eaf5 !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  overflow-wrap: anywhere;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer .powered-by {
+  margin-bottom: 10px !important;
+  color: #d7e0f0 !important;
+  -webkit-text-fill-color: #d7e0f0 !important;
+  font-size: 11px !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer .powered-by a {
+  color: #ffd071 !important;
+  -webkit-text-fill-color: #ffd071 !important;
   font-size: 12px !important;
-  line-height: 1.55 !important;
-}
-
-body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer a {
-  color: var(--biloo-app-navy) !important;
   font-weight: 800 !important;
+  text-decoration: none !important;
+  text-underline-offset: 3px !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer .powered-by a:is(:hover,:focus-visible) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-decoration: underline !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer .powered-by a:focus-visible {
+  outline: 2px solid #ffd071 !important;
+  outline-offset: 3px !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer .sidebar-footer-organization {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-size: 11px !important;
+  font-weight: 780 !important;
+  letter-spacing: .035em !important;
+  line-height: 1.4 !important;
+}
+body[data-workspace-system="financial-os-v1"] .erp-shell > #primary-sidebar .sidebar-footer .sidebar-footer-location {
+  margin-top: 3px !important;
+  color: #cbd7e8 !important;
+  -webkit-text-fill-color: #cbd7e8 !important;
+  font-size: 10.5px !important;
+  font-weight: 480 !important;
 }
 
 /* App pages and content surfaces */
