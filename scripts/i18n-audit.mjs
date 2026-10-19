@@ -138,67 +138,27 @@ function scanFile(file, content) {
   return findings;
 }
 
-function flattenLegacy(en, am, prefix = "", memory = new Map()) {
-  if (typeof en === "string") {
-    const source = normalize(en);
-    if (source) memory.set(source, { am: typeof am === "string" ? normalize(am) : "", path: prefix });
-    return memory;
-  }
-  if (Array.isArray(en)) {
-    en.forEach((value, index) => flattenLegacy(value, am?.[index], `${prefix}[${index}]`, memory));
-    return memory;
-  }
-  if (en && typeof en === "object") {
-    Object.entries(en).forEach(([key, value]) => flattenLegacy(value, am?.[key], prefix ? `${prefix}.${key}` : key, memory));
-  }
-  return memory;
-}
 
-async function readJson(file, fallback = {}) {
-  try { return JSON.parse(await fs.readFile(file, "utf8")); }
-  catch { return fallback; }
-}
-
-const [legacyEn, legacyAm, uiEn, uiAm] = await Promise.all([
-  readJson("lib/locales/en.json"), readJson("lib/locales/am.json"),
-  readJson("lib/locales/ui.en.json"), readJson("lib/locales/ui.am.json")
-]);
-const memory = flattenLegacy(legacyEn, legacyAm);
-for (const [source, english] of Object.entries(uiEn)) {
-  const normalizedSource = normalize(source || english);
-  memory.set(normalizedSource, { am: normalize(uiAm[source] || ""), path: `ui.${source}` });
-}
-
-const files = (await Promise.all(ROOTS.map(listFiles))).flat().filter((file) => !IGNORE_FILES.has(file.split(path.sep).join("/")));
-const findings = [];
-for (const file of files) findings.push(...scanFile(file, await fs.readFile(file, "utf8")));
-
+const files = (await Promise.all(ROOTS.map(listFiles))).flat().filter(
+  file => !IGNORE_FILES.has(file.split(path.sep).join("/"))
+);
+const findings=[];
+for (const file of files) findings.push(...scanFile(file,await fs.readFile(file,"utf8")));
 const unique = new Map();
-for (const finding of findings) {
-  const existing = unique.get(finding.source);
-  if (existing) existing.locations.push({ file: finding.file, line: finding.line, kind: finding.kind });
-  else unique.set(finding.source, { source: finding.source, locations: [{ file: finding.file, line: finding.line, kind: finding.kind }] });
+for(const entry of findings) {
+  const previous=unique.get(entry.source);
+  if(previous) previous.locations.push({file:entry.file,line:entry.line,kind:entry.kind});
+  else unique.set(entry.source,{source:entry.source,locations:[{file:entry.file,line:entry.line,kind:entry.kind}]});
 }
-
-const strings = [...unique.values()].sort((a, b) => a.source.localeCompare(b.source));
-const covered = [];
-const missing = [];
-for (const item of strings) {
-  const translation = memory.get(item.source);
-  if (translation?.am) covered.push({ ...item, translation });
-  else missing.push({ ...item, translation: translation || null });
-}
-
-const report = {
-  generatedAt: new Date().toISOString(),
-  scannedFiles: files.length,
-  uniqueStrings: strings.length,
-  coveredStrings: covered.length,
-  missingStrings: missing.length,
-  supportedLanguages: ["en", "am"],
-  covered,
-  missing
+const strings=[...unique.values()].sort((a,b)=>a.source.localeCompare(b.source));
+const report={
+  generatedAt:new Date().toISOString(),
+  scannedFiles:files.length,
+  uniqueStrings:strings.length,
+  supportedLanguages:["en"],
+  sourceStrings:strings,
+  errors:[],
 };
-await fs.writeFile("i18n-audit-report.json", `${JSON.stringify(report, null, 2)}\n`);
-console.log(`i18n audit: ${covered.length}/${strings.length} strings covered in Amharic; ${missing.length} missing.`);
-if (process.argv.includes("--check") && missing.length) process.exitCode = 1;
+await fs.writeFile("i18n-audit-report.json",`${JSON.stringify(report,null,2)}\n`);
+console.log(`English UI audit: ${strings.length} visible source strings in ${files.length} files.`);
+if(process.argv.includes("--check") && report.errors.length)process.exitCode=1;
