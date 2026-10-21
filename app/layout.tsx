@@ -61,18 +61,18 @@ const preferenceBootstrap = `
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.hisabtech.com"),
-  title: { default: "Biloo — Business Operating System for Ethiopia", template: "%s | Biloo" },
+  title: { default: "Biloo by Hisab Technologies — Business Operating System", template: "%s | Hisab Technologies" },
   description: "Biloo ERP connects sales, finance, inventory, customers, suppliers and reporting for growing Ethiopian businesses.",
   applicationName: "Biloo",
   keywords: ["Biloo ERP", "ERP Ethiopia", "business software Ethiopia", "inventory", "sales", "finance", "accounting workflow"],
-  authors: [{ name: "Biloo", url: "https://www.hisabtech.com/about" }],
-  creator: "Biloo",
-  publisher: "Biloo",
+  authors: [{ name: "Hisab Technologies", url: "https://www.hisabtech.com/services" }],
+  creator: "Hisab Technologies",
+  publisher: "Hisab Technologies",
   alternates: { canonical: "/", languages: { "en-ET": "/" } },
   openGraph: {
     type: "website",
     locale: "en_ET",
-    siteName: "Biloo",
+    siteName: "Hisab Technologies · Biloo",
     title: "Biloo ERP — Business Operating System for Ethiopia",
     description: "One connected workspace for sales, finance, inventory, customers, suppliers and reporting.",
     url: "/",

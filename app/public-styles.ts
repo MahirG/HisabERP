@@ -17,5 +17,7 @@ import "./public-navy-header.css";
 import "./public-seven-pages.css";
 /* Five-page help, industry and customer proof visual authority. */
 import "./public-five-pages.css";
+/* Hisab Technologies parent-brand identity and its public services landing page. */
+import "./hisabtech-fundingpips-marketing.css";
 
 export {};

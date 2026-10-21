@@ -146,18 +146,19 @@ export function CampfireMarketingHome() {
         <section className="cf-hero">
           <div className="cf-hero-shell">
             <div className="cf-hero-copy">
-              <h1>One connected business. <em>Clarity at every step.</em></h1>
-              <p>Bring sales, finance, inventory, purchasing and reporting together in one dependable business operating system. Built for how Ethiopian businesses work—and where they want to go.</p>
+              <span className="ah-hero-eyebrow"><span className="ah-signal-dot" aria-hidden="true" /> BILOO BUSINESS OPERATING SYSTEM <i aria-hidden="true" /> BY HISAB TECHNOLOGIES</span>
+              <h1>Your entire business. <em>One powerful operating system.</em></h1>
+              <p>Meet Biloo by Hisab Technologies. Bring sales, finance, inventory, purchasing and reporting into one connected workspace designed for the way Ethiopian businesses operate.</p>
               <div className="cf-hero-actions">
-                <Link prefetch={false} className="cf-primary" href="/auth/email-sign-up">Start free <ArrowRight /></Link>
-                <Link className="cf-secondary" href="/request-demo?source=homepage-hero">Book a walkthrough <ArrowRight /></Link>
+                <Link className="cf-primary" href="/product-tour">Explore Biloo <ArrowRight /></Link>
+                <Link className="cf-secondary" href="/request-demo?source=homepage-hero">Request a demo <ArrowRight /></Link>
               </div>
               <div className="ah-hero-assurances" aria-label="Biloo ERP advantages">
                 <span><CheckCircle /> ETB-first records</span>
                 <span><CheckCircle /> Multi-branch visibility</span>
                 <span><CheckCircle /> Role-based controls</span>
               </div>
-              <div className="cf-hero-note">One operating record. Every team moving together.</div>
+              <div className="cf-hero-note">Biloo by Hisab Technologies · Building the Future, One Solution at a Time.</div>
             </div>
             <div className="cf-hero-product ah-hero-board">
               <div className="cf-hero-product-top">
@@ -173,6 +174,17 @@ export function CampfireMarketingHome() {
             <div><Bank /><span><strong>Finance & accounting</strong><small>Cash, journals and controls</small></span></div>
             <div><Cube /><span><strong>Inventory & procurement</strong><small>Stock, purchasing and suppliers</small></span></div>
             <div><Reports /><span><strong>Reports & analytics</strong><small>Decision-ready visibility</small></span></div>
+          </div>
+        </section>
+        <section className="ah-hisab-intro" aria-labelledby="ah-hisab-intro-title">
+          <div className="ah-hisab-intro-inner">
+            <div className="ah-hisab-intro-label"><span aria-hidden="true">H.</span><span>SOFTWARE ENGINEERED IN ETHIOPIA<br />FOR BUSINESSES EVERYWHERE</span></div>
+            <div className="ah-hisab-intro-copy">
+              <span className="ah-eyebrow">THE COMPANY BEHIND BILOO</span>
+              <h2 id="ah-hisab-intro-title">Built by Hisab Technologies.<br /><em>Designed around your business.</em></h2>
+              <p>We build custom software, mobile applications, websites and business systems. Biloo brings that engineering focus into one connected ERP platform.</p>
+            </div>
+            <Link className="ah-hisab-intro-link" href="/services">Explore our services <ArrowRight /></Link>
           </div>
         </section>
         <section className="ah-modules" aria-labelledby="ah-module-title">

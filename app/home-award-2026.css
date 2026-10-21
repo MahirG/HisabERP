@@ -1052,3 +1052,143 @@
   animation:none!important;transition:none!important;scroll-behavior:auto!important;
  }
 }
+
+/* FundingPips-inspired editorial precision for the Hisab Technologies parent brand.
+   Home-only declarations: authenticated ERP styles are never targeted. */
+.marketing-site-v2 #public-main-content .cf-site.ah-home .cf-hero h1 {
+  font-size:clamp(41px,5vw,76px)!important;
+  line-height:1.055!important;
+  letter-spacing:-.06em!important;
+  max-width:15ch!important;
+}
+.marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hero-eyebrow {
+  display:inline-flex!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  gap:8px!important;
+  max-width:100%!important;
+  padding:8px 12px!important;
+  border:1px solid rgba(252,163,17,.42)!important;
+  border-radius:999px!important;
+  background:rgba(252,163,17,.08)!important;
+  color:#ffda9b!important;
+  -webkit-text-fill-color:#ffda9b!important;
+  font-weight:820!important;
+  letter-spacing:.1em!important;
+  font-size:9px!important;
+  line-height:1.55!important;
+}
+.marketing-site-v2 #public-main-content .cf-site.ah-home .cf-hero-copy>p {
+  font-size:clamp(14px,1.24vw,16px)!important;
+  line-height:1.7!important;
+  max-width:56ch!important;
+}
+.marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro {
+  position:relative!important;
+  margin:0!important;
+  padding:clamp(48px,6.5vw,82px) max(24px,calc((100% - 1220px)/2))!important;
+  background:#f6f8fc!important;
+  border-bottom:1px solid #dfe5ef!important;
+}
+.marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro-inner {
+  display:grid!important;
+  grid-template-columns:minmax(135px,.46fr) minmax(0,1.65fr) auto!important;
+  gap:clamp(20px,3.4vw,52px)!important;
+  align-items:center!important;
+  width:100%!important;
+  max-width:1220px!important;
+  margin:0 auto!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro-label {
+  display:flex!important;
+  gap:12px!important;
+  align-items:center!important;
+  color:#475467!important;
+  font-size:9px!important;
+  font-weight:820!important;
+  letter-spacing:.09em!important;
+  line-height:1.6!important;
+}
+.marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro-label>span:first-child {
+  display:grid!important;
+  place-items:center!important;
+  flex:none;
+  width:54px!important;
+  height:54px!important;
+  border-radius:16px!important;
+  background:#14213d!important;
+  color:#fca311!important;
+  -webkit-text-fill-color:#fca311!important;
+  font-size:27px!important;
+  font-weight:850!important;
+  letter-spacing:-.07em!important;
+}
+.marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro .ah-eyebrow {
+  display:block!important;
+  color:#855710!important;
+  -webkit-text-fill-color:#855710!important;
+  font-weight:820!important;
+  font-size:10px!important;
+  letter-spacing:.15em!important;
+  line-height:1.5!important;
+}
+.marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro-copy h2 {
+  margin:9px 0 12px!important;
+  color:#14213d!important;
+  -webkit-text-fill-color:#14213d!important;
+  font-size:clamp(27px,2.9vw,43px)!important;
+  line-height:1.16!important;
+  letter-spacing:-.048em!important;
+  font-weight:830!important;
+}
+.marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro-copy h2 em {
+  color:#94600e!important;
+  -webkit-text-fill-color:#94600e!important;
+  font-style:normal!important;
+}
+.marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro-copy p {
+  max-width:61ch!important;
+  margin:0!important;
+  color:#475467!important;
+  -webkit-text-fill-color:#475467!important;
+  font-size:13px!important;
+  line-height:1.7!important;
+}
+.marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro-link {
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:9px!important;
+  min-height:46px!important;
+  padding:11px 15px!important;
+  border:1px solid #b0bdd0!important;
+  border-radius:10px!important;
+  background:#fff!important;
+  color:#14213d!important;
+  -webkit-text-fill-color:#14213d!important;
+  font-size:12px!important;
+  font-weight:820!important;
+  white-space:nowrap!important;
+  text-decoration:none!important;
+  transition:background-color .18s ease,transform .18s ease!important;
+}
+.marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro-link svg {width:16px;height:16px;}
+.marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro-link:hover {background:#e9eef7!important;transform:translateY(-1px);}
+@media(max-width:1020px) {
+  .marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro-inner {grid-template-columns:minmax(0,1fr) minmax(0,2fr)!important;}
+  .marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro-link {grid-column:2!important;justify-self:start!important;}
+}
+@media(max-width:640px) {
+  .marketing-site-v2 #public-main-content .cf-site.ah-home .cf-hero h1 {font-size:clamp(36px,9vw,52px)!important;}
+  .marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hero-eyebrow {font-size:8px!important;gap:6px!important;letter-spacing:.06em!important;}
+  .marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro {padding:52px 21px!important;}
+  .marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro-inner {grid-template-columns:minmax(0,1fr)!important;gap:20px!important;}
+  .marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro-link {grid-column:1!important;justify-self:stretch!important;}
+}
+@media(prefers-reduced-motion:reduce) {
+  .marketing-site-v2 #public-main-content .cf-site.ah-home .ah-hisab-intro-link {transition:none!important;transform:none!important;}
+}

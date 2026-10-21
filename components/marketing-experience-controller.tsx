@@ -20,6 +20,7 @@ const MARKETING_ROUTE_PREFIXES = [
   "/compare",
   "/trust",
   "/about",
+  "/services",
   "/request-demo",
   "/privacy",
   "/terms",
