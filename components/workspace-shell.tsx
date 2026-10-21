@@ -16,7 +16,7 @@ type Props = { children: ReactNode; user?: UserContext | null };
 type NavItem = { label: string; href: string; icon: IconName };
 type SessionContextResponse = { user: UserContext | null };
 
-const shellExcludedRoutes = ["/auth", "/onboarding", "/request-demo", "/product-tour", "/product", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about", "/privacy", "/terms", "/help"];
+const shellExcludedRoutes = ["/auth", "/onboarding", "/request-demo", "/product-tour", "/product", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about", "/services", "/privacy", "/terms", "/help"];
 
 function isActiveRoute(pathname: string, href: string) {
   if (href === "/workspace-home") return pathname === "/workspace-home" || pathname === "/";
