@@ -124,9 +124,15 @@
   font-weight:850;
 }
 .marketing-site-v2 .hisab-services-hero h1 em,
-.marketing-site-v2 .hisab-services-page h2 em {
+.marketing-site-v2 .hisab-services-product h2 em {
   color:#fca311!important;
   -webkit-text-fill-color:#fca311!important;
+  font-style:normal;
+}
+.marketing-site-v2 .hisab-services-list-section h2 em,
+.marketing-site-v2 .hisab-services-process h2 em {
+  color:#83520b!important;
+  -webkit-text-fill-color:#83520b!important;
   font-style:normal;
 }
 .marketing-site-v2 .hisab-services-hero-content>p {
