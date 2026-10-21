@@ -16,7 +16,7 @@ const copy = {
     navigation: "Main navigation", pricing: "Pricing", search: "Search", searchTitle: "Search Biloo",
     searchPlaceholder: "Search products and resources", noResults: "No matching pages found.", signIn: "Sign in",
     startFree: "Get Started", openMenu: "Open menu", closeMenu: "Close menu", language: "Language",
-    footerIntro: "One secure business operating system for Ethiopian companies that want clearer operations and better decisions.",
+    footerIntro: "Biloo is the connected Business Operating System by Hisab Technologies — built to help Ethiopian businesses manage operations with clarity.",
     product: "Product", resources: "Learn & implement", company: "Company & trust", rights: "All rights reserved.",
     location: "Addis Ababa, Ethiopia",
   },
@@ -25,6 +25,7 @@ const copy = {
 const navigationGroups: NavigationGroup[] = [
   { id: "product", label: "Products", items: [
     { label: "Biloo ERP", href: "/product-tour" },
+    { label: "Explore ERP modules", href: "/#ah-module-title" },
     { label: "Sales & invoicing", href: "/product/sales-invoicing" },
     { label: "Finance & accounting", href: "/product/finance-cashflow" },
     { label: "Inventory & procurement", href: "/product/inventory" },
@@ -46,6 +47,7 @@ const navigationGroups: NavigationGroup[] = [
   ] },
   { id: "company", label: "Company", items: [
     { label: "About Biloo", href: "/about" },
+    { label: "Hisab Technologies services", href: "/services" },
     { label: "Trust & security", href: "/trust" },
     { label: "Integrations", href: "/integrations" },
     { label: "Contact us", href: "/request-demo?source=contact" },
@@ -68,7 +70,7 @@ function routeMatches(pathname: string, href: string) {
 function MarketingStructuredData() {
   const data = [
     {
-      "@context": "https://schema.org", "@type": "Organization", name: "Biloo", url: "https://www.hisabtech.com",
+      "@context": "https://schema.org", "@type": "Organization", name: "Hisab Technologies", url: "https://www.hisabtech.com",
       logo: "https://www.hisabtech.com/hisab-logo.svg", email: "mahir@hisabtech.com", telephone: "+251924093037",
       address: { "@type": "PostalAddress", addressLocality: "Addis Ababa", addressCountry: "ET" },
     },
@@ -76,8 +78,7 @@ function MarketingStructuredData() {
       "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Biloo ERP",
       applicationCategory: "BusinessApplication", operatingSystem: "Web", url: "https://www.hisabtech.com",
       description: "A business operating system for Ethiopian organizations.",
-      offers: { "@type": "AggregateOffer", priceCurrency: "ETB", lowPrice: "1500", offerCount: "4" },
-      provider: { "@type": "Organization", name: "Biloo" },
+      provider: { "@type": "Organization", name: "Hisab Technologies", url: "https://www.hisabtech.com" },
     },
   ];
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
@@ -161,7 +162,7 @@ export function MarketingHeader() {
           </div>
         </div>
         <div className="wb-header-inner">
-          <Link href="/" className="wb-brand" aria-label="Biloo home"><img src="/biloo-header-logo-white.svg" alt="Biloo" width="112" height="56" /></Link>
+          <Link href="/" className="wb-brand" aria-label="Biloo by Hisab Technologies — home"><img src="/biloo-header-logo-white.svg" alt="Biloo" width="112" height="56" /><span className="wb-brand-parent">by Hisab Technologies</span></Link>
           <nav className="wb-primary-nav" aria-label={c.navigation}>
             {navigationGroups.map((group) => {
               const open = openMenu === group.id;
@@ -200,7 +201,7 @@ export function MarketingHeader() {
       <div className={`wb-mobile-drawer${mobileOpen ? " is-open" : ""}`} aria-hidden={!mobileOpen} inert={!mobileOpen ? true : undefined}>
         <button type="button" className="wb-overlay-backdrop" aria-label={c.closeMenu} onClick={() => setMobileOpen(false)} />
         <aside ref={menuModalRef} tabIndex={-1} id={mobilePanelId} className="wb-mobile-panel" role="dialog" aria-modal="true" aria-label={c.navigation}>
-          <header><Link href="/" onClick={() => setMobileOpen(false)}><img src="/biloo-header-logo-white.svg" alt="Biloo" width="106" height="52" /></Link><button type="button" onClick={() => setMobileOpen(false)} aria-label={c.closeMenu}><Xmark width={19} height={19} strokeWidth={1.6} aria-hidden /></button></header>
+          <header><Link href="/" className="wb-mobile-brand" onClick={() => setMobileOpen(false)}><img src="/biloo-header-logo-white.svg" alt="Biloo" width="106" height="52" /><span>by Hisab Technologies</span></Link><button type="button" onClick={() => setMobileOpen(false)} aria-label={c.closeMenu}><Xmark width={19} height={19} strokeWidth={1.6} aria-hidden /></button></header>
           <button type="button" className="wb-mobile-search" onClick={() => { setMobileOpen(false); setSearchOpen(true); }}><Search width={17} height={17} strokeWidth={1.6} aria-hidden /><span>{c.searchPlaceholder}</span></button>
           <nav className="wb-mobile-navigation" aria-label={c.navigation}>
             {navigationGroups.map((group) => {
@@ -229,9 +230,10 @@ export function MarketingFooter() {
     <footer className="marketing-footer">
       <div className="marketing-footer-top">
         <div className="marketing-footer-brand-column">
-          <Link href="/" className="marketing-brand marketing-footer-brand" aria-label="Biloo home">
+          <Link href="/" className="marketing-brand marketing-footer-brand" aria-label="Biloo by Hisab Technologies home">
             <img src="/biloo-header-logo.svg" alt="Biloo" width="108" height="54" />
           </Link>
+          <span className="hisab-footer-signature">A product of <strong>Hisab Technologies</strong></span>
           <p>{c.footerIntro}</p>
           <div className="marketing-footer-contact">
             <a href="mailto:mahir@hisabtech.com">mahir@hisabtech.com</a>
@@ -270,6 +272,7 @@ export function MarketingFooter() {
         <nav className="marketing-footer-column" aria-label="Company">
           <strong>Company</strong>
           <Link href="/about">About Biloo</Link>
+          <Link href="/services">Hisab Technologies services</Link>
           <Link href="/pricing">{c.pricing}</Link>
           <Link href="/integrations">Integrations</Link>
           <Link href="/trust">Trust & security</Link>
@@ -278,7 +281,7 @@ export function MarketingFooter() {
       </div>
 
       <div className="marketing-footer-bottom">
-        <span>© {new Date().getFullYear()} Biloo. {c.rights}</span>
+        <span>© {new Date().getFullYear()} Hisab Technologies · Biloo. {c.rights}</span>
         <div className="marketing-footer-legal">
           <Link href="/trust">Trust & security</Link>
           <Link href="/privacy">Privacy</Link>
