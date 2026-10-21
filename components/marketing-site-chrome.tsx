@@ -201,22 +201,40 @@ export function MarketingHeader() {
       <div className={`wb-mobile-drawer${mobileOpen ? " is-open" : ""}`} aria-hidden={!mobileOpen} inert={!mobileOpen ? true : undefined}>
         <button type="button" className="wb-overlay-backdrop" aria-label={c.closeMenu} onClick={() => setMobileOpen(false)} />
         <aside ref={menuModalRef} tabIndex={-1} id={mobilePanelId} className="wb-mobile-panel" role="dialog" aria-modal="true" aria-label={c.navigation}>
-          <header><Link href="/" className="wb-mobile-brand" onClick={() => setMobileOpen(false)}><img src="/biloo-header-logo-white.svg" alt="Biloo" width="106" height="52" /><span>by Hisab Technologies</span></Link><button type="button" onClick={() => setMobileOpen(false)} aria-label={c.closeMenu}><Xmark width={19} height={19} strokeWidth={1.6} aria-hidden /></button></header>
-          <button type="button" className="wb-mobile-search" onClick={() => { setMobileOpen(false); setSearchOpen(true); }}><Search width={17} height={17} strokeWidth={1.6} aria-hidden /><span>{c.searchPlaceholder}</span></button>
-          <nav className="wb-mobile-navigation" aria-label={c.navigation}>
-            {navigationGroups.map((group) => {
-              const active = group.items.some((item) => routeMatches(pathname, item.href));
-              return (
-                <details key={group.id} className={active ? "is-active" : undefined}>
-                  <summary>{group.label}<NavArrowDown width={16} height={16} strokeWidth={1.6} aria-hidden /></summary>
-                  <div>{group.items.map((item) => <Link href={item.href} key={group.id + "-" + item.href + "-" + item.label} aria-current={routeMatches(pathname, item.href) ? "page" : undefined} onClick={() => setMobileOpen(false)}>{item.label}</Link>)}</div>
-                </details>
-              );
-            })}
-            <Link href="/pricing" className={routeMatches(pathname, "/pricing") ? "is-active" : undefined} onClick={() => setMobileOpen(false)}>{c.pricing}</Link>
-          </nav>
-          <div className="wb-mobile-utilities"><Link href="/help-center" onClick={() => setMobileOpen(false)}>Help Center</Link><Link prefetch={false} href="/account" onClick={() => setMobileOpen(false)}>Account</Link></div>
-          <div className="wb-mobile-actions"><Link prefetch={false} href="/auth/login?next=%2F" onClick={() => setMobileOpen(false)}>{c.signIn}</Link><Link prefetch={false} href="/auth/email-sign-up" onClick={() => setMobileOpen(false)}>{c.startFree}</Link></div>
+          <header className="wb-mobile-panel-header">
+            <Link href="/" className="wb-mobile-brand" aria-label="Biloo home" onClick={() => setMobileOpen(false)}>
+              <img src="/biloo-header-logo-white.svg" alt="Biloo" width="106" height="52" />
+            </Link>
+            <button type="button" onClick={() => setMobileOpen(false)} aria-label={c.closeMenu}>
+              <Xmark width={23} height={23} strokeWidth={1.8} aria-hidden />
+            </button>
+          </header>
+          <div className="wb-mobile-content">
+            <button type="button" className="wb-mobile-search" onClick={() => { setMobileOpen(false); setSearchOpen(true); }}>
+              <Search width={18} height={18} strokeWidth={1.7} aria-hidden />
+              <span>{c.searchPlaceholder}</span>
+            </button>
+            <nav className="wb-mobile-navigation" aria-label={c.navigation}>
+              {navigationGroups.map((group) => {
+                const active = group.items.some((item) => routeMatches(pathname, item.href));
+                return (
+                  <details key={group.id} className={active ? "is-active" : undefined}>
+                    <summary>{group.label}<NavArrowDown width={17} height={17} strokeWidth={1.7} aria-hidden /></summary>
+                    <div>{group.items.map((item) => <Link href={item.href} key={group.id + "-" + item.href + "-" + item.label} aria-current={routeMatches(pathname, item.href) ? "page" : undefined} onClick={() => setMobileOpen(false)}>{item.label}</Link>)}</div>
+                  </details>
+                );
+              })}
+              <Link href="/pricing" className={routeMatches(pathname, "/pricing") ? "is-active" : undefined} onClick={() => setMobileOpen(false)}>{c.pricing}</Link>
+            </nav>
+            <div className="wb-mobile-utilities">
+              <Link href="/help-center" onClick={() => setMobileOpen(false)}>Help Center</Link>
+              <Link prefetch={false} href="/account" onClick={() => setMobileOpen(false)}>Account</Link>
+            </div>
+          </div>
+          <div className="wb-mobile-actions">
+            <Link prefetch={false} href="/auth/login?next=%2F" onClick={() => setMobileOpen(false)}>{c.signIn}</Link>
+            <Link prefetch={false} href="/auth/email-sign-up" onClick={() => setMobileOpen(false)}>{c.startFree}</Link>
+          </div>
         </aside>
       </div>
     </>
