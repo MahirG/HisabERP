@@ -12,6 +12,8 @@ test("Hisab Technologies is identified as the company behind Biloo", async () =>
   ]);
   assert.match(home, /Your entire business/);
   assert.match(home, /One powerful operating system/);
+  assert.doesNotMatch(home, /BILOO BUSINESS OPERATING SYSTEM/);
+  assert.doesNotMatch(home, /className="ah-hero-eyebrow"/);
   assert.match(home, /INTERACTIVE SAMPLE/);
   assert.match(home, /Illustrative data/);
   assert.match(home, /THE COMPANY BEHIND BILOO/);

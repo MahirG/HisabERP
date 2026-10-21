@@ -146,7 +146,6 @@ export function CampfireMarketingHome() {
         <section className="cf-hero">
           <div className="cf-hero-shell">
             <div className="cf-hero-copy">
-              <span className="ah-hero-eyebrow"><span className="ah-signal-dot" aria-hidden="true" /> BILOO BUSINESS OPERATING SYSTEM <i aria-hidden="true" /> BY HISAB TECHNOLOGIES</span>
               <h1>Your entire business. <em>One powerful operating system.</em></h1>
               <p>Meet Biloo by Hisab Technologies. Bring sales, finance, inventory, purchasing and reporting into one connected workspace designed for the way Ethiopian businesses operate.</p>
               <div className="cf-hero-actions">
