@@ -1,0 +1,343 @@
+/*
+ * Biloo / HisabTech — canonical marketing mobile drawer.
+ * Loaded last, after earlier public layers. The original drawer used z-index
+ * 2100 while the fixed/sticky public header had 6000: two headers overlapped.
+ * These selectors intentionally affect only the PUBLIC marketing surface.
+ */
+.marketing-site-v2 .wb-mobile-drawer {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 12000 !important;
+  isolation: isolate;
+}
+
+.marketing-site-v2 .wb-mobile-drawer > .wb-overlay-backdrop {
+  background: rgba(8, 19, 39, 0.42) !important;
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+.marketing-site-v2 .wb-mobile-panel {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: min(400px, 100vw) !important;
+  max-width: 100vw !important;
+  height: 100% !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-left: 1px solid #e2e8f0 !important;
+  border-radius: 0 !important;
+  color: #14213d !important;
+  background: #ffffff !important;
+  box-shadow: -18px 0 54px rgba(8, 19, 39, 0.18) !important;
+  overflow: hidden !important;
+  overscroll-behavior: contain;
+  transform: translateX(105%) !important;
+  transition: transform 240ms cubic-bezier(.2, .75, .2, 1) !important;
+}
+
+.marketing-site-v2 .wb-mobile-drawer.is-open .wb-mobile-panel {
+  transform: translateX(0) !important;
+}
+
+.marketing-site-v2 .wb-mobile-panel > .wb-mobile-panel-header {
+  position: relative !important;
+  z-index: 1;
+  display: flex !important;
+  flex: 0 0 auto !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  width: 100% !important;
+  height: 74px !important;
+  min-height: 74px !important;
+  margin: 0 !important;
+  padding: max(12px, env(safe-area-inset-top)) 20px 12px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-bottom: 1px solid #2a3c58 !important;
+  border-radius: 0 !important;
+  color: #ffffff !important;
+  background: #14213d !important;
+}
+
+.marketing-site-v2 .wb-mobile-panel > .wb-mobile-panel-header > .wb-mobile-brand {
+  display: inline-flex !important;
+  flex: 0 0 auto !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: auto !important;
+  min-width: 0 !important;
+  height: 48px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.marketing-site-v2 .wb-mobile-panel > .wb-mobile-panel-header > .wb-mobile-brand img {
+  display: block !important;
+  width: 105px !important;
+  max-width: 105px !important;
+  height: auto !important;
+  max-height: 44px !important;
+  object-fit: contain !important;
+  object-position: left center !important;
+  margin: 0 !important;
+}
+
+.marketing-site-v2 .wb-mobile-panel > .wb-mobile-panel-header > button {
+  display: inline-flex !important;
+  flex: 0 0 44px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.marketing-site-v2 .wb-mobile-panel > .wb-mobile-panel-header > button:hover {
+  background: rgba(255,255,255,.09) !important;
+}
+
+.marketing-site-v2 .wb-mobile-panel > .wb-mobile-panel-header > button svg {
+  display: block !important;
+  stroke: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.marketing-site-v2 .wb-mobile-panel > .wb-mobile-content {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 16px 20px 20px !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  background: #ffffff !important;
+  scrollbar-width: thin;
+}
+
+.marketing-site-v2 .wb-mobile-content > .wb-mobile-search {
+  display: flex !important;
+  flex: 0 0 auto !important;
+  align-items: center !important;
+  gap: 11px !important;
+  min-height: 46px !important;
+  height: 46px !important;
+  width: 100% !important;
+  margin: 0 0 14px !important;
+  padding: 0 14px !important;
+  border: 1px solid #dce3ec !important;
+  border-radius: 10px !important;
+  color: #475569 !important;
+  -webkit-text-fill-color: #475569 !important;
+  background: #f6f8fb !important;
+  box-shadow: none !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  text-align: left !important;
+}
+.marketing-site-v2 .wb-mobile-content > .wb-mobile-search svg {
+  flex: 0 0 18px;
+  color: #344054 !important;
+}
+
+.marketing-site-v2 .wb-mobile-content > .wb-mobile-navigation {
+  display: flex !important;
+  flex: 0 0 auto !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-top: 1px solid #e3e8f0 !important;
+  background: transparent !important;
+}
+
+.marketing-site-v2 .wb-mobile-navigation details,
+.marketing-site-v2 .wb-mobile-navigation > a {
+  margin: 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid #e3e8f0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.marketing-site-v2 .wb-mobile-navigation summary,
+.marketing-site-v2 .wb-mobile-navigation > a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  min-height: 52px !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 2px !important;
+  gap: 12px !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  background: transparent !important;
+  font-size: 15px !important;
+  font-weight: 690 !important;
+  line-height: 1.35 !important;
+  text-decoration: none !important;
+}
+
+.marketing-site-v2 .wb-mobile-navigation summary svg {
+  color: #64748b !important;
+  flex: 0 0 auto;
+}
+.marketing-site-v2 .wb-mobile-navigation details[open] summary svg {
+  transform: rotate(180deg) !important;
+}
+
+.marketing-site-v2 .wb-mobile-navigation details > div {
+  display: grid !important;
+  gap: 2px !important;
+  padding: 0 0 10px 10px !important;
+  background: transparent !important;
+}
+.marketing-site-v2 .wb-mobile-navigation details > div > a {
+  display: flex !important;
+  align-items: center !important;
+  min-height: 42px !important;
+  padding: 8px 12px !important;
+  border-radius: 7px !important;
+  color: #475569 !important;
+  -webkit-text-fill-color: #475569 !important;
+  background: transparent !important;
+  font-size: 13.5px !important;
+  font-weight: 530 !important;
+  line-height: 1.35 !important;
+}
+.marketing-site-v2 .wb-mobile-navigation details > div > a:hover,
+.marketing-site-v2 .wb-mobile-navigation details > div > a[aria-current="page"],
+.marketing-site-v2 .wb-mobile-navigation > a:hover,
+.marketing-site-v2 .wb-mobile-navigation > a.is-active {
+  background: #edf2f8 !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+}
+
+.marketing-site-v2 .wb-mobile-content > .wb-mobile-utilities {
+  display: flex !important;
+  flex: 0 0 auto !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  width: 100% !important;
+  margin: 12px 0 0 !important;
+  padding: 9px 0 0 !important;
+  border-top: 1px solid #e3e8f0 !important;
+  background: transparent !important;
+}
+.marketing-site-v2 .wb-mobile-content > .wb-mobile-utilities > a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  min-height: 44px !important;
+  height: 44px !important;
+  margin: 0 !important;
+  padding: 0 2px !important;
+  border: 0 !important;
+  color: #475569 !important;
+  -webkit-text-fill-color: #475569 !important;
+  background: transparent !important;
+  font-size: 14px !important;
+  font-weight: 590 !important;
+  text-align: left !important;
+  text-decoration: none !important;
+}
+
+.marketing-site-v2 .wb-mobile-panel > .wb-mobile-actions {
+  display: grid !important;
+  flex: 0 0 auto !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 14px 20px max(16px, env(safe-area-inset-bottom)) !important;
+  border: 0 !important;
+  border-top: 1px solid #e3e8f0 !important;
+  box-sizing: border-box !important;
+  background: #ffffff !important;
+}
+.marketing-site-v2 .wb-mobile-panel > .wb-mobile-actions > a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 0 !important;
+  min-height: 48px !important;
+  margin: 0 !important;
+  padding: 0 10px !important;
+  border: 1px solid #d1d9e5 !important;
+  border-radius: 10px !important;
+  color: #14213d !important;
+  -webkit-text-fill-color: #14213d !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+}
+.marketing-site-v2 .wb-mobile-panel > .wb-mobile-actions > a:last-child {
+  border-color: #14213d !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: #14213d !important;
+}
+.marketing-site-v2 .wb-mobile-panel > .wb-mobile-actions > a:last-child:hover {
+  background: #263a5d !important;
+}
+
+@media (max-width: 600px) {
+  .marketing-site-v2 .wb-mobile-panel {
+    width: 100vw !important;
+    border-left: 0 !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Keep the menu usable on short phones, zoomed text and landscape screens. */
+@media (max-height: 560px) {
+  .marketing-site-v2 .wb-mobile-panel > .wb-mobile-panel-header {
+    height: 64px !important;
+    min-height: 64px !important;
+    padding-block: 8px !important;
+  }
+  .marketing-site-v2 .wb-mobile-panel > .wb-mobile-content {
+    padding-top: 10px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-site-v2 .wb-mobile-panel,
+  .marketing-site-v2 .wb-mobile-drawer .wb-overlay-backdrop,
+  .marketing-site-v2 .wb-mobile-navigation summary svg {
+    transition: none !important;
+  }
+}
