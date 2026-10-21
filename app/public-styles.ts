@@ -19,5 +19,7 @@ import "./public-seven-pages.css";
 import "./public-five-pages.css";
 /* Hisab Technologies parent-brand identity and its public services landing page. */
 import "./hisabtech-fundingpips-marketing.css";
+/* Final stacking and scroll authority for the public marketing mobile drawer. */
+import "./public-mobile-menu-standard.css";
 
 export {};
