@@ -1057,6 +1057,7 @@
    Home-only declarations: authenticated ERP styles are never targeted. */
 .marketing-site-v2 #public-main-content .cf-site.ah-home .cf-hero h1 {
   font-size:clamp(41px,5vw,76px)!important;
+  margin-top:0!important;
   line-height:1.055!important;
   letter-spacing:-.06em!important;
   max-width:15ch!important;
