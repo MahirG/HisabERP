@@ -24,7 +24,8 @@ test("Biloo homepage preserves its production shell, metadata and links",async()
 test("Premium homepage has product modules, connected decisions, industries and trust",async()=>{
  const home=await read("components/campfire-marketing-home.tsx");
  for(const title of [
-  "One connected business.", "Clarity at every step.",
+  "Your entire business.", "One powerful operating system.",
+  "Built by Hisab Technologies.", "Designed around your business.",
   "Every part of your business.", "One clear picture.",
   "Decision-ready records, without the spreadsheet relay.",
   "The right system for", "Trust what happens between the numbers.",
