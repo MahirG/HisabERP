@@ -66,7 +66,8 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // Anonymous marketing and metadata requests bypass session middleware entirely.
+  // Anonymous marketing, metadata and explicitly allowed public downloads
+  // bypass session middleware entirely; private paths still use updateSession.
   // They use a static CSP without a per-request nonce so Vercel can cache the
   // rendered response at the CDN instead of forcing dynamic rendering.
   if (cacheablePublic && request.method === "GET") {

@@ -7,7 +7,7 @@ const publicPageRoutes = new Set([
   "/auth/login", "/auth/phone-login", "/auth/sign-up", "/auth/verify-phone", "/auth/email-login", "/auth/email-sign-up", "/auth/verify-email", "/auth/forgot-password", "/auth/magic-link", "/auth/reset-password", "/auth/invalid-link", "/auth/callback", "/auth/confirm", "/auth/finish",
 ]);
 
-const publicAssetRoutes = new Set(["/manifest.webmanifest", "/robots.txt", "/sitemap.xml", "/release.json"]);
+const publicAssetRoutes = new Set(["/manifest.webmanifest", "/robots.txt", "/sitemap.xml", "/release.json", "/templates/erp-evaluation-checklist.csv"]);
 const publicPagePrefixes = ["/product/", "/industries/", "/compare/", "/help-center/", "/resources/"];
 const authenticatedMarketingRoutes = new Set(["/request-demo", "/product-tour", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about", "/services", "/privacy", "/terms"]);
 const publicApiRoutes = new Set(["/api/health", "/api/reconciliation/telebirr/callback", "/api/reconciliation/mpesa/callback", "/api/chapa/callback", "/api/chapa/webhook"]);

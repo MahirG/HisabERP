@@ -100,6 +100,7 @@ Field Core Web Vitals are not available. Targets remain LCP ≤2.5s, INP ≤200m
 - Baseline full legacy suite: 329 tests, 206 passed, 123 failed before edits. These include stale historical layout expectations. Affected expectations were updated for requested copy, shared metadata and explicit sample labels. No unrelated failing suite was rewritten.
 - Local Playwright browser download failed with a truncated archive. Do not claim local screenshot, mobile-device or full authenticated browser coverage from that attempt. Production browser inspection is recorded separately when completed.
 - No live enquiry email or payment was submitted during testing.
+- Production browser confirmed the homepage and guide/comparison navigation, canonical metadata, article/breadcrumb schema, desktop layout without horizontal overflow and required-field form validation. No site-origin browser exception was observed; browser-extension errors were separate. The initial live download check caught the CSV being sent through authentication; the exact public template URL was added to the existing asset allowlist and to the HTTP regression check. Private-route protection was not broadened.
 
 ## Operational backlog
 

@@ -78,12 +78,16 @@ if (baseIndex >= 0) {
     assert.equal(response.status, 200, `status: ${route}`);
     assert.match(tag(html, "name", "robots")[0] || "", /noindex/, `private/state page indexability: ${route}`);
   }
-  for (const route of ["/workspace-home", "/account", "/finance"]) {
+  for (const route of ["/workspace-home", "/account", "/finance", "/templates/private.csv"]) {
     const { response } = await get(route);
     assert.ok([302, 303, 307, 308].includes(response.status), `anonymous workspace must redirect: ${route}`);
     assert.match(response.headers.get("location") || "", /\/auth\/login/);
   }
   // Known public dynamic slug patterns must produce genuine 404s.
+  const download = await get("/templates/erp-evaluation-checklist.csv");
+  assert.equal(download.response.status, 200, "public checklist must not redirect to authentication");
+  assert.match(download.html, /^Area,Requirement,Priority,/);
+  assert.doesNotMatch(download.html, /<html/);
   const missing = await get("/compare/this-comparison-does-not-exist");
   assert.equal(missing.response.status, 404);
   console.log("Dynamic metadata, auth noindex, anonymous access boundaries and 404 checks passed.");
