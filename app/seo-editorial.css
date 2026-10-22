@@ -1,0 +1,23 @@
+.seo-breadcrumbs{max-width:1240px;margin:24px auto 0;padding:0 32px;color:#586477;font-size:12px;line-height:1.6}
+.seo-breadcrumbs ol{display:flex;flex-wrap:wrap;gap:8px 0;list-style:none;padding:0;margin:0}
+.seo-breadcrumbs li{display:flex;align-items:baseline;min-width:0;overflow-wrap:anywhere}
+.seo-breadcrumbs li+li:before{content:"/";margin:0 10px;color:#727e90}
+.seo-breadcrumbs a{color:#233b66;text-decoration:underline;text-underline-offset:3px}
+.seo-editorial-note{max-width:1100px;margin:32px auto;padding:30px;border:1px solid #dce3ec;border-radius:16px;background:#f5f7fb;color:#344258;line-height:1.75;font-size:15px;overflow-wrap:anywhere}
+.seo-editorial-note h2{font-size:24px;line-height:1.3;color:#14213d;letter-spacing:-.5px;margin:12px 0}
+.seo-editorial-note h3{color:#14213d;font-size:18px;margin:20px 0 8px}
+.seo-editorial-note p{color:#344258;margin:12px 0;max-width:78ch}
+.seo-editorial-note>span{font-size:12px;color:#536078}
+.seo-editorial-note a{color:#214ba0;text-decoration:underline;text-underline-offset:3px}
+.seo-editorial-note li{margin:8px 0}
+.comparison-questions-section>.seo-editorial-note{grid-column:1/-1;width:100%;margin:0 0 24px;box-sizing:border-box}
+.seo-buying-guides{max-width:1240px;margin:64px auto;padding:0 32px;color:#14213d}
+.seo-buying-guides h2{font-size:clamp(26px,3vw,42px);line-height:1.15;letter-spacing:-1px;margin:12px 0 20px}
+.seo-buying-guide-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.seo-buying-guide-grid a{display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid #dce3ec;border-radius:14px;background:#fff;color:#14213d;text-decoration:none}
+.seo-buying-guide-grid strong{font-size:19px;line-height:1.3}
+.seo-buying-guide-grid p{font-size:14px;line-height:1.7;color:#536078;margin:0}
+.seo-buying-guide-grid span{font-size:13px;font-weight:700;color:#214ba0;margin-top:auto}
+.seo-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.seo-breadcrumbs a:focus-visible,.seo-editorial-note a:focus-visible,.seo-buying-guide-grid a:focus-visible{outline:3px solid #315efb;outline-offset:4px}
+@media(max-width:760px){.seo-breadcrumbs{padding:0 20px}.seo-editorial-note{margin:24px 20px;padding:22px;font-size:14px}.seo-editorial-note h2{font-size:22px}.seo-buying-guides{margin:40px auto;padding:0 20px}.seo-buying-guide-grid{grid-template-columns:1fr}.comparison-table-section .seo-editorial-note,.comparison-questions-section .seo-editorial-note{margin-left:0;margin-right:0}}

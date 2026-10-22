@@ -32,7 +32,7 @@ const products = [
   {
     id: 'sales', label: 'Sales', Icon: Cart,
     title: 'Move from invoice to collection without losing the trail.',
-    description: 'Create VAT-ready invoices, record full or partial payments, follow customer balances and keep every branch on the same current record.',
+    description: 'Create professional invoices, record full or partial payments, follow customer balances and review recorded branch activity.',
     stat: 'ETB 5.28M', statLabel: 'cash collected in August',
     chart: [2.8, 3.2, 3.05, 3.8, 4.15, 4.82, 5.28],
     rows: [
@@ -109,7 +109,7 @@ const plans = [
   { feature: 'Sales & invoicing', starter: true, growth: true, business: true, enterprise: true },
   { feature: 'Inventory & stock control', starter: false, growth: true, business: true, enterprise: true },
   { feature: 'Purchases & supplier management', starter: false, growth: true, business: true, enterprise: true },
-  { feature: 'Multi-branch operations', starter: '1 branch', growth: 'Up to 3', business: 'Unlimited', enterprise: 'Custom' },
+  { feature: 'Multi-branch operations', starter: '1 branch', growth: 'Up to 2', business: 'Up to 5', enterprise: 'Custom' },
   { feature: 'Advanced reporting & controls', starter: false, growth: false, business: true, enterprise: true },
 ] as const;
 
@@ -146,7 +146,7 @@ export function CampfireMarketingHome() {
         <section className="cf-hero">
           <div className="cf-hero-shell">
             <div className="cf-hero-copy">
-              <h1>Your entire business. <em>One powerful operating system.</em></h1>
+              <h1>ERP software. <em>Built for Ethiopian businesses.</em></h1>
               <p>Meet Biloo by Hisab Technologies. Bring sales, finance, inventory, purchasing and reporting into one connected workspace designed for the way Ethiopian businesses operate.</p>
               <div className="cf-hero-actions">
                 <Link className="cf-primary" href="/product-tour">Explore Biloo <ArrowRight /></Link>
@@ -261,6 +261,16 @@ export function CampfireMarketingHome() {
         <section className="cf-pricing-section">
           <div className="cf-pricing-heading"><span>Transparent product scope</span><h2>Choose the plan that scales with you.</h2><p>Start with dependable records, then expand into connected operations and advanced controls.</p><Link href="/pricing">View pricing in ETB <ArrowRight /></Link></div>
           <div className="cf-plan-table-wrap"><table className="cf-plan-table"><thead><tr><th>Features</th><th>Starter<small>Core records</small></th><th>Growth<small>Teams & stock</small></th><th>Business<small>Advanced control</small></th><th>Enterprise<small>Custom scale</small></th></tr></thead><tbody>{plans.map((row) => <tr key={row.feature}><th>{row.feature}</th><td><PlanValue value={row.starter} /></td><td><PlanValue value={row.growth} /></td><td><PlanValue value={row.business} /></td><td><PlanValue value={row.enterprise} /></td></tr>)}</tbody></table></div>
+        </section>
+
+        <section className="seo-buying-guides" aria-labelledby="erp-buyer-guides-title">
+          <span className="ah-eyebrow">MAKE AN INFORMED DECISION</span>
+          <h2 id="erp-buyer-guides-title">Compare your options. Understand the scope.</h2>
+          <div className="seo-buying-guide-grid">
+            <Link href="/compare/biloo-vs-odoo"><strong>Biloo vs Odoo</strong><p>Review hosting, implementation, costs and the requirements to validate with each vendor.</p><span>Read the comparison →</span></Link>
+            <Link href="/resources/erp-costs-ethiopia"><strong>Plan your ERP budget</strong><p>Account for users, branches, migration, training and support before you compare quotes.</p><span>Build your checklist →</span></Link>
+            <Link href="/resources/choose-erp-for-ethiopian-business"><strong>Choose with confidence</strong><p>Use a practical evaluation method tied to your team's records and daily work.</p><span>Read the buying guide →</span></Link>
+          </div>
         </section>
 
         <section className="ah-trust" aria-labelledby="ah-trust-title">

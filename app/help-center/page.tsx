@@ -1,3 +1,4 @@
+import { publicMetadata } from "../../lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
@@ -5,10 +6,7 @@ import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { PublicHelpCenter } from "../../components/public-help-center";
 import { helpArticles, helpCategories } from "../../lib/help-center-content";
 
-export const metadata: Metadata = {
-  title: "Biloo Help Center",
-  description: "Search practical Biloo guides for setup, sales, inventory, finance, security, reconciliation and data migration.",
-};
+export const metadata: Metadata = publicMetadata("/help-center", "Biloo ERP Help Center", "Find setup, sales, inventory, finance, access-control and migration guides for your Biloo workspace.");
 
 const featuredSlugs = ["create-your-organization", "create-your-first-customer-and-invoice", "prepare-data-for-import", "enable-administrator-mfa"];
 

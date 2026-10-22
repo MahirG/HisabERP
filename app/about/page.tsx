@@ -1,13 +1,11 @@
+import { publicMetadata } from "../../lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { getPublicLanguage } from "../../lib/public-localization";
 
-export const metadata: Metadata = {
-  title: "About Biloo",
-  description: "Learn about Hisab Technologies, the Addis Ababa team building Biloo for Ethiopian businesses.",
-};
+export const metadata: Metadata = publicMetadata("/about", "About Hisab Technologies & Biloo ERP", "Meet the Addis Ababa team behind Biloo ERP and learn how Hisab Technologies approaches business software, product delivery and implementation.");
 
 const copy = {
   en: {

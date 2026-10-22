@@ -1,4 +1,8 @@
+import { publicMetadata } from "../../../lib/seo";
 import type { Metadata } from "next";
+import { articleData } from "../../../lib/seo";
+import { SeoJsonLd } from "../../../components/seo-json-ld";
+import { SeoBreadcrumbs } from "../../../components/seo-breadcrumbs";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MarketingPageShell } from "../../../components/marketing-site-chrome";
@@ -12,7 +16,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const article = getMarketingResource((await params).slug);
   if (!article) return { title: "Business guide" };
-  return { title: article.title.en, description: article.summary.en };
+  return publicMetadata(`/resources/${article.slug}`, article.title.en, article.summary.en, article);
 }
 
 const copy = {
@@ -55,6 +59,8 @@ export default async function ResourceArticlePage({ params }: { params: Promise<
 
   return (
     <MarketingPageShell>
+      <SeoJsonLd data={articleData(article)} />
+      <SeoBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Business guides", path: "/resources" }, { name: article.title.en, path: `/resources/${article.slug}` }]} />
       <article className="resource-article">
         <header className="resource-article-hero">
           <div>
@@ -62,7 +68,7 @@ export default async function ResourceArticlePage({ params }: { params: Promise<
             <span className="marketing-eyebrow">{localize(article.category, language)}</span>
             <h1>{localize(article.title, language)}</h1>
             <p>{localize(article.summary, language)}</p>
-            <div className="resource-article-meta"><span>{article.readingMinutes} {c.read}</span><span>{c.for} {localize(article.audience, language)}</span><span>{article.published}</span></div>
+            <div className="resource-article-meta"><span>{article.readingMinutes} {c.read}</span><span>{c.for} {localize(article.audience, language)}</span><span>Published <time dateTime={article.published}>{article.published}</time></span><span>By <Link href="/about">Hisab Technologies</Link></span></div>
           </div>
           <aside><span>{c.article}</span><strong>{localize(article.category, language)}</strong><p>{localize(article.audience, language)}</p></aside>
         </header>
@@ -76,6 +82,7 @@ export default async function ResourceArticlePage({ params }: { params: Promise<
           ))}
         </div>
       </article>
+      {article.relatedLinks?.length ? <aside className="seo-editorial-note"><h2>Use this guide in your evaluation</h2><ul>{article.relatedLinks.map((link) => <li key={link.href}><Link href={link.href}>{link.label}</Link></li>)}</ul></aside> : null}
 
       <section className="resource-apply-section"><div><span>{c.apply}</span><h2>{c.applyTitle}</h2><p>{c.applyText}</p></div><div><Link href={`/request-demo?source=resource&topic=${article.slug}`} className="marketing-start marketing-large">{c.demo}</Link><Link href="/migration" className="marketing-demo marketing-large">{c.migration}</Link></div></section>
 

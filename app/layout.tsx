@@ -1,3 +1,4 @@
+import { SITE_URL } from "../lib/seo";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
@@ -60,46 +61,16 @@ const preferenceBootstrap = `
 `;
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.hisabtech.com"),
-  title: { default: "Biloo by Hisab Technologies — Business Operating System", template: "%s | Hisab Technologies" },
-  description: "Biloo ERP connects sales, finance, inventory, customers, suppliers and reporting for growing Ethiopian businesses.",
-  applicationName: "Biloo",
-  keywords: ["Biloo ERP", "ERP Ethiopia", "business software Ethiopia", "inventory", "sales", "finance", "accounting workflow"],
-  authors: [{ name: "Hisab Technologies", url: "https://www.hisabtech.com/services" }],
-  creator: "Hisab Technologies",
-  publisher: "Hisab Technologies",
-  alternates: { canonical: "/", languages: { "en-ET": "/" } },
-  openGraph: {
-    type: "website",
-    locale: "en_ET",
-    siteName: "Hisab Technologies · Biloo",
-    title: "Biloo ERP — Business Operating System for Ethiopia",
-    description: "One connected workspace for sales, finance, inventory, customers, suppliers and reporting.",
-    url: "/",
-    images: [{ url: "/hisab-logo.svg", width: 512, height: 512, alt: "Biloo" }],
-  },
-  twitter: {
-    card: "summary",
-    title: "Biloo ERP",
-    description: "Business operating system for growing Ethiopian organizations.",
-    images: ["/hisab-logo.svg"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
-  icons: {
-    icon: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }],
-    shortcut: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }],
-  },
+  metadataBase: new URL(SITE_URL),
+  title: { default: "Biloo by Hisab Technologies", template: "%s | Hisab Technologies" },
+  description: "Biloo ERP for Ethiopian businesses, by Hisab Technologies.",
+  applicationName: "Biloo ERP",
+  authors: [{ name: "Hisab Technologies", url: `${SITE_URL}/about` }],
+  creator: "Hisab Technologies", publisher: "Hisab Technologies",
+  verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
+  // Public pages explicitly opt in. Auth and private workspaces inherit noindex.
+  robots: { index: false, follow: true },
+  icons: { icon: [{ url: "/hisab-logo.svg", type: "image/svg+xml" }], apple: [{ url: "/biloo-apple-icon.png", type: "image/png", sizes: "180x180" }] },
 };
 
 export const viewport: Viewport = {

@@ -1,4 +1,6 @@
+import { publicMetadata } from "../../../lib/seo";
 import type { Metadata } from "next";
+import { SeoBreadcrumbs } from "../../../components/seo-breadcrumbs";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MarketingPageShell } from "../../../components/marketing-site-chrome";
@@ -14,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const industry = getMarketingIndustry(slug);
   if (!industry) return { title: "Industry solution" };
-  return { title: industry.title, description: industry.summary };
+  return publicMetadata(`/industries/${industry.slug}`, `${industry.shortTitle} ERP Software in Ethiopia`, industry.summary);
 }
 
 export default async function IndustrySolutionPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -28,6 +30,7 @@ export default async function IndustrySolutionPage({ params }: { params: Promise
 
   return (
     <MarketingPageShell className="biloo-seven-page biloo-five-page">
+      <SeoBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Industry solutions", path: "/industries" }, { name: industry.shortTitle, path: `/industries/${industry.slug}` }]} />
       <section className="industry-detail-hero">
         <div><span className="marketing-eyebrow">{industry.eyebrow}</span><h1>{industry.title}</h1><p>{industry.summary}</p><div className="marketing-hero-actions"><Link href={`/request-demo?industry=${industry.slug}`} className="marketing-start marketing-large">Request a focused demo</Link><Link href="/pricing" className="marketing-demo marketing-large">View pricing</Link></div><div className="industry-team-pills">{industry.teams.map((team)=><span key={team}>{team}</span>)}</div></div>
         <InteractiveErpOffice moduleTitle={industry.shortTitle} moduleEyebrow="Illustrative industry workspace" metrics={workstationMetrics} rows={workstationRows} compact illustrative informational />

@@ -21,5 +21,6 @@ import "./public-five-pages.css";
 import "./hisabtech-fundingpips-marketing.css";
 /* Final stacking and scroll authority for the public marketing mobile drawer. */
 import "./public-mobile-menu-standard.css";
+import "./seo-editorial.css";
 
 export {};

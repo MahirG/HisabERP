@@ -1,3 +1,4 @@
+import { publicMetadata } from "../../lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
@@ -5,10 +6,7 @@ import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { marketingResources } from "../../lib/marketing-resources";
 import { getPublicLanguage, localize } from "../../lib/public-localization";
 
-export const metadata: Metadata = {
-  title: "Business Learning Center",
-  description: "Practical Biloo guides for cash flow, inventory, customer debt, ERP selection and digital operations.",
-};
+export const metadata: Metadata = publicMetadata("/resources", "ERP Guides for Ethiopian Businesses", "Practical ERP buying guides, implementation cost checklists, inventory controls and migration advice from Hisab Technologies.");
 
 const copy = {
   en: {

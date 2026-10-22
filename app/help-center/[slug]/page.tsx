@@ -1,4 +1,7 @@
+import { publicMetadata } from "../../../lib/seo";
 import type { Metadata } from "next";
+import { breadcrumbData } from "../../../lib/seo";
+import { SeoJsonLd } from "../../../components/seo-json-ld";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MarketingPageShell } from "../../../components/marketing-site-chrome";
@@ -12,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const article = getHelpArticle(slug);
   if (!article) return { title: "Biloo help" };
-  return { title: article.title, description: article.summary };
+  return publicMetadata(`/help-center/${article.slug}`, article.title, article.summary);
 }
 
 export default async function HelpArticlePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -24,6 +27,7 @@ export default async function HelpArticlePage({ params }: { params: Promise<{ sl
 
   return (
     <MarketingPageShell>
+      <SeoJsonLd data={breadcrumbData([{ name: "Home", path: "/" }, { name: "Help Center", path: "/help-center" }, { name: article.title, path: `/help-center/${article.slug}` }])} />
       <section className="help-article-hero">
         <div>
           <nav aria-label="Breadcrumb"><Link href="/help-center">Help Center</Link><span>/</span><span>{category?.title || article.category}</span></nav>

@@ -1,16 +1,14 @@
+import { publicMetadata } from "../../lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { marketingComparisons } from "../../lib/marketing-comparisons";
 
-export const metadata: Metadata = {
-  title: "Compare Biloo",
-  description: "Compare Biloo with spreadsheets, notebooks, disconnected tools, desktop software and larger enterprise ERP approaches.",
-};
+export const metadata: Metadata = publicMetadata("/compare", "Compare ERP Options for Ethiopian Businesses", "Compare Biloo with Odoo, ERPNext, Excel and desktop software. Review scope, costs, hosting and practical questions before selecting ERP.");
 
 const comparisonMetrics = [
-  { label: "Models compared", value: String(marketingComparisons.length), note: "Current operating approaches" },
+  { label: "Models compared", value: String(marketingComparisons.length), note: "Vendors and operating approaches" },
   { label: "Evaluation", value: "5 questions", note: "Repeatable decision frame" },
   { label: "Migration", value: "Included", note: "Cutover risk considered" },
 ];
@@ -23,7 +21,7 @@ export default function ComparisonHubPage() {
       <section className="comparison-hub-hero">
         <div>
           <span className="marketing-eyebrow">Honest ERP comparisons</span>
-          <h1>Compare operating models—not only feature lists.</h1>
+          <h1>Compare ERP options for your Ethiopian business.</h1>
           <p>The right system depends on the number of users, control risks, reporting effort, connectivity and specialist requirements. These comparisons explain where Biloo can improve operations and where another approach may still be appropriate.</p>
           <div className="marketing-hero-actions"><Link href="/product-tour" className="marketing-start marketing-large">Inspect the product</Link><Link href="/request-demo?topic=comparison" className="marketing-demo marketing-large">Discuss your requirements</Link></div>
         </div>
@@ -31,7 +29,7 @@ export default function ComparisonHubPage() {
       </section>
 
       <section className="marketing-section comparison-index-section">
-        <div className="marketing-section-heading marketing-section-heading-wide"><span>Choose a current operating model</span><h2>Start with the system your business relies on today.</h2><p>Each comparison covers daily transactions, access, reporting, auditability, implementation fit and the most important questions to answer before changing systems.</p></div>
+        <div className="marketing-section-heading marketing-section-heading-wide"><span>Choose a current operating model</span><h2>Compare platforms and the way your team works today.</h2><p>Each comparison covers daily transactions, access, reporting, auditability, implementation fit and the most important questions to answer before changing systems.</p></div>
         <div className="comparison-index-grid">
           {marketingComparisons.map((comparison) => (
             <Link href={`/compare/${comparison.slug}`} key={comparison.slug}>

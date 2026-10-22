@@ -1,11 +1,8 @@
+import { publicMetadata } from "../../lib/seo";
 import type { Metadata } from "next";
 import { LegalDocumentPage } from "../../components/legal-document-page";
 
-export const metadata: Metadata = {
-  title: "Website Terms",
-  description: "Terms governing access to the Biloo website, public resources, demo requests, accounts and related services provided by Hisab Technologies.",
-  alternates: { canonical: "/terms" },
-};
+export const metadata: Metadata = publicMetadata("/terms", "Website & Service Terms", "Read the terms covering Hisab Technologies websites, Biloo service access, responsibilities and commercial scope.");
 
 export default function WebsiteTermsPage() {
   return (

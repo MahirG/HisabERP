@@ -1,11 +1,8 @@
+import { publicMetadata } from "../../lib/seo";
 import type { Metadata } from "next";
 import { LegalDocumentPage } from "../../components/legal-document-page";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description: "How Biloo and Hisab Technologies collect, use, protect and manage personal information across the public website and Biloo ERP services.",
-  alternates: { canonical: "/privacy" },
-};
+export const metadata: Metadata = publicMetadata("/privacy", "Privacy Policy", "How Hisab Technologies handles personal information, website preferences and Biloo service data.");
 
 export default function PrivacyPolicyPage() {
   return (

@@ -12,9 +12,154 @@ export type MarketingComparison = {
   rows: Array<{ capability: string; alternative: string; hisab: string; why: string }>;
   decisionQuestions: string[];
   nextStep: string;
+  reviewed?: string;
+  scope?: string;
+  sources?: Array<{ label: string; url: string }>;
+  alternativeFit?: string;
+  limitations?: string;
 };
 
 export const marketingComparisons: MarketingComparison[] = [
+{
+  "slug": "biloo-vs-odoo",
+  "number": "06",
+  "eyebrow": "Biloo vs Odoo · Ethiopia",
+  "title": "Biloo vs Odoo for Ethiopian businesses",
+  "shortTitle": "Biloo vs Odoo",
+  "summary": "Compare product scope, hosting choices, implementation responsibilities and cost questions before choosing ERP for an Ethiopian business.",
+  "alternativeLabel": "Odoo",
+  "hisabLabel": "Biloo ERP",
+  "bestFor": "Owners and operations teams comparing a focused Biloo deployment with a configurable Odoo implementation.",
+  "caution": "Published by Hisab Technologies, the maker of Biloo. This is a buying framework, not an independent ranking or a claim that the products have identical scope.",
+  "reviewed": "2026-10-22",
+  "scope": "Odoo edition and hosting matter. The hosting discussion references the Odoo 19.0 documentation; it does not claim 19.0 is the latest release. Community, Enterprise, Online, Odoo.sh and on-premise deployments must be evaluated separately. Confirm your proposed version, installed applications and local implementation with the vendor.",
+  "rows": [
+    {
+      "capability": "Product scope",
+      "alternative": "Odoo publishes a broad suite of business applications; inclusion depends on the edition and implementation.",
+      "hisab": "Biloo presents connected sales, purchasing, inventory, finance and reporting workflows.",
+      "why": "Demonstrate your actual transactions in both products. A module name alone does not establish equivalent behavior."
+    },
+    {
+      "capability": "Hosting",
+      "alternative": "Official documentation describes Odoo Online, Odoo.sh and on-premise approaches.",
+      "hisab": "The current Biloo product is a hosted browser-based workspace.",
+      "why": "Confirm connectivity, administration, backups, recovery and export responsibilities in writing."
+    },
+    {
+      "capability": "Customization",
+      "alternative": "Available customization paths depend on hosting, edition and implementation scope.",
+      "hisab": "Custom integrations and workflows require a separate scope assessment.",
+      "why": "Ask who maintains changes, what upgrades involve and what happens when requirements change."
+    },
+    {
+      "capability": "Ethiopian requirements",
+      "alternative": "Request a demonstration of the exact localization and installed modules being offered.",
+      "hisab": "Review ETB records, branch workflows and the current English-language interface.",
+      "why": "Neither this comparison nor a local vendor address proves statutory compliance."
+    },
+    {
+      "capability": "Cost comparison",
+      "alternative": "Use the current official pricing and an itemized implementation quote; no Odoo price is reproduced here.",
+      "hisab": "Published ETB plans list user and branch limits; migration and custom work can add cost.",
+      "why": "Compare the same users, branches, support period and migration scope."
+    },
+    {
+      "capability": "Support and rollout",
+      "alternative": "Confirm responsibilities between the platform, partner and your internal team.",
+      "hisab": "Discuss onboarding and separately scoped migration with Hisab Technologies.",
+      "why": "Choose based on accountable delivery, training and proven workflow fit."
+    }
+  ],
+  "decisionQuestions": [
+    "Which edition, version, applications and hosting model are included in the quotation?",
+    "Can each vendor run the same invoice, stock movement, partial payment and management report?",
+    "What costs recur, and what is excluded from setup, migration and support?",
+    "Which localization, export and continuity requirements remain unverified?"
+  ],
+  "nextStep": "Use the same requirements and sample records in both demonstrations.",
+  "alternativeFit": "Odoo may be the stronger choice when its wider application ecosystem or a particular implementation partner's proven solution meets requirements beyond Biloo's verified scope. Confirm this with a demonstration of the quoted configuration.",
+  "limitations": "Biloo is not presented here as a replacement for every Odoo application. Offline operation, advanced manufacturing, additional interface languages, integrations and statutory reporting require separate validation. Hisab Technologies does not claim Odoo affiliation through this page.",
+  "sources": [
+    {
+      "label": "Odoo editions — official comparison",
+      "url": "https://www.odoo.com/page/editions"
+    },
+    {
+      "label": "Odoo 19.0 hosting documentation",
+      "url": "https://www.odoo.com/documentation/19.0/administration/hosting.html"
+    },
+    {
+      "label": "Odoo official pricing",
+      "url": "https://www.odoo.com/pricing"
+    }
+  ]
+},
+{
+  "slug": "biloo-vs-erpnext",
+  "number": "07",
+  "eyebrow": "Biloo vs ERPNext · Ethiopia",
+  "title": "Biloo vs ERPNext for Ethiopian businesses",
+  "shortTitle": "Biloo vs ERPNext",
+  "summary": "Evaluate a hosted Biloo workspace alongside an ERPNext implementation using your workflows, technical capacity and total operating cost.",
+  "alternativeLabel": "ERPNext",
+  "hisabLabel": "Biloo ERP",
+  "bestFor": "Businesses assessing implementation ownership, customization needs and the operational cost of an ERP deployment.",
+  "caution": "Published by the maker of Biloo. ERPNext has capabilities that may better fit your organization; confirm scope with the provider you are evaluating.",
+  "reviewed": "2026-10-22",
+  "scope": "The ERPNext product overview is the source for the broad product and open-source model described here. This is not a version-specific feature-parity audit. Confirm the proposed release, installed apps, hosting and implementation contract.",
+  "rows": [
+    {
+      "capability": "Application coverage",
+      "alternative": "The official ERPNext overview includes accounting, procurement, stock, manufacturing, projects and other business areas.",
+      "hisab": "Evaluate Biloo's currently presented sales, inventory, purchasing, finance and reporting modules.",
+      "why": "Use representative work rather than assuming both products implement every named module in the same way."
+    },
+    {
+      "capability": "Source and customization",
+      "alternative": "ERPNext is presented by Frappe as open-source business software.",
+      "hisab": "Biloo custom requirements are assessed with Hisab Technologies; no open-source equivalence is claimed.",
+      "why": "Determine whether source access, developer ownership or a managed service is important to your team."
+    },
+    {
+      "capability": "Operating cost",
+      "alternative": "Open-source licensing does not remove hosting, configuration, training or maintenance work.",
+      "hisab": "Published ETB subscriptions and separately scoped implementation work define the commercial discussion.",
+      "why": "Compare the full operating period and responsibilities, not a license headline."
+    },
+    {
+      "capability": "Local requirements",
+      "alternative": "Ask the proposed implementer to prove the localization and installed applications you need.",
+      "hisab": "Review ETB records, branch setup and current English-language workflows.",
+      "why": "Verify local requirements independently instead of treating country targeting as certification."
+    },
+    {
+      "capability": "Implementation ownership",
+      "alternative": "Agree who manages hosting, upgrades, extensions and support for your chosen deployment.",
+      "hisab": "Agree onboarding, migration, support and integration scope with Hisab Technologies.",
+      "why": "A named owner and acceptance plan matter whichever platform you select."
+    }
+  ],
+  "decisionQuestions": [
+    "Do we need source access or a specific ERPNext application?",
+    "Who will operate hosting, backups, upgrades and customizations?",
+    "Can both vendors reconcile our sample customer balances and stock counts?",
+    "What implementation, internal staff and support costs are missing from the quote?"
+  ],
+  "nextStep": "Choose a deployment model and test your highest-risk workflow before choosing a vendor.",
+  "alternativeFit": "ERPNext may be the better fit when open-source control, its published application coverage or an implementer's established solution is central to the project. Evaluate actual deployment and maintenance capacity.",
+  "limitations": "This page does not establish parity with ERPNext manufacturing, projects or other specialist applications. Biloo scope, export requirements, offline continuity and country-specific statutory processes need a focused assessment.",
+  "sources": [
+    {
+      "label": "ERPNext official product overview",
+      "url": "https://frappe.io/erpnext"
+    },
+    {
+      "label": "ERPNext official documentation",
+      "url": "https://docs.frappe.io/erpnext"
+    }
+  ]
+},
   {
     slug: "excel",
     number: "01",

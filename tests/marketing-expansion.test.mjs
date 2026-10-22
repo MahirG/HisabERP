@@ -9,7 +9,7 @@ const read = (file) => readFile(path.join(root, file), "utf8");
 
 test("Ethiopia landing page explains local operating advantages without unsupported claims", async () => {
   const page = await read("app/ethiopia/page.tsx");
-  for (const copy of ["Ethiopian birr", "English and Amharic", "Mobile and bandwidth conscious", "Local implementation support"]) {
+  for (const copy of ["Ethiopian birr", "English-language workflows", "Mobile and bandwidth conscious", "Local implementation support"]) {
     assert.ok(page.includes(copy), `missing Ethiopia advantage: ${copy}`);
   }
   assert.match(page, /href="\/industries"/);

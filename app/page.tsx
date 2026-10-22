@@ -1,3 +1,4 @@
+import { publicMetadata } from "../lib/seo";
 import type { Metadata } from "next";
 import "./home-award-2026.css";
 import { CampfireMarketingHome } from "../components/campfire-marketing-home";
@@ -5,20 +6,7 @@ import { MarketingPageShell } from "../components/marketing-site-chrome";
 export const dynamic = "force-static";
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: "Biloo ERP for Ethiopian Businesses",
-  description:
-    "Biloo ERP connects sales, finance, inventory, customers, suppliers and management reporting in one polished operating system for Ethiopian businesses.",
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: "Biloo ERP | Run Your Business With Clarity Built In",
-    description:
-      "A connected ERP for sales, finance, inventory, controls and live management visibility—built around Ethiopian business operations.",
-    url: "/",
-    type: "website",
-    images: [{ url: "/biloo-erp-hero-4k.svg", width: 3840, height: 2160, alt: "Biloo ERP management dashboard" }],
-  },
-};
+export const metadata: Metadata = publicMetadata("/", "ERP Software in Ethiopia", "Explore Biloo ERP for connected sales, inventory, finance and reporting. Compare ETB plans and request a demo for your Ethiopian business.");
 
 export default function HomePage() {
   return (

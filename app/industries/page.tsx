@@ -1,13 +1,11 @@
+import { publicMetadata } from "../../lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { marketingIndustries } from "../../lib/marketing-industries";
 
-export const metadata: Metadata = {
-  title: "ERP Solutions by Industry",
-  description: "Explore Biloo solutions for retail, wholesale, hospitality, services, construction, manufacturing, cooperatives, trade and multi-branch Ethiopian businesses.",
-};
+export const metadata: Metadata = publicMetadata("/industries", "ERP Solutions by Industry in Ethiopia", "Explore Biloo workflows for retail, wholesale, distribution, hospitality and multi-branch teams. Review modules and request a focused demo.");
 
 const industryMetrics = [
   { label: "Industry paths", value: String(marketingIndustries.length), note: "Focused operating models" },

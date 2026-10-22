@@ -1,4 +1,6 @@
+import { publicMetadata } from "../../../lib/seo";
 import type { Metadata } from "next";
+import { SeoBreadcrumbs } from "../../../components/seo-breadcrumbs";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MarketingPageShell } from "../../../components/marketing-site-chrome";
@@ -12,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const comparison = getMarketingComparison(slug);
   if (!comparison) return { title: "Biloo comparison" };
-  return { title: comparison.title, description: comparison.summary };
+  return publicMetadata(`/compare/${comparison.slug}`, comparison.title, comparison.summary);
 }
 
 export default async function ComparisonDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -23,6 +25,7 @@ export default async function ComparisonDetailPage({ params }: { params: Promise
 
   return (
     <MarketingPageShell>
+      <SeoBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "ERP comparisons", path: "/compare" }, { name: comparison.shortTitle, path: `/compare/${comparison.slug}` }]} />
       <section className="comparison-detail-hero">
         <div>
           <span className="marketing-eyebrow">{comparison.eyebrow}</span>
@@ -39,6 +42,7 @@ export default async function ComparisonDetailPage({ params }: { params: Promise
       </section>
 
       <section className="comparison-table-section">
+        {comparison.scope ? <div className="seo-editorial-note" aria-labelledby="comparison-scope-title"><span>Scope &amp; disclosure · Reviewed <time dateTime={comparison.reviewed}>{comparison.reviewed}</time></span><h2 id="comparison-scope-title">Know what is being compared.</h2><p>{comparison.scope}</p><p>{comparison.caution}</p></div> : null}
         <div className="marketing-section-heading marketing-section-heading-wide"><span>Capability-by-capability review</span><h2>Where the operating experience changes.</h2><p>The comparison focuses on how records are created, controlled and used—not only whether a feature name appears on a checklist.</p></div>
         <div className="comparison-table" role="table" aria-label={`${comparison.shortTitle} capability comparison`}>
           <div className="comparison-table-head" role="row"><strong role="columnheader">Capability</strong><strong role="columnheader">{comparison.alternativeLabel}</strong><strong role="columnheader">{comparison.hisabLabel}</strong><strong role="columnheader">Why it matters</strong></div>
@@ -47,6 +51,7 @@ export default async function ComparisonDetailPage({ params }: { params: Promise
       </section>
 
       <section className="comparison-questions-section">
+        {comparison.alternativeFit ? <div className="seo-editorial-note"><h2>When {comparison.alternativeLabel} may be the better fit</h2><p>{comparison.alternativeFit}</p><h2>Biloo scope to validate</h2><p>{comparison.limitations}</p><p>Published by <Link href="/about">Hisab Technologies</Link>, the maker of Biloo. <Link href="/pricing">Review current Biloo ETB plans</Link> and <Link href="/resources/erp-costs-ethiopia">build a complete implementation budget</Link>.</p><h3>Official sources</h3><ul>{comparison.sources?.map((source) => <li key={source.url}><a href={source.url} rel="noopener noreferrer" target="_blank">{source.label}<span className="seo-sr-only"> (opens in a new tab)</span></a></li>)}</ul></div> : null}
         <div><span className="marketing-eyebrow">Questions before deciding</span><h2>Test the business case against your current reality.</h2><p>A useful evaluation should produce specific answers, owners and evidence for each question.</p></div>
         <ol>{comparison.decisionQuestions.map((question, index) => <li key={question}><span>{String(index + 1).padStart(2, "0")}</span><strong>{question}</strong></li>)}</ol>
       </section>

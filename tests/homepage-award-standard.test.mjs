@@ -11,7 +11,7 @@ test("Biloo homepage preserves its production shell, metadata and links",async()
  ]);
  assert.match(page,/<MarketingPageShell>/);
  assert.match(page,/<CampfireMarketingHome \/>/);
- assert.match(page,/title: "Biloo ERP for Ethiopian Businesses"/);
+ assert.match(page,/publicMetadata\("\/", "ERP Software in Ethiopia"/);
  assert.match(page,/import "\.\/home-award-2026\.css"/);
  assert.match(chrome,/<MarketingHeader \/>/);
  assert.match(chrome,/<MarketingFooter \/>/);
@@ -24,7 +24,7 @@ test("Biloo homepage preserves its production shell, metadata and links",async()
 test("Premium homepage has product modules, connected decisions, industries and trust",async()=>{
  const home=await read("components/campfire-marketing-home.tsx");
  for(const title of [
-  "Your entire business.", "One powerful operating system.",
+  "ERP software.", "Built for Ethiopian businesses.",
   "Built by Hisab Technologies.", "Designed around your business.",
   "Every part of your business.", "One clear picture.",
   "Decision-ready records, without the spreadsheet relay.",

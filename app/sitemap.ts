@@ -1,14 +1,15 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL, isSearchPreview } from "../lib/seo";
 import { helpArticles } from "../lib/help-center-content";
 import { marketingComparisons } from "../lib/marketing-comparisons";
 import { marketingIndustries } from "../lib/marketing-industries";
 import { marketingModules } from "../lib/marketing-modules";
 import { marketingResources } from "../lib/marketing-resources";
 
-const baseUrl = "https://www.hisabtech.com";
+const baseUrl = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  if (isSearchPreview) return [];
   const staticPages = [
     { path: "", priority: 1, changeFrequency: "weekly" as const },
     { path: "/product-tour", priority: 0.9, changeFrequency: "monthly" as const },
@@ -30,11 +31,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return [
-    ...staticPages.map((page) => ({ url: `${baseUrl}${page.path}`, lastModified: now, changeFrequency: page.changeFrequency, priority: page.priority })),
-    ...marketingModules.map((module) => ({ url: `${baseUrl}/product/${module.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 })),
-    ...marketingIndustries.map((industry) => ({ url: `${baseUrl}/industries/${industry.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 })),
-    ...marketingComparisons.map((comparison) => ({ url: `${baseUrl}/compare/${comparison.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.75 })),
-    ...helpArticles.map((article) => ({ url: `${baseUrl}/help-center/${article.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 })),
-    ...marketingResources.map((article) => ({ url: `${baseUrl}/resources/${article.slug}`, lastModified: new Date(article.published), changeFrequency: "monthly" as const, priority: 0.75 })),
+    ...staticPages.map((page) => ({ url: `${baseUrl}${page.path || "/"}`, changeFrequency: page.changeFrequency, priority: page.priority })),
+    ...marketingModules.map((module) => ({ url: `${baseUrl}/product/${module.slug}`, changeFrequency: "monthly" as const, priority: 0.8 })),
+    ...marketingIndustries.map((industry) => ({ url: `${baseUrl}/industries/${industry.slug}`, changeFrequency: "monthly" as const, priority: 0.8 })),
+    ...marketingComparisons.map((comparison) => ({ url: `${baseUrl}/compare/${comparison.slug}`, ...(comparison.reviewed ? { lastModified: new Date(comparison.reviewed) } : {}), changeFrequency: "monthly" as const, priority: 0.75 })),
+    ...helpArticles.map((article) => ({ url: `${baseUrl}/help-center/${article.slug}`, changeFrequency: "monthly" as const, priority: 0.7 })),
+    ...marketingResources.map((article) => ({ url: `${baseUrl}/resources/${article.slug}`, lastModified: new Date(article.modified || article.published), changeFrequency: "monthly" as const, priority: 0.75 })),
   ];
 }

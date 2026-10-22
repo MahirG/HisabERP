@@ -1,9 +1,22 @@
+import { publicMetadata } from "../../../lib/seo";
 import type { Metadata } from "next";
+import { SeoBreadcrumbs } from "../../../components/seo-breadcrumbs";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MarketingPageShell } from "../../../components/marketing-site-chrome";
 import { InteractiveErpOffice } from "../../../components/interactive-erp-office";
 import { getMarketingModule, marketingModules } from "../../../lib/marketing-modules";
+
+const searchTitles: Record<string, string> = {
+  "sales-invoicing": "Sales & Invoicing Software in Ethiopia",
+  "inventory": "Inventory Management Software in Ethiopia",
+  "finance-cashflow": "Accounting & Finance Software in Ethiopia",
+  "expenses-purchasing": "Purchasing & Expense Management Software in Ethiopia",
+  "customers-suppliers": "Customer & Supplier Management Software in Ethiopia",
+  "bank-reconciliation": "Bank Reconciliation Software in Ethiopia",
+  "reports-analytics": "Business Reporting & Analytics Software in Ethiopia",
+  "hr-payroll": "HR & Payroll Software in Ethiopia",
+};
 
 export function generateStaticParams() {
   return marketingModules.map((module) => ({ slug: module.slug }));
@@ -13,10 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const module = getMarketingModule(slug);
   if (!module) return { title: "Biloo Product Module" };
-  return {
-    title: `${module.shortTitle} | Biloo`,
-    description: module.summary,
-  };
+  return publicMetadata(`/product/${module.slug}`, searchTitles[module.slug] || `${module.shortTitle} Software in Ethiopia`, module.summary);
 }
 
 export default async function ProductModulePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -28,6 +38,7 @@ export default async function ProductModulePage({ params }: { params: Promise<{ 
 
   return (
     <MarketingPageShell>
+      <SeoBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Product tour", path: "/product-tour" }, { name: module.shortTitle, path: `/product/${module.slug}` }]} />
       <section className={module.slug === "finance-cashflow" ? "module-page-hero finance-cashflow-hero" : module.slug === "inventory" ? "module-page-hero inventory-product-hero" : module.slug === "sales-invoicing" ? "module-page-hero sales-invoicing-hero" : "module-page-hero"}>
         <div className="module-page-hero-copy">
           <span className="marketing-eyebrow">{module.eyebrow}</span>
@@ -53,7 +64,7 @@ export default async function ProductModulePage({ params }: { params: Promise<{ 
           moduleEyebrow={module.eyebrow}
           metrics={module.metrics}
           rows={module.previewRows}
-          illustrative={module.slug === "finance-cashflow" || module.slug === "inventory" || module.slug === "sales-invoicing"}
+          illustrative
         />
       </section>
 

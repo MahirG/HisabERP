@@ -24,7 +24,7 @@ test("Sales page previews genuine illustrative invoice values, not unrelated sal
   read("components/interactive-erp-office.tsx"),
   read("lib/marketing-modules.ts")
  ]);
- assert.match(page,/illustrative=\{module\.slug === "finance-cashflow" \|\| module\.slug === "inventory" \|\| module\.slug === "sales-invoicing"\}/);
+ assert.match(page,/\n\s+illustrative\n/);
  for(const s of ["INV-1048","INV-1047","INV-1046","ETB 18,900","ETB 12,400","ETB 8,750"])assert.ok(modules.includes(s),s);
  assert.match(preview,/row\.label\.match\(\/\^\(INV-/);
  assert.match(preview,/status: salesPreview \? \(row\.meta \|\| 'Unspecified'\)/);

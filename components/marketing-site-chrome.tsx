@@ -6,6 +6,8 @@ import { NavArrowDown, Search, Xmark } from "iconoir-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useModalFocus } from "./use-modal-focus";
 import { MarketingLegalFooter } from "./marketing-legal-suite";
+import { siteIdentity } from "../lib/site-identity";
+import { SeoJsonLd } from "./seo-json-ld";
 
 type MenuId = "product" | "solutions" | "resources" | "company";
 type NavigationItem = { label: string; href: string };
@@ -42,6 +44,8 @@ const navigationGroups: NavigationGroup[] = [
     { label: "Resource center", href: "/resources" },
     { label: "Help Center", href: "/help-center" },
     { label: "ERP comparisons", href: "/compare" },
+    { label: "Biloo vs Odoo", href: "/compare/biloo-vs-odoo" },
+    { label: "ERP implementation costs", href: "/resources/erp-costs-ethiopia" },
     { label: "Data migration", href: "/migration" },
     { label: "Book a walkthrough", href: "/request-demo" },
   ] },
@@ -68,20 +72,7 @@ function routeMatches(pathname: string, href: string) {
 }
 
 function MarketingStructuredData() {
-  const data = [
-    {
-      "@context": "https://schema.org", "@type": "Organization", name: "Hisab Technologies", url: "https://www.hisabtech.com",
-      logo: "https://www.hisabtech.com/hisab-logo.svg", email: "mahir@hisabtech.com", telephone: "+251924093037",
-      address: { "@type": "PostalAddress", addressLocality: "Addis Ababa", addressCountry: "ET" },
-    },
-    {
-      "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Biloo ERP",
-      applicationCategory: "BusinessApplication", operatingSystem: "Web", url: "https://www.hisabtech.com",
-      description: "A business operating system for Ethiopian organizations.",
-      provider: { "@type": "Organization", name: "Hisab Technologies", url: "https://www.hisabtech.com" },
-    },
-  ];
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
+  return <SeoJsonLd data={siteIdentity} />;
 }
 
 export function MarketingHeader() {

@@ -1,12 +1,10 @@
+import { publicMetadata } from "../../lib/seo";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { integrationStatusCopy, marketingIntegrations, type IntegrationStatus } from "../../lib/marketing-integrations";
 
-export const metadata = {
-  title: "Integrations",
-  description: "Review available, configuration-required, beta and planned Biloo integrations.",
-};
+export const metadata = publicMetadata("/integrations", "Biloo ERP Integrations & Availability", "Review available, configuration-required and planned integrations. Confirm payment, banking and business-system scope before implementation.");
 
 const statusOrder: IntegrationStatus[] = ["available", "configuration", "beta", "planned"];
 

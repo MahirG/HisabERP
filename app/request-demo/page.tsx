@@ -1,13 +1,16 @@
+import { publicMetadata } from "../../lib/seo";
 import { randomUUID } from "node:crypto";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { submitDemoRequest } from "../../lib/actions/demo-request";
 
-export const metadata: Metadata = {
-  title: "Book a Biloo ERP walkthrough",
-  description: "Book a personalized Biloo ERP walkthrough for your business.",
-};
+export async function generateMetadata({ searchParams }: { searchParams: Promise<{ submitted?: string; error?: string }> }): Promise<Metadata> {
+  const params = await searchParams;
+  const metadata = publicMetadata("/request-demo", "Request a Biloo ERP Demo in Ethiopia", "Book a focused ERP walkthrough with Hisab Technologies. Discuss your sales, inventory, finance, branch and implementation requirements.");
+  if (params.submitted || params.error) metadata.robots = { index: false, follow: true, googleBot: { index: false, follow: true } };
+  return metadata;
+}
 
 export default async function RequestDemoPage({
   searchParams,

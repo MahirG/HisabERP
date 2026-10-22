@@ -1,19 +1,10 @@
+import { publicMetadata } from "../../lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "iconoir-react";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 
-export const metadata: Metadata = {
-  title: "Software Development & Business Automation | Hisab Technologies",
-  description: "Explore custom software, ERP systems, websites, mobile apps, AI automation, cloud solutions and security services from Hisab Technologies in Ethiopia.",
-  alternates: { canonical: "/services" },
-  openGraph: {
-    title: "Hisab Technologies — Software & Business Systems",
-    description: "Purpose-built digital solutions, from ERP and automation to apps, web experiences and secure systems.",
-    url: "/services",
-    type: "website",
-  },
-};
+export const metadata: Metadata = publicMetadata("/services", "Software Development & Business Automation in Ethiopia", "Explore custom software, websites, mobile apps, ERP and business automation services from Hisab Technologies in Addis Ababa, Ethiopia.");
 
 const services = [
   { id: "01", title: "Custom software", description: "Build applications and workflows around the way your organization actually works.", detail: "Business platforms · Internal tools · Integrations" },

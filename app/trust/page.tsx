@@ -1,12 +1,10 @@
+import { publicMetadata } from "../../lib/seo";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { sharedResponsibility, trustControls } from "../../lib/marketing-trust";
 
-export const metadata = {
-  title: "Trust Center",
-  description: "Review implemented Biloo security controls, operational safeguards and shared responsibilities.",
-};
+export const metadata = publicMetadata("/trust", "Biloo ERP Trust & Security Center", "Review Biloo access controls, security practices, operational safeguards and the responsibilities to confirm before implementation.");
 
 export default function TrustPage() {
   const implemented = trustControls.filter((control) => control.status === "implemented").length;

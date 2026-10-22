@@ -1,16 +1,14 @@
+import { publicMetadata } from "../../lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 
-export const metadata: Metadata = {
-  title: "ERP Built for Ethiopian Businesses",
-  description: "See how Biloo supports Ethiopian birr, local operating realities, multilingual access, mobile workflows, local onboarding and business management from Addis Ababa.",
-};
+export const metadata: Metadata = publicMetadata("/ethiopia", "ERP Localization & Implementation in Ethiopia", "Evaluate ETB records, branch workflows, connectivity, onboarding and implementation requirements with the Biloo team in Addis Ababa.");
 
 const localAdvantages = [
   { number: "01", title: "Ethiopian birr at the center", text: "Run daily transactions, balances, invoices, purchasing, expenses and reports in ETB without adapting a foreign-first interface." },
-  { number: "02", title: "Local-language access", text: "Use English and Amharic across core product experiences, with an architecture designed for continued Ethiopian-language expansion." },
+  { number: "02", title: "Clear English-language workflows", text: "The current Biloo interface is English-only. Confirm your team's language and training requirements during evaluation rather than assuming additional language support." },
   { number: "03", title: "Mobile and bandwidth conscious", text: "Use responsive workflows designed for phones, tablets and desktop screens without depending on oversized visual assets." },
   { number: "04", title: "Local business structures", text: "Configure branches, users, customers, suppliers, products, services, fiscal details and responsibilities around how the organization actually operates." },
   { number: "05", title: "Digital-payment readiness", text: "Maintain payment-channel records and use reconciliation workflows prepared for supported local payment and banking connections." },
@@ -27,7 +25,7 @@ const operatingReality = [
 
 const localMetrics = [
   { label: "Primary currency", value: "ETB", note: "Ethiopian birr" },
-  { label: "Languages", value: "EN · AM", note: "Localized access" },
+  { label: "Interface", value: "English", note: "Current product language" },
   { label: "Support", value: "Addis Ababa", note: "Local implementation context" },
 ];
 
@@ -43,14 +41,14 @@ export default function EthiopiaPage() {
       <section className="local-hero">
         <div>
           <span className="marketing-eyebrow">Built locally for Ethiopian business reality</span>
-          <h1>An ERP that understands where your business operates.</h1>
-          <p>Biloo is developed by Hisab Technologies in Addis Ababa to help Ethiopian businesses replace fragmented records with one secure, multilingual and decision-ready workspace.</p>
+          <h1>ERP implementation for Ethiopian business reality.</h1>
+          <p>Evaluate Biloo with the Hisab Technologies team in Addis Ababa. Plan ETB records, branch access, data migration and team onboarding around your actual operations.</p>
           <div className="marketing-hero-actions">
             <Link href="/auth/email-sign-up" className="marketing-start marketing-large">Start free</Link>
             <Link href="/request-demo" className="marketing-demo marketing-large">Request an Ethiopia-focused demo</Link>
           </div>
         </div>
-        <InteractiveErpOffice moduleTitle="Ethiopia operations" moduleEyebrow="Local operating profile" metrics={localMetrics} rows={localRows} compact />
+        <InteractiveErpOffice moduleTitle="Ethiopia operations" moduleEyebrow="Local operating profile" metrics={localMetrics} rows={localRows} compact illustrative />
       </section>
 
       <section className="marketing-section local-advantages-section">

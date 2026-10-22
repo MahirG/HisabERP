@@ -1,12 +1,10 @@
+import { publicMetadata } from "../../lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 
-export const metadata: Metadata = {
-  title: "Data Migration and Onboarding",
-  description: "Move customers, suppliers, products, opening balances and operating workflows into Biloo through a controlled assessment, dry run, validation and go-live process.",
-};
+export const metadata: Metadata = publicMetadata("/migration", "ERP Data Migration & Onboarding in Ethiopia", "Plan your move from Excel, notebooks or other software to Biloo. Review data preparation, opening balances, validation and cutover.");
 
 const migrationSources = [
   { title: "Excel and CSV files", text: "Clean and map customers, suppliers, products, prices and approved opening balances into structured import files." },

@@ -9,6 +9,8 @@
     "build": "node scripts/build-production.mjs && node scripts/check-public-prerender.mjs",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "seo:check": "node scripts/check-seo.mjs",
+    "seo:verify": "node scripts/verify-seo.mjs",
     "test": "node --test tests/*.test.mjs",
     "i18n:report": "node scripts/build-i18n-index.mjs && node scripts/i18n-audit.mjs",
     "i18n:check": "node scripts/build-i18n-index.mjs && node scripts/i18n-audit.mjs --check",

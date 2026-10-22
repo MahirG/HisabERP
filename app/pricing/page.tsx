@@ -1,12 +1,10 @@
+import { publicMetadata } from "../../lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { PricingExperience } from "../../components/pricing-experience";
 
-export const metadata: Metadata = {
-  title: "Biloo ERP Pricing in Ethiopian Birr",
-  description: "Compare Biloo plans in ETB and pay securely through Chapa for a monthly or annual access period.",
-};
+export const metadata: Metadata = publicMetadata("/pricing", "ERP Software Pricing in Ethiopia", "Compare Biloo ERP monthly and annual plans in ETB, user and branch limits, migration costs and implementation scope.");
 
 const questions = [
   { q: "Are these final access prices?", a: "Starter, Growth and Business use the published ETB amount for the selected monthly or annual access period. Migration, extra users, branches, custom integrations and Enterprise scope are priced separately." },
@@ -33,6 +31,8 @@ export default function PricingPage() {
       </section>
 
       <section className="pricing-section"><div className="marketing-section-heading marketing-section-heading-centered"><span>Plans and inclusions</span><h2>Start with dependable records, then expand into connected operations.</h2><p>Annual access provides approximately two months of savings compared with twelve separate monthly payments.</p></div><PricingExperience /></section>
+
+      <aside className="seo-editorial-note"><span>Implementation budget</span><h2>Compare the complete cost of getting started.</h2><p>Your access plan and your implementation project have different scopes. Confirm data preparation, migration, training, integrations, extra users, additional branches and ongoing support before committing.</p><p><Link href="/resources/erp-costs-ethiopia">Use the ERP cost checklist</Link> or <Link href="/request-demo?topic=implementation-budget">request an itemized implementation discussion</Link>. Specialist requirements need a written scope and acceptance criteria.</p></aside>
 
       <section className="pricing-included-section"><div><span className="marketing-eyebrow">Included across plans</span><h2>Every Biloo paid plan starts with the same product foundation.</h2></div><div><article><span>01</span><h3>Secure cloud workspace</h3><p>Protected authentication, controlled organization access and structured business records.</p></article><article><span>02</span><h3>Responsive product access</h3><p>Use the workspace from desktop, tablet and supported mobile browsers.</p></article><article><span>03</span><h3>Product updates</h3><p>Receive maintained product improvements within the paid plan scope.</p></article><article><span>04</span><h3>Manual payment control</h3><p>Renew through Chapa only when you choose, without automatic recurring charges.</p></article></div></section>
 

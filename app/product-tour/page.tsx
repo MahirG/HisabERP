@@ -1,19 +1,10 @@
+import { publicMetadata } from "../../lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { ProductTourExperience } from "../../components/product-tour-experience";
 import { InteractiveErpOffice } from "../../components/interactive-erp-office";
-export const metadata: Metadata = {
-  title: "Biloo ERP Product Tour",
-  description: "Explore Biloo ERP across dashboard, sales, inventory, finance and reporting in an interactive desktop and mobile product tour.",
-  alternates: { canonical: "/product-tour" },
-  openGraph: {
-    title: "Biloo ERP Product Tour",
-    description: "Explore illustrative Biloo ERP screens for sales, inventory, finance, and reporting on desktop and mobile.",
-    url: "/product-tour",
-    type: "website",
-  },
-};
+export const metadata: Metadata = publicMetadata("/product-tour", "Biloo ERP Product Tour", "Explore illustrative sales, inventory, finance and reporting workflows. See how Biloo connects business records and request a focused demo.");
 
 const tourMetrics = [
   { label: "Revenue", value: "ETB 4.82M", note: "+18.6% this month" },

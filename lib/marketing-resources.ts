@@ -1,4 +1,5 @@
 import type { LocalizedText } from "./public-localization";
+import { erpBuyingGuides } from "./erp-buying-guides";
 
 export type ResourceSection = {
   heading: LocalizedText;
@@ -14,10 +15,13 @@ export type MarketingResource = {
   audience: LocalizedText;
   readingMinutes: number;
   published: string;
+  modified?: string;
+  relatedLinks?: Array<{ label: string; href: string }>;
   sections: ResourceSection[];
 };
 
 export const marketingResources: MarketingResource[] = [
+  ...erpBuyingGuides,
   {
     slug: "move-from-excel-to-erp",
     category: { en: "Digital operations", am: "ዲጂታል አሰራር" },
@@ -106,7 +110,75 @@ export const marketingResources: MarketingResource[] = [
     audience: { en: "Owners, executives and project sponsors", am: "ባለቤቶች፣ ከፍተኛ አመራሮች እና የፕሮጀክት ደጋፊዎች" },
     readingMinutes: 8,
     published: "2026-07-22",
+    modified: "2026-10-22",
+    relatedLinks: [{ label: "Plan ERP costs", href: "/resources/erp-costs-ethiopia" }, { label: "Compare Biloo and Odoo", href: "/compare/biloo-vs-odoo" }, { label: "Download the evaluation checklist (CSV)", href: "/templates/erp-evaluation-checklist.csv" }],
     sections: [
+{
+  "heading": {
+    "en": "Write a short requirements matrix"
+  },
+  "paragraphs": [
+    {
+      "en": "List the transactions, reports, access roles and branch workflows the business needs. Mark each requirement as essential, useful later or outside the project. Keep a named owner and a way to demonstrate acceptance for every essential item."
+    },
+    {
+      "en": "Separate product availability from implementation work. Record whether each requirement is included in the quoted plan, needs configuration, depends on another service or is not supported. An unverified answer remains an open question."
+    }
+  ],
+  "checklist": [
+    {
+      "en": "Sales invoice, partial payment and customer balance."
+    },
+    {
+      "en": "Purchase, receipt, stock movement and approved correction."
+    },
+    {
+      "en": "Branch access, management reporting and data export."
+    },
+    {
+      "en": "Connectivity, language, training and continuity requirements."
+    }
+  ]
+},
+{
+  "heading": {
+    "en": "Verify Ethiopian requirements independently"
+  },
+  "paragraphs": [
+    {
+      "en": "Evaluate ETB records, local operating practices and the reporting your organization actually needs. For tax, payroll or electronic invoicing, obtain current requirements from authoritative Ethiopian sources and ask a qualified reviewer to check the proposed workflow."
+    },
+    {
+      "en": "A supplier being based in Ethiopia does not establish regulatory approval. Ask what is implemented, which external services are required and which evidence supports any compliance claim. Confirm language availability using the actual interface: Biloo's current public and product experiences are English-only."
+    }
+  ]
+},
+{
+  "heading": {
+    "en": "Compare vendors using the same demonstration"
+  },
+  "paragraphs": [
+    {
+      "en": "Give Biloo, an Odoo implementer or an ERPNext provider the same representative records and scenario. Agree the edition, release, hosting and installed applications being evaluated. Do not treat an application name as proof of equivalent behavior."
+    },
+    {
+      "en": "Ask each team to show the source record behind a total, correct a mistake, restrict a user and explain the export process. Document strengths and gaps. A specialist platform may be the better fit when a requirement falls outside Biloo's verified scope."
+    }
+  ]
+},
+{
+  "heading": {
+    "en": "Agree acceptance before going live"
+  },
+  "paragraphs": [
+    {
+      "en": "Require approved opening balances, reconciled inventory quantities, trained users and clear support ownership before changing the source of truth. Keep the previous records available as evidence and define what happens if cutover cannot proceed."
+    },
+    {
+      "en": "Compare the complete implementation budget, including internal staff time, migration, training and ongoing maintenance. Use the pricing page for current Biloo terms and request a written quotation for work outside the published access plan."
+    }
+  ]
+},
       { heading: { en: "Evaluate the operating model, not the feature count", am: "የባህሪ ብዛትን ሳይሆን የሥራ ሞዴሉን ይገምግሙ" }, paragraphs: [{ en: "Ask vendors to demonstrate your real sales, purchasing, inventory, cash and approval scenarios. A long feature list does not prove that daily work will become clearer.", am: "አቅራቢዎች እውነተኛ የሽያጭ፣ የግዢ፣ የክምችት፣ የገንዘብ እና የማጽደቅ ሁኔታዎችዎን እንዲያሳዩ ይጠይቁ። ረጅም የባህሪ ዝርዝር ዕለታዊ ሥራ ግልጽ እንደሚሆን አያረጋግጥም።" }] },
       { heading: { en: "Price the implementation, not only the subscription", am: "የደንበኝነት ክፍያን ብቻ ሳይሆን ትግበራውንም ዋጋ ይስጡ" }, paragraphs: [{ en: "Include data preparation, configuration, training, integrations, internal staff time, support and the cost of operating two systems during transition.", am: "የመረጃ ዝግጅት፣ ማዋቀር፣ ስልጠና፣ ውህደቶች፣ የውስጥ ሰራተኞች ጊዜ፣ ድጋፍ እና በሽግግር ጊዜ ሁለት ስርዓቶችን የማስኬድ ወጪን ያካትቱ።" }] }
     ]

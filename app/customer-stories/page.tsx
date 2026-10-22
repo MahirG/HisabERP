@@ -1,12 +1,10 @@
+import { publicMetadata } from "../../lib/seo";
 import Link from "next/link";
 import { MarketingPageShell } from "../../components/marketing-site-chrome";
 import { InteractiveErpOffice } from "../../components/interactive-erp-office";
 import { inspectableProof, proofStandards, referencePrograms } from "../../lib/marketing-customer-proof";
 
-export const metadata = {
-  title: "Customer Proof",
-  description: "See how Biloo verifies Biloo customer stories and join the reference customer program.",
-};
+export const metadata = publicMetadata("/customer-stories", "Biloo Customer Evidence & Reference Program", "Learn how Hisab Technologies reviews customer references and publishes documented Biloo implementation evidence.");
 
 export default function CustomerStoriesPage() {
   const proofMetrics = [

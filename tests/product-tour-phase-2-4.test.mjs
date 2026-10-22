@@ -14,7 +14,7 @@ test("product tour keeps the Biloo brand and uses direct product evidence", asyn
     read("app/marketing-editorial-system.css"),
   ]);
 
-  assert.match(page, /title: "Biloo ERP Product Tour"/);
+  assert.match(page, /publicMetadata\("\/product-tour", "Biloo ERP Product Tour"/);
   assert.doesNotMatch(page, /\.css/);
   assert.match(page, /className="product-tour-phase-2-4"/);
   assert.doesNotMatch(page, /Interactive HisabERP product tour/);
