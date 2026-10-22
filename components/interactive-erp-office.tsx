@@ -17,15 +17,7 @@ import {
   Settings,
   WarningCircle,
 } from 'iconoir-react';
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
+import { MarketingTrendChart } from './marketing-trend-chart';
 type HeroMetric = { label: string; value: string; note?: string };
 type HeroRow = { label: string; value: string; meta?: string };
 
@@ -198,15 +190,12 @@ export function InteractiveErpOffice({ moduleTitle, moduleEyebrow = 'Connected o
               <div className="erp-evidence-analysis">
                 <div><span>{financePreview ? 'Sample net cash flow' : inventoryPreview ? 'Illustrative stock movement' : salesPreview ? 'Illustrative sales revenue' : 'Revenue performance'}</span><strong>{financePreview ? (metrics[1]?.value ?? 'ETB 96,240') : inventoryPreview ? (metrics[0]?.value ?? 'Sample inventory') : salesPreview ? (metrics[0]?.value ?? 'ETB 84,600') : 'ETB 4.82M'}</strong><small>{financePreview ? 'Illustrative trend, March–August 2026' : inventoryPreview ? 'Sample movement trend, March–August 2026' : salesPreview ? 'Sample week, Monday–Saturday' : '+18.6% compared with July'}</small></div>
                 <div className="erp-evidence-chart" aria-label={financePreview ? "Sample net cash flow from March to August 2026" : inventoryPreview ? "Illustrative stock movement, March to August 2026" : salesPreview ? "Illustrative daily sales, Monday through Saturday" : "Revenue performance from March to August 2026"}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={financePreview ? financeCashflowData : salesPreview ? salesRevenueData : chartData} margin={{ top: 12, right: 12, left: -20, bottom: 0 }}>
-                      <CartesianGrid stroke="#e8ebf0" vertical={false} />
-                      <XAxis dataKey="period" tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 10 }} />
-                      <YAxis tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 9 }} tickFormatter={(value) => financePreview || salesPreview ? `${value}k` : inventoryPreview ? String(value) : `ETB ${value}M`} />
-                      <Tooltip formatter={(value) => [financePreview || salesPreview ? `ETB ${value}k` : inventoryPreview ? `${value}` : `ETB ${value}M`, financePreview ? 'Sample cash flow' : inventoryPreview ? 'Sample movement' : salesPreview ? 'Sample sales' : 'Revenue']} contentStyle={{ border: '1px solid #dfe3ea', borderRadius: 6, boxShadow: '0 10px 30px rgba(16,36,74,.1)', fontSize: 11 }} />
-                      <Area type="monotone" dataKey="value" stroke={financePreview || salesPreview ? "#b57b19" : "#315efb"} fill={financePreview || salesPreview ? "#b57b19" : "#315efb"} fillOpacity={0.08} strokeWidth={2} />
-                    </AreaChart>
-                  </ResponsiveContainer>
+                  <MarketingTrendChart
+                    data={financePreview ? financeCashflowData : salesPreview ? salesRevenueData : chartData}
+                    label={financePreview ? 'Sample net cash flow' : inventoryPreview ? 'Illustrative stock movement' : salesPreview ? 'Illustrative sales revenue' : 'Revenue performance'}
+                    color={financePreview || salesPreview ? '#b57b19' : '#315efb'}
+                    formatValue={(value) => financePreview || salesPreview ? `ETB ${value}k` : inventoryPreview ? String(value) : `ETB ${value}M`}
+                  />
                 </div>
               </div>
             ) : null}

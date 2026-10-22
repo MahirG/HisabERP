@@ -7,16 +7,24 @@ import { AppExperienceProvider } from "../components/app-experience-provider";
 import { AuthPagePreferences } from "../components/auth-page-preferences";
 import { LanguageProvider } from "../components/language-provider";
 import { MarketingExperienceController } from "../components/marketing-experience-controller";
-import { WorkspaceShell } from "../components/workspace-shell";
+import { WorkspaceRouteGate as WorkspaceShell } from "../components/workspace-route-gate";
 import "./public-styles";
 
 const bilooManrope = localFont({
   src: "../public/fonts/manrope-latin-wght-normal.woff2",
   weight: "200 800",
-  display: "swap",
+  display: "optional",
   variable: "--font-biloo-manrope",
   preload: true,
   fallback: ["Segoe UI", "Arial", "sans-serif"],
+});
+
+const bilooNunito = localFont({
+  src: "../public/fonts/nunito-sans-latin-wght-normal.woff2",
+  weight: "200 900",
+  display: "optional",
+  variable: "--font-biloo-nunito",
+  preload: true,
 });
 
 const preferenceBootstrap = `
@@ -84,7 +92,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html className={bilooManrope.variable} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
+    <html className={`${bilooManrope.variable} ${bilooNunito.variable}`} lang="en" data-language="en" data-theme="light" data-brand="biloo" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} />
       </head>

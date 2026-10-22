@@ -1,7 +1,7 @@
 /* Biloo public website — one canonical stylesheet stack.
  * Legacy visual systems are intentionally not loaded here.
  * Payoneer-inspired direction: white canvas, restrained navy, clear hierarchy,
- * quiet borders, compact navigation, and zero scroll-triggered animation.
+ * quiet borders, compact navigation, and lightweight progressive motion.
  */
 /* Component definitions precede the canonical public brand/layout authority. */
 import "./market-expansion.css";
@@ -22,5 +22,6 @@ import "./hisabtech-fundingpips-marketing.css";
 /* Final stacking and scroll authority for the public marketing mobile drawer. */
 import "./public-mobile-menu-standard.css";
 import "./seo-editorial.css";
+import "./public-motion.css";
 
 export {};

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { MarketingLink as Link } from './marketing-link';
 import { useState, type KeyboardEvent } from 'react';
 import {
   ArrowRight,
@@ -17,15 +17,7 @@ import {
   Reports,
   ShieldCheck,
 } from 'iconoir-react';
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
+import { MarketingTrendChart } from './marketing-trend-chart';
 import { InteractiveErpOffice } from './interactive-erp-office';
 
 const products = [
@@ -233,7 +225,7 @@ export function CampfireMarketingHome() {
               </div>
               <div className="cf-module-analysis">
                 <header><div><span>Illustrative {activeProduct.label.toLowerCase()} trend</span><strong>February—August 2026 · Sample data</strong></div><b>DEMO</b></header>
-                <div className="cf-module-chart"><ResponsiveContainer width="100%" height="100%"><AreaChart data={chartData} margin={{ top: 12, right: 8, left: -24, bottom: 0 }}><CartesianGrid stroke="#e7ebf0" vertical={false} /><XAxis dataKey="period" tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 10 }} /><YAxis tickLine={false} axisLine={false} tick={{ fill: '#788395', fontSize: 9 }} /><Tooltip contentStyle={{ border: '1px solid #dfe3ea', borderRadius: 6, fontSize: 11 }} /><Area type="monotone" dataKey="value" stroke="#315efb" fill="#315efb" fillOpacity={0.07} strokeWidth={2} /></AreaChart></ResponsiveContainer></div>
+                <div className="cf-module-chart"><MarketingTrendChart data={chartData} label={`Illustrative ${activeProduct.label.toLowerCase()} trend, February to August 2026`} /></div>
                 <div className="cf-module-rows">{activeProduct.rows.map((row) => <div key={row.label}><span><strong>{row.label}</strong><small>{row.meta}</small></span><b>{row.value}</b></div>)}</div>
               </div>
             </div>

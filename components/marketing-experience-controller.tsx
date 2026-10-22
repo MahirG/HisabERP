@@ -5,94 +5,10 @@ import { useEffect } from "react";
 import { MarketingLegalSuite } from "./marketing-legal-suite";
 
 const ADMIN_CONTACT_EMAIL = "mahir@hisabtech.com";
-const POWERED_BY_URL = "https://hisabtechnologies.com";
-const MARKETING_ROUTE_PREFIXES = [
-  "/product",
-  "/product-tour",
-  "/pricing",
-  "/ethiopia",
-  "/industries",
-  "/migration",
-  "/integrations",
-  "/customer-stories",
-  "/resources",
-  "/help-center",
-  "/compare",
-  "/trust",
-  "/about",
-  "/services",
-  "/request-demo",
-  "/privacy",
-  "/terms",
-  "/cookies",
-  "/legal",
-  "/support",
-  "/contact",
-  "/accessibility",
-] as const;
-
-const revealSelector = [
-  "#public-main-content > *",
-  "#public-main-content > div > *",
-  "#public-main-content section",
-  "#public-main-content article",
-].join(",");
+const MARKETING_ROUTE_PREFIXES = ["/product", "/product-tour", "/pricing", "/ethiopia", "/industries", "/migration", "/integrations", "/customer-stories", "/resources", "/help-center", "/compare", "/trust", "/about", "/services", "/request-demo", "/privacy", "/terms", "/cookies", "/legal", "/support", "/contact", "/accessibility"];
 
 function isMarketingPath(pathname: string) {
-  if (pathname === "/") return true;
-  return MARKETING_ROUTE_PREFIXES.some(
-    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
-  );
-}
-
-function isVisible(element: HTMLElement) {
-  const rect = element.getBoundingClientRect();
-  return rect.bottom > 0 && rect.top < window.innerHeight * 0.94;
-}
-
-function normalizeAdminContactLinks(scope: ParentNode) {
-  const anchors: HTMLAnchorElement[] = [];
-  if (scope instanceof HTMLAnchorElement) anchors.push(scope);
-  anchors.push(...Array.from(scope.querySelectorAll<HTMLAnchorElement>('a[href^="mailto:"]')));
-
-  anchors.forEach((anchor) => {
-    const mailto = anchor.getAttribute("href");
-    if (!mailto) return;
-
-    const [addressPart, queryPart] = mailto.slice("mailto:".length).split("?", 2);
-    const address = decodeURIComponent(addressPart).trim().toLowerCase();
-    if (address !== "info@hisabtech.com" && address !== ADMIN_CONTACT_EMAIL) return;
-
-    anchor.href = `mailto:${ADMIN_CONTACT_EMAIL}${queryPart ? `?${queryPart}` : ""}`;
-    if (anchor.textContent?.trim().toLowerCase() === "info@hisabtech.com") {
-      anchor.textContent = ADMIN_CONTACT_EMAIL;
-    }
-  });
-}
-
-function ensurePoweredByFooter(scope: ParentNode) {
-  const footerRows: HTMLElement[] = [];
-  if (scope instanceof HTMLElement && scope.matches(".wp-footer-bottom, .marketing-footer-bottom")) {
-    footerRows.push(scope);
-  }
-  footerRows.push(
-    ...Array.from(scope.querySelectorAll<HTMLElement>(".wp-footer-bottom, .marketing-footer-bottom")),
-  );
-
-  footerRows.forEach((footerRow) => {
-    if (footerRow.querySelector('[data-powered-by-hisab="true"]')) return;
-
-    const link = document.createElement("a");
-    link.href = POWERED_BY_URL;
-    link.textContent = "Powered by hisabtechnologies.com";
-    link.className = "marketing-powered-by";
-    link.dataset.poweredByHisab = "true";
-    link.rel = "noopener noreferrer";
-
-    const legalLinks = footerRow.querySelector<HTMLElement>(":scope > div");
-    if (legalLinks) legalLinks.append(link);
-    else footerRow.append(link);
-  });
+  return pathname === "/" || MARKETING_ROUTE_PREFIXES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
 }
 
 export function MarketingExperienceController() {
@@ -100,118 +16,74 @@ export function MarketingExperienceController() {
   const marketingPath = isMarketingPath(pathname);
 
   useEffect(() => {
-    const body = document.body;
-    const documentRoot = document.documentElement;
+    if (!marketingPath) return;
+    const root = document.querySelector<HTMLElement>(".marketing-site-v2");
+    if (!root) return;
+    root.querySelectorAll<HTMLAnchorElement>('a[href^="mailto:info@hisabtech.com"]').forEach((link) => {
+      link.href = link.href.replace("info@hisabtech.com", ADMIN_CONTACT_EMAIL);
+      if (link.textContent?.trim() === "info@hisabtech.com") link.textContent = ADMIN_CONTACT_EMAIL;
+    });
+    document.body.dataset.awardMarketing = "true";
+    root.dataset.marketingRoute = pathname;
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const animations = new Set<Animation>();
+    let reveals: IntersectionObserver | undefined;
+    let headerObserver: IntersectionObserver | undefined;
 
-    if (!marketingPath) {
-      delete body.dataset.awardMarketing;
-      return;
-    }
-
-    let routeTimer = 0;
-    let observer: IntersectionObserver | null = null;
-    let mutationObserver: MutationObserver | null = null;
-    let marketingRoot: HTMLElement | null = null;
-    let reducedMotionQuery: MediaQueryList | null = null;
-
-    const revealImmediately = (element: HTMLElement) => {
-      element.dataset.marketingRevealed = "true";
-      element.classList.add("is-visible");
+    const stopAnimations = () => {
+      animations.forEach((animation) => animation.cancel());
+      animations.clear();
     };
-
-    const registerRevealElements = (scope: ParentNode) => {
-      if (!marketingRoot) return;
-      const reducedMotion = reducedMotionQuery?.matches ?? false;
-      const candidates = Array.from(scope.querySelectorAll<HTMLElement>(revealSelector));
-
-      candidates.forEach((element, index) => {
-        if (!marketingRoot?.contains(element)) return;
-        if (element.closest(".wb-header, .wb-mobile-drawer, .wb-search-overlay, .marketing-footer")) return;
-        if (element.dataset.marketingReveal === "true") return;
-
-        element.dataset.marketingReveal = "true";
-        element.style.setProperty("--marketing-reveal-order", String(index % 6));
-
-        if (reducedMotion || isVisible(element) || !observer) {
-          revealImmediately(element);
-        } else {
-          observer.observe(element);
+    const configureReveals = () => {
+      reveals?.disconnect();
+      stopAnimations();
+      if (preference.matches || !("IntersectionObserver" in window)) return;
+      reveals = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const element = entry.target as HTMLElement;
+          reveals?.unobserve(element);
+          // Content stays visible in CSS and HTML, even if enhancement fails.
+          if (element.dataset.motionSeen || preference.matches || typeof element.animate !== "function") continue;
+          element.dataset.motionSeen = "true";
+          const animation = element.animate([
+            { opacity: .88, transform: "translateY(12px)" },
+            { opacity: 1, transform: "translateY(0)" },
+          ], { duration: 320, easing: "cubic-bezier(.2,.75,.2,1)" });
+          animations.add(animation);
+          const release = () => animations.delete(animation);
+          animation.addEventListener("finish", release, { once: true });
+          animation.addEventListener("cancel", release, { once: true });
         }
-      });
+      }, { rootMargin: "0px 0px 32px 0px", threshold: 0 });
+      const sections = root.querySelectorAll<HTMLElement>("#public-main-content > section, #public-main-content > div > section");
+      for (const section of sections) {
+        if (section.dataset.motionSeen) continue;
+        if (section.getBoundingClientRect().top <= window.innerHeight) section.dataset.motionSeen = "true";
+        else reveals.observe(section);
+      }
     };
 
-    const initialize = () => {
-      marketingRoot = document.querySelector<HTMLElement>(".marketing-site-v2");
-
-      if (!marketingRoot) {
-        delete body.dataset.awardMarketing;
-        return;
-      }
-
-      documentRoot.dataset.publicTheme = "light";
-      documentRoot.style.colorScheme = "light";
-      try {
-        window.localStorage.setItem("biloo-public-theme", "light");
-      } catch {
-        // Storage can be unavailable in restricted browsing contexts.
-      }
-
-      body.dataset.awardMarketing = "true";
-      marketingRoot.dataset.marketingRoute = pathname;
-      marketingRoot.dataset.marketingEntering = "true";
-      reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-      if (!reducedMotionQuery.matches && "IntersectionObserver" in window) {
-        observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (!entry.isIntersecting) return;
-              const element = entry.target as HTMLElement;
-              revealImmediately(element);
-              observer?.unobserve(element);
-            });
-          },
-          { rootMargin: "0px 0px -10% 0px", threshold: 0.08 },
-        );
-      }
-
-      normalizeAdminContactLinks(marketingRoot);
-      ensurePoweredByFooter(marketingRoot);
-      registerRevealElements(marketingRoot);
-
-      mutationObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          mutation.addedNodes.forEach((node) => {
-            if (!(node instanceof HTMLElement)) return;
-            normalizeAdminContactLinks(node);
-            ensurePoweredByFooter(node);
-            registerRevealElements(node);
-          });
+    if ("IntersectionObserver" in window) {
+      const sentinel = root.querySelector(".wb-scroll-sentinel");
+      const header = root.querySelector<HTMLElement>(".wb-header");
+      if (sentinel && header) {
+        headerObserver = new IntersectionObserver(([entry]) => {
+          header.dataset.scrolled = String(!entry.isIntersecting);
         });
-      });
-      mutationObserver.observe(marketingRoot, { childList: true, subtree: true });
-
-      routeTimer = window.setTimeout(() => {
-        if (marketingRoot) delete marketingRoot.dataset.marketingEntering;
-      }, reducedMotionQuery.matches ? 0 : 360);
-    };
-
-    const startFrame = window.requestAnimationFrame(initialize);
-
+        headerObserver.observe(sentinel);
+      }
+    }
+    configureReveals();
+    preference.addEventListener("change", configureReveals);
     return () => {
-      window.cancelAnimationFrame(startFrame);
-      window.clearTimeout(routeTimer);
-      observer?.disconnect();
-      mutationObserver?.disconnect();
-      delete body.dataset.awardMarketing;
+      reveals?.disconnect();
+      headerObserver?.disconnect();
+      stopAnimations();
+      preference.removeEventListener("change", configureReveals);
+      delete document.body.dataset.awardMarketing;
     };
   }, [marketingPath, pathname]);
 
-  if (!marketingPath) return null;
-
-  return (
-    <>
-      <MarketingLegalSuite />
-    </>
-  );
+  return marketingPath ? <MarketingLegalSuite /> : null;
 }

@@ -1,0 +1,70 @@
+{
+  "before": {
+    "lighthouseVersion": "13.0.1",
+    "performanceScore": 86,
+    "lcpMs": 3580.8909999999996,
+    "totalBlockingTimeMs": 197,
+    "cls": 0.003230407296438393,
+    "formFactor": "mobile",
+    "throttlingMethod": "simulate",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    }
+  },
+  "after-home": {
+    "lighthouseVersion": "13.0.1",
+    "performanceScore": 93,
+    "lcpMs": 3130.9865,
+    "totalBlockingTimeMs": 28,
+    "cls": 0,
+    "formFactor": "mobile",
+    "throttlingMethod": "simulate",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    }
+  },
+  "after-pricing": {
+    "lighthouseVersion": "13.0.1",
+    "performanceScore": 98,
+    "lcpMs": 2287.7955,
+    "totalBlockingTimeMs": 37,
+    "cls": 0,
+    "formFactor": "mobile",
+    "throttlingMethod": "simulate",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    }
+  },
+  "after-services": {
+    "lighthouseVersion": "13.0.1",
+    "performanceScore": 96,
+    "lcpMs": 2751.2907499999997,
+    "totalBlockingTimeMs": 30,
+    "cls": 0,
+    "formFactor": "mobile",
+    "throttlingMethod": "simulate",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    }
+  }
+}

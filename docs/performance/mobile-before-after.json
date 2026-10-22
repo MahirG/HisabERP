@@ -1,0 +1,244 @@
+{
+  "baselineCommit": "bd2400f2be69875fb5859fee68290f8e84ab870d",
+  "method": {
+    "browser": "Chromium 153",
+    "viewport": [
+      390,
+      844
+    ],
+    "cpuSlowdown": 4,
+    "networkLatencyMs": 150,
+    "downloadBytesPerSecond": 200000,
+    "uploadBytesPerSecond": 93750,
+    "runsPerRoute": 3,
+    "cache": "fresh context for each run",
+    "observationWindow": "load event plus 2 seconds",
+    "units": {
+      "lcp": "ms",
+      "cls": "unitless",
+      "longTasks": "sum of max(0, duration - 50ms), not Lighthouse TBT",
+      "jsDecodedBytes": "uncompressed resource bytes, includes prefetch",
+      "cssDecodedBytes": "uncompressed resource bytes, includes prefetch"
+    }
+  },
+  "before": [
+    {
+      "route": "/",
+      "run": 0,
+      "lcp": 1164,
+      "cls": 0.0034844943527082292,
+      "longTasks": 789,
+      "jsDecodedBytes": 1096553,
+      "cssDecodedBytes": 426601,
+      "requests": 52,
+      "domNodes": 1126,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "run": 1,
+      "lcp": 1116,
+      "cls": 0.0034844943527082292,
+      "longTasks": 664,
+      "jsDecodedBytes": 1096553,
+      "cssDecodedBytes": 426601,
+      "requests": 52,
+      "domNodes": 1126,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "run": 2,
+      "lcp": 1132,
+      "cls": 0.0034844943527082292,
+      "longTasks": 683,
+      "jsDecodedBytes": 1096553,
+      "cssDecodedBytes": 426601,
+      "requests": 52,
+      "domNodes": 1126,
+      "overflow": false
+    },
+    {
+      "route": "/pricing",
+      "run": 0,
+      "lcp": 952,
+      "cls": 0.11312420508018688,
+      "longTasks": 207,
+      "jsDecodedBytes": 1096553,
+      "cssDecodedBytes": 426601,
+      "requests": 49,
+      "domNodes": 692,
+      "overflow": false
+    },
+    {
+      "route": "/pricing",
+      "run": 1,
+      "lcp": 1016,
+      "cls": 0.11312420508018688,
+      "longTasks": 279,
+      "jsDecodedBytes": 1096553,
+      "cssDecodedBytes": 426601,
+      "requests": 48,
+      "domNodes": 692,
+      "overflow": false
+    },
+    {
+      "route": "/pricing",
+      "run": 2,
+      "lcp": 1020,
+      "cls": 0.11312420508018688,
+      "longTasks": 282,
+      "jsDecodedBytes": 1096553,
+      "cssDecodedBytes": 426601,
+      "requests": 48,
+      "domNodes": 692,
+      "overflow": false
+    },
+    {
+      "route": "/services",
+      "run": 0,
+      "lcp": 916,
+      "cls": 0.06778465938124706,
+      "longTasks": 167,
+      "jsDecodedBytes": 737776,
+      "cssDecodedBytes": 426601,
+      "requests": 52,
+      "domNodes": 426,
+      "overflow": false
+    },
+    {
+      "route": "/services",
+      "run": 1,
+      "lcp": 872,
+      "cls": 0.06778465938124706,
+      "longTasks": 144,
+      "jsDecodedBytes": 1113733,
+      "cssDecodedBytes": 426601,
+      "requests": 53,
+      "domNodes": 426,
+      "overflow": false
+    },
+    {
+      "route": "/services",
+      "run": 2,
+      "lcp": 900,
+      "cls": 0.06778465938124706,
+      "longTasks": 150,
+      "jsDecodedBytes": 737776,
+      "cssDecodedBytes": 426601,
+      "requests": 52,
+      "domNodes": 426,
+      "overflow": false
+    }
+  ],
+  "after": [
+    {
+      "route": "/",
+      "run": 0,
+      "lcp": 1260,
+      "cls": 0,
+      "longTasks": 336,
+      "jsDecodedBytes": 615382,
+      "cssDecodedBytes": 356918,
+      "requests": 26,
+      "domNodes": 1079,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "run": 1,
+      "lcp": 1152,
+      "cls": 0,
+      "longTasks": 304,
+      "jsDecodedBytes": 615382,
+      "cssDecodedBytes": 356918,
+      "requests": 26,
+      "domNodes": 1079,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "run": 2,
+      "lcp": 1204,
+      "cls": 0,
+      "longTasks": 321,
+      "jsDecodedBytes": 615382,
+      "cssDecodedBytes": 356918,
+      "requests": 26,
+      "domNodes": 1079,
+      "overflow": false
+    },
+    {
+      "route": "/pricing",
+      "run": 0,
+      "lcp": 1148,
+      "cls": 0,
+      "longTasks": 298,
+      "jsDecodedBytes": 554253,
+      "cssDecodedBytes": 315160,
+      "requests": 24,
+      "domNodes": 685,
+      "overflow": false
+    },
+    {
+      "route": "/pricing",
+      "run": 1,
+      "lcp": 1088,
+      "cls": 0,
+      "longTasks": 233,
+      "jsDecodedBytes": 554253,
+      "cssDecodedBytes": 315160,
+      "requests": 24,
+      "domNodes": 685,
+      "overflow": false
+    },
+    {
+      "route": "/pricing",
+      "run": 2,
+      "lcp": 1080,
+      "cls": 0,
+      "longTasks": 220,
+      "jsDecodedBytes": 554253,
+      "cssDecodedBytes": 315160,
+      "requests": 24,
+      "domNodes": 685,
+      "overflow": false
+    },
+    {
+      "route": "/services",
+      "run": 0,
+      "lcp": 1048,
+      "cls": 0,
+      "longTasks": 169,
+      "jsDecodedBytes": 598441,
+      "cssDecodedBytes": 326644,
+      "requests": 31,
+      "domNodes": 420,
+      "overflow": false
+    },
+    {
+      "route": "/services",
+      "run": 1,
+      "lcp": 1020,
+      "cls": 0,
+      "longTasks": 202,
+      "jsDecodedBytes": 598441,
+      "cssDecodedBytes": 326644,
+      "requests": 31,
+      "domNodes": 420,
+      "overflow": false
+    },
+    {
+      "route": "/services",
+      "run": 2,
+      "lcp": 1052,
+      "cls": 0,
+      "longTasks": 173,
+      "jsDecodedBytes": 598441,
+      "cssDecodedBytes": 326644,
+      "requests": 31,
+      "domNodes": 420,
+      "overflow": false
+    }
+  ]
+}

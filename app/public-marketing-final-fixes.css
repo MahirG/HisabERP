@@ -560,14 +560,11 @@
 
 /* ============================================================
    CANONICAL PAYONEER-INSPIRED PUBLIC PRESENTATION
-   No legacy brand layers, gradients, scroll reveals, or motion.
+   Canonical public colors; interaction motion lives in public-motion.css.
    ============================================================ */
 
 .marketing-site-v2,
 .marketing-site-v2 * {
-  animation: none !important;
-  transition: none !important;
-  scroll-behavior: auto !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }

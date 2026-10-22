@@ -165,6 +165,11 @@ export function InteractionOrchestrator() {
 
     const handleSubmit = (event: SubmitEvent) => {
       if (!(event.target instanceof HTMLFormElement)) return;
+      if (event.target.dataset.submitting === "true" && event.target.dataset.noLoading !== "true") {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return;
+      }
       markFormSubmitting(event.target);
     };
 

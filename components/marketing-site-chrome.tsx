@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { MarketingLink as Link } from "./marketing-link";
 import { usePathname } from "next/navigation";
 import { NavArrowDown, Search, Xmark } from "iconoir-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
@@ -114,6 +114,7 @@ export function MarketingHeader() {
     };
     const closeEscape = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
+      headerRef.current?.querySelector<HTMLButtonElement>(".wb-nav-group.is-open > button")?.focus({ preventScroll: true });
       setOpenMenu(null); setMobileOpen(false); setSearchOpen(false);
     };
     document.addEventListener("pointerdown", closeOutside);
@@ -122,6 +123,13 @@ export function MarketingHeader() {
       document.removeEventListener("pointerdown", closeOutside);
       window.removeEventListener("keydown", closeEscape);
     };
+  }, []);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 901px)");
+    const closeMobileOnDesktop = () => { if (desktop.matches) setMobileOpen(false); };
+    desktop.addEventListener("change", closeMobileOnDesktop);
+    return () => desktop.removeEventListener("change", closeMobileOnDesktop);
   }, []);
 
   useEffect(() => {
@@ -141,7 +149,7 @@ export function MarketingHeader() {
 
   return (
     <>
-      <a href="#public-main-content" className="wb-skip-link">Skip to main content</a>
+      <span className="wb-scroll-sentinel" aria-hidden="true" /><a href="#public-main-content" className="wb-skip-link">Skip to main content</a>
       <header ref={headerRef} className="wb-header">
         <div className="wb-utility-bar">
           <div className="wb-utility-inner">
@@ -296,6 +304,7 @@ export function MarketingFooter() {
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
           <Link href="/help-center">Help</Link>
+          <a className="marketing-powered-by" data-powered-by-hisab="true" href="https://hisabtechnologies.com" rel="noopener noreferrer">Powered by hisabtechnologies.com</a>
         </div>
       </div>
       <MarketingLegalFooter />
