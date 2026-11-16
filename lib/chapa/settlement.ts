@@ -1,8 +1,10 @@
 import "server-only";
 
-import { getBillingPlan, getPlanAmountEtb, isBillingCycle } from "../billing/catalog";
+import { getBillingPlan, isBillingCycle } from "../billing/catalog";
 import { createAdminClient } from "../supabase/admin";
 import { verifyChapaTransaction } from "./api";
+import { configuredMerchant, paymentMode } from "../payments/config";
+import { validatePayment } from "../payments/verification";
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -14,21 +16,6 @@ function asRecord(value: unknown): UnknownRecord {
 
 function text(value: unknown) {
   return typeof value === "string" ? value.trim() : value === null || value === undefined ? "" : String(value).trim();
-}
-
-function numberValue(value: unknown) {
-  const parsed = typeof value === "number" ? value : Number(text(value));
-  return Number.isFinite(parsed) ? parsed : null;
-}
-
-function normalizeStatus(value: unknown): ChapaSettlementState {
-  const status = text(value).toLowerCase();
-  if (status === "success" || status === "successful" || status === "paid") return "success";
-  if (status === "failed" || status === "failure") return "failed";
-  if (status === "cancelled" || status === "canceled") return "cancelled";
-  if (status === "refunded") return "refunded";
-  if (status === "reversed") return "reversed";
-  return "pending";
 }
 
 export function isValidHisabTxRef(value: string) {
@@ -48,23 +35,21 @@ export async function verifyAndApplyChapaPayment(txRef: string) {
   if (!attemptResult.data) throw new Error("Unknown Hisab payment reference.");
 
   const attempt = attemptResult.data;
-  if (attempt.status === "success") return { state: "success" as const, attempt };
+
 
   const plan = getBillingPlan(attempt.plan_code);
   const billingCycle = isBillingCycle(attempt.billing_cycle) ? attempt.billing_cycle : null;
   if (!plan || !billingCycle) throw new Error("The stored Hisab payment plan is invalid.");
 
-  const response = await verifyChapaTransaction(txRef);
+  const credentials = configuredMerchant();
+  if (!credentials) throw new Error("Chapa is not enabled or configured.");
+  const checked = await admin.from("hisab_billing_payment_attempts").update({ last_checked_at: new Date().toISOString() }).eq("tx_ref", txRef)
+    .or(`last_checked_at.is.null,last_checked_at.lt.${new Date(Date.now()-20_000).toISOString()}`).select("tx_ref");
+  if (checked.error) throw new Error("Payment verification is unavailable.");
+  if (!checked.data?.length) throw new Error("Please wait before verifying this payment again.");
+  const response = await verifyChapaTransaction(txRef, credentials);
   const data = asRecord(response.data);
-  const verifiedTxRef = text(data.tx_ref || data.txRef || data.reference_id);
-  const status = normalizeStatus(data.status || response.status);
-  const currency = text(data.currency).toUpperCase();
-  const amount = numberValue(data.amount);
-  const expectedAmount = getPlanAmountEtb(plan, billingCycle);
-
-  if (verifiedTxRef !== txRef) throw new Error("Chapa returned a different transaction reference.");
-  if (currency !== "ETB") throw new Error("Chapa returned an unexpected currency.");
-  if (amount === null || Math.abs(amount - expectedAmount) > 0.009) throw new Error("Chapa returned an unexpected payment amount.");
+  const status = validatePayment(data, { txRef, amount: attempt.amount_etb, mode: paymentMode() });
 
   if (status === "pending") {
     const pending = await admin.from("hisab_billing_payment_attempts").update({
@@ -73,9 +58,9 @@ export async function verifyAndApplyChapaPayment(txRef: string) {
       mode: text(data.mode) || null,
       payment_method: text(data.payment_method || data.paymentMethod) || null,
       updated_at: new Date().toISOString(),
-    }).eq("tx_ref", txRef);
+    }).eq("tx_ref", txRef).in("status", ["creating", "open", "pending"]);
     if (pending.error) throw new Error(pending.error.message);
-    return { state: "pending" as const, attempt: { ...attempt, status: "pending" } };
+    return { state: attempt.status === "success" ? "success" as const : "pending" as const };
   }
 
   const applied = await admin.rpc("hisab_apply_chapa_transaction", {

@@ -8,7 +8,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (relativePath) => readFile(path.join(root, relativePath), "utf8");
 
 test("Chapa checkout uses ETB and verifies every successful transaction server-side", async () => {
-  const [catalog, chapa, signature, settlement, webhook, proxy, migration, env] = await Promise.all([
+  const [catalog, chapa, signature, settlementSource, webhook, proxy, migration, env, verification] = await Promise.all([
     read("lib/billing/catalog.ts"),
     read("lib/chapa/api.ts"),
     read("lib/chapa/webhook.ts"),
@@ -17,7 +17,9 @@ test("Chapa checkout uses ETB and verifies every successful transaction server-s
     read("lib/supabase/proxy.ts"),
     read("supabase/migrations/20260724_hisab_chapa_billing_foundation.sql"),
     read(".env.example"),
+    read("lib/payments/verification.ts"),
   ]);
+  const settlement=settlementSource+verification;
 
   assert.match(catalog, /monthlyAmountEtb:\s*1500/);
   assert.match(catalog, /annualAmountEtb:\s*95000/);
@@ -34,7 +36,7 @@ test("Chapa checkout uses ETB and verifies every successful transaction server-s
   assert.match(webhook, /parseVerifiedChapaWebhook/);
   assert.match(webhook, /verifyAndApplyChapaPayment/);
   assert.match(proxy, /"\/api\/chapa\/webhook"/);
-  assert.match(proxy, /hisab_billing_access/);
+  assert.match(proxy, /hisab_billing_periods/);
   assert.match(migration, /provider text not null default 'chapa'/);
   assert.match(migration, /Users can read their own Chapa payment attempts/);
   assert.match(migration, /No client access to Chapa webhook ledger/);

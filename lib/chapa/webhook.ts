@@ -15,15 +15,14 @@ function constantTimeHexEquals(expectedHex: string, receivedHex: string) {
   return expected.length === received.length && timingSafeEqual(expected, received);
 }
 
-export function verifyChapaWebhookSignature(payload: string, headers: Headers) {
-  const secret = webhookSecret();
+export function verifyChapaWebhookSignature(payload: string, headers: Headers, providedSecret?: string) {
+  const secret = providedSecret || webhookSecret();
   const payloadDigest = createHmac("sha256", secret).update(payload, "utf8").digest("hex");
-  const secretDigest = createHmac("sha256", secret).update(secret, "utf8").digest("hex");
   const xSignature = headers.get("x-chapa-signature")?.trim() || "";
   const signature = headers.get("chapa-signature")?.trim() || "";
 
   const valid = (xSignature && constantTimeHexEquals(payloadDigest, xSignature))
-    || (signature && (constantTimeHexEquals(secretDigest, signature) || constantTimeHexEquals(payloadDigest, signature)));
+    || (signature && constantTimeHexEquals(payloadDigest, signature));
   if (!valid) throw new Error("Chapa webhook signature is invalid.");
 }
 
@@ -35,8 +34,8 @@ export type ChapaWebhookPayload = Record<string, unknown> & {
   mode?: string;
 };
 
-export function parseVerifiedChapaWebhook(payload: string, headers: Headers) {
-  verifyChapaWebhookSignature(payload, headers);
+export function parseVerifiedChapaWebhook(payload: string, headers: Headers, providedSecret?: string) {
+  verifyChapaWebhookSignature(payload, headers, providedSecret);
   const event = JSON.parse(payload) as ChapaWebhookPayload;
   if (!event || typeof event !== "object" || typeof event.tx_ref !== "string" || !event.tx_ref.trim()) {
     throw new Error("Chapa webhook payload is invalid.");

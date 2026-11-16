@@ -18,7 +18,8 @@
     "check": "npm run i18n:check && npm run i18n:quality && npm run typecheck && npm test && npm run build",
     "audit:production": "npm audit --omit=dev --audit-level=moderate",
     "verify:production": "node scripts/production-release-gate.mjs",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "test:payments": "node --test tests/payments-runtime.test.mjs tests/payments-database.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.3",
@@ -36,6 +37,7 @@
   },
   "overrides": {},
   "devDependencies": {
+    "@electric-sql/pglite": "0.3.14",
     "@playwright/test": "1.61.1",
     "esbuild": "0.25.12"
   }

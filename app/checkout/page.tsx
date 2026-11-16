@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import Link from "next/link";
 import { ProviderOrbit } from "../../components/provider-orbit";
 import { createChapaCheckout } from "../../lib/actions/billing";
@@ -39,7 +40,7 @@ export default async function CheckoutPage({ searchParams }: { searchParams: Pro
           <div className="checkout-review-heading"><span>Payment summary</span><h2>Biloo {plan.name}</h2><p>{plan.description}</p></div>
           {params.error ? <div className="commerce-alert error" role="alert">{params.error}</div> : null}
           {!snapshot.configured ? <div className="commerce-alert warning" role="status">Chapa checkout is not configured in this environment yet.</div> : null}
-          {alreadyActive ? <div className="commerce-alert success" role="status">Your workspace is active. A new verified payment will extend your access period.</div> : null}
+          {alreadyActive ? <div className="commerce-alert success" role="status">Your workspace is active. Renewals extend your access. A different plan starts after your currently paid periods end.</div> : null}
 
           <div className="checkout-price"><span>ETB</span><strong>{formatEtb(amount)}</strong><small>{billingCycle === "annual" ? "for one year" : "for one month"}</small></div>
           <div className="checkout-plan-meta"><span>{plan.users}</span><span>{plan.branches}</span></div>
@@ -47,6 +48,7 @@ export default async function CheckoutPage({ searchParams }: { searchParams: Pro
           <div className="checkout-total"><span>One-time Chapa payment</span><strong>ETB {formatEtb(amount)}</strong></div>
 
           <form action={createChapaCheckout}>
+            <input type="hidden" name="requestKey" value={randomUUID()}/>
             <input type="hidden" name="plan" value={plan.code}/>
             <input type="hidden" name="billing" value={billingCycle}/>
             <button className="commerce-primary" type="submit" disabled={!snapshot.configured}>{alreadyActive ? "Pay with Chapa and extend access" : "Continue to secure Chapa checkout"} <b aria-hidden="true">→</b></button>

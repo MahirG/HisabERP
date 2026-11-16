@@ -1,5 +1,8 @@
 import "server-only";
 
+import { configuredMerchant, type MerchantCredentials } from "../payments/config";
+import { safeCheckoutUrl } from "../payments/verification";
+
 const CHAPA_API_BASE = "https://api.chapa.co/v1";
 
 type UnknownRecord = Record<string, unknown>;
@@ -18,27 +21,28 @@ export type ChapaVerificationResponse = {
   data?: UnknownRecord | null;
 };
 
-function chapaSecretKey() {
-  const value = process.env.CHAPA_SECRET_KEY?.trim();
-  if (!value) throw new Error("Chapa billing is not configured.");
-  return value;
+function chapaSecretKey(credentials?: MerchantCredentials) {
+  const merchant = credentials || configuredMerchant();
+  if (!merchant) throw new Error("Chapa checkout is not enabled or configured.");
+  return merchant.secretKey;
 }
 
 export function isChapaConfigured() {
-  return Boolean(process.env.CHAPA_SECRET_KEY?.trim() && process.env.CHAPA_WEBHOOK_SECRET?.trim());
+  return Boolean(configuredMerchant());
 }
 
-async function chapaRequest<T>(path: string, options: { method?: "GET" | "POST"; body?: UnknownRecord } = {}) {
+async function chapaRequest<T>(path: string, options: { method?: "GET" | "POST"; body?: UnknownRecord; credentials?: MerchantCredentials } = {}) {
   const method = options.method || "GET";
   const response = await fetch(`${CHAPA_API_BASE}${path}`, {
     method,
     headers: {
-      Authorization: `Bearer ${chapaSecretKey()}`,
+      Authorization: `Bearer ${chapaSecretKey(options.credentials)}`,
       Accept: "application/json",
       ...(method === "POST" ? { "Content-Type": "application/json" } : {}),
     },
     body: method === "POST" ? JSON.stringify(options.body || {}) : undefined,
     cache: "no-store",
+    signal: AbortSignal.timeout(12_000),
   });
 
   const payload = await response.json().catch(() => null) as T | { message?: string } | null;
@@ -61,9 +65,11 @@ export async function initializeChapaPayment(input: {
   billingCycle: "monthly" | "annual";
   callbackUrl: string;
   returnUrl: string;
+  credentials?: MerchantCredentials;
 }) {
   const response = await chapaRequest<ChapaInitializeResponse>("/transaction/initialize", {
     method: "POST",
+    credentials: input.credentials,
     body: {
       amount: input.amountEtb.toFixed(2),
       currency: "ETB",
@@ -72,8 +78,8 @@ export async function initializeChapaPayment(input: {
       return_url: input.returnUrl,
       ...(input.email ? { email: input.email } : {}),
       customization: {
-        title: `HisabERP ${input.planName}`,
-        description: `${input.billingCycle === "annual" ? "Annual" : "Monthly"} HisabERP access`,
+        title: input.planCode === "invoice" ? "Invoice payment" : `Biloo ${input.planName}`,
+        description: input.planCode === "invoice" ? `Invoice ${input.planName}`.slice(0, 100) : `${input.billingCycle === "annual" ? "Annual" : "Monthly"} Biloo ERP access`,
       },
       meta: {
         hisab_user_id: input.userId,
@@ -87,9 +93,9 @@ export async function initializeChapaPayment(input: {
   if (response.status?.toLowerCase() !== "success" || !checkoutUrl) {
     throw new Error(response.message || "Chapa did not return a secure checkout link.");
   }
-  return { checkoutUrl, response };
+  return { checkoutUrl: safeCheckoutUrl(checkoutUrl), response };
 }
 
-export async function verifyChapaTransaction(txRef: string) {
-  return chapaRequest<ChapaVerificationResponse>(`/transaction/verify/${encodeURIComponent(txRef)}`);
+export async function verifyChapaTransaction(txRef: string, credentials?: MerchantCredentials) {
+  return chapaRequest<ChapaVerificationResponse>(`/transaction/verify/${encodeURIComponent(txRef)}`, { credentials });
 }
