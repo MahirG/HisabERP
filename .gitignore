@@ -19,3 +19,5 @@ production-release-gate-report.json
 lib/locales/ui.en.json
 lib/locales/ui.am.json
 lib/locales/ui.ti.json
+
+supabase/.temp/

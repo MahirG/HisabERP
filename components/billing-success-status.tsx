@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-type BillingState = "processing" | "activating" | "verified" | "failed" | "error";
+type BillingState = "processing" | "activating" | "verified" | "test_verified" | "scheduled" | "failed" | "error";
 
 const MAX_STATUS_CHECKS = 24;
 
@@ -23,6 +23,8 @@ const copy: Record<BillingState, { eyebrow: string; title: string; description: 
     title: "Your Biloo workspace is ready.",
     description: "The Chapa transaction was verified and your paid access period is active.",
   },
+  scheduled: { eyebrow: "Payment verified", title: "Your next paid period is scheduled.", description: "Your payment is recorded. Open billing to review when your paid period begins." },
+  test_verified: { eyebrow: "Test payment verified", title: "Your test checkout is complete.", description: "This is a test transaction. It does not activate paid access or record real settlement." },
   failed: {
     eyebrow: "Payment not completed",
     title: "Your Biloo access was not activated.",
@@ -57,7 +59,7 @@ export function BillingSuccessStatus({ txRef }: { txRef: string }) {
         const payload = await response.json() as { state?: BillingState };
         const nextState = payload.state || "processing";
         if (cancelled) return;
-        if (nextState === "verified" || nextState === "failed") {
+        if (nextState === "verified" || nextState === "test_verified" || nextState === "scheduled" || nextState === "failed") {
           setState(nextState);
           return;
         }
@@ -91,7 +93,7 @@ export function BillingSuccessStatus({ txRef }: { txRef: string }) {
       <div className="billing-success-actions">
         {state === "verified" ? <Link href="/onboarding" className="commerce-primary">Continue to company setup <b aria-hidden="true">→</b></Link> : null}
         {state === "failed" ? <Link href="/pricing" className="commerce-primary">Return to pricing <b aria-hidden="true">→</b></Link> : null}
-        {state === "error" ? <Link href="/billing" className="commerce-primary">Open paid access center <b aria-hidden="true">→</b></Link> : null}
+        {state === "error" || state === "test_verified" || state === "scheduled" ? <Link href="/billing" className="commerce-primary">Open paid access center <b aria-hidden="true">→</b></Link> : null}
         <Link href="/" className="commerce-secondary">Go to Biloo</Link>
       </div>
     </section>

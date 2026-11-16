@@ -1,3 +1,4 @@
+import { BillingPaymentHistory } from "../../components/billing-payment-history";
 import Link from "next/link";
 import { billingPlans, formatEtb } from "../../lib/billing/catalog";
 import { billingGrantsAccess, getCurrentBillingSnapshot } from "../../lib/data/billing";
@@ -46,6 +47,7 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
       {snapshot.readError ? <div className="commerce-alert error billing-alert" role="alert"><Icon name="alert-triangle" size={17} /> Billing records are temporarily unavailable. No payment status can be confirmed. Please refresh this page before making another payment.</div> : null}
       {!snapshot.configured ? <div className="commerce-alert warning billing-alert" role="status">Chapa is not configured in this environment. Existing access records remain protected, but new checkout is unavailable.</div> : null}
 
+      {active && access && Date.parse(access.currentPeriodEnd)-Date.now()<=7*86_400_000 ? <div className="commerce-alert warning billing-alert" role="status">Your paid period ends on {dateLabel(access.currentPeriodEnd)}. Renew manually to keep uninterrupted access.</div> : null}
       <section className="billing-grid">
         <article className="billing-plan-card">
           <span className="billing-card-eyebrow"><Icon name="wallet" size={16} /> Current plan</span>
@@ -78,6 +80,7 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
           <div><span><b>01</b> Authenticated webhook delivery</span><span><b>02</b> Direct transaction verification</span><span><b>03</b> User-isolated RLS</span></div>
           <Link href="/trust">Review the Trust Center <Icon name="arrow-right" size={15} /></Link>
         </article>
+        <BillingPaymentHistory />
       </section>
     </main>
   );

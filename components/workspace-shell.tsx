@@ -165,6 +165,7 @@ export function WorkspaceShell({ children, user: initialUser = null }: Props) {
         { label: d.nav.sales, href: "/sales", icon: "shopping-cart" },
         { label: einvoice, href: "/e-invoicing", icon: "file-check" },
         { label: reconciliation, href: "/reconciliation", icon: "refresh-cw" },
+        { label: "Payments & collections", href: "/payments", icon: "wallet" },
         { label: setup, href: "/onboarding", icon: "building" },
       ],
     },

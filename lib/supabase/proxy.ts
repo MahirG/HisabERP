@@ -10,12 +10,12 @@ const publicPageRoutes = new Set([
 const publicAssetRoutes = new Set(["/manifest.webmanifest", "/robots.txt", "/sitemap.xml", "/release.json", "/templates/erp-evaluation-checklist.csv"]);
 const publicPagePrefixes = ["/product/", "/industries/", "/compare/", "/help-center/", "/resources/"];
 const authenticatedMarketingRoutes = new Set(["/request-demo", "/product-tour", "/ethiopia", "/industries", "/pricing", "/customer-stories", "/trust", "/integrations", "/migration", "/compare", "/help-center", "/resources", "/about", "/services", "/privacy", "/terms"]);
-const publicApiRoutes = new Set(["/api/health", "/api/reconciliation/telebirr/callback", "/api/reconciliation/mpesa/callback", "/api/chapa/callback", "/api/chapa/webhook"]);
-const billingBypassPrefixes = ["/billing", "/checkout", "/onboarding", "/account", "/auth"];
+const publicApiRoutes = new Set(["/api/health", "/api/reconciliation/telebirr/callback", "/api/reconciliation/mpesa/callback", "/api/chapa/callback", "/api/chapa/webhook", "/api/payments/chapa/webhook", "/api/payments/chapa/callback", "/api/payments/reconcile"]);
+const billingBypassPrefixes = ["/api/billing", "/billing", "/checkout", "/onboarding", "/account", "/auth"];
 const billingEnforcementEnabled = process.env.BILLING_ENFORCEMENT_ENABLED?.trim().toLowerCase() === "true";
 
 export function isPublicPath(path: string) {
-  return publicPageRoutes.has(path) || publicAssetRoutes.has(path) || publicPagePrefixes.some((prefix) => path.startsWith(prefix)) || publicApiRoutes.has(path);
+  return publicPageRoutes.has(path) || publicAssetRoutes.has(path) || publicPagePrefixes.some((prefix) => path.startsWith(prefix)) || publicApiRoutes.has(path) || /^\/pay\/[a-f0-9]{64}$/.test(path);
 }
 
 export function isCacheablePublicPath(path: string) {
@@ -89,9 +89,10 @@ export async function updateSession(request: NextRequest, requestHeaders: Header
   const billingBypass = billingBypassPrefixes.some((prefix) => path === prefix || path.startsWith(`${prefix}/`));
   const paidWorkspacePath = path === "/" || (!publicPath && !billingBypass);
   if (isAuthenticated && billingEnforcementEnabled && paidWorkspacePath) {
-    const access = await supabase.from("hisab_billing_access").select("status,current_period_end").eq("user_id", userId).maybeSingle();
-    const end = access.data?.current_period_end ? new Date(String(access.data.current_period_end)).getTime() : 0;
-    const grantsAccess = access.data?.status === "active" && Number.isFinite(end) && end > Date.now();
+    const now = new Date().toISOString();
+    const access = await supabase.from("hisab_billing_periods").select("tx_ref").eq("user_id", userId).is("revoked_at", null).lte("starts_at", now).gt("ends_at", now).limit(1);
+    if (access.error) return withCookies(NextResponse.json({ error: "Paid access verification is unavailable." }, { status: 503 }));
+    const grantsAccess = Boolean(access.data?.length);
     if (!grantsAccess) {
       if (path.startsWith("/api/")) return withCookies(NextResponse.json({ error: "Active paid access required." }, { status: 402 }));
       return withCookies(billingRedirect(request));

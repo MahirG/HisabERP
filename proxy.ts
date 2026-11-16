@@ -53,7 +53,7 @@ export async function proxy(request: NextRequest) {
   const localPreview = request.nextUrl.hostname === "terminal.local" || request.headers.get("host")?.startsWith("terminal.local") === true;
   const nonce = relaxedScripts ? null : crypto.randomUUID().replaceAll("-", "");
   const csp = contentSecurityPolicy(nonce, relaxedScripts, localPreview);
-  const isSensitive = path.startsWith("/auth/") || path.startsWith("/api/");
+  const isSensitive = path.startsWith("/auth/") || path.startsWith("/api/") || path.startsWith("/pay/");
 
   if (isSensitive) {
     const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
@@ -82,7 +82,13 @@ export async function proxy(request: NextRequest) {
   requestHeaders.set("Content-Security-Policy", csp);
   const response = await updateSession(request, requestHeaders);
 
-  return securityHeaders(response, csp, nonce);
+  securityHeaders(response, csp, nonce);
+  if (path.startsWith("/pay/") || path.startsWith("/billing") || path.startsWith("/payments") || path.startsWith("/api/billing") || path.startsWith("/api/payments")) {
+    response.headers.set("Cache-Control", "private, no-store");
+    response.headers.set("Referrer-Policy", "no-referrer");
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+  return response;
 }
 
 export const config = {
